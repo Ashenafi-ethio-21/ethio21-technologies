@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>ETHIO 21 | Software, Applications, Websites, Management Systems & Venture Hub</title>
+  <meta name="description" content="ETHIO 21 Technologies and Digital Solutions: 1. Software Development, 2. Application Development, 3. Website Development, 4. Management Systems, plus our Startup Venture Hub & SMM Production Agency.">
+  <meta name="keywords" content="ETHIO 21, Ethiopia Software, App Development, Website Development, Management Systems, ERP, Startup Accelerator, SMM, Telegram">
+  <meta name="author" content="ETHIO 21 Technologies and Digital Solutions">
+  <meta name="theme-color" content="#06080d">
+
+  <!-- OpenGraph / Social Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ETHIO 21 | Technologies & Digital Solutions">
+  <meta property="og:description" content="Software Development, Apps, Websites, Management Systems, Startup Funding & Incubation, and Social Media Marketing.">
+  <meta property="og:url" content="http://localhost:8080/">
+
+  <!-- Favicon & Touch Icons -->
+  <link rel="icon" type="image/svg+xml" href="assets/branding/svg-vector/ethio21_favicon.svg">
+  <link rel="apple-touch-icon" href="assets/branding/app-icon/ethio21_ios_app_store_icon.jpg">
+  <meta property="og:image" content="assets/branding/web-header/ethio21_horizontal_header_banner.jpg">
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="styles/main.css?v=2026.5">
+</head>
+<body>
+
+  <!-- Subtle Ambient Glows -->
+  <div class="ambient-glow-orb orb-1"></div>
+  <div class="ambient-glow-orb orb-2"></div>
+
+  <!-- =========================================================================
+       NAVIGATION BAR WITH PURE WORDMARK LOGO
+       ========================================================================= -->
+  <header class="site-header">
+    <div class="container nav-inner">
+      <!-- Pure Wordmark Logo (No Icon Required) -->
+      <a href="#hero" class="brand-wordmark" aria-label="ETHIO 21 Technologies Home">
+        <div class="wordmark-main">
+          <span class="wordmark-ethio" data-i18n="brandEthio">ETHIO</span>
+          <span class="wordmark-21" data-i18n="brandNum">21</span>
+        </div>
+        <span class="wordmark-subtag" data-i18n="brandSubtag">TECHNOLOGIES & DIGITAL SOLUTIONS</span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="#hero" class="nav-link" data-i18n="navHome">Home</a></li>
+          <li><a href="#services" class="nav-link" data-i18n="navServices">Core Services</a></li>
+          <li><a href="#venture-hub" class="nav-link" data-i18n="navVentureHub">Startup Venture Hub</a></li>
+          <li><a href="#media-hub" class="nav-link" data-i18n="navMediaHub">Media & Ads</a></li>
+          <li><a href="#community" class="nav-link" data-i18n="navCommunity" style="color: var(--accent-mint); font-weight: 750;">👥 Community</a></li>
+          <li><a href="#contact" class="nav-link" data-i18n="navContact">Connect on Telegram</a></li>
+        </ul>
+      </nav>
+
+      <!-- Nav Action Controls -->
+      <div class="nav-controls">
+        <!-- Audio SFX Toggle -->
+        <button id="audio-toggle-btn" class="btn-icon" aria-label="Toggle Audio Sound FX" title="Toggle Sound">
+          <svg id="audio-icon" viewBox="0 0 24 24">
+            <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </button>
+
+        <!-- Dark / Light Theme Toggle -->
+        <button id="theme-toggle-btn" class="btn-icon" aria-label="Toggle Color Theme" title="Toggle Theme">
+          <svg id="theme-icon" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <!-- Language Switcher Button (English / Amharic) -->
+        <button class="lang-badge-btn lang-toggle-btn" aria-label="Switch Language / ቋንቋ ቀይር" title="Switch Language">
+          🌐 <span id="current-lang-text" class="lang-active-tag">EN</span>
+        </button>
+
+        <!-- Direct Telegram Button -->
+        <a href="https://t.me/ethio21_tech" target="_blank" rel="noopener noreferrer" class="btn-telegram-nav" title="Chat directly with us on Telegram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+          <span data-i18n="ctaConsultation">Chat on Telegram</span>
+        </a>
+
+        <!-- Mobile Menu Hamburger -->
+        <button id="mobile-nav-toggle" class="mobile-nav-toggle" aria-label="Open Mobile Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div id="drawer-backdrop" class="mobile-drawer-backdrop"></div>
+  <aside id="mobile-drawer" class="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <div class="wordmark-main">
+        <span class="wordmark-ethio">ETHIO</span>
+        <span class="wordmark-21">21</span>
+      </div>
+      <button id="close-drawer-btn" class="btn-icon" aria-label="Close menu">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <ul class="mobile-drawer-links">
+      <li><a href="#hero" data-i18n="navHome">Home</a></li>
+      <li><a href="#services" data-i18n="navServices">Core Services</a></li>
+      <li><a href="#venture-hub" data-i18n="navVentureHub">Startup Venture Hub</a></li>
+      <li><a href="#media-hub" data-i18n="navMediaHub">Media & Ads</a></li>
+      <li><a href="#community" data-i18n="navCommunity" style="color: var(--accent-mint); font-weight: 750;">👥 Community Group</a></li>
+      <li><a href="#contact" data-i18n="navContact">Connect on Telegram</a></li>
+    </ul>
+    <div style="margin-top: auto; display: flex; flex-direction: column; gap: 0.75rem;">
+      <a href="https://t.me/ethio21_tech" target="_blank" rel="noopener noreferrer" class="btn-telegram-nav" style="justify-content: center; padding: 0.75rem;">
+        <span>Open Telegram (@ethio21_tech)</span>
+      </a>
+      <button class="lang-badge-btn lang-toggle-btn" style="width: 100%; justify-content: center;">
+        🌐 Switch Language (EN / አማ)
+      </button>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       HERO SECTION
+       ========================================================================= -->
+  <section id="hero" class="hero-section">
+    <!-- Interactive Canvas Constellation -->
+    <canvas id="hero-canvas"></canvas>
+
+    <div class="container hero-content">
+      <!-- Status Badge -->
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        <span data-i18n="heroBadge">2026 Sovereign Tech Ecosystem & Digital Innovation Hub</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="hero-title">
+        <span data-i18n="heroTitlePrefix">Engineering World-Class</span>
+        <span class="text-gradient" data-i18n="heroTitleGradient">Software, Apps & Startups</span>
+        <span data-i18n="heroTitleSuffix">under Ethio 21</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="hero-description" data-i18n="heroDescription">
+        Bespoke enterprise software, mobile & web applications, and intelligent management systems. We also fund & co-build breakthrough apps and run high-converting social media marketing campaigns.
+      </p>
+
+      <!-- Telegram Direct Lead Badge -->
+      <div class="hero-telegram-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+        <span data-i18n="heroTelegramNotice">Direct, instant communication — all inquiries and startup pitches connect directly to our Telegram team.</span>
+      </div>
+
+      <!-- CTAs -->
+      <div class="hero-actions">
+        <a href="#services" class="btn-primary">
+          <span data-i18n="heroCtaPrimary">Explore Client Services</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <button class="btn-secondary open-pitch-modal-btn">
+          <span data-i18n="heroCtaSecondary">Pitch Idea & Get Co-Built</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Interactive Dual Pathway Gateway (Client Services vs. Venture Co-Builder) -->
+      <div class="hero-pathways-grid">
+        <!-- Pathway 1: For Businesses & Clients -->
+        <a href="#services" class="pathway-card pathway-client">
+          <div class="pathway-header">
+            <span class="pathway-badge client-badge" data-i18n="pathway1Tag">FOR BUSINESSES & CLIENTS</span>
+            <span class="pathway-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            </span>
+          </div>
+          <h3 class="pathway-title" data-i18n="pathway1Title">Hire Us to Build an App, Web or Brand</h3>
+          <p class="pathway-desc" data-i18n="pathway1Desc">Turnkey software engineering, mobile apps (Flutter/iOS/Android), enterprise ERP dashboards, and full 4K social media advertising.</p>
+          <div class="pathway-action">
+            <span class="pathway-action-text" data-i18n="pathway1Cta">Explore Client Services & Chat ➔</span>
+          </div>
+        </a>
+
+        <!-- Pathway 2: For Young Visionaries & Founders -->
+        <div class="pathway-card pathway-founder open-pitch-modal-btn" role="button" tabindex="0">
+          <div class="pathway-header">
+            <span class="pathway-badge founder-badge" data-i18n="pathway2Tag">FOR YOUNG VISIONARIES & FOUNDERS</span>
+            <span class="pathway-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </span>
+          </div>
+          <h3 class="pathway-title" data-i18n="pathway2Title">Have a Solution Idea? We Fund & Build It With You</h3>
+          <p class="pathway-desc" data-i18n="pathway2Desc">We provide seed funding and hardware, our senior engineers write the code with you, we manage launch, and share equity as co-founders.</p>
+          <div class="pathway-action">
+            <span class="pathway-action-text" data-i18n="pathway2Cta">Pitch Your Idea & Partner With Us 🚀</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Master Web Header Showcase (Apple VisionOS Liquid Glass Card) -->
+      <div class="hero-brand-card-wrap">
+        <div class="hero-brand-glass-card">
+          <img src="assets/branding/web-header/ethio21_horizontal_header_banner.jpg" 
+               alt="ETHIO 21 Technologies and Digital Solutions Master Header Wordmark" 
+               class="hero-brand-banner-img"
+               loading="eager">
+          <div class="hero-brand-glass-sheen"></div>
+          <div class="hero-brand-caption">
+            <span class="pulse-dot" style="width: 6px; height: 6px;"></span>
+            <span>ETHIO 21 Sovereign Wordmark &bull; 2026 Edition</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tech Nodes -->
+      <div class="hero-tech-nodes">
+        <div class="tech-node-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          <span>Software Development</span>
+        </div>
+        <div class="tech-node-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+          <span>Application Development</span>
+        </div>
+        <div class="tech-node-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+          <span>Website Development</span>
+        </div>
+        <div class="tech-node-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line></svg>
+          <span>Management Systems</span>
+        </div>
+        <div class="tech-node-chip" style="border-color: rgba(168, 85, 247, 0.4); color: #c084fc;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          <span>Startup Venture Pod</span>
+        </div>
+        <div class="tech-node-chip" style="border-color: rgba(245, 158, 11, 0.4); color: #f59e0b;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          <span>SMM & Ad Campaigns</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       METRICS
+       ========================================================================= -->
+  <section class="metrics-section">
+    <div class="container">
+      <div class="metrics-bar">
+        <div class="metric-item">
+          <div class="metric-value" data-i18n="metricUptimeVal">99.99%</div>
+          <div class="metric-label" data-i18n="metricUptime">System Reliability</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value" data-i18n="metricProjectsVal">180+</div>
+          <div class="metric-label" data-i18n="metricProjects">Systems & Apps Delivered</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value" data-i18n="metricUsersVal">6.5M+</div>
+          <div class="metric-label" data-i18n="metricUsers">Active End Users</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value" data-i18n="metricStartupsVal">24+</div>
+          <div class="metric-label" data-i18n="metricStartups">Startups Co-Built & Guided</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       THE 4 CORE PILLARS SECTION
+       ========================================================================= -->
+  <section id="services" class="services-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-pretitle" data-i18n="servicesPretitle">OUR 4 CORE ENGINEERING PILLARS</span>
+        <h2 class="section-title" data-i18n="servicesTitle">Complete Digital Solutions for 2026</h2>
+        <p class="section-subtitle" data-i18n="servicesSubtitle">
+          Tailored end-to-end technology delivery for modern enterprises, institutions, and fast-moving ventures.
+        </p>
+      </div>
+
+      <div class="services-pillars-grid">
+        <!-- 1. Software Development -->
+        <div class="pillar-service-card">
+          <div>
+            <div class="service-icon-box">
+              <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            </div>
+            <h3 class="service-title" data-i18n="p1Title">1. Software Development</h3>
+            <p class="service-desc" data-i18n="p1Desc">
+              Full-cycle custom software engineering designed for high concurrency, bulletproof security, and scalability. We build robust backend systems, APIs, cloud-native architectures, and automated data pipelines.
+            </p>
+          </div>
+          <ul class="service-feature-list">
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span data-i18n="p1Item1">Custom Enterprise Architectures</span>
+            </li>
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span data-i18n="p1Item2">High-Performance Microservices & APIs</span>
+            </li>
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span data-i18n="p1Item3">Database Engineering & Cloud Migration</span>
+            </li>
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span data-i18n="p1Item4">FinTech & Payment Rails (Telebirr, CBE Birr, Chapa)</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 2. Application Development -->
+        <div class="pillar-service-card">
+          <div>
+            <div class="service-icon-box" style="background: rgba(6, 182, 212, 0.1); color: var(--accent-cyan); border-color: rgba(6, 182, 212, 0.3);">
+              <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+            </div>
+            <h3 class="service-title" data-i18n="p2Title">2. Application Development</h3>
+            <p class="service-desc" data-i18n="p2Desc">
+              Native and cross-platform mobile apps for iOS and Android built with Flutter and React Native. Engineered for sub-second UI responsiveness and offline-first data sync.
+            </p>
+          </div>
+          <ul class="service-feature-list">
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span data-i18n="p2Item1">Cross-Platform iOS & Android Apps</span>
+            </li>
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span data-i18n="p2Item2">Offline-First Synchronization</span>
+            </li>
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span data-i18n="p2Item3">Secure In-App Wallets & Payments</span>
+            </li>
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span data-i18n="p2Item4">Real-Time Push & Location Intelligence</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 3. Website Development -->
+        <div class="pillar-service-card">
+          <div>
+            <div class="service-icon-box" style="background: rgba(99, 102, 241, 0.1); color: var(--accent-indigo); border-color: rgba(99, 102, 241, 0.3);">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            </div>
+            <h3 class="service-title" data-i18n="p3Title">3. Website Development</h3>
+            <p class="service-desc" data-i18n="p3Desc">
+              High-performance modern websites, progressive web apps (PWAs), interactive portals, and corporate digital platforms designed with 2026 aesthetics, fast loading speeds, and SEO domination.
+            </p>
+          </div>
+          <ul class="service-feature-list">
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span data-i18n="p3Item1">Progressive Web Applications (PWA)</span>
+            </li>
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span data-i18n="p3Item2">Ultra-Fast Modern Frameworks</span>
+            </li>
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span data-i18n="p3Item3">Responsive Bento UI & Specular Glassmorphism</span>
+            </li>
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span data-i18n="p3Item4">Search Engine & Conversion Rate Optimization</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 4. Management Systems -->
+        <div class="pillar-service-card">
+          <div>
+            <div class="service-icon-box" style="background: rgba(245, 158, 11, 0.1); color: var(--accent-gold); border-color: rgba(245, 158, 11, 0.3);">
+              <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            </div>
+            <h3 class="service-title" data-i18n="p4Title">4. Management Systems</h3>
+            <p class="service-desc" data-i18n="p4Desc">
+              Turnkey and customized ERP and workflow management platforms that digitize and automate complete organizational operations with real-time analytics and auditability.
+            </p>
+          </div>
+          <ul class="service-feature-list">
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span data-i18n="p4Item1">Enterprise ERP & Financial Ledger</span>
+            </li>
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span data-i18n="p4Item2">Inventory & Supply Chain Tracking</span>
+            </li>
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span data-i18n="p4Item3">Hospital, School & Hotel Automation</span>
+            </li>
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span data-i18n="p4Item4">HRMS, Payroll & Staff Workflow Portals</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SUB-PROJECT 1: ETHIO 21 VENTURE CO-BUILDER & EQUITY STUDIO
+       ========================================================================= -->
+  <section id="venture-hub" class="venture-section">
+    <div class="container">
+      <div class="venture-container">
+        <div class="venture-header">
+          <div class="venture-badge-pill">
+            🚀 <span data-i18n="venturePretitle">THE VENTURE CO-BUILDER & EQUITY STUDIO</span>
+          </div>
+          <h2 class="section-title" data-i18n="ventureTitle">
+            Got a Real-World Idea? We Fund It, Code It With You & Share Equity
+          </h2>
+          <p class="section-subtitle" data-i18n="ventureSubtitle">
+            Most incubators just give loans or generic advice. At ETHIO 21, we are active co-builders: our senior software engineers sit beside you to plan, code, launch, and manage your product, providing seed capital and hardware in exchange for a shared equity stake.
+          </p>
+        </div>
+
+        <div class="venture-steps-grid four-col-grid">
+          <div class="venture-step-box cobuilder-step-card">
+            <div class="step-icon-circle">01</div>
+            <div class="step-phase-tag">PHASE 1 &bull; THE RAW IDEA</div>
+            <h3 class="step-title" data-i18n="ventureStep1Title">1. You Bring the Raw Idea</h3>
+            <p class="step-desc" data-i18n="ventureStep1Desc">
+              Open to ambitious youth, students, and inventors across Ethiopia. If you have a real solution solving friction in fintech, healthcare, agriculture, education, or daily commerce — you qualify.
+            </p>
+          </div>
+
+          <div class="venture-step-box cobuilder-step-card">
+            <div class="step-icon-circle" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald);">02</div>
+            <div class="step-phase-tag" style="background: rgba(16, 185, 129, 0.12); color: #10B981; border-color: rgba(16, 185, 129, 0.3);">PHASE 2 &bull; SEED CAPITAL</div>
+            <h3 class="step-title" data-i18n="ventureStep2Title">2. Seed Capital & Hardware Grants</h3>
+            <p class="step-desc" data-i18n="ventureStep2Desc">
+              We eliminate resource bottlenecks by supplying capital, high-performance dev machines, testing phones, cloud compute credits, and a physical workspace in Addis Ababa.
+            </p>
+          </div>
+
+          <div class="venture-step-box cobuilder-step-card featured-cobuilder">
+            <div class="step-icon-circle" style="background: rgba(0, 210, 255, 0.15); color: var(--accent-cyan);">03</div>
+            <div class="step-phase-tag" style="background: rgba(0, 210, 255, 0.12); color: #00D2FF; border-color: rgba(0, 210, 255, 0.3);">PHASE 3 &bull; WE CODE IT WITH YOU</div>
+            <h3 class="step-title" data-i18n="ventureStep3Title">3. We Physically Build It With You</h3>
+            <p class="step-desc" data-i18n="ventureStep3Desc">
+              You don't need to hire expensive outside contractors. Our senior software architects, UI/UX designers, and full-stack developers sit with you and physically write the production code from scratch.
+            </p>
+          </div>
+
+          <div class="venture-step-box cobuilder-step-card">
+            <div class="step-icon-circle" style="background: rgba(245, 158, 11, 0.15); color: var(--accent-gold);">04</div>
+            <div class="step-phase-tag" style="background: rgba(245, 158, 11, 0.12); color: #F59E0B; border-color: rgba(245, 158, 11, 0.3);">PHASE 4 &bull; CO-FOUNDING EQUITY</div>
+            <h3 class="step-title" data-i18n="ventureStep4Title">4. Execution, Management & Shared Equity</h3>
+            <p class="step-desc" data-i18n="ventureStep4Desc">
+              We manage company formation, marketing funnels, and enterprise scaling. In return, ETHIO 21 holds an agreed equity shareholding stake — aligning our success directly with yours as true partners.
+            </p>
+          </div>
+        </div>
+
+        <!-- Banner Action -->
+        <div class="venture-cta-banner">
+          <div>
+            <span class="equity-badge">🤝 ZERO UPFRONT CHARGES &bull; CO-BUILDER EQUITY PARTNERSHIP</span>
+            <h4 style="margin-top: 0.5rem;">Have a bold idea that could be Ethiopia's next big tech company?</h4>
+            <p>Our senior engineers will write the code, we fund it, manage it, and partner with you as equity co-founders.</p>
+          </div>
+          <button class="btn-primary btn-venture open-pitch-modal-btn" style="padding: 0.85rem 1.85rem; font-size: 0.95rem;">
+            <span data-i18n="ventureCtaButton">Apply for Co-Building & Seed Funding 🚀</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SUB-PROJECT 2: MEDIA & SMM PRODUCTION HUB
+       ========================================================================= -->
+  <section id="media-hub" class="media-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-pretitle" data-i18n="mediaPretitle">GROWTH & CREATIVE PRODUCTION LAB</span>
+        <h2 class="section-title" data-i18n="mediaTitle">Social Media Marketing (SMM) & Ad Production Hub</h2>
+        <p class="section-subtitle" data-i18n="mediaSubtitle">
+          A powerhouse creative agency inside Ethio 21 to ensure your digital products and business achieve maximum market dominance.
+        </p>
+      </div>
+
+      <div class="media-hub-grid">
+        <div class="media-card">
+          <div>
+            <div class="media-icon-box">
+              <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            </div>
+            <h3 class="media-title" data-i18n="mediaCard1Title">Targeted Ad Running (PPC & Paid Social)</h3>
+            <p class="media-desc" data-i18n="mediaCard1Desc">
+              Precision campaigns across Meta (Facebook & Instagram), TikTok Ads, Google Search & Display, and Telegram sponsored channels tailored for the Ethiopian and international market.
+            </p>
+          </div>
+          <div class="media-channels-row">
+            <span class="channel-pill">Meta Ads (FB/Insta)</span>
+            <span class="channel-pill">TikTok Ads</span>
+            <span class="channel-pill">Telegram Sponsored Ads</span>
+            <span class="channel-pill">Google & YouTube</span>
+          </div>
+        </div>
+
+        <div class="media-card">
+          <div>
+            <div class="media-icon-box" style="background: rgba(168, 85, 247, 0.12); color: #c084fc;">
+              <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            </div>
+            <h3 class="media-title" data-i18n="mediaCard2Title">Social Media Marketing (SMM)</h3>
+            <p class="media-desc" data-i18n="mediaCard2Desc">
+              Strategic content schedules, brand storytelling, viral growth funnels, influencer collaborations, and active community management that turns viewers into loyal customers.
+            </p>
+          </div>
+          <div class="media-channels-row">
+            <span class="channel-pill">Viral Growth Funnels</span>
+            <span class="channel-pill">Community Triage</span>
+            <span class="channel-pill">Influencer Deals</span>
+            <span class="channel-pill">Content Calendar</span>
+          </div>
+        </div>
+
+        <div class="media-card">
+          <div>
+            <div class="media-icon-box" style="background: rgba(6, 182, 212, 0.12); color: var(--accent-cyan);">
+              <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+            </div>
+            <h3 class="media-title" data-i18n="mediaCard3Title">Full Studio & Video Production</h3>
+            <p class="media-desc" data-i18n="mediaCard3Desc">
+              Broadcast-grade 4K commercial videos, 3D product motion graphics, brand identity systems, high-impact photography, and voiceovers in multiple languages.
+            </p>
+          </div>
+          <div class="media-channels-row">
+            <span class="channel-pill">4K Commercial Video</span>
+            <span class="channel-pill">3D Product Motion</span>
+            <span class="channel-pill">Brand Identity & Logo</span>
+            <span class="channel-pill">Multilingual Audio</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       ETHIO 21 TELEGRAM TECH COMMUNITY & DISCUSSION GROUP (LEAD FUNNEL)
+       ========================================================================= -->
+  <section id="community" class="community-section">
+    <div class="container">
+      <div class="community-hero-card">
+        <!-- Ambient Bioluminescent Glow -->
+        <div class="community-glow-orb"></div>
+
+        <div class="community-grid">
+          <!-- Left Column: Community Narrative & Perks -->
+          <div class="community-info-col">
+            <div class="community-badge-pill">
+              <span class="floating-pill-dot"></span>
+              <span data-i18n="communityBadge">👥 OFFICIAL ETHIO 21 BUILDER COMMUNITY</span>
+            </div>
+
+            <h2 class="community-title" data-i18n="communityTitle">
+              Join the ETHIO 21 <span class="text-gradient-cyan">Tech Community</span> &amp; Discussion Group
+            </h2>
+
+            <p class="community-subtitle" data-i18n="communitySubtitle">
+              Connect directly with 1,500+ software developers, startup founders, system architects, and tech innovators across Addis Ababa and globally.
+            </p>
+
+            <div class="community-perks-list">
+              <div class="perk-item">
+                <div class="perk-icon">⚡</div>
+                <div>
+                  <h4 data-i18n="communityBenefit1Title">Direct Access to Senior Engineers</h4>
+                  <p data-i18n="communityBenefit1Desc">Ask technical questions, get architectural advice, and talk directly with the Ethio 21 engineering leads.</p>
+                </div>
+              </div>
+
+              <div class="perk-item">
+                <div class="perk-icon">🚀</div>
+                <div>
+                  <h4 data-i18n="communityBenefit2Title">Venture Grants &amp; Tech Gigs</h4>
+                  <p data-i18n="communityBenefit2Desc">First access to freelance projects, co-founding opportunities, hardware funding, and venture calls.</p>
+                </div>
+              </div>
+
+              <div class="perk-item">
+                <div class="perk-icon">🛠️</div>
+                <div>
+                  <h4 data-i18n="communityBenefit3Title">Free Developer Code &amp; API Toolkits</h4>
+                  <p data-i18n="communityBenefit3Desc">Get free Telebirr/CBE payment boilerplates, Telegram Mini App starter kits, and open-source UI libraries.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="community-stats-strip">
+              <div class="community-stat">
+                <span class="stat-num">1,500+</span>
+                <span class="stat-lbl">Active Tech Members</span>
+              </div>
+              <div class="community-stat">
+                <span class="stat-num">24/7</span>
+                <span class="stat-lbl">Live Group Discussions</span>
+              </div>
+              <div class="community-stat">
+                <span class="stat-num">Addis Ababa</span>
+                <span class="stat-lbl">HQ &amp; Worldwide Members</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Interactive Lead Capture & Instant Onboarding -->
+          <div class="community-lead-col">
+            <div class="community-lead-box">
+              <div class="lead-box-header">
+                <div class="lead-icon-badge">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+                </div>
+                <div>
+                  <h3 data-i18n="communityLeadTitle">Get Your VIP Community Pass</h3>
+                  <p data-i18n="communityLeadDesc">Enter your Telegram username or phone number to receive an instant direct invitation link and free developer starter kit.</p>
+                </div>
+              </div>
+
+              <!-- Interactive Lead Form -->
+              <form id="community-lead-form" class="community-form">
+                <div class="form-group">
+                  <label for="community-name" class="form-label" data-i18n="communityFormName">Full Name</label>
+                  <input type="text" id="community-name" class="form-input" placeholder="e.g. Dawit Bekele" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="community-handle" class="form-label" data-i18n="communityFormHandle">Telegram Username or Phone Number</label>
+                  <input type="text" id="community-handle" class="form-input" placeholder="@your_username or +251 9..." required>
+                </div>
+
+                <div class="form-group">
+                  <label for="community-interest" class="form-label" data-i18n="communityFormInterest">Your Primary Focus</label>
+                  <select id="community-interest" class="form-select">
+                    <option value="Software Developer / Engineer">💻 Software Developer / Engineer</option>
+                    <option value="Startup Founder / Builder">🚀 Startup Founder / App Builder</option>
+                    <option value="Enterprise / Business Executive">🏢 Enterprise / Business Executive</option>
+                    <option value="Student & Tech Enthusiast">🎓 Student / Tech Enthusiast</option>
+                    <option value="Investor / Venture Partner">💼 Investor / Partner</option>
+                  </select>
+                </div>
+
+                <button type="submit" class="community-submit-btn">
+                  <span data-i18n="communityLeadSubmit">Get VIP Invite &amp; Join Group 🚀</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+                </button>
+              </form>
+
+              <!-- Direct 1-Click Join Alternative -->
+              <div class="direct-group-alt">
+                <span data-i18n="communityOrDirect">Or join immediately without registering:</span>
+                <a href="https://t.me/ethio21_tech" target="_blank" rel="noopener noreferrer" class="btn-direct-group">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+                  <span data-i18n="communityJoinDirect">Join Telegram Community Directly 👥</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       CONTACT SECTION (DIRECT TELEGRAM FORWARDING)
+       ========================================================================= -->
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-pretitle" data-i18n="contactPretitle">INSTANT TELEGRAM CONNECTION</span>
+        <h2 class="section-title" data-i18n="contactTitle">Connect Directly With Our Team</h2>
+        <p class="section-subtitle" data-i18n="contactSubtitle">
+          Have a question or need a quote? Fill out the quick briefing below to chat directly with our engineers on Telegram, or open Telegram directly.
+        </p>
+      </div>
+
+      <div class="contact-layout">
+        <!-- Contact Info Card -->
+        <div class="contact-info-card">
+          <div class="info-header">
+            <h3 data-i18n="contactOffice">Strategic Operations & Tech Hub</h3>
+            <p data-i18n="contactAddress">Addis Ababa, Ethiopia • Serving Clients Nationwide & Globally</p>
+          </div>
+
+          <div class="info-block-list">
+            <div class="info-block">
+              <div class="info-icon">
+                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </div>
+              <div class="info-details">
+                <h5 data-i18n="contactEmailLabel">Direct Email:</h5>
+                <a href="mailto:contact@ethio21technologies.com">contact@ethio21technologies.com</a>
+              </div>
+            </div>
+
+            <div class="info-block">
+              <div class="info-icon">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              </div>
+              <div class="info-details">
+                <h5 data-i18n="contactPhoneLabel">Direct Phone:</h5>
+                <a href="tel:+251911002121">+251 911 00 21 21 / +251 116 21 21 21</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Direct Messenger Quick Buttons -->
+          <div class="direct-connect-wrap">
+            <h4 data-i18n="contactDirectChat">Direct 1-Click Messenger</h4>
+            <div class="messenger-btns">
+              <a href="https://t.me/ethio21_tech" target="_blank" rel="noopener noreferrer" class="messenger-btn btn-telegram">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+                <span data-i18n="contactTelegram">Chat on Telegram (@ethio21_tech)</span>
+              </a>
+              <a href="https://wa.me/251911002121" target="_blank" rel="noopener noreferrer" class="messenger-btn btn-whatsapp">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.63C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2M12.04 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.16 12.04 20.16C10.66 20.16 9.3 19.81 8.1 19.14L7.81 18.97L4.69 19.79L5.52 16.75L5.33 16.44C4.6 15.27 4.21 13.62 4.21 11.92C4.21 7.37 7.91 3.67 12.04 3.67M9.36 7.42C9.21 7.42 8.97 7.47 8.76 7.7C8.55 7.93 7.96 8.48 7.96 9.61C7.96 10.74 8.78 11.83 8.9 11.98C9.02 12.13 10.5 14.42 12.78 15.4C13.32 15.63 13.74 15.77 14.07 15.88C14.61 16.05 15.1 16.02 15.49 15.96C15.93 15.89 16.85 15.4 17.04 14.86C17.23 14.32 17.23 13.86 17.17 13.76C17.11 13.66 16.96 13.6 16.73 13.49C16.5 13.38 15.37 12.82 15.16 12.74C14.95 12.66 14.8 12.62 14.65 12.85C14.5 13.08 14.07 13.6 13.94 13.75C13.81 13.9 13.68 13.92 13.45 13.81C13.22 13.7 12.48 13.46 11.6 12.67C10.92 12.06 10.46 11.31 10.33 11.08C10.2 10.85 10.32 10.73 10.43 10.62C10.53 10.52 10.66 10.35 10.78 10.21C10.9 10.07 10.94 9.97 11.02 9.81C11.1 9.65 11.06 9.51 11 9.4C10.94 9.29 10.5 8.21 10.32 7.77C10.14 7.34 9.96 7.4 9.82 7.39C9.69 7.39 9.54 7.42 9.36 7.42Z"/></svg>
+                <span data-i18n="contactWhatsapp">WhatsApp Business (+251911002121)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Inquiry Form (Opens Telegram directly on submit) -->
+        <div class="contact-form-card">
+          <form id="project-contact-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="contact-name" class="form-label" data-i18n="contactFormName">Your Full Name</label>
+                <input type="text" id="contact-name" class="form-input" placeholder="e.g. Dawit Bekele" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-email" class="form-label" data-i18n="contactFormEmail">Work Email</label>
+                <input type="email" id="contact-email" class="form-input" placeholder="name@company.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-phone" class="form-label" data-i18n="contactFormPhone">Phone / Telegram</label>
+                <input type="tel" id="contact-phone" class="form-input" placeholder="+251 9... or @username" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-service" class="form-label" data-i18n="contactFormService">Service or Program of Interest</label>
+                <select id="contact-service" class="form-select">
+                  <option value="1. Software Development">1. Software Development</option>
+                  <option value="2. Application Development">2. Application Development (iOS/Android)</option>
+                  <option value="3. Website Development">3. Website Development / PWA</option>
+                  <option value="4. Management Systems">4. Management Systems (ERP/CRM)</option>
+                  <option value="Startup Venture Hub">Startup Venture Hub (Co-Building & Funding)</option>
+                  <option value="Media & SMM Production">Social Media Marketing & Ad Production</option>
+                </select>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="contact-budget" class="form-label" data-i18n="contactFormBudget">Budget / Partnership Model</label>
+                <select id="contact-budget" class="form-select">
+                  <option value="Commercial Contract ($5k - $25k+)">Standard Commercial Contract ($5,000 - $25,000+)</option>
+                  <option value="Enterprise Tier ($25k - $100k+)">Enterprise / Large Scale ($25,000 - $100,000+)</option>
+                  <option value="Startup Venture Equity Cut">Startup Venture Equity / Revenue Share (In-Person)</option>
+                  <option value="Monthly SMM Retainer">Monthly Marketing & Ad Retainer (SMM)</option>
+                </select>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="contact-message" class="form-label" data-i18n="contactFormMessage">Project Vision & Requirements</label>
+                <textarea id="contact-message" class="form-textarea" placeholder="Tell us about your objectives, requirements, or startup concept..." required></textarea>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 0.95rem; background: linear-gradient(135deg, #24a1de 0%, #06b6d4 100%);">
+              <span data-i18n="contactSubmit">Send & Open in Telegram 🚀</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       STARTUP & CO-BUILDER PITCH APPLICATION MODAL (DIRECT TELEGRAM ON SUBMIT)
+       ========================================================================= -->
+  <div id="pitch-modal" class="pitch-modal-backdrop">
+    <div class="pitch-modal-content">
+      <button id="close-pitch-modal-btn" class="btn-icon pitch-modal-close" aria-label="Close pitch modal">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="pitch-modal-header">
+        <div class="venture-badge-pill" style="margin-bottom: 0.75rem;">
+          🚀 ETHIO 21 CO-BUILDER & EQUITY STUDIO
+        </div>
+        <h3 class="modal-title" style="font-size: 1.5rem;" data-i18n="pitchModalTitle">Pitch to the ETHIO 21 Co-Builder Studio</h3>
+        <p class="modal-body" style="font-size: 0.88rem;" data-i18n="pitchModalSubtitle">
+          Tell us about your idea. If selected, ETHIO 21 provides seed funding, our engineering squad codes it with you, and we partner as co-founding shareholders.
+        </p>
+      </div>
+
+      <form id="pitch-startup-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" data-i18n="pitchName">Founder Full Name & Age</label>
+            <input type="text" id="pitch-name" class="form-input" placeholder="e.g. Yonas Michael (Age 22)" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="pitchEmail">Contact Email</label>
+            <input type="email" id="pitch-email" class="form-input" placeholder="founder@gmail.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="pitchPhone">Phone / Telegram Handle</label>
+            <input type="text" id="pitch-phone" class="form-input" placeholder="+251 9... or @username" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="pitchAppName">Startup / Idea Concept Name</label>
+            <input type="text" id="pitch-app-name" class="form-input" placeholder="e.g. EthioRide or AgroFresh" required>
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label" data-i18n="pitchStage">Current Stage (Raw Idea / Prototype / Early Traction)</label>
+            <select id="pitch-stage" class="form-select">
+              <option value="Raw Concept / Uncoded Idea">Raw Concept / Uncoded Idea (Ready to Build)</option>
+              <option value="Student Project / Campus Innovation">Student Project / Campus Innovation</option>
+              <option value="Figma / UI Mockup Ready">Figma / UI Mockup Ready</option>
+              <option value="Early Prototype / Beta Testing">Early Prototype / Beta Testing</option>
+              <option value="Active Startup Seeking Growth Equity">Active Startup Seeking Growth Equity</option>
+            </select>
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label" data-i18n="pitchNeeds">What resources do you need most from Ethio 21?</label>
+            <div class="cobuilder-checkbox-grid">
+              <label class="cobuilder-check-item">
+                <input type="checkbox" name="pitch_needs" value="Seed Funding & Capital" checked>
+                <span>💰 Seed Funding & Capital</span>
+              </label>
+              <label class="cobuilder-check-item">
+                <input type="checkbox" name="pitch_needs" value="Senior Dev Squad (We physically code it)" checked>
+                <span>💻 Dev Squad (We physically code it)</span>
+              </label>
+              <label class="cobuilder-check-item">
+                <input type="checkbox" name="pitch_needs" value="Hardware, Laptops & Workstations">
+                <span>🖥️ Hardware & Dev Machines</span>
+              </label>
+              <label class="cobuilder-check-item">
+                <input type="checkbox" name="pitch_needs" value="Legal Incorporation & Management" checked>
+                <span>🏛️ Legal Formation & Executive Management</span>
+              </label>
+              <label class="cobuilder-check-item">
+                <input type="checkbox" name="pitch_needs" value="Social Media & Ad Production">
+                <span>📢 Social Media & 4K Ad Production</span>
+              </label>
+            </div>
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label" data-i18n="pitchDesc">Describe the real-life problem you are solving and your solution vision...</label>
+            <textarea id="pitch-desc" class="form-textarea" placeholder="Explain the problem you are solving, who will use it, and how ETHIO 21 will build and scale this with you..." required></textarea>
+          </div>
+          <div class="form-group full-width">
+            <label class="equity-ack-card">
+              <input type="checkbox" id="pitch-equity-ack" checked required>
+              <span>
+                <strong>🤝 Co-Founding Equity Model Acknowledged:</strong> I understand that ETHIO 21 invests seed capital, supplies senior engineers to write the software, and takes an agreed equity shareholding in the enterprise.
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary btn-venture" style="width: 100%; justify-content: center; padding: 0.95rem; margin-top: 0.75rem;">
+          <span data-i18n="pitchSubmit">Submit Co-Builder Application on Telegram 🚀</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="wordmark-main" style="margin-bottom: 0.5rem;">
+            <span class="wordmark-ethio">ETHIO</span>
+            <span class="wordmark-21">21</span>
+          </div>
+          <p data-i18n="heroDescription">
+            Bespoke enterprise software, mobile & web applications, and intelligent management systems. We also fund & co-build breakthrough apps and run high-converting social media marketing campaigns.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h5 data-i18n="navServices">Core Services</h5>
+          <ul class="footer-links">
+            <li><a href="#services">1. Software Development</a></li>
+            <li><a href="#services">2. Application Development</a></li>
+            <li><a href="#services">3. Website Development</a></li>
+            <li><a href="#services">4. Management Systems</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Venture & Growth</h5>
+          <ul class="footer-links">
+            <li><a href="#venture-hub" data-i18n="navVentureHub">Startup Venture Hub</a></li>
+            <li><a href="#venture-hub">Founder Funding & Hardware</a></li>
+            <li><a href="#media-hub" data-i18n="navMediaHub">Media & SMM Agency</a></li>
+            <li><a href="#media-hub">Targeted Paid Ads</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5 data-i18n="contactOffice">Strategic Operations Hub</h5>
+          <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.6; margin-bottom: 0.75rem;">
+            Addis Ababa, Ethiopia • Serving Clients Nationwide & Globally.
+          </p>
+          <a href="https://t.me/ethio21_tech" target="_blank" rel="noopener noreferrer" style="color: #24a1de; font-weight: 700; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+            Telegram: @ethio21_tech
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 ETHIO 21 Technologies and Digital Solutions. All Rights Reserved.
+        </div>
+        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+          <a href="#community" style="color: var(--accent-mint); text-decoration: none; font-weight: 700;">👥 Tech Community Group</a>
+          <a href="https://t.me/ethio21_tech" target="_blank" style="color: var(--text-muted); text-decoration: none;">Direct Telegram Desk</a>
+          <a href="#" style="color: var(--text-muted); text-decoration: none;">Partnership Terms</a>
+          <a href="#" style="color: var(--text-muted); text-decoration: none;">Venture Charter</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Telegram Community Lead Pill -->
+  <a href="#community" id="floating-community-pill" class="floating-community-pill" title="Join ETHIO 21 Telegram Group">
+    <span class="floating-pill-dot"></span>
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+    <span>Join Telegram Group (1.5k+)</span>
+  </a>
+
+  <!-- Scripts -->
+  <script src="scripts/translations.js?v=2026.5"></script>
+  <script src="scripts/app.js?v=2026.5"></script>
+
+  <!-- PWA Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('scripts/sw.js')
+          .then(reg => console.log('ETHIO 21 SW Active', reg.scope))
+          .catch(err => console.warn('SW register skipped', err));
+      });
+    }
+  </script>
+</body>
+</html>

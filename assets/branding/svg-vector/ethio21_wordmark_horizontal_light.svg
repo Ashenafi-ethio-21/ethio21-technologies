@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 180" width="100%" height="100%">
+  <defs>
+    <filter id="lightDrop" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <g filter="url(#lightDrop)">
+    <!-- ETHIO (Midnight Obsidian) -->
+    <text x="120" y="105" 
+          font-family="system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif" 
+          font-weight="900" 
+          font-size="82" 
+          letter-spacing="4" 
+          fill="#0f172a">
+      ETHIO
+    </text>
+
+    <!-- 21 (Solid Azure - No Gradient) -->
+    <text x="435" y="105" 
+          font-family="system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif" 
+          font-weight="900" 
+          font-size="86" 
+          letter-spacing="2" 
+          fill="#0284c7">
+      21
+    </text>
+
+    <!-- Subtitle -->
+    <text x="124" y="145" 
+          font-family="system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif" 
+          font-weight="800" 
+          font-size="14" 
+          letter-spacing="9" 
+          fill="#0284c7">
+      TECHNOLOGIES &amp; DIGITAL SOLUTIONS
+    </text>
+  </g>
+</svg>

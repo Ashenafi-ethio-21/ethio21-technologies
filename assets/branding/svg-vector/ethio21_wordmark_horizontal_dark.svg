@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 180" width="100%" height="100%">
+  <defs>
+    <!-- Background glow for dark mode -->
+    <radialGradient id="headerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#10f2a7" stop-opacity="0.18" />
+      <stop offset="60%" stop-color="#00d2ff" stop-opacity="0.06" />
+      <stop offset="100%" stop-color="#04060a" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Frosted titanium gradient for ETHIO -->
+    <linearGradient id="titaniumGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="45%" stop-color="#e2e8f0" />
+      <stop offset="50%" stop-color="#94a3b8" />
+      <stop offset="100%" stop-color="#f8fafc" />
+    </linearGradient>
+
+    <!-- Specular rim highlight -->
+    <filter id="glassGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <filter id="subtleDrop" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <!-- Ambient background glow -->
+  <rect x="0" y="0" width="800" height="180" fill="transparent" />
+  <circle cx="400" cy="80" r="220" fill="url(#headerGlow)" />
+
+  <!-- Main Wordmark Group -->
+  <g filter="url(#subtleDrop)">
+    <!-- ETHIO -->
+    <text x="120" y="105" 
+          font-family="system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif" 
+          font-weight="900" 
+          font-size="82" 
+          letter-spacing="4" 
+          fill="url(#titaniumGrad)">
+      ETHIO
+    </text>
+
+    <!-- 21 (Solid Sovereign Electric Azure - No Gradient) -->
+    <text x="435" y="105" 
+          font-family="system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif" 
+          font-weight="900" 
+          font-size="86" 
+          letter-spacing="2" 
+          fill="#00d2ff"
+          filter="url(#glassGlow)">
+      21
+    </text>
+
+    <!-- Subtitle: TECHNOLOGIES & DIGITAL SOLUTIONS -->
+    <text x="124" y="145" 
+          font-family="system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif" 
+          font-weight="700" 
+          font-size="14" 
+          letter-spacing="9" 
+          fill="#10f2a7" 
+          opacity="0.95">
+      TECHNOLOGIES &amp; DIGITAL SOLUTIONS
+    </text>
+  </g>
+</svg>
