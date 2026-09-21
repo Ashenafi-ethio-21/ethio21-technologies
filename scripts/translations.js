@@ -41,14 +41,14 @@ const translations = {
     pathway2Cta: "Pitch Your Idea & Partner With Us 🚀",
 
     // Live Metrics
-    metricUptime: "System Reliability",
-    metricUptimeVal: "99.99%",
+    metricMembers: "Active Tech Members",
+    metricMembersVal: "300",
     metricProjects: "Systems & Apps Delivered",
-    metricProjectsVal: "180+",
+    metricProjectsVal: "2",
     metricUsers: "Active End Users",
-    metricUsersVal: "6.5M+",
+    metricUsersVal: "250+",
     metricStartups: "Startups Co-Built & Guided",
-    metricStartupsVal: "24+",
+    metricStartupsVal: "4",
 
     // Core Services (The 4 Pillars)
     servicesPretitle: "OUR 4 CORE ENGINEERING PILLARS",
@@ -158,8 +158,8 @@ const translations = {
     contactFormMessage: "Tell us about your project requirements...",
     contactSubmit: "Send & Open in Telegram 🚀",
     contactDirectChat: "Direct 1-Click Messenger",
-    contactTelegram: "Chat on Telegram (@ethio21_technologies)",
-    contactWhatsapp: "WhatsApp Business (+251911002121)",
+    contactTelegram: "Direct Desk on Telegram (@ethio21_tech)",
+    contactWhatsapp: "WhatsApp (+251945399808)",
     contactOffice: "Strategic Operations & Tech Hub",
     contactAddress: "Addis Ababa, Ethiopia • Serving Clients Nationwide & Globally",
     contactEmailLabel: "Direct Email:",
@@ -221,14 +221,14 @@ const translations = {
     pathway2Cta: "ሀሳብዎን ያቅርቡ እና አብረን እንስራ 🚀",
 
     // Live Metrics
-    metricUptime: "የሲስተም አስተማማኝነት",
-    metricUptimeVal: "99.99%",
+    metricMembers: "ንቁ የቴክኖሎጂ አባላት",
+    metricMembersVal: "300",
     metricProjects: "የተሰሩ ሲስተሞች እና አፖች",
-    metricProjectsVal: "180+",
-    metricUsers: "ተጠቃሚ የሆኑ ዜጎች",
-    metricUsersVal: "6.5M+",
+    metricProjectsVal: "2",
+    metricUsers: "ንቁ ተጠቃሚዎች",
+    metricUsersVal: "250+",
     metricStartups: "የታገዙ እና የተገነቡ ስታርትአፖች",
-    metricStartupsVal: "24+",
+    metricStartupsVal: "4",
 
     // Core Services (The 4 Pillars)
     servicesPretitle: "4ቱ ዋና ዋና የቴክኖሎጂ አምዶች",
@@ -338,8 +338,8 @@ const translations = {
     contactFormMessage: "ስለ ፕሮጀክትዎ መስፈርቶች ያብራሩ...",
     contactSubmit: "በቴሌግራም ላክ 🚀",
     contactDirectChat: "ቀጥታ መልእክት ለመነጋገር",
-    contactTelegram: "የቴሌግራም ውይይት (@ethio21_technologies)",
-    contactWhatsapp: "የዋትስአፕ ቢዝነስ (+251911002121)",
+    contactTelegram: "ቀጥታ ቴሌግራም (@ethio21_tech)",
+    contactWhatsapp: "ዋትስአፕ (+251945399808)",
     contactOffice: "ዋና የቴክኖሎጂና ስትራቴጂክ ማዕከል",
     contactAddress: "አዲስ አበባ፣ ኢትዮጵያ • ሀገር አቀፍ እና ዓለም አቀፍ አገልግሎት",
     contactEmailLabel: "ቀጥታ ኢሜይል:",
