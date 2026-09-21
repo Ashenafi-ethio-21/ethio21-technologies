@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     exchangeRateETB: 125.0,
     telegramHandle: 'ethio21_technologies',
     telegramGroup: 'ethio21_technologies_Discussion',
-    telegramGroupUrl: 'https://t.me/+J4Bao_FOX5FkZjA0',
+    telegramGroupUrl: 'https://t.me/+BhaIySnd9KVhMGNk',
     directEmail: 'ashenafitobe@gmail.com'
   };
 
