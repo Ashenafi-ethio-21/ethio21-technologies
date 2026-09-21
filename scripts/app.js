@@ -572,5 +572,93 @@ ${message ? `"${message}"` : 'Client requested technical consultation and discov
     });
   }
 
+  // ==========================================
+  // 11. ANTI-CLONING, SOURCE SHIELD & ASSET PROTECTION
+  // ==========================================
+  // Console Security Watermark
+  console.log(
+    '%c🛑 STOP! PROTECTED SYSTEM',
+    'color: #ef4444; font-size: 28px; font-weight: 900; -webkit-text-stroke: 1px black;'
+  );
+  console.log(
+    '%cAll designs, code architectures, and branding assets are the proprietary intellectual property of ETHIO 21 Technologies & Digital Solutions.\nUnauthorized cloning, source scraping, or commercial reproduction is strictly prohibited.',
+    'color: #00d2ff; font-size: 13px; font-weight: 600;'
+  );
+
+  // Security Toast Notification
+  let securityToastTimeout = null;
+  function showSecurityNotice(msg) {
+    let toast = document.getElementById('security-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'security-toast';
+      toast.className = 'security-toast';
+      toast.innerHTML = `
+        <span class="security-toast-icon">🔒</span>
+        <span class="security-toast-text">${msg || 'Protected by ETHIO 21 Proprietary Shield • Viewing Only'}</span>
+      `;
+      document.body.appendChild(toast);
+    } else {
+      const textSpan = toast.querySelector('.security-toast-text');
+      if (textSpan) textSpan.textContent = msg || 'Protected by ETHIO 21 Proprietary Shield • Viewing Only';
+    }
+
+    clearTimeout(securityToastTimeout);
+    toast.classList.add('show');
+    playUiSound('toggle');
+    securityToastTimeout = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2800);
+  }
+
+  // 1. Disable Right-Click Context Menu
+  document.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    showSecurityNotice('🔒 Right-Click Disabled • Protected by ETHIO 21 Shield');
+    return false;
+  });
+
+  // 2. Intercept DevTools & Source Inspector Keyboard Shortcuts
+  document.addEventListener('keydown', (e) => {
+    // F12 key
+    if (e.key === 'F12' || e.keyCode === 123) {
+      e.preventDefault();
+      showSecurityNotice('🔒 Developer Tools Blocked • Protected Intellectual Property');
+      return false;
+    }
+
+    // Ctrl+U / Cmd+U (View Source)
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'u' || e.key === 'U' || e.keyCode === 85)) {
+      e.preventDefault();
+      showSecurityNotice('🔒 Source Code Viewer Blocked • Viewing Only');
+      return false;
+    }
+
+    // Ctrl+Shift+I / Cmd+Option+I (Inspect Element)
+    // Ctrl+Shift+J / Cmd+Option+J (Console)
+    // Ctrl+Shift+C (Inspect Target)
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'J', 'C', 'i', 'j', 'c'].includes(e.key)) {
+      e.preventDefault();
+      showSecurityNotice('🔒 Inspector Blocked • Protected Intellectual Property');
+      return false;
+    }
+
+    // Ctrl+S / Cmd+S (Save Page)
+    if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+      e.preventDefault();
+      showSecurityNotice('🔒 Page Saving Disabled • Viewing Only');
+      return false;
+    }
+  });
+
+  // 3. Prevent Dragging of Images and Visuals
+  document.addEventListener('dragstart', (e) => {
+    if (e.target.tagName === 'IMG' || e.target.tagName === 'svg' || e.target.closest('.hero-brand-glass-card')) {
+      e.preventDefault();
+      return false;
+    }
+  });
+
   applyLanguage(state.lang);
 });
+
