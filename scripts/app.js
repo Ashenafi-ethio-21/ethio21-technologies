@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     currency: 'USD',
     exchangeRateETB: 125.0,
     telegramHandle: 'ethio21_technologies',
-    telegramGroup: '+J4Bao_FOX5FkZjA0',
-    telegramGroupUrl: 'https://t.me/+J4Bao_FOX5FkZjA0',
+    telegramGroup: 'ethio21_tech',
+    telegramGroupUrl: 'https://t.me/ethio21_tech',
     directEmail: 'ashenafitobe@gmail.com'
   };
 
@@ -442,7 +442,6 @@ ${desc ? `"${desc}"` : 'Founder requested in-person technical evaluation.'}
       const email = (contactForm.querySelector('#contact-email') || {}).value || '';
       const phone = (contactForm.querySelector('#contact-phone') || {}).value || '';
       const service = (contactForm.querySelector('#contact-service') || {}).value || '';
-      const budget = (contactForm.querySelector('#contact-budget') || {}).value || '';
       const message = (contactForm.querySelector('#contact-message') || {}).value || '';
       const timestamp = getFormattedTimestamp();
 
@@ -459,7 +458,6 @@ ${desc ? `"${desc}"` : 'Founder requested in-person technical evaluation.'}
 
 🛠️ ENGAGEMENT SPECIFICATION
 • Required Service: ${service || 'General Tech Inquiry'}
-• Budget / Allocation: ${budget || 'To Be Evaluated'}
 
 📝 PROJECT REQUIREMENTS & OBJECTIVES
 ${message ? `"${message}"` : 'Client requested technical consultation and discovery call.'}
