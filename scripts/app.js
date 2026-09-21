@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     audioEnabled: localStorage.getItem('ethio21_audio') === 'true',
     currency: 'USD',
     exchangeRateETB: 125.0,
-    telegramHandle: 'ethio21_technologies',
+    telegramHandle: 'ethio21_tech',
+    telegramChannel: 'ethio21_technologies',
     telegramGroup: 'ethio21_technologies_Discussion',
     telegramGroupUrl: 'https://t.me/+BhaIySnd9KVhMGNk',
     directEmail: 'ashenafitobe@gmail.com'
