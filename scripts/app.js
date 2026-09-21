@@ -13,13 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
     audioEnabled: localStorage.getItem('ethio21_audio') === 'true',
     currency: 'USD',
     exchangeRateETB: 125.0,
-    telegramHandle: 'ethio21_tech' // Primary Telegram contact: https://t.me/ethio21_tech
+    telegramHandle: 'ethio21_technologies',
+    telegramGroup: 'ethio21_technologies_Discussion',
+    directEmail: 'ashenafitobe@gmail.com'
   };
 
-  function openTelegram(messageText = '') {
+  function openTelegram(messageText = '', isGroup = false) {
     playUiSound('success');
-    let url = `https://t.me/${state.telegramHandle}`;
-    if (messageText) {
+    const target = isGroup ? state.telegramGroup : state.telegramHandle;
+    let url = `https://t.me/${target}`;
+    if (messageText && !isGroup) {
       url += `?text=${encodeURIComponent(messageText)}`;
     }
     window.open(url, '_blank');
@@ -568,7 +571,7 @@ ${message ? `"${message}"` : 'Client requested technical consultation and discov
         }, 3000);
       }
 
-      openTelegram(telegramCommunityLead);
+      openTelegram('', true);
     });
   }
 
