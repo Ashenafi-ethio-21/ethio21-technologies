@@ -2729,5 +2729,56 @@ img, svg, .hero-brand-banner-img, .brand-wordmark, .pathway-card, .pillar-servic
   align-items: center;
 }
 
+/* ==========================================================================
+   EXECUTIVE FOUNDERS & LEADERSHIP PORTRAITS
+   ========================================================================== */
+.founder-card {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.founder-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(59, 130, 246, 0.6) !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 30px rgba(59, 130, 246, 0.25) !important;
+}
+
+.founder-avatar-wrap {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+}
+
+.founder-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  transition: transform 0.4s ease;
+}
+
+.founder-card:hover .founder-avatar-img {
+  transform: scale(1.04);
+}
+
+.founder-verified-badge {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  background: #3b82f6;
+  color: #fff;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border: 2px solid #0f172a;
+}
+
+
 
 
