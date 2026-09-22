@@ -1,0 +1,300 @@
+{
+  "texts": {
+    "welcome": "🎓 <b>TEME EDUCATIONAL PLATFORM (ተሜ)</b>\n────────────────────────────\n👋 <b>Welcome Freshman Student!</b>\nSelect your <b>University</b> to access official past examination archives and unit tests:\n\n🏛️ <i>Select your university below:</i>",
+    "step_year": "────────────────────────────\n📅 <b>Step 2: Select Exam Academic Year:</b>\nChoose which past examination session you want to practice:",
+    "step_course": "────────────────────────────\n📚 <b>Step 3: Select Your Freshman Course:</b>\nChoose which course exam you want to practice:",
+    "step_unit": "────────────────────────────\n🎯 <b>Step 4: Choose Chapter or Comprehensive Exam:</b>",
+    "retake": "🔄 Retake This Exam",
+    "select_course": "📚 Select Another Course",
+    "change_year": "📅 Change Exam Year",
+    "change_uni": "🏛️ Change University",
+    "back_uni": "⬅️ Back to Universities",
+    "back_year": "⬅️ Back to Exam Years",
+    "back_course": "⬅️ Back to Courses",
+    "next_q_prefix": "➡️ Next Question (",
+    "finish_btn": "🏆 View Final Score & Rating",
+    "correct_header": "🟢🟢🟢 <b>CORRECT! EXCELLENT JOB! (+1 POINT)</b> 🟢🟢🟢\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+    "incorrect_header": "🔴🔴🔴 <b>INCORRECT ANSWER!</b> 🔴🔴🔴\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+    "correct_label": "  ✅ <b>[CORRECT ANSWER]</b>",
+    "user_label": "  ❌ <b>[YOUR CHOICE]</b>"
+  },
+  "universities": [
+    { "id": "aau", "name": "Addis Ababa University (AAU)" },
+    { "id": "aastu", "name": "Addis Ababa Science & Tech University (AASTU)" },
+    { "id": "astu", "name": "Adama Science & Tech University (ASTU)" },
+    { "id": "bdu", "name": "Bahir Dar University (BDU)" },
+    { "id": "ju", "name": "Jimma University (JU)" },
+    { "id": "hu", "name": "Hawassa University (HU)" },
+    { "id": "mu", "name": "Mekelle University (MU)" },
+    { "id": "gondar", "name": "University of Gondar (UoG)" },
+    { "id": "haramaya", "name": "Haramaya University (HrU)" },
+    { "id": "arba_minch", "name": "Arba Minch University (AMU)" },
+    { "id": "dilla", "name": "Dilla University (DU)" },
+    { "id": "wolaita_sodo", "name": "Wolaita Sodo University (WSU)" },
+    { "id": "amadu", "name": "Ambo University (AU)" },
+    { "id": "wollo", "name": "Wollo University (WU)" },
+    { "id": "debre_berhan", "name": "Debre Berhan University (DBU)" },
+    { "id": "debre_markos", "name": "Debre Markos University (DMU)" },
+    { "id": "jigjiga", "name": "Jigjiga University (JJU)" },
+    { "id": "dire_dawa", "name": "Dire Dawa University (DDU)" },
+    { "id": "wachemo", "name": "Wachemo University (WCU)" },
+    { "id": "mizan_tepi", "name": "Mizan-Tepi University (MTU)" }
+  ],
+  "years": [
+    { "id": "2016", "name": "📅 2016 E.C. (2024 G.C.) Past Exam" },
+    { "id": "2015", "name": "📅 2015 E.C. (2023 G.C.) Past Exam" },
+    { "id": "2014", "name": "📅 2014 E.C. (2022 G.C.) Past Exam" },
+    { "id": "2013", "name": "📅 2013 E.C. (2021 G.C.) Past Exam" },
+    { "id": "model", "name": "🏆 National Freshman Exit/Midterm Model Exam" }
+  ],
+  "courses": [
+    { "id": "math101", "name": "📐 Mathematics for Natural / Social Science (Math 101)" },
+    { "id": "phys101", "name": "⚡ General Physics (Phys 101)" },
+    { "id": "critical_thinking", "name": "🧠 Logic & Critical Thinking (Phil 101)" },
+    { "id": "critical_emerging", "name": "🚀 Introduction to Emerging Technologies (EmTe 101)" },
+    { "id": "comm_skills", "name": "🗣️ Communicative English Skills I (FLEn 101)" },
+    { "id": "intro_computing", "name": "💻 Introduction to Computing & Programming (CoSc 101)" },
+    { "id": "general_psych", "name": "🧩 General Psychology (Psyc 101)" },
+    { "id": "geography", "name": "🌍 Geography of Ethiopia & the Horn (GeES 101)" }
+  ],
+  "units": {
+    "math101": [
+      { "id": "all", "name": "🏆 Complete Midterm & Final Past Exam" },
+      { "id": "u1", "name": "Chapter 1: Propositional Logic & Set Theory" },
+      { "id": "u2", "name": "Chapter 2: Functions & Relations" },
+      { "id": "u3", "name": "Chapter 3: Complex Numbers" },
+      { "id": "u4", "name": "Chapter 4: Limits & Continuity" },
+      { "id": "u5", "name": "Chapter 5: Derivatives & Applications" }
+    ],
+    "phys101": [
+      { "id": "all", "name": "🏆 Complete Midterm & Final Past Exam" },
+      { "id": "u1", "name": "Chapter 1: Vectors & Kinematics in 1D & 2D" },
+      { "id": "u2", "name": "Chapter 2: Newton's Laws & Dynamics" },
+      { "id": "u3", "name": "Chapter 3: Work, Kinetic Energy & Conservation of Energy" },
+      { "id": "u4", "name": "Chapter 4: Linear Momentum & Collisions" },
+      { "id": "u5", "name": "Chapter 5: Rotational Motion & Equilibrium" }
+    ],
+    "critical_thinking": [
+      { "id": "all", "name": "🏆 Complete Midterm & Final Past Exam" },
+      { "id": "u1", "name": "Chapter 1: Introducing Philosophy & Logic" },
+      { "id": "u2", "name": "Chapter 2: Arguments, Premises & Conclusions" },
+      { "id": "u3", "name": "Chapter 3: Informal Fallacies (Relevance & Ambiguity)" },
+      { "id": "u4", "name": "Chapter 4: Categorical Propositions & Syllogisms" }
+    ],
+    "critical_emerging": [
+      { "id": "all", "name": "🏆 Complete Midterm & Final Past Exam" },
+      { "id": "u1", "name": "Chapter 1: Industry 4.0 & Technological Shifts" },
+      { "id": "u2", "name": "Chapter 2: Artificial Intelligence & Machine Learning" },
+      { "id": "u3", "name": "Chapter 3: Internet of Things (IoT) & Cloud Infrastructure" },
+      { "id": "u4", "name": "Chapter 4: Cybersecurity & Blockchain Technologies" }
+    ]
+  },
+  "questions": {
+    "math101": [
+      {
+        "question": "Which of the following compound propositions is logically equivalent to the conditional implication P → Q?",
+        "options": [
+          "¬P ∨ Q",
+          "P ∧ ¬Q",
+          "¬Q → ¬P",
+          "Both A and C"
+        ],
+        "correct_index": 3,
+        "explanation": "P → Q is logically equivalent to its contrapositive (¬Q → ¬P) and is also equivalent to ¬P ∨ Q by conditional elimination. Thus both A and C are correct."
+      },
+      {
+        "question": "Let f(x) = (2x + 3) / (x - 1) for x ≠ 1. What is the inverse function f⁻¹(x)?",
+        "options": [
+          "f⁻¹(x) = (x + 3) / (2x - 1)",
+          "f⁻¹(x) = (x + 3) / (x - 2)",
+          "f⁻¹(x) = (2x - 3) / (x + 1)",
+          "f⁻¹(x) = (x - 3) / (x - 2)"
+        ],
+        "correct_index": 1,
+        "explanation": "Setting y = (2x + 3)/(x - 1) gives yx - y = 2x + 3, so x(y - 2) = y + 3, which yields f⁻¹(x) = (x + 3)/(x - 2)."
+      },
+      {
+        "question": "Evaluate the standard trigonometric limit: lim (x → 0) [ sin(5x) / (2x) ].",
+        "options": [
+          "0",
+          "1",
+          "5/2",
+          "Does not exist"
+        ],
+        "correct_index": 2,
+        "explanation": "Using lim (u → 0) [sin(u)/u] = 1, lim (x → 0) (5/2) * [sin(5x)/(5x)] = (5/2) * 1 = 5/2."
+      },
+      {
+        "question": "If z = 1 + i√3, what is the polar (trigonometric) form of the complex number z?",
+        "options": [
+          "2 (cos(π/6) + i sin(π/6))",
+          "2 (cos(π/3) + i sin(π/3))",
+          "√3 (cos(π/4) + i sin(π/4))",
+          "4 (cos(π/3) + i sin(π/3))"
+        ],
+        "correct_index": 1,
+        "explanation": "Modulus r = √(1² + (√3)²) = 2. Argument θ = arctan(√3/1) = π/3 (60°). Hence z = 2(cos(π/3) + i sin(π/3))."
+      },
+      {
+        "question": "Find the first derivative f'(x) of the function f(x) = ln(x² + 4).",
+        "options": [
+          "1 / (x² + 4)",
+          "2x / (x² + 4)",
+          "x / (x² + 4)",
+          "2 / (x + 2)"
+        ],
+        "correct_index": 1,
+        "explanation": "By the Chain Rule, d/dx [ln(u)] = u'/u. For u = x² + 4, u' = 2x, giving f'(x) = 2x / (x² + 4)."
+      }
+    ],
+    "phys101": [
+      {
+        "question": "A stone is thrown vertically upward with an initial velocity of 20 m/s from ground level (take g = 10 m/s²). What is the maximum height reached?",
+        "options": [
+          "15 meters",
+          "20 meters",
+          "25 meters",
+          "40 meters"
+        ],
+        "correct_index": 1,
+        "explanation": "At maximum height v = 0. Using v² = u² - 2gh: 0 = (20)² - 2(10)h ⇒ 400 = 20h ⇒ h = 20 meters."
+      },
+      {
+        "question": "According to Newton's Third Law of Motion, action and reaction forces:",
+        "options": [
+          "Act on the same body and cancel each other out",
+          "Act on different bodies simultaneously and never cancel each other",
+          "Are unequal in magnitude if one object accelerates",
+          "Act at different consecutive times"
+        ],
+        "correct_index": 1,
+        "explanation": "Action and reaction forces act on two completely different interacting bodies, so they can never cancel each other out on a single object."
+      },
+      {
+        "question": "A body of mass 2 kg moves along the x-axis under potential energy U(x) = 3x² - 6x (in Joules). What is the conservative force F(x) at x = 2 m?",
+        "options": [
+          "-6 N",
+          "+6 N",
+          "-12 N",
+          "0 N"
+        ],
+        "correct_index": 0,
+        "explanation": "Conservative force F(x) = -dU/dx = -(6x - 6) = 6 - 6x. At x = 2: F(2) = 6 - 6(2) = -6 N."
+      },
+      {
+        "question": "In an isolated physical system during a completely inelastic collision between two colliding bodies:",
+        "options": [
+          "Both total kinetic energy and linear momentum are conserved",
+          "Linear momentum is conserved, but kinetic energy is not conserved",
+          "Kinetic energy is conserved, but linear momentum is not conserved",
+          "Neither kinetic energy nor linear momentum is conserved"
+        ],
+        "correct_index": 1,
+        "explanation": "Linear momentum is always conserved in isolated systems. However, completely inelastic collisions convert maximum kinetic energy into heat and deformation."
+      },
+      {
+        "question": "A uniform solid cylinder of mass M and radius R rolls without slipping down an incline. What fraction of its total kinetic energy is rotational?",
+        "options": [
+          "1/2",
+          "1/3",
+          "2/3",
+          "1/4"
+        ],
+        "correct_index": 1,
+        "explanation": "K_rot = (1/2)Iω² = (1/4)Mv². K_trans = (1/2)Mv². Total K = (3/4)Mv². Fraction = (1/4)/(3/4) = 1/3 (33.3%)."
+      }
+    ],
+    "critical_thinking": [
+      {
+        "question": "Which of the following defines an argument that is both deductively valid and composed entirely of true premises?",
+        "options": [
+          "A Strong Argument",
+          "A Cogent Argument",
+          "A Sound Argument",
+          "An Inductively Verified Argument"
+        ],
+        "correct_index": 2,
+        "explanation": "In formal logic, a deductive argument is Sound if and only if its reasoning is valid AND all of its premises are factually true."
+      },
+      {
+        "question": "Identify the fallacy: 'Candidate X proposes investing in solar energy. But Candidate X has zero fashion taste, so his proposal is invalid.'",
+        "options": [
+          "Straw Man Fallacy",
+          "Argumentum Ad Hominem (Abusive)",
+          "Appeal to Pity",
+          "False Dilemma"
+        ],
+        "correct_index": 1,
+        "explanation": "Ad Hominem attacks personal characteristics rather than evaluating the validity of the argument itself."
+      },
+      {
+        "question": "What is the converse of the categorical proposition: 'No reptiles are mammals' (E-proposition)?",
+        "options": [
+          "Some reptiles are not mammals",
+          "No mammals are reptiles",
+          "All mammals are reptiles",
+          "Some mammals are reptiles"
+        ],
+        "correct_index": 1,
+        "explanation": "Conversion simply exchanges the subject and predicate. For universal negative (E) propositions, conversion is logically valid: 'No mammals are reptiles'."
+      },
+      {
+        "question": "Identify the fallacy: 'You must either agree with our campus policy completely, or you hate university education.'",
+        "options": [
+          "False Cause",
+          "False Dilemma / False Dichotomy",
+          "Slippery Slope",
+          "Hasty Generalization"
+        ],
+        "correct_index": 1,
+        "explanation": "A False Dilemma artificially restricts the alternatives to two extremes while ignoring intermediate options."
+      }
+    ],
+    "critical_emerging": [
+      {
+        "question": "Which core characteristic distinguishes the Fourth Industrial Revolution (Industry 4.0) from Industry 3.0?",
+        "options": [
+          "The invention of steam engines and mechanical weaving",
+          "The adoption of mass production assembly lines and electricity",
+          "The fusion of digital, biological, and physical spheres via Cyber-Physical Systems (CPS)",
+          "The initial introduction of basic personal computers"
+        ],
+        "correct_index": 2,
+        "explanation": "Industry 4.0 is defined by Cyber-Physical Systems (CPS), IoT, big data, and autonomous networks connecting the physical and digital worlds."
+      },
+      {
+        "question": "In Artificial Intelligence, which learning paradigm trains an agent to make sequential decisions by receiving rewards or penalties?",
+        "options": [
+          "Supervised Learning",
+          "Unsupervised Clustering",
+          "Reinforcement Learning (RL)",
+          "Semi-Supervised Label Propagation"
+        ],
+        "correct_index": 2,
+        "explanation": "Reinforcement Learning optimizes decision policies through environmental rewards and penalties without pre-labeled data."
+      },
+      {
+        "question": "In Internet of Things (IoT) network architecture, which layer is responsible for raw physical data acquisition using sensors and actuators?",
+        "options": [
+          "Perception (Sensing) Layer",
+          "Network Transmission Layer",
+          "Middleware / Processing Layer",
+          "Business Application Layer"
+        ],
+        "correct_index": 0,
+        "explanation": "The Perception Layer gathers raw physical variables (temperature, light, acceleration) using sensors and transducers."
+      },
+      {
+        "question": "Which cryptographic property makes a distributed blockchain ledger virtually immutable against historical alterations?",
+        "options": [
+          "Centralized Cloud Database Backups",
+          "Cryptographic Hashing and Proof-of-Work / Consensus Chaining",
+          "Symmetric Key File Encryption",
+          "Public IPv6 Tunneling"
+        ],
+        "correct_index": 1,
+        "explanation": "Each block contains the hash of the preceding block. Tampering with any historical record invalidates all subsequent blocks, which is rejected by consensus."
+      }
+    ]
+  }
+}

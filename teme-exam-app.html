@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Teme Freshman Exam Hub (ተሜ)</title>
+  <!-- Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070b14;
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --card-border: rgba(59, 130, 246, 0.25);
+      --primary: #3b82f6;
+      --primary-gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+      --success: #10b981;
+      --success-glow: rgba(16, 185, 129, 0.25);
+      --danger: #ef4444;
+      --danger-glow: rgba(239, 68, 68, 0.25);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-cyan: #00d2ff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(124, 58, 237, 0.12) 0%, transparent 40%);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      padding-bottom: 2rem;
+    }
+
+    /* Top Bar Header */
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0.5rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 1.5px solid rgba(59, 130, 246, 0.5);
+    }
+
+    .brand-name {
+      font-size: 1.15rem;
+      font-weight: 850;
+      letter-spacing: -0.3px;
+      color: #fff;
+    }
+
+    .brand-sub {
+      font-size: 0.72rem;
+      color: var(--accent-cyan);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Screen Containers */
+    .screen {
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+      animation: fadeIn 0.25s ease forwards;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Section Cards */
+    .section-banner {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 1.25rem;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .step-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #60a5fa;
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-heading {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Selection List / Grid */
+    .selection-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .select-card-btn {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1rem 1.15rem;
+      color: var(--text-main);
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+
+    .select-card-btn:active {
+      transform: scale(0.98);
+      border-color: var(--primary);
+      background: rgba(59, 130, 246, 0.15);
+    }
+
+    .arrow-icon {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    /* Back & Nav Buttons */
+    .btn-back {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 0.6rem 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      width: fit-content;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Question Screen */
+    .progress-bar-wrap {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary-gradient);
+      transition: width 0.3s ease;
+    }
+
+    .q-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      margin-bottom: 0.75rem;
+    }
+
+    .question-box {
+      font-size: 1.05rem;
+      font-weight: 750;
+      line-height: 1.55;
+      color: #fff;
+      margin-bottom: 1.25rem;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .option-btn {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 1rem;
+      color: #f1f5f9;
+      font-size: 0.92rem;
+      font-weight: 650;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: all 0.25s ease;
+      line-height: 1.4;
+    }
+
+    .option-letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.82rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    /* Evaluation Colors */
+    .option-btn.correct {
+      background: rgba(16, 185, 129, 0.2) !important;
+      border-color: #10b981 !important;
+      color: #34d399 !important;
+      box-shadow: 0 0 20px var(--success-glow);
+    }
+    .option-btn.correct .option-letter {
+      background: #10b981;
+      color: #fff;
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.2) !important;
+      border-color: #ef4444 !important;
+      color: #f87171 !important;
+      text-decoration: line-through;
+      box-shadow: 0 0 20px var(--danger-glow);
+    }
+    .option-btn.wrong .option-letter {
+      background: #ef4444;
+      color: #fff;
+    }
+
+    /* Explanation Banner */
+    .explanation-card {
+      display: none;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      border-radius: 18px;
+      padding: 1.15rem;
+      margin-top: 0.5rem;
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    .explanation-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #60a5fa;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .explanation-text {
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    .btn-next {
+      background: var(--primary-gradient);
+      border: none;
+      border-radius: 14px;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 800;
+      padding: 0.95rem 1.5rem;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 1rem;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    /* Result Card */
+    .result-score-box {
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    .score-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      margin: 0 auto 1.25rem;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 3px solid #3b82f6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 35px rgba(59, 130, 246, 0.4);
+    }
+
+    .score-number {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .score-percent {
+      font-size: 0.82rem;
+      font-weight: 750;
+      color: #60a5fa;
+      margin-top: 0.2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Brand Navigation Header -->
+  <header class="app-header">
+    <div class="brand-title">
+      <img src="assets/startups/teme_logo.jpg" alt="Teme Logo" class="brand-logo">
+      <div>
+        <div class="brand-name">TEME (ተሜ)</div>
+        <div class="brand-sub">Freshman Exam Hub</div>
+      </div>
+    </div>
+    <div style="font-size: 0.72rem; color: #10b981; font-weight: 750; background: rgba(16, 185, 129, 0.12); padding: 0.25rem 0.6rem; border-radius: 100px; border: 1px solid rgba(16, 185, 129, 0.3);">
+      ⚡ 24/7 ONLINE
+    </div>
+  </header>
+
+  <!-- SCREEN 1: University Selection -->
+  <main id="screen-uni" class="screen active">
+    <div class="section-banner">
+      <span class="step-tag">STEP 1 OF 4 &bull; UNIVERSITY SELECTION</span>
+      <h2 class="section-heading">Select Your University 🏛️</h2>
+      <p class="section-desc">Choose from 20 top universities across Ethiopia to practice tailored freshman exams:</p>
+    </div>
+    <div id="uni-list" class="selection-grid"></div>
+  </main>
+
+  <!-- SCREEN 2: Academic Year Selection -->
+  <section id="screen-year" class="screen">
+    <button class="btn-back" onclick="navigateTo('screen-uni')">⬅️ Back to Universities</button>
+    <div class="section-banner">
+      <span class="step-tag">STEP 2 OF 4 &bull; EXAM SESSION</span>
+      <h2 class="section-heading">Select Exam Session Year 📅</h2>
+      <p id="year-subtitle" class="section-desc">Choose which past exam year you want to take:</p>
+    </div>
+    <div id="year-list" class="selection-grid"></div>
+  </section>
+
+  <!-- SCREEN 3: Course Selection -->
+  <section id="screen-course" class="screen">
+    <button class="btn-back" onclick="navigateTo('screen-year')">⬅️ Back to Exam Years</button>
+    <div class="section-banner">
+      <span class="step-tag">STEP 3 OF 4 &bull; FRESHMAN COURSE</span>
+      <h2 class="section-heading">Select Course 📚</h2>
+      <p id="course-subtitle" class="section-desc">Select which course exam you want to practice:</p>
+    </div>
+    <div id="course-list" class="selection-grid"></div>
+  </section>
+
+  <!-- SCREEN 4: Chapter / Unit Selection -->
+  <section id="screen-unit" class="screen">
+    <button class="btn-back" onclick="navigateTo('screen-course')">⬅️ Back to Courses</button>
+    <div class="section-banner">
+      <span class="step-tag">STEP 4 OF 4 &bull; CHAPTER SELECTION</span>
+      <h2 class="section-heading">Select Chapter or Comprehensive 🎯</h2>
+      <p id="unit-subtitle" class="section-desc">Practice by chapter or take the complete exam:</p>
+    </div>
+    <div id="unit-list" class="selection-grid"></div>
+  </section>
+
+  <!-- SCREEN 5: Interactive Exam Screen -->
+  <section id="screen-exam" class="screen">
+    <div class="progress-bar-wrap">
+      <div id="progress-fill" class="progress-fill"></div>
+    </div>
+    <div class="q-meta">
+      <span id="q-counter">Question 1 of 5</span>
+      <span id="q-score-live">Score: 0</span>
+    </div>
+
+    <div class="section-banner">
+      <div id="question-text" class="question-box">Loading question...</div>
+      <div id="options-container" class="options-list"></div>
+
+      <!-- Red/Green Academic Explanation Card -->
+      <div id="explanation-card" class="explanation-card">
+        <div id="explanation-badge" class="explanation-title">💡 DETAILED ACADEMIC EXPLANATION:</div>
+        <p id="explanation-text" class="explanation-text"></p>
+        <button id="btn-next" class="btn-next" onclick="nextQuestion()">➡️ Next Question</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 6: Final Results Screen -->
+  <section id="screen-result" class="screen">
+    <div class="section-banner result-score-box">
+      <span class="step-tag" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.3);">🎉 EXAM COMPLETE!</span>
+      
+      <div class="score-circle">
+        <div id="final-score" class="score-number">5/5</div>
+        <div id="final-percent" class="score-percent">100%</div>
+      </div>
+
+      <h3 id="result-rating" style="font-size: 1.35rem; font-weight: 850; color: #fff; margin-bottom: 0.5rem;">🌟 Outstanding! (A Grade)</h3>
+      <p id="result-meta" style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5;"></p>
+
+      <button class="btn-next" style="margin-top: 0; margin-bottom: 0.75rem;" onclick="restartCurrentExam()">🔄 Retake This Exam</button>
+      <button class="select-card-btn" style="justify-content: center; width: 100%; margin-bottom: 0.6rem;" onclick="navigateTo('screen-course')">📚 Select Another Course</button>
+      <button class="select-card-btn" style="justify-content: center; width: 100%; margin-bottom: 1.25rem;" onclick="navigateTo('screen-uni')">🏛️ Change University</button>
+
+      <div style="padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.8rem; color: var(--text-muted);">
+        Powered by <b>ETHIO 21 Technologies</b><br>
+        Founders &amp; CEOs: Ashenafi Girma &amp; Lema Tefera
+      </div>
+    </div>
+  </section>
+
+  <!-- Application Logic -->
+  <script>
+    // Initialize Telegram WebApp SDK if available
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.ready();
+      window.Telegram.WebApp.expand();
+    }
+
+    let examData = null;
+    let userState = {
+      uni: null,
+      year: null,
+      course: null,
+      unit: null,
+      currentQ: 0,
+      score: 0,
+      answered: false
+    };
+
+    // Load Database
+    async function initApp() {
+      try {
+        const response = await fetch('assets/exam_data.json');
+        examData = await response.json();
+        renderUniversities();
+        renderYears();
+        renderCourses();
+      } catch (err) {
+        console.error('Failed to load exam data:', err);
+      }
+    }
+
+    function navigateTo(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById(screenId);
+      if (target) {
+        target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // Step 1: Universities
+    function renderUniversities() {
+      const container = document.getElementById('uni-list');
+      container.innerHTML = '';
+      examData.universities.forEach(u => {
+        const btn = document.createElement('button');
+        btn.className = 'select-card-btn';
+        btn.innerHTML = `<span>${u.name}</span><span class="arrow-icon">›</span>`;
+        btn.onclick = () => {
+          userState.uni = u;
+          document.getElementById('year-subtitle').innerText = `For ${u.name}. Choose examination session:`;
+          navigateTo('screen-year');
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    // Step 2: Years
+    function renderYears() {
+      const container = document.getElementById('year-list');
+      container.innerHTML = '';
+      examData.years.forEach(y => {
+        const btn = document.createElement('button');
+        btn.className = 'select-card-btn';
+        btn.innerHTML = `<span>${y.name}</span><span class="arrow-icon">›</span>`;
+        btn.onclick = () => {
+          userState.year = y;
+          document.getElementById('course-subtitle').innerText = `${userState.uni.name} • ${y.name}`;
+          navigateTo('screen-course');
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    // Step 3: Courses
+    function renderCourses() {
+      const container = document.getElementById('course-list');
+      container.innerHTML = '';
+      examData.courses.forEach(c => {
+        const btn = document.createElement('button');
+        btn.className = 'select-card-btn';
+        btn.innerHTML = `<span>${c.name}</span><span class="arrow-icon">›</span>`;
+        btn.onclick = () => {
+          userState.course = c;
+          renderUnits(c.id);
+          document.getElementById('unit-subtitle').innerText = `${c.name}`;
+          navigateTo('screen-unit');
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    // Step 4: Units
+    function renderUnits(courseId) {
+      const container = document.getElementById('unit-list');
+      container.innerHTML = '';
+      const units = examData.units[courseId] || [
+        { id: "all", name: "🏆 Complete Course Past Exam" },
+        { id: "u1", name: "Chapter 1: Foundational Principles" },
+        { id: "u2", name: "Chapter 2: Core Concepts & Applications" }
+      ];
+
+      units.forEach(u => {
+        const btn = document.createElement('button');
+        btn.className = 'select-card-btn';
+        btn.innerHTML = `<span>${u.name}</span><span class="arrow-icon">⚡</span>`;
+        btn.onclick = () => {
+          userState.unit = u;
+          startExam();
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    // Step 5: Start Exam
+    function startExam() {
+      userState.currentQ = 0;
+      userState.score = 0;
+      navigateTo('screen-exam');
+      loadQuestion();
+    }
+
+    function getQuestionPool() {
+      const cId = userState.course.id;
+      return examData.questions[cId] || examData.questions.math101;
+    }
+
+    function loadQuestion() {
+      userState.answered = false;
+      const questions = getQuestionPool();
+      const q = questions[userState.currentQ];
+
+      const progress = ((userState.currentQ) / questions.Count) * 100;
+      document.getElementById('progress-fill').style.width = `${((userState.currentQ + 1) / questions.length) * 100}%`;
+      document.getElementById('q-counter').innerText = `Question ${userState.currentQ + 1} of ${questions.length}`;
+      document.getElementById('q-score-live').innerText = `Score: ${userState.score}`;
+
+      document.getElementById('question-text').innerText = q.question;
+      document.getElementById('explanation-card').style.display = 'none';
+
+      const optContainer = document.getElementById('options-container');
+      optContainer.innerHTML = '';
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        const letter = String.fromCharCode(65 + idx);
+        btn.innerHTML = `<span class="option-letter">${letter}</span><span>${opt}</span>`;
+        btn.onclick = () => selectOption(idx, q);
+        optContainer.appendChild(btn);
+      });
+    }
+
+    function selectOption(selectedIdx, q) {
+      if (userState.answered) return;
+      userState.answered = true;
+
+      const buttons = document.querySelectorAll('.option-btn');
+      const isCorrect = (selectedIdx === q.correct_index);
+
+      if (isCorrect) {
+        userState.score++;
+        buttons[selectedIdx].classList.add('correct');
+        document.getElementById('explanation-badge').innerHTML = '🟢 <b>CORRECT! (+1 POINT)</b>';
+        document.getElementById('explanation-badge').style.color = '#34d399';
+      } else {
+        buttons[selectedIdx].classList.add('wrong');
+        buttons[q.correct_index].classList.add('correct');
+        document.getElementById('explanation-badge').innerHTML = '🔴 <b>INCORRECT ANSWER!</b>';
+        document.getElementById('explanation-badge').style.color = '#f87171';
+      }
+
+      document.getElementById('q-score-live').innerText = `Score: ${userState.score}`;
+      document.getElementById('explanation-text').innerText = q.explanation;
+      document.getElementById('explanation-card').style.display = 'block';
+
+      const questions = getQuestionPool();
+      if (userState.currentQ + 1 < questions.length) {
+        document.getElementById('btn-next').innerText = `➡️ Next Question (${userState.currentQ + 2}/${questions.length})`;
+      } else {
+        document.getElementById('btn-next').innerText = '🏆 View Final Score & Rating';
+      }
+    }
+
+    function nextQuestion() {
+      const questions = getQuestionPool();
+      if (userState.currentQ + 1 < questions.length) {
+        userState.currentQ++;
+        loadQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      const questions = getQuestionPool();
+      const percent = Math.round((userState.score / questions.length) * 100);
+
+      document.getElementById('final-score').innerText = `${userState.score}/${questions.length}`;
+      document.getElementById('final-percent').innerText = `${percent}%`;
+
+      let rating = "📖 Keep Practicing!";
+      if (percent >= 80) rating = "🌟 Outstanding! (A Grade)";
+      else if (percent >= 60) rating = "👍 Good Work! (B Grade)";
+
+      document.getElementById('result-rating').innerText = rating;
+      document.getElementById('result-meta').innerHTML = `
+        <b>University:</b> ${userState.uni.name}<br>
+        <b>Session:</b> ${userState.year.name}<br>
+        <b>Course:</b> ${userState.course.name}
+      `;
+
+      navigateTo('screen-result');
+    }
+
+    function restartCurrentExam() {
+      userState.currentQ = 0;
+      userState.score = 0;
+      navigateTo('screen-exam');
+      loadQuestion();
+    }
+
+    // Launch App
+    window.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
