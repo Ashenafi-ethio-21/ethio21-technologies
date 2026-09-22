@@ -14,6 +14,7 @@ const translations = {
     navServices: "Core Services",
     navVentureHub: "Startup Venture Hub",
     navMediaHub: "Media & Ads",
+    navFounders: "Founders",
     navCommunity: "Community",
     navContact: "Connect on Telegram",
     ctaConsultation: "Chat on Telegram",
@@ -147,6 +148,15 @@ const translations = {
     pitchDesc: "Describe the real-life problem you are solving and your solution vision...",
     pitchSubmit: "Submit Co-Builder Application on Telegram 🚀",
 
+    // Founders & Leadership
+    foundersPretitle: "EXECUTIVE LEADERSHIP & VISION",
+    foundersTitle: "Meet the Founders of ETHIO 21",
+    foundersSubtitle: "Driven by a mission to engineer high-performance software systems, empower young innovators, and build scalable digital enterprises across Ethiopia.",
+    founder1Role: "CO-FOUNDER • LEAD ARCHITECT",
+    founder1Bio: "Software architect and visionary product strategist. Spearheading full-stack software development, cloud infrastructure, cross-platform mobile apps (Flutter/Native), and the ETHIO 21 Venture Studio incubator.",
+    founder2Role: "CO-FOUNDER • MANAGING DIRECTOR",
+    founder2Bio: "Operations executive and strategic growth director. Driving corporate governance, commercial client acquisitions, institutional partnerships, and scaling ETHIO 21's nationwide technology footprint.",
+
     // Contact
     contactPretitle: "INSTANT TELEGRAM CONNECTION",
     contactTitle: "Connect Directly With Our Team",
@@ -194,6 +204,7 @@ const translations = {
     navServices: "ዋና አገልግሎቶች",
     navVentureHub: "የስታርትአፕ ማዕከል",
     navMediaHub: "ሚዲያ እና ማስታወቂያ",
+    navFounders: "መስራቾች",
     navCommunity: "ማህበረሰብ",
     navContact: "በቴሌግራም ያግኙን",
     ctaConsultation: "በቴሌግራም ያውሩን",
@@ -325,7 +336,16 @@ const translations = {
     pitchStage: "አሁን ያለበት ደረጃ (የመጀመሪያ ሃሳብ / በሙከራ ላይ / ተጠቃሚ ያለው)",
     pitchNeeds: "ዋና የሚያስፈልግዎት ድጋፍ ከኢትዮ 21",
     pitchDesc: "ስለ አፑ አሰራር፣ የሚፈታው ችግር እና አጠቃላይ ራዕይ ይግለጹ...",
-    pitchSubmit: "የስቱዲዮ ማመልከቻውን በቴሌግራም ይላኩ 🚀",
+    pitchSubmit: "በቴሌግራም የስታርትአፕ ማመልከቻ አስገባ 🚀",
+
+    // Founders & Leadership
+    foundersPretitle: "አመራር እና ራዕይ",
+    foundersTitle: "የኢትዮ 21 መስራቾች",
+    foundersSubtitle: "ዓለም አቀፍ ደረጃቸውን የጠበቁ የሶፍትዌር ስርዓቶችን ለመገንባት፣ ወጣት የፈጠራ ባለቤቶችን ለማብቃት እና በመላው ኢትዮጵያ ጠንካራ የቴክኖሎጂ ስነ-ምህዳር ለመፍጠር በትጋት የሚሰሩ።",
+    founder1Role: "ተባባሪ መስራች • ዋና የሶፍትዌር መሃንዲስ",
+    founder1Bio: "የሶፍትዌር አርክቴክት እና የፈጠራ ምርት ስትራቴጂስት። የተሟሉ የሶፍትዌር ሲስተሞች ልማት፣ የክላውድ መሰረተ-ልማት፣ የፍሉተር/ኔቲቭ ሞባይል አፖች እና የኢትዮ 21 የስታርትአፕ ማዕከል መሪ።",
+    founder2Role: "ተባባሪ መስራች • ማኔጂንግ ዳይሬክተር",
+    founder2Bio: "የኦፕሬሽን እና የስትራቴጂክ እድገት መሪ። የድርጅት ግንኙነቶች፣ የንግድ ስምምነቶች፣ የውል አስተዳደር እና የኢትዮ 21 የቴክኖሎጂ አድማስ ማስፋፊያ ስራዎች መሪ።",
 
     // Contact
     contactPretitle: "ቀጥታ የቴሌግራም ግንኙነት",
