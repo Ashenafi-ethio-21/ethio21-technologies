@@ -284,31 +284,96 @@
       color: #fff;
     }
 
-    /* Explanation Banner */
+    /* Explanation Banner & 3D Flip Card */
     .explanation-card {
       display: none;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(59, 130, 246, 0.4);
-      border-radius: 18px;
-      padding: 1.15rem;
-      margin-top: 0.5rem;
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin-top: 0.75rem;
       animation: fadeIn 0.3s ease forwards;
     }
 
     .explanation-title {
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       font-weight: 800;
       color: #60a5fa;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.5rem;
       display: flex;
       align-items: center;
       gap: 0.4rem;
     }
 
+    /* 3D Flip Card Container */
+    .flip-card-wrapper {
+      perspective: 1200px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr;
+      transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+      transform-style: preserve-3d;
+    }
+
+    .flip-card-inner.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .flip-face {
+      grid-row: 1;
+      grid-column: 1;
+      border-radius: 20px;
+      padding: 1.25rem;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    /* Front Face (English) */
+    .flip-face-front {
+      background: rgba(15, 23, 42, 0.95);
+      border: 1.5px solid rgba(59, 130, 246, 0.45);
+      transform: rotateY(0deg);
+    }
+    .flip-card-wrapper:hover .flip-face-front {
+      border-color: rgba(59, 130, 246, 0.75);
+      box-shadow: 0 12px 35px rgba(59, 130, 246, 0.25);
+    }
+
+    /* Back Face (Amharic) */
+    .flip-face-back {
+      background: rgba(8, 28, 48, 0.97);
+      border: 1.5px solid rgba(14, 165, 233, 0.6);
+      transform: rotateY(180deg);
+    }
+    .flip-card-wrapper:hover .flip-face-back {
+      border-color: rgba(14, 165, 233, 0.9);
+      box-shadow: 0 12px 35px rgba(14, 165, 233, 0.25);
+    }
+
+    .flip-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.14);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 0.25rem 0.65rem;
+      border-radius: 100px;
+      transition: all 0.2s ease;
+    }
+
     .explanation-text {
-      font-size: 0.88rem;
-      color: #cbd5e1;
-      line-height: 1.6;
+      font-size: 0.9rem;
+      color: #e2e8f0;
+      line-height: 1.65;
     }
 
     .btn-next {
@@ -443,23 +508,43 @@
       <div id="explanation-card" class="explanation-card">
         <div id="explanation-badge" class="explanation-title">💡 DETAILED ACADEMIC EXPLANATION:</div>
         
-        <!-- Official English Explanation -->
-        <div style="margin-top: 0.6rem; margin-bottom: 0.75rem;">
-          <div style="font-size: 0.74rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.35rem;">🇬🇧 Official English Explanation:</div>
-          <p id="explanation-text" class="explanation-text"></p>
-        </div>
-
-        <!-- Additional Amharic Explanation -->
-        <div id="amharic-box" style="background: rgba(14, 165, 233, 0.08); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 14px; padding: 0.85rem; margin-top: 0.6rem;">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4rem;">
-            <div style="font-size: 0.8rem; font-weight: 800; color: #38bdf8;">
-              🇪🇹 የአማርኛ ማብራሪያ (Amharic Explanation):
+        <!-- Interactive 3D Flip Card Container -->
+        <div class="flip-card-wrapper" onclick="toggleExplanationFlip()" title="Click or tap to flip explanation">
+          <div id="explanation-flip-inner" class="flip-card-inner">
+            
+            <!-- Front Face: Official English Academic Explanation -->
+            <div class="flip-face flip-face-front">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+                <div style="font-size: 0.74rem; font-weight: 800; color: #93c5fd; text-transform: uppercase; letter-spacing: 0.5px;">
+                  🇬🇧 Official English Explanation
+                </div>
+                <div class="flip-indicator">
+                  🔄 Flip to አማርኛ
+                </div>
+              </div>
+              <p id="explanation-text" class="explanation-text"></p>
+              <div style="margin-top: 0.75rem; font-size: 0.74rem; color: #64748b; font-style: italic; display: flex; align-items: center; gap: 0.35rem;">
+                <span>👆 Tap card anywhere to flip &amp; read optional Amharic explanation</span>
+              </div>
             </div>
-            <span style="font-size: 0.68rem; background: rgba(56, 189, 248, 0.2); color: #7dd3fc; padding: 0.15rem 0.5rem; border-radius: 6px; font-weight: 700;">
-              ተጨማሪ ማብራሪያ
-            </span>
+
+            <!-- Back Face: Additional Amharic Explanation -->
+            <div class="flip-face flip-face-back">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+                <div style="font-size: 0.82rem; font-weight: 800; color: #38bdf8;">
+                  🇪🇹 የአማርኛ ዝርዝር ማብራሪያ (Amharic)
+                </div>
+                <div class="flip-indicator" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.35); color: #34d399;">
+                  🔄 Flip to English
+                </div>
+              </div>
+              <p id="explanation-text-am" class="explanation-text" style="color: #f8fafc; line-height: 1.7;"></p>
+              <div style="margin-top: 0.75rem; font-size: 0.74rem; color: #7dd3fc; font-style: italic; display: flex; align-items: center; gap: 0.35rem;">
+                <span>👆 ወደ እንግሊዝኛ ማብራሪያ ለመመለስ ካርዱን ይንኩ (Tap to flip back)</span>
+              </div>
+            </div>
+
           </div>
-          <p id="explanation-text-am" class="explanation-text" style="color: #f1f5f9; line-height: 1.65; margin: 0;"></p>
         </div>
 
         <button id="btn-next" class="btn-next" onclick="nextQuestion()">➡️ Next Question</button>
@@ -623,10 +708,23 @@
       return examData.questions[cId] || examData.questions.math101;
     }
 
+    function toggleExplanationFlip() {
+      const inner = document.getElementById('explanation-flip-inner');
+      if (inner) {
+        inner.classList.toggle('flipped');
+      }
+    }
+
     function loadQuestion() {
       userState.answered = false;
       const questions = getQuestionPool();
       const q = questions[userState.currentQ];
+
+      // Reset flip to front (English) for every question
+      const flipInner = document.getElementById('explanation-flip-inner');
+      if (flipInner) {
+        flipInner.classList.remove('flipped');
+      }
 
       document.getElementById('progress-fill').style.width = `${((userState.currentQ + 1) / questions.length) * 100}%`;
       document.getElementById('q-counter').innerText = `Question ${userState.currentQ + 1} of ${questions.length}`;
@@ -651,6 +749,12 @@
     function selectOption(selectedIdx, q) {
       if (userState.answered) return;
       userState.answered = true;
+
+      // Ensure flip starts on English front face
+      const flipInner = document.getElementById('explanation-flip-inner');
+      if (flipInner) {
+        flipInner.classList.remove('flipped');
+      }
 
       const buttons = document.querySelectorAll('.option-btn');
       const isCorrect = (selectedIdx === q.correct_index);
