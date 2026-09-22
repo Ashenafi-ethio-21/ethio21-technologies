@@ -152,10 +152,12 @@ const translations = {
     foundersPretitle: "EXECUTIVE LEADERSHIP & VISION",
     foundersTitle: "Meet the Founders of ETHIO 21",
     foundersSubtitle: "Driven by a mission to engineer high-performance software systems, empower young innovators, and build scalable digital enterprises across Ethiopia.",
-    founder1Role: "CO-FOUNDER • LEAD ARCHITECT",
-    founder1Bio: "Software architect and visionary product strategist. Spearheading full-stack software development, cloud infrastructure, cross-platform mobile apps (Flutter/Native), and the ETHIO 21 Venture Studio incubator.",
-    founder2Role: "CO-FOUNDER • MANAGING DIRECTOR",
-    founder2Bio: "Operations executive and strategic growth director. Driving corporate governance, commercial client acquisitions, institutional partnerships, and scaling ETHIO 21's nationwide technology footprint.",
+    founder1Role: "FOUNDER & CEO • ETHIO 21",
+    founder1TemeRole: "Co-Founder & CEO • Teme Educational Platform",
+    founder1Bio: "Founder & CEO of ETHIO 21 Technologies and Co-Founder & CEO of Teme Educational Platform. Spearheading enterprise software architecture, full-stack cloud systems, mobile apps, and flagship startup innovations.",
+    founder2Role: "CEO • ETHIO 21",
+    founder2TemeRole: "Co-Founder & CEO • Teme Educational Platform",
+    founder2Bio: "CEO of ETHIO 21 Technologies and Co-Founder & CEO of Teme Educational Platform. Leading executive operations, commercial client scaling, corporate strategy, and nationwide technology ventures.",
 
     // Contact
     contactPretitle: "INSTANT TELEGRAM CONNECTION",
@@ -342,10 +344,12 @@ const translations = {
     foundersPretitle: "አመራር እና ራዕይ",
     foundersTitle: "የኢትዮ 21 መስራቾች",
     foundersSubtitle: "ዓለም አቀፍ ደረጃቸውን የጠበቁ የሶፍትዌር ስርዓቶችን ለመገንባት፣ ወጣት የፈጠራ ባለቤቶችን ለማብቃት እና በመላው ኢትዮጵያ ጠንካራ የቴክኖሎጂ ስነ-ምህዳር ለመፍጠር በትጋት የሚሰሩ።",
-    founder1Role: "ተባባሪ መስራች • ዋና የሶፍትዌር መሃንዲስ",
-    founder1Bio: "የሶፍትዌር አርክቴክት እና የፈጠራ ምርት ስትራቴጂስት። የተሟሉ የሶፍትዌር ሲስተሞች ልማት፣ የክላውድ መሰረተ-ልማት፣ የፍሉተር/ኔቲቭ ሞባይል አፖች እና የኢትዮ 21 የስታርትአፕ ማዕከል መሪ።",
-    founder2Role: "ተባባሪ መስራች • ማኔጂንግ ዳይሬክተር",
-    founder2Bio: "የኦፕሬሽን እና የስትራቴጂክ እድገት መሪ። የድርጅት ግንኙነቶች፣ የንግድ ስምምነቶች፣ የውል አስተዳደር እና የኢትዮ 21 የቴክኖሎጂ አድማስ ማስፋፊያ ስራዎች መሪ።",
+    founder1Role: "መስራች እና ዋና ስራ አስፈፃሚ (CEO) • ኢትዮ 21",
+    founder1TemeRole: "ተባባሪ መስራች እና CEO • ተሜ የትምህርት መድረክ",
+    founder1Bio: "የኢትዮ 21 ቴክኖሎጂስ መስራች እና CEO እንዲሁም የተሜ የትምህርት መድረክ ተባባሪ መስራች እና CEO። የሶፍትዌር አርክቴክቸር፣ የክላውድ ሲስተሞች እና የሞባይል አፖች ልማት መሪ።",
+    founder2Role: "ዋና ስራ አስፈፃሚ (CEO) • ኢትዮ 21",
+    founder2TemeRole: "ተባባሪ መስራች እና CEO • ተሜ የትምህርት መድረክ",
+    founder2Bio: "የኢትዮ 21 ቴክኖሎጂስ CEO እንዲሁም የተሜ የትምህርት መድረክ ተባባሪ መስራች እና CEO። የድርጅት ኦፕሬሽን፣ የንግድ ስምምነቶች እና የቴክኖሎጂ ስነ-ምህዳር ማስፋፊያ ስራዎች መሪ።",
 
     // Contact
     contactPretitle: "ቀጥታ የቴሌግራም ግንኙነት",
