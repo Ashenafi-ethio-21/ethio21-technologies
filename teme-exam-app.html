@@ -372,30 +372,36 @@
       <img src="assets/startups/teme_logo.jpg" alt="Teme Logo" class="brand-logo">
       <div>
         <div class="brand-name">TEME (ተሜ)</div>
-        <div class="brand-sub">Freshman Exam Hub</div>
+        <div class="brand-sub" id="brand-sub-title">Freshman Exam Hub</div>
       </div>
     </div>
-    <div style="font-size: 0.72rem; color: #10b981; font-weight: 750; background: rgba(16, 185, 129, 0.12); padding: 0.25rem 0.6rem; border-radius: 100px; border: 1px solid rgba(16, 185, 129, 0.3);">
-      ⚡ 24/7 ONLINE
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <!-- Language Switcher Toggle -->
+      <button id="lang-toggle-btn" onclick="toggleLanguage()" style="background: rgba(59, 130, 246, 0.2); border: 1.5px solid rgba(59, 130, 246, 0.45); color: #93c5fd; font-weight: 800; font-size: 0.78rem; padding: 0.35rem 0.75rem; border-radius: 100px; cursor: pointer; display: flex; align-items: center; gap: 0.35rem; transition: all 0.2s ease;">
+        🌐 <span id="lang-btn-label">አማርኛ</span>
+      </button>
+      <div style="font-size: 0.72rem; color: #10b981; font-weight: 750; background: rgba(16, 185, 129, 0.12); padding: 0.25rem 0.6rem; border-radius: 100px; border: 1px solid rgba(16, 185, 129, 0.3);">
+        ⚡ 24/7
+      </div>
     </div>
   </header>
 
   <!-- SCREEN 1: University Selection -->
   <main id="screen-uni" class="screen active">
     <div class="section-banner">
-      <span class="step-tag">STEP 1 OF 4 &bull; UNIVERSITY SELECTION</span>
-      <h2 class="section-heading">Select Your University 🏛️</h2>
-      <p class="section-desc">Choose from 20 top universities across Ethiopia to practice tailored freshman exams:</p>
+      <span class="step-tag" id="t-step1-tag">STEP 1 OF 4 &bull; UNIVERSITY SELECTION</span>
+      <h2 class="section-heading" id="t-step1-title">Select Your University 🏛️</h2>
+      <p class="section-desc" id="t-step1-desc">Choose from 20 top universities across Ethiopia to practice tailored freshman exams:</p>
     </div>
     <div id="uni-list" class="selection-grid"></div>
   </main>
 
   <!-- SCREEN 2: Academic Year Selection -->
   <section id="screen-year" class="screen">
-    <button class="btn-back" onclick="navigateTo('screen-uni')">⬅️ Back to Universities</button>
+    <button class="btn-back" onclick="navigateTo('screen-uni')"><span id="t-back-uni">⬅️ Back to Universities</span></button>
     <div class="section-banner">
-      <span class="step-tag">STEP 2 OF 4 &bull; EXAM SESSION</span>
-      <h2 class="section-heading">Select Exam Session Year 📅</h2>
+      <span class="step-tag" id="t-step2-tag">STEP 2 OF 4 &bull; EXAM SESSION</span>
+      <h2 class="section-heading" id="t-step2-title">Select Exam Session Year 📅</h2>
       <p id="year-subtitle" class="section-desc">Choose which past exam year you want to take:</p>
     </div>
     <div id="year-list" class="selection-grid"></div>
@@ -403,10 +409,10 @@
 
   <!-- SCREEN 3: Course Selection -->
   <section id="screen-course" class="screen">
-    <button class="btn-back" onclick="navigateTo('screen-year')">⬅️ Back to Exam Years</button>
+    <button class="btn-back" onclick="navigateTo('screen-year')"><span id="t-back-year">⬅️ Back to Exam Years</span></button>
     <div class="section-banner">
-      <span class="step-tag">STEP 3 OF 4 &bull; FRESHMAN COURSE</span>
-      <h2 class="section-heading">Select Course 📚</h2>
+      <span class="step-tag" id="t-step3-tag">STEP 3 OF 4 &bull; FRESHMAN COURSE</span>
+      <h2 class="section-heading" id="t-step3-title">Select Course 📚</h2>
       <p id="course-subtitle" class="section-desc">Select which course exam you want to practice:</p>
     </div>
     <div id="course-list" class="selection-grid"></div>
@@ -414,10 +420,10 @@
 
   <!-- SCREEN 4: Chapter / Unit Selection -->
   <section id="screen-unit" class="screen">
-    <button class="btn-back" onclick="navigateTo('screen-course')">⬅️ Back to Courses</button>
+    <button class="btn-back" onclick="navigateTo('screen-course')"><span id="t-back-course">⬅️ Back to Courses</span></button>
     <div class="section-banner">
-      <span class="step-tag">STEP 4 OF 4 &bull; CHAPTER SELECTION</span>
-      <h2 class="section-heading">Select Chapter or Comprehensive 🎯</h2>
+      <span class="step-tag" id="t-step4-tag">STEP 4 OF 4 &bull; CHAPTER SELECTION</span>
+      <h2 class="section-heading" id="t-step4-title">Select Chapter or Comprehensive 🎯</h2>
       <p id="unit-subtitle" class="section-desc">Practice by chapter or take the complete exam:</p>
     </div>
     <div id="unit-list" class="selection-grid"></div>
@@ -449,7 +455,7 @@
   <!-- SCREEN 6: Final Results Screen -->
   <section id="screen-result" class="screen">
     <div class="section-banner result-score-box">
-      <span class="step-tag" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.3);">🎉 EXAM COMPLETE!</span>
+      <span class="step-tag" id="t-result-tag" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.3);">🎉 EXAM COMPLETE!</span>
       
       <div class="score-circle">
         <div id="final-score" class="score-number">5/5</div>
@@ -459,11 +465,11 @@
       <h3 id="result-rating" style="font-size: 1.35rem; font-weight: 850; color: #fff; margin-bottom: 0.5rem;">🌟 Outstanding! (A Grade)</h3>
       <p id="result-meta" style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5;"></p>
 
-      <button class="btn-next" style="margin-top: 0; margin-bottom: 0.75rem;" onclick="restartCurrentExam()">🔄 Retake This Exam</button>
-      <button class="select-card-btn" style="justify-content: center; width: 100%; margin-bottom: 0.6rem;" onclick="navigateTo('screen-course')">📚 Select Another Course</button>
-      <button class="select-card-btn" style="justify-content: center; width: 100%; margin-bottom: 1.25rem;" onclick="navigateTo('screen-uni')">🏛️ Change University</button>
+      <button class="btn-next" id="t-btn-retake" style="margin-top: 0; margin-bottom: 0.75rem;" onclick="restartCurrentExam()">🔄 Retake This Exam</button>
+      <button class="select-card-btn" id="t-btn-another-course" style="justify-content: center; width: 100%; margin-bottom: 0.6rem;" onclick="navigateTo('screen-course')">📚 Select Another Course</button>
+      <button class="select-card-btn" id="t-btn-change-uni" style="justify-content: center; width: 100%; margin-bottom: 1.25rem;" onclick="navigateTo('screen-uni')">🏛️ Change University</button>
 
-      <div style="padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.8rem; color: var(--text-muted);">
+      <div style="padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.8rem; color: var(--text-muted);" id="t-footer-credits">
         Powered by <b>ETHIO 21 Technologies</b><br>
         Founders &amp; CEOs: Ashenafi Girma &amp; Lema Tefera
       </div>
@@ -479,6 +485,7 @@
     }
 
     let examData = null;
+    let currentLang = 'en';
     let userState = {
       uni: null,
       year: null,
@@ -488,6 +495,148 @@
       score: 0,
       answered: false
     };
+
+    const i18n = {
+      en: {
+        langBtnLabel: "አማርኛ",
+        brandSubTitle: "Freshman Exam Hub",
+        step1Tag: "STEP 1 OF 4 • UNIVERSITY SELECTION",
+        step1Title: "Select Your University 🏛️",
+        step1Desc: "Choose from 20 top universities across Ethiopia to practice tailored freshman exams:",
+        backUni: "⬅️ Back to Universities",
+        step2Tag: "STEP 2 OF 4 • EXAM SESSION",
+        step2Title: "Select Exam Session Year 📅",
+        backYear: "⬅️ Back to Exam Years",
+        step3Tag: "STEP 3 OF 4 • FRESHMAN COURSE",
+        step3Title: "Select Course 📚",
+        backCourse: "⬅️ Back to Courses",
+        step4Tag: "STEP 4 OF 4 • CHAPTER SELECTION",
+        step4Title: "Select Chapter or Comprehensive 🎯",
+        unitSubtitleDefault: "Practice by chapter or take the complete exam:",
+        questionPrefix: "Question",
+        ofPrefix: "of",
+        scoreLivePrefix: "Score:",
+        correctBadge: "🟢 <b>CORRECT! (+1 POINT)</b>",
+        wrongBadge: "🔴 <b>INCORRECT ANSWER!</b>",
+        explanationTitle: "💡 DETAILED ACADEMIC EXPLANATION:",
+        nextBtn: "➡️ Next Question",
+        finishBtn: "🏆 View Final Score & Rating",
+        resultTag: "🎉 EXAM COMPLETE!",
+        ratingA: "🌟 Outstanding! (A Grade)",
+        ratingB: "👍 Good Work! (B Grade)",
+        ratingC: "📖 Keep Practicing!",
+        btnRetake: "🔄 Retake This Exam",
+        btnAnotherCourse: "📚 Select Another Course",
+        btnChangeUni: "🏛️ Change University",
+        footerCredits: "Powered by <b>ETHIO 21 Technologies</b><br>Founders &amp; CEOs: Ashenafi Girma &amp; Lema Tefera"
+      },
+      am: {
+        langBtnLabel: "English",
+        brandSubTitle: "የፍሬሽማን ፈተና ማዕከል",
+        step1Tag: "ደረጃ 1 ከ 4 • ዩኒቨርሲቲ ይምረጡ",
+        step1Title: "ዩኒቨርሲቲዎን ይምረጡ 🏛️",
+        step1Desc: "ለፍሬሽማን ፈተና መለማመጃ ከ 20 የኢትዮጵያ ዩኒቨርሲቲዎች መካከል ይምረጡ፦",
+        backUni: "⬅️ ወደ ዩኒቨርሲቲ ምርጫ ተመለስ",
+        step2Tag: "ደረጃ 2 ከ 4 • የፈተና ዓመተ ምህረት",
+        step2Title: "የፈተና ዓመተ ምህረት ይምረጡ 📅",
+        backYear: "⬅️ ወደ ፈተና ዓመታት ተመለስ",
+        step3Tag: "ደረጃ 3 ከ 4 • የፍሬሽማን ኮርስ",
+        step3Title: "የሚፈተኑትን ኮርስ ይምረጡ 📚",
+        backCourse: "⬅️ ወደ ኮርሶች ተመለስ",
+        step4Tag: "ደረጃ 4 ከ 4 • የምዕራፍ ምርጫ",
+        step4Title: "ምዕራፍ ወይም አጠቃላይ ፈተና ይምረጡ 🎯",
+        unitSubtitleDefault: "በምዕራፍ ወይም የሙሉ ኮርስ ፈተናውን ይለማመዱ፦",
+        questionPrefix: "ጥያቄ",
+        ofPrefix: "ከ",
+        scoreLivePrefix: "ውጤት፦",
+        correctBadge: "🟢 <b>ትክክል ነው! (+1 ነጥብ)</b>",
+        wrongBadge: "🔴 <b>የተሳሳተ መልስ!</b>",
+        explanationTitle: "💡 ዝርዝር የአካዳሚክ ማብራሪያ፦",
+        nextBtn: "➡️ ቀጣይ ጥያቄ",
+        finishBtn: "🏆 የመጨረሻውን ውጤት ይመልከቱ",
+        resultTag: "🎉 ፈተናው ተጠናቋል!",
+        ratingA: "🌟 እጅግ በጣም ጥሩ! (A ደረጃ)",
+        ratingB: "👍 ጥሩ ውጤት! (B ደረጃ)",
+        ratingC: "📖 ጠንክረህ ተለማመድ!",
+        btnRetake: "🔄 ፈተናውን እንደገና ይውሰዱ",
+        btnAnotherCourse: "📚 ሌላ ኮርስ ይምረጡ",
+        btnChangeUni: "🏛️ ዩኒቨርሲቲ ይቀይሩ",
+        footerCredits: "የተዘጋጀው በ <b>ኢትዮ 21 ቴክኖሎጂስ</b><br>መስራቾች እና ዋና ስራ አስፈፃሚዎች፦ አሸናፊ ግርማ እና ለማ ተፈራ"
+      }
+    };
+
+    function toggleLanguage() {
+      currentLang = (currentLang === 'en') ? 'am' : 'en';
+      applyLanguage();
+    }
+
+    function applyLanguage() {
+      const t = i18n[currentLang];
+      document.getElementById('lang-btn-label').innerText = t.langBtnLabel;
+      document.getElementById('brand-sub-title').innerText = t.brandSubTitle;
+      
+      // Step 1
+      document.getElementById('t-step1-tag').innerText = t.step1Tag;
+      document.getElementById('t-step1-title').innerText = t.step1Title;
+      document.getElementById('t-step1-desc').innerText = t.step1Desc;
+
+      // Step 2
+      document.getElementById('t-back-uni').innerText = t.backUni;
+      document.getElementById('t-step2-tag').innerText = t.step2Tag;
+      document.getElementById('t-step2-title').innerText = t.step2Title;
+      if (userState.uni) {
+        const uName = (currentLang === 'am' && userState.uni.name_am) ? userState.uni.name_am : userState.uni.name;
+        document.getElementById('year-subtitle').innerText = currentLang === 'am' ? `ለ ${uName} የፈተና ዓ.ም ይምረጡ፦` : `For ${uName}. Choose examination session:`;
+      }
+
+      // Step 3
+      document.getElementById('t-back-year').innerText = t.backYear;
+      document.getElementById('t-step3-tag').innerText = t.step3Tag;
+      document.getElementById('t-step3-title').innerText = t.step3Title;
+      if (userState.uni && userState.year) {
+        const uName = (currentLang === 'am' && userState.uni.name_am) ? userState.uni.name_am : userState.uni.name;
+        const yName = (currentLang === 'am' && userState.year.name_am) ? userState.year.name_am : userState.year.name;
+        document.getElementById('course-subtitle').innerText = `${uName} • ${yName}`;
+      }
+
+      // Step 4
+      document.getElementById('t-back-course').innerText = t.backCourse;
+      document.getElementById('t-step4-tag').innerText = t.step4Tag;
+      document.getElementById('t-step4-title').innerText = t.step4Title;
+      if (userState.course) {
+        const cName = (currentLang === 'am' && userState.course.name_am) ? userState.course.name_am : userState.course.name;
+        document.getElementById('unit-subtitle').innerText = `${cName}`;
+      }
+
+      // Step 6 Result labels
+      document.getElementById('t-result-tag').innerText = t.resultTag;
+      document.getElementById('t-btn-retake').innerText = t.btnRetake;
+      document.getElementById('t-btn-another-course').innerText = t.btnAnotherCourse;
+      document.getElementById('t-btn-change-uni').innerText = t.btnChangeUni;
+      document.getElementById('t-footer-credits').innerHTML = t.footerCredits;
+
+      // Re-render lists if data loaded
+      if (examData) {
+        renderUniversities();
+        renderYears();
+        renderCourses();
+        if (userState.course) {
+          renderUnits(userState.course.id);
+        }
+      }
+
+      // If in exam screen, update current question
+      const examScreen = document.getElementById('screen-exam');
+      if (examScreen && examScreen.classList.contains('active')) {
+        loadQuestion();
+      }
+
+      // If in results screen, re-render results
+      const resultScreen = document.getElementById('screen-result');
+      if (resultScreen && resultScreen.classList.contains('active')) {
+        showResults();
+      }
+    }
 
     // Load Database
     async function initApp() {
@@ -514,14 +663,17 @@
     // Step 1: Universities
     function renderUniversities() {
       const container = document.getElementById('uni-list');
+      if (!container || !examData) return;
       container.innerHTML = '';
       examData.universities.forEach(u => {
         const btn = document.createElement('button');
         btn.className = 'select-card-btn';
-        btn.innerHTML = `<span>${u.name}</span><span class="arrow-icon">›</span>`;
+        const displayName = (currentLang === 'am' && u.name_am) ? u.name_am : u.name;
+        btn.innerHTML = `<span>${displayName}</span><span class="arrow-icon">›</span>`;
         btn.onclick = () => {
           userState.uni = u;
-          document.getElementById('year-subtitle').innerText = `For ${u.name}. Choose examination session:`;
+          const uName = (currentLang === 'am' && u.name_am) ? u.name_am : u.name;
+          document.getElementById('year-subtitle').innerText = currentLang === 'am' ? `ለ ${uName} የፈተና ዓ.ም ይምረጡ፦` : `For ${uName}. Choose examination session:`;
           navigateTo('screen-year');
         };
         container.appendChild(btn);
@@ -531,14 +683,17 @@
     // Step 2: Years
     function renderYears() {
       const container = document.getElementById('year-list');
+      if (!container || !examData) return;
       container.innerHTML = '';
       examData.years.forEach(y => {
         const btn = document.createElement('button');
         btn.className = 'select-card-btn';
-        btn.innerHTML = `<span>${y.name}</span><span class="arrow-icon">›</span>`;
+        const displayName = (currentLang === 'am' && y.name_am) ? y.name_am : y.name;
+        btn.innerHTML = `<span>${displayName}</span><span class="arrow-icon">›</span>`;
         btn.onclick = () => {
           userState.year = y;
-          document.getElementById('course-subtitle').innerText = `${userState.uni.name} • ${y.name}`;
+          const uName = (currentLang === 'am' && userState.uni.name_am) ? userState.uni.name_am : userState.uni.name;
+          document.getElementById('course-subtitle').innerText = `${uName} • ${displayName}`;
           navigateTo('screen-course');
         };
         container.appendChild(btn);
@@ -548,15 +703,17 @@
     // Step 3: Courses
     function renderCourses() {
       const container = document.getElementById('course-list');
+      if (!container || !examData) return;
       container.innerHTML = '';
       examData.courses.forEach(c => {
         const btn = document.createElement('button');
         btn.className = 'select-card-btn';
-        btn.innerHTML = `<span>${c.name}</span><span class="arrow-icon">›</span>`;
+        const displayName = (currentLang === 'am' && c.name_am) ? c.name_am : c.name;
+        btn.innerHTML = `<span>${displayName}</span><span class="arrow-icon">›</span>`;
         btn.onclick = () => {
           userState.course = c;
           renderUnits(c.id);
-          document.getElementById('unit-subtitle').innerText = `${c.name}`;
+          document.getElementById('unit-subtitle').innerText = `${displayName}`;
           navigateTo('screen-unit');
         };
         container.appendChild(btn);
@@ -566,17 +723,19 @@
     // Step 4: Units
     function renderUnits(courseId) {
       const container = document.getElementById('unit-list');
+      if (!container || !examData) return;
       container.innerHTML = '';
       const units = examData.units[courseId] || [
-        { id: "all", name: "🏆 Complete Course Past Exam" },
-        { id: "u1", name: "Chapter 1: Foundational Principles" },
-        { id: "u2", name: "Chapter 2: Core Concepts & Applications" }
+        { id: "all", name: "🏆 Complete Course Past Exam", name_am: "🏆 አጠቃላይ የሙሉ ኮርስ ፈተና" },
+        { id: "u1", name: "Chapter 1: Foundational Principles", name_am: "ምዕራፍ 1: መሰረታዊ መርሆች" },
+        { id: "u2", name: "Chapter 2: Core Concepts & Applications", name_am: "ምዕራፍ 2: ዋና ዋና ፅንሰ ሃሳቦች" }
       ];
 
       units.forEach(u => {
         const btn = document.createElement('button');
         btn.className = 'select-card-btn';
-        btn.innerHTML = `<span>${u.name}</span><span class="arrow-icon">⚡</span>`;
+        const displayName = (currentLang === 'am' && u.name_am) ? u.name_am : u.name;
+        btn.innerHTML = `<span>${displayName}</span><span class="arrow-icon">⚡</span>`;
         btn.onclick = () => {
           userState.unit = u;
           startExam();
@@ -602,19 +761,21 @@
       userState.answered = false;
       const questions = getQuestionPool();
       const q = questions[userState.currentQ];
+      const t = i18n[currentLang];
 
-      const progress = ((userState.currentQ) / questions.Count) * 100;
       document.getElementById('progress-fill').style.width = `${((userState.currentQ + 1) / questions.length) * 100}%`;
-      document.getElementById('q-counter').innerText = `Question ${userState.currentQ + 1} of ${questions.length}`;
-      document.getElementById('q-score-live').innerText = `Score: ${userState.score}`;
+      document.getElementById('q-counter').innerText = `${t.questionPrefix} ${userState.currentQ + 1} ${t.ofPrefix} ${questions.length}`;
+      document.getElementById('q-score-live').innerText = `${t.scoreLivePrefix} ${userState.score}`;
 
-      document.getElementById('question-text').innerText = q.question;
+      const questionText = (currentLang === 'am' && q.question_am) ? q.question_am : q.question;
+      document.getElementById('question-text').innerText = questionText;
       document.getElementById('explanation-card').style.display = 'none';
 
       const optContainer = document.getElementById('options-container');
       optContainer.innerHTML = '';
 
-      q.options.forEach((opt, idx) => {
+      const options = (currentLang === 'am' && q.options_am) ? q.options_am : q.options;
+      options.forEach((opt, idx) => {
         const btn = document.createElement('button');
         btn.className = 'option-btn';
         const letter = String.fromCharCode(65 + idx);
@@ -630,28 +791,30 @@
 
       const buttons = document.querySelectorAll('.option-btn');
       const isCorrect = (selectedIdx === q.correct_index);
+      const t = i18n[currentLang];
 
       if (isCorrect) {
         userState.score++;
         buttons[selectedIdx].classList.add('correct');
-        document.getElementById('explanation-badge').innerHTML = '🟢 <b>CORRECT! (+1 POINT)</b>';
+        document.getElementById('explanation-badge').innerHTML = t.correctBadge;
         document.getElementById('explanation-badge').style.color = '#34d399';
       } else {
         buttons[selectedIdx].classList.add('wrong');
         buttons[q.correct_index].classList.add('correct');
-        document.getElementById('explanation-badge').innerHTML = '🔴 <b>INCORRECT ANSWER!</b>';
+        document.getElementById('explanation-badge').innerHTML = t.wrongBadge;
         document.getElementById('explanation-badge').style.color = '#f87171';
       }
 
-      document.getElementById('q-score-live').innerText = `Score: ${userState.score}`;
-      document.getElementById('explanation-text').innerText = q.explanation;
+      document.getElementById('q-score-live').innerText = `${t.scoreLivePrefix} ${userState.score}`;
+      const explanation = (currentLang === 'am' && q.explanation_am) ? q.explanation_am : q.explanation;
+      document.getElementById('explanation-text').innerText = explanation;
       document.getElementById('explanation-card').style.display = 'block';
 
       const questions = getQuestionPool();
       if (userState.currentQ + 1 < questions.length) {
-        document.getElementById('btn-next').innerText = `➡️ Next Question (${userState.currentQ + 2}/${questions.length})`;
+        document.getElementById('btn-next').innerText = `${t.nextBtn} (${userState.currentQ + 2}/${questions.length})`;
       } else {
-        document.getElementById('btn-next').innerText = '🏆 View Final Score & Rating';
+        document.getElementById('btn-next').innerText = t.finishBtn;
       }
     }
 
@@ -668,20 +831,33 @@
     function showResults() {
       const questions = getQuestionPool();
       const percent = Math.round((userState.score / questions.length) * 100);
+      const t = i18n[currentLang];
 
       document.getElementById('final-score').innerText = `${userState.score}/${questions.length}`;
       document.getElementById('final-percent').innerText = `${percent}%`;
 
-      let rating = "📖 Keep Practicing!";
-      if (percent >= 80) rating = "🌟 Outstanding! (A Grade)";
-      else if (percent >= 60) rating = "👍 Good Work! (B Grade)";
+      let rating = t.ratingC;
+      if (percent >= 80) rating = t.ratingA;
+      else if (percent >= 60) rating = t.ratingB;
 
       document.getElementById('result-rating').innerText = rating;
-      document.getElementById('result-meta').innerHTML = `
-        <b>University:</b> ${userState.uni.name}<br>
-        <b>Session:</b> ${userState.year.name}<br>
-        <b>Course:</b> ${userState.course.name}
-      `;
+      const uName = (currentLang === 'am' && userState.uni.name_am) ? userState.uni.name_am : userState.uni.name;
+      const yName = (currentLang === 'am' && userState.year.name_am) ? userState.year.name_am : userState.year.name;
+      const cName = (currentLang === 'am' && userState.course.name_am) ? userState.course.name_am : userState.course.name;
+
+      if (currentLang === 'am') {
+        document.getElementById('result-meta').innerHTML = `
+          <b>ዩኒቨርሲቲ፦</b> ${uName}<br>
+          <b>የፈተና ዓ.ም፦</b> ${yName}<br>
+          <b>ኮርስ፦</b> ${cName}
+        `;
+      } else {
+        document.getElementById('result-meta').innerHTML = `
+          <b>University:</b> ${uName}<br>
+          <b>Session:</b> ${yName}<br>
+          <b>Course:</b> ${cName}
+        `;
+      }
 
       navigateTo('screen-result');
     }

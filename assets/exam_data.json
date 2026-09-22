@@ -1,6 +1,6 @@
 {
   "texts": {
-    "welcome": "🎓 <b>TEME EDUCATIONAL PLATFORM (ተሜ)</b>\n────────────────────────────\n👋 <b>Welcome Freshman Student!</b>\nSelect your <b>University</b> to access official past examination archives and unit tests:\n\n🏛️ <i>Select your university below:</i>",
+    "welcome": "🎓 <b>TEME EDUCATIONAL PLATFORM (ተሜ)</b>\n────────────────────────────\n👋 <b>Welcome Freshman Student! / እንኳን ወደ ተሜ በደህና መጡ!</b>\nSelect your <b>University</b> to access official past examination archives and unit tests:\n\n🏛️ <i>Select your university below:</i>",
     "step_year": "────────────────────────────\n📅 <b>Step 2: Select Exam Academic Year:</b>\nChoose which past examination session you want to practice:",
     "step_course": "────────────────────────────\n📚 <b>Step 3: Select Your Freshman Course:</b>\nChoose which course exam you want to practice:",
     "step_unit": "────────────────────────────\n🎯 <b>Step 4: Choose Chapter or Comprehensive Exam:</b>",
@@ -19,281 +19,425 @@
     "user_label": "  ❌ <b>[YOUR CHOICE]</b>"
   },
   "universities": [
-    { "id": "aau", "name": "Addis Ababa University (AAU)" },
-    { "id": "aastu", "name": "Addis Ababa Science & Tech University (AASTU)" },
-    { "id": "astu", "name": "Adama Science & Tech University (ASTU)" },
-    { "id": "bdu", "name": "Bahir Dar University (BDU)" },
-    { "id": "ju", "name": "Jimma University (JU)" },
-    { "id": "hu", "name": "Hawassa University (HU)" },
-    { "id": "mu", "name": "Mekelle University (MU)" },
-    { "id": "gondar", "name": "University of Gondar (UoG)" },
-    { "id": "haramaya", "name": "Haramaya University (HrU)" },
-    { "id": "arba_minch", "name": "Arba Minch University (AMU)" },
-    { "id": "dilla", "name": "Dilla University (DU)" },
-    { "id": "wolaita_sodo", "name": "Wolaita Sodo University (WSU)" },
-    { "id": "amadu", "name": "Ambo University (AU)" },
-    { "id": "wollo", "name": "Wollo University (WU)" },
-    { "id": "debre_berhan", "name": "Debre Berhan University (DBU)" },
-    { "id": "debre_markos", "name": "Debre Markos University (DMU)" },
-    { "id": "jigjiga", "name": "Jigjiga University (JJU)" },
-    { "id": "dire_dawa", "name": "Dire Dawa University (DDU)" },
-    { "id": "wachemo", "name": "Wachemo University (WCU)" },
-    { "id": "mizan_tepi", "name": "Mizan-Tepi University (MTU)" }
+    { "id": "aau", "name": "Addis Ababa University (AAU)", "name_am": "አዲስ አበባ ዩኒቨርሲቲ (AAU)" },
+    { "id": "aastu", "name": "Addis Ababa Science & Tech University (AASTU)", "name_am": "አዲስ አበባ ሳይንስና ቴክኖሎጂ ዩኒቨርሲቲ (AASTU)" },
+    { "id": "astu", "name": "Adama Science & Tech University (ASTU)", "name_am": "አዳማ ሳይንስና ቴክኖሎጂ ዩኒቨርሲቲ (ASTU)" },
+    { "id": "bdu", "name": "Bahir Dar University (BDU)", "name_am": "ባህር ዳር ዩኒቨርሲቲ (BDU)" },
+    { "id": "ju", "name": "Jimma University (JU)", "name_am": "ጅማ ዩኒቨርሲቲ (JU)" },
+    { "id": "hu", "name": "Hawassa University (HU)", "name_am": "ሀዋሳ ዩኒቨርሲቲ (HU)" },
+    { "id": "mu", "name": "Mekelle University (MU)", "name_am": "መቐለ ዩኒቨርሲቲ (MU)" },
+    { "id": "gondar", "name": "University of Gondar (UoG)", "name_am": "ጎንደር ዩኒቨርሲቲ (UoG)" },
+    { "id": "haramaya", "name": "Haramaya University (HrU)", "name_am": "ሐረማያ ዩኒቨርሲቲ (HrU)" },
+    { "id": "arba_minch", "name": "Arba Minch University (AMU)", "name_am": "አርባ ምንጭ ዩኒቨርሲቲ (AMU)" },
+    { "id": "dilla", "name": "Dilla University (DU)", "name_am": "ዲላ ዩኒቨርሲቲ (DU)" },
+    { "id": "wolaita_sodo", "name": "Wolaita Sodo University (WSU)", "name_am": "ወላይታ ሶዶ ዩኒቨርሲቲ (WSU)" },
+    { "id": "amadu", "name": "Ambo University (AU)", "name_am": "አምቦ ዩኒቨርሲቲ (AU)" },
+    { "id": "wollo", "name": "Wollo University (WU)", "name_am": "ወሎ ዩኒቨርሲቲ (WU)" },
+    { "id": "debre_berhan", "name": "Debre Berhan University (DBU)", "name_am": "ደብረ ብርሃን ዩኒቨርሲቲ (DBU)" },
+    { "id": "debre_markos", "name": "Debre Markos University (DMU)", "name_am": "ደብረ ማርቆስ ዩኒቨርሲቲ (DMU)" },
+    { "id": "jigjiga", "name": "Jigjiga University (JJU)", "name_am": "ጅግጅጋ ዩኒቨርሲቲ (JJU)" },
+    { "id": "dire_dawa", "name": "Dire Dawa University (DDU)", "name_am": "ድሬዳዋ ዩኒቨርሲቲ (DDU)" },
+    { "id": "wachemo", "name": "Wachemo University (WCU)", "name_am": "ዋቸሞ ዩኒቨርሲቲ (WCU)" },
+    { "id": "mizan_tepi", "name": "Mizan-Tepi University (MTU)", "name_am": "ሚዛን-ቴፒ ዩኒቨርሲቲ (MTU)" }
   ],
   "years": [
-    { "id": "2016", "name": "📅 2016 E.C. (2024 G.C.) Past Exam" },
-    { "id": "2015", "name": "📅 2015 E.C. (2023 G.C.) Past Exam" },
-    { "id": "2014", "name": "📅 2014 E.C. (2022 G.C.) Past Exam" },
-    { "id": "2013", "name": "📅 2013 E.C. (2021 G.C.) Past Exam" },
-    { "id": "model", "name": "🏆 National Freshman Exit/Midterm Model Exam" }
+    { "id": "2016", "name": "📅 2016 E.C. (2024 G.C.) Past Exam", "name_am": "📅 የ 2016 ዓ.ም ፈተና (2024 እ.ኤ.አ)" },
+    { "id": "2015", "name": "📅 2015 E.C. (2023 G.C.) Past Exam", "name_am": "📅 የ 2015 ዓ.ም ፈተና (2023 እ.ኤ.አ)" },
+    { "id": "2014", "name": "📅 2014 E.C. (2022 G.C.) Past Exam", "name_am": "📅 የ 2014 ዓ.ም ፈተና (2022 እ.ኤ.አ)" },
+    { "id": "2013", "name": "📅 2013 E.C. (2021 G.C.) Past Exam", "name_am": "📅 የ 2013 ዓ.ም ፈተና (2021 እ.ኤ.አ)" },
+    { "id": "model", "name": "🏆 National Freshman Exit/Midterm Model Exam", "name_am": "🏆 ሀገር አቀፍ የፍሬሽማን ሞዴል ፈተና" }
   ],
   "courses": [
-    { "id": "math101", "name": "📐 Mathematics for Natural / Social Science (Math 101)" },
-    { "id": "phys101", "name": "⚡ General Physics (Phys 101)" },
-    { "id": "critical_thinking", "name": "🧠 Logic & Critical Thinking (Phil 101)" },
-    { "id": "critical_emerging", "name": "🚀 Introduction to Emerging Technologies (EmTe 101)" },
-    { "id": "comm_skills", "name": "🗣️ Communicative English Skills I (FLEn 101)" },
-    { "id": "intro_computing", "name": "💻 Introduction to Computing & Programming (CoSc 101)" },
-    { "id": "general_psych", "name": "🧩 General Psychology (Psyc 101)" },
-    { "id": "geography", "name": "🌍 Geography of Ethiopia & the Horn (GeES 101)" }
+    { "id": "math101", "name": "📐 Mathematics for Natural / Social Science (Math 101)", "name_am": "📐 የተፈጥሮ እና ማህበራዊ ሳይንስ ሂሳብ (Math 101)" },
+    { "id": "phys101", "name": "⚡ General Physics (Phys 101)", "name_am": "⚡ አጠቃላይ ፊዚክስ (Phys 101)" },
+    { "id": "critical_thinking", "name": "🧠 Logic & Critical Thinking (Phil 101)", "name_am": "🧠 ሎጂክ እና ሂሳዊ አስተሳሰብ (Phil 101)" },
+    { "id": "critical_emerging", "name": "🚀 Introduction to Emerging Technologies (EmTe 101)", "name_am": "🚀 ኢመርጂንግ ቴክኖሎጂስ (EmTe 101)" },
+    { "id": "comm_skills", "name": "🗣️ Communicative English Skills I (FLEn 101)", "name_am": "🗣️ የእንግሊዝኛ መግባቢያ ክህሎት (FLEn 101)" },
+    { "id": "intro_computing", "name": "💻 Introduction to Computing & Programming (CoSc 101)", "name_am": "💻 የኮምፒውተር ሳይንስ እና ፕሮግራሚንግ (CoSc 101)" },
+    { "id": "general_psych", "name": "🧩 General Psychology (Psyc 101)", "name_am": "🧩 አጠቃላይ ሳይኮሎጂ (Psyc 101)" },
+    { "id": "geography", "name": "🌍 Geography of Ethiopia & the Horn (GeES 101)", "name_am": "🌍 የኢትዮጵያ እና የቀንድ አፍሪካ ጂኦግራፊ (GeES 101)" }
   ],
   "units": {
     "math101": [
-      { "id": "all", "name": "🏆 Complete Midterm & Final Past Exam" },
-      { "id": "u1", "name": "Chapter 1: Propositional Logic & Set Theory" },
-      { "id": "u2", "name": "Chapter 2: Functions & Relations" },
-      { "id": "u3", "name": "Chapter 3: Complex Numbers" },
-      { "id": "u4", "name": "Chapter 4: Limits & Continuity" },
-      { "id": "u5", "name": "Chapter 5: Derivatives & Applications" }
+      { "id": "all", "name": "🏆 Complete Midterm & Final Past Exam", "name_am": "🏆 አጠቃላይ የሙሉ ኮርስ ፈተና" },
+      { "id": "u1", "name": "Chapter 1: Propositional Logic & Set Theory", "name_am": "ምዕራፍ 1: ፕሮፖዚሽናል ሎጂክ እና የሴት ፅንሰ ሃሳብ" },
+      { "id": "u2", "name": "Chapter 2: Functions & Relations", "name_am": "ምዕራፍ 2: ፈንክሽኖች እና ሪሌሽኖች" },
+      { "id": "u3", "name": "Chapter 3: Complex Numbers", "name_am": "ምዕራፍ 3: ኮምፕሌክስ ቁጥሮች" },
+      { "id": "u4", "name": "Chapter 4: Limits & Continuity", "name_am": "ምዕራፍ 4: ሊሚትስ እና ኮንቲኒዩቲ" },
+      { "id": "u5", "name": "Chapter 5: Derivatives & Applications", "name_am": "ምዕራፍ 5: ዴሪቬቲቭስ እና አፕሊኬሽኖች" }
     ],
     "phys101": [
-      { "id": "all", "name": "🏆 Complete Midterm & Final Past Exam" },
-      { "id": "u1", "name": "Chapter 1: Vectors & Kinematics in 1D & 2D" },
-      { "id": "u2", "name": "Chapter 2: Newton's Laws & Dynamics" },
-      { "id": "u3", "name": "Chapter 3: Work, Kinetic Energy & Conservation of Energy" },
-      { "id": "u4", "name": "Chapter 4: Linear Momentum & Collisions" },
-      { "id": "u5", "name": "Chapter 5: Rotational Motion & Equilibrium" }
+      { "id": "all", "name": "🏆 Complete Midterm & Final Past Exam", "name_am": "🏆 አጠቃላይ የሙሉ ኮርስ ፈተና" },
+      { "id": "u1", "name": "Chapter 1: Vectors & Kinematics in 1D & 2D", "name_am": "ምዕራፍ 1: ቬክተሮች እና ካይነማቲክስ በ 1D እና 2D" },
+      { "id": "u2", "name": "Chapter 2: Newton's Laws & Dynamics", "name_am": "ምዕራፍ 2: የኒውተን ህጎች እና ዳይናሚክስ" },
+      { "id": "u3", "name": "Chapter 3: Work, Kinetic Energy & Conservation of Energy", "name_am": "ምዕራፍ 3: ስራ፣ ኪነቲክ ኢነርጂ እና የኢነርጂ ህግ" },
+      { "id": "u4", "name": "Chapter 4: Linear Momentum & Collisions", "name_am": "ምዕራፍ 4: ሊኒየር ሞመንተም እና ግጭት" },
+      { "id": "u5", "name": "Chapter 5: Rotational Motion & Equilibrium", "name_am": "ምዕራፍ 5: ሮቴሽናል ሞሽን እና ሚዛናዊነት" }
     ],
     "critical_thinking": [
-      { "id": "all", "name": "🏆 Complete Midterm & Final Past Exam" },
-      { "id": "u1", "name": "Chapter 1: Introducing Philosophy & Logic" },
-      { "id": "u2", "name": "Chapter 2: Arguments, Premises & Conclusions" },
-      { "id": "u3", "name": "Chapter 3: Informal Fallacies (Relevance & Ambiguity)" },
-      { "id": "u4", "name": "Chapter 4: Categorical Propositions & Syllogisms" }
+      { "id": "all", "name": "🏆 Complete Midterm & Final Past Exam", "name_am": "🏆 አጠቃላይ የሙሉ ኮርስ ፈተና" },
+      { "id": "u1", "name": "Chapter 1: Introducing Philosophy & Logic", "name_am": "ምዕራፍ 1: የፍልስፍና እና ሎጂክ መግቢያ" },
+      { "id": "u2", "name": "Chapter 2: Arguments, Premises & Conclusions", "name_am": "ምዕራፍ 2: አርጉመንቶች፣ መነሻዎች እና ድምዳሜዎች" },
+      { "id": "u3", "name": "Chapter 3: Informal Fallacies (Relevance & Ambiguity)", "name_am": "ምዕራፍ 3: መደበኛ ያልሆኑ ስህተቶች (Fallacies)" },
+      { "id": "u4", "name": "Chapter 4: Categorical Propositions & Syllogisms", "name_am": "ምዕራፍ 4: ካቴጎሪካል ፕሮፖዚሽኖች እና ሲሎጂዝም" }
     ],
     "critical_emerging": [
-      { "id": "all", "name": "🏆 Complete Midterm & Final Past Exam" },
-      { "id": "u1", "name": "Chapter 1: Industry 4.0 & Technological Shifts" },
-      { "id": "u2", "name": "Chapter 2: Artificial Intelligence & Machine Learning" },
-      { "id": "u3", "name": "Chapter 3: Internet of Things (IoT) & Cloud Infrastructure" },
-      { "id": "u4", "name": "Chapter 4: Cybersecurity & Blockchain Technologies" }
+      { "id": "all", "name": "🏆 Complete Midterm & Final Past Exam", "name_am": "🏆 አጠቃላይ የሙሉ ኮርስ ፈተና" },
+      { "id": "u1", "name": "Chapter 1: Industry 4.0 & Technological Shifts", "name_am": "ምዕራፍ 1: አራተኛው የኢንዱስትሪ አብዮት (Industry 4.0)" },
+      { "id": "u2", "name": "Chapter 2: Artificial Intelligence & Machine Learning", "name_am": "ምዕራፍ 2: አርቴፊሻል ኢንተለጀንስ እና ማሽን ለርኒንግ" },
+      { "id": "u3", "name": "Chapter 3: Internet of Things (IoT) & Cloud Infrastructure", "name_am": "ምዕራፍ 3: ኢንተርኔት ኦፍ ቲንግስ (IoT) እና ክላውድ" },
+      { "id": "u4", "name": "Chapter 4: Cybersecurity & Blockchain Technologies", "name_am": "ምዕራፍ 4: ሳይበር ሴኪውሪቲ እና ብሎክቼይን ቴክኖሎጂ" }
     ]
   },
   "questions": {
     "math101": [
       {
         "question": "Which of the following compound propositions is logically equivalent to the conditional implication P → Q?",
+        "question_am": "ከሚከተሉት ውህድ ፕሮፖዚሽኖች ውስጥ ከኮንዲሽናል P → Q ጋር በሎጂክ እኩል (equivalent) የሆነው የትኛው ነው?",
         "options": [
           "¬P ∨ Q",
           "P ∧ ¬Q",
           "¬Q → ¬P",
           "Both A and C"
         ],
+        "options_am": [
+          "¬P ∨ Q",
+          "P ∧ ¬Q",
+          "¬Q → ¬P",
+          "ሁለቱም A እና C"
+        ],
         "correct_index": 3,
-        "explanation": "P → Q is logically equivalent to its contrapositive (¬Q → ¬P) and is also equivalent to ¬P ∨ Q by conditional elimination. Thus both A and C are correct."
+        "explanation": "P → Q is logically equivalent to its contrapositive (¬Q → ¬P) and is also equivalent to ¬P ∨ Q by conditional elimination. Thus both A and C are correct.",
+        "explanation_am": "P → Q በኮንትራፖዚቲቭ (¬Q → ¬P) እንዲሁም በኮንዲሽናል ኤሊሚኔሽን ከ ¬P ∨ Q ጋር አቻ ነው። ስለዚህ ሁለቱም A እና C ትክክል ናቸው።"
       },
       {
         "question": "Let f(x) = (2x + 3) / (x - 1) for x ≠ 1. What is the inverse function f⁻¹(x)?",
+        "question_am": "f(x) = (2x + 3) / (x - 1) ለ x ≠ 1 ቢሆን፣ የተገላቢጦሽ ፈንክሽን f⁻¹(x) ስንት ነው?",
         "options": [
           "f⁻¹(x) = (x + 3) / (2x - 1)",
           "f⁻¹(x) = (x + 3) / (x - 2)",
           "f⁻¹(x) = (2x - 3) / (x + 1)",
           "f⁻¹(x) = (x - 3) / (x - 2)"
         ],
+        "options_am": [
+          "f⁻¹(x) = (x + 3) / (2x - 1)",
+          "f⁻¹(x) = (x + 3) / (x - 2)",
+          "f⁻¹(x) = (2x - 3) / (x + 1)",
+          "f⁻¹(x) = (x - 3) / (x - 2)"
+        ],
         "correct_index": 1,
-        "explanation": "Setting y = (2x + 3)/(x - 1) gives yx - y = 2x + 3, so x(y - 2) = y + 3, which yields f⁻¹(x) = (x + 3)/(x - 2)."
+        "explanation": "Setting y = (2x + 3)/(x - 1) gives yx - y = 2x + 3, so x(y - 2) = y + 3, which yields f⁻¹(x) = (x + 3)/(x - 2).",
+        "explanation_am": "y = (2x + 3)/(x - 1) በማስቀመጥ yx - y = 2x + 3 ይሆናል፣ ከዚያም x(y - 2) = y + 3 በመሆኑ f⁻¹(x) = (x + 3)/(x - 2) ይገኛል።"
       },
       {
         "question": "Evaluate the standard trigonometric limit: lim (x → 0) [ sin(5x) / (2x) ].",
+        "question_am": "የሚከተለውን ትሪጎኖሜትሪክ ሊሚት አስሉ: lim (x → 0) [ sin(5x) / (2x) ]?",
         "options": [
           "0",
           "1",
           "5/2",
           "Does not exist"
         ],
+        "options_am": [
+          "0",
+          "1",
+          "5/2",
+          "አይገኝም (Does not exist)"
+        ],
         "correct_index": 2,
-        "explanation": "Using lim (u → 0) [sin(u)/u] = 1, lim (x → 0) (5/2) * [sin(5x)/(5x)] = (5/2) * 1 = 5/2."
+        "explanation": "Using lim (u → 0) [sin(u)/u] = 1, lim (x → 0) (5/2) * [sin(5x)/(5x)] = (5/2) * 1 = 5/2.",
+        "explanation_am": "lim (u → 0) [sin(u)/u] = 1 ቀመርን በመጠቀም፣ lim (x → 0) (5/2) * [sin(5x)/(5x)] = (5/2) * 1 = 5/2 ይሆናል።"
       },
       {
         "question": "If z = 1 + i√3, what is the polar (trigonometric) form of the complex number z?",
+        "question_am": "z = 1 + i√3 ቢሆን፣ የዚህ ኮምፕሌክስ ቁጥር ፖላር (ትሪጎኖሜትሪክ) ፎርም የትኛው ነው?",
         "options": [
           "2 (cos(π/6) + i sin(π/6))",
           "2 (cos(π/3) + i sin(π/3))",
           "√3 (cos(π/4) + i sin(π/4))",
           "4 (cos(π/3) + i sin(π/3))"
         ],
+        "options_am": [
+          "2 (cos(π/6) + i sin(π/6))",
+          "2 (cos(π/3) + i sin(π/3))",
+          "√3 (cos(π/4) + i sin(π/4))",
+          "4 (cos(π/3) + i sin(π/3))"
+        ],
         "correct_index": 1,
-        "explanation": "Modulus r = √(1² + (√3)²) = 2. Argument θ = arctan(√3/1) = π/3 (60°). Hence z = 2(cos(π/3) + i sin(π/3))."
+        "explanation": "Modulus r = √(1² + (√3)²) = 2. Argument θ = arctan(√3/1) = π/3 (60°). Hence z = 2(cos(π/3) + i sin(π/3)).",
+        "explanation_am": "ሞዱለስ r = √(1² + (√3)²) = 2 ነው። አርጉመንት θ = arctan(√3/1) = π/3 (60°) በመሆኑ z = 2(cos(π/3) + i sin(π/3)) ይሆናል።"
       },
       {
         "question": "Find the first derivative f'(x) of the function f(x) = ln(x² + 4).",
+        "question_am": "የፈንክሽን f(x) = ln(x² + 4) የመጀመሪያ ዴሪቬቲቭ f'(x) ስንት ነው?",
         "options": [
           "1 / (x² + 4)",
           "2x / (x² + 4)",
           "x / (x² + 4)",
           "2 / (x + 2)"
         ],
+        "options_am": [
+          "1 / (x² + 4)",
+          "2x / (x² + 4)",
+          "x / (x² + 4)",
+          "2 / (x + 2)"
+        ],
         "correct_index": 1,
-        "explanation": "By the Chain Rule, d/dx [ln(u)] = u'/u. For u = x² + 4, u' = 2x, giving f'(x) = 2x / (x² + 4)."
+        "explanation": "By the Chain Rule, d/dx [ln(u)] = u'/u. For u = x² + 4, u' = 2x, giving f'(x) = 2x / (x² + 4).",
+        "explanation_am": "በቼይን ሩል (Chain Rule) መሠረት d/dx [ln(u)] = u'/u ነው። u = x² + 4 ሲሆን u' = 2x በመሆኑ f'(x) = 2x / (x² + 4) ይሆናል።"
       }
     ],
     "phys101": [
       {
         "question": "A stone is thrown vertically upward with an initial velocity of 20 m/s from ground level (take g = 10 m/s²). What is the maximum height reached?",
+        "question_am": "አንድ ድንጋይ ከመሬት ወደ ላይ በ 20 m/s የመጀመሪያ ፍጥነት ተወረወረ (g = 10 m/s² ውሰዱ)። ድንጋዩ የሚደርስበት ከፍተኛው ከፍታ ስንት ነው?",
         "options": [
           "15 meters",
           "20 meters",
           "25 meters",
           "40 meters"
         ],
+        "options_am": [
+          "15 ሜትር",
+          "20 ሜትር",
+          "25 ሜትር",
+          "40 ሜትር"
+        ],
         "correct_index": 1,
-        "explanation": "At maximum height v = 0. Using v² = u² - 2gh: 0 = (20)² - 2(10)h ⇒ 400 = 20h ⇒ h = 20 meters."
+        "explanation": "At maximum height v = 0. Using v² = u² - 2gh: 0 = (20)² - 2(10)h ⇒ 400 = 20h ⇒ h = 20 meters.",
+        "explanation_am": "በከፍተኛው ከፍታ ላይ የመጨረሻው ፍጥነት v = 0 ነው። በቀመር v² = u² - 2gh መሠረት: 0 = (20)² - 2(10)h ⇒ 400 = 20h ⇒ h = 20 ሜትር ይሆናል።"
       },
       {
         "question": "According to Newton's Third Law of Motion, action and reaction forces:",
+        "question_am": "እንደ ኒውተን 3ኛ የእንቅስቃሴ ህግ (Newton's Third Law)፣ ድርጊት እና ግብረ-መልስ ሃይሎች (Action & Reaction):",
         "options": [
           "Act on the same body and cancel each other out",
           "Act on different bodies simultaneously and never cancel each other",
           "Are unequal in magnitude if one object accelerates",
           "Act at different consecutive times"
         ],
+        "options_am": [
+          "በአንድ አካል ላይ አርፈው እርስ በርስ ይሰረዛሉ",
+          "በተለያዩ ሁለት አካላት ላይ በአንድ ጊዜ የሚያርፉ በመሆናቸው በፍጹም አይሰረዙም",
+          "አንዱ አካል ፍጥነት ከጨመረ መጠናቸው እኩል አይሆንም",
+          "በተከታታይ በተለያዩ ጊዜያት ያርፋሉ"
+        ],
         "correct_index": 1,
-        "explanation": "Action and reaction forces act on two completely different interacting bodies, so they can never cancel each other out on a single object."
+        "explanation": "Action and reaction forces act on two completely different interacting bodies, so they can never cancel each other out on a single object.",
+        "explanation_am": "የድርጊት እና ግብረ-መልስ ሃይሎች በተለያዩ ሁለት አካላት ላይ ስለሚያርፉ በአንድ አካል ላይ እርስ በርስ በፍጹም ሊሰረዙ አይችሉም።"
       },
       {
         "question": "A body of mass 2 kg moves along the x-axis under potential energy U(x) = 3x² - 6x (in Joules). What is the conservative force F(x) at x = 2 m?",
+        "question_am": "የ 2 ኪሎግራም ክብደት ያለው አካል በ x-አክሲስ ላይ በፖቴንሺያል ኢነርጂ U(x) = 3x² - 6x (በጁል) ይጓዛል። በ x = 2 m ላይ ያለው ኮንሰርቫቲቭ ሃይል F(x) ስንት ነው?",
         "options": [
           "-6 N",
           "+6 N",
           "-12 N",
           "0 N"
         ],
+        "options_am": [
+          "-6 N",
+          "+6 N",
+          "-12 N",
+          "0 N"
+        ],
         "correct_index": 0,
-        "explanation": "Conservative force F(x) = -dU/dx = -(6x - 6) = 6 - 6x. At x = 2: F(2) = 6 - 6(2) = -6 N."
+        "explanation": "Conservative force F(x) = -dU/dx = -(6x - 6) = 6 - 6x. At x = 2: F(2) = 6 - 6(2) = -6 N.",
+        "explanation_am": "ኮንሰርቫቲቭ ሃይል F(x) = -dU/dx = -(6x - 6) = 6 - 6x ነው። በ x = 2 ሲሆን: F(2) = 6 - 6(2) = -6 N ይሆናል።"
       },
       {
         "question": "In an isolated physical system during a completely inelastic collision between two colliding bodies:",
+        "question_am": "በተዘጋ የፊዚክስ ሲስተም ውስጥ በሁለት አካላት መካከል ፍጹም ኢላስቲክ ባልሆነ ግጭት (inelastic collision) ወቅት:",
         "options": [
           "Both total kinetic energy and linear momentum are conserved",
           "Linear momentum is conserved, but kinetic energy is not conserved",
           "Kinetic energy is conserved, but linear momentum is not conserved",
           "Neither kinetic energy nor linear momentum is conserved"
         ],
+        "options_am": [
+          "ሁለቱም ኪነቲክ ኢነርጂ እና ሊኒየር ሞመንተም ይጠበቃሉ",
+          "ሊኒየር ሞመንተም ይጠበቃል፤ ነገር ግን ኪነቲክ ኢነርጂ አይጠበቅም",
+          "ኪነቲክ ኢነርጂ ይጠበቃል፤ ሊኒየር ሞመንተም ግን አይጠበቅም",
+          "ሁለቱም ኪነቲክ ኢነርጂም ሆነ ሞመንተም አይጠበቁም"
+        ],
         "correct_index": 1,
-        "explanation": "Linear momentum is always conserved in isolated systems. However, completely inelastic collisions convert maximum kinetic energy into heat and deformation."
+        "explanation": "Linear momentum is always conserved in isolated systems. However, completely inelastic collisions convert maximum kinetic energy into heat and deformation.",
+        "explanation_am": "በተዘጋ ሲስተም ውስጥ ሊኒየር ሞመንተም ምንጊዜም ይጠበቃል። ነገር ግን ኢላስቲክ ባልሆነ ግጭት ከፍተኛው የኪነቲክ ኢነርጂ ክፍል ወደ ሙቀትና ቅርጽ መቀየር ይባክናል።"
       },
       {
         "question": "A uniform solid cylinder of mass M and radius R rolls without slipping down an incline. What fraction of its total kinetic energy is rotational?",
+        "question_am": "መጠኑ M እና ራዲየሱ R የሆነ ጠጣር ሲሊንደር ሳይንሸራተት በዳገት ላይ ይንከባለላል። ከጠቅላላው ኪነቲክ ኢነርጂ ውስጥ የማሽከርከር (rotational) ድርሻ ስንት ነው?",
         "options": [
           "1/2",
           "1/3",
           "2/3",
           "1/4"
         ],
+        "options_am": [
+          "1/2",
+          "1/3",
+          "2/3",
+          "1/4"
+        ],
         "correct_index": 1,
-        "explanation": "K_rot = (1/2)Iω² = (1/4)Mv². K_trans = (1/2)Mv². Total K = (3/4)Mv². Fraction = (1/4)/(3/4) = 1/3 (33.3%)."
+        "explanation": "K_rot = (1/2)Iω² = (1/4)Mv². K_trans = (1/2)Mv². Total K = (3/4)Mv². Fraction = (1/4)/(3/4) = 1/3 (33.3%).",
+        "explanation_am": "K_rot = (1/2)Iω² = (1/4)Mv² ነው። K_trans = (1/2)Mv² ነው። ጠቅላላ K = (3/4)Mv² በመሆኑ ድርሻው = (1/4)/(3/4) = 1/3 (33.3%) ነው።"
       }
     ],
     "critical_thinking": [
       {
         "question": "Which of the following defines an argument that is both deductively valid and composed entirely of true premises?",
+        "question_am": "ዲዳክቲቭ ቫሊድ የሆነ እና ሁሉም መነሻ ሃሳቦቹ (premises) ሙሉ በሙሉ እውነት የሆኑትን ክርክር የሚገልጸው የትኛው ነው?",
         "options": [
           "A Strong Argument",
           "A Cogent Argument",
           "A Sound Argument",
           "An Inductively Verified Argument"
         ],
+        "options_am": [
+          "ጠንካራ ክርክር (Strong Argument)",
+          "አሳማኝ ክርክር (Cogent Argument)",
+          "ድምጹ እውነተኛ ክርክር (Sound Argument)",
+          "በማስረጃ የተረጋገጠ ክርክር"
+        ],
         "correct_index": 2,
-        "explanation": "In formal logic, a deductive argument is Sound if and only if its reasoning is valid AND all of its premises are factually true."
+        "explanation": "In formal logic, a deductive argument is Sound if and only if its reasoning is valid AND all of its premises are factually true.",
+        "explanation_am": "በመደበኛ ሎጂክ ውስጥ አንድ የዲዳክሽን ክርክር Sound የሚባለው አወቃቀሩ ቫሊድ ሆኖ ሁሉም መነሻ ሃሳቦቹ እውነት ሲሆኑ ብቻ ነው።"
       },
       {
         "question": "Identify the fallacy: 'Candidate X proposes investing in solar energy. But Candidate X has zero fashion taste, so his proposal is invalid.'",
+        "question_am": "ስህተቱን (Fallacy) ለዩ: 'እጩ ተወዳዳሪ X በፀሐይ ኃይል ላይ ኢንቨስት እንድናደርግ ሃሳብ አቅርቧል። ነገር ግን እጩ X ምንም ዓይነት የአለባበስ ስታይል የለውም፣ ስለዚህ ያቀረበው ሃሳብ ተቀባይነት የለውም።'",
         "options": [
           "Straw Man Fallacy",
           "Argumentum Ad Hominem (Abusive)",
           "Appeal to Pity",
           "False Dilemma"
         ],
+        "options_am": [
+          "የገለባ ሰው ስህተት (Straw Man)",
+          "አድ ሆሚነም / ሰውን የማጥቃት ስህተት (Ad Hominem)",
+          "የይድረስልኝ ጥሪ (Appeal to Pity)",
+          "የውሸት አማራጭ (False Dilemma)"
+        ],
         "correct_index": 1,
-        "explanation": "Ad Hominem attacks personal characteristics rather than evaluating the validity of the argument itself."
+        "explanation": "Ad Hominem attacks personal characteristics rather than evaluating the validity of the argument itself.",
+        "explanation_am": "አድ ሆሚነም የቀረበውን ሃሳብ ወይም ክርክር ትክክለኛነት ከመገምገም ይልቅ የግለሰቡን ማንነት ወይም ባህሪ ማጥቃትን ያካትታል።"
       },
       {
         "question": "What is the converse of the categorical proposition: 'No reptiles are mammals' (E-proposition)?",
+        "question_am": "የካቴጎሪካል ፕሮፖዚሽን 'ምንም ተሳቢ እንስሳት አጥቢዎች አይደሉም' (E-proposition) ኮንቨርስ (converse) የትኛው ነው?",
         "options": [
           "Some reptiles are not mammals",
           "No mammals are reptiles",
           "All mammals are reptiles",
           "Some mammals are reptiles"
         ],
+        "options_am": [
+          "አንዳንድ ተሳቢ እንስሳት አጥቢዎች አይደሉም",
+          "ምንም አጥቢዎች ተሳቢ እንስሳት አይደሉም",
+          "ሁሉም አጥቢዎች ተሳቢ እንስሳት ናቸው",
+          "አንዳንድ አጥቢዎች ተሳቢ እንስሳት ናቸው"
+        ],
         "correct_index": 1,
-        "explanation": "Conversion simply exchanges the subject and predicate. For universal negative (E) propositions, conversion is logically valid: 'No mammals are reptiles'."
+        "explanation": "Conversion simply exchanges the subject and predicate. For universal negative (E) propositions, conversion is logically valid: 'No mammals are reptiles'.",
+        "explanation_am": "ኮንቨርሽን ርዕሱንና ተሳቢውን በቀላሉ ያቀያይራል። ለአለም አቀፍ አሉታዊ (E) ፕሮፖዚሽኖች ኮንቨርሽን ትክክለኛ ህጋዊ ነው: 'ምንም አጥቢዎች ተሳቢ እንስሳት አይደሉም'።"
       },
       {
         "question": "Identify the fallacy: 'You must either agree with our campus policy completely, or you hate university education.'",
+        "question_am": "ስህተቱን (Fallacy) ለዩ: 'የግቢውን ፖሊሲ ሙሉ በሙሉ መደገፍ አለብህ፤ አለበለዚያ የዩኒቨርሲቲ ትምህርትን ትጠላለህ ማለት ነው።'",
         "options": [
           "False Cause",
           "False Dilemma / False Dichotomy",
           "Slippery Slope",
           "Hasty Generalization"
         ],
+        "options_am": [
+          "የውሸት ምክንያት (False Cause)",
+          "የውሸት አማራጭ (False Dilemma / Dichotomy)",
+          "አንሸራታች ቁልቁለት (Slippery Slope)",
+          "ችኮላ ድምዳሜ (Hasty Generalization)"
+        ],
         "correct_index": 1,
-        "explanation": "A False Dilemma artificially restricts the alternatives to two extremes while ignoring intermediate options."
+        "explanation": "A False Dilemma artificially restricts the alternatives to two extremes while ignoring intermediate options.",
+        "explanation_am": "ፎልስ ዲሌማ አማካይ አማራጮችን ችላ በማለት በሰውየው ፊት ሁለት ጽንፍ አማራጮችን ብቻ በማስቀመጥ የሚያሳስት ስህተት ነው።"
       }
     ],
     "critical_emerging": [
       {
         "question": "Which core characteristic distinguishes the Fourth Industrial Revolution (Industry 4.0) from Industry 3.0?",
+        "question_am": "አራተኛውን የኢንዱስትሪ አብዮት (Industry 4.0) ከኢንዱስትሪ 3.0 የሚለየው ዋናው መገለጫ የትኛው ነው?",
         "options": [
           "The invention of steam engines and mechanical weaving",
           "The adoption of mass production assembly lines and electricity",
           "The fusion of digital, biological, and physical spheres via Cyber-Physical Systems (CPS)",
           "The initial introduction of basic personal computers"
         ],
+        "options_am": [
+          "የእንፋሎት ሞተር እና የሜካኒካል ሽመና ፈጠራ",
+          "የኤሌክትሪክ ኃይል እና የመሰብሰቢያ መስመር (assembly line) አጠቃቀም",
+          "የዲጂታል፣ ባዮሎጂካል እና ፊዚካል ዓለማት በሳይበር-ፊዚካል ሲስተምስ (CPS) መቀናጀት",
+          "የመጀመሪያዎቹ የግል ኮምፒውተሮች መፈጠር"
+        ],
         "correct_index": 2,
-        "explanation": "Industry 4.0 is defined by Cyber-Physical Systems (CPS), IoT, big data, and autonomous networks connecting the physical and digital worlds."
+        "explanation": "Industry 4.0 is defined by Cyber-Physical Systems (CPS), IoT, big data, and autonomous networks connecting the physical and digital worlds.",
+        "explanation_am": "ኢንዱስትሪ 4.0 በሳይበር-ፊዚካል ሲስተሞች (CPS)፣ IoT፣ ቢግ ዳታ እና ራሳቸውን በሚያስተዳድሩ አውታረ መረቦች ዓለማትን በማቀናጀት ይታወቃል።"
       },
       {
         "question": "In Artificial Intelligence, which learning paradigm trains an agent to make sequential decisions by receiving rewards or penalties?",
+        "question_am": "በአርቴፊሻል ኢንተለጀንስ (AI) ውስጥ አንድ ወኪል (agent) ሽልማቶችንና ቅጣቶችን በመቀበል ተከታታይ ውሳኔዎችን እንዲወስን የሚያሰለጥነው የትምህርት ዘይቤ የትኛው ነው?",
         "options": [
           "Supervised Learning",
           "Unsupervised Clustering",
           "Reinforcement Learning (RL)",
           "Semi-Supervised Label Propagation"
         ],
+        "options_am": [
+          "ሱፐርቫይዝድ ለርኒንግ (Supervised Learning)",
+          "አንሱፐርቫይዝድ ክላስተሪንግ (Unsupervised)",
+          "ሪኢንፎርስመንት ለርኒንግ (Reinforcement Learning - RL)",
+          "ሰሚ-ሱፐርቫይዝድ ለርኒንግ"
+        ],
         "correct_index": 2,
-        "explanation": "Reinforcement Learning optimizes decision policies through environmental rewards and penalties without pre-labeled data."
+        "explanation": "Reinforcement Learning optimizes decision policies through environmental rewards and penalties without pre-labeled data.",
+        "explanation_am": "ሪኢንፎርስመንት ለርኒንግ አስቀድሞ ከተዘጋጀ ዳታ ይልቅ ከአካባቢው ከሚያገኘው ሽልማት እና ቅጣት በመነሳት ትክክለኛ የውሳኔ ፖሊሲን ያዳብራል።"
       },
       {
         "question": "In Internet of Things (IoT) network architecture, which layer is responsible for raw physical data acquisition using sensors and actuators?",
+        "question_am": "በኢንተርኔት ኦፍ ቲንግስ (IoT) ኔትወርክ መዋቅር ውስጥ ጥሬ ፊዚካዊ መረጃዎችን በሴንሰሮችና አንቀሳቃሾች የመሰብሰብ ኃላፊነት ያለበት ንብርብር (layer) የትኛው ነው?",
         "options": [
           "Perception (Sensing) Layer",
           "Network Transmission Layer",
           "Middleware / Processing Layer",
           "Business Application Layer"
         ],
+        "options_am": [
+          "የግንዛቤ/የዳሰሳ ንብርብር (Perception/Sensing Layer)",
+          "የኔትወርክ ማስተላለፊያ ንብርብር (Network Layer)",
+          "የመካከለኛ ሂደት ንብርብር (Middleware Layer)",
+          "የቢዝነስ መተግበሪያ ንብርብር (Application Layer)"
+        ],
         "correct_index": 0,
-        "explanation": "The Perception Layer gathers raw physical variables (temperature, light, acceleration) using sensors and transducers."
+        "explanation": "The Perception Layer gathers raw physical variables (temperature, light, acceleration) using sensors and transducers.",
+        "explanation_am": "የፐርሴፕሽን ንብርብር (Perception Layer) እንደ ሙቀት፣ ብርሃን፣ ፍጥነት ያሉ ጥሬ ፊዚካዊ መረጃዎችን በሴንሰሮች አማካኝነት ይሰበስባል።"
       },
       {
         "question": "Which cryptographic property makes a distributed blockchain ledger virtually immutable against historical alterations?",
+        "question_am": "የብሎክቼይን ቴክኖሎጂ ታሪካዊ መረጃዎች እንዳይቀየሩና እንዳይጭበረበሩ የማይበገር (immutable) የሚያደርገው የትኛው የክሪፕቶግራፊ ባህሪ ነው?",
         "options": [
           "Centralized Cloud Database Backups",
           "Cryptographic Hashing and Proof-of-Work / Consensus Chaining",
           "Symmetric Key File Encryption",
           "Public IPv6 Tunneling"
         ],
+        "options_am": [
+          "ማዕከላዊ የዳታቤዝ ባክአፕ (Backups)",
+          "ክሪፕቶግራፊክ ሃሽ እና የኮንሰንሰስ ሰንሰለት (Cryptographic Hash & Consensus)",
+          "ሲሜትሪክ የፋይል ኢንክሪፕሽን",
+          "የህዝብ IPv6 ቱነሊንግ"
+        ],
         "correct_index": 1,
-        "explanation": "Each block contains the hash of the preceding block. Tampering with any historical record invalidates all subsequent blocks, which is rejected by consensus."
+        "explanation": "Each block contains the hash of the preceding block. Tampering with any historical record invalidates all subsequent blocks, which is rejected by consensus.",
+        "explanation_am": "እያንዳንዱ ብሎክ የቀዳሚውን ብሎክ ሃሽ (hash) የያዘ በመሆኑ ማንኛውም ታሪካዊ መረጃ ሲቀየር ሁሉም ተከታይ ብሎኮች ውድቅ ይሆናሉ።"
       }
     ]
   }
