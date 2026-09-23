@@ -3,10 +3,11 @@
  * Fast caching and offline-first resilience
  */
 
-const CACHE_NAME = 'ethio21-v2';
+const CACHE_NAME = 'ethio21-v3';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
+  './teme-exam-app.html',
   './styles/main.css',
   './scripts/translations.js',
   './scripts/app.js',
