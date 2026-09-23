@@ -38,66 +38,67 @@
        NAVIGATION BAR WITH PURE WORDMARK LOGO
        ========================================================================= -->
   <header class="site-header">
-    <div class="container nav-inner">
-      <!-- Pure Wordmark Logo (No Icon Required) -->
-      <a href="#hero" class="brand-wordmark" aria-label="ETHIO 21 Technologies Home">
-        <div class="wordmark-main">
-          <span class="wordmark-ethio" data-i18n="brandEthio">ETHIO</span>
-          <span class="wordmark-21" data-i18n="brandNum">21</span>
-        </div>
-        <span class="wordmark-subtag" data-i18n="brandSubtag">TECHNOLOGIES & DIGITAL SOLUTIONS</span>
-      </a>
-
-      <!-- Desktop Navigation Links -->
-      <nav aria-label="Primary Navigation">
-        <ul class="nav-links">
-          <li><a href="#hero" class="nav-link" data-i18n="navHome">Home</a></li>
-          <li><a href="#services" class="nav-link" data-i18n="navServices">Core Services</a></li>
-          <li><a href="#venture-hub" class="nav-link" data-i18n="navVentureHub">Startup Venture Hub</a></li>
-          <li><a href="#media-hub" class="nav-link" data-i18n="navMediaHub">Media & Ads</a></li>
-          <li><a href="#founders" class="nav-link" data-i18n="navFounders">Founders</a></li>
-          <li><a href="#community" class="nav-link" data-i18n="navCommunity" style="color: var(--accent-mint); font-weight: 750;">👥 Community</a></li>
-          <li><a href="#contact" class="nav-link" data-i18n="navContact">Connect on Telegram</a></li>
-        </ul>
-      </nav>
-
-      <!-- Nav Action Controls -->
-      <div class="nav-controls">
-        <!-- Audio SFX Toggle -->
-        <button id="audio-toggle-btn" class="btn-icon" aria-label="Toggle Audio Sound FX" title="Toggle Sound">
-          <svg id="audio-icon" viewBox="0 0 24 24">
-            <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
-            <line x1="23" y1="9" x2="17" y2="15"></line>
-            <line x1="17" y1="9" x2="23" y2="15"></line>
-          </svg>
-        </button>
-
-        <!-- Dark / Light Theme Toggle -->
-        <button id="theme-toggle-btn" class="btn-icon" aria-label="Toggle Color Theme" title="Toggle Theme">
-          <svg id="theme-icon" viewBox="0 0 24 24">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-          </svg>
-        </button>
-
-        <!-- Language Switcher Button (English / Amharic) -->
-        <button class="lang-badge-btn lang-toggle-btn" aria-label="Switch Language / ቋንቋ ቀይር" title="Switch Language">
-          🌐 <span id="current-lang-text" class="lang-active-tag">EN</span>
-        </button>
-
-        <!-- Direct Telegram Button -->
-        <a href="https://t.me/ethio21_technologies" target="_blank" rel="noopener noreferrer" class="btn-telegram-nav" title="Chat directly with us on Telegram">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
-          <span data-i18n="ctaConsultation">Chat on Telegram</span>
+    <div class="site-nav-shell">
+      <div class="nav-inner">
+        <!-- Pure Wordmark Logo (No Icon Required) -->
+        <a href="#hero" class="brand-wordmark" aria-label="ETHIO 21 Technologies Home">
+          <div class="wordmark-main">
+            <span class="wordmark-ethio" data-i18n="brandEthio">ETHIO</span>
+            <span class="wordmark-21" data-i18n="brandNum">21</span>
+          </div>
+          <span class="wordmark-subtag" data-i18n="brandSubtag">TECHNOLOGIES & DIGITAL SOLUTIONS</span>
         </a>
 
-        <!-- Mobile Menu Hamburger -->
-        <button id="mobile-nav-toggle" class="mobile-nav-toggle" aria-label="Open Mobile Menu">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        </button>
+        <!-- Desktop Navigation Links -->
+        <nav aria-label="Primary Navigation">
+          <ul class="nav-links">
+            <li><a href="#hero" class="nav-link" data-i18n="navHome">Home</a></li>
+            <li><a href="#services" class="nav-link" data-i18n="navServices">Core Services</a></li>
+            <li><a href="#venture-hub" class="nav-link" data-i18n="navVentureHub">Startup Venture Hub</a></li>
+            <li><a href="#media-hub" class="nav-link" data-i18n="navMediaHub">Media & Ads</a></li>
+            <li><a href="#founders" class="nav-link" data-i18n="navFounders">Founders</a></li>
+            <li><a href="#community" class="nav-link" data-i18n="navCommunity" style="color: var(--accent-mint); font-weight: 750;">👥 Community</a></li>
+          </ul>
+        </nav>
+
+        <!-- Nav Action Controls -->
+        <div class="nav-controls">
+          <!-- Audio SFX Toggle -->
+          <button id="audio-toggle-btn" class="btn-icon" aria-label="Toggle Audio Sound FX" title="Toggle Sound">
+            <svg id="audio-icon" viewBox="0 0 24 24">
+              <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+              <line x1="23" y1="9" x2="17" y2="15"></line>
+              <line x1="17" y1="9" x2="23" y2="15"></line>
+            </svg>
+          </button>
+
+          <!-- Dark / Light Theme Toggle -->
+          <button id="theme-toggle-btn" class="btn-icon" aria-label="Toggle Color Theme" title="Toggle Theme">
+            <svg id="theme-icon" viewBox="0 0 24 24">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+
+          <!-- Language Switcher Button (English / Amharic) -->
+          <button class="lang-badge-btn lang-toggle-btn" aria-label="Switch Language / ቋንቋ ቀይር" title="Switch Language">
+            🌐 <span id="current-lang-text" class="lang-active-tag">EN</span>
+          </button>
+
+          <!-- Direct Telegram Button -->
+          <a href="https://t.me/ethio21_technologies" target="_blank" rel="noopener noreferrer" class="btn-telegram-nav" title="Chat directly with us on Telegram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+            <span data-i18n="ctaConsultation">Chat on Telegram</span>
+          </a>
+
+          <!-- Mobile Menu Hamburger -->
+          <button id="mobile-nav-toggle" class="mobile-nav-toggle" aria-label="Open Mobile Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </header>
@@ -498,39 +499,56 @@
 
         <!-- Flagship In-House Startup Showcase: Teme Educational Platform -->
         <div class="incubated-startup-card">
-          <div style="position: absolute; top: -80px; right: -80px; width: 220px; height: 220px; background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
+          <div class="startup-glow-orb"></div>
           
-          <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; justify-content: space-between; position: relative; z-index: 2;">
-            <div style="display: flex; gap: 1.75rem; align-items: center; flex: 1; min-width: min(100%, 280px);">
-              <div style="position: relative; flex-shrink: 0;">
-                <img src="assets/startups/teme_logo.jpg" alt="Teme Educational Platform (ተሜ)" style="width: 95px; height: 95px; border-radius: 22px; object-fit: cover; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4); border: 2px solid rgba(255, 255, 255, 0.2);">
-                <span style="position: absolute; bottom: -6px; right: -6px; background: #3b82f6; color: #fff; font-size: 0.65rem; font-weight: 800; padding: 0.2rem 0.5rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">In-House #01</span>
+          <div class="startup-card-content">
+            <div class="startup-brand-col">
+              <div class="startup-logo-wrap">
+                <img src="assets/startups/teme_logo.jpg" alt="Teme Educational Platform (ተሜ)" class="startup-logo-img">
+                <span class="startup-pill-num">In-House #01</span>
               </div>
-              <div>
-                <div class="startup-tag-badge" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.3rem 0.75rem; border-radius: 100px; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">
+              <div class="startup-text-block">
+                <div class="startup-tag-badge">
                   🚀 <span>ETHIO 21 FLAGSHIP PROPRIETARY STARTUP &bull; IN-HOUSE PRODUCT</span>
                 </div>
-                <h3 style="font-size: 1.65rem; font-weight: 800; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.6rem;">
-                  Teme Educational Platform <span style="font-family: inherit; color: var(--accent-cyan);">(ተሜ)</span>
+                <h3 class="startup-title">
+                  Teme Educational Platform <span class="startup-am-title">(ተሜ)</span>
                 </h3>
-                <p style="font-size: 0.92rem; line-height: 1.6; max-width: 620px;">
+                <p class="startup-desc">
                   ETHIO 21's very own flagship digital learning and interactive examination platform. Conceived, architected, and operated 100% in-house by our engineering and product development team.
                 </p>
-                <div style="margin-top: 0.6rem; display: flex; gap: 0.6rem; flex-wrap: wrap;">
-                  <span class="startup-founders-badge" style="font-size: 0.78rem; border-radius: 6px; padding: 0.2rem 0.6rem;">👑 <b>Founders &amp; CEOs:</b> Ashenafi Girma &amp; Lema Tefera</span>
+
+                <!-- Modern Classic Executive Founders Signature Badge -->
+                <div class="teme-founders-signature">
+                  <div class="sig-avatars-cluster">
+                    <img src="assets/ashenafi_founder.jpg" alt="Ashenafi Girma" class="sig-avatar sig-avatar-1" title="Ashenafi Girma — Founder, CEO & Chief Software Engineer">
+                    <img src="assets/lema_founder.jpg" alt="Lema Tefera" class="sig-avatar sig-avatar-2" title="Lema Tefera — Co-Founder & CEO">
+                    <span class="sig-verified-dot" title="Verified Leadership">
+                      <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </span>
+                  </div>
+                  <div class="signature-text-group">
+                    <span class="signature-overline" data-i18n="temeFoundersOverline">CO-FOUNDED &amp; DIRECTED BY</span>
+                    <div class="signature-names-row">
+                      <span class="sig-leader-name">Ashenafi Girma</span>
+                      <span class="signature-sep">&bull;</span>
+                      <span class="sig-leader-name">Lema Tefera</span>
+                    </div>
+                    <span class="signature-role-sub" data-i18n="temeFoundersRole">Founders &amp; Chief Executive Officers</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: 0.75rem; min-width: min(100%, 240px);">
-              <a href="teme-exam-app.html" target="_blank" rel="noopener noreferrer" class="btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); justify-content: center; font-size: 0.9rem; padding: 0.85rem 1.4rem; text-decoration: none; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);">
+            <div class="startup-actions-col">
+              <a href="teme-exam-app.html" target="_blank" rel="noopener noreferrer" class="btn-primary startup-launch-btn">
                 <span>📝 Launch 24/7 Freshman Exam Web App ⚡</span>
               </a>
-              <a href="https://t.me/temeeducationalplatform" target="_blank" rel="noopener noreferrer" class="startup-channel-btn" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; font-weight: 700; font-size: 0.88rem; padding: 0.75rem 1.4rem; border-radius: 12px; text-decoration: none; transition: all 0.2s ease;">
+              <a href="https://t.me/temeeducationalplatform" target="_blank" rel="noopener noreferrer" class="startup-channel-btn">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
                 <span>Join Teme Channel 📢</span>
               </a>
-              <a href="https://t.me/+0A6JMTqf6-k3MWU8" target="_blank" rel="noopener noreferrer" class="startup-group-btn" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; font-weight: 700; font-size: 0.88rem; padding: 0.75rem 1.4rem; border-radius: 12px; text-decoration: none; transition: all 0.2s ease;">
+              <a href="https://t.me/+0A6JMTqf6-k3MWU8" target="_blank" rel="noopener noreferrer" class="startup-group-btn">
                 <span>👥 Join Teme Discussion Group</span>
               </a>
             </div>

@@ -106,6 +106,8 @@ const translations = {
     ventureStep4Desc: "We manage company formation, marketing funnels, and enterprise scaling. In return, ETHIO 21 holds an agreed equity shareholding stake — aligning our success directly with yours as true partners.",
 
     ventureCtaButton: "Apply for Co-Building & Seed Funding 🚀",
+    temeFoundersOverline: "CO-FOUNDED & DIRECTED BY",
+    temeFoundersRole: "Founders & Chief Executive Officers",
 
     // Sub-Project 2: Media & SMM Production Hub
     mediaPretitle: "GROWTH & CREATIVE PRODUCTION LAB",
@@ -298,6 +300,8 @@ const translations = {
     ventureStep4Desc: "የህግ ምዝገባ፣ የገበያ ማስፋፊያ እና ማኔጅመንቱን እንቆጣጠራለን። በምላሹ በተስማማንበት የፍትሃዊነት ባለድርሻነት (Equity Share) አብረን ውጤታማ እንሆናለን።",
 
     ventureCtaButton: "የስቱዲዮ ማመልከቻዎን በቴሌግራም ያስገቡ 🚀",
+    temeFoundersOverline: "በጋራ የመሰረቱት እና የሚመሩት",
+    temeFoundersRole: "መስራቾች እና ዋና ስራ አስፈፃሚዎች (CEOs)",
 
     // Sub-Project 2: Media & SMM Production Hub
     mediaPretitle: "የእድገት እና የፈጠራ ማስተዋወቂያ ማዕከል",
