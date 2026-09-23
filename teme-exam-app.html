@@ -6,6 +6,187 @@
   <title>Teme Freshman Exam Hub (ተሜ)</title>
   <!-- Telegram WebApp SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <!-- Cache Invalidation Directives -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <!-- =========================================================================
+       ETHIO 21 PROPRIETARY ANTI-INSPECT & ACTIVE DEVTOOLS DEFENSE SHIELD
+       ========================================================================= -->
+  <script>
+    (function() {
+      'use strict';
+
+      // 1. Root Level Context Menu Disabler (Capture Phase & Direct Handlers)
+      window.oncontextmenu = function(e) {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+        }
+        triggerSecurityToast('🔒 Right-Click Disabled • Protected by ETHIO 21 Shield');
+        return false;
+      };
+      document.oncontextmenu = window.oncontextmenu;
+
+      window.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        triggerSecurityToast('🔒 Right-Click Disabled • Protected by ETHIO 21 Shield');
+        return false;
+      }, true);
+
+      // 2. High-Priority Keyboard Interceptor (Capture Phase)
+      window.addEventListener('keydown', function(e) {
+        // F12 Key
+        if (e.key === 'F12' || e.keyCode === 123) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          triggerSecurityToast('🔒 Developer Tools Blocked • Protected Examination System');
+          return false;
+        }
+
+        const isCtrlOrMeta = e.ctrlKey || e.metaKey;
+
+        // Ctrl+Shift+I / J / C (DevTools & Console)
+        if (isCtrlOrMeta && e.shiftKey && ['I', 'J', 'C', 'i', 'j', 'c'].indexOf(e.key) !== -1) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          triggerSecurityToast('🔒 Inspector Blocked • Protected Intellectual Property');
+          return false;
+        }
+
+        // Ctrl+U (View Source)
+        if (isCtrlOrMeta && (e.key === 'u' || e.key === 'U' || e.keyCode === 85)) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          triggerSecurityToast('🔒 Source Code Viewer Blocked • Viewing Only');
+          return false;
+        }
+
+        // Ctrl+S (Save Page)
+        if (isCtrlOrMeta && (e.key === 's' || e.key === 'S' || e.keyCode === 83)) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          triggerSecurityToast('🔒 Page Saving Disabled • Viewing Only');
+          return false;
+        }
+
+        // Ctrl+P (Print Page)
+        if (isCtrlOrMeta && (e.key === 'p' || e.key === 'P' || e.keyCode === 80)) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          triggerSecurityToast('🔒 Printing Disabled • Examination Security');
+          return false;
+        }
+      }, true);
+
+      // 3. Drag Prevention
+      window.addEventListener('dragstart', function(e) {
+        e.preventDefault();
+        return false;
+      }, true);
+
+      // 4. Security Toast Notification
+      let toastTimeout = null;
+      function triggerSecurityToast(msg) {
+        let toast = document.getElementById('security-toast');
+        if (!toast) {
+          toast = document.createElement('div');
+          toast.id = 'security-toast';
+          toast.className = 'security-toast';
+          toast.innerHTML = '<span class="security-toast-icon">🛡️</span><span class="security-toast-text"></span>';
+          if (document.body) {
+            document.body.appendChild(toast);
+          } else {
+            document.addEventListener('DOMContentLoaded', function() {
+              document.body.appendChild(toast);
+            });
+          }
+        }
+        const textSpan = toast ? toast.querySelector('.security-toast-text') : null;
+        if (textSpan) textSpan.textContent = msg || 'Protected by ETHIO 21 Shield';
+        clearTimeout(toastTimeout);
+        if (toast) {
+          toast.classList.add('show');
+          toastTimeout = setTimeout(function() {
+            toast.classList.remove('show');
+          }, 2500);
+        }
+      }
+      window.triggerSecurityToast = triggerSecurityToast;
+
+      // 5. Active DevTools Detection & Shield Lockdown Overlay
+      const threshold = 160;
+
+      function checkDevToolsDimensions() {
+        const widthDiff = window.outerWidth - window.innerWidth > threshold;
+        const heightDiff = window.outerHeight - window.innerHeight > threshold;
+        if (widthDiff || heightDiff) {
+          setLockoutState(true);
+        } else {
+          setLockoutState(false);
+        }
+      }
+
+      function setLockoutState(locked) {
+        let overlay = document.getElementById('devtools-lockout-overlay');
+        if (locked) {
+          if (!overlay && document.body) {
+            overlay = document.createElement('div');
+            overlay.id = 'devtools-lockout-overlay';
+            overlay.className = 'devtools-lockout-overlay';
+            overlay.innerHTML = '<div class="lockout-box"><div class="lockout-shield-badge">🛡️</div><h2 class="lockout-title">INSPECTOR &amp; DEVTOOLS DETECTED</h2><p class="lockout-desc">The ETHIO 21 Proprietary Security Shield has locked this session to protect examination integrity and proprietary source code.</p><div class="lockout-status">🔒 SESSION BLURRED &amp; FROZEN</div><p class="lockout-sub">Please close Developer Tools or Inspector window to resume your test.</p></div>';
+            document.body.appendChild(overlay);
+          }
+          if (overlay) overlay.classList.add('active');
+          if (document.body) document.body.classList.add('shield-lockdown-blur');
+        } else {
+          if (overlay) overlay.classList.remove('active');
+          if (document.body) document.body.classList.remove('shield-lockdown-blur');
+        }
+      }
+
+      window.addEventListener('resize', checkDevToolsDimensions);
+      setInterval(checkDevToolsDimensions, 600);
+
+      // 6. Anti-Debugger Trap Loop
+      // When DevTools is opened, this constructor debugger traps the session
+      setInterval(function() {
+        const start = performance.now();
+        (function() {
+          return false;
+        }['constructor']('debugger')['call']());
+        const timeElapsed = performance.now() - start;
+        if (timeElapsed > 100) {
+          setLockoutState(true);
+        }
+      }, 500);
+
+      // 7. Console Watermark & Periodic Flush
+      setInterval(function() {
+        console.clear();
+        console.log(
+          '%c🛑 ETHIO 21 PROPRIETARY EXAMINATION SHIELD',
+          'color: #ef4444; font-size: 24px; font-weight: 900; -webkit-text-stroke: 1px black;'
+        );
+        console.log(
+          '%cAll algorithms, question banks, and UI architectures are protected.\nUnauthorized inspection, scraping, or copying is strictly prohibited.',
+          'color: #00d2ff; font-size: 12px; font-weight: bold;'
+        );
+      }, 2000);
+
+    })();
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -466,6 +647,92 @@
       align-items: center;
       font-size: 1rem;
     }
+
+    /* ETHIO 21 Shield Lockout Overlay */
+    .devtools-lockout-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(4, 6, 12, 0.96);
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      z-index: 2147483647;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      box-sizing: border-box;
+      pointer-events: auto;
+    }
+
+    .devtools-lockout-overlay.active {
+      display: flex !important;
+    }
+
+    body.shield-lockdown-blur > *:not(.devtools-lockout-overlay):not(#security-toast) {
+      filter: blur(28px) grayscale(90%) !important;
+      pointer-events: none !important;
+      user-select: none !important;
+    }
+
+    .lockout-box {
+      background: rgba(15, 23, 42, 0.96);
+      border: 2px solid #ef4444;
+      box-shadow: 0 0 60px rgba(239, 68, 68, 0.45), 0 25px 60px rgba(0, 0, 0, 0.85);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      max-width: 480px;
+      width: 100%;
+      color: #fff;
+      animation: lockoutPulse 2s infinite ease-in-out;
+    }
+
+    @keyframes lockoutPulse {
+      0%, 100% { box-shadow: 0 0 40px rgba(239, 68, 68, 0.35); }
+      50% { box-shadow: 0 0 75px rgba(239, 68, 68, 0.65); }
+    }
+
+    .lockout-shield-badge {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+
+    .lockout-title {
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: #ef4444;
+      margin-bottom: 0.75rem;
+    }
+
+    .lockout-desc {
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+
+    .lockout-status {
+      display: inline-block;
+      padding: 0.45rem 1rem;
+      border-radius: 9999px;
+      background: rgba(239, 68, 68, 0.18);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #f87171;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+    }
+
+    .lockout-sub {
+      font-size: 0.82rem;
+      color: #94a3b8;
+    }
   </style>
 </head>
 <body>
@@ -866,83 +1133,6 @@
       navigateTo('screen-exam');
       loadQuestion();
     }
-
-    // ==========================================
-    // ETHIO 21 PROPRIETARY ANTI-INSPECT SHIELD
-    // ==========================================
-    console.log(
-      '%c🛑 STOP! PROTECTED EXAMINATION SYSTEM',
-      'color: #ef4444; font-size: 26px; font-weight: 900; -webkit-text-stroke: 1px black;'
-    );
-    console.log(
-      '%cAll examination algorithms, test items, and intellectual property are protected by the ETHIO 21 Proprietary Shield.\nUnauthorized inspection, scraping, or copying is strictly prohibited.',
-      'color: #00d2ff; font-size: 13px; font-weight: 600;'
-    );
-
-    let securityToastTimeout = null;
-    function showSecurityNotice(msg) {
-      let toast = document.getElementById('security-toast');
-      if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'security-toast';
-        toast.className = 'security-toast';
-        toast.innerHTML = `
-          <span class="security-toast-icon">🔒</span>
-          <span class="security-toast-text">${msg || 'Protected by ETHIO 21 Proprietary Shield • Viewing Only'}</span>
-        `;
-        document.body.appendChild(toast);
-      } else {
-        const textSpan = toast.querySelector('.security-toast-text');
-        if (textSpan) textSpan.textContent = msg || 'Protected by ETHIO 21 Proprietary Shield • Viewing Only';
-      }
-
-      clearTimeout(securityToastTimeout);
-      toast.classList.add('show');
-      securityToastTimeout = setTimeout(() => {
-        toast.classList.remove('show');
-      }, 2600);
-    }
-
-    // 1. Disable Right-Click Context Menu
-    document.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-      showSecurityNotice('🔒 Right-Click Disabled • Protected by ETHIO 21 Shield');
-      return false;
-    });
-
-    // 2. Intercept DevTools & Inspector Keyboard Shortcuts
-    document.addEventListener('keydown', (e) => {
-      // F12 key
-      if (e.key === 'F12' || e.keyCode === 123) {
-        e.preventDefault();
-        showSecurityNotice('🔒 Developer Tools Blocked • Protected Examination System');
-        return false;
-      }
-      // Ctrl+U / Cmd+U (View Source)
-      if ((e.ctrlKey || e.metaKey) && (e.key === 'u' || e.key === 'U' || e.keyCode === 85)) {
-        e.preventDefault();
-        showSecurityNotice('🔒 Source Code Viewer Blocked • Viewing Only');
-        return false;
-      }
-      // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'J', 'C', 'i', 'j', 'c'].includes(e.key)) {
-        e.preventDefault();
-        showSecurityNotice('🔒 Inspector Blocked • Protected Intellectual Property');
-        return false;
-      }
-      // Ctrl+S / Cmd+S (Save Page)
-      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
-        e.preventDefault();
-        showSecurityNotice('🔒 Page Saving Disabled • Viewing Only');
-        return false;
-      }
-    });
-
-    // 3. Prevent Dragging
-    document.addEventListener('dragstart', (e) => {
-      e.preventDefault();
-      return false;
-    });
 
     // Launch App
     window.addEventListener('DOMContentLoaded', initApp);
