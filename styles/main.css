@@ -124,11 +124,15 @@ html {
   color: var(--text-primary);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 body {
   min-height: 100vh;
   overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
   position: relative;
   line-height: 1.6;
   background-color: var(--bg-primary);
@@ -1741,18 +1745,100 @@ body {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1180px) {
+  .nav-links {
+    gap: 0.4rem;
+  }
+  .nav-link {
+    padding: 0.4rem 0.65rem;
+    font-size: 0.8rem;
+  }
+  .btn-telegram-nav {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 1024px) {
   .nav-links {
     display: none;
   }
   .mobile-nav-toggle {
-    display: block;
+    display: flex;
+  }
+  .btn-telegram-nav span {
+    display: none;
+  }
+  .btn-telegram-nav {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border-radius: 50%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .site-header {
+    top: 0.5rem;
+  }
+  .site-header .container {
+    padding-left: 0.65rem;
+    padding-right: 0.65rem;
+  }
+  .nav-inner {
+    border-radius: var(--radius-lg);
+    padding: 0.45rem 0.75rem;
+    gap: 0.4rem;
+  }
+  .brand-wordmark .wordmark-main {
+    font-size: 1.25rem;
+  }
+  .brand-wordmark .wordmark-subtag {
+    font-size: 0.46rem;
+    letter-spacing: 0.16em;
+  }
+  .nav-controls {
+    gap: 0.35rem;
+  }
+  .btn-icon {
+    width: 34px;
+    height: 34px;
+  }
+  .lang-badge-btn {
+    padding: 0.35rem 0.55rem;
+    font-size: 0.75rem;
+  }
+  .mobile-nav-toggle {
+    width: 34px;
+    height: 34px;
+  }
+  .btn-telegram-nav {
+    width: 34px;
+    height: 34px;
   }
   .metrics-bar {
     grid-template-columns: repeat(2, 1fr);
+    padding: 1.5rem 1rem;
+    gap: 1.25rem;
   }
   .metric-item:nth-child(2)::after {
     display: none;
+  }
+  .hero-telegram-badge {
+    font-size: 0.78rem;
+    padding: 0.45rem 0.85rem;
+    line-height: 1.4;
+    border-radius: 14px;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+  .hero-actions .btn-primary,
+  .hero-actions .btn-secondary {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
   }
   .form-grid {
     grid-template-columns: 1fr;
@@ -1764,21 +1850,31 @@ body {
     grid-template-columns: 1fr;
   }
   .venture-container {
-    padding: 2rem 1.5rem;
+    padding: 2rem 1.25rem;
   }
   .venture-cta-banner {
     flex-direction: column;
     align-items: flex-start;
   }
   .estimator-container, .contact-form-card, .contact-info-card {
-    padding: 1.75rem;
+    padding: 1.5rem 1.15rem;
   }
-  .site-header {
-    top: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  #audio-toggle-btn {
+    display: none;
   }
-  .nav-inner {
-    border-radius: var(--radius-lg);
-    padding: 0.5rem 1rem;
+  .metrics-bar {
+    grid-template-columns: 1fr;
+  }
+  .metric-item::after {
+    display: none !important;
+  }
+  .btn-direct-group {
+    font-size: 0.82rem !important;
+    padding: 0.65rem 0.85rem !important;
+    max-width: 100%;
   }
 }
 
@@ -2247,11 +2343,13 @@ body {
 .floating-community-pill {
   position: fixed;
   bottom: 2rem;
-  left: 2rem;
-  background: rgba(6, 12, 24, 0.88);
+  right: 1.5rem;
+  left: auto;
+  max-width: calc(100vw - 3rem);
+  background: rgba(6, 12, 24, 0.92);
   backdrop-filter: var(--blur-ios);
   -webkit-backdrop-filter: var(--blur-ios);
-  border: 1px solid rgba(0, 210, 255, 0.4);
+  border: 1.5px solid rgba(0, 210, 255, 0.45);
   color: #ffffff;
   padding: 0.65rem 1.25rem;
   border-radius: var(--radius-full);
@@ -2264,6 +2362,19 @@ body {
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 210, 255, 0.25);
   z-index: 990;
   transition: all var(--transition-smooth);
+  box-sizing: border-box;
+}
+
+[data-theme="light"] .floating-community-pill {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border: 1.5px solid #0284c7 !important;
+  color: #0284c7 !important;
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.12), 0 0 20px rgba(0, 210, 255, 0.2) !important;
+}
+
+[data-theme="light"] .floating-community-pill:hover {
+  background: #0284c7 !important;
+  color: #ffffff !important;
 }
 
 .floating-community-pill:hover {
@@ -2280,6 +2391,7 @@ body {
   background: #10f2a7;
   box-shadow: 0 0 10px #10f2a7;
   animation: pulse-dot 2s infinite;
+  flex-shrink: 0;
 }
 
 @keyframes pulse-dot {
@@ -2296,10 +2408,21 @@ body {
     padding: 2.5rem 1.75rem;
   }
   .floating-community-pill {
-    bottom: 1.25rem;
-    left: 1.25rem;
+    bottom: max(1.15rem, env(safe-area-inset-bottom, 1.15rem));
+    right: 1.15rem;
+    left: auto;
     font-size: 0.78rem;
     padding: 0.55rem 1rem;
+    max-width: calc(100vw - 2.3rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-community-pill span:not(.floating-pill-dot) {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
@@ -2732,14 +2855,66 @@ img, svg, .hero-brand-banner-img, .brand-wordmark, .pathway-card, .pillar-servic
 /* ==========================================================================
    EXECUTIVE FOUNDERS & LEADERSHIP PORTRAITS
    ========================================================================== */
+/* ==========================================================================
+   EXECUTIVE FOUNDERS & LEADERSHIP PORTRAITS (LIGHT & DARK THEMES)
+   ========================================================================== */
+.founders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 2.25rem;
+  margin-top: 3.5rem;
+}
+
 .founder-card {
+  background: rgba(15, 23, 42, 0.78);
+  border: 1.5px solid rgba(59, 130, 246, 0.35);
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.founder-card-lema {
+  border-color: rgba(16, 185, 129, 0.35);
 }
 
 .founder-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(59, 130, 246, 0.6) !important;
+  border-color: rgba(59, 130, 246, 0.65) !important;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 30px rgba(59, 130, 246, 0.25) !important;
+}
+
+.founder-card-lema:hover {
+  border-color: rgba(16, 185, 129, 0.65) !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 30px rgba(16, 185, 129, 0.25) !important;
+}
+
+.founder-glow-orb {
+  position: absolute;
+  top: -70px;
+  right: -70px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.22) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.founder-card-lema .founder-glow-orb {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, transparent 70%);
+}
+
+.founder-header-flex {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 
 .founder-avatar-wrap {
@@ -2778,6 +2953,214 @@ img, svg, .hero-brand-banner-img, .brand-wordmark, .pathway-card, .pillar-servic
   justify-content: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   border: 2px solid #0f172a;
+}
+
+.founder-role-tag {
+  display: inline-block;
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  padding: 0.25rem 0.65rem;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 750;
+  color: #60a5fa;
+  margin-bottom: 0.35rem;
+  letter-spacing: 0.02em;
+}
+
+.founder-card-lema .founder-role-tag {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.35);
+  color: #34d399;
+}
+
+.founder-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.founder-teme-role {
+  font-size: 0.8rem;
+  color: #93c5fd;
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+
+.founder-card-lema .founder-teme-role {
+  color: #a7f3d0;
+}
+
+.founder-bio {
+  color: #cbd5e1;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  margin-bottom: 1.75rem;
+  flex: 1;
+}
+
+/* Light Theme Adaptations for Founder Cards */
+[data-theme="light"] .founder-card {
+  background: #ffffff !important;
+  border: 1.5px solid rgba(59, 130, 246, 0.28) !important;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08), 0 2px 10px rgba(59, 130, 246, 0.06) !important;
+}
+
+[data-theme="light"] .founder-card-lema {
+  border-color: rgba(16, 185, 129, 0.32) !important;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08), 0 2px 10px rgba(16, 185, 129, 0.06) !important;
+}
+
+[data-theme="light"] .founder-card:hover {
+  box-shadow: 0 22px 50px rgba(59, 130, 246, 0.16) !important;
+  border-color: #2563eb !important;
+}
+
+[data-theme="light"] .founder-card-lema:hover {
+  box-shadow: 0 22px 50px rgba(16, 185, 129, 0.16) !important;
+  border-color: #059669 !important;
+}
+
+[data-theme="light"] .founder-glow-orb {
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%) !important;
+}
+
+[data-theme="light"] .founder-card-lema .founder-glow-orb {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%) !important;
+}
+
+[data-theme="light"] .founder-role-tag {
+  background: rgba(37, 99, 235, 0.1) !important;
+  border-color: rgba(37, 99, 235, 0.28) !important;
+  color: #1d4ed8 !important;
+}
+
+[data-theme="light"] .founder-card-lema .founder-role-tag {
+  background: rgba(5, 150, 105, 0.1) !important;
+  border-color: rgba(5, 150, 105, 0.28) !important;
+  color: #047857 !important;
+}
+
+[data-theme="light"] .founder-name {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .founder-teme-role {
+  color: #2563eb !important;
+}
+
+[data-theme="light"] .founder-card-lema .founder-teme-role {
+  color: #059669 !important;
+}
+
+[data-theme="light"] .founder-bio {
+  color: #334155 !important;
+  font-weight: 450;
+}
+
+[data-theme="light"] .founder-avatar-img {
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12) !important;
+}
+
+[data-theme="light"] .founder-verified-badge {
+  border-color: #ffffff !important;
+}
+
+/* ==========================================================================
+   INCUBATED STARTUP CARD (TEME) - LIGHT & DARK THEMES
+   ========================================================================== */
+.incubated-startup-card {
+  margin-top: 2.5rem;
+  background: rgba(15, 23, 42, 0.78);
+  border: 1.5px solid rgba(59, 130, 246, 0.35);
+  border-radius: 24px;
+  padding: 2.25rem;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-smooth);
+}
+
+.incubated-startup-card h3 {
+  color: #ffffff;
+}
+
+.incubated-startup-card p {
+  color: #cbd5e1;
+}
+
+[data-theme="light"] .incubated-startup-card {
+  background: #ffffff !important;
+  border: 1.5px solid rgba(59, 130, 246, 0.28) !important;
+  box-shadow: 0 16px 45px rgba(15, 23, 42, 0.08) !important;
+}
+
+[data-theme="light"] .incubated-startup-card h3 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .incubated-startup-card p {
+  color: #334155 !important;
+}
+
+[data-theme="light"] .startup-tag-badge {
+  background: rgba(37, 99, 235, 0.1) !important;
+  border-color: rgba(37, 99, 235, 0.28) !important;
+  color: #1d4ed8 !important;
+}
+
+[data-theme="light"] .startup-founders-badge {
+  background: rgba(15, 23, 42, 0.05) !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .startup-channel-btn {
+  background: rgba(37, 99, 235, 0.08) !important;
+  border-color: rgba(37, 99, 235, 0.25) !important;
+  color: #1d4ed8 !important;
+}
+
+[data-theme="light"] .startup-group-btn {
+  background: rgba(15, 23, 42, 0.05) !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  color: #0f172a !important;
+}
+
+/* Responsive adjustments for founders & incubated cards */
+@media (max-width: 768px) {
+  .founders-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    margin-top: 2rem !important;
+  }
+  .founder-card {
+    padding: 1.75rem 1.25rem !important;
+  }
+  .founder-avatar-wrap {
+    width: 75px;
+    height: 75px;
+  }
+  .founder-name {
+    font-size: 1.35rem;
+  }
+  .incubated-startup-card {
+    padding: 1.5rem 1.25rem !important;
+  }
+  .incubated-startup-card > div:first-of-type {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 1.5rem !important;
+  }
+  .incubated-startup-card img {
+    width: 75px !important;
+    height: 75px !important;
+  }
 }
 
 
