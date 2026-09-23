@@ -2754,6 +2754,7 @@ img, svg, .hero-brand-banner-img, .brand-wordmark, .pathway-card, .pillar-servic
   height: 100%;
   border-radius: 22px;
   object-fit: cover;
+  object-position: center 15%;
   border: 2px solid rgba(255, 255, 255, 0.25);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
   transition: transform 0.4s ease;
