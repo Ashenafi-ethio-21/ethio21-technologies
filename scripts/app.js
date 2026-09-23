@@ -588,22 +588,27 @@ ${message ? `"${message}"` : 'Client requested technical consultation and discov
     'color: #00d2ff; font-size: 13px; font-weight: 600;'
   );
 
-  // Security Toast Notification
+  // Security Toast Notification (Modern Classic Executive Shield)
   let securityToastTimeout = null;
-  function showSecurityNotice(msg) {
+  function showSecurityNotice(msg, customTag = 'ETHIO 21 PROPRIETARY SHIELD') {
     let toast = document.getElementById('security-toast');
     if (!toast) {
       toast = document.createElement('div');
       toast.id = 'security-toast';
       toast.className = 'security-toast';
       toast.innerHTML = `
-        <span class="security-toast-icon">🔒</span>
-        <span class="security-toast-text">${msg || 'Protected by ETHIO 21 Proprietary Shield • Viewing Only'}</span>
+        <div class="security-shield-icon-badge">🛡️</div>
+        <div class="security-toast-content">
+          <div class="security-toast-brand">${customTag}</div>
+          <div class="security-toast-text">${msg || 'Protected Intellectual Property • Viewing Only'}</div>
+        </div>
       `;
       document.body.appendChild(toast);
     } else {
+      const brandSpan = toast.querySelector('.security-toast-brand');
       const textSpan = toast.querySelector('.security-toast-text');
-      if (textSpan) textSpan.textContent = msg || 'Protected by ETHIO 21 Proprietary Shield • Viewing Only';
+      if (brandSpan) brandSpan.textContent = customTag;
+      if (textSpan) textSpan.textContent = msg || 'Protected Intellectual Property • Viewing Only';
     }
 
     clearTimeout(securityToastTimeout);
@@ -614,53 +619,127 @@ ${message ? `"${message}"` : 'Client requested technical consultation and discov
     }, 2800);
   }
 
-  // 1. Disable Right-Click Context Menu
-  document.addEventListener('contextmenu', (e) => {
+  // 1. Disable Right-Click Context Menu (Capture Phase)
+  window.addEventListener('contextmenu', (e) => {
     e.preventDefault();
-    showSecurityNotice('🔒 Right-Click Disabled • Protected by ETHIO 21 Shield');
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    showSecurityNotice('Right-Click Disabled • Protected Intellectual Property', 'ETHIO 21 PROPRIETARY SHIELD');
     return false;
-  });
+  }, true);
 
-  // 2. Intercept DevTools & Source Inspector Keyboard Shortcuts
-  document.addEventListener('keydown', (e) => {
+  // 2. Intercept DevTools & Source Inspector Keyboard Shortcuts (Capture Phase)
+  window.addEventListener('keydown', (e) => {
     // F12 key
     if (e.key === 'F12' || e.keyCode === 123) {
       e.preventDefault();
-      showSecurityNotice('🔒 Developer Tools Blocked • Protected Intellectual Property');
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      showSecurityNotice('Developer Tools Blocked • Protected Intellectual Property', 'ETHIO 21 PROPRIETARY SHIELD');
       return false;
     }
+
+    const isCtrlOrMeta = e.ctrlKey || e.metaKey;
 
     // Ctrl+U / Cmd+U (View Source)
-    if ((e.ctrlKey || e.metaKey) && (e.key === 'u' || e.key === 'U' || e.keyCode === 85)) {
+    if (isCtrlOrMeta && (e.key === 'u' || e.key === 'U' || e.keyCode === 85)) {
       e.preventDefault();
-      showSecurityNotice('🔒 Source Code Viewer Blocked • Viewing Only');
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      showSecurityNotice('Source Code Viewer Blocked • Viewing Only', 'ETHIO 21 PROPRIETARY SHIELD');
       return false;
     }
 
-    // Ctrl+Shift+I / Cmd+Option+I (Inspect Element)
-    // Ctrl+Shift+J / Cmd+Option+J (Console)
-    // Ctrl+Shift+C (Inspect Target)
-    if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'J', 'C', 'i', 'j', 'c'].includes(e.key)) {
+    // Ctrl+Shift+I / J / C (Inspect Element & Console)
+    if (isCtrlOrMeta && e.shiftKey && ['I', 'J', 'C', 'i', 'j', 'c'].includes(e.key)) {
       e.preventDefault();
-      showSecurityNotice('🔒 Inspector Blocked • Protected Intellectual Property');
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      showSecurityNotice('Inspector Blocked • Protected Intellectual Property', 'ETHIO 21 PROPRIETARY SHIELD');
       return false;
     }
 
     // Ctrl+S / Cmd+S (Save Page)
-    if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+    if (isCtrlOrMeta && (e.key === 's' || e.key === 'S')) {
       e.preventDefault();
-      showSecurityNotice('🔒 Page Saving Disabled • Viewing Only');
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      showSecurityNotice('Page Saving Disabled • Viewing Only', 'ETHIO 21 PROPRIETARY SHIELD');
       return false;
     }
-  });
+
+    // Ctrl+P / Cmd+P (Print Page)
+    if (isCtrlOrMeta && (e.key === 'p' || e.key === 'P')) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      showSecurityNotice('Printing Disabled • Secure Viewing Mode', 'ETHIO 21 PROPRIETARY SHIELD');
+      return false;
+    }
+  }, true);
 
   // 3. Prevent Dragging of Images and Visuals
-  document.addEventListener('dragstart', (e) => {
+  window.addEventListener('dragstart', (e) => {
     if (e.target.tagName === 'IMG' || e.target.tagName === 'svg' || e.target.closest('.hero-brand-glass-card')) {
       e.preventDefault();
       return false;
     }
-  });
+  }, true);
+
+  // 4. Active DevTools Detection & Full-Screen Shield Lockdown Overlay
+  const mainDevToolsThreshold = 160;
+
+  function setMainLockoutState(locked) {
+    let overlay = document.getElementById('devtools-lockout-overlay');
+    if (locked) {
+      if (!overlay && document.body) {
+        overlay = document.createElement('div');
+        overlay.id = 'devtools-lockout-overlay';
+        overlay.className = 'devtools-lockout-overlay';
+        overlay.innerHTML = `
+          <div class="lockout-box">
+            <div class="lockout-shield-badge">🛡️</div>
+            <span class="lockout-tag">ETHIO 21 PROPRIETARY SHIELD v2.4</span>
+            <h2 class="lockout-title">INSPECTOR &amp; DEVTOOLS DETECTED</h2>
+            <p class="lockout-desc">All system architectures, proprietary client interfaces, and interactive calculators are protected under ETHIO 21 Technologies intellectual property rights.</p>
+            <div class="lockout-status">🔒 SESSION BLURRED &amp; SECURED</div>
+            <p class="lockout-sub">Please close Developer Tools or Inspector window to resume exploring.</p>
+          </div>
+        `;
+        document.body.appendChild(overlay);
+      }
+      if (overlay) overlay.classList.add('active');
+      if (document.body) document.body.classList.add('shield-lockdown-blur');
+    } else {
+      if (overlay) overlay.classList.remove('active');
+      if (document.body) document.body.classList.remove('shield-lockdown-blur');
+    }
+  }
+
+  function checkMainDevToolsActivity() {
+    const widthDiff = window.outerWidth - window.innerWidth > mainDevToolsThreshold;
+    const heightDiff = window.outerHeight - window.innerHeight > mainDevToolsThreshold;
+    if (widthDiff || heightDiff) {
+      setMainLockoutState(true);
+    } else {
+      setMainLockoutState(false);
+    }
+  }
+
+  window.addEventListener('resize', checkMainDevToolsActivity);
+  setInterval(checkMainDevToolsActivity, 600);
+
+  // 5. Anti-Debugger Trap Loop
+  setInterval(() => {
+    const start = performance.now();
+    (function() {
+      return false;
+    }['constructor']('debugger')['call']());
+    const duration = performance.now() - start;
+    if (duration > 100) {
+      setMainLockoutState(true);
+    }
+  }, 500);
 
   applyLanguage(state.lang);
 });
