@@ -3347,6 +3347,29 @@ body.shield-lockdown-blur > *:not(.devtools-lockout-overlay):not(#security-toast
   flex: 1;
 }
 
+/* Executive Founder Single-Tone Action Buttons */
+.founder-btn-ashenafi {
+  background: linear-gradient(135deg, #0088cc 0%, #24a1de 100%) !important;
+  box-shadow: 0 8px 25px rgba(36, 161, 222, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+
+.founder-btn-ashenafi:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 12px 30px rgba(36, 161, 222, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
+}
+
+.founder-btn-lema {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+
+.founder-btn-lema:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 12px 30px rgba(16, 185, 129, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
+}
+
 /* Light Theme Adaptations for Founder Cards */
 [data-theme="light"] .founder-card {
   background: #ffffff !important;
@@ -3413,6 +3436,18 @@ body.shield-lockdown-blur > *:not(.devtools-lockout-overlay):not(#security-toast
 
 [data-theme="light"] .founder-verified-badge {
   border-color: #ffffff !important;
+}
+
+[data-theme="light"] .founder-btn-ashenafi {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+  box-shadow: 0 8px 20px rgba(2, 132, 199, 0.3) !important;
+  color: #ffffff !important;
+}
+
+[data-theme="light"] .founder-btn-lema {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+  box-shadow: 0 8px 20px rgba(5, 150, 105, 0.3) !important;
+  color: #ffffff !important;
 }
 
 /* ==========================================================================
