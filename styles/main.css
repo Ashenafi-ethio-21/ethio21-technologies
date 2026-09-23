@@ -2909,11 +2909,84 @@ img, svg, .hero-brand-banner-img, .brand-wordmark, .pathway-card, .pillar-servic
 }
 
 /* ==========================================================================
-   EXECUTIVE FOUNDERS & LEADERSHIP PORTRAITS
-   ========================================================================== */
-/* ==========================================================================
    EXECUTIVE FOUNDERS & LEADERSHIP PORTRAITS (LIGHT & DARK THEMES)
    ========================================================================== */
+.founders-synergy-banner {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin: 2.25rem auto 0;
+  max-width: 860px;
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid rgba(0, 210, 255, 0.35);
+  border-radius: 18px;
+  padding: 1.15rem 1.6rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-smooth);
+}
+
+.synergy-pulse-icon {
+  font-size: 1.85rem;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(0, 210, 255, 0.2) 0%, rgba(16, 242, 167, 0.2) 100%);
+  border: 1px solid rgba(16, 242, 167, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(16, 242, 167, 0.25);
+}
+
+.synergy-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.synergy-label {
+  font-size: 0.74rem;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-mint);
+}
+
+.synergy-desc {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #cbd5e1;
+}
+
+[data-theme="light"] .founders-synergy-banner {
+  background: #ffffff !important;
+  border: 1.5px solid rgba(37, 99, 235, 0.28) !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+}
+
+[data-theme="light"] .synergy-label {
+  color: #0284c7 !important;
+}
+
+[data-theme="light"] .synergy-desc {
+  color: #334155 !important;
+  font-weight: 500 !important;
+}
+
+@media (max-width: 640px) {
+  .founders-synergy-banner {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.85rem;
+    padding: 1.1rem 1rem;
+  }
+}
+
 .founders-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
