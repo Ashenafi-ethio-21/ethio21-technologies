@@ -108,6 +108,16 @@ const translations = {
     ventureCtaButton: "Apply for Co-Building & Seed Funding 🚀",
     temeFoundersOverline: "CO-FOUNDED & DIRECTED BY",
     temeFoundersRole: "Founders & Chief Executive Officers",
+    temeDownloadBtnTitle: "Download Teme App",
+    temeDownloadBtnSub: "Android APK • Direct • WebApp v2.4",
+    temeModalTitle: "Download Teme Educational App",
+    temeModalSubtitle: "The premier freshman examination suite and learning hub for Ethiopian university students. Choose your preferred download or access option below:",
+    temeCardApkTitle: "Android APK (Direct Release)",
+    temeCardApkDesc: "High-speed APK download. Compatible with Android 8.0+ smartphones and tablets.",
+    temeCardBotTitle: "Telegram Mini App Bot (@teme_exam_bot)",
+    temeCardBotDesc: "No download needed. Instant 24/7 cloud examination interface right inside your Telegram app.",
+    temeCardPwaTitle: "Web App • Add to Home Screen",
+    temeCardPwaDesc: "Open in Chrome or Safari, tap 'Add to Home Screen' to install as a standalone native app.",
 
     // Sub-Project 2: Media & SMM Production Hub
     mediaPretitle: "GROWTH & CREATIVE PRODUCTION LAB",
@@ -304,6 +314,16 @@ const translations = {
     ventureCtaButton: "የስቱዲዮ ማመልከቻዎን በቴሌግራም ያስገቡ 🚀",
     temeFoundersOverline: "በጋራ የመሰረቱት እና የሚመሩት",
     temeFoundersRole: "መስራቾች እና ዋና ስራ አስፈፃሚዎች (CEOs)",
+    temeDownloadBtnTitle: "የተሜ መተግበሪያን ያውርዱ (Download App)",
+    temeDownloadBtnSub: "አንድሮይድ ኤፒኬ • የቀጥታ ማውረጃ • ዌብአፕ v2.4",
+    temeModalTitle: "የተሜ የትምህርት መተግበሪያን ያውርዱ",
+    temeModalSubtitle: "ለኢትዮጵያ ዩኒቨርሲቲ የፍሬሽማን ተማሪዎች የተዘጋጀው ቀዳሚ የፈተና መለማመጃ እና የጥናት መተግበሪያ። የሚፈልጉትን የማውረጃ አማራጭ ይምረጡ፡",
+    temeCardApkTitle: "አንድሮይድ ኤፒኬ (Android APK Direct)",
+    temeCardApkDesc: "ፈጣን የኤፒኬ ማውረጃ። ለአንድሮይድ 8.0+ ስልኮች እና ታብሌቶች የሚሰራ።",
+    temeCardBotTitle: "የቴሌግራም ሚኒ አፕ ቦት (@teme_exam_bot)",
+    temeCardBotDesc: "ስልክ ላይ ሳይጭኑ በቀጥታ በቴሌግራም መተግበሪያ ውስጥ 24/7 የሚሰራ ፈጣን የፈተና መለማመጃ።",
+    temeCardPwaTitle: "ዌብ አፕ • ስልክ እስክሪን ላይ ይጫኑ (PWA)",
+    temeCardPwaDesc: "በክሮም ወይም ሳፋሪ ከፍተው 'Add to Home Screen' በማለት እንደ መደበኛ አፕ ይጠቀሙ።",
 
     // Sub-Project 2: Media & SMM Production Hub
     mediaPretitle: "የእድገት እና የፈጠራ ማስተዋወቂያ ማዕከል",

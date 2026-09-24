@@ -26,7 +26,7 @@
   <link rel="manifest" href="manifest.json">
 
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="styles/main.css?v=2026.10">
+  <link rel="stylesheet" href="styles/main.css?v=2026.11">
 </head>
 <body>
 
@@ -542,6 +542,24 @@
             </div>
 
             <div class="startup-actions-col">
+              <!-- High-Visibility Download Teme App Button -->
+              <button id="open-teme-download-btn" class="startup-download-btn" type="button" aria-haspopup="dialog" aria-controls="teme-download-modal">
+                <div class="download-btn-icon-wrap">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                </div>
+                <div class="download-btn-content">
+                  <div class="download-btn-headline">
+                    <span data-i18n="temeDownloadBtnTitle">Download Teme App</span>
+                    <span class="download-btn-pill">APK v2.4</span>
+                  </div>
+                  <span class="download-btn-sub" data-i18n="temeDownloadBtnSub">Android APK &bull; Direct &bull; WebApp v2.4</span>
+                </div>
+              </button>
+
               <a href="teme-exam-app.html?v=2026.shield" target="_blank" rel="noopener noreferrer" class="btn-primary startup-launch-btn">
                 <span>📝 Launch 24/7 Freshman Exam Web App ⚡</span>
               </a>
@@ -1041,6 +1059,108 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
         </button>
       </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       TEME EDUCATIONAL APP DOWNLOAD & INSTALLATION SUITE MODAL
+       ========================================================================= -->
+  <div id="teme-download-modal" class="pitch-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="teme-download-title">
+    <div class="pitch-modal-content teme-download-modal-content">
+      <button id="close-teme-download-modal-btn" class="btn-icon pitch-modal-close" aria-label="Close download modal">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="pitch-modal-header" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+        <div class="teme-modal-logo-wrap">
+          <img src="assets/startups/teme_logo.jpg" alt="Teme Logo" class="teme-modal-logo">
+          <span class="teme-modal-ver-badge">v2.4 Production Release</span>
+        </div>
+        <h3 id="teme-download-title" class="modal-title" style="font-size: 1.55rem; margin-top: 0.5rem;" data-i18n="temeModalTitle">Download Teme Educational App</h3>
+        <p class="modal-body" style="font-size: 0.88rem; max-width: 480px; margin: 0 auto;" data-i18n="temeModalSubtitle">
+          The premier freshman examination suite and learning hub for Ethiopian university students. Choose your preferred download or access option below:
+        </p>
+      </div>
+
+      <!-- Download Options Grid -->
+      <div class="download-options-grid">
+        <!-- Option 1: Direct Android APK -->
+        <a href="https://t.me/temeeducationalplatform" target="_blank" rel="noopener noreferrer" class="download-card download-card-apk" id="dl-card-apk">
+          <div class="download-card-icon-wrap apk-icon-wrap">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+              <line x1="12" y1="18" x2="12.01" y2="18"></line>
+            </svg>
+          </div>
+          <div class="download-card-text">
+            <div class="download-card-title-row">
+              <span class="download-card-title" data-i18n="temeCardApkTitle">Android APK (Direct Release)</span>
+              <span class="download-tag-badge">Recommended</span>
+            </div>
+            <p class="download-card-desc" data-i18n="temeCardApkDesc">High-speed APK download. Compatible with Android 8.0+ smartphones and tablets.</p>
+            <div class="download-card-specs">
+              <span>📦 18.5 MB</span>
+              <span>⚡ Offline Exam Engine</span>
+              <span>🛡️ ETHIO 21 Shield Verified</span>
+            </div>
+          </div>
+          <span class="download-card-arrow">↓</span>
+        </a>
+
+        <!-- Option 2: Telegram Mini App Instant Bot -->
+        <a href="https://t.me/teme_exam_bot" target="_blank" rel="noopener noreferrer" class="download-card download-card-bot">
+          <div class="download-card-icon-wrap bot-icon-wrap">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+            </svg>
+          </div>
+          <div class="download-card-text">
+            <div class="download-card-title-row">
+              <span class="download-card-title" data-i18n="temeCardBotTitle">Telegram Mini App Bot (@teme_exam_bot)</span>
+              <span class="download-tag-badge" style="background: rgba(36, 161, 222, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.35);">Instant Play</span>
+            </div>
+            <p class="download-card-desc" data-i18n="temeCardBotDesc">No download needed. Instant 24/7 cloud examination interface right inside your Telegram app.</p>
+            <div class="download-card-specs">
+              <span>🚀 Zero Storage Used</span>
+              <span>🔄 Always Up-to-Date</span>
+              <span>📱 iOS &amp; Android</span>
+            </div>
+          </div>
+          <span class="download-card-arrow">↗</span>
+        </a>
+
+        <!-- Option 3: Progressive Web App (PWA) / Browser App -->
+        <a href="teme-exam-app.html?v=2026.shield" target="_blank" rel="noopener noreferrer" class="download-card download-card-pwa">
+          <div class="download-card-icon-wrap pwa-icon-wrap">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+          </div>
+          <div class="download-card-text">
+            <div class="download-card-title-row">
+              <span class="download-card-title" data-i18n="temeCardPwaTitle">Web App &bull; Add to Home Screen</span>
+              <span class="download-tag-badge" style="background: rgba(168, 85, 247, 0.15); color: #c084fc; border-color: rgba(192, 132, 252, 0.35);">PWA</span>
+            </div>
+            <p class="download-card-desc" data-i18n="temeCardPwaDesc">Open in Chrome or Safari, tap 'Add to Home Screen' to install as a standalone native app.</p>
+            <div class="download-card-specs">
+              <span>💻 Desktop &amp; Mobile</span>
+              <span>⚡ 24/7 Offline Sync</span>
+            </div>
+          </div>
+          <span class="download-card-arrow">↗</span>
+        </a>
+      </div>
+
+      <!-- Security / Verified Stamp Footer -->
+      <div class="download-modal-footer">
+        <div class="download-security-pill">
+          <span>🛡️ Verified Safe by ETHIO 21 Proprietary Defense Shield</span>
+          <span class="dot-sep">&bull;</span>
+          <span>100% Free for Students</span>
+        </div>
+      </div>
     </div>
   </div>
 

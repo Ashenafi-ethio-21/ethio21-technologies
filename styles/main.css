@@ -3706,6 +3706,80 @@ body.shield-lockdown-blur > *:not(.devtools-lockout-overlay):not(#security-toast
   min-width: 0;
 }
 
+/* High-Impact Teme Download App Button */
+.startup-download-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.95rem 1.25rem;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(16, 242, 167, 0.16) 0%, rgba(0, 210, 255, 0.22) 100%);
+  border: 1.5px solid rgba(16, 242, 167, 0.55);
+  color: #ffffff;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 10px 28px rgba(16, 242, 167, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+}
+
+.startup-download-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, rgba(16, 242, 167, 0.28) 0%, rgba(0, 210, 255, 0.35) 100%);
+  border-color: #10f2a7;
+  box-shadow: 0 14px 35px rgba(16, 242, 167, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.download-btn-icon-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #10f2a7 0%, #00d2ff 100%);
+  color: #04060a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(16, 242, 167, 0.4);
+}
+
+.download-btn-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.download-btn-headline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.96rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.download-btn-pill {
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+  background: #10f2a7;
+  color: #04060a;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.download-btn-sub {
+  font-size: 0.74rem;
+  color: #94a3b8;
+  font-weight: 550;
+}
+
 .startup-launch-btn {
   display: flex;
   align-items: center;
@@ -3951,6 +4025,420 @@ body.shield-lockdown-blur > *:not(.devtools-lockout-overlay):not(#security-toast
   .startup-group-btn {
     padding: 0.75rem 0.9rem;
     font-size: 0.84rem;
+  }
+}
+
+/* ==========================================================================
+   TEME EDUCATIONAL APP DOWNLOAD MODAL
+   ========================================================================== */
+.teme-download-modal-content {
+  max-width: 580px !important;
+  padding: 2.25rem 2rem !important;
+}
+
+.teme-modal-logo-wrap {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 0.85rem;
+}
+
+.teme-modal-logo {
+  width: 68px;
+  height: 68px;
+  border-radius: 18px;
+  object-fit: cover;
+  border: 2px solid rgba(59, 130, 246, 0.6);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.teme-modal-ver-badge {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #10b981;
+  color: #04060a;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.2rem 0.6rem;
+  border-radius: 100px;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.download-options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin: 1.5rem 0 1rem;
+}
+
+.download-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.15rem;
+  border-radius: 18px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+  color: inherit;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  position: relative;
+}
+
+.download-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(16, 242, 167, 0.6);
+  background: rgba(15, 23, 42, 0.95);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.download-card-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.apk-icon-wrap {
+  background: rgba(16, 185, 129, 0.16);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34d399;
+}
+
+.bot-icon-wrap {
+  background: rgba(36, 161, 222, 0.16);
+  border: 1px solid rgba(36, 161, 222, 0.35);
+  color: #38bdf8;
+}
+
+.pwa-icon-wrap {
+  background: rgba(168, 85, 247, 0.16);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  color: #c084fc;
+}
+
+.download-card-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.download-card-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+  flex-wrap: wrap;
+}
+
+.download-card-title {
+  font-size: 0.98rem;
+  font-weight: 750;
+  color: #ffffff;
+}
+
+.download-tag-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+  background: rgba(16, 242, 167, 0.15);
+  color: #10f2a7;
+  border: 1px solid rgba(16, 242, 167, 0.35);
+}
+
+.download-card-desc {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  line-height: 1.4;
+  margin-bottom: 0.45rem;
+}
+
+.download-card-specs {
+  display: flex;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+  color: #64748b;
+  flex-wrap: wrap;
+}
+
+.download-card-arrow {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #64748b;
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.download-card:hover .download-card-arrow {
+  color: #10f2a7;
+  transform: translateX(3px);
+}
+
+.download-modal-footer {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.download-security-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.76rem;
+  font-weight: 650;
+  color: #10f2a7;
+  background: rgba(16, 242, 167, 0.08);
+  padding: 0.35rem 0.85rem;
+  border-radius: 100px;
+  border: 1px solid rgba(16, 242, 167, 0.25);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Light Theme Adaptations for Download Modal */
+[data-theme="light"] .startup-download-btn {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(14, 165, 233, 0.15) 100%);
+  border-color: rgba(5, 150, 105, 0.4);
+  color: #0f172a;
+}
+[data-theme="light"] .download-btn-headline {
+  color: #0f172a;
+}
+[data-theme="light"] .download-btn-sub {
+  color: #475569;
+}
+[data-theme="light"] .teme-download-modal-content {
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.15) !important;
+}
+[data-theme="light"] .download-card {
+  background: #ffffff;
+  border-color: rgba(15, 23, 42, 0.1);
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
+}
+[data-theme="light"] .download-card:hover {
+  background: #f8fafc;
+  border-color: #059669;
+}
+[data-theme="light"] .download-card-title {
+  color: #0f172a;
+}
+[data-theme="light"] .download-card-desc {
+  color: #475569;
+}
+
+/* ==========================================================================
+   MULTI-SCALE RESPONSIVENESS: SMART WATCHES TO BIG PROJECTORS
+   ========================================================================== */
+
+/* 1. Ultra-Wide Displays, 4K Monitors & Big Conference Projectors */
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1520px;
+  }
+  .hero-section {
+    padding: 8.5rem 0 6rem;
+  }
+  .hero-title {
+    font-size: clamp(3.2rem, 3.8vw, 4.8rem);
+  }
+  .hero-description {
+    font-size: 1.25rem;
+    max-width: 900px;
+  }
+}
+
+@media (min-width: 2200px) {
+  html {
+    font-size: 18px; /* Scales whole UI up proportionally for big boardroom/conference projectors */
+  }
+  .container {
+    max-width: 1980px;
+  }
+  .hero-title {
+    font-size: 4.8rem;
+  }
+}
+
+@media (min-width: 3200px) {
+  html {
+    font-size: 22px; /* Scales UI for 4K / 8K ultra-large auditorium projection */
+  }
+  .container {
+    max-width: 2600px;
+  }
+}
+
+/* 2. Compact Phones & Small Fold Screens */
+@media (max-width: 360px) {
+  .container {
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+  }
+  .brand-wordmark .wordmark-main {
+    font-size: 1.1rem;
+  }
+  .hero-title {
+    font-size: 1.55rem;
+    line-height: 1.25;
+  }
+  .hero-badge {
+    font-size: 0.68rem;
+  }
+  .btn-primary, .btn-secondary {
+    padding: 0.65rem 1rem;
+    font-size: 0.84rem;
+  }
+  .founder-avatar-wrap {
+    width: 64px;
+    height: 64px;
+  }
+  .startup-logo-img {
+    width: 68px;
+    height: 68px;
+  }
+  .startup-download-btn,
+  .startup-launch-btn,
+  .startup-channel-btn,
+  .startup-group-btn {
+    padding: 0.7rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* 3. Smart Watches & Ultra-Compact Wearables (<= 280px, e.g. Apple Watch / WearOS) */
+@media (max-width: 280px) {
+  html {
+    font-size: 13px !important;
+  }
+  body {
+    overflow-x: hidden !important;
+    width: 100vw !important;
+  }
+  .container {
+    padding-left: 0.35rem !important;
+    padding-right: 0.35rem !important;
+  }
+  .site-header {
+    top: 0.25rem !important;
+  }
+  .site-nav-shell {
+    padding: 0 !important;
+  }
+  .nav-inner {
+    padding: 0.3rem 0.45rem !important;
+    gap: 0.2rem !important;
+    border-radius: 12px !important;
+  }
+  .brand-wordmark .wordmark-main {
+    font-size: 0.95rem !important;
+  }
+  .brand-wordmark .wordmark-subtag {
+    display: none !important;
+  }
+  .nav-controls {
+    gap: 0.2rem !important;
+  }
+  .btn-icon {
+    width: 26px !important;
+    height: 26px !important;
+    padding: 0 !important;
+  }
+  .site-header .btn-telegram-nav {
+    width: 26px !important;
+    height: 26px !important;
+    min-width: 26px !important;
+  }
+  .lang-badge-btn {
+    padding: 0.2rem 0.35rem !important;
+    font-size: 0.65rem !important;
+  }
+  .mobile-nav-toggle {
+    width: 26px !important;
+    height: 26px !important;
+  }
+  .hero-section {
+    padding: 4.5rem 0 2rem !important;
+  }
+  .hero-badge {
+    font-size: 0.58rem !important;
+    padding: 0.25rem 0.45rem !important;
+    white-space: normal !important;
+    text-align: center !important;
+  }
+  .hero-title {
+    font-size: 1.25rem !important;
+    line-height: 1.2 !important;
+  }
+  .hero-description {
+    font-size: 0.78rem !important;
+  }
+  .hero-cta-group {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 0.5rem !important;
+  }
+  .btn-primary, .btn-secondary {
+    width: 100% !important;
+    padding: 0.55rem 0.75rem !important;
+    font-size: 0.75rem !important;
+    white-space: normal !important;
+    text-align: center !important;
+  }
+  .metrics-bar {
+    grid-template-columns: 1fr !important;
+    padding: 0.85rem 0.5rem !important;
+    gap: 0.75rem !important;
+  }
+  .metric-number {
+    font-size: 1.4rem !important;
+  }
+  .metric-label {
+    font-size: 0.7rem !important;
+  }
+  .founder-card,
+  .incubated-startup-card,
+  .service-card,
+  .media-card {
+    padding: 1rem 0.65rem !important;
+    border-radius: 14px !important;
+  }
+  .teme-founders-signature {
+    flex-direction: column !important;
+    text-align: center !important;
+    padding: 0.5rem !important;
+  }
+  .pitch-modal-content,
+  .teme-download-modal-content {
+    max-width: 96vw !important;
+    padding: 1.25rem 0.65rem !important;
+    border-radius: 16px !important;
+  }
+  .download-card {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    padding: 0.85rem 0.6rem !important;
+  }
+  .security-toast {
+    font-size: 0.68rem !important;
+    padding: 0.45rem 0.75rem !important;
+    max-width: 95vw !important;
+  }
+  .lockout-box {
+    padding: 1.5rem 0.85rem !important;
+    border-radius: 16px !important;
+  }
+  .lockout-title {
+    font-size: 1rem !important;
+  }
+  .lockout-desc {
+    font-size: 0.76rem !important;
   }
 }
 

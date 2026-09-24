@@ -360,6 +360,52 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ==========================================
+  // 7B. TEME APP DOWNLOAD MODAL & APK ACTIONS
+  // ==========================================
+  const temeDownloadModal = document.getElementById('teme-download-modal');
+  const openTemeDownloadBtn = document.getElementById('open-teme-download-btn');
+  const closeTemeDownloadBtn = document.getElementById('close-teme-download-modal-btn');
+  const dlCardApk = document.getElementById('dl-card-apk');
+
+  if (openTemeDownloadBtn && temeDownloadModal) {
+    openTemeDownloadBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      temeDownloadModal.classList.add('open');
+      playUiSound('toggle');
+    });
+  }
+
+  if (closeTemeDownloadBtn && temeDownloadModal) {
+    closeTemeDownloadBtn.addEventListener('click', () => {
+      temeDownloadModal.classList.remove('open');
+      playUiSound('click');
+    });
+    temeDownloadModal.addEventListener('click', (e) => {
+      if (e.target === temeDownloadModal) {
+        temeDownloadModal.classList.remove('open');
+      }
+    });
+  }
+
+  if (dlCardApk) {
+    dlCardApk.addEventListener('click', () => {
+      showSecurityNotice('📲 Initiating Teme App v2.4 APK Channel • Verified Safe by ETHIO 21 Shield');
+    });
+  }
+
+  // Global Escape key to dismiss modals
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (temeDownloadModal && temeDownloadModal.classList.contains('open')) {
+        temeDownloadModal.classList.remove('open');
+      }
+      if (pitchModal && pitchModal.classList.contains('open')) {
+        pitchModal.classList.remove('open');
+      }
+    }
+  });
+
   if (pitchForm) {
     pitchForm.addEventListener('submit', (e) => {
       e.preventDefault();
