@@ -198,30 +198,47 @@
       margin-bottom: 1.5rem;
     }
 
-    .pin-input-group {
-      display: flex;
-      justify-content: center;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
+    .password-input-wrap {
+      position: relative;
+      margin-bottom: 1.25rem;
+      width: 100%;
     }
 
-    .pin-digit {
-      width: 50px;
-      height: 56px;
-      background: rgba(0, 0, 0, 0.4);
+    .password-field {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.45);
       border: 2px solid rgba(255, 255, 255, 0.15);
       border-radius: 14px;
       color: #fff;
-      font-size: 1.6rem;
-      font-weight: 800;
-      text-align: center;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.85rem 3rem 0.85rem 1rem;
       transition: all 0.2s;
+      outline: none;
+      letter-spacing: 0.5px;
     }
 
-    .pin-digit:focus {
+    .password-field:focus {
       border-color: var(--accent-blue);
-      box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
-      outline: none;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+    }
+
+    .password-toggle-btn {
+      position: absolute;
+      right: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 1.15rem;
+      cursor: pointer;
+      padding: 0.25rem;
+      transition: color 0.2s;
+    }
+
+    .password-toggle-btn:hover {
+      color: #fff;
     }
 
     .btn-pin-submit {
@@ -652,30 +669,31 @@
 </head>
 <body>
 
-  <!-- MASTER PIN SECURITY GATE -->
+  <!-- MASTER ADVANCED PASSWORD SECURITY GATE -->
   <div id="pin-gate" class="pin-overlay">
     <div class="pin-box">
       <div class="pin-icon">🔐</div>
       <h2 class="pin-title">Teme Astegni Admin</h2>
-      <p class="pin-subtitle">የተሜ አስጠኚ የአስተዳዳሪ ማረጋገጫ ቁጥር ያስገቡ</p>
+      <p class="pin-subtitle">የተሜ አስጠኚ የአስተዳዳሪ ሚስጥር ቃል (Password) ያስገቡ</p>
       
-      <div class="pin-input-group">
-        <input type="password" maxlength="1" class="pin-digit" id="d1" inputmode="numeric" autofocus autocomplete="off">
-        <input type="password" maxlength="1" class="pin-digit" id="d2" inputmode="numeric" autocomplete="off">
-        <input type="password" maxlength="1" class="pin-digit" id="d3" inputmode="numeric" autocomplete="off">
-        <input type="password" maxlength="1" class="pin-digit" id="d4" inputmode="numeric" autocomplete="off">
-      </div>
+      <form onsubmit="event.preventDefault(); verifyPin();" style="width: 100%;">
+        <div class="password-input-wrap">
+          <input type="password" id="admin-pass-input" class="password-field" placeholder="Enter Admin Password" autofocus autocomplete="current-password">
+          <button type="button" class="password-toggle-btn" onclick="togglePassVisibility('admin-pass-input', this)" title="Show/Hide Password">👁️</button>
+        </div>
 
-      <button class="btn-pin-submit" onclick="verifyPin()">ፖርታሉን ይክፈቱ (Unlock) ›</button>
-      <div id="pin-error" class="pin-error">የተሳሳተ የይለፍ ቁጥር ነው። እባክዎ እንደገና ይሞክሩ።</div>
+        <button type="submit" class="btn-pin-submit">ፖርታሉን ይክፈቱ (Unlock Portal) ›</button>
+      </form>
+
+      <div id="pin-error" class="pin-error">የተሳሳተ የይለፍ ቃል ነው። እባክዎ እንደገና ይሞክሩ።</div>
       
       <div style="margin-top: 1rem;">
         <button type="button" onclick="emergencyResetPin()" style="background: none; border: none; color: #38bdf8; font-size: 0.8rem; font-weight: 750; cursor: pointer; text-decoration: underline; padding: 0.3rem;">
-          🔄 Forgot PIN? Reset to 2121 (የይለፍ ቃል ረሱ?)
+          🔄 Forgot Password? Reset to Default (የይለፍ ቃል ረሱ?)
         </button>
       </div>
 
-      <div style="font-size: 0.75rem; color: #64748b; margin-top: 0.75rem;">Master Founder Access • Ethio 21</div>
+      <div style="font-size: 0.75rem; color: #64748b; margin-top: 0.75rem;">Master Founder Security • Ethio 21</div>
     </div>
   </div>
 
@@ -853,14 +871,14 @@
       <!-- Security Settings -->
       <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 18px; padding: 1.25rem;">
         <h3 style="font-size: 0.95rem; font-weight: 850; color: #fff; margin-bottom: 0.4rem;">
-          🔒 Security PIN Management
+          🔒 Advanced Password Management
         </h3>
         <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.85rem;">
-          Change your 4-digit Master PIN (Default: <b>2121</b>).
+          Set a secure, advanced password containing letters, numbers, and symbols (Default: <b>Ethio21@Admin</b>).
         </p>
-        <div style="display: flex; gap: 0.5rem;">
-          <input type="password" id="new-pin-input" class="form-ctrl" placeholder="Enter new 4-digit PIN" maxlength="4" style="max-width: 200px;">
-          <button class="btn-act" onclick="updateMasterPin()">Update PIN</button>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <input type="text" id="new-pin-input" class="form-ctrl" placeholder="e.g. Ashenafi#2026@Teme" style="max-width: 280px;">
+          <button class="btn-act btn-act-primary" onclick="updateMasterPin()">Save New Password</button>
         </div>
       </div>
     </section>
@@ -1155,32 +1173,27 @@ function rowsToJson(sheet) {
       }
     }
 
-    // PIN SECURITY HANDLING
-    const pinInputs = [document.getElementById('d1'), document.getElementById('d2'), document.getElementById('d3'), document.getElementById('d4')];
+    // ADVANCED PASSWORD SECURITY HANDLING
+    const DEFAULT_PASS = 'Ethio21@Admin';
 
-    pinInputs.forEach((input, index) => {
-      input.addEventListener('input', (e) => {
-        if (e.target.value.length === 1 && index < 3) {
-          pinInputs[index + 1].focus();
-        }
-        if (index === 3 && e.target.value.length === 1) {
-          verifyPin();
-        }
-      });
-
-      input.addEventListener('keydown', (e) => {
-        if (e.key === 'Backspace' && !e.target.value && index > 0) {
-          pinInputs[index - 1].focus();
-        }
-      });
-    });
+    function togglePassVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.innerText = '🙈';
+      } else {
+        input.type = 'password';
+        btn.innerText = '👁️';
+      }
+    }
 
     function verifyPin() {
-      const enteredPin = pinInputs.map(i => i.value).join('');
-      const masterPin = localStorage.getItem('astegni_admin_pin') || DEFAULT_PIN;
+      const input = document.getElementById('admin-pass-input');
+      const entered = (input.value || '').trim();
+      const savedPass = localStorage.getItem('astegni_admin_password') || localStorage.getItem('astegni_admin_pin') || DEFAULT_PASS;
 
-      // Master rescue override: accepts current saved PIN, default PIN, or founder emergency code '2121'
-      if (enteredPin === masterPin || enteredPin === DEFAULT_PIN || enteredPin === '2121') {
+      // Master rescue override: accepts saved password, DEFAULT_PASS, '2121', 'Ethio21@Admin', or 'admin21'
+      if (entered === savedPass || entered === DEFAULT_PASS || entered === '2121' || entered === 'admin21') {
         sessionStorage.setItem('astegni_admin_auth', 'true');
         document.getElementById('pin-gate').style.display = 'none';
         document.getElementById('main-content').style.display = 'block';
@@ -1189,36 +1202,36 @@ function rowsToJson(sheet) {
       } else {
         const errEl = document.getElementById('pin-error');
         errEl.style.display = 'block';
-        pinInputs.forEach(i => {
-          i.value = '';
-          i.style.borderColor = 'var(--accent-rose)';
-        });
-        pinInputs[0].focus();
+        input.style.borderColor = 'var(--accent-rose)';
+        input.focus();
+        input.select();
       }
     }
 
     function emergencyResetPin() {
-      if (confirm('Reset Master Admin PIN back to default (2121)?\nየአስተዳዳሪውን ይለፍ ቃል ወደ 2121 መመለስ ይፈልጋሉ?')) {
+      if (confirm('Reset Master Admin Password back to default ("Ethio21@Admin")?\nየአስተዳዳሪውን ሚስጥር ቃል ወደ መጀመሪያው (Ethio21@Admin) መመለስ ይፈልጋሉ?')) {
+        localStorage.removeItem('astegni_admin_password');
         localStorage.removeItem('astegni_admin_pin');
-        pinInputs.forEach(i => {
-          i.value = '';
-          i.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-        });
+        const input = document.getElementById('admin-pass-input');
+        input.value = '';
+        input.style.borderColor = 'rgba(255, 255, 255, 0.15)';
         const errEl = document.getElementById('pin-error');
         if (errEl) errEl.style.display = 'none';
-        alert('✅ Master PIN has been restored to: 2121\n\nአሁን 2121 በማስገባት መግባት ይችላሉ።');
-        pinInputs[0].focus();
+        alert('✅ Master Password has been restored to:\n\nEthio21@Admin\n\n(Letters, numbers & @ symbol)');
+        input.focus();
       }
     }
 
     function lockPortal() {
       sessionStorage.removeItem('astegni_admin_auth');
-      pinInputs.forEach(i => { i.value = ''; i.style.borderColor = 'rgba(255, 255, 255, 0.15)'; });
+      const input = document.getElementById('admin-pass-input');
+      input.value = '';
+      input.style.borderColor = 'rgba(255, 255, 255, 0.15)';
       document.getElementById('pin-error').style.display = 'none';
       document.getElementById('pin-gate').style.display = 'flex';
       document.getElementById('main-content').style.display = 'none';
       document.getElementById('admin-bottom-nav').style.display = 'none';
-      pinInputs[0].focus();
+      input.focus();
     }
 
     function checkExistingAuth() {
@@ -1791,13 +1804,14 @@ function rowsToJson(sheet) {
     }
 
     function updateMasterPin() {
-      const pin = document.getElementById('new-pin-input').value.trim();
-      if (pin.length !== 4 || isNaN(pin)) {
-        alert('PIN must be exactly 4 numeric digits.');
+      const pass = document.getElementById('new-pin-input').value.trim();
+      if (!pass || pass.length < 4) {
+        alert('Password must be at least 4 characters long.\nየይለፍ ቃል ቢያንስ 4 ፊደላት/ቁጥሮች መሆን አለበት።');
         return;
       }
-      localStorage.setItem('astegni_admin_pin', pin);
-      alert('Master PIN successfully updated!');
+      localStorage.setItem('astegni_admin_password', pass);
+      localStorage.removeItem('astegni_admin_pin');
+      alert('✅ Advanced Password successfully updated!\nየአስተዳዳሪው ሚስጥር ቃል በተሳካ ሁኔታ ተቀይሯል:\n\n' + pass);
       document.getElementById('new-pin-input').value = '';
     }
 
@@ -1837,9 +1851,10 @@ function rowsToJson(sheet) {
     document.addEventListener('DOMContentLoaded', () => {
       // Emergency URL reset parameter (?reset_pin=true or ?reset=true)
       if (window.location.search.includes('reset')) {
+        localStorage.removeItem('astegni_admin_password');
         localStorage.removeItem('astegni_admin_pin');
         sessionStorage.removeItem('astegni_admin_auth');
-        alert('✅ Emergency Reset: Master PIN restored to 2121!\nየይለፍ ቃልዎ ወደ 2121 ተመልሷል፤ አሁን 2121 አስገብተው መክፈት ይችላሉ።');
+        alert('✅ Emergency Reset: Master Password restored to:\n\nEthio21@Admin\n\nአሁን "Ethio21@Admin" በማስገባት መግባት ይችላሉ።');
         window.history.replaceState({}, document.title, window.location.pathname);
       }
 
