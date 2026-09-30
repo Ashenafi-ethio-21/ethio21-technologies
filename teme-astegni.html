@@ -436,6 +436,54 @@
       accent-color: #0284c7;
     }
 
+    /* File Upload Box Styles */
+    .file-upload-box {
+      border: 2px dashed rgba(16, 185, 129, 0.45);
+      background: rgba(16, 185, 129, 0.06);
+      border-radius: 14px;
+      padding: 1.15rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+    .file-upload-box:hover {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.12);
+    }
+    .file-upload-box.optional {
+      border-color: rgba(56, 189, 248, 0.35);
+      background: rgba(56, 189, 248, 0.05);
+    }
+    .file-upload-box.optional:hover {
+      border-color: #38bdf8;
+      background: rgba(56, 189, 248, 0.1);
+    }
+    .file-upload-box input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+    .file-preview-thumb {
+      max-width: 140px;
+      max-height: 90px;
+      border-radius: 8px;
+      margin-top: 0.6rem;
+      border: 1.5px solid #10b981;
+      display: none;
+      object-fit: cover;
+    }
+    .file-status-tag {
+      font-size: 0.82rem;
+      font-weight: 750;
+      color: #34d399;
+      margin-top: 0.4rem;
+      display: none;
+    }
+
     .btn-submit-action {
       width: 100%;
       background: linear-gradient(135deg, #0284c7, #2563eb);
@@ -762,6 +810,50 @@
             <input type="text" id="t_subj" placeholder="ለምሳሌ፡ ሂሳብ እና ፊዚክስ ወይም እንግሊዝኛ" required>
           </div>
 
+          <!-- 1. MANDATORY: Campus Student ID Photo -->
+          <div class="field">
+            <label style="color: #34d399; font-weight: 850;">📸 የካምፓስ መታወቂያ ፎቶ (Campus Student ID Photo) • ግዴታ ነው (MANDATORY) *</label>
+            <div class="file-upload-box" id="box-campus-id">
+              <input type="file" id="t_campus_id_file" accept="image/*" required onchange="handleCampusIdPick(event)">
+              <div style="font-size: 1.6rem; margin-bottom: 0.25rem;">📷</div>
+              <div style="font-size: 0.92rem; font-weight: 800; color: #fff;">የካምፓስ መታወቂያዎን ፎቶ እዚህ ይጫኑ</div>
+              <div style="font-size: 0.78rem; color: #94a3b8;">በስልክ ካሜራ አንስተው ወይም ከጋለሪ ይምረጡ (Take photo or choose from gallery)</div>
+              <img id="preview-campus-id" class="file-preview-thumb" alt="Campus ID Preview">
+              <div id="status-campus-id" class="file-status-tag">✓ የካምፓስ መታወቂያ ፎቶ ተመርጧል (Photo Selected)</div>
+            </div>
+          </div>
+
+          <!-- 2. GRADE REPORT: Student Portal Screenshot / Transcript -->
+          <div class="field">
+            <label style="color: #facc15; font-weight: 800;">📄 የውጤት ሪፖርት (Grade Report / Student Portal Screenshot) *</label>
+            <div class="file-upload-box" id="box-grade-report" style="border-color: rgba(250, 204, 21, 0.45); background: rgba(250, 204, 21, 0.05);">
+              <input type="file" id="t_grade_file" accept="image/*,.pdf" required onchange="handleGradePick(event)">
+              <div style="font-size: 1.6rem; margin-bottom: 0.25rem;">📑</div>
+              <div style="font-size: 0.92rem; font-weight: 800; color: #fff;">የግሬድ ሪፖርት ወይም የፖርታል ውጤት ፎቶ ይጫኑ</div>
+              <div style="font-size: 0.78rem; color: #94a3b8;">CGPA ውጤትዎን ለማረጋገጥ (To verify your CGPA)</div>
+              <img id="preview-grade" class="file-preview-thumb" style="border-color: #facc15;" alt="Grade Report Preview">
+              <div id="status-grade" class="file-status-tag" style="color: #facc15;">✓ የውጤት ሪፖርት ተያይዟል (Report Attached)</div>
+            </div>
+          </div>
+
+          <!-- 3. OPTIONAL 1 OF THEM: National Fayda ID OR Kebele ID -->
+          <div class="field">
+            <label style="color: #38bdf8; font-weight: 800;">🆔 ብሔራዊ መታወቂያ ወይም የቀበሌ መታወቂያ (National ID or Kebele ID) • አንዱን ይምረጡ (Choose 1 - Optional)</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem;">
+              <select id="t_govt_id_type" style="padding: 0.75rem; background: rgba(30, 41, 59, 0.9); border: 1.5px solid rgba(255, 255, 255, 0.15); color: #fff; border-radius: 10px;">
+                <option value="National Fayda ID">ብሔራዊ መታወቂያ (Fayda ID)</option>
+                <option value="Kebele ID">የቀበሌ መታወቂያ (Kebele ID)</option>
+              </select>
+              <input type="text" id="t_govt_id_num" placeholder="የመታወቂያ ቁጥር (ID Number)" style="background: rgba(30, 41, 59, 0.9); border: 1.5px solid rgba(255, 255, 255, 0.15); color: #fff; border-radius: 10px; padding: 0.75rem;">
+            </div>
+            <div class="file-upload-box optional" id="box-govt-id">
+              <input type="file" id="t_govt_file" accept="image/*" onchange="handleGovtPick(event)">
+              <div style="font-size: 0.84rem; color: #7dd3fc; font-weight: 750;">📎 የመታወቂያ ፎቶ (አማራጭ / Optional Attachment)</div>
+              <img id="preview-govt" class="file-preview-thumb" style="border-color: #38bdf8;" alt="Govt ID Preview">
+              <div id="status-govt" class="file-status-tag" style="color: #38bdf8;">✓ መታወቂያ ተመርጧል (Govt ID Attached)</div>
+            </div>
+          </div>
+
           <button type="submit" class="btn-submit-action tutor">
             <span>🎓 ማመልከቻዎን ይላኩ (Submit Tutor Application) ›</span>
           </button>
@@ -902,6 +994,43 @@
       document.getElementById('dispatch-modal').classList.add('active');
     }
 
+    // File Attachment Preview Handlers
+    function handleCampusIdPick(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const preview = document.getElementById('preview-campus-id');
+        const status = document.getElementById('status-campus-id');
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = 'inline-block';
+        status.style.display = 'block';
+      }
+    }
+
+    function handleGradePick(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const preview = document.getElementById('preview-grade');
+        const status = document.getElementById('status-grade');
+        if (file.type.startsWith('image/')) {
+          preview.src = URL.createObjectURL(file);
+          preview.style.display = 'inline-block';
+        }
+        status.style.display = 'block';
+        status.innerText = `✓ ${file.name} ተያይዟል (Attached)`;
+      }
+    }
+
+    function handleGovtPick(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const preview = document.getElementById('preview-govt');
+        const status = document.getElementById('status-govt');
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = 'inline-block';
+        status.style.display = 'block';
+      }
+    }
+
     function handleTutorSubmit(e) {
       e.preventDefault();
       const name = document.getElementById('t_name').value.trim();
@@ -911,9 +1040,26 @@
       const cgpa = document.getElementById('t_cgpa').value.trim();
       const subj = document.getElementById('t_subj').value.trim();
 
+      const campusFile = document.getElementById('t_campus_id_file').files[0];
+      const gradeFile = document.getElementById('t_grade_file').files[0];
+      const govtType = document.getElementById('t_govt_id_type').value;
+      const govtNum = document.getElementById('t_govt_id_num').value.trim() || 'በቴሌግራም ይላካል';
+
       // Save offline backup
       try {
-        const item = { type: 'TUTOR', name, phone, uni, year, cgpa, subj, date: new Date().toISOString() };
+        const item = { 
+          type: 'TUTOR', 
+          name, 
+          phone, 
+          uni, 
+          year, 
+          cgpa, 
+          subj, 
+          campusIdAttached: !!campusFile, 
+          gradeReportAttached: !!gradeFile,
+          govtId: `${govtType}: ${govtNum}`,
+          date: new Date().toISOString() 
+        };
         const list = JSON.parse(localStorage.getItem('astegni_tutor_leads') || '[]');
         list.push(item);
         localStorage.setItem('astegni_tutor_leads', JSON.stringify(list));
@@ -926,10 +1072,13 @@
                    `🏛️ *ዩኒቨርሲቲ:* ${encodeURIComponent(uni)}%0A` +
                    `📅 *ዓመት:* ${encodeURIComponent(year)}%0A` +
                    `⭐ *CGPA:* ${encodeURIComponent(cgpa)}%0A` +
-                   `📖 *የትምህርት አይነት:* ${encodeURIComponent(subj)}`;
+                   `📖 *የትምህርት አይነት:* ${encodeURIComponent(subj)}%0A` +
+                   `📸 *የካምፓስ መታወቂያ:* ${campusFile ? '✅ ፎቶ ተመርጧል (Send Photo in TG)' : '❌ አልተያያዘም'}%0A` +
+                   `📄 *የግሬድ ሪፖርት:* ${gradeFile ? '✅ ተመርጧል' : '❌ አልተያያዘም'}%0A` +
+                   `🆔 *${encodeURIComponent(govtType)}:* ${encodeURIComponent(govtNum)}`;
 
       document.getElementById('modal-title').innerText = 'የአስጠኚ ማመልከቻዎ ተዘጋጅቷል!';
-      document.getElementById('modal-desc').innerText = `ውድ ${name}፣ ማመልከቻዎን በቀጥታ ወደ አስተዳዳሪው ቴሌግራም በመላክ ወዲያውኑ ማረጋገጫ ያግኙ።`;
+      document.getElementById('modal-desc').innerHTML = `ውድ <b>${name}</b>፣ ማመልከቻዎ ተዘጋጅቷል። ያዘጋጁትን <b>የካምፓስ መታወቂያ ፎቶ</b> እና የግሬድ ሪፖርት በቀጥታ በቴሌግራም ወደ አስተዳዳሪው በመላክ ወዲያውኑ ማረጋገጫ ያግኙ።`;
       document.getElementById('btn-tg-action').href = `https://t.me/ethio21_technologies?text=${text}`;
       document.getElementById('dispatch-modal').classList.add('active');
     }
