@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Teme Astegni (ተሜ አስጠኚ) • Verified University Home Tutor Network | ETHIO 21</title>
+  <meta name="description" content="Connect your child with top-scoring 2nd Year+ university scholars from Ethiopia's leading campuses. 100% verified by National ID and CGPA, dispatched to your neighborhood.">
+  <meta name="theme-color" content="#0a0e17">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;850&family=Noto+Sans+Ethiopic:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles/main.css">
+  
+  <style>
+    :root {
+      --astegni-accent: #38bdf8;
+      --astegni-gold: #f59e0b;
+      --astegni-emerald: #10b981;
+      --astegni-purple: #a855f7;
+      --bg-card: rgba(15, 23, 42, 0.75);
+      --border-card: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+      background: #080c14;
+      color: #f8fafc;
+      font-family: 'Plus Jakarta Sans', 'Noto Sans Ethiopic', sans-serif;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    .astegni-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(8, 12, 20, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.85rem 1.5rem;
+    }
+
+    .astegni-nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .brand-icon-shield {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #0284c7, #10b981);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      box-shadow: 0 4px 16px rgba(2, 132, 199, 0.4);
+    }
+
+    .brand-text-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-size: 1.1rem;
+      font-weight: 850;
+      color: #fff;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .brand-subtitle {
+      font-size: 0.74rem;
+      color: #38bdf8;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-nav-link {
+      padding: 0.5rem 0.9rem;
+      border-radius: 10px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #cbd5e1;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-nav-link:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+
+    .btn-nav-cta {
+      background: linear-gradient(135deg, #0284c7, #0ea5e9);
+      color: #fff !important;
+      border: none;
+      box-shadow: 0 4px 14px rgba(14, 165, 233, 0.35);
+    }
+
+    .btn-nav-cta:hover {
+      box-shadow: 0 6px 20px rgba(14, 165, 233, 0.5);
+      transform: translateY(-1px);
+    }
+
+    /* Hero Section */
+    .astegni-hero {
+      position: relative;
+      padding: 4.5rem 1.5rem 3.5rem;
+      text-align: center;
+      background: radial-gradient(circle at 50% 20%, rgba(2, 132, 199, 0.15) 0%, rgba(16, 185, 129, 0.08) 35%, transparent 70%);
+    }
+
+    .hero-container {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .hero-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #7dd3fc;
+      font-size: 0.84rem;
+      font-weight: 750;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      line-height: 1.18;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.25rem;
+      background: linear-gradient(135deg, #ffffff 40%, #bae6fd 80%, #6ee7b7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-lead {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: #94a3b8;
+      max-width: 780px;
+      margin: 0 auto 2rem;
+      line-height: 1.65;
+    }
+
+    .hero-actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .btn-hero-primary {
+      padding: 1rem 1.75rem;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 25px rgba(2, 132, 199, 0.4);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-hero-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(2, 132, 199, 0.6);
+    }
+
+    .btn-hero-tutor {
+      padding: 1rem 1.75rem;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #34d399;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1.5px solid rgba(16, 185, 129, 0.35);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-hero-tutor:hover {
+      background: rgba(16, 185, 129, 0.22);
+      color: #6ee7b7;
+      border-color: #10b981;
+      transform: translateY(-2px);
+    }
+
+    /* Trust Pillars Grid */
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .trust-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 18px;
+      padding: 1.35rem 1.15rem;
+      text-align: left;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .trust-card:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-3px);
+    }
+
+    .trust-icon {
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+
+    .trust-title {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+
+    .trust-desc {
+      font-size: 0.82rem;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    /* Tab Switcher */
+    .portal-section {
+      max-width: 940px;
+      margin: 4rem auto;
+      padding: 0 1.25rem;
+    }
+
+    .tab-switcher-wrap {
+      display: flex;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 0.4rem;
+      margin-bottom: 2rem;
+      gap: 0.4rem;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 0.9rem 1.2rem;
+      border-radius: 12px;
+      border: none;
+      background: transparent;
+      color: #94a3b8;
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      transition: all 0.25s ease;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(2, 132, 199, 0.4);
+    }
+
+    .tab-btn.tutor-mode.active {
+      background: linear-gradient(135deg, #059669, #10b981);
+      box-shadow: 0 4px 18px rgba(16, 185, 129, 0.4);
+    }
+
+    /* Form Container */
+    .portal-card {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      padding: 2.25rem 2rem;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .form-header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      margin-bottom: 0.85rem;
+      text-transform: uppercase;
+    }
+
+    .form-title {
+      font-size: 1.65rem;
+      font-weight: 850;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .form-subtitle {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin-bottom: 2rem;
+      line-height: 1.55;
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    @media (max-width: 640px) {
+      .form-grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .portal-card {
+        padding: 1.5rem 1.15rem;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-label {
+      font-size: 0.86rem;
+      font-weight: 750;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .form-label span.req {
+      color: #f43f5e;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      background: rgba(30, 41, 59, 0.7);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      color: #fff;
+      font-size: 0.92rem;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.25s ease;
+      box-sizing: border-box;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: #38bdf8;
+      background: rgba(30, 41, 59, 0.95);
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.25);
+    }
+
+    /* Checkbox Chips */
+    .chips-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+    }
+
+    .chip-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.55rem 0.85rem;
+      border-radius: 10px;
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      font-size: 0.84rem;
+      font-weight: 650;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+    }
+
+    .chip-item:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      color: #fff;
+    }
+
+    .chip-item input[type="checkbox"] {
+      accent-color: #0284c7;
+      cursor: pointer;
+    }
+
+    .chip-item.selected {
+      background: rgba(2, 132, 199, 0.2);
+      border-color: #38bdf8;
+      color: #7dd3fc;
+    }
+
+    /* Price Estimator Card */
+    .estimator-box {
+      background: rgba(2, 132, 199, 0.1);
+      border: 1.5px dashed rgba(56, 189, 248, 0.4);
+      border-radius: 16px;
+      padding: 1.15rem 1.35rem;
+      margin: 1.5rem 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .estimator-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .estimator-label {
+      font-size: 0.8rem;
+      font-weight: 750;
+      color: #7dd3fc;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .estimator-sub {
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+
+    .estimator-price {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: #34d399;
+      text-shadow: 0 0 15px rgba(52, 211, 153, 0.35);
+    }
+
+    /* Merit Tier Indicator */
+    .gpa-tier-box {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 1rem 1.25rem;
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .tier-badge-visual {
+      font-size: 0.84rem;
+      font-weight: 850;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .tier-gold {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    .tier-silver {
+      background: rgba(148, 163, 184, 0.2);
+      color: #e2e8f0;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .tier-bronze {
+      background: rgba(217, 119, 6, 0.2);
+      color: #f59e0b;
+      border: 1px solid rgba(217, 119, 6, 0.4);
+    }
+
+    .btn-submit-portal {
+      width: 100%;
+      padding: 1.15rem;
+      border-radius: 14px;
+      font-size: 1.05rem;
+      font-weight: 850;
+      color: #fff;
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      box-shadow: 0 8px 25px rgba(2, 132, 199, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .btn-submit-portal:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(2, 132, 199, 0.6);
+    }
+
+    .btn-submit-tutor {
+      background: linear-gradient(135deg, #059669, #10b981);
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-submit-tutor:hover {
+      box-shadow: 0 12px 30px rgba(16, 185, 129, 0.6);
+    }
+
+    /* Workflow Cards */
+    .workflow-section {
+      max-width: 1100px;
+      margin: 5rem auto;
+      padding: 0 1.25rem;
+      text-align: center;
+    }
+
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+      text-align: left;
+    }
+
+    .workflow-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 20px;
+      padding: 1.5rem 1.25rem;
+      position: relative;
+    }
+
+    .workflow-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 850;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    /* Modal */
+    .astegni-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .astegni-modal-overlay.active {
+      display: flex;
+    }
+
+    .astegni-modal {
+      background: #0f172a;
+      border: 1.5px solid rgba(56, 189, 248, 0.4);
+      border-radius: 24px;
+      max-width: 480px;
+      width: 100%;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-icon-success {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="astegni-nav">
+    <div class="astegni-nav-inner">
+      <a href="index.html" class="brand-wrap">
+        <div class="brand-icon-shield">🛡️</div>
+        <div class="brand-text-col">
+          <span class="brand-title">ETHIO 21</span>
+          <span class="brand-subtitle">ተሜ አስጠኚ (Teme Astegni)</span>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <a href="teme-exam-app.html" class="btn-nav-link">
+          <span>🎓 Exam App</span>
+        </a>
+        <a href="index.html" class="btn-nav-link">
+          <span>🏠 Main Hub</span>
+        </a>
+        <button class="btn-nav-link" id="lang-btn" onclick="toggleLanguage()" style="cursor: pointer;">
+          <span>🌐 አማርኛ</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="astegni-hero">
+    <div class="hero-container">
+      <div class="hero-badge-pill">
+        <span>🛡️ 100% Verified University Scholars Network</span>
+      </div>
+
+      <h1 class="hero-title" id="h-title">
+        Teme Astegni (ተሜ አስጠኚ)<br>
+        <span style="font-size: 0.78em; color: #38bdf8;">Elite University Home Tutors for Your Child</span>
+      </h1>
+
+      <p class="hero-lead" id="h-lead">
+        Connect your children (Grades 1–12) with top-performing <b>2nd Year and above</b> university scholars from Addis Ababa University, ASTU, Jimma, and leading campuses. 100% verified by National ID and CGPA, matched directly to your neighborhood.
+      </p>
+
+      <div class="hero-actions-row">
+        <a href="#parent-form" class="btn-hero-primary" onclick="switchPortalTab('parent')">
+          <span>👨‍👩‍👧 Request a Tutor for Your Child</span>
+          <span>›</span>
+        </a>
+        <a href="#tutor-form" class="btn-hero-tutor" onclick="switchPortalTab('tutor')">
+          <span>🎓 Register as a University Astegni</span>
+          <span>›</span>
+        </a>
+      </div>
+
+      <!-- 4 Pillars -->
+      <div class="trust-grid">
+        <div class="trust-card">
+          <span class="trust-icon">🛡️</span>
+          <div class="trust-title" id="t-p1-title">Triple-Vetted Security</div>
+          <div class="trust-desc" id="t-p1-desc">Every tutor passes National Fayda/Kebele ID verification, University Student ID checks, and official grade slip validation.</div>
+        </div>
+
+        <div class="trust-card">
+          <span class="trust-icon">⭐</span>
+          <div class="trust-title" id="t-p2-title">2nd Year+ & CGPA ≥ 3.0</div>
+          <div class="trust-desc" id="t-p2-desc">No freshmen. Only experienced, proven scholars with Grade 'A' mastery in their respective tutoring subjects.</div>
+        </div>
+
+        <div class="trust-card">
+          <span class="trust-icon">📍</span>
+          <div class="trust-title" id="t-p3-title">Campus Proximity Matching</div>
+          <div class="trust-desc" id="t-p3-desc">Tutors are matched from the university campuses closest to your home, ensuring punctuality and reliable attendance.</div>
+        </div>
+
+        <div class="trust-card">
+          <span class="trust-icon">🤝</span>
+          <div class="trust-title" id="t-p4-title">1-Day Free Trial</div>
+          <div class="trust-desc" id="t-p4-desc">Evaluate the tutor's teaching chemistry with your child risk-free before confirming a monthly escrow arrangement.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Portal Section -->
+  <section class="portal-section" id="portal-area">
+    
+    <!-- Tab Switcher -->
+    <div class="tab-switcher-wrap">
+      <button class="tab-btn active" id="tab-parent-btn" onclick="switchPortalTab('parent')">
+        <span>👨‍👩‍👧 For Parents (Request a Tutor)</span>
+      </button>
+      <button class="tab-btn tutor-mode" id="tab-tutor-btn" onclick="switchPortalTab('tutor')">
+        <span>🎓 For University Students (Apply as Tutor)</span>
+      </button>
+    </div>
+
+    <!-- PARENT REQUEST FORM -->
+    <div class="portal-card" id="parent-card">
+      <div class="form-header-badge">👨‍👩‍👧 PARENT BOOKING PORTAL</div>
+      <h2 class="form-title" id="p-form-title">Find an Elite University Tutor for Your Child</h2>
+      <p class="form-subtitle" id="p-form-subtitle">Fill out your child's requirements below. Our proximity matching engine will pair you with a top-scoring scholar from the nearest campus within 24 hours.</p>
+
+      <form id="parent-form-element" onsubmit="handleParentSubmit(event)">
+        
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Parent / Guardian Full Name <span class="req">*</span></label>
+            <input type="text" class="form-input" id="p_name" placeholder="e.g. Dr. Abebe Tadesse / W/ro Selam" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number (Telebirr / Calls) <span class="req">*</span></label>
+            <input type="tel" class="form-input" id="p_phone" placeholder="e.g. 0911 23 45 67" required>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">City & Residential Neighborhood <span class="req">*</span></label>
+            <select class="form-select" id="p_location" required onchange="calculatePriceEstimate()">
+              <option value="" disabled selected>Select your neighborhood / sub-city...</option>
+              <optgroup label="Addis Ababa (Near AAU / AASTU Campuses)">
+                <option value="4kilo">4 Kilo / Arat Kilo (Near AAU Science Campus)</option>
+                <option value="6kilo">6 Kilo / Sidist Kilo (Near AAU Main Campus)</option>
+                <option value="5kilo">5 Kilo / Amist Kilo (Near AAU Technology Campus)</option>
+                <option value="ferensay">Ferensay Legasion / Jan Meda</option>
+                <option value="piassa">Piassa / Churchill Road / Arada</option>
+                <option value="fbe">FBE / Kazanchis / Bambis</option>
+                <option value="bole">Bole / Atlas / Rwanda / Medhanialem</option>
+                <option value="megenagna">Megenagna / Shola / Signal</option>
+                <option value="kilinto">Kilinto / Akaki Kality (Near AASTU Campus)</option>
+                <option value="lebu">Lebu / Jemo / Haile Garment</option>
+                <option value="cmc">CMC / Ayat / Meri / Summit</option>
+              </optgroup>
+              <optgroup label="Adama (Near ASTU Campus)">
+                <option value="astu_adama">Adama Main City / Posta / ASTU Campus Area</option>
+              </optgroup>
+              <optgroup label="Regional University Cities">
+                <option value="bdu_bahirdar">Bahir Dar (Poly / Peda / Sebatamit Area)</option>
+                <option value="hawassa">Hawassa (Main Campus / Referral Area)</option>
+                <option value="jimma">Jimma (Main Campus / Agaro Road Area)</option>
+                <option value="gondar">Gondar (Maraki / Atse Tewodros Area)</option>
+                <option value="other_regional">Other University City (Specify in notes)</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Child's Academic Grade Level <span class="req">*</span></label>
+            <select class="form-select" id="p_grade" required onchange="calculatePriceEstimate()">
+              <option value="" disabled selected>Select grade level...</option>
+              <option value="primary_low">Primary (Grades 1 – 4) • Foundations</option>
+              <option value="primary_up">Upper Primary (Grades 5 – 6)</option>
+              <option value="middle">Middle School (Grades 7 – 8) • Ministry Exam Prep</option>
+              <option value="high_low">Secondary School (Grades 9 – 10)</option>
+              <option value="high_up">College Prep (Grades 11 – 12) • ESSLCE Matric Prep</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Subjects Requiring Tutoring <span class="req">*</span></label>
+          <div class="chips-group">
+            <label class="chip-item"><input type="checkbox" name="subject" value="Mathematics" checked onchange="calculatePriceEstimate()"> Mathematics (ሂሳብ)</label>
+            <label class="chip-item"><input type="checkbox" name="subject" value="Physics" onchange="calculatePriceEstimate()"> Physics (ፊዚክስ)</label>
+            <label class="chip-item"><input type="checkbox" name="subject" value="Chemistry" onchange="calculatePriceEstimate()"> Chemistry (ኬሚስትሪ)</label>
+            <label class="chip-item"><input type="checkbox" name="subject" value="Biology" onchange="calculatePriceEstimate()"> Biology (ባዮሎጂ)</label>
+            <label class="chip-item"><input type="checkbox" name="subject" value="English" onchange="calculatePriceEstimate()"> English Grammar &amp; Reading</label>
+            <label class="chip-item"><input type="checkbox" name="subject" value="ICT_Coding" onchange="calculatePriceEstimate()"> ICT / Coding &amp; Digital Skills</label>
+            <label class="chip-item"><input type="checkbox" name="subject" value="General_Help" onchange="calculatePriceEstimate()"> All Subjects / Homework Coaching</label>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Weekly Frequency &amp; Hours <span class="req">*</span></label>
+            <select class="form-select" id="p_schedule" required onchange="calculatePriceEstimate()">
+              <option value="3days_1.5hr">3 Days / Week (1.5 Hours each) • Recommended</option>
+              <option value="3days_2.0hr">3 Days / Week (2.0 Hours each) • Intensive</option>
+              <option value="2days_2.0hr">2 Days / Week (Weekends Only - 2 Hours)</option>
+              <option value="4days_1.5hr">4 Days / Week (Accelerated Exam Prep)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Preferred Tutor Gender (Optional)</label>
+            <select class="form-select" id="p_gender">
+              <option value="no_pref">No Preference (Any top-ranked scholar)</option>
+              <option value="female">Female Tutor Preferred</option>
+              <option value="male">Male Tutor Preferred</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Dynamic Escrow Price Estimator -->
+        <div class="estimator-box">
+          <div class="estimator-meta">
+            <span class="estimator-label">💡 Estimated Monthly Tutoring Investment (Escrow Protected)</span>
+            <span class="estimator-sub">Includes 1-Day Trial, 100% Verified University Scholar, and ETHIO 21 Shield</span>
+          </div>
+          <div class="estimator-price" id="estimated-price">3,000 ETB / month</div>
+        </div>
+
+        <button type="submit" class="btn-submit-portal">
+          <span>🚀 Submit Request &amp; Match Nearby Scholar</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- TUTOR APPLICATION FORM -->
+    <div class="portal-card" id="tutor-card" style="display: none;">
+      <div class="form-header-badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.35);">
+        🎓 SCHOLAR RECRUITMENT PORTAL
+      </div>
+      <h2 class="form-title" id="t-form-title">Apply as a Certified Teme Astegni</h2>
+      <p class="form-subtitle" id="t-form-subtitle">Earn dignified part-time income around your campus. Minimum requirement: <b>2nd Year or above</b> with <b>CGPA ≥ 3.00</b> and verified university enrollment.</p>
+
+      <form id="tutor-form-element" onsubmit="handleTutorSubmit(event)">
+        
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Full Name (As on National / Student ID) <span class="req">*</span></label>
+            <input type="text" class="form-input" id="t_name" placeholder="e.g. Ashenafi Girma / Helen Kebede" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number (Telebirr Registered) <span class="req">*</span></label>
+            <input type="tel" class="form-input" id="t_phone" placeholder="e.g. 0911 00 00 00" required>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Your University <span class="req">*</span></label>
+            <select class="form-select" id="t_uni" required>
+              <option value="" disabled selected>Select university...</option>
+              <option value="aau">Addis Ababa University (AAU)</option>
+              <option value="aastu">Addis Ababa Science &amp; Tech (AASTU)</option>
+              <option value="astu">Adama Science &amp; Tech (ASTU)</option>
+              <option value="bdu">Bahir Dar University (BDU)</option>
+              <option value="ju">Jimma University (JU)</option>
+              <option value="hu">Hawassa University (HU)</option>
+              <option value="mu">Mekelle University (MU)</option>
+              <option value="gondar">University of Gondar (UoG)</option>
+              <option value="other">Other Accredited Public University</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Campus Name &amp; Department <span class="req">*</span></label>
+            <input type="text" class="form-input" id="t_dept" placeholder="e.g. AAU 4 Kilo • Electrical Engineering" required>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Current Academic Year <span class="req">*</span></label>
+            <select class="form-select" id="t_year" required>
+              <option value="" disabled selected>Select academic year...</option>
+              <option value="freshman" disabled>1st Year (Freshman) • Ineligible (Must focus on freshman exams first!)</option>
+              <option value="2nd">2nd Year Student (Eligible)</option>
+              <option value="3rd">3rd Year Student (Eligible)</option>
+              <option value="4th">4th Year Student (Eligible)</option>
+              <option value="5th">5th Year / Graduating Class (Eligible)</option>
+              <option value="postgrad">Postgraduate / Masters Student (Elite)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Cumulative GPA (CGPA) <span class="req">*</span></label>
+            <input type="number" step="0.01" min="3.00" max="4.00" class="form-input" id="t_cgpa" placeholder="e.g. 3.78" required oninput="evaluateTutorTier()">
+          </div>
+        </div>
+
+        <!-- Calculated Tier Badge -->
+        <div class="gpa-tier-box" id="tier-box">
+          <span style="font-size: 0.85rem; color: #94a3b8;">Predicted Merit Rank &amp; Eligibility:</span>
+          <span class="tier-badge-visual tier-silver" id="tier-badge">🥈 SILVER TUTOR (Grades 1–8)</span>
+        </div>
+
+        <div class="form-group" style="margin-top: 1.25rem;">
+          <label class="form-label">Subjects You Can Confidently Teach (Grade 'A' Required) <span class="req">*</span></label>
+          <div class="chips-group">
+            <label class="chip-item"><input type="checkbox" name="t_subject" value="Mathematics" checked> Mathematics</label>
+            <label class="chip-item"><input type="checkbox" name="t_subject" value="Physics"> Physics</label>
+            <label class="chip-item"><input type="checkbox" name="t_subject" value="Chemistry"> Chemistry</label>
+            <label class="chip-item"><input type="checkbox" name="t_subject" value="Biology"> Biology</label>
+            <label class="chip-item"><input type="checkbox" name="t_subject" value="English"> English</label>
+            <label class="chip-item"><input type="checkbox" name="t_subject" value="Coding"> Coding &amp; Programming</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Identification &amp; Academic Proof Details <span class="req">*</span></label>
+          <div style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 0.5rem;">
+            Enter your National ID (Fayda) / Kebele ID number and Student ID Number. You will be requested to present physical cards during in-person verification.
+          </div>
+          <div class="form-grid-2">
+            <input type="text" class="form-input" id="t_national_id" placeholder="National Fayda ID or Kebele ID #" required>
+            <input type="text" class="form-input" id="t_student_id" placeholder="University Student ID # (e.g. ETS/0123/15)" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit-portal btn-submit-tutor">
+          <span>🎓 Submit Application for Verification</span>
+        </button>
+      </form>
+    </div>
+
+  </section>
+
+  <!-- Workflow Explanation -->
+  <section class="workflow-section">
+    <div class="hero-badge-pill" style="background: rgba(16, 185, 129, 0.12); color: #34d399; border-color: rgba(16, 185, 129, 0.35);">
+      ⚡ SEAMLESS 4-STEP PROCESS
+    </div>
+    <h2 style="font-size: 2rem; font-weight: 850; color: #fff; margin-bottom: 0.5rem;">How Teme Astegni Operates</h2>
+    <p style="color: #94a3b8; max-width: 600px; margin: 0 auto;">A transparent, escrow-secured framework protecting parents, students, and university scholars.</p>
+
+    <div class="workflow-grid">
+      <div class="workflow-card">
+        <div class="workflow-num">1</div>
+        <h3 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem;">Submit Requirements</h3>
+        <p style="font-size: 0.84rem; color: #94a3b8; line-height: 1.5;">Parents specify their child's grade, subjects, and neighborhood location.</p>
+      </div>
+
+      <div class="workflow-card">
+        <div class="workflow-num">2</div>
+        <h3 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem;">Proximity Matching</h3>
+        <p style="font-size: 0.84rem; color: #94a3b8; line-height: 1.5;">Our system pairs the student with a vetted 2nd Year+ scholar from the nearest campus.</p>
+      </div>
+
+      <div class="workflow-card">
+        <div class="workflow-num">3</div>
+        <h3 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem;">1-Day Free Trial</h3>
+        <p style="font-size: 0.84rem; color: #94a3b8; line-height: 1.5;">The tutor visits for an introductory lesson. You confirm satisfaction before any payment.</p>
+      </div>
+
+      <div class="workflow-card">
+        <div class="workflow-num">4</div>
+        <h3 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem;">Escrow Protection</h3>
+        <p style="font-size: 0.84rem; color: #94a3b8; line-height: 1.5;">Payments are securely held by ETHIO 21 and released to the tutor at the end of the month.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Modal -->
+  <div class="astegni-modal-overlay" id="success-modal">
+    <div class="astegni-modal">
+      <span class="modal-icon-success">🎉</span>
+      <h3 style="font-size: 1.5rem; font-weight: 850; color: #fff; margin-bottom: 0.5rem;" id="modal-title">Request Successfully Received!</h3>
+      <p style="font-size: 0.9rem; color: #94a3b8; line-height: 1.6; margin-bottom: 1.5rem;" id="modal-desc">
+        Thank you! Our operations coordinator will contact you via phone/Telegram within 24 hours to match you with a verified university tutor.
+      </p>
+      <div style="background: rgba(2, 132, 199, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; padding: 0.85rem; margin-bottom: 1.5rem; font-size: 0.84rem; color: #7dd3fc;" id="modal-ticket">
+        Reference ID: <b>AST-2026-8942</b>
+      </div>
+      <button class="btn-submit-portal" onclick="closeModal()">
+        <span>Done &amp; Return</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer style="border-top: 1px solid rgba(255, 255, 255, 0.08); padding: 3rem 1.5rem; text-align: center; background: #060911;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <div style="font-size: 1.1rem; font-weight: 850; color: #fff; margin-bottom: 0.5rem;">
+        ተሜ አስጠኚ (Teme Astegni)
+      </div>
+      <div style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 1.5rem;">
+        An educational marketplace initiative powered by <b>ETHIO 21 Technologies</b>
+      </div>
+      <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+        <a href="index.html" style="color: #38bdf8; text-decoration: none; font-size: 0.85rem; font-weight: 700;">🏠 Main Website</a>
+        <a href="teme-exam-app.html" style="color: #38bdf8; text-decoration: none; font-size: 0.85rem; font-weight: 700;">🎓 Freshman Exam App</a>
+        <a href="https://t.me/Ethio21_technologies" target="_blank" style="color: #38bdf8; text-decoration: none; font-size: 0.85rem; font-weight: 700;">💬 Telegram Support</a>
+      </div>
+      <div style="font-size: 0.78rem; color: #64748b;">
+        &copy; 2026 ETHIO 21 Technologies. All rights reserved. Vetted Home Tutoring &amp; Academic Excellence.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Script -->
+  <script>
+    let currentLang = 'en';
+
+    function toggleLanguage() {
+      currentLang = (currentLang === 'en') ? 'am' : 'en';
+      const btn = document.getElementById('lang-btn');
+      if (btn) btn.innerHTML = `<span>🌐 ${currentLang === 'en' ? 'አማርኛ' : 'English'}</span>`;
+      
+      if (currentLang === 'am') {
+        document.getElementById('h-title').innerHTML = `ተሜ አስጠኚ (Teme Astegni)<br><span style="font-size: 0.78em; color: #38bdf8;">ለልጅዎ ብቁ የዩኒቨርሲቲ የቤት አስጠኚ</span>`;
+        document.getElementById('h-lead').innerText = `ከ 1ኛ እስከ 12ኛ ክፍል ላሉ ልጆችዎ ከአዲስ አበባ ዩኒቨርሲቲ፣ ከአዳማ ሳይንስና ቴክኖሎጂ (ASTU) እና ከሌሎች ታላላቅ ዩኒቨርሲቲዎች 2ኛ ዓመት እና ከዚያ በላይ የሆኑ ብቁ አስጠኚዎችን ያግኙ። ሙሉ በሙሉ በማንነት እና በውጤት የተረጋገጠ!`;
+      } else {
+        document.getElementById('h-title').innerHTML = `Teme Astegni (ተሜ አስጠኚ)<br><span style="font-size: 0.78em; color: #38bdf8;">Elite University Home Tutors for Your Child</span>`;
+        document.getElementById('h-lead').innerText = `Connect your children (Grades 1–12) with top-performing 2nd Year and above university scholars from Addis Ababa University, ASTU, Jimma, and leading campuses. 100% verified by National ID and CGPA, matched directly to your neighborhood.`;
+      }
+    }
+
+    function switchPortalTab(tab) {
+      const pBtn = document.getElementById('tab-parent-btn');
+      const tBtn = document.getElementById('tab-tutor-btn');
+      const pCard = document.getElementById('parent-card');
+      const tCard = document.getElementById('tutor-card');
+
+      if (tab === 'parent') {
+        pBtn.classList.add('active');
+        tBtn.classList.remove('active');
+        pCard.style.display = 'block';
+        tCard.style.display = 'none';
+      } else {
+        tBtn.classList.add('active');
+        pBtn.classList.remove('active');
+        tCard.style.display = 'block';
+        pCard.style.display = 'none';
+      }
+    }
+
+    function calculatePriceEstimate() {
+      const grade = document.getElementById('p_grade').value;
+      const sched = document.getElementById('p_schedule').value;
+      const priceEl = document.getElementById('estimated-price');
+
+      let base = 2800;
+      if (grade === 'middle') base = 3500;
+      else if (grade === 'high_low') base = 4200;
+      else if (grade === 'high_up') base = 5200;
+
+      if (sched === '3days_2.0hr') base += 600;
+      else if (sched === '4days_1.5hr') base += 900;
+      else if (sched === '2days_2.0hr') base -= 400;
+
+      priceEl.innerText = `${base.toLocaleString()} ETB / month`;
+    }
+
+    function evaluateTutorTier() {
+      const gpa = parseFloat(document.getElementById('t_cgpa').value) || 0;
+      const badge = document.getElementById('tier-badge');
+
+      if (gpa >= 3.75) {
+        badge.className = 'tier-badge-visual tier-gold';
+        badge.innerText = '🥇 GOLD ELITE TUTOR (Grades 1–12 & Matric)';
+      } else if (gpa >= 3.40) {
+        badge.className = 'tier-badge-visual tier-silver';
+        badge.innerText = '🥈 SILVER TUTOR (Grades 1–8 & Ministry)';
+      } else if (gpa >= 3.00) {
+        badge.className = 'tier-badge-visual tier-bronze';
+        badge.innerText = '🥉 BRONZE TUTOR (Primary Grades 1–6)';
+      } else {
+        badge.className = 'tier-badge-visual';
+        badge.style.background = 'rgba(244, 63, 94, 0.2)';
+        badge.style.color = '#fb7185';
+        badge.innerText = '⚠️ Minimum CGPA 3.00 Required';
+      }
+    }
+
+    function handleParentSubmit(e) {
+      e.preventDefault();
+      const ref = 'AST-P' + Math.floor(1000 + Math.random() * 9000);
+      document.getElementById('modal-title').innerText = 'Request Successfully Received!';
+      document.getElementById('modal-desc').innerText = 'Thank you! Our operations coordinator will review nearby campus scholars and call you within 24 hours to schedule your 1-Day Free Trial Session.';
+      document.getElementById('modal-ticket').innerHTML = `Parent Booking Ref: <b>${ref}</b> • Escrow Protected`;
+      document.getElementById('success-modal').classList.add('active');
+    }
+
+    function handleTutorSubmit(e) {
+      e.preventDefault();
+      const ref = 'AST-T' + Math.floor(1000 + Math.random() * 9000);
+      document.getElementById('modal-title').innerText = 'Application Submitted!';
+      document.getElementById('modal-desc').innerText = 'Your academic credentials and university ID have been logged for verification. Our campus operations lead will contact your phone/Telegram shortly.';
+      document.getElementById('modal-ticket').innerHTML = `Tutor Application Ref: <b>${ref}</b> • Status: PENDING_VERIFICATION`;
+      document.getElementById('success-modal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('success-modal').classList.remove('active');
+    }
+  </script>
+</body>
+</html>
