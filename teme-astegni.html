@@ -850,6 +850,15 @@
           </div>
 
           <div class="field">
+            <label id="i18n-f-pgender">Preferred Tutor Gender (የአስጠኚው ፆታ ምርጫ) *</label>
+            <select id="p_gender" required>
+              <option value="Any" selected id="i18n-opt-any">ምንም ልዩነት የለውም (Any - Male or Female)</option>
+              <option value="Female Only" id="i18n-opt-female">ሴት አስጠኚ ብቻ (Female Tutor Only)</option>
+              <option value="Male Only" id="i18n-opt-male">ወንድ አስጠኚ ብቻ (Male Tutor Only)</option>
+            </select>
+          </div>
+
+          <div class="field">
             <label id="i18n-f-psubj">Subjects Requiring Tutoring</label>
             <div class="checkbox-grid">
               <label class="check-label"><input type="checkbox" name="subj" value="Mathematics" checked> Math</label>
@@ -895,9 +904,19 @@
             <input type="text" id="t_name" required placeholder="e.g. Yohannes Melaku / Hawi Bekele">
           </div>
 
-          <div class="field">
-            <label id="i18n-f-tphone">Phone Number (Telebirr Registered) *</label>
-            <input type="tel" id="t_phone" required placeholder="09xxxxxxxx">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+            <div class="field">
+              <label id="i18n-f-tphone">Phone Number (Telebirr) *</label>
+              <input type="tel" id="t_phone" required placeholder="09xxxxxxxx">
+            </div>
+            <div class="field">
+              <label id="i18n-f-tgender">Gender / Sex (ፆታ) *</label>
+              <select id="t_gender" required>
+                <option value="" disabled selected id="i18n-topt-sel">ፆታ ይምረጡ</option>
+                <option value="Male" id="i18n-topt-male">ወንድ (Male)</option>
+                <option value="Female" id="i18n-topt-female">ሴት (Female)</option>
+              </select>
+            </div>
           </div>
 
           <div class="field">
@@ -1067,7 +1086,7 @@
 
         <a href="tel:+251960064466" class="hotline-item">
           <div>
-            <div style="font-size: 0.95rem; font-weight: 800;" id="i18n-call2-name">📞 Call Hotline 2 (Lema)</div>
+            <div style="font-size: 0.95rem; font-weight: 800;" id="i18n-call2-name">📞 Call Hotline 2 (Lemma)</div>
             <div style="font-size: 0.8rem; color: #94a3b8;">0960 06 44 66 • Secondary Coordinator</div>
           </div>
           <span class="hotline-btn-pill" id="i18n-call-btn2">Call Now</span>
@@ -1192,6 +1211,10 @@
         fPphone: "ስልክ ቁጥር (ቴሌብር / ጥሪ) *",
         fParea: "የሚኖሩበት አካባቢ / ሰፈር (ከግቢ አቅራቢያ) *",
         fPgrade: "የልጅዎ የክፍል ደረጃ *",
+        fPgender: "የአስጠኚው ፆታ ምርጫ *",
+        optAny: "ምንም ልዩነት የለውም (ወንድም ሆነ ሴት)",
+        optFemale: "ሴት አስጠኚ ብቻ",
+        optMale: "ወንድ አስጠኚ ብቻ",
         fPsubj: "ማስጠናት የሚፈልጓቸው የትምህርት አይነቶች",
         btnPsubmit: "📲 አስጠኚ ለመጠየቅ ይላኩ ›",
         tBadge: "የአስጠኚዎች መመዝገቢያ",
@@ -1199,6 +1222,10 @@
         tSubtitle: "መስፈርት፡ 2ኛ ዓመት እና ከዚያ በላይ የሆናችሁ፣ CGPA ≥ 3.00 ያላችሁ ንቁ ተማሪዎች።",
         fTname: "ሙሉ ስም (በመታወቂያው ላይ እንዳለው) *",
         fTphone: "ስልክ ቁጥር (ቴሌብር ያለው) *",
+        fTgender: "ፆታ *",
+        toptSel: "ፆታዎን ይምረጡ *",
+        toptMale: "ወንድ (Male)",
+        toptFemale: "ሴት (Female)",
         fTuni: "ዩኒቨርሲቲ እና ካምፓስ *",
         fTyear: "የትምህርት ዓመት *",
         fTcgpa: "CGPA (≥ 3.00) *",
@@ -1229,7 +1256,7 @@
         hpTitle: "24/7 ቀጥታ የስልክ ጥሪ መስመር",
         hpSubtitle: "በስልክ ደውለው ወዲያውኑ ማስተባበር ከፈለጉ ወደ ስልክ መስመሮቻችን ይደውሉ ወይም በቴሌግራም ያናግሩን።",
         call1Name: "📞 የስልክ መስመር 1 (አሸናፊ)",
-        call2Name: "📞 የስልክ መስመር 2 (ሌማ)",
+        call2Name: "📞 የስልክ መስመር 2 (ለማ)",
         callBtn1: "ይደውሉ",
         callBtn2: "ይደውሉ",
         opsBtn: "ቴሌግራም",
@@ -1275,6 +1302,10 @@
         fPphone: "Phone Number (Calls & Telebirr) *",
         fParea: "Residential Neighborhood & City (Near Campus) *",
         fPgrade: "Child's Academic Grade Level *",
+        fPgender: "Preferred Tutor Gender *",
+        optAny: "Any (No Preference - Male or Female)",
+        optFemale: "Female Tutor Only",
+        optMale: "Male Tutor Only",
         fPsubj: "Subjects Requiring Tutoring",
         btnPsubmit: "📲 Submit Request & Match Nearby Scholar ›",
         tBadge: "Tutor Registration",
@@ -1282,6 +1313,10 @@
         tSubtitle: "Requirements: Active 2nd Year+ university student with CGPA ≥ 3.00 and verified ID credentials.",
         fTname: "Full Name (As on Student ID) *",
         fTphone: "Phone Number (Telebirr Registered) *",
+        fTgender: "Gender / Sex *",
+        toptSel: "Select Gender *",
+        toptMale: "Male",
+        toptFemale: "Female",
         fTuni: "University & Campus Name *",
         fTyear: "Academic Year *",
         fTcgpa: "CGPA (≥ 3.00) *",
@@ -1312,7 +1347,7 @@
         hpTitle: "24/7 Direct Coordination Hotline",
         hpSubtitle: "Prefer speaking to our matching team directly? Call our hotlines or reach our Telegram operations room anytime.",
         call1Name: "📞 Call Hotline 1 (Ashenafi)",
-        call2Name: "📞 Call Hotline 2 (Lema)",
+        call2Name: "📞 Call Hotline 2 (Lemma)",
         callBtn1: "Call",
         callBtn2: "Call",
         opsBtn: "Join Ops",
@@ -1358,6 +1393,10 @@
         fPphone: "Lakkoofsa Bilbilaa (Telebirr / Waamicha) *",
         fParea: "Naannoo / Ganda Jiraattan (Kaampaasii Dhihoo) *",
         fPgrade: "Kutaa Barnootaa Barataa *",
+        fPgender: "Filannoo Saala Barsiisaa *",
+        optAny: "Garaagarummaa hin qabu (Dhiiras ta'ee Dubara)",
+        optFemale: "Barsiistuu Dubaraa Qofa",
+        optMale: "Barsiisaa Dhiiraa Qofa",
         fPsubj: "Gosoota Barnootaa Barsiifamuu Qaban",
         btnPsubmit: "📲 Barsiisaa Gaafachuuf Ergaa ›",
         tBadge: "Galmee Barsiisummaa",
@@ -1365,6 +1404,10 @@
         tSubtitle: "Ulaagaa: Barataa waggaa 2ffaa fi isaa ol, CGPA ≥ 3.00 fi eenyummaa mirkanaa'e kan qabu.",
         fTname: "Maqaa Guutuu (Waraqaa Eenyummaa Irra Akkuma Jiru) *",
         fTphone: "Lakkoofsa Bilbilaa (Telebirr Qabu) *",
+        fTgender: "Saala Keessan *",
+        toptSel: "Saala Keessan Filadhaa *",
+        toptMale: "Dhiira (Male)",
+        toptFemale: "Dubara (Female)",
         fTuni: "Maqaa Yuunivarsitii fi Kaampaasii *",
         fTyear: "Waggaa Barnootaa *",
         fTcgpa: "CGPA (≥ 3.00) *",
@@ -1395,7 +1438,7 @@
         hpTitle: "Sarara Bilbilaa Qindeessaa 24/7",
         hpSubtitle: "Kallattiin garee keenya waliin dubbachuu yoo barbaaddan sarara keenyatti bilbilaa yookiin Telegiraamiin nu qunnamaa.",
         call1Name: "📞 Sarara Bilbilaa 1 (Ashenafi)",
-        call2Name: "📞 Sarara Bilbilaa 2 (Lema)",
+        call2Name: "📞 Sarara Bilbilaa 2 (Lammaa)",
         callBtn1: "Bilbilaa",
         callBtn2: "Bilbilaa",
         opsBtn: "Ops Galmoomaa",
@@ -1463,6 +1506,10 @@
       document.getElementById('i18n-f-pphone').innerText = t.fPphone;
       document.getElementById('i18n-f-parea').innerText = t.fParea;
       document.getElementById('i18n-f-pgrade').innerText = t.fPgrade;
+      if (document.getElementById('i18n-f-pgender')) document.getElementById('i18n-f-pgender').innerText = t.fPgender;
+      if (document.getElementById('i18n-opt-any')) document.getElementById('i18n-opt-any').innerText = t.optAny;
+      if (document.getElementById('i18n-opt-female')) document.getElementById('i18n-opt-female').innerText = t.optFemale;
+      if (document.getElementById('i18n-opt-male')) document.getElementById('i18n-opt-male').innerText = t.optMale;
       document.getElementById('i18n-f-psubj').innerText = t.fPsubj;
       document.getElementById('i18n-btn-psubmit').innerText = t.btnPsubmit;
 
@@ -1472,6 +1519,10 @@
       document.getElementById('i18n-t-subtitle').innerText = t.tSubtitle;
       document.getElementById('i18n-f-tname').innerText = t.fTname;
       document.getElementById('i18n-f-tphone').innerText = t.fTphone;
+      if (document.getElementById('i18n-f-tgender')) document.getElementById('i18n-f-tgender').innerText = t.fTgender;
+      if (document.getElementById('i18n-topt-sel')) document.getElementById('i18n-topt-sel').innerText = t.toptSel;
+      if (document.getElementById('i18n-topt-male')) document.getElementById('i18n-topt-male').innerText = t.toptMale;
+      if (document.getElementById('i18n-topt-female')) document.getElementById('i18n-topt-female').innerText = t.toptFemale;
       document.getElementById('i18n-f-tuni').innerText = t.fTuni;
       document.getElementById('i18n-f-tyear').innerText = t.fTyear;
       document.getElementById('i18n-f-tcgpa').innerText = t.fTcgpa;
@@ -1558,6 +1609,7 @@
       const phone = document.getElementById('p_phone').value.trim();
       const area = document.getElementById('p_area').value.trim();
       const grade = document.getElementById('p_grade').value;
+      const genderPref = document.getElementById('p_gender').value;
 
       const checkedSubjs = [];
       document.querySelectorAll('input[name="subj"]:checked').forEach(c => checkedSubjs.push(c.value));
@@ -1565,7 +1617,7 @@
 
       // Save offline backup
       try {
-        const item = { type: 'PARENT', name, phone, area, grade, subjs, date: new Date().toISOString() };
+        const item = { type: 'PARENT', name, phone, area, grade, genderPref, subjs, date: new Date().toISOString() };
         const list = JSON.parse(localStorage.getItem('astegni_parent_leads') || '[]');
         list.push(item);
         localStorage.setItem('astegni_parent_leads', JSON.stringify(list));
@@ -1577,6 +1629,7 @@
                         `📞 Phone: ${phone}\n` +
                         `📍 Location: ${area}\n` +
                         `🎓 Child Grade: ${grade}\n` +
+                        `👥 Preferred Tutor Gender: ${genderPref}\n` +
                         `📖 Subjects: ${subjs}\n` +
                         `🛡️ Matched via: Teme Astegni Portal`;
       if (navigator.clipboard) {
@@ -1600,10 +1653,18 @@
       e.preventDefault();
       const name = document.getElementById('t_name').value.trim();
       const phone = document.getElementById('t_phone').value.trim();
+      const gender = document.getElementById('t_gender').value;
       const uni = document.getElementById('t_uni').value.trim();
       const year = document.getElementById('t_year').value;
       const cgpa = document.getElementById('t_cgpa').value.trim();
       const subj = document.getElementById('t_subj').value.trim();
+
+      if (!gender) {
+        const msg = (currentLang === 'am') ? 'እባክዎ ፆታዎን ይምረጡ።' : (currentLang === 'or' ? 'Moo saala keessan filadhaa.' : 'Please select your gender.');
+        alert(msg);
+        document.getElementById('t_gender').focus();
+        return;
+      }
 
       const campusFile = document.getElementById('t_campus_id_file').files[0];
       const gradeFile = document.getElementById('t_grade_file').files[0];
@@ -1622,7 +1683,7 @@
       try {
         const item = { 
           type: 'TUTOR', 
-          name, phone, uni, year, cgpa, subj, 
+          name, phone, gender, uni, year, cgpa, subj, 
           campusIdAttached: !!campusFile, 
           gradeReportAttached: !!gradeFile,
           govtIdAttached: !!govtFile,
@@ -1637,6 +1698,7 @@
       // Copy formatted text to clipboard
       const plainText = `🎓 New Tutor Application (Teme Astegni)\n` +
                         `👤 Name: ${name}\n` +
+                        `🚻 Gender / Sex: ${gender}\n` +
                         `📞 Phone: ${phone}\n` +
                         `🏛️ University: ${uni}\n` +
                         `📅 Academic Year: ${year}\n` +
