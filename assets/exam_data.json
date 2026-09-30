@@ -224,6 +224,47 @@
                       "math101":  {
                                       "mid":  [
                                                   {
+                                                      "type":  "true_false",
+                                                      "question":  "True or False: The compound proposition (P ∧ ¬P) is a tautology in propositional logic.",
+                                                      "question_am":  "እውነት ወይም ሐሰት: በፕሮፖዚሽናል ሎጂክ ውስጥ (P ∧ ¬P) የሚለው ውህድ ፕሮፖዚሽን ቶቶሎጂ (Tautology) ነው።",
+                                                      "correct_answer":  false,
+                                                      "explanation":  "FALSE. (P ∧ ¬P) is always FALSE under every truth assignment; therefore it is a contradiction, not a tautology.",
+                                                      "explanation_am":  "ሐሰት (FALSE)። (P ∧ ¬P) ምንጊዜም ሐሰት (Contradiction) እንጂ ቶቶሎጂ አይደለም።"
+                                                  },
+                                                  {
+                                                      "type":  "true_false",
+                                                      "question":  "True or False: According to De Morgan\u0027s Law for sets, for any sets A and B, (A ∩ B)\u0027 = A\u0027 ∪ B\u0027.",
+                                                      "question_am":  "እውነት ወይም ሐሰት: በሴት ቲዎሪ የዲ ሞርጋን ህግ መሰረት ለማንኛቸውም ሴቶች A እና B፣ (A ∩ B)\u0027 = A\u0027 ∪ B\u0027 ነው።",
+                                                      "correct_answer":  true,
+                                                      "explanation":  "TRUE. De Morgan\u0027s Law establishes that the complement of the intersection is the union of the individual complements.",
+                                                      "explanation_am":  "እውነት (TRUE)። የዲ ሞርጋን ህግ የመገናኛ (Intersection) ኮምፕሊመንት ከየግል ኮምፕሊመንቶች ህብረት (Union) ጋር እኩል መሆኑን ያረጋግጣል።"
+                                                  },
+                                                  {
+                                                      "type":  "true_false",
+                                                      "question":  "True or False: The real-valued function f: ℝ → ℝ defined by f(x) = x² is an injective (one-to-one) function.",
+                                                      "question_am":  "እውነት ወይም ሐሰት: በሪል ቁጥሮች ላይ በ f(x) = x² የተገለጸው ፈንክሽን አንድ-ለአንድ (Injective / One-to-One) ነው።",
+                                                      "correct_answer":  false,
+                                                      "explanation":  "FALSE. f is not injective because f(-2) = f(2) = 4, yet -2 ≠ 2. It fails the horizontal line test across ℝ.",
+                                                      "explanation_am":  "ሐሰት (FALSE)። f(-2) = f(2) = 4 በመሆኑና -2 ≠ 2 ባለመሆኑ ፈንክሽኑ አንድ-ለአንድ አይደለም።"
+                                                  },
+                                                  {
+                                                      "type":  "true_false",
+                                                      "question":  "True or False: By the Remainder Theorem, if a polynomial P(x) is divided by (x - c), the remainder is equal to P(c).",
+                                                      "question_am":  "እውነት ወይም ሐሰት: በቀሪ ቴዎረም (Remainder Theorem) መሰረት ፖሊኖሚየል P(x) ለ (x - c) ሲካፈል የሚገኘው ቀሪ ከ P(c) ጋር እኩል ነው።",
+                                                      "correct_answer":  true,
+                                                      "explanation":  "TRUE. By polynomial division P(x) = (x - c)Q(x) + R. Setting x = c yields P(c) = 0 + R = R.",
+                                                      "explanation_am":  "እውነት (TRUE)። P(x) = (x - c)Q(x) + R ስለሆነ x = c ሲሆን P(c) = R ይሆናል።"
+                                                  },
+                                                  {
+                                                      "type":  "true_false",
+                                                      "question":  "True or False: If z = a + bi is a complex number, then its modulus is given by |z| = √(a² + b²).",
+                                                      "question_am":  "እውነት ወይም ሐሰት: z = a + bi ኮምፕሌክስ ቁጥር ቢሆን፣ ሞዱለሱ |z| = √(a² + b²) ነው።",
+                                                      "correct_answer":  true,
+                                                      "explanation":  "TRUE. The modulus or absolute value of a complex number z = a + bi represents its Euclidean distance from the origin: |z| = √(a² + b²).",
+                                                      "explanation_am":  "እውነት (TRUE)። የኮምፕሌክስ ቁጥር z = a + bi ሞዱለስ ከመነሻ ነጥብ ያለውን ርቀት ይወክላል: |z| = √(a² + b²)።"
+                                                  },
+                                                  {
+                                                      "type":  "multiple_choice",
                                                       "question":  "Which of the following compound propositions is logically equivalent to the conditional implication P → Q?",
                                                       "question_am":  "ከሚከተሉት ውህድ ፕሮፖዚሽኖች ውስጥ ከኮንዲሽናል P → Q ጋር በሎጂክ እኩል (equivalent) የሆነው የትኛው ነው?",
                                                       "options":  [
@@ -243,6 +284,7 @@
                                                       "explanation_am":  "P → Q በኮንትራፖዚቲቭ (¬Q → ¬P) እንዲሁም በኮንዲሽናል ኤሊሚኔሽን ከ ¬P ∨ Q ጋር አቻ ነው። ስለዚህ ሁለቱም A እና C ትክክል ናቸው።"
                                                   },
                                                   {
+                                                      "type":  "multiple_choice",
                                                       "question":  "Let f(x) = (2x + 3) / (x - 1) for x ≠ 1. What is the inverse function f⁻¹(x)?",
                                                       "question_am":  "f(x) = (2x + 3) / (x - 1) ለ x ≠ 1 ቢሆን፣ የተገላቢጦሽ ፈንክሽን f⁻¹(x) ስንት ነው?",
                                                       "options":  [
@@ -262,6 +304,7 @@
                                                       "explanation_am":  "y = (2x + 3)/(x - 1) በማስቀመጥ yx - y = 2x + 3 ይሆናል፣ ከዚያም x(y - 2) = y + 3 በመሆኑ f⁻¹(x) = (x + 3)/(x - 2) ይገኛል።"
                                                   },
                                                   {
+                                                      "type":  "multiple_choice",
                                                       "question":  "If z = 1 + i√3, what is the polar (trigonometric) form of the complex number z?",
                                                       "question_am":  "z = 1 + i√3 ቢሆን፣ የዚህ ኮምፕሌክስ ቁጥር ፖላር (ትሪጎኖሜትሪክ) ፎርም የትኛው ነው?",
                                                       "options":  [
@@ -281,44 +324,7 @@
                                                       "explanation_am":  "ሞዱለስ r = √(1² + (√3)²) = 2 ነው። አርጉመንት θ = arctan(√3/1) = π/3 (60°) በመሆኑ z = 2(cos(π/3) + i sin(π/3)) ይሆናል።"
                                                   },
                                                   {
-                                                      "question":  "For any two arbitrary sets A and B in a universal set U, which of the following is De Morgan\u0027s Law for set complement?",
-                                                      "question_am":  "በዩኒቨርሳል ሴት U ውስጥ ላሉ ለማንኛቸውም ሁለት ሴቶች A እና B የዲ ሞርጋን ህግ (De Morgan\u0027s Law) የትኛው ነው?",
-                                                      "options":  [
-                                                                      "(A ∪ B)\u0027 = A\u0027 ∩ B\u0027",
-                                                                      "(A ∪ B)\u0027 = A\u0027 ∪ B\u0027",
-                                                                      "(A ∩ B)\u0027 = A\u0027 ∩ B\u0027",
-                                                                      "A \\ B = B \\ A"
-                                                                  ],
-                                                      "options_am":  [
-                                                                         "(A ∪ B)\u0027 = A\u0027 ∩ B\u0027",
-                                                                         "(A ∪ B)\u0027 = A\u0027 ∪ B\u0027",
-                                                                         "(A ∩ B)\u0027 = A\u0027 ∩ B\u0027",
-                                                                         "A \\ B = B \\ A"
-                                                                     ],
-                                                      "correct_index":  0,
-                                                      "explanation":  "De Morgan\u0027s first law states that the complement of the union of two sets is the intersection of their complements: (A ∪ B)\u0027 = A\u0027 ∩ B\u0027.",
-                                                      "explanation_am":  "የዲ ሞርጋን የመጀመሪያ ህግ የሁለት ሴቶች ህብረት ኮምፕሊመንት ከየግላቸው ኮምፕሊመንቶች መገናኛ (intersection) ጋር እኩል ነው: (A ∪ B)\u0027 = A\u0027 ∩ B\u0027።"
-                                                  },
-                                                  {
-                                                      "question":  "Let f(x) = x² + 1 and g(x) = 2x - 3. What is the value of the composite function (f ∘ g)(2)?",
-                                                      "question_am":  "f(x) = x² + 1 እና g(x) = 2x - 3 ቢሆኑ፣ የኮምፖዚት ፈንክሽን (f ∘ g)(2) ዋጋ ስንት ነው?",
-                                                      "options":  [
-                                                                      "2",
-                                                                      "5",
-                                                                      "10",
-                                                                      "7"
-                                                                  ],
-                                                      "options_am":  [
-                                                                         "2",
-                                                                         "5",
-                                                                         "10",
-                                                                         "7"
-                                                                     ],
-                                                      "correct_index":  0,
-                                                      "explanation":  "First evaluate g(2) = 2(2) - 3 = 1. Then f(g(2)) = f(1) = (1)² + 1 = 2.",
-                                                      "explanation_am":  "በቅድሚያ g(2) = 2(2) - 3 = 1 ይሰላል። ከዚያም f(g(2)) = f(1) = (1)² + 1 = 2 ይሆናል።"
-                                                  },
-                                                  {
+                                                      "type":  "multiple_choice",
                                                       "question":  "Which of the following compound propositions is a tautology (always true under all truth assignments)?",
                                                       "question_am":  "ከሚከተሉት ውህድ ፕሮፖዚሽኖች ውስጥ ቶቶሎጂ (ሁልጊዜ እውነት) የሆነው የትኛው ነው?",
                                                       "options":  [
@@ -338,6 +344,7 @@
                                                       "explanation_am":  "(P ∧ (P → Q)) → Q ሞደስ ፖነንስ (Modus Ponens) ሲሆን በማናቸውም ሁኔታ እውነት የሆነ ቶቶሎጂ ነው።"
                                                   },
                                                   {
+                                                      "type":  "multiple_choice",
                                                       "question":  "What is the logical negation of the quantified statement: \u0027For all real numbers x, if x \u003e 2 then x² \u003e 4\u0027?",
                                                       "question_am":  "የ \u0027ለሁሉም ሪል ቁጥሮች x፣ x \u003e 2 ከሆነ x² \u003e 4 ይሆናል\u0027 የሚለው ዓረፍተ-ነገር ኔጌሽን (ተቃራኒ) የትኛው ነው?",
                                                       "options":  [
@@ -357,6 +364,7 @@
                                                       "explanation_am":  "የ ∀x (P(x) → Q(x)) ኔጌሽን ∃x (P(x) ∧ ¬Q(x)) በመሆኑ ትክክለኛው መልስ B ነው።"
                                                   },
                                                   {
+                                                      "type":  "multiple_choice",
                                                       "question":  "If a set A contains exactly 5 distinct elements, how many non-empty proper subsets does A have?",
                                                       "question_am":  "ሴት A በትክክል 5 የተለያዩ አባላት ቢኖሩት፣ ስንት ባዶ ያልሆኑ ትክክለኛ ንዑስ ሴቶች (proper subsets) አሉት?",
                                                       "options":  [
@@ -376,6 +384,7 @@
                                                       "explanation_am":  "አጠቃላይ ንዑስ ሴቶች = 2⁵ = 32 ናቸው። ሴቱ ራሱ ሲቀነስ 31፣ ባዶ ሴት ሲቀነስ 30 ይቀራሉ።"
                                                   },
                                                   {
+                                                      "type":  "multiple_choice",
                                                       "question":  "If A = {1, 2, 3, 4} and B = {3, 4, 5, 6}, what is the symmetric difference A △ B?",
                                                       "question_am":  "A = {1, 2, 3, 4} እና B = {3, 4, 5, 6} ቢሆኑ፣ ሲሜትሪክ ዲፈረንስ A △ B የትኛው ነው?",
                                                       "options":  [
@@ -395,6 +404,7 @@
                                                       "explanation_am":  "ሲሜትሪክ ዲፈረንስ A △ B = (A \\ B) ∪ (B \\ A) = {1, 2} ∪ {5, 6} = {1, 2, 5, 6} ነው።"
                                                   },
                                                   {
+                                                      "type":  "multiple_choice",
                                                       "question":  "If |A| = 4 and |A × B| = 28, how many distinct relations can be defined from set B to set A?",
                                                       "question_am":  "|A| = 4 እና |A × B| = 28 ቢሆን፣ ከሴት B ወደ ሴት A ስንት የተለያዩ ሪሌሽኖች (relations) ማዘጋጀት ይቻላል?",
                                                       "options":  [
@@ -414,6 +424,7 @@
                                                       "explanation_am":  "|A × B| = |A| · |B| = 28 በመሆኑ |B| = 7 ነው። የሪሌሽኖች ብዛት ደግሞ 2^(|B × A|) = 2²⁸ ይሆናል።"
                                                   },
                                                   {
+                                                      "type":  "multiple_choice",
                                                       "question":  "A binary relation R on set A is called an equivalence relation if and only if R satisfies which three properties?",
                                                       "question_am":  "በሴት A ላይ ያለ ባይነሪ ሪሌሽን R ኢክዊቫለንስ ሪሌሽን (Equivalence Relation) የሚባለው የትኞቹን ሦስት ባህሪያት ሲያሟላ ነው?",
                                                       "options":  [
@@ -433,25 +444,7 @@
                                                       "explanation_am":  "ኢክዊቫለንስ ሪሌሽን ማለት ሪፍሌክሲቭ፣ ሲሜትሪክ እና ትራንዚቲቭ የሆነ ሪሌሽን ነው።"
                                                   },
                                                   {
-                                                      "question":  "Which of the following real-valued functions f: ℝ → ℝ is an injective (one-to-one) function?",
-                                                      "question_am":  "ከሚከተሉት የሪል ፈንክሽኖች ውስጥ አንድ-ለአንድ (injective / one-to-one) የሆነው የትኛው ነው?",
-                                                      "options":  [
-                                                                      "f(x) = x²",
-                                                                      "f(x) = |x|",
-                                                                      "f(x) = 3x - 5",
-                                                                      "f(x) = sin(x)"
-                                                                  ],
-                                                      "options_am":  [
-                                                                         "f(x) = x²",
-                                                                         "f(x) = |x|",
-                                                                         "f(x) = 3x - 5",
-                                                                         "f(x) = sin(x)"
-                                                                     ],
-                                                      "correct_index":  2,
-                                                      "explanation":  "f(x) = 3x - 5 is strictly monotonic (increasing) everywhere; f(a) = f(b) ⇒ 3a - 5 = 3b - 5 ⇒ a = b, satisfying the one-to-one definition.",
-                                                      "explanation_am":  "f(x) = 3x - 5 ሊኒየር እና ምንጊዜም ጨማሪ ፈንክሽን ስለሆነ f(a) = f(b) ወደ a = b ስለሚመራ አንድ-ለአንድ ነው።"
-                                                  },
-                                                  {
+                                                      "type":  "multiple_choice",
                                                       "question":  "What is the maximal domain of the real-valued function f(x) = √(9 - x²) / (x - 1)?",
                                                       "question_am":  "የፈንክሽን f(x) = √(9 - x²) / (x - 1) ማክሲማል ዶሜን የትኛው ነው?",
                                                       "options":  [
@@ -471,6 +464,7 @@
                                                       "explanation_am":  "ስኩዌር ሩት ውስጥ ያለው 9 - x² ≥ 0 መሆን ስላለበት [-3, 3] ሲሆን፣ ታችኛው ክፍል 0 እንዳይሆን x ≠ 1 መሆን አለበት። ስለዚህ [-3, 1) ∪ (1, 3] ነው።"
                                                   },
                                                   {
+                                                      "type":  "multiple_choice",
                                                       "question":  "When the polynomial P(x) = 2x³ - 3x² + kx - 8 is divided by (x - 2), the remainder is 6. What is the value of k?",
                                                       "question_am":  "ፖሊኖሚየል P(x) = 2x³ - 3x² + kx - 8 ለ (x - 2) ሲካፈል ቀሪው 6 ቢሆን፣ የ k ዋጋ ስንት ነው?",
                                                       "options":  [
@@ -490,25 +484,7 @@
                                                       "explanation_am":  "በቀሪ ቴዎረም መሰረት P(2) = 6 ይሆናል። 16 - 12 + 2k - 8 = 6 ⇒ 2k - 4 = 6 ⇒ 2k = 10 ⇒ k = 5።"
                                                   },
                                                   {
-                                                      "question":  "Which of the following is a linear factor of the polynomial P(x) = x³ - 6x² + 11x - 6?",
-                                                      "question_am":  "ከሚከተሉት ውስጥ የፖሊኖሚየል P(x) = x³ - 6x² + 11x - 6 ፋክተር የሆነው የትኛው ነው?",
-                                                      "options":  [
-                                                                      "x + 1",
-                                                                      "x - 2",
-                                                                      "x + 2",
-                                                                      "x - 4"
-                                                                  ],
-                                                      "options_am":  [
-                                                                         "x + 1",
-                                                                         "x - 2",
-                                                                         "x + 2",
-                                                                         "x - 4"
-                                                                     ],
-                                                      "correct_index":  1,
-                                                      "explanation":  "Testing x = 2: P(2) = (2)³ - 6(2)² + 11(2) - 6 = 8 - 24 + 22 - 6 = 0. By factor theorem, (x - 2) is a factor.",
-                                                      "explanation_am":  "P(2) = 8 - 24 + 22 - 6 = 0 ስለሆነ፣ በፋክተር ቴዎረም መሰረት (x - 2) የፖሊኖሚየሉ ፋክተር ነው።"
-                                                  },
-                                                  {
+                                                      "type":  "multiple_choice",
                                                       "question":  "Find all vertical and horizontal asymptotes of the rational function f(x) = (4x² + 1) / (x² - 4).",
                                                       "question_am":  "የራሽናል ፈንክሽን f(x) = (4x² + 1) / (x² - 4) ቨርቲካል እና ሆሪዞንታል አሲምፕቶቶች የትኞቹ ናቸው?",
                                                       "options":  [
@@ -528,6 +504,7 @@
                                                       "explanation_am":  "የታችኛው ክፍል 0 የሚሆነው በ x = ±2 ሲሆን ይሄ ቨርቲካል አሲምፕቶት ነው። ከፍተኛ ፓወሮቻቸው እኩል በመሆናቸው y = 4/1 = 4 ሆሪዞንታል አሲምፕቶት ይሆናል።"
                                                   },
                                                   {
+                                                      "type":  "multiple_choice",
                                                       "question":  "What is the solution set of the exponential equation 3^(2x + 1) - 10 · 3^x + 3 = 0?",
                                                       "question_am":  "የኤክስፖነንሺያል ኢኩዌሽን 3^(2x + 1) - 10 · 3^x + 3 = 0 መፍትሄ የትኛው ነው?",
                                                       "options":  [
@@ -547,6 +524,7 @@
                                                       "explanation_am":  "u = 3^x በማስቀመጥ 3u² - 10u + 3 = 0 ይሆናል። u = 1/3 ሲሆን x = -1፤ u = 3 ሲሆን x = 1 ስለሚሆን የመፍትሄ ሴቱ {-1, 1} ነው።"
                                                   },
                                                   {
+                                                      "type":  "multiple_choice",
                                                       "question":  "Solve the logarithmic equation for real x: log₂(x + 2) + log₂(x - 2) = 5.",
                                                       "question_am":  "የሎጋሪዝም ኢኩዌሽን log₂(x + 2) + log₂(x - 2) = 5 ለሪል x ሲፈታ ዋጋው ስንት ነው?",
                                                       "options":  [
@@ -566,6 +544,7 @@
                                                       "explanation_am":  "log₂((x+2)(x-2)) = 5 ⇒ x² - 4 = 32 ⇒ x² = 36 ⇒ x = ±6። ነገር ግን ሎጋሪዝም ውስጥ ያለው ቁጥር ከ 0 መብለጥ ስላለበት x = 6 ብቻ ተቀባይነት አለው።"
                                                   },
                                                   {
+                                                      "type":  "multiple_choice",
                                                       "question":  "What is the exact value of the trigonometric ratio sin(7π/6)?",
                                                       "question_am":  "የትሪጎኖሜትሪክ ሬሾ sin(7π/6) ትክክለኛ ዋጋ ስንት ነው?",
                                                       "options":  [
@@ -585,25 +564,7 @@
                                                       "explanation_am":  "7π/6 በ 3ኛው ኳድራንት ውስጥ ሲሆን ሳይን (sine) ኔጌቲቭ ነው። ሪፈረንስ አንግሉ π/6 ስለሆነ sin(7π/6) = -sin(π/6) = -1/2 ይሆናል።"
                                                   },
                                                   {
-                                                      "question":  "Simplify the trigonometric expression: (sin θ) / (1 + cos θ) + (1 + cos θ) / (sin θ).",
-                                                      "question_am":  "የትሪጎኖሜትሪክ ኤክስፕሬሽን (sin θ) / (1 + cos θ) + (1 + cos θ) / (sin θ) ሲቃለል ምን ይሆናል?",
-                                                      "options":  [
-                                                                      "2 sin θ",
-                                                                      "2 cos θ",
-                                                                      "2 csc θ",
-                                                                      "2 sec θ"
-                                                                  ],
-                                                      "options_am":  [
-                                                                         "2 sin θ",
-                                                                         "2 cos θ",
-                                                                         "2 csc θ",
-                                                                         "2 sec θ"
-                                                                     ],
-                                                      "correct_index":  2,
-                                                      "explanation":  "[sin² θ + (1 + cos θ)²] / [sin θ(1 + cos θ)] = [sin² θ + 1 + 2cos θ + cos² θ] / [sin θ(1 + cos θ)] = [2 + 2cos θ] / [sin θ(1 + cos θ)] = 2 / sin θ = 2 csc θ.",
-                                                      "explanation_am":  "የጋራ ማካፈያ በመውሰድ [2(1 + cos θ)] / [sin θ(1 + cos θ)] = 2 / sin θ = 2 csc θ ይገኛል።"
-                                                  },
-                                                  {
+                                                      "type":  "multiple_choice",
                                                       "question":  "Using the cosine addition formula, what is the exact value of cos(105°)?",
                                                       "question_am":  "የኮሳይን ድምር ፎርሙላን በመጠቀም፣ የ cos(105°) ትክክለኛ ዋጋ ስንት ነው?",
                                                       "options":  [
@@ -623,44 +584,7 @@
                                                       "explanation_am":  "cos(105°) = cos(60° + 45°) = (1/2)(√2/2) - (√3/2)(√2/2) = (√2 - √6) / 4 ይሆናል።"
                                                   },
                                                   {
-                                                      "question":  "What is the principal value of the inverse trigonometric function arcsin(-√3/2)?",
-                                                      "question_am":  "የኢንቨርስ ትሪጎኖሜትሪክ ፈንክሽን arcsin(-√3/2) ፕሪንሲፓል ዋጋ በ [-π/2, π/2] ውስጥ ስንት ነው?",
-                                                      "options":  [
-                                                                      "-π/3",
-                                                                      "4π/3",
-                                                                      "-π/6",
-                                                                      "5π/3"
-                                                                  ],
-                                                      "options_am":  [
-                                                                         "-π/3",
-                                                                         "4π/3",
-                                                                         "-π/6",
-                                                                         "5π/3"
-                                                                     ],
-                                                      "correct_index":  0,
-                                                      "explanation":  "The principal branch for arcsin is [-π/2, π/2]. Since sin(-π/3) = -√3/2, the principal value is -π/3.",
-                                                      "explanation_am":  "የ arcsin ፕሪንሲፓል ሬንጅ [-π/2, π/2] ሲሆን፣ sin(-π/3) = -√3/2 በመሆኑ ትክክለኛው መልስ -π/3 ነው።"
-                                                  },
-                                                  {
-                                                      "question":  "Evaluate the sum of powers of the imaginary unit i: i¹⁰³ + i²⁰²⁴ + i²⁰²⁶.",
-                                                      "question_am":  "የኢማጂነሪ ዩኒት i ፓወሮች ድምር i¹⁰³ + i²⁰²⁴ + i²⁰²⁶ ስንት ይሆናል?",
-                                                      "options":  [
-                                                                      "-i",
-                                                                      "i",
-                                                                      "-1 - i",
-                                                                      "1 - i"
-                                                                  ],
-                                                      "options_am":  [
-                                                                         "-i",
-                                                                         "i",
-                                                                         "-1 - i",
-                                                                         "1 - i"
-                                                                     ],
-                                                      "correct_index":  0,
-                                                      "explanation":  "i¹⁰³ = i^(4×25+3) = i³ = -i. i²⁰²⁴ = i^(4×506) = 1. i²⁰²⁶ = i^(4×506+2) = i² = -1. Therefore: -i + 1 + (-1) = -i.",
-                                                      "explanation_am":  "i¹⁰³ = -i፣ i²⁰²⁴ = 1፣ i²⁰²⁶ = -1 ነው። ሲደመሩ: -i + 1 - 1 = -i ይሆናል።"
-                                                  },
-                                                  {
+                                                      "type":  "multiple_choice",
                                                       "question":  "Perform the complex multiplication: (3 + 2i)(2 - 5i).",
                                                       "question_am":  "የኮምፕሌክስ ቁጥሮች ማባዛት (3 + 2i)(2 - 5i) ውጤት ስንት ነው?",
                                                       "options":  [
@@ -680,118 +604,219 @@
                                                       "explanation_am":  "በማባዛት 6 - 15i + 4i - 10(-1) = 6 - 11i + 10 = 16 - 11i ይገኛል።"
                                                   },
                                                   {
-                                                      "question":  "Express the complex division (5 + i) / (2 - i) in standard form a + bi.",
-                                                      "question_am":  "የኮምፕሌክስ ቁጥሮች ማካፈል (5 + i) / (2 - i) በስታንዳርድ ፎርም a + bi ሲጻፍ ምን ይሆናል?",
-                                                      "options":  [
-                                                                      "9/5 + 7/5 i",
-                                                                      "9/3 + 7/3 i",
-                                                                      "11/5 + 7/5 i",
-                                                                      "3 + i"
-                                                                  ],
-                                                      "options_am":  [
-                                                                         "9/5 + 7/5 i",
-                                                                         "9/3 + 7/3 i",
-                                                                         "11/5 + 7/5 i",
-                                                                         "3 + i"
-                                                                     ],
-                                                      "correct_index":  0,
-                                                      "explanation":  "Multiply numerator and denominator by conjugate (2 + i): [(5 + i)(2 + i)] / [(2 - i)(2 + i)] = (10 + 5i + 2i - 1) / (4 + 1) = (9 + 7i) / 5 = 9/5 + 7/5 i.",
-                                                      "explanation_am":  "በኮንጁጌት (2 + i) በማባዛት: (10 + 7i - 1)/(4 + 1) = (9 + 7i)/5 = 9/5 + 7/5 i ይሆናል።"
+                                                      "type":  "matching",
+                                                      "question":  "Match each function classification in Column A with its corresponding mathematical definition in Column B:",
+                                                      "question_am":  "በአምድ A ላይ ያሉትን የፈንክሽን አይነቶች በአምድ B ላይ ካሉ ትርጓሜዎቻቸው ጋር አዛምዱ፡",
+                                                      "column_a":  [
+                                                                       {
+                                                                           "id":  "1",
+                                                                           "text":  "1. Injective Function (One-to-One)"
+                                                                       },
+                                                                       {
+                                                                           "id":  "2",
+                                                                           "text":  "2. Surjective Function (Onto)"
+                                                                       },
+                                                                       {
+                                                                           "id":  "3",
+                                                                           "text":  "3. Bijective Function (One-to-One \u0026 Onto)"
+                                                                       },
+                                                                       {
+                                                                           "id":  "4",
+                                                                           "text":  "4. Identity Function"
+                                                                       }
+                                                                   ],
+                                                      "column_b":  [
+                                                                       {
+                                                                           "letter":  "A",
+                                                                           "text":  "Every element of codomain has at least one pre-image (Range = Codomain)"
+                                                                       },
+                                                                       {
+                                                                           "letter":  "B",
+                                                                           "text":  "Distinct domain elements always map to distinct codomain elements: f(a) = f(b) ⇒ a = b"
+                                                                       },
+                                                                       {
+                                                                           "letter":  "C",
+                                                                           "text":  "A function that is both injective and surjective simultaneously"
+                                                                       },
+                                                                       {
+                                                                           "letter":  "D",
+                                                                           "text":  "Maps every element to itself: f(x) = x"
+                                                                       }
+                                                                   ],
+                                                      "correct_matches":  {
+                                                                              "1":  "B",
+                                                                              "2":  "A",
+                                                                              "3":  "C",
+                                                                              "4":  "D"
+                                                                          },
+                                                      "explanation":  "1 matches B (Injective: f(a)=f(b) ⇒ a=b). 2 matches A (Surjective: Range = Codomain). 3 matches C (Bijective is both). 4 matches D (Identity: f(x)=x).",
+                                                      "explanation_am":  "1 ከ B ጋር (ኢንጀክቲቭ)፤ 2 ከ A ጋር (ሰርጀክቲቭ)፤ 3 ከ C ጋር (ባይጀክቲቭ)፤ 4 ከ D ጋር (አይደንቲቲ ፈንክሽን) ይዛመዳል።"
                                                   },
                                                   {
-                                                      "question":  "What is the modulus (absolute value) of the complex number z = (3 - 4i) / (1 + i√3)?",
-                                                      "question_am":  "የኮምፕሌክስ ቁጥር z = (3 - 4i) / (1 + i√3) ሞዱለስ (modulus) ስንት ነው?",
-                                                      "options":  [
-                                                                      "5/2",
-                                                                      "5/4",
-                                                                      "5",
-                                                                      "√7 / 2"
-                                                                  ],
-                                                      "options_am":  [
-                                                                         "5/2",
-                                                                         "5/4",
-                                                                         "5",
-                                                                         "√7 / 2"
-                                                                     ],
-                                                      "correct_index":  0,
-                                                      "explanation":  "|z| = |3 - 4i| / |1 + i√3| = √(3² + (-4)²) / √(1² + (√3)²) = √(25) / √(4) = 5/2.",
-                                                      "explanation_am":  "|z| = |3 - 4i| / |1 + i√3| = 5 / 2 = 5/2 ይሆናል።"
+                                                      "type":  "matching",
+                                                      "question":  "Match each set theory operation in Column A with its standard set-builder definition in Column B:",
+                                                      "question_am":  "በአምድ A ላይ ያሉትን የሴት ኦፕሬሽኖች በአምድ B ላይ ካሉ ምልክቶቻቸው ጋር አዛምዱ፡",
+                                                      "column_a":  [
+                                                                       {
+                                                                           "id":  "1",
+                                                                           "text":  "1. Union of sets A and B (A ∪ B)"
+                                                                       },
+                                                                       {
+                                                                           "id":  "2",
+                                                                           "text":  "2. Intersection of sets A and B (A ∩ B)"
+                                                                       },
+                                                                       {
+                                                                           "id":  "3",
+                                                                           "text":  "3. Relative Complement (Set Difference A \\ B)"
+                                                                       },
+                                                                       {
+                                                                           "id":  "4",
+                                                                           "text":  "4. Symmetric Difference (A △ B)"
+                                                                       }
+                                                                   ],
+                                                      "column_b":  [
+                                                                       {
+                                                                           "letter":  "A",
+                                                                           "text":  "{x | x ∈ A and x ∉ B}"
+                                                                       },
+                                                                       {
+                                                                           "letter":  "B",
+                                                                           "text":  "{x | x ∈ A or x ∈ B}"
+                                                                       },
+                                                                       {
+                                                                           "letter":  "C",
+                                                                           "text":  "(A \\ B) ∪ (B \\ A)"
+                                                                       },
+                                                                       {
+                                                                           "letter":  "D",
+                                                                           "text":  "{x | x ∈ A and x ∈ B}"
+                                                                       }
+                                                                   ],
+                                                      "correct_matches":  {
+                                                                              "1":  "B",
+                                                                              "2":  "D",
+                                                                              "3":  "A",
+                                                                              "4":  "C"
+                                                                          },
+                                                      "explanation":  "1 matches B (Union: x∈A or x∈B). 2 matches D (Intersection: x∈A and x∈B). 3 matches A (Difference: x∈A and x∉B). 4 matches C (Symmetric Difference: (A\\B)∪(B\\A)).",
+                                                      "explanation_am":  "1 ከ B (ህብረት)፤ 2 ከ D (መገናኛ)፤ 3 ከ A (ልዩነት)፤ 4 ከ C (ሲሜትሪክ ዲፈረንስ) ጋር ይዛመዳል።"
                                                   },
                                                   {
-                                                      "question":  "According to De Moivre\u0027s Theorem, what is the exact value of (cos(π/6) + i sin(π/6))⁶?",
-                                                      "question_am":  "በዲ ሞይቭሬ ቴዎረም መሰረት፣ የ (cos(π/6) + i sin(π/6))⁶ ዋጋ ስንት ነው?",
-                                                      "options":  [
-                                                                      "1",
-                                                                      "-1",
-                                                                      "i",
-                                                                      "-i"
-                                                                  ],
-                                                      "options_am":  [
-                                                                         "1",
-                                                                         "-1",
-                                                                         "i",
-                                                                         "-i"
-                                                                     ],
-                                                      "correct_index":  1,
-                                                      "explanation":  "By De Moivre\u0027s Theorem, [cos(θ) + i sin(θ)]ⁿ = cos(nθ) + i sin(nθ). For n = 6, 6 × (π/6) = π. cos(π) + i sin(π) = -1 + 0 = -1.",
-                                                      "explanation_am":  "[cos(π/6) + i sin(π/6)]⁶ = cos(6 × π/6) + i sin(6 × π/6) = cos(π) + i sin(π) = -1 ይሆናል።"
+                                                      "type":  "matching",
+                                                      "question":  "Match each complex number entity in Column A with its formula in Column B (where z = a + bi):",
+                                                      "question_am":  "ለኮምፕሌክስ ቁጥር z = a + bi በአምድ A ያሉትን በአምድ B ካሉ ፎርሙላዎች ጋር አዛምዱ፡",
+                                                      "column_a":  [
+                                                                       {
+                                                                           "id":  "1",
+                                                                           "text":  "1. Complex Conjugate z̄"
+                                                                       },
+                                                                       {
+                                                                           "id":  "2",
+                                                                           "text":  "2. Modulus |z|"
+                                                                       },
+                                                                       {
+                                                                           "id":  "3",
+                                                                           "text":  "3. Product z · z̄"
+                                                                       },
+                                                                       {
+                                                                           "id":  "4",
+                                                                           "text":  "4. Imaginary Part Im(z)"
+                                                                       }
+                                                                   ],
+                                                      "column_b":  [
+                                                                       {
+                                                                           "letter":  "A",
+                                                                           "text":  "√(a² + b²)"
+                                                                       },
+                                                                       {
+                                                                           "letter":  "B",
+                                                                           "text":  "a - bi"
+                                                                       },
+                                                                       {
+                                                                           "letter":  "C",
+                                                                           "text":  "(z - z̄) / (2i)"
+                                                                       },
+                                                                       {
+                                                                           "letter":  "D",
+                                                                           "text":  "a² + b²"
+                                                                       }
+                                                                   ],
+                                                      "correct_matches":  {
+                                                                              "1":  "B",
+                                                                              "2":  "A",
+                                                                              "3":  "D",
+                                                                              "4":  "C"
+                                                                          },
+                                                      "explanation":  "1 matches B (Conjugate: a - bi). 2 matches A (Modulus: √(a²+b²)). 3 matches D (z·z̄ = a²+b²). 4 matches C (Im(z) = (z - z̄)/(2i)).",
+                                                      "explanation_am":  "1 ከ B (ኮንጁጌት)፤ 2 ከ A (ሞዱለስ)፤ 3 ከ D (z·z̄)፤ 4 ከ C (Im(z)) ጋር ይዛመዳል።"
                                                   },
                                                   {
-                                                      "question":  "If z = a + bi, which of the following expressions is always equal to the imaginary part Im(z)?",
-                                                      "question_am":  "z = a + bi ቢሆን፣ ከሚከተሉት ውስጥ ሁልጊዜ ከኢማጂነሪ ክፍል Im(z) ጋር እኩል የሆነው የትኛው ነው?",
-                                                      "options":  [
-                                                                      "(z + z̄) / 2",
-                                                                      "(z - z̄) / (2i)",
-                                                                      "z · z̄",
-                                                                      "|z|²"
-                                                                  ],
-                                                      "options_am":  [
-                                                                         "(z + z̄) / 2",
-                                                                         "(z - z̄) / (2i)",
-                                                                         "z · z̄",
-                                                                         "|z|²"
-                                                                     ],
-                                                      "correct_index":  1,
-                                                      "explanation":  "z - z̄ = (a + bi) - (a - bi) = 2bi. Dividing by 2i gives b = Im(z). (Meanwhile (z + z̄)/2 gives Re(z)).",
-                                                      "explanation_am":  "z - z̄ = (a + bi) - (a - bi) = 2bi ሲሆን፣ ለ 2i ሲካፈል b = Im(z) ይሰጣል።"
+                                                      "type":  "fill_in_the_blank",
+                                                      "question":  "A compound proposition that is always FALSE under every possible truth assignment of its propositional variables is known as a [ _____ ].",
+                                                      "question_am":  "ለማናቸውም የፕሮፖዚሽኑ ቫሪያብሎች እሴቶች ምንጊዜም ሐሰት (False) የሆነ ውህድ ፕሮፖዚሽን [ _____ ] ይባላል።",
+                                                      "accepted_answers":  [
+                                                                               "contradiction",
+                                                                               "a contradiction",
+                                                                               "ኮንትራዲክሽን"
+                                                                           ],
+                                                      "placeholder":  "Type academic term (e.g. contradiction)...",
+                                                      "explanation":  "A contradiction is a compound proposition that is false for all possible truth values of its propositional variables (e.g., P ∧ ¬P).",
+                                                      "explanation_am":  "ኮንትራዲክሽን (Contradiction) በማናቸውም ሁኔታዎች ውስጥ ምንጊዜም ሐሰት የሆነ ዓረፍተ-ነገር ነው።"
                                                   },
                                                   {
-                                                      "question":  "What are the complex roots of the quadratic equation x² - 4x + 13 = 0?",
-                                                      "question_am":  "የኳድራቲክ ኢኩዌሽን x² - 4x + 13 = 0 ኮምፕሌክስ ሥሮች (roots) የትኞቹ ናቸው?",
-                                                      "options":  [
-                                                                      "x = 2 ± 3i",
-                                                                      "x = 4 ± 3i",
-                                                                      "x = 2 ± 6i",
-                                                                      "x = -2 ± 3i"
-                                                                  ],
-                                                      "options_am":  [
-                                                                         "x = 2 ± 3i",
-                                                                         "x = 4 ± 3i",
-                                                                         "x = 2 ± 6i",
-                                                                         "x = -2 ± 3i"
-                                                                     ],
-                                                      "correct_index":  0,
-                                                      "explanation":  "x = [-(-4) ± √((-4)² - 4(1)(13))] / (2) = [4 ± √(16 - 52)] / 2 = [4 ± √(-36)] / 2 = [4 ± 6i] / 2 = 2 ± 3i.",
-                                                      "explanation_am":  "በኳድራቲክ ፎርሙላ: x = [4 ± √(-36)]/2 = [4 ± 6i]/2 = 2 ± 3i ይሆናል።"
+                                                      "type":  "fill_in_the_blank",
+                                                      "question":  "If a finite set A contains 4 distinct elements, the total cardinality of its power set |P(A)| is equal to [ _____ ].",
+                                                      "question_am":  "ሴት A በትክክል 4 አባላት ቢኖሩት፣ የፓወር ሴቱ የአባላት ብዛት |P(A)| [ _____ ] ይሆናል።",
+                                                      "accepted_answers":  [
+                                                                               "16",
+                                                                               "2^4",
+                                                                               "2⁴"
+                                                                           ],
+                                                      "placeholder":  "Enter number (e.g. 16)...",
+                                                      "explanation":  "The power set P(A) contains 2^n elements where n = |A|. For n = 4, 2⁴ = 16 subsets.",
+                                                      "explanation_am":  "የፓወር ሴት አባላት ብዛት 2^n ሲሆን፣ ለ n = 4 ዋጋው 2⁴ = 16 ይሆናል።"
                                                   },
                                                   {
-                                                      "question":  "What is the principal argument Arg(z) of the complex number z = -√3 - i in (-π, π]?",
-                                                      "question_am":  "የኮምፕሌክስ ቁጥር z = -√3 - i ፕሪንሲፓል አርጉመንት Arg(z) በ (-π, π] ውስጥ ስንት ነው?",
-                                                      "options":  [
-                                                                      "-5π/6",
-                                                                      "5π/6",
-                                                                      "-π/6",
-                                                                      "7π/6"
-                                                                  ],
-                                                      "options_am":  [
-                                                                         "-5π/6",
-                                                                         "5π/6",
-                                                                         "-π/6",
-                                                                         "7π/6"
-                                                                     ],
-                                                      "correct_index":  0,
-                                                      "explanation":  "z lies in Quadrant III (x = -√3 \u003c 0, y = -1 \u003c 0). Reference angle α = arctan(|-1|/|-√3|) = π/6. In (-π, π], Arg(z) = -π + π/6 = -5π/6.",
-                                                      "explanation_am":  "z በ 3ኛው ኳድራንት ውስጥ ስለሚገኝ ሪፈረንስ አንግሉ π/6 ሲሆን፣ በፕሪንሲፓል ሬንጅ ውስጥ Arg(z) = -π + π/6 = -5π/6 ይሆናል።"
+                                                      "type":  "fill_in_the_blank",
+                                                      "question":  "The fundamental trigonometric identity states that for any real angle θ, sin²(θ) + cos²(θ) = [ _____ ].",
+                                                      "question_am":  "በመሰረታዊው የትሪጎኖሜትሪ ህግ መሰረት ለማንኛውም አንግል θ፣ sin²(θ) + cos²(θ) = [ _____ ] ይሆናል።",
+                                                      "accepted_answers":  [
+                                                                               "1",
+                                                                               "one",
+                                                                               "1.0",
+                                                                               "አንድ"
+                                                                           ],
+                                                      "placeholder":  "Enter exact value (e.g. 1)...",
+                                                      "explanation":  "By the Pythagorean trigonometric identity derived from the unit circle, sin²(θ) + cos²(θ) = 1 for all real angles θ.",
+                                                      "explanation_am":  "በዩኒት ሰርክል የፓይታጎረስ ትሪጎኖሜትሪክ ህግ መሰረት sin²(θ) + cos²(θ) = 1 ይሆናል።"
+                                                  },
+                                                  {
+                                                      "type":  "fill_in_the_blank",
+                                                      "question":  "The imaginary unit i raised to the power 4 (i⁴) evaluates to the exact integer [ _____ ].",
+                                                      "question_am":  "የኢማጂነሪ ዩኒት i ፓወር 4 (i⁴) ዋጋው [ _____ ] ነው።",
+                                                      "accepted_answers":  [
+                                                                               "1",
+                                                                               "one",
+                                                                               "1.0",
+                                                                               "አንድ"
+                                                                           ],
+                                                      "placeholder":  "Enter integer value...",
+                                                      "explanation":  "Since i² = -1, i⁴ = (i²)² = (-1)² = 1.",
+                                                      "explanation_am":  "i² = -1 ስለሆነ፣ i⁴ = (-1)² = 1 ይሆናል።"
+                                                  },
+                                                  {
+                                                      "type":  "fill_in_the_blank",
+                                                      "question":  "A line x = a is called a vertical [ _____ ] of the graph of rational function f(x) if f(x) approaches ±∞ as x approaches a.",
+                                                      "question_am":  "መስመር x = a የፈንክሽን f(x) ቨርቲካል [ _____ ] ይባላል x ወደ a ሲጠጋ f(x) ወደ ±∞ የሚያመራ ከሆነ።",
+                                                      "accepted_answers":  [
+                                                                               "asymptote",
+                                                                               "asymptotes",
+                                                                               "vertical asymptote",
+                                                                               "አሲምፕቶት"
+                                                                           ],
+                                                      "placeholder":  "Type math term (e.g. asymptote)...",
+                                                      "explanation":  "A vertical asymptote is a vertical line x = a where the function value grows without bound towards positive or negative infinity.",
+                                                      "explanation_am":  "ቨርቲካል አሲምፕቶት (Vertical Asymptote) ፈንክሽኑ ወሰን ወደሌለው ትልቅ ወይም ትንሽ ቁጥር ሲያመራ የሚፈጠር ቀጥ ያለ መስመር ነው።"
                                                   }
                                               ],
                                       "final":  [
