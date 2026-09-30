@@ -1833,17 +1833,38 @@
       loadQuestion();
     }
 
-    // Question Pool Resolver
+    // Question Pool Resolver (Hierarchical: University -> Year -> Course -> Term with Global Fallbacks)
     function getQuestionPool() {
+      const uId = (userState.uni && userState.uni.id) ? userState.uni.id : 'aau';
+      const yId = (userState.year && userState.year.id) ? userState.year.id : '2018';
       const cId = (userState.course && userState.course.id) ? userState.course.id : 'math101';
       const termId = (userState.term && userState.term.id) ? userState.term.id : 'mid';
 
-      const courseObj = (examData && examData.questions && examData.questions[cId])
-        ? examData.questions[cId]
-        : (examData && examData.questions ? examData.questions.math101 : null);
+      const qRoot = examData && examData.questions ? examData.questions : null;
+      if (!qRoot) return [];
 
+      // 1. University + Year + Course + Term (e.g. qRoot.aau['2018'].math101.mid)
+      if (qRoot[uId] && qRoot[uId][yId] && qRoot[uId][yId][cId]) {
+        const pool = qRoot[uId][yId][cId][termId];
+        if (Array.isArray(pool) && pool.length > 0) return pool;
+      }
+
+      // 2. University + Course + Term (e.g. qRoot.aau.math101.mid)
+      if (qRoot[uId] && qRoot[uId][cId]) {
+        const pool = qRoot[uId][cId][termId];
+        if (Array.isArray(pool) && pool.length > 0) return pool;
+      }
+
+      // 3. Year + Course + Term (e.g. qRoot['2018'].math101.mid)
+      if (qRoot[yId] && qRoot[yId][cId]) {
+        const pool = qRoot[yId][cId][termId];
+        if (Array.isArray(pool) && pool.length > 0) return pool;
+      }
+
+      // 4. Standard Course + Term (e.g. qRoot.math101.mid)
+      const courseObj = qRoot[cId] || qRoot.math101;
       if (courseObj) {
-        if (courseObj[termId] && courseObj[termId].length > 0) {
+        if (Array.isArray(courseObj[termId]) && courseObj[termId].length > 0) {
           return courseObj[termId];
         }
         if (Array.isArray(courseObj)) {
