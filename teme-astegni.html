@@ -964,9 +964,9 @@
             </div>
           </div>
 
-          <!-- 3. OPTIONAL 1 OF THEM: National Fayda ID OR Kebele ID -->
+          <!-- 3. MANDATORY (CHOOSE EITHER NATIONAL FAYDA OR KEBELE ID): 1 OF THEM MUST BE UPLOADED -->
           <div class="field">
-            <label style="color: #38bdf8; font-weight: 800;" id="i18n-t-govt-l">🆔 National Fayda ID OR Kebele ID • Choose 1 (OPTIONAL)</label>
+            <label style="color: #38bdf8; font-weight: 850;" id="i18n-t-govt-l">🆔 National Fayda ID OR Kebele ID • Choose 1 (REQUIRED) *</label>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem;">
               <select id="t_govt_id_type" style="padding: 0.75rem; background: rgba(30, 41, 59, 0.9); border: 1.5px solid rgba(255, 255, 255, 0.15); color: #fff; border-radius: 10px;">
                 <option value="National Fayda ID">National Fayda ID</option>
@@ -974,9 +974,11 @@
               </select>
               <input type="text" id="t_govt_id_num" placeholder="ID Number (Optional)" style="background: rgba(30, 41, 59, 0.9); border: 1.5px solid rgba(255, 255, 255, 0.15); color: #fff; border-radius: 10px; padding: 0.75rem;">
             </div>
-            <div class="file-upload-box optional" id="box-govt-id">
-              <input type="file" id="t_govt_file" accept="image/*" onchange="handleGovtPick(event)">
-              <div style="font-size: 0.84rem; color: #7dd3fc; font-weight: 750;" id="i18n-t-govt-p1">📎 Attach ID Card Photo (Optional)</div>
+            <div class="file-upload-box" id="box-govt-id" style="border-color: rgba(56, 189, 248, 0.45); background: rgba(56, 189, 248, 0.06);">
+              <input type="file" id="t_govt_file" accept="image/*" required onchange="handleGovtPick(event)">
+              <div style="font-size: 1.6rem; margin-bottom: 0.25rem;">🆔</div>
+              <div style="font-size: 0.92rem; font-weight: 800; color: #fff;" id="i18n-t-govt-p1">Upload National Fayda ID or Kebele ID Photo</div>
+              <div style="font-size: 0.78rem; color: #94a3b8;" id="i18n-t-govt-p2">Choose whichever you have — 1 of them is mandatory for child safety</div>
               <img id="preview-govt" class="file-preview-thumb" style="border-color: #38bdf8;" alt="Govt ID Preview">
               <div id="status-govt" class="file-status-tag" style="color: #38bdf8;">✓ Government ID Attached</div>
             </div>
@@ -1087,8 +1089,9 @@
         tGradeL: "📄 Grade Report / Portal Screenshot (REQUIRED) *",
         tGradeP1: "Upload Grade Report or Portal Screenshot",
         tGradeP2: "To verify your CGPA and academic standing",
-        tGovtL: "🆔 National Fayda ID OR Kebele ID • Choose 1 (OPTIONAL)",
-        tGovtP1: "📎 Attach ID Card Photo (Optional)",
+        tGovtL: "🆔 National Fayda ID OR Kebele ID • Choose 1 (REQUIRED) *",
+        tGovtP1: "Upload National Fayda ID or Kebele ID Photo",
+        tGovtP2: "Choose whichever you have — 1 of them is mandatory for child safety",
         tBtn: "🎓 Submit Tutor Application for Verification ›",
         escrowNotice: "🛡️ <b>100% Private Matching & Escrow Guarantee:</b> Parent contacts and student requests are strictly confidential and managed directly by ETHIO 21 coordinators. No jobs are posted publicly, completely preventing fake locations and disintermediation. Tuition is released to tutors only after monthly classes are completed.",
         vTag: "🛡️ 100% TRUSTED SELECTION • RIGOROUS 4-TIER VETTING",
@@ -1098,8 +1101,8 @@
         vS1P: "Must be an active 2nd year or above student from a nearby accredited university campus (AAU, ASTU, Hawassa, etc.).",
         vS2H: "📄 2. Official Grade Report (CGPA ≥ 3.00)",
         vS2P: "Cumulative GPA must be 3.00 or higher, with verified Grade 'A' academic mastery in the subjects they tutor.",
-        vS3H: "🆔 3. National Fayda or Kebele ID",
-        vS3P: "For absolute child safety and accountability, the tutor's official government ID is on permanent file with ETHIO 21.",
+        vS3H: "🆔 3. National Fayda or Kebele ID (Mandatory)",
+        vS3P: "For absolute child safety, an authenticated government ID (National Fayda or Kebele ID) is mandatorily submitted and filed with ETHIO 21 before tutor deployment.",
         vS4H: "🤝 4. 1-Day Free In-Home Trial",
         vS4P: "The matched tutor conducts a 1-day free trial session at your home. You evaluate their teaching chemistry before confirming the monthly contract."
       },
@@ -1149,8 +1152,9 @@
         tGradeL: "📄 የውጤት ሪፖርት (ግሬድ ሪፖርት / ፖርታል) *",
         tGradeP1: "የግሬድ ሪፖርት ወይም የፖርታል ውጤት ፎቶ ይጫኑ",
         tGradeP2: "CGPA ውጤትዎን ለማረጋገጥ",
-        tGovtL: "🆔 ብሔራዊ መታወቂያ ወይም የቀበሌ መታወቂያ • አንዱን ይምረጡ (አማራጭ)",
-        tGovtP1: "📎 የመታወቂያ ፎቶ ያያይዙ (አማራጭ)",
+        tGovtL: "🆔 ብሔራዊ የፋይዳ ወይም የቀበሌ መታወቂያ • አንዱ ግዴታ ነው (REQUIRED) *",
+        tGovtP1: "የብሔራዊ ፋይዳ ወይም የቀበሌ መታወቂያ ፎቶ ይጫኑ",
+        tGovtP2: "ያለዎትን አንዱን ይምረጡ — ለልጆች ደህንነት አንዱን ማያያዝ ግዴታ ነው",
         tBtn: "🎓 ማመልከቻዎን ይላኩ ›",
         escrowNotice: "🛡️ <b>100% ሚስጥራዊ አሰራር እና የገንዘብ ዋስትና፡</b> የወላጆች መረጃም ሆነ የተማሪዎች ማመልከቻ በይፋ በግሩፕ አይለጠፍም፤ በቀጥታ በ ETHIO 21 አስተዳዳሪዎች ብቻ በሚስጥር ይመረጣል። ይህ የተሳሳተ መረጃን እና ማጭበርበርን ይከላከላል። ክፍያ የሚለቀቀው ወሩ በአግባቡ ሲጠናቀቅ ብቻ ነው።",
         vTag: "🛡️ 100% አስተማማኝ ምርጫ • STRICT VETTING",
@@ -1160,8 +1164,8 @@
         vS1P: "ከአቅራቢያዎ ዩኒቨርሲቲ (AAU፣ ASTU...) <b>2ኛ ዓመት ወይም ከዚያ በላይ</b> መሆኑ እና ንቁ ተማሪነቱ በካምፓስ መታወቂያው ፎቶ ይረጋገጣል።",
         vS2H: "📄 2. የግሬድ ሪፖርት (CGPA ≥ 3.00)",
         vS2P: "አጠቃላይ ውጤቱ <b>CGPA 3.00 እና ከዚያ በላይ</b> መሆኑ እና በሚያስተምረው ትምህርት <b>Grade 'A'</b> ማስመዝገቡ በፖርታል ውጤቱ ይረጋገጣል።",
-        vS3H: "🆔 3. ብሔራዊ / የቀበሌ መታወቂያ",
-        vS3P: "የልጅዎን ደህንነት እና የቤትዎን ሰላም 100% ለማረጋገጥ የአስጠኚው የፋይዳ ብሔራዊ መታወቂያ ወይም የቀበሌ መታወቂያ በ ETHIO 21 እጅ ተመዝግቦ ይያዛል።",
+        vS3H: "🆔 3. ብሔራዊ ወይም የቀበሌ መታወቂያ (ግዴታ)",
+        vS3P: "የልጅዎን ደህንነት እና የቤትዎን ሰላም 100% ለማረጋገጥ የአስጠኚው የፋይዳ ብሔራዊ መታወቂያ ወይም የቀበሌ መታወቂያ በ ETHIO 21 እጅ ተመዝግቦ መያዙ ግዴታ ነው።",
         vS4H: "🤝 4. የ 1 ቀን ነጻ የሙከራ ክፍለ-ጊዜ",
         vS4P: "አስጠኚው መጥቶ የመጀመሪያውን ቀን በነጻ ያስተምራል። የልጅዎን ለውጥ እና የአስጠኚውን ስነ-ምግባር አይተው ካመኑበት ብቻ ወርሃዊ ክፍያውን ይፈጽማሉ።"
       }
@@ -1242,6 +1246,7 @@
       document.getElementById('i18n-t-grade-p2').innerText = t.tGradeP2;
       document.getElementById('i18n-t-govt-l').innerText = t.tGovtL;
       document.getElementById('i18n-t-govt-p1').innerText = t.tGovtP1;
+      if (document.getElementById('i18n-t-govt-p2')) document.getElementById('i18n-t-govt-p2').innerText = t.tGovtP2;
       document.getElementById('i18n-t-btn').innerText = t.tBtn;
       document.getElementById('i18n-escrow-notice').innerHTML = t.escrowNotice;
     }
@@ -1392,8 +1397,15 @@
 
       const campusFile = document.getElementById('t_campus_id_file').files[0];
       const gradeFile = document.getElementById('t_grade_file').files[0];
+      const govtFile = document.getElementById('t_govt_file').files[0];
       const govtType = document.getElementById('t_govt_id_type').value;
-      const govtNum = document.getElementById('t_govt_id_num').value.trim() || 'Will send in Telegram';
+      const govtNum = document.getElementById('t_govt_id_num').value.trim() || 'Attached in Photos';
+
+      if (!govtFile) {
+        alert(currentLang === 'am' ? 'እባክዎ የብሔራዊ ወይም የቀበሌ መታወቂያዎን ፎቶ ያያይዙ (አንዱ ግዴታ ነው)።' : 'Please upload either your National Fayda ID or Kebele ID photo (1 is mandatory for child safety).');
+        document.getElementById('box-govt-id').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
 
       // Save offline backup
       try {
@@ -1407,6 +1419,7 @@
           subj, 
           campusIdAttached: !!campusFile, 
           gradeReportAttached: !!gradeFile,
+          govtIdAttached: !!govtFile,
           govtId: `${govtType}: ${govtNum}`,
           date: new Date().toISOString() 
         };
@@ -1425,15 +1438,15 @@
                         `📖 Subjects: ${subj}\n` +
                         `📸 Campus ID Photo: ${campusFile ? 'Attached (Ready to send)' : 'Not attached'}\n` +
                         `📄 Grade Report: ${gradeFile ? 'Attached' : 'Not attached'}\n` +
-                        `🆔 ${govtType}: ${govtNum}`;
+                        `🆔 Mandatory Govt ID: Attached (${govtType}: ${govtNum})`;
       if (navigator.clipboard) {
         navigator.clipboard.writeText(plainText).catch(() => {});
       }
 
       document.getElementById('modal-title').innerText = (currentLang === 'am') ? 'የአስጠኚ ማመልከቻዎ ተዘጋጅቷል!' : 'Application Successfully Prepared!';
       document.getElementById('modal-desc').innerHTML = (currentLang === 'am')
-        ? `ውድ <b>${name}</b>፣ ማመልከቻዎ ተዘጋጅቶ ኮፒ ተደርጓል። ከታች ያለውን ሰማያዊ በተን በመጫን ወደ <b>Ethio - 21 Astegni Ops</b> ይላኩት፤ ያዘጋጁትን <b>የካምፓስ መታወቂያ ፎቶ</b> እና የግሬድ ሪፖርት አብረው ያያይዙ።`
-        : `Dear <b>${name}</b>, your application is ready and copied to your clipboard. Tap below to submit your details, along with your <b>Campus Student ID Photo</b> and Grade Report directly into <b>Ethio - 21 Astegni Ops</b>.`;
+        ? `ውድ <b>${name}</b>፣ ማመልከቻዎ ተዘጋጅቶ ኮፒ ተደርጓል። ከታች ያለውን ሰማያዊ በተን በመጫን ወደ <b>Ethio - 21 Astegni Ops</b> ይላኩት፤ ያዘጋጁትን <b>የካምፓስ መታወቂያ</b>፣ <b>የውጤት ሪፖርት</b> እና <b>የ${govtType} ፎቶ</b> አብረው ያያይዙ።`
+        : `Dear <b>${name}</b>, your application is ready and copied to your clipboard. Tap below to submit your details, along with your <b>Campus Student ID Photo</b>, <b>Grade Report</b>, and <b>${govtType} Photo</b> directly into <b>Ethio - 21 Astegni Ops</b>.`;
 
       document.getElementById('btn-tg-action').href = `https://t.me/+cNwM2HRo7A5jYTU0`;
       const btnText = document.getElementById('btn-tg-modal-text');
