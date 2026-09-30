@@ -833,12 +833,12 @@
       <!-- Setup Instructions & Script Modal Trigger -->
       <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 18px; padding: 1.25rem; margin-bottom: 1.25rem;">
         <h3 style="font-size: 0.95rem; font-weight: 850; color: #fff; margin-bottom: 0.5rem;">
-          📋 3-Step Google Sheets Setup Guide
+          📋 3-Step Setup for <span style="color: var(--accent-blue);">ashenafitobe@gmail.com</span>
         </h3>
         <ol style="font-size: 0.82rem; color: #cbd5e1; line-height: 1.7; padding-left: 1.2rem; margin-bottom: 1rem;">
-          <li>Create a free Google Sheet named <b>"Teme Astegni Cloud Database"</b> in your Google Drive.</li>
-          <li>Click <b>Extensions ➔ Apps Script</b>, paste our free automation script, and click <b>Deploy ➔ New Deployment ➔ Web App (Access: Anyone)</b>.</li>
-          <li>Copy the generated Web App URL and paste it into the box above.</li>
+          <li>Log into Google with <b>ashenafitobe@gmail.com</b> and create a new sheet named <b>"Teme Astegni Cloud Database"</b> at <a href="https://sheets.new" target="_blank" style="color: var(--accent-blue); font-weight: 700;">sheets.new</a>.</li>
+          <li>Click <b>Extensions ➔ Apps Script</b>, paste the script below, and click <b>Deploy ➔ New Deployment ➔ Web App</b> (set <i>Who has access</i> to <b>Anyone</b>).</li>
+          <li>Copy your generated Web App URL and paste it into the box above.</li>
         </ol>
         <button class="btn-act" onclick="openScriptCodeModal()">📜 View & Copy Apps Script Code ›</button>
       </div>
@@ -940,10 +940,16 @@
   <div id="modal-script-code" class="app-modal">
     <div class="modal-sheet" style="max-width: 600px;">
       <h2>📜 Google Apps Script Webhook Code</h2>
-      <p>Paste this code into Google Sheets <b>Extensions ➔ Apps Script</b> to enable your 100% free cloud database.</p>
+      <p>Log into Google with <b>ashenafitobe@gmail.com</b>, open your Sheet, go to <b>Extensions ➔ Apps Script</b>, and paste this automation script:</p>
 
-      <div class="code-box" id="apps-script-code-box">function doGet(e) {
-  var action = e.parameter.action;
+      <div class="code-box" id="apps-script-code-box">/**
+ * Teme Astegni (ተሜ አስጠኚ) - 100% Free Cloud Database Engine
+ * Primary Owner: ashenafitobe@gmail.com
+ * Organization: Ethio 21 Technologies
+ */
+
+function doGet(e) {
+  var action = (e && e.parameter) ? e.parameter.action : '';
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   
   if (action === 'getData') {
