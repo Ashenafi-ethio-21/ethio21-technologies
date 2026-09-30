@@ -59,12 +59,15 @@
       width: 42px;
       height: 42px;
       border-radius: 12px;
-      background: linear-gradient(135deg, #0284c7, #10b981);
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.35rem;
-      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
+      font-family: 'Noto Sans Ethiopic', sans-serif;
     }
 
     .brand-name {
@@ -116,42 +119,40 @@
 
     /* DIRECT PHONE CALL & HOTLINE BANNER (Priority for Parents) */
     .hotline-banner {
-      background: linear-gradient(135deg, rgba(2, 132, 199, 0.25), rgba(16, 185, 129, 0.18));
-      border: 2px solid #0284c7;
-      border-radius: 22px;
+      background: #1e293b;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 20px;
       padding: 1.5rem 1.25rem;
       text-align: center;
-      margin-bottom: 2rem;
-      box-shadow: 0 8px 30px rgba(2, 132, 199, 0.3);
+      margin-bottom: 1.75rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
 
     .hotline-pill {
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      background: #10b981;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
       color: #fff;
-      font-size: 0.78rem;
-      font-weight: 850;
+      font-size: 0.76rem;
+      font-weight: 800;
       padding: 0.3rem 0.85rem;
       border-radius: 999px;
       margin-bottom: 0.75rem;
-      text-transform: uppercase;
       letter-spacing: 0.5px;
-      box-shadow: 0 2px 10px rgba(16, 185, 129, 0.4);
     }
 
     .hotline-h1 {
-      font-size: clamp(1.25rem, 3.5vw, 1.6rem);
+      font-size: clamp(1.25rem, 3.5vw, 1.55rem);
       font-weight: 850;
-      color: #fff;
+      color: #f8fafc;
       margin-bottom: 0.4rem;
       line-height: 1.35;
     }
 
     .hotline-sub {
       font-size: 0.9rem;
-      color: #cbd5e1;
+      color: #94a3b8;
       margin-bottom: 1.25rem;
       max-width: 600px;
       margin-left: auto;
@@ -162,66 +163,145 @@
     .call-buttons-stack {
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 0.65rem;
     }
 
     .btn-hotline-call {
-      background: linear-gradient(135deg, #10b981, #059669);
-      color: #fff;
-      text-decoration: none;
-      padding: 1.05rem 1.25rem;
-      border-radius: 14px;
-      font-size: 1.05rem;
-      font-weight: 850;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      box-shadow: 0 4px 18px rgba(16, 185, 129, 0.45);
-      transition: all 0.25s ease;
-    }
-
-    .btn-hotline-call:hover, .btn-hotline-call:active {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.65);
-    }
-
-    .btn-hotline-call.secondary {
-      background: linear-gradient(135deg, #0284c7, #2563eb);
-      box-shadow: 0 4px 18px rgba(2, 132, 199, 0.45);
-    }
-
-    .btn-hotline-call.secondary:hover, .btn-hotline-call.secondary:active {
-      box-shadow: 0 8px 24px rgba(2, 132, 199, 0.65);
-    }
-
-    .btn-hotline-tg {
-      background: #0088cc;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
       color: #fff;
       text-decoration: none;
       padding: 0.95rem 1.25rem;
-      border-radius: 14px;
-      font-size: 0.98rem;
+      border-radius: 12px;
+      font-size: 1.02rem;
       font-weight: 800;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.6rem;
-      box-shadow: 0 4px 14px rgba(0, 136, 204, 0.35);
-      transition: all 0.25s ease;
+      box-shadow: 0 2px 10px rgba(59, 130, 246, 0.25);
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-hotline-call:hover, .btn-hotline-call:active {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+    }
+
+    .btn-hotline-call.secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      color: #f8fafc;
+      box-shadow: none;
+    }
+
+    .btn-hotline-call.secondary:hover, .btn-hotline-call.secondary:active {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(148, 163, 184, 0.4);
+    }
+
+    .btn-hotline-tg {
+      background: #0284c7;
+      color: #fff;
+      text-decoration: none;
+      padding: 0.9rem 1.25rem;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .btn-hotline-tg:hover {
-      box-shadow: 0 6px 20px rgba(0, 136, 204, 0.55);
-      transform: translateY(-2px);
+      background: #0369a1;
+      transform: translateY(-1px);
+    }
+
+    /* Vetting Process Explainer Card (For Parents) */
+    .vetting-card {
+      background: #1e293b;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 18px;
+      padding: 1.35rem 1.25rem;
+      margin-bottom: 1.75rem;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .vetting-badge-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      margin-bottom: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .vetting-h3 {
+      font-size: 1.15rem;
+      font-weight: 850;
+      color: #fff;
+      margin-bottom: 0.35rem;
+      line-height: 1.35;
+    }
+
+    .vetting-sub {
+      font-size: 0.86rem;
+      color: #94a3b8;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .vetting-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 540px) {
+      .vetting-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .vetting-item {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      border-radius: 12px;
+      padding: 0.85rem;
+    }
+
+    .vetting-item h4 {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #f1f5f9;
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .vetting-item p {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      line-height: 1.45;
     }
 
     /* 4 Trust Highlights */
     .highlights-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.85rem;
-      margin-bottom: 2rem;
+      gap: 0.75rem;
+      margin-bottom: 1.75rem;
     }
 
     @media (max-width: 480px) {
@@ -231,22 +311,22 @@
     }
 
     .hl-box {
-      background: rgba(30, 41, 59, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
-      padding: 0.95rem;
+      background: #1e293b;
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      border-radius: 12px;
+      padding: 0.85rem;
       display: flex;
       gap: 0.6rem;
       align-items: flex-start;
     }
 
     .hl-box .icon {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       flex-shrink: 0;
     }
 
     .hl-box h4 {
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 800;
       color: #fff;
       margin-bottom: 0.2rem;
@@ -283,13 +363,13 @@
     }
 
     .mode-card {
-      background: rgba(15, 23, 42, 0.85);
-      border: 2.5px solid rgba(255, 255, 255, 0.12);
-      border-radius: 20px;
-      padding: 1.35rem 1.15rem;
+      background: #1e293b;
+      border: 1.5px solid rgba(148, 163, 184, 0.2);
+      border-radius: 18px;
+      padding: 1.25rem 1rem;
       cursor: pointer;
       text-align: center;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.25s ease;
       position: relative;
       user-select: none;
       display: flex;
@@ -298,18 +378,18 @@
     }
 
     .mode-card:hover {
-      border-color: rgba(56, 189, 248, 0.5);
-      transform: translateY(-3px);
+      border-color: rgba(148, 163, 184, 0.35);
+      transform: translateY(-2px);
     }
 
     .mode-icon {
-      font-size: 2.5rem;
-      margin-bottom: 0.6rem;
+      font-size: 2.3rem;
+      margin-bottom: 0.5rem;
       display: block;
     }
 
     .mode-card-title {
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       font-weight: 850;
       color: #fff;
       margin-bottom: 0.3rem;
@@ -317,9 +397,9 @@
     }
 
     .mode-card-sub {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: #94a3b8;
-      margin-bottom: 0.85rem;
+      margin-bottom: 0.75rem;
       line-height: 1.45;
     }
 
@@ -327,63 +407,62 @@
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      font-size: 0.76rem;
-      font-weight: 850;
-      padding: 0.3rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.25rem 0.75rem;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.08);
       color: #94a3b8;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      transition: all 0.25s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s ease;
     }
 
-    /* ACTIVE STATES FOR MODE CARDS */
+    /* ACTIVE STATES FOR MODE CARDS (Comfortable, Non-shiny) */
     .mode-card.parent-active {
-      border-color: #0284c7 !important;
-      background: linear-gradient(135deg, rgba(2, 132, 199, 0.25), rgba(15, 23, 42, 0.95)) !important;
-      box-shadow: 0 0 25px rgba(2, 132, 199, 0.45) !important;
-      transform: scale(1.02);
+      border-color: #3b82f6 !important;
+      background: rgba(59, 130, 246, 0.08) !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
+      transform: scale(1.01);
     }
 
     .mode-card.parent-active .mode-status-badge {
-      background: #0284c7 !important;
+      background: #3b82f6 !important;
       color: #fff !important;
-      border-color: #38bdf8 !important;
+      border-color: transparent !important;
     }
 
     .mode-card.tutor-active {
-      border-color: #10b981 !important;
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(15, 23, 42, 0.95)) !important;
-      box-shadow: 0 0 25px rgba(16, 185, 129, 0.45) !important;
-      transform: scale(1.02);
+      border-color: #8b5cf6 !important;
+      background: rgba(139, 92, 246, 0.08) !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
+      transform: scale(1.01);
     }
 
     .mode-card.tutor-active .mode-status-badge {
-      background: #10b981 !important;
+      background: #8b5cf6 !important;
       color: #fff !important;
-      border-color: #34d399 !important;
+      border-color: transparent !important;
     }
 
     .mode-card.dimmed {
-      opacity: 0.6;
-      border-color: rgba(255, 255, 255, 0.08);
-      transform: scale(0.98);
+      opacity: 0.55;
+      border-color: rgba(148, 163, 184, 0.12);
+      transform: scale(0.99);
     }
 
     /* PORTAL FORM CONTAINER */
     .portal-box {
-      background: rgba(15, 23, 42, 0.9);
-      border: 2.5px solid #0284c7;
-      border-radius: 24px;
-      padding: 1.75rem 1.35rem;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
-      margin-bottom: 2.5rem;
-      transition: all 0.35s ease;
+      background: #1e293b;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 20px;
+      padding: 1.6rem 1.25rem;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+      margin-bottom: 2rem;
+      transition: all 0.25s ease;
     }
 
     .portal-box.tutor-mode-theme {
-      border-color: #10b981;
-      box-shadow: 0 12px 35px rgba(16, 185, 129, 0.25);
+      border-color: rgba(139, 92, 246, 0.4);
     }
 
     .portal-banner-tag {
@@ -537,31 +616,35 @@
 
     .btn-submit-action {
       width: 100%;
-      background: linear-gradient(135deg, #0284c7, #2563eb);
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
       color: #fff;
-      border: none;
-      padding: 1.1rem;
-      border-radius: 14px;
-      font-size: 1.08rem;
-      font-weight: 850;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 1.05rem;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.6rem;
-      box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45);
-      transition: all 0.25s ease;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.25);
+      transition: all 0.2s ease;
       margin-top: 1rem;
     }
 
     .btn-submit-action:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(2, 132, 199, 0.6);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(59, 130, 246, 0.35);
     }
 
     .btn-submit-action.tutor {
-      background: linear-gradient(135deg, #10b981, #059669);
-      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+      background: linear-gradient(135deg, #8b5cf6, #6366f1);
+      box-shadow: 0 4px 14px rgba(139, 92, 246, 0.25);
+    }
+
+    .btn-submit-action.tutor:hover {
+      box-shadow: 0 6px 18px rgba(139, 92, 246, 0.35);
     }
 
     .btn-submit-action.tutor:hover {
@@ -628,7 +711,7 @@
     <!-- Top Header with Language Switcher -->
     <header class="top-bar">
       <a href="index.html" class="brand-link">
-        <div class="brand-logo-box">🛡️</div>
+        <div class="brand-logo-box">ተሜ</div>
         <div>
           <div class="brand-name">ETHIO 21</div>
           <div class="brand-sub" id="i18n-brand-sub">Teme Astegni (ተሜ አስጠኚ)</div>
@@ -703,6 +786,35 @@
         </div>
       </div>
     </div>
+
+    <!-- 4-STEP PARENT VETTING TRANSPARENCY CARD -->
+    <section class="vetting-card">
+      <div class="vetting-badge-tag" id="i18n-v-tag">🛡️ 100% አስተማማኝ ምርጫ • STRICT VETTING</div>
+      <h3 class="vetting-h3" id="i18n-v-h3">ለልጅዎ የምንመድበው አስጠኚ እንዴት ይመረጣል?</h3>
+      <p class="vetting-sub" id="i18n-v-sub">ወላጆች ልጆቻቸውን በሙሉ ልብ እንዲያስተምሩ፣ እያንዳንዱ አስጠኚ የሚከተሉትን 4 ጥብቅ ማረጋገጫዎች እንዲያሟላ ይደረጋል፡</p>
+
+      <div class="vetting-grid">
+        <div class="vetting-item">
+          <h4 id="i18n-v-s1-h">🏛️ 1. የካምፓስ መታወቂያ</h4>
+          <p id="i18n-v-s1-p">ከአቅራቢያዎ ዩኒቨርሲቲ (AAU፣ ASTU...) <b>2ኛ ዓመት ወይም ከዚያ በላይ</b> መሆኑ እና ንቁ ተማሪነቱ በካምፓስ መታወቂያው ፎቶ ይረጋገጣል።</p>
+        </div>
+
+        <div class="vetting-item">
+          <h4 id="i18n-v-s2-h">📄 2. የግሬድ ሪፖርት (CGPA ≥ 3.00)</h4>
+          <p id="i18n-v-s2-p">አጠቃላይ ውጤቱ <b>CGPA 3.00 እና ከዚያ በላይ</b> መሆኑ እና በሚያስተምረው ትምህርት <b>Grade 'A'</b> ማስመዝገቡ በፖርታል ውጤቱ ይረጋገጣል።</p>
+        </div>
+
+        <div class="vetting-item">
+          <h4 id="i18n-v-s3-h">🆔 3. ብሔራዊ / የቀበሌ መታወቂያ</h4>
+          <p id="i18n-v-s3-p">የልጅዎን ደህንነት እና የቤትዎን ሰላም 100% ለማረጋገጥ የአስጠኚው የፋይዳ ብሔራዊ መታወቂያ ወይም የቀበሌ መታወቂያ በ ETHIO 21 እጅ ተመዝግቦ ይያዛል።</p>
+        </div>
+
+        <div class="vetting-item">
+          <h4 id="i18n-v-s4-h">🤝 4. የ 1 ቀን ነጻ የሙከራ ክፍለ-ጊዜ</h4>
+          <p id="i18n-v-s4-p">አስጠኚው መጥቶ የመጀመሪያውን ቀን በነጻ ያስተምራል። የልጅዎን ለውጥ እና የአስጠኚውን ስነ-ምግባር አይተው ካመኑበት ብቻ ወርሃዊ ክፍያውን ይፈጽማሉ።</p>
+        </div>
+      </div>
+    </section>
 
     <!-- 2. BIG TACTILE MODE SELECTOR -->
     <div class="choice-section-heading" id="i18n-choice-heading">👇 Choose an Option / ከታች አንዱን ይምረጡ 👇</div>
@@ -978,7 +1090,18 @@
         tGovtL: "🆔 National Fayda ID OR Kebele ID • Choose 1 (OPTIONAL)",
         tGovtP1: "📎 Attach ID Card Photo (Optional)",
         tBtn: "🎓 Submit Tutor Application for Verification ›",
-        escrowNotice: "🛡️ <b>100% Private Matching & Escrow Guarantee:</b> Parent contacts and student requests are strictly confidential and managed directly by ETHIO 21 coordinators. No jobs are posted publicly, completely preventing fake locations and disintermediation. Tuition is released to tutors only after monthly classes are completed."
+        escrowNotice: "🛡️ <b>100% Private Matching & Escrow Guarantee:</b> Parent contacts and student requests are strictly confidential and managed directly by ETHIO 21 coordinators. No jobs are posted publicly, completely preventing fake locations and disintermediation. Tuition is released to tutors only after monthly classes are completed.",
+        vTag: "🛡️ 100% TRUSTED SELECTION • RIGOROUS 4-TIER VETTING",
+        vH3: "How We Choose & Verify Your Child's Tutor",
+        vSub: "For complete peace of mind, every university tutor must pass 4 strict verification gates before stepping into your home:",
+        vS1H: "🏛️ 1. Campus Student ID Verification",
+        vS1P: "Must be an active 2nd year or above student from a nearby accredited university campus (AAU, ASTU, Hawassa, etc.).",
+        vS2H: "📄 2. Official Grade Report (CGPA ≥ 3.00)",
+        vS2P: "Cumulative GPA must be 3.00 or higher, with verified Grade 'A' academic mastery in the subjects they tutor.",
+        vS3H: "🆔 3. National Fayda or Kebele ID",
+        vS3P: "For absolute child safety and accountability, the tutor's official government ID is on permanent file with ETHIO 21.",
+        vS4H: "🤝 4. 1-Day Free In-Home Trial",
+        vS4P: "The matched tutor conducts a 1-day free trial session at your home. You evaluate their teaching chemistry before confirming the monthly contract."
       },
       am: {
         brandSub: "ተሜ አስጠኚ (Teme Astegni)",
@@ -1029,7 +1152,18 @@
         tGovtL: "🆔 ብሔራዊ መታወቂያ ወይም የቀበሌ መታወቂያ • አንዱን ይምረጡ (አማራጭ)",
         tGovtP1: "📎 የመታወቂያ ፎቶ ያያይዙ (አማራጭ)",
         tBtn: "🎓 ማመልከቻዎን ይላኩ ›",
-        escrowNotice: "🛡️ <b>100% ሚስጥራዊ አሰራር እና የገንዘብ ዋስትና፡</b> የወላጆች መረጃም ሆነ የተማሪዎች ማመልከቻ በይፋ በግሩፕ አይለጠፍም፤ በቀጥታ በ ETHIO 21 አስተዳዳሪዎች ብቻ በሚስጥር ይመረጣል። ይህ የተሳሳተ መረጃን እና ማጭበርበርን ይከላከላል። ክፍያ የሚለቀቀው ወሩ በአግባቡ ሲጠናቀቅ ብቻ ነው።"
+        escrowNotice: "🛡️ <b>100% ሚስጥራዊ አሰራር እና የገንዘብ ዋስትና፡</b> የወላጆች መረጃም ሆነ የተማሪዎች ማመልከቻ በይፋ በግሩፕ አይለጠፍም፤ በቀጥታ በ ETHIO 21 አስተዳዳሪዎች ብቻ በሚስጥር ይመረጣል። ይህ የተሳሳተ መረጃን እና ማጭበርበርን ይከላከላል። ክፍያ የሚለቀቀው ወሩ በአግባቡ ሲጠናቀቅ ብቻ ነው።",
+        vTag: "🛡️ 100% አስተማማኝ ምርጫ • STRICT VETTING",
+        vH3: "ለልጅዎ የምንመድበው አስጠኚ እንዴት ይመረጣል?",
+        vSub: "ወላጆች ልጆቻቸውን በሙሉ ልብ እንዲያስተምሩ፣ እያንዳንዱ አስጠኚ የሚከተሉትን 4 ጥብቅ ማረጋገጫዎች እንዲያሟላ ይደረጋል፡",
+        vS1H: "🏛️ 1. የካምፓስ መታወቂያ",
+        vS1P: "ከአቅራቢያዎ ዩኒቨርሲቲ (AAU፣ ASTU...) <b>2ኛ ዓመት ወይም ከዚያ በላይ</b> መሆኑ እና ንቁ ተማሪነቱ በካምፓስ መታወቂያው ፎቶ ይረጋገጣል።",
+        vS2H: "📄 2. የግሬድ ሪፖርት (CGPA ≥ 3.00)",
+        vS2P: "አጠቃላይ ውጤቱ <b>CGPA 3.00 እና ከዚያ በላይ</b> መሆኑ እና በሚያስተምረው ትምህርት <b>Grade 'A'</b> ማስመዝገቡ በፖርታል ውጤቱ ይረጋገጣል።",
+        vS3H: "🆔 3. ብሔራዊ / የቀበሌ መታወቂያ",
+        vS3P: "የልጅዎን ደህንነት እና የቤትዎን ሰላም 100% ለማረጋገጥ የአስጠኚው የፋይዳ ብሔራዊ መታወቂያ ወይም የቀበሌ መታወቂያ በ ETHIO 21 እጅ ተመዝግቦ ይያዛል።",
+        vS4H: "🤝 4. የ 1 ቀን ነጻ የሙከራ ክፍለ-ጊዜ",
+        vS4P: "አስጠኚው መጥቶ የመጀመሪያውን ቀን በነጻ ያስተምራል። የልጅዎን ለውጥ እና የአስጠኚውን ስነ-ምግባር አይተው ካመኑበት ብቻ ወርሃዊ ክፍያውን ይፈጽማሉ።"
       }
     };
 
@@ -1055,6 +1189,19 @@
       document.getElementById('i18n-t3-p').innerText = t.t3P;
       document.getElementById('i18n-t4-h').innerText = t.t4H;
       document.getElementById('i18n-t4-p').innerText = t.t4P;
+
+      // Vetting card translations
+      if (document.getElementById('i18n-v-tag')) document.getElementById('i18n-v-tag').innerText = t.vTag;
+      if (document.getElementById('i18n-v-h3')) document.getElementById('i18n-v-h3').innerText = t.vH3;
+      if (document.getElementById('i18n-v-sub')) document.getElementById('i18n-v-sub').innerText = t.vSub;
+      if (document.getElementById('i18n-v-s1-h')) document.getElementById('i18n-v-s1-h').innerText = t.vS1H;
+      if (document.getElementById('i18n-v-s1-p')) document.getElementById('i18n-v-s1-p').innerHTML = t.vS1P;
+      if (document.getElementById('i18n-v-s2-h')) document.getElementById('i18n-v-s2-h').innerText = t.vS2H;
+      if (document.getElementById('i18n-v-s2-p')) document.getElementById('i18n-v-s2-p').innerHTML = t.vS2P;
+      if (document.getElementById('i18n-v-s3-h')) document.getElementById('i18n-v-s3-h').innerText = t.vS3H;
+      if (document.getElementById('i18n-v-s3-p')) document.getElementById('i18n-v-s3-p').innerHTML = t.vS3P;
+      if (document.getElementById('i18n-v-s4-h')) document.getElementById('i18n-v-s4-h').innerText = t.vS4H;
+      if (document.getElementById('i18n-v-s4-p')) document.getElementById('i18n-v-s4-p').innerHTML = t.vS4P;
 
       document.getElementById('i18n-choice-heading').innerText = t.choiceHeading;
       document.getElementById('i18n-mc1-title').innerHTML = t.mc1Title;
