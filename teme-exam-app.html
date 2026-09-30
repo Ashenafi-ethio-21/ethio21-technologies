@@ -1250,29 +1250,18 @@
     <div id="term-list" class="term-grid"></div>
   </section>
 
-  <!-- SCREEN 4: Course Selection -->
+  <!-- SCREEN 4: Course Selection & Direct Full Exam Launch -->
   <section id="screen-course" class="screen">
     <button class="btn-back" onclick="navigateTo('screen-term')"><span id="t-back-term">⬅️ Back to Exam Type</span></button>
     <div class="section-banner">
-      <span class="step-tag" id="t-step4-tag">STEP 4 OF 4 &bull; FRESHMAN COURSE</span>
-      <h2 class="section-heading" id="t-step4-title">Select Course 📚</h2>
-      <p id="course-subtitle" class="section-desc">Select which course exam you want to practice:</p>
+      <span class="step-tag" id="t-step4-tag">STEP 4 OF 4 &bull; SELECT COURSE &amp; TAKE FULL EXAM</span>
+      <h2 class="section-heading" id="t-step4-title">Select Course &amp; Start Full Exam 📚</h2>
+      <p id="course-subtitle" class="section-desc">Select which course full exam you want to take:</p>
     </div>
     <div id="course-list" class="selection-grid"></div>
   </section>
 
-  <!-- SCREEN 5: Chapter / Unit Selection (Optional Focus or Full Exam) -->
-  <section id="screen-unit" class="screen">
-    <button class="btn-back" onclick="navigateTo('screen-course')"><span id="t-back-course">⬅️ Back to Courses</span></button>
-    <div class="section-banner">
-      <span class="step-tag" id="t-step5-tag">CHAPTER DRILLDOWN &bull; OPTIONAL FOCUS</span>
-      <h2 class="section-heading" id="t-step5-title">Select Scope: Complete Exam or Chapter 🎯</h2>
-      <p id="unit-subtitle" class="section-desc">Practice by chapter or take the complete exam:</p>
-    </div>
-    <div id="unit-list" class="selection-grid"></div>
-  </section>
-
-  <!-- SCREEN 6: Interactive Exam Screen -->
+  <!-- SCREEN 5: Interactive Exam Screen -->
   <section id="screen-exam" class="screen">
     <div class="progress-bar-wrap">
       <div id="progress-fill" class="progress-fill"></div>
@@ -1335,7 +1324,7 @@
     </div>
   </section>
 
-  <!-- SCREEN 7: Final Results Screen -->
+  <!-- SCREEN 6: Final Results Screen -->
   <section id="screen-result" class="screen">
     <div class="section-banner result-score-box">
       <span class="step-tag" id="t-result-tag" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.3);">🎉 EXAM COMPLETE!</span>
@@ -1348,7 +1337,7 @@
       <h3 id="result-rating" style="font-size: 1.35rem; font-weight: 850; color: #fff; margin-bottom: 0.5rem;">🌟 Outstanding! (A Grade)</h3>
       <div id="result-meta" style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5;"></div>
 
-      <button class="btn-next" id="t-btn-retake" style="margin-top: 0; margin-bottom: 0.75rem;" onclick="restartCurrentExam()">🔄 Retake This Exam</button>
+      <button class="btn-next" id="t-btn-retake" style="margin-top: 0; margin-bottom: 0.75rem;" onclick="restartCurrentExam()">🔄 Retake This Full Exam</button>
       <button class="select-card-btn" id="t-btn-another-course" style="justify-content: center; width: 100%; margin-bottom: 0.6rem;" onclick="navigateTo('screen-course')">📚 Select Another Course</button>
       <button class="select-card-btn" id="t-btn-change-term" style="justify-content: center; width: 100%; margin-bottom: 0.6rem;" onclick="navigateTo('screen-term')">📝 Change Exam Type (Mid / Final)</button>
       <button class="select-card-btn" id="t-btn-change-year" style="justify-content: center; width: 100%; margin-bottom: 0.6rem;" onclick="navigateTo('screen-year')">📅 Change Exam Year</button>
@@ -1394,8 +1383,7 @@
             if (screenId === 'screen-year') navigateTo('screen-uni');
             else if (screenId === 'screen-term') navigateTo('screen-year');
             else if (screenId === 'screen-course') navigateTo('screen-term');
-            else if (screenId === 'screen-unit') navigateTo('screen-course');
-            else if (screenId === 'screen-exam') navigateTo('screen-unit');
+            else if (screenId === 'screen-exam') navigateTo('screen-course');
             else if (screenId === 'screen-result') navigateTo('screen-course');
           });
         }
@@ -1524,98 +1512,40 @@
       });
     }
 
-    // Step 4: Courses
+    // Step 4: Courses & Direct Full Exam Launch (No Unit Separation)
     function renderCourses() {
       const container = document.getElementById('course-list');
       if (!container || !examData || !examData.courses) return;
       container.innerHTML = '';
       const isFinal = userState.term && userState.term.id === 'final';
-      const termBadge = isFinal ? '🎓 Final' : '📝 Mid';
+      const termLabel = isFinal ? 'Final Exam' : 'Mid Exam';
 
       examData.courses.forEach(c => {
         const btn = document.createElement('button');
         btn.className = 'select-card-btn';
+        btn.style.padding = '1.05rem 1.15rem';
         btn.innerHTML = `
-          <span style="display: flex; align-items: center; gap: 0.5rem; flex: 1;">
-            <span>${c.name}</span>
+          <div style="display: flex; flex-direction: column; gap: 0.25rem; flex: 1; text-align: left;">
+            <span style="font-weight: 800; font-size: 0.95rem; color: #fff;">${c.name}</span>
+            <span style="font-size: 0.76rem; color: ${isFinal ? '#c084fc' : '#38bdf8'}; font-weight: 700;">Take Complete ${termLabel} Archive</span>
+          </div>
+          <span class="arrow-icon" style="font-size: 0.82rem; font-weight: 900; color: #fff; background: ${isFinal ? 'linear-gradient(135deg, #7c3aed, #9333ea)' : 'linear-gradient(135deg, #2563eb, #0284c7)'}; padding: 0.45rem 0.85rem; border-radius: 10px; box-shadow: 0 4px 14px ${isFinal ? 'rgba(124, 58, 237, 0.4)' : 'rgba(37, 99, 235, 0.4)'}; white-space: nowrap;">
+            ⚡ TAKE FULL EXAM
           </span>
-          <span class="arrow-icon" style="font-size: 0.8rem; font-weight: 800; color: ${isFinal ? '#c084fc' : '#38bdf8'}; background: rgba(255,255,255,0.06); padding: 0.25rem 0.6rem; border-radius: 8px;">${termBadge} ›</span>
         `;
         btn.onclick = () => {
           userState.course = c;
-          renderUnits(c.id);
-          const unitSub = document.getElementById('unit-subtitle');
-          if (unitSub) {
-            const uniName = userState.uni ? userState.uni.name : '';
-            const yrName = userState.year ? userState.year.name : '';
-            const termName = userState.term ? userState.term.name.split('(')[0].trim() : '';
-            unitSub.innerText = `${uniName} • ${yrName} • ${termName} • ${c.name}`;
-          }
-          navigateTo('screen-unit');
+          userState.unit = {
+            id: "full",
+            name: isFinal ? "🏆 Complete Final Exam" : "🏆 Complete Midterm Exam"
+          };
+          startExam();
         };
         container.appendChild(btn);
       });
     }
 
-    // Step 5: Units / Scope Selection (Full Exam or Targeted Chapter)
-    function renderUnits(courseId) {
-      const container = document.getElementById('unit-list');
-      if (!container || !examData) return;
-      container.innerHTML = '';
-
-      const isFinal = userState.term && userState.term.id === 'final';
-      const termName = isFinal ? 'Final Exam' : 'Mid Exam';
-
-      // Primary Complete Exam Button (Recommended Pathway)
-      const fullBtn = document.createElement('button');
-      fullBtn.className = 'select-card-btn';
-      fullBtn.style.background = isFinal
-        ? 'linear-gradient(135deg, rgba(88, 28, 135, 0.4) 0%, rgba(15, 23, 42, 0.9) 100%)'
-        : 'linear-gradient(135deg, rgba(30, 58, 138, 0.4) 0%, rgba(15, 23, 42, 0.9) 100%)';
-      fullBtn.style.borderColor = isFinal ? 'rgba(168, 85, 247, 0.6)' : 'rgba(59, 130, 246, 0.6)';
-      fullBtn.style.boxShadow = isFinal ? '0 10px 25px rgba(168, 85, 247, 0.2)' : '0 10px 25px rgba(59, 130, 246, 0.2)';
-
-      const fullTitle = isFinal
-        ? '🏆 Complete Final Exam (Comprehensive All Chapters)'
-        : '🏆 Complete Midterm Past Exam (Chapters 1 - 3)';
-
-      fullBtn.innerHTML = `
-        <div style="display: flex; flex-direction: column; gap: 0.25rem;">
-          <span style="font-weight: 850; color: #fff; font-size: 0.96rem;">${fullTitle}</span>
-          <span style="font-size: 0.76rem; color: ${isFinal ? '#c084fc' : '#38bdf8'}; font-weight: 700;">Official University Exam Format • All Session Questions</span>
-        </div>
-        <span class="arrow-icon" style="color: ${isFinal ? '#c084fc' : '#38bdf8'}; font-weight: 900;">⚡ START</span>
-      `;
-      fullBtn.onclick = () => {
-        userState.unit = { id: "all", name: fullTitle };
-        startExam();
-      };
-      container.appendChild(fullBtn);
-
-      // Chapter-by-chapter breakdowns
-      const rawUnits = (examData.units && examData.units[courseId]) ? examData.units[courseId] : [];
-      const chapterUnits = rawUnits.filter(u => u.id !== 'all');
-
-      if (chapterUnits.length > 0) {
-        // Filter chapters if mid exam: chapters 1 to 3
-        const filteredUnits = isFinal ? chapterUnits : chapterUnits.slice(0, 3);
-        filteredUnits.forEach(u => {
-          const btn = document.createElement('button');
-          btn.className = 'select-card-btn';
-          btn.innerHTML = `
-            <span>${u.name}</span>
-            <span class="arrow-icon" style="font-size: 0.8rem; color: var(--text-muted);">Practice ›</span>
-          `;
-          btn.onclick = () => {
-            userState.unit = u;
-            startExam();
-          };
-          container.appendChild(btn);
-        });
-      }
-    }
-
-    // Step 6: Start Exam
+    // Step 5: Start Exam
     function startExam() {
       userState.currentQ = 0;
       userState.score = 0;
@@ -1783,9 +1713,9 @@
         <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 0.85rem 1rem; text-align: left; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.86rem;">
           <div>🏛️ <b>University:</b> ${userState.uni ? userState.uni.name : 'N/A'}</div>
           <div>📅 <b>Session Year:</b> ${userState.year ? userState.year.name : 'N/A'}</div>
-          <div>📝 <b>Exam Type:</b> <span style="color: ${isFinal ? '#c084fc' : '#38bdf8'}; font-weight: 800;">${termName}</span></div>
-          <div>📚 <b>Course:</b> ${userState.course ? userState.course.name : 'N/A'}</div>
-          <div>🎯 <b>Test Scope:</b> ${userState.unit ? userState.unit.name : 'Complete Exam'}</div>
+          <div>📝 <b>Exam Category:</b> <span style="color: ${isFinal ? '#c084fc' : '#38bdf8'}; font-weight: 800;">${termName}</span></div>
+          <div>📚 <b>Course Exam:</b> ${userState.course ? userState.course.name : 'N/A'}</div>
+          <div>🏆 <b>Format:</b> <span style="color: #34d399; font-weight: 750;">Full Official Exam Archive</span></div>
         </div>
       `;
 
