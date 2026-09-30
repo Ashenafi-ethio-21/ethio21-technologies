@@ -500,6 +500,49 @@
       color: #fff;
     }
 
+    /* Modern Classic Advanced Status Dropdown */
+    .status-dropdown {
+      background-color: #1e293b !important;
+      color: #f8fafc !important;
+      border: 1.5px solid rgba(56, 189, 248, 0.45) !important;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 750;
+      padding: 0.48rem 2.2rem 0.48rem 0.85rem;
+      cursor: pointer;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2338bdf8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.65rem center;
+      background-size: 0.95rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+      transition: all 0.2s ease;
+      display: inline-block;
+      min-width: 175px;
+    }
+
+    .status-dropdown:hover {
+      border-color: #38bdf8 !important;
+      background-color: #27354f !important;
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
+    }
+
+    .status-dropdown:focus {
+      border-color: #38bdf8 !important;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.35);
+    }
+
+    .status-dropdown option {
+      background-color: #0f172a !important;
+      color: #ffffff !important;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 0.75rem 1rem;
+    }
+
     /* Fixed Bottom Navigation */
     .bottom-nav {
       position: fixed;
@@ -620,6 +663,13 @@
     .form-ctrl:focus {
       border-color: var(--accent-blue);
       outline: none;
+    }
+
+    select.form-ctrl option {
+      background-color: #0f172a;
+      color: #ffffff;
+      font-size: 0.88rem;
+      padding: 0.5rem;
     }
 
     .code-box {
@@ -1375,11 +1425,11 @@ function rowsToJson(sheet) {
           </div>
 
           <div class="record-actions">
-            <select class="btn-act" onchange="updateParentStatus('${escapeHtml(p.phone)}', this.value)">
-              <option value="Pending" ${currentStatus === 'Pending' ? 'selected' : ''}>Status: Pending</option>
-              <option value="Trial Scheduled" ${currentStatus === 'Trial Scheduled' ? 'selected' : ''}>Status: Trial Scheduled</option>
-              <option value="Active Contract" ${currentStatus === 'Active Contract' ? 'selected' : ''}>Status: Active Contract</option>
-              <option value="Closed" ${currentStatus === 'Closed' ? 'selected' : ''}>Status: Closed</option>
+            <select class="status-dropdown" onchange="updateParentStatus('${escapeHtml(p.phone)}', this.value)">
+              <option value="Pending" ${currentStatus === 'Pending' ? 'selected' : ''}>⏳ Pending (በመጠባበቅ)</option>
+              <option value="Trial Scheduled" ${currentStatus === 'Trial Scheduled' ? 'selected' : ''}>📅 Trial Scheduled (በሙከራ)</option>
+              <option value="Active Contract" ${currentStatus === 'Active Contract' ? 'selected' : ''}>✅ Active Contract (ንቁ)</option>
+              <option value="Closed" ${currentStatus === 'Closed' ? 'selected' : ''}>🔒 Closed (የተጠናቀቀ)</option>
             </select>
             <button class="btn-act btn-act-primary" onclick="quickMatchParent('${escapeHtml(p.name)}', '${escapeHtml(p.phone)}')">🤝 Assign Tutor</button>
             <button class="btn-act" style="color: var(--accent-rose);" onclick="deleteParentLead('${escapeHtml(p.phone)}')">🗑️ Remove</button>
@@ -1489,11 +1539,11 @@ function rowsToJson(sheet) {
           </div>
 
           <div class="record-actions">
-            <select class="btn-act" onchange="updateMatchStatus('${m.id}', this.value)">
-              <option value="1-Day Trial Pending" ${m.status === '1-Day Trial Pending' ? 'selected' : ''}>Status: 1-Day Trial Pending</option>
-              <option value="Trial Completed" ${m.status === 'Trial Completed' ? 'selected' : ''}>Status: Trial Completed</option>
-              <option value="Active Contract" ${m.status === 'Active Contract' ? 'selected' : ''}>Status: Active Contract</option>
-              <option value="Commission Paid" ${m.status === 'Commission Paid' ? 'selected' : ''}>Status: Commission Paid</option>
+            <select class="status-dropdown" onchange="updateMatchStatus('${m.id}', this.value)">
+              <option value="1-Day Trial Pending" ${m.status === '1-Day Trial Pending' ? 'selected' : ''}>⏳ Trial Pending (የ 1 ቀን ሙከራ)</option>
+              <option value="Trial Completed" ${m.status === 'Trial Completed' ? 'selected' : ''}>🎯 Trial Done (ሙከራ አልቋል)</option>
+              <option value="Active Contract" ${m.status === 'Active Contract' ? 'selected' : ''}>✅ Active Contract (ንቁ)</option>
+              <option value="Commission Paid" ${m.status === 'Commission Paid' ? 'selected' : ''}>💰 Commission Paid (ኮሚሽን ተከፍሏል)</option>
             </select>
             <button class="btn-act" style="color: var(--accent-rose);" onclick="deleteMatch('${m.id}')">🗑️ Remove</button>
           </div>
