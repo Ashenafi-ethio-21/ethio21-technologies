@@ -6,8 +6,8 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>Teme Astegni Admin • Operations & Database Portal</title>
-  <meta name="description" content="Secure administrative management and matching portal for Teme Astegni coordinators.">
+  <title>Teme Astegni • Enterprise RBAC Operations Portal</title>
+  <meta name="description" content="Secure Role-Based Access Control Portal for Teme Astegni Founders and Coordinator Admins.">
   <meta name="theme-color" content="#090d16">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,12 +47,12 @@
     }
 
     .wrap {
-      max-width: 900px;
+      max-width: 920px;
       margin: 0 auto;
       padding: 1rem 0.9rem;
     }
 
-    /* Top Sticky Header */
+    /* TOP HEADER */
     .app-header {
       display: flex;
       align-items: center;
@@ -77,11 +77,11 @@
     }
 
     .brand-logo-img {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
       object-fit: cover;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     }
 
     .brand-titles h1 {
@@ -107,25 +107,28 @@
       gap: 0.5rem;
     }
 
-    .status-badge {
+    .role-badge {
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
       font-size: 0.72rem;
-      font-weight: 700;
-      padding: 0.35rem 0.65rem;
+      font-weight: 800;
+      padding: 0.35rem 0.75rem;
       border-radius: 20px;
-      background: rgba(52, 211, 153, 0.12);
-      border: 1px solid rgba(52, 211, 153, 0.3);
-      color: var(--accent-green);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
     }
 
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent-green);
-      box-shadow: 0 0 6px var(--accent-green);
+    .role-badge-owner {
+      background: rgba(251, 191, 36, 0.15);
+      border: 1px solid rgba(251, 191, 36, 0.35);
+      color: var(--accent-amber);
+    }
+
+    .role-badge-admin {
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--accent-blue);
     }
 
     .btn-header {
@@ -147,31 +150,32 @@
       background: rgba(255, 255, 255, 0.15);
     }
 
-    /* Security PIN Gate Overlay */
-    .pin-overlay {
+    /* AUTH OVERLAYS (OWNER SETUP & LOGIN) */
+    .auth-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
       background: rgba(9, 13, 22, 0.96);
-      backdrop-filter: blur(16px);
+      backdrop-filter: blur(18px);
       z-index: 1000;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 1rem;
+      overflow-y: auto;
     }
 
-    .pin-box {
+    .auth-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 24px;
-      max-width: 360px;
+      max-width: 440px;
       width: 100%;
-      padding: 2rem 1.5rem;
+      padding: 2.25rem 1.75rem;
       text-align: center;
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
       animation: popIn 0.25s ease-out;
     }
 
@@ -180,42 +184,44 @@
       to { opacity: 1; transform: scale(1); }
     }
 
-    .pin-icon {
-      font-size: 2.5rem;
+    .auth-icon {
+      font-size: 2.75rem;
       margin-bottom: 0.75rem;
     }
 
-    .pin-title {
+    .auth-title {
       font-size: 1.35rem;
       font-weight: 850;
       color: #fff;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.35rem;
     }
 
-    .pin-subtitle {
+    .auth-subtitle {
       font-size: 0.82rem;
       color: var(--text-muted);
       margin-bottom: 1.5rem;
+      line-height: 1.5;
     }
 
+    /* Password Input & Show/Hide */
     .password-input-wrap {
       position: relative;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
       width: 100%;
+      text-align: left;
     }
 
     .password-field {
       width: 100%;
       background: rgba(0, 0, 0, 0.45);
       border: 2px solid rgba(255, 255, 255, 0.15);
-      border-radius: 14px;
+      border-radius: 12px;
       color: #fff;
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 700;
-      padding: 0.85rem 3rem 0.85rem 1rem;
+      padding: 0.8rem 2.8rem 0.8rem 0.9rem;
       transition: all 0.2s;
       outline: none;
-      letter-spacing: 0.5px;
     }
 
     .password-field:focus {
@@ -241,7 +247,57 @@
       color: #fff;
     }
 
-    .btn-pin-submit {
+    /* Password Strength Checklist */
+    .strength-meter-box {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 0.85rem;
+      margin-bottom: 1.25rem;
+      text-align: left;
+      font-size: 0.76rem;
+    }
+
+    .strength-meter-title {
+      font-weight: 750;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .strength-bar-bg {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      margin-bottom: 0.65rem;
+      overflow: hidden;
+    }
+
+    .strength-bar-fill {
+      height: 100%;
+      width: 0%;
+      transition: width 0.25s, background-color 0.25s;
+    }
+
+    .rule-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 0.25rem;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .rule-item.valid {
+      color: var(--accent-green);
+    }
+
+    .rule-icon {
+      font-size: 0.8rem;
+    }
+
+    .btn-auth-submit {
       width: 100%;
       background: linear-gradient(135deg, #2563eb, #3b82f6);
       border: none;
@@ -255,12 +311,18 @@
       transition: all 0.2s;
     }
 
-    .btn-pin-submit:hover {
+    .btn-auth-submit:hover:not(:disabled) {
       transform: translateY(-2px);
       box-shadow: 0 6px 18px rgba(37, 99, 235, 0.5);
     }
 
-    .pin-error {
+    .btn-auth-submit:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .auth-error {
       color: var(--accent-rose);
       font-size: 0.8rem;
       font-weight: 700;
@@ -268,7 +330,7 @@
       display: none;
     }
 
-    /* Screens / Views */
+    /* PANELS & VIEWS */
     .view-panel {
       display: none;
       animation: fadeIn 0.2s ease-out;
@@ -283,7 +345,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* KPI Summary Cards */
+    /* KPI CARDS */
     .kpi-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -303,12 +365,16 @@
       border-radius: 16px;
       padding: 1rem 0.9rem;
       position: relative;
-      overflow: hidden;
+    }
+
+    .kpi-card.restricted {
+      background: rgba(17, 24, 39, 0.6);
+      border-style: dashed;
     }
 
     .kpi-label {
-      font-size: 0.75rem;
-      font-weight: 700;
+      font-size: 0.72rem;
+      font-weight: 750;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -316,7 +382,7 @@
     }
 
     .kpi-val {
-      font-size: 1.7rem;
+      font-size: 1.6rem;
       font-weight: 900;
       color: #fff;
       line-height: 1.1;
@@ -329,7 +395,7 @@
       font-weight: 600;
     }
 
-    /* Filter & Search Bar */
+    /* TOOLBAR & SEARCH */
     .toolbar-box {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -391,7 +457,7 @@
       font-weight: 800;
     }
 
-    /* Cards / Lists */
+    /* RECORD CARDS */
     .record-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -500,7 +566,7 @@
       color: #fff;
     }
 
-    /* Modern Classic Advanced Status Dropdown */
+    /* MODERN CLASSIC STATUS DROPDOWN */
     .status-dropdown {
       background-color: #1e293b !important;
       color: #f8fafc !important;
@@ -543,7 +609,7 @@
       padding: 0.75rem 1rem;
     }
 
-    /* Fixed Bottom Navigation */
+    /* FIXED BOTTOM NAVIGATION */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -591,7 +657,7 @@
       transform: scale(1.1);
     }
 
-    /* Modal Styling */
+    /* MODAL STYLING */
     .app-modal {
       display: none;
       position: fixed;
@@ -639,6 +705,7 @@
 
     .form-group {
       margin-bottom: 1rem;
+      text-align: left;
     }
 
     .form-label {
@@ -719,57 +786,124 @@
 </head>
 <body>
 
-  <!-- MASTER ADVANCED PASSWORD SECURITY GATE -->
-  <div id="pin-gate" class="pin-overlay">
-    <div class="pin-box">
-      <div class="pin-icon">🔐</div>
-      <h2 class="pin-title">Teme Astegni Admin</h2>
-      <p class="pin-subtitle">የተሜ አስጠኚ የአስተዳዳሪ ሚስጥር ቃል (Password) ያስገቡ</p>
-      
-      <form onsubmit="event.preventDefault(); verifyPin();" style="width: 100%;">
-        <div class="password-input-wrap">
-          <input type="password" id="admin-pass-input" class="password-field" placeholder="Enter Admin Password" autofocus autocomplete="current-password">
-          <button type="button" class="password-toggle-btn" onclick="togglePassVisibility('admin-pass-input', this)" title="Show/Hide Password">👁️</button>
+  <!-- SCREEN 1: OWNER FIRST-RUN INITIALIZATION WIZARD -->
+  <!-- Appears ONLY when no primary owner exists yet -->
+  <div id="screen-owner-setup" class="auth-overlay" style="display: none;">
+    <div class="auth-card" style="max-width: 480px;">
+      <div class="auth-icon">👑</div>
+      <h2 class="auth-title">Primary Founder Setup</h2>
+      <p class="auth-subtitle">
+        Welcome Founder! Initialize primary ownership for <b>Teme Astegni (ተሜ አስጠኚ)</b>. You will hold master cryptographic authority, manage staff admins, and control financial ledgers.
+      </p>
+
+      <form id="owner-setup-form" onsubmit="handleOwnerSetup(event)">
+        <div class="form-group">
+          <label class="form-label">Founder Full Name (የባለቤት ሙሉ ስም)</label>
+          <input type="text" id="setup-owner-name" class="form-ctrl" placeholder="e.g. Ashenafi Tobe" required>
         </div>
 
-        <button type="submit" class="btn-pin-submit">ፖርታሉን ይክፈቱ (Unlock Portal) ›</button>
-      </form>
+        <div class="form-group">
+          <label class="form-label">Founder Email Address (ኢሜይል)</label>
+          <input type="email" id="setup-owner-email" class="form-ctrl" value="ashenafitobe@gmail.com" required>
+        </div>
 
-      <div id="pin-error" class="pin-error">የተሳሳተ የይለፍ ቃል ነው። እባክዎ እንደገና ይሞክሩ።</div>
-      
-      <div style="margin-top: 1rem;">
-        <button type="button" onclick="emergencyResetPin()" style="background: none; border: none; color: #38bdf8; font-size: 0.8rem; font-weight: 750; cursor: pointer; text-decoration: underline; padding: 0.3rem;">
-          🔄 Forgot Password? Reset to Default (የይለፍ ቃል ረሱ?)
+        <div class="form-group">
+          <label class="form-label">Master Strong Password (ጠንካራ ሚስጥር ቃል)</label>
+          <div class="password-input-wrap">
+            <input type="password" id="setup-owner-pass" class="password-field" placeholder="Create Strong Password" oninput="validateSetupPassword()" required autocomplete="new-password">
+            <button type="button" class="password-toggle-btn" onclick="togglePassVisibility('setup-owner-pass', this)" title="Show/Hide">👁️</button>
+          </div>
+        </div>
+
+        <!-- Live Password Strength Meter -->
+        <div class="strength-meter-box">
+          <div class="strength-meter-title">
+            <span>Password Security Level</span>
+            <span id="setup-strength-label" style="font-weight: 800; color: var(--accent-rose);">Too Weak</span>
+          </div>
+          <div class="strength-bar-bg">
+            <div id="setup-strength-fill" class="strength-bar-fill" style="width: 20%; background-color: var(--accent-rose);"></div>
+          </div>
+          <div id="rule-len" class="rule-item"><span class="rule-icon">○</span> At least 8 characters long (ቢያንስ 8 ፊደላት)</div>
+          <div id="rule-upper" class="rule-item"><span class="rule-icon">○</span> Uppercase letter [A-Z] (የካፒታል ፊደል)</div>
+          <div id="rule-lower" class="rule-item"><span class="rule-icon">○</span> Lowercase letter [a-z] (አነስተኛ ፊደል)</div>
+          <div id="rule-digit" class="rule-item"><span class="rule-icon">○</span> Number [0-9] (የቁጥር ምልክት)</div>
+          <div id="rule-special" class="rule-item"><span class="rule-icon">○</span> Special character [@#$%^&*!] (ልዩ ምልክቶች)</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Confirm Master Password (እንደገና ያረጋግጡ)</label>
+          <div class="password-input-wrap">
+            <input type="password" id="setup-owner-pass-confirm" class="password-field" placeholder="Repeat Password" oninput="validateSetupPassword()" required autocomplete="new-password">
+            <button type="button" class="password-toggle-btn" onclick="togglePassVisibility('setup-owner-pass-confirm', this)" title="Show/Hide">👁️</button>
+          </div>
+        </div>
+
+        <button type="submit" id="btn-owner-setup" class="btn-auth-submit" disabled>
+          👑 Initialize Primary Ownership ›
         </button>
-      </div>
 
-      <div style="font-size: 0.75rem; color: #64748b; margin-top: 0.75rem;">Master Founder Security • Ethio 21</div>
+        <div id="setup-error" class="auth-error"></div>
+      </form>
+      <div style="font-size: 0.74rem; color: #64748b; margin-top: 1rem;">
+        🔒 Hardened SHA-256 Cryptographic Storage • One-Time Initialization
+      </div>
     </div>
   </div>
 
-  <!-- MAIN APP WRAPPER -->
+  <!-- SCREEN 2: SECURE UNIFIED LOGIN SCREEN -->
+  <!-- Appears when owner exists but session is locked -->
+  <div id="screen-login" class="auth-overlay" style="display: none;">
+    <div class="auth-card">
+      <div class="auth-icon">🔐</div>
+      <h2 class="auth-title">Teme Astegni Portal</h2>
+      <p class="auth-subtitle">Enter your Founder or Coordinator credentials to access operations.</p>
+
+      <form id="login-form" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label class="form-label">Email or Username (ኢሜይል ወይም ስም)</label>
+          <input type="text" id="login-identifier" class="form-ctrl" placeholder="ashenafitobe@gmail.com" required autocomplete="username">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password (የይለፍ ቃል)</label>
+          <div class="password-input-wrap">
+            <input type="password" id="login-pass" class="password-field" placeholder="Enter Password" required autocomplete="current-password">
+            <button type="button" class="password-toggle-btn" onclick="togglePassVisibility('login-pass', this)" title="Show/Hide">👁️</button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-auth-submit">Unlock Operations Portal ›</button>
+        <div id="login-error" class="auth-error">የተሳሳተ ኢሜይል ወይም ሚስጥር ቃል ነው። እባክዎ እንደገና ይሞክሩ።</div>
+      </form>
+
+      <div style="font-size: 0.75rem; color: #64748b; margin-top: 1.25rem;">
+        Enterprise RBAC • Protected System
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: MAIN APP CONTENT WRAPPER -->
   <div class="wrap" id="main-content" style="display: none;">
 
     <!-- TOP HEADER -->
     <header class="app-header">
       <div class="brand-group">
-        <img src="assets/teme_astegni_logo.jpg" alt="Teme Astegni Logo" class="brand-logo-img" onerror="this.src='assets/teme_astegni_avatar.jpg'">
+        <img src="assets/teme_astegni_logo.jpg" alt="Teme Astegni Logo" class="brand-logo-img">
         <div class="brand-titles">
-          <h1>Teme Ops <span>Admin Operations Portal</span></h1>
+          <h1>Teme Ops <span>Operations Portal</span></h1>
         </div>
       </div>
 
       <div class="header-actions">
-        <span class="status-badge" id="sync-indicator">
-          <span class="status-dot"></span>
-          <span id="sync-text">Live Ready</span>
+        <span id="user-role-badge" class="role-badge role-badge-owner">
+          👑 Owner: Ashenafi
         </span>
-        <button class="btn-header" onclick="openSettingsModal()" title="Database Settings">⚙️</button>
-        <button class="btn-header" onclick="lockPortal()" title="Lock Screen">🔒</button>
+        <button class="btn-header" onclick="lockPortal()" title="Lock Screen">🔒 Lock</button>
       </div>
     </header>
 
-    <!-- VIEW 1: OVERVIEW & DASHBOARD -->
+    <!-- VIEW 1: OVERVIEW DASHBOARD -->
     <section id="view-dashboard" class="view-panel active">
       <div class="kpi-grid">
         <div class="kpi-card">
@@ -787,20 +921,21 @@
           <div class="kpi-val" id="kpi-matches-count">0</div>
           <div class="kpi-sub">Trials & Contracts</div>
         </div>
-        <div class="kpi-card">
+        <!-- Financial Metric Card (Restricted to Owner) -->
+        <div class="kpi-card" id="kpi-financial-card">
           <div class="kpi-label">Est. Commission</div>
           <div class="kpi-val" id="kpi-commission-val">0 ETB</div>
-          <div class="kpi-sub">25% Ethio21 Margin</div>
+          <div class="kpi-sub" id="kpi-commission-sub">25% Ethio21 Margin</div>
         </div>
       </div>
 
       <!-- Quick Operations Banner -->
       <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 1.1rem; margin-bottom: 1.25rem;">
-        <h3 style="font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.4rem;">
-          ⚡ 1-Click Operations Room
+        <h3 style="font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem;">
+          ⚡ Live Operations Command
         </h3>
         <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.85rem;">
-          Parents and tutors submitted via the web app automatically log into this secured database. Match verified tutors, schedule 1-day free trials, and collect monthly commissions.
+          Coordinate student requests, arrange 1-day free in-home trials, and manage accredited university tutors across campuses.
         </p>
         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
           <a href="https://t.me/+cNwM2HRo7A5jYTU0" target="_blank" class="btn-act btn-act-call">
@@ -809,7 +944,7 @@
           <button class="btn-act" onclick="switchView('view-parents')">
             📥 Review Parent Leads ›
           </button>
-          <button class="btn-act" onclick="syncCloudDatabase()">
+          <button class="btn-act owner-only-feature" onclick="syncCloudDatabase()">
             🔄 Force Cloud Sync
           </button>
         </div>
@@ -883,14 +1018,29 @@
       </div>
     </section>
 
-    <!-- VIEW 5: DATABASE & SETTINGS -->
+    <!-- VIEW 5: STAFF & ADMIN ACCESS CONTROL (OWNER ONLY) -->
+    <section id="view-admins" class="view-panel">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <div>
+          <h2 style="font-size: 1.15rem; font-weight: 850; color: #fff;">👥 Staff & Coordinator Admins</h2>
+          <p style="font-size: 0.8rem; color: var(--text-muted);">Invite operational coordinators and configure granular permissions.</p>
+        </div>
+        <button class="btn-act btn-act-primary" onclick="openInviteAdminModal()">+ Invite New Admin</button>
+      </div>
+
+      <div id="admins-list-container">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- VIEW 6: DATABASE & CLOUD (OWNER ONLY) -->
     <section id="view-database" class="view-panel">
       <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 18px; padding: 1.25rem; margin-bottom: 1.25rem;">
         <h2 style="font-size: 1.15rem; font-weight: 850; color: #fff; margin-bottom: 0.4rem;">
-          ☁️ 100% Free Forever Google Sheets Database
+          ☁️ Google Sheets Cloud Database
         </h2>
         <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1rem;">
-          Teme Astegni uses a zero-cost, high-reliability Google Sheets + Apps Script database. Both Ashenafi and Lemma can view and manage live leads directly on mobile or via this portal.
+          Primary Account: <b>ashenafitobe@gmail.com</b>. Synchronizes live leads with Google Sheets for zero-cost scalability.
         </p>
 
         <div class="form-group">
@@ -905,31 +1055,14 @@
         </div>
       </div>
 
-      <!-- Setup Instructions & Script Modal Trigger -->
-      <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 18px; padding: 1.25rem; margin-bottom: 1.25rem;">
-        <h3 style="font-size: 0.95rem; font-weight: 850; color: #fff; margin-bottom: 0.5rem;">
-          📋 3-Step Setup for <span style="color: var(--accent-blue);">ashenafitobe@gmail.com</span>
-        </h3>
-        <ol style="font-size: 0.82rem; color: #cbd5e1; line-height: 1.7; padding-left: 1.2rem; margin-bottom: 1rem;">
-          <li>Log into Google with <b>ashenafitobe@gmail.com</b> and create a new sheet named <b>"Teme Astegni Cloud Database"</b> at <a href="https://sheets.new" target="_blank" style="color: var(--accent-blue); font-weight: 700;">sheets.new</a>.</li>
-          <li>Click <b>Extensions ➔ Apps Script</b>, paste the script below, and click <b>Deploy ➔ New Deployment ➔ Web App</b> (set <i>Who has access</i> to <b>Anyone</b>).</li>
-          <li>Copy your generated Web App URL and paste it into the box above.</li>
-        </ol>
-        <button class="btn-act" onclick="openScriptCodeModal()">📜 View & Copy Apps Script Code ›</button>
-      </div>
-
-      <!-- Security Settings -->
       <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 18px; padding: 1.25rem;">
-        <h3 style="font-size: 0.95rem; font-weight: 850; color: #fff; margin-bottom: 0.4rem;">
-          🔒 Advanced Password Management
+        <h3 style="font-size: 0.95rem; font-weight: 850; color: #fff; margin-bottom: 0.5rem;">
+          📜 Google Apps Script Webhook Code
         </h3>
         <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.85rem;">
-          Set a secure, advanced password containing letters, numbers, and symbols (Default: <b>Ethio21@Admin</b>).
+          Copy and paste this code into your Google Sheet's <b>Extensions ➔ Apps Script</b> editor.
         </p>
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-          <input type="text" id="new-pin-input" class="form-ctrl" placeholder="e.g. Ashenafi#2026@Teme" style="max-width: 280px;">
-          <button class="btn-act btn-act-primary" onclick="updateMasterPin()">Save New Password</button>
-        </div>
+        <button class="btn-act" onclick="openScriptCodeModal()">View & Copy Script Code ›</button>
       </div>
     </section>
 
@@ -953,30 +1086,85 @@
       <span class="icon">🤝</span>
       <span>Matches</span>
     </button>
-    <button class="nav-item" onclick="switchView('view-database', this)">
+    <button class="nav-item owner-nav-item" id="nav-item-admins" onclick="switchView('view-admins', this)">
+      <span class="icon">👥</span>
+      <span>Admins</span>
+    </button>
+    <button class="nav-item owner-nav-item" id="nav-item-database" onclick="switchView('view-database', this)">
       <span class="icon">⚙️</span>
       <span>Database</span>
     </button>
   </nav>
 
-  <!-- MATCH MAKER MODAL -->
+  <!-- MODAL: INVITE NEW ADMIN -->
+  <div id="modal-invite-admin" class="app-modal">
+    <div class="modal-sheet">
+      <h2>👥 Invite Coordinator Admin</h2>
+      <p>Create an operational coordinator account with restricted privileges.</p>
+
+      <form onsubmit="handleCreateAdmin(event)">
+        <div class="form-group">
+          <label class="form-label">Coordinator Name (e.g. Lemma / ለማ)</label>
+          <input type="text" id="admin-new-name" class="form-ctrl" required placeholder="Full Name">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Coordinator Email or Username</label>
+          <input type="text" id="admin-new-email" class="form-ctrl" required placeholder="e.g. lemma@ethio21.com">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Temporary Strong Password</label>
+          <div class="password-input-wrap">
+            <input type="password" id="admin-new-pass" class="password-field" required placeholder="Enter Strong Password" oninput="validateAdminPassword()">
+            <button type="button" class="password-toggle-btn" onclick="togglePassVisibility('admin-new-pass', this)">👁️</button>
+          </div>
+        </div>
+
+        <!-- Admin Password Checklist -->
+        <div class="strength-meter-box">
+          <div id="admin-rule-len" class="rule-item"><span class="rule-icon">○</span> At least 8 characters</div>
+          <div id="admin-rule-upper" class="rule-item"><span class="rule-icon">○</span> Uppercase [A-Z]</div>
+          <div id="admin-rule-lower" class="rule-item"><span class="rule-icon">○</span> Lowercase [a-z]</div>
+          <div id="admin-rule-digit" class="rule-item"><span class="rule-icon">○</span> Number [0-9]</div>
+          <div id="admin-rule-special" class="rule-item"><span class="rule-icon">○</span> Symbol [@#$%^&*!]</div>
+        </div>
+
+        <!-- Permissions Checklist -->
+        <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--card-border); border-radius: 12px; padding: 0.85rem; margin-bottom: 1.25rem;">
+          <div style="font-size: 0.8rem; font-weight: 750; color: #fff; margin-bottom: 0.5rem;">Access Restrictions & Permissions:</div>
+          <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: #cbd5e1; margin-bottom: 0.4rem;">
+            <input type="checkbox" id="perm-financials" style="accent-color: var(--accent-blue);">
+            Allow viewing Financial Ledger & Commissions
+          </label>
+          <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: #cbd5e1; margin-bottom: 0.4rem;">
+            <input type="checkbox" id="perm-delete" style="accent-color: var(--accent-blue);">
+            Allow deleting parent and tutor leads
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-modal-sec" onclick="closeModal('modal-invite-admin')">Cancel</button>
+          <button type="submit" id="btn-save-admin" class="btn-modal-primary" disabled>Create Admin Account ›</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: MATCH MAKER -->
   <div id="modal-match-maker" class="app-modal">
     <div class="modal-sheet">
-      <h2>🤝 Create New Tutoring Match</h2>
+      <h2>🤝 Create Tutoring Match</h2>
       <p>Pair an incoming parent request with a vetted university scholar.</p>
 
       <div class="form-group">
         <label class="form-label">Select Parent Request</label>
-        <select id="match-select-parent" class="form-ctrl">
-          <!-- Populated dynamically -->
-        </select>
+        <select id="match-select-parent" class="form-ctrl"></select>
       </div>
 
       <div class="form-group">
         <label class="form-label">Select Verified Tutor</label>
-        <select id="match-select-tutor" class="form-ctrl">
-          <!-- Populated dynamically -->
-        </select>
+        <select id="match-select-tutor" class="form-ctrl"></select>
       </div>
 
       <div class="form-group">
@@ -984,7 +1172,7 @@
         <input type="number" id="match-price-input" class="form-ctrl" value="3500" oninput="calculateCommissionPreview()">
       </div>
 
-      <div class="form-group">
+      <div class="form-group" id="match-rate-group">
         <label class="form-label">Commission Rate (%)</label>
         <select id="match-rate-select" class="form-ctrl" onchange="calculateCommissionPreview()">
           <option value="20">20% Margin</option>
@@ -993,7 +1181,7 @@
         </select>
       </div>
 
-      <div style="background: rgba(0,0,0,0.3); padding: 0.75rem; border-radius: 12px; margin-bottom: 1rem; font-size: 0.82rem;">
+      <div id="match-calc-preview" style="background: rgba(0,0,0,0.3); padding: 0.75rem; border-radius: 12px; margin-bottom: 1rem; font-size: 0.82rem;">
         <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
           <span style="color: var(--text-muted);">Tutor Net Take-Home:</span>
           <span style="color: var(--accent-green); font-weight: 800;" id="calc-tutor-net">2,625 ETB</span>
@@ -1011,7 +1199,7 @@
     </div>
   </div>
 
-  <!-- GOOGLE APPS SCRIPT CODE MODAL -->
+  <!-- MODAL: GOOGLE APPS SCRIPT CODE -->
   <div id="modal-script-code" class="app-modal">
     <div class="modal-sheet" style="max-width: 600px;">
       <h2>📜 Google Apps Script Webhook Code</h2>
@@ -1041,7 +1229,7 @@ function doGet(e) {
       .setMimeType(ContentService.MimeType.JSON);
   }
   
-  return ContentService.createTextOutput(JSON.stringify({ status: 'OK', message: 'Teme Astegni API Active' }))
+  return ContentService.createTextOutput(JSON.stringify({ status: 'OK', message: 'Teme Astegni Cloud API Active' }))
     .setMimeType(ContentService.MimeType.JSON);
 }
 
@@ -1116,115 +1304,32 @@ function rowsToJson(sheet) {
   </div>
 
   <script>
-    // APP STATE & CONSTANTS
-    const DEFAULT_PIN = '2121';
-    let currentParentFilter = 'ALL';
-    let currentTutorFilter = 'ALL';
-
-    // Seed Initial Data if empty
-    function initializeSeedData() {
-      if (!localStorage.getItem('astegni_parent_leads')) {
-        const seedParents = [
-          {
-            type: 'PARENT',
-            name: 'ዶ/ር ተስፋዬ በቀለ (Dr. Tesfaye)',
-            phone: '0911223344',
-            area: 'ሳሪስ / ካዲስኮ (Saris, AAU Campus nearby)',
-            grade: 'Grade 9',
-            genderPref: 'ወንድ አስጠኚ ብቻ',
-            subjs: 'Physics, Mathematics',
-            status: 'Pending',
-            date: new Date(Date.now() - 3600000 * 2).toISOString()
-          },
-          {
-            type: 'PARENT',
-            name: 'ወ/ሮ ሮዛ ሙሉጌታ (W/ro Roza)',
-            phone: '0922446688',
-            area: 'ገርጂ / መብራት ኃይል (Gerji)',
-            grade: 'Grade 7',
-            genderPref: 'ሴት አስጠኚ ብቻ',
-            subjs: 'English, General Science',
-            status: 'Trial Scheduled',
-            date: new Date(Date.now() - 3600000 * 8).toISOString()
-          },
-          {
-            type: 'PARENT',
-            name: 'አቶ ዳንኤል ግርማ (Ato Daniel)',
-            phone: '0933778899',
-            area: 'ቦሌ መድሃኒዓለም (Bole)',
-            grade: 'Grade 12',
-            genderPref: 'ምንም ልዩነት የለውም (Any)',
-            subjs: 'Chemistry, Biology',
-            status: 'Active Contract',
-            date: new Date(Date.now() - 3600000 * 24).toISOString()
-          }
-        ];
-        localStorage.setItem('astegni_parent_leads', JSON.stringify(seedParents));
-      }
-
-      if (!localStorage.getItem('astegni_tutor_leads')) {
-        const seedTutors = [
-          {
-            type: 'TUTOR',
-            name: 'ናትናኤል አለማየሁ (Natnael A.)',
-            phone: '0911559900',
-            gender: 'ወንድ (Male)',
-            uni: 'AAU (4 Kilo Campus)',
-            year: '3rd Year (Electrical Eng.)',
-            cgpa: '3.78',
-            subj: 'Physics, Mathematics',
-            govtId: 'National Fayda ID: Attached',
-            date: new Date(Date.now() - 3600000 * 5).toISOString()
-          },
-          {
-            type: 'TUTOR',
-            name: 'ቤተልሔም ሰለሞን (Bethelhem S.)',
-            phone: '0944112233',
-            gender: 'ሴት (Female)',
-            uni: 'AAU (Tikur Anbessa Medical)',
-            year: '2nd Year (Medicine)',
-            cgpa: '3.85',
-            subj: 'Biology, Chemistry, English',
-            govtId: 'Kebele ID: Attached',
-            date: new Date(Date.now() - 3600000 * 12).toISOString()
-          },
-          {
-            type: 'TUTOR',
-            name: 'ዮናስ ታደሰ (Yonas T.)',
-            phone: '0912334455',
-            gender: 'ወንድ (Male)',
-            uni: 'ASTU (Adama Science & Tech)',
-            year: '4th Year (Software Eng.)',
-            cgpa: '3.62',
-            subj: 'Math, ICT, Physics',
-            govtId: 'National Fayda ID: Attached',
-            date: new Date(Date.now() - 3600000 * 18).toISOString()
-          }
-        ];
-        localStorage.setItem('astegni_tutor_leads', JSON.stringify(seedTutors));
-      }
-
-      if (!localStorage.getItem('astegni_matches')) {
-        const seedMatches = [
-          {
-            id: 'M-' + Date.now(),
-            parentName: 'አቶ ዳንኤል ግርማ (Ato Daniel)',
-            parentPhone: '0933778899',
-            tutorName: 'ናትናኤል አለማየሁ (Natnael A.)',
-            tutorPhone: '0911559900',
-            monthlyFee: 4000,
-            rate: 25,
-            commission: 1000,
-            status: 'Active Contract',
-            date: new Date().toISOString()
-          }
-        ];
-        localStorage.setItem('astegni_matches', JSON.stringify(seedMatches));
-      }
+    // ==========================================
+    // CRYPTOGRAPHY & PASSWORD STRENGTH ENGINE
+    // ==========================================
+    async function hashPassword(password, salt) {
+      const enc = new TextEncoder();
+      const data = enc.encode(password + ':' + salt);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
-    // ADVANCED PASSWORD SECURITY HANDLING
-    const DEFAULT_PASS = 'Ethio21@Admin';
+    function generateSalt() {
+      const arr = new Uint8Array(16);
+      crypto.getRandomValues(arr);
+      return Array.from(arr).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    function checkPasswordComplexity(pass) {
+      const len = pass.length >= 8;
+      const upper = /[A-Z]/.test(pass);
+      const lower = /[a-z]/.test(pass);
+      const digit = /[0-9]/.test(pass);
+      const special = /[^A-Za-z0-9]/.test(pass);
+      const isStrong = len && upper && lower && digit && special;
+      return { len, upper, lower, digit, special, isStrong };
+    }
 
     function togglePassVisibility(inputId, btn) {
       const input = document.getElementById(inputId);
@@ -1237,111 +1342,371 @@ function rowsToJson(sheet) {
       }
     }
 
-    function verifyPin() {
-      const input = document.getElementById('admin-pass-input');
-      const entered = (input.value || '').trim();
-      const savedPass = localStorage.getItem('astegni_admin_password') || localStorage.getItem('astegni_admin_pin') || DEFAULT_PASS;
+    // ==========================================
+    // OWNER SETUP VALIDATOR
+    // ==========================================
+    function validateSetupPassword() {
+      const pass = document.getElementById('setup-owner-pass').value;
+      const confirm = document.getElementById('setup-owner-pass-confirm').value;
+      const res = checkPasswordComplexity(pass);
 
-      // Master rescue override: accepts saved password, DEFAULT_PASS, '2121', 'Ethio21@Admin', or 'admin21'
-      if (entered === savedPass || entered === DEFAULT_PASS || entered === '2121' || entered === 'admin21') {
-        sessionStorage.setItem('astegni_admin_auth', 'true');
-        document.getElementById('pin-gate').style.display = 'none';
-        document.getElementById('main-content').style.display = 'block';
-        document.getElementById('admin-bottom-nav').style.display = 'flex';
-        renderAll();
+      updateRule('rule-len', res.len);
+      updateRule('rule-upper', res.upper);
+      updateRule('rule-lower', res.lower);
+      updateRule('rule-digit', res.digit);
+      updateRule('rule-special', res.special);
+
+      const score = [res.len, res.upper, res.lower, res.digit, res.special].filter(Boolean).length;
+      const fill = document.getElementById('setup-strength-fill');
+      const label = document.getElementById('setup-strength-label');
+
+      fill.style.width = (score * 20) + '%';
+      if (score <= 2) {
+        fill.style.backgroundColor = 'var(--accent-rose)';
+        label.innerText = 'Too Weak';
+        label.style.color = 'var(--accent-rose)';
+      } else if (score <= 4) {
+        fill.style.backgroundColor = 'var(--accent-amber)';
+        label.innerText = 'Moderate';
+        label.style.color = 'var(--accent-amber)';
       } else {
-        const errEl = document.getElementById('pin-error');
-        errEl.style.display = 'block';
-        input.style.borderColor = 'var(--accent-rose)';
-        input.focus();
-        input.select();
+        fill.style.backgroundColor = 'var(--accent-green)';
+        label.innerText = 'Strong & Compliant';
+        label.style.color = 'var(--accent-green)';
+      }
+
+      const match = pass.length > 0 && pass === confirm;
+      document.getElementById('btn-owner-setup').disabled = !(res.isStrong && match);
+    }
+
+    function validateAdminPassword() {
+      const pass = document.getElementById('admin-new-pass').value;
+      const res = checkPasswordComplexity(pass);
+
+      updateRule('admin-rule-len', res.len);
+      updateRule('admin-rule-upper', res.upper);
+      updateRule('admin-rule-lower', res.lower);
+      updateRule('admin-rule-digit', res.digit);
+      updateRule('admin-rule-special', res.special);
+
+      document.getElementById('btn-save-admin').disabled = !res.isStrong;
+    }
+
+    function updateRule(elementId, isValid) {
+      const el = document.getElementById(elementId);
+      if (isValid) {
+        el.classList.add('valid');
+        el.querySelector('.rule-icon').innerText = '✓';
+      } else {
+        el.classList.remove('valid');
+        el.querySelector('.rule-icon').innerText = '○';
       }
     }
 
-    function emergencyResetPin() {
-      if (confirm('Reset Master Admin Password back to default ("Ethio21@Admin")?\nየአስተዳዳሪውን ሚስጥር ቃል ወደ መጀመሪያው (Ethio21@Admin) መመለስ ይፈልጋሉ?')) {
-        localStorage.removeItem('astegni_admin_password');
-        localStorage.removeItem('astegni_admin_pin');
-        const input = document.getElementById('admin-pass-input');
-        input.value = '';
-        input.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-        const errEl = document.getElementById('pin-error');
-        if (errEl) errEl.style.display = 'none';
-        alert('✅ Master Password has been restored to:\n\nEthio21@Admin\n\n(Letters, numbers & @ symbol)');
-        input.focus();
+    // ==========================================
+    // OWNER FIRST-RUN INITIALIZATION
+    // ==========================================
+    async function handleOwnerSetup(e) {
+      e.preventDefault();
+      const name = document.getElementById('setup-owner-name').value.trim();
+      const email = document.getElementById('setup-owner-email').value.trim().toLowerCase();
+      const pass = document.getElementById('setup-owner-pass').value;
+      const confirm = document.getElementById('setup-owner-pass-confirm').value;
+
+      if (pass !== confirm) {
+        alert('Passwords do not match.');
+        return;
       }
+
+      const complexity = checkPasswordComplexity(pass);
+      if (!complexity.isStrong) {
+        alert('Please satisfy all 5 password complexity requirements.');
+        return;
+      }
+
+      const salt = generateSalt();
+      const hash = await hashPassword(pass, salt);
+
+      const ownerAccount = {
+        role: 'owner',
+        name: name,
+        email: email,
+        salt: salt,
+        hash: hash,
+        createdAt: new Date().toISOString()
+      };
+
+      localStorage.setItem('teme_astegni_owner', JSON.stringify(ownerAccount));
+      
+      // Auto login owner
+      setSessionUser({
+        role: 'owner',
+        name: name,
+        email: email,
+        permissions: { viewFinancials: true, canDelete: true, manageSettings: true }
+      });
+
+      document.getElementById('screen-owner-setup').style.display = 'none';
+      launchDashboard();
+    }
+
+    // ==========================================
+    // UNIFIED LOGIN SYSTEM
+    // ==========================================
+    async function handleLogin(e) {
+      e.preventDefault();
+      const identifier = document.getElementById('login-identifier').value.trim().toLowerCase();
+      const pass = document.getElementById('login-pass').value;
+      const errEl = document.getElementById('login-error');
+
+      const owner = JSON.parse(localStorage.getItem('teme_astegni_owner') || 'null');
+      if (owner && (owner.email.toLowerCase() === identifier || owner.name.toLowerCase() === identifier)) {
+        const testHash = await hashPassword(pass, owner.salt);
+        if (testHash === owner.hash) {
+          errEl.style.display = 'none';
+          setSessionUser({
+            role: 'owner',
+            name: owner.name,
+            email: owner.email,
+            permissions: { viewFinancials: true, canDelete: true, manageSettings: true }
+          });
+          document.getElementById('screen-login').style.display = 'none';
+          launchDashboard();
+          return;
+        }
+      }
+
+      // Check invited admins
+      const admins = JSON.parse(localStorage.getItem('teme_astegni_admins') || '[]');
+      const matchedAdmin = admins.find(a => a.email.toLowerCase() === identifier || a.name.toLowerCase() === identifier);
+
+      if (matchedAdmin && matchedAdmin.active) {
+        const testHash = await hashPassword(pass, matchedAdmin.salt);
+        if (testHash === matchedAdmin.hash) {
+          errEl.style.display = 'none';
+          setSessionUser({
+            role: 'admin',
+            name: matchedAdmin.name,
+            email: matchedAdmin.email,
+            permissions: matchedAdmin.permissions || { viewFinancials: false, canDelete: false, manageSettings: false }
+          });
+          document.getElementById('screen-login').style.display = 'none';
+          launchDashboard();
+          return;
+        }
+      }
+
+      errEl.style.display = 'block';
+      document.getElementById('login-pass').value = '';
+    }
+
+    function setSessionUser(user) {
+      sessionStorage.setItem('teme_session_user', JSON.stringify(user));
+    }
+
+    function getSessionUser() {
+      return JSON.parse(sessionStorage.getItem('teme_session_user') || 'null');
     }
 
     function lockPortal() {
-      sessionStorage.removeItem('astegni_admin_auth');
-      const input = document.getElementById('admin-pass-input');
-      input.value = '';
-      input.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-      document.getElementById('pin-error').style.display = 'none';
-      document.getElementById('pin-gate').style.display = 'flex';
+      sessionStorage.removeItem('teme_session_user');
       document.getElementById('main-content').style.display = 'none';
       document.getElementById('admin-bottom-nav').style.display = 'none';
-      input.focus();
+      document.getElementById('login-pass').value = '';
+      document.getElementById('screen-login').style.display = 'flex';
     }
 
-    function checkExistingAuth() {
-      if (sessionStorage.getItem('astegni_admin_auth') === 'true') {
-        document.getElementById('pin-gate').style.display = 'none';
-        document.getElementById('main-content').style.display = 'block';
-        document.getElementById('admin-bottom-nav').style.display = 'flex';
-        renderAll();
+    // ==========================================
+    // DASHBOARD & RBAC DISPLAY
+    // ==========================================
+    function launchDashboard() {
+      const user = getSessionUser();
+      if (!user) {
+        document.getElementById('screen-login').style.display = 'flex';
+        return;
+      }
+
+      document.getElementById('main-content').style.display = 'block';
+      document.getElementById('admin-bottom-nav').style.display = 'flex';
+
+      const roleBadge = document.getElementById('user-role-badge');
+      if (user.role === 'owner') {
+        roleBadge.className = 'role-badge role-badge-owner';
+        roleBadge.innerText = `👑 Owner: ${user.name}`;
+        document.querySelectorAll('.owner-nav-item').forEach(el => el.style.display = 'flex');
+        document.querySelectorAll('.owner-only-feature').forEach(el => el.style.display = 'inline-flex');
+        document.getElementById('kpi-financial-card').classList.remove('restricted');
+      } else {
+        roleBadge.className = 'role-badge role-badge-admin';
+        roleBadge.innerText = `🛡️ Admin: ${user.name}`;
+        
+        // Hide owner only navigation
+        document.querySelectorAll('.owner-nav-item').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('.owner-only-feature').forEach(el => el.style.display = 'none');
+
+        // Mask financial card if restricted
+        if (!user.permissions.viewFinancials) {
+          const finCard = document.getElementById('kpi-financial-card');
+          finCard.classList.add('restricted');
+          document.getElementById('kpi-commission-val').innerText = '🔒 Restricted';
+          document.getElementById('kpi-commission-sub').innerText = 'Primary Owner Only';
+        }
+      }
+
+      renderAll();
+    }
+
+    // ==========================================
+    // ADMINS MANAGEMENT (OWNER ONLY)
+    // ==========================================
+    function openInviteAdminModal() {
+      document.getElementById('admin-new-name').value = '';
+      document.getElementById('admin-new-email').value = '';
+      document.getElementById('admin-new-pass').value = '';
+      document.getElementById('perm-financials').checked = false;
+      document.getElementById('perm-delete').checked = false;
+      validateAdminPassword();
+      document.getElementById('modal-invite-admin').classList.add('active');
+    }
+
+    async function handleCreateAdmin(e) {
+      e.preventDefault();
+      const name = document.getElementById('admin-new-name').value.trim();
+      const email = document.getElementById('admin-new-email').value.trim().toLowerCase();
+      const pass = document.getElementById('admin-new-pass').value;
+
+      const complexity = checkPasswordComplexity(pass);
+      if (!complexity.isStrong) {
+        alert('Password does not meet complexity requirements.');
+        return;
+      }
+
+      const salt = generateSalt();
+      const hash = await hashPassword(pass, salt);
+
+      const newAdmin = {
+        id: 'ADM-' + Date.now(),
+        name,
+        email,
+        salt,
+        hash,
+        role: 'admin',
+        active: true,
+        permissions: {
+          viewFinancials: document.getElementById('perm-financials').checked,
+          canDelete: document.getElementById('perm-delete').checked
+        },
+        createdAt: new Date().toISOString()
+      };
+
+      const admins = JSON.parse(localStorage.getItem('teme_astegni_admins') || '[]');
+      admins.push(newAdmin);
+      localStorage.setItem('teme_astegni_admins', JSON.stringify(admins));
+
+      closeModal('modal-invite-admin');
+      renderAdmins();
+      alert(`✅ Coordinator Admin "${name}" successfully created!`);
+    }
+
+    function renderAdmins() {
+      const admins = JSON.parse(localStorage.getItem('teme_astegni_admins') || '[]');
+      const container = document.getElementById('admins-list-container');
+      container.innerHTML = '';
+
+      if (admins.length === 0) {
+        container.innerHTML = `
+          <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 2.5rem 1rem; text-align: center; color: var(--text-muted);">
+            No coordinator admins invited yet. Click "+ Invite New Admin" to delegate staff access with restricted privileges.
+          </div>
+        `;
+        return;
+      }
+
+      admins.forEach(a => {
+        const div = document.createElement('div');
+        div.className = 'record-card';
+        div.innerHTML = `
+          <div class="record-top">
+            <div>
+              <div class="record-name">
+                🛡️ ${escapeHtml(a.name)}
+                <span class="tag-badge ${a.active ? 'tag-active' : 'tag-closed'}">${a.active ? 'Active Staff' : 'Suspended'}</span>
+              </div>
+              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">
+                📧 ${escapeHtml(a.email)} • Added: ${new Date(a.createdAt).toLocaleDateString()}
+              </div>
+            </div>
+            <div style="display: flex; gap: 0.4rem;">
+              <button class="btn-act" onclick="toggleAdminStatus('${a.id}')">${a.active ? 'Suspend' : 'Activate'}</button>
+              <button class="btn-act" style="color: var(--accent-rose);" onclick="deleteAdmin('${a.id}')">🗑️ Remove</button>
+            </div>
+          </div>
+          <div class="record-details">
+            <div class="detail-item"><span class="detail-label">Financial Access:</span> ${a.permissions.viewFinancials ? '✅ Allowed' : '🔒 Restricted (Hidden)'}</div>
+            <div class="detail-item"><span class="detail-label">Delete Records:</span> ${a.permissions.canDelete ? '✅ Allowed' : '🔒 Restricted (Hidden)'}</div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function toggleAdminStatus(id) {
+      const admins = JSON.parse(localStorage.getItem('teme_astegni_admins') || '[]');
+      const a = admins.find(adm => adm.id === id);
+      if (a) {
+        a.active = !a.active;
+        localStorage.setItem('teme_astegni_admins', JSON.stringify(admins));
+        renderAdmins();
       }
     }
 
-    // NAVIGATION
-    function switchView(viewId, btn) {
-      document.querySelectorAll('.view-panel').forEach(v => v.classList.remove('active'));
-      const target = document.getElementById(viewId);
-      if (target) target.classList.add('active');
-
-      if (btn) {
-        document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      }
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    function deleteAdmin(id) {
+      if (!confirm('Are you sure you want to delete this coordinator admin account?')) return;
+      let admins = JSON.parse(localStorage.getItem('teme_astegni_admins') || '[]').filter(a => a.id !== id);
+      localStorage.setItem('teme_astegni_admins', JSON.stringify(admins));
+      renderAdmins();
     }
 
-    // DATA RENDERING
+    // ==========================================
+    // DATA RENDERING & OPERATIONS
+    // ==========================================
+    let currentParentFilter = 'ALL';
+    let currentTutorFilter = 'ALL';
+
+    function getParents() { return JSON.parse(localStorage.getItem('astegni_parent_leads') || '[]'); }
+    function getTutors() { return JSON.parse(localStorage.getItem('astegni_tutor_leads') || '[]'); }
+    function getMatches() { return JSON.parse(localStorage.getItem('astegni_matches') || '[]'); }
+
     function renderAll() {
       renderDashboard();
       renderParents();
       renderTutors();
       renderMatches();
-    }
-
-    function getParents() {
-      return JSON.parse(localStorage.getItem('astegni_parent_leads') || '[]');
-    }
-
-    function getTutors() {
-      return JSON.parse(localStorage.getItem('astegni_tutor_leads') || '[]');
-    }
-
-    function getMatches() {
-      return JSON.parse(localStorage.getItem('astegni_matches') || '[]');
+      const user = getSessionUser();
+      if (user && user.role === 'owner') {
+        renderAdmins();
+      }
     }
 
     function renderDashboard() {
       const parents = getParents();
       const tutors = getTutors();
       const matches = getMatches();
+      const user = getSessionUser();
 
       const pendingParents = parents.filter(p => (p.status || 'Pending') === 'Pending').length;
-      const totalCommission = matches.reduce((sum, m) => sum + (Number(m.commission) || 0), 0);
-
       document.getElementById('kpi-parents-count').innerText = parents.length;
       document.getElementById('kpi-parents-sub').innerText = `${pendingParents} Pending Review`;
       document.getElementById('kpi-tutors-count').innerText = tutors.length;
       document.getElementById('kpi-matches-count').innerText = matches.length;
-      document.getElementById('kpi-commission-val').innerText = `${totalCommission.toLocaleString()} ETB`;
 
-      // Recent 3 leads
+      if (user && (user.role === 'owner' || user.permissions.viewFinancials)) {
+        const totalCommission = matches.reduce((sum, m) => sum + (Number(m.commission) || 0), 0);
+        document.getElementById('kpi-commission-val').innerText = `${totalCommission.toLocaleString()} ETB`;
+        document.getElementById('kpi-commission-sub').innerText = `25% Ethio21 Margin`;
+      }
+
+      // Recent leads
       const recentList = document.getElementById('dashboard-recent-list');
       recentList.innerHTML = '';
       const recentItems = [...parents].reverse().slice(0, 3);
@@ -1376,6 +1741,9 @@ function rowsToJson(sheet) {
       const parents = getParents();
       const query = (document.getElementById('parent-search').value || '').toLowerCase();
       const container = document.getElementById('parents-cards-container');
+      const user = getSessionUser();
+      const canDelete = user && (user.role === 'owner' || user.permissions.canDelete);
+
       container.innerHTML = '';
 
       let filtered = parents.filter(p => {
@@ -1397,7 +1765,7 @@ function rowsToJson(sheet) {
         return;
       }
 
-      filtered.reverse().forEach((p, idx) => {
+      filtered.reverse().forEach((p) => {
         const card = document.createElement('div');
         card.className = 'record-card';
         const currentStatus = p.status || 'Pending';
@@ -1432,7 +1800,7 @@ function rowsToJson(sheet) {
               <option value="Closed" ${currentStatus === 'Closed' ? 'selected' : ''}>🔒 Closed (የተጠናቀቀ)</option>
             </select>
             <button class="btn-act btn-act-primary" onclick="quickMatchParent('${escapeHtml(p.name)}', '${escapeHtml(p.phone)}')">🤝 Assign Tutor</button>
-            <button class="btn-act" style="color: var(--accent-rose);" onclick="deleteParentLead('${escapeHtml(p.phone)}')">🗑️ Remove</button>
+            ${canDelete ? `<button class="btn-act" style="color: var(--accent-rose);" onclick="deleteParentLead('${escapeHtml(p.phone)}')">🗑️ Remove</button>` : ''}
           </div>
         `;
         container.appendChild(card);
@@ -1443,6 +1811,9 @@ function rowsToJson(sheet) {
       const tutors = getTutors();
       const query = (document.getElementById('tutor-search').value || '').toLowerCase();
       const container = document.getElementById('tutors-cards-container');
+      const user = getSessionUser();
+      const canDelete = user && (user.role === 'owner' || user.permissions.canDelete);
+
       container.innerHTML = '';
 
       let filtered = tutors.filter(t => {
@@ -1466,7 +1837,7 @@ function rowsToJson(sheet) {
         return;
       }
 
-      filtered.reverse().forEach((t, idx) => {
+      filtered.reverse().forEach((t) => {
         const card = document.createElement('div');
         card.className = 'record-card';
 
@@ -1494,7 +1865,7 @@ function rowsToJson(sheet) {
           <div class="record-actions">
             <button class="btn-act btn-act-primary" onclick="quickMatchTutor('${escapeHtml(t.name)}', '${escapeHtml(t.phone)}')">🤝 Pair With Parent</button>
             <a href="https://t.me/+cNwM2HRo7A5jYTU0" target="_blank" class="btn-act">✈️ Send Ops Brief</a>
-            <button class="btn-act" style="color: var(--accent-rose);" onclick="deleteTutorLead('${escapeHtml(t.phone)}')">🗑️ Remove</button>
+            ${canDelete ? `<button class="btn-act" style="color: var(--accent-rose);" onclick="deleteTutorLead('${escapeHtml(t.phone)}')">🗑️ Remove</button>` : ''}
           </div>
         `;
         container.appendChild(card);
@@ -1504,6 +1875,10 @@ function rowsToJson(sheet) {
     function renderMatches() {
       const matches = getMatches();
       const container = document.getElementById('matches-cards-container');
+      const user = getSessionUser();
+      const canViewFin = user && (user.role === 'owner' || user.permissions.viewFinancials);
+      const canDelete = user && (user.role === 'owner' || user.permissions.canDelete);
+
       container.innerHTML = '';
 
       if (matches.length === 0) {
@@ -1515,9 +1890,13 @@ function rowsToJson(sheet) {
         return;
       }
 
-      matches.reverse().forEach((m, idx) => {
+      matches.reverse().forEach((m) => {
         const card = document.createElement('div');
         card.className = 'record-card';
+
+        const financialText = canViewFin 
+          ? `Monthly Fee: ${Number(m.monthlyFee).toLocaleString()} ETB | Commission (${m.rate || 25}%): ${Number(m.commission).toLocaleString()} ETB`
+          : `Tutoring Pair • Active In-Home Term`;
 
         card.innerHTML = `
           <div class="record-top">
@@ -1526,7 +1905,7 @@ function rowsToJson(sheet) {
                 👨‍👩‍👧 ${escapeHtml(m.parentName)} ⟷ 🎓 ${escapeHtml(m.tutorName)}
               </div>
               <div style="font-size: 0.75rem; color: var(--accent-blue); margin-top: 0.2rem; font-weight: 700;">
-                Monthly Tuition: ${Number(m.monthlyFee).toLocaleString()} ETB | Commission (${m.rate || 25}%): ${Number(m.commission).toLocaleString()} ETB
+                ${financialText}
               </div>
             </div>
             <span class="tag-badge ${getStatusBadgeClass(m.status)}">${m.status}</span>
@@ -1545,14 +1924,13 @@ function rowsToJson(sheet) {
               <option value="Active Contract" ${m.status === 'Active Contract' ? 'selected' : ''}>✅ Active Contract (ንቁ)</option>
               <option value="Commission Paid" ${m.status === 'Commission Paid' ? 'selected' : ''}>💰 Commission Paid (ኮሚሽን ተከፍሏል)</option>
             </select>
-            <button class="btn-act" style="color: var(--accent-rose);" onclick="deleteMatch('${m.id}')">🗑️ Remove</button>
+            ${canDelete ? `<button class="btn-act" style="color: var(--accent-rose);" onclick="deleteMatch('${m.id}')">🗑️ Remove</button>` : ''}
           </div>
         `;
         container.appendChild(card);
       });
     }
 
-    // STATUS HELPERS & ACTIONS
     function getStatusBadgeClass(status) {
       if (status === 'Pending' || status === '1-Day Trial Pending') return 'tag-pending';
       if (status === 'Trial Scheduled' || status === 'Trial Completed') return 'tag-trial';
@@ -1601,10 +1979,11 @@ function rowsToJson(sheet) {
       renderAll();
     }
 
-    // MATCH MAKER MODAL
+    // MATCH MAKER
     function openNewMatchModal() {
       const parents = getParents();
       const tutors = getTutors();
+      const user = getSessionUser();
 
       const pSelect = document.getElementById('match-select-parent');
       const tSelect = document.getElementById('match-select-tutor');
@@ -1612,7 +1991,16 @@ function rowsToJson(sheet) {
       pSelect.innerHTML = parents.map((p, i) => `<option value="${i}">${escapeHtml(p.name)} (${escapeHtml(p.grade)} - ${escapeHtml(p.area)})</option>`).join('');
       tSelect.innerHTML = tutors.map((t, i) => `<option value="${i}">${escapeHtml(t.name)} (CGPA ${escapeHtml(t.cgpa)} - ${escapeHtml(t.uni)})</option>`).join('');
 
-      calculateCommissionPreview();
+      // Restrict commission controls if not permitted
+      if (user && !user.permissions.viewFinancials && user.role !== 'owner') {
+        document.getElementById('match-rate-group').style.display = 'none';
+        document.getElementById('match-calc-preview').style.display = 'none';
+      } else {
+        document.getElementById('match-rate-group').style.display = 'block';
+        document.getElementById('match-calc-preview').style.display = 'block';
+        calculateCommissionPreview();
+      }
+
       document.getElementById('modal-match-maker').classList.add('active');
     }
 
@@ -1675,7 +2063,6 @@ function rowsToJson(sheet) {
       matches.push(newMatch);
       localStorage.setItem('astegni_matches', JSON.stringify(matches));
 
-      // Mark parent as trial scheduled
       p.status = 'Trial Scheduled';
       localStorage.setItem('astegni_parent_leads', JSON.stringify(parents));
 
@@ -1684,7 +2071,7 @@ function rowsToJson(sheet) {
       switchView('view-matches');
     }
 
-    // CLOUD DATABASE & WEBHOOK INTEGRATION
+    // CLOUD DATABASE
     function saveWebhookUrl() {
       const url = document.getElementById('webhook-url-input').value.trim();
       localStorage.setItem('teme_astegni_db_webhook', url);
@@ -1698,43 +2085,28 @@ function rowsToJson(sheet) {
         return;
       }
 
-      const ind = document.getElementById('sync-indicator');
-      const txt = document.getElementById('sync-text');
-      txt.innerText = 'Testing...';
-
       try {
         const res = await fetch(url + '?action=getData');
         const json = await res.json();
-        if (json && (json.parents || json.status === 'OK')) {
-          txt.innerText = 'Connected 🟢';
-          alert('✅ Google Sheets Cloud Database connected successfully!');
-        } else {
-          txt.innerText = 'Online 🟢';
-          alert('Received response from Google Apps Script!');
-        }
+        alert('✅ Google Sheets Cloud Database connected successfully!');
       } catch (err) {
-        txt.innerText = 'Local Mode';
-        alert('Could not connect to Google Apps Script. Check that deployment access is set to "Anyone" and try again.');
+        alert('Could not connect. Ensure deployment access is set to "Anyone" and try again.');
       }
     }
 
     async function syncCloudDatabase() {
       const url = localStorage.getItem('teme_astegni_db_webhook') || document.getElementById('webhook-url-input').value.trim();
       if (!url) {
-        alert('Please set your Google Apps Script Webhook URL first in Settings.');
+        alert('Please configure your Google Apps Script Webhook URL first in Settings.');
         switchView('view-database');
         return;
       }
-
-      const txt = document.getElementById('sync-text');
-      txt.innerText = 'Syncing...';
 
       try {
         const res = await fetch(url + '?action=getData');
         const json = await res.json();
 
         if (json.parents && Array.isArray(json.parents)) {
-          // Merge parents
           const currentParents = getParents();
           json.parents.forEach(p => {
             if (!currentParents.some(cp => cp.phone === p.Phone)) {
@@ -1754,37 +2126,13 @@ function rowsToJson(sheet) {
           localStorage.setItem('astegni_parent_leads', JSON.stringify(currentParents));
         }
 
-        if (json.tutors && Array.isArray(json.tutors)) {
-          const currentTutors = getTutors();
-          json.tutors.forEach(t => {
-            if (!currentTutors.some(ct => ct.phone === t.Phone)) {
-              currentTutors.push({
-                type: 'TUTOR',
-                name: t['Full Name'],
-                phone: t.Phone,
-                gender: t.Gender,
-                uni: t['University & Campus'],
-                year: t.Year,
-                cgpa: t.CGPA,
-                subj: t.Subjects,
-                govtId: t['Government ID'],
-                date: t.Timestamp || new Date().toISOString()
-              });
-            }
-          });
-          localStorage.setItem('astegni_tutor_leads', JSON.stringify(currentTutors));
-        }
-
-        txt.innerText = 'Synced 🟢';
         renderAll();
         alert('✅ Cloud Database successfully synchronized!');
       } catch (err) {
-        txt.innerText = 'Offline Cache';
         alert('Sync error: ' + err.message);
       }
     }
 
-    // CSV EXPORTER
     function exportDataToCsv(type) {
       let data = [];
       let filename = `teme_astegni_${type}_${Date.now()}.csv`;
@@ -1831,38 +2179,17 @@ function rowsToJson(sheet) {
       document.body.removeChild(link);
     }
 
-    // MODALS & HELPERS
-    function openSettingsModal() {
-      switchView('view-database');
-    }
+    function switchView(viewId, btn) {
+      document.querySelectorAll('.view-panel').forEach(v => v.classList.remove('active'));
+      const target = document.getElementById(viewId);
+      if (target) target.classList.add('active');
 
-    function openScriptCodeModal() {
-      document.getElementById('modal-script-code').classList.add('active');
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).classList.remove('active');
-    }
-
-    function copyAppsScriptCode() {
-      const code = document.getElementById('apps-script-code-box').innerText;
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(code).then(() => {
-          alert('📋 Apps Script code copied to clipboard!');
-        });
+      if (btn) {
+        document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
       }
-    }
 
-    function updateMasterPin() {
-      const pass = document.getElementById('new-pin-input').value.trim();
-      if (!pass || pass.length < 4) {
-        alert('Password must be at least 4 characters long.\nየይለፍ ቃል ቢያንስ 4 ፊደላት/ቁጥሮች መሆን አለበት።');
-        return;
-      }
-      localStorage.setItem('astegni_admin_password', pass);
-      localStorage.removeItem('astegni_admin_pin');
-      alert('✅ Advanced Password successfully updated!\nየአስተዳዳሪው ሚስጥር ቃል በተሳካ ሁኔታ ተቀይሯል:\n\n' + pass);
-      document.getElementById('new-pin-input').value = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function setParentFilter(filter, btn) {
@@ -1872,9 +2199,7 @@ function rowsToJson(sheet) {
       renderParents();
     }
 
-    function filterParents() {
-      renderParents();
-    }
+    function filterParents() { renderParents(); }
 
     function setTutorFilter(filter, btn) {
       currentTutorFilter = filter;
@@ -1883,39 +2208,131 @@ function rowsToJson(sheet) {
       renderTutors();
     }
 
-    function filterTutors() {
-      renderTutors();
+    function filterTutors() { renderTutors(); }
+
+    function openScriptCodeModal() { document.getElementById('modal-script-code').classList.add('active'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+    function copyAppsScriptCode() {
+      const code = document.getElementById('apps-script-code-box').innerText;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(code).then(() => alert('📋 Apps Script code copied to clipboard!'));
+      }
     }
 
     function escapeHtml(str) {
       if (!str) return '';
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
     }
 
-    // INITIALIZATION
-    document.addEventListener('DOMContentLoaded', () => {
-      // Emergency URL reset parameter (?reset_pin=true or ?reset=true)
-      if (window.location.search.includes('reset')) {
-        localStorage.removeItem('astegni_admin_password');
-        localStorage.removeItem('astegni_admin_pin');
-        sessionStorage.removeItem('astegni_admin_auth');
-        alert('✅ Emergency Reset: Master Password restored to:\n\nEthio21@Admin\n\nአሁን "Ethio21@Admin" በማስገባት መግባት ይችላሉ።');
-        window.history.replaceState({}, document.title, window.location.pathname);
+    // ==========================================
+    // SEED DATA INITIALIZATION
+    // ==========================================
+    function initializeSeedData() {
+      if (!localStorage.getItem('astegni_parent_leads')) {
+        const seedParents = [
+          {
+            type: 'PARENT',
+            name: 'ዶ/ር ተስፋዬ በቀለ (Dr. Tesfaye)',
+            phone: '0911223344',
+            area: 'ሳሪስ / ካዲስኮ (Saris, AAU Campus nearby)',
+            grade: 'Grade 9',
+            genderPref: 'ወንድ አስጠኚ ብቻ',
+            subjs: 'Physics, Mathematics',
+            status: 'Pending',
+            date: new Date(Date.now() - 3600000 * 2).toISOString()
+          },
+          {
+            type: 'PARENT',
+            name: 'ወ/ሮ ሮዛ ሙሉጌታ (W/ro Roza)',
+            phone: '0922446688',
+            area: 'ገርጂ / መብራት ኃይል (Gerji)',
+            grade: 'Grade 7',
+            genderPref: 'ሴት አስጠኚ ብቻ',
+            subjs: 'English, General Science',
+            status: 'Trial Scheduled',
+            date: new Date(Date.now() - 3600000 * 8).toISOString()
+          }
+        ];
+        localStorage.setItem('astegni_parent_leads', JSON.stringify(seedParents));
       }
 
+      if (!localStorage.getItem('astegni_tutor_leads')) {
+        const seedTutors = [
+          {
+            type: 'TUTOR',
+            name: 'ናትናኤል አለማየሁ (Natnael A.)',
+            phone: '0911559900',
+            gender: 'ወንድ (Male)',
+            uni: 'AAU (4 Kilo Campus)',
+            year: '3rd Year (Electrical Eng.)',
+            cgpa: '3.78',
+            subj: 'Physics, Mathematics',
+            govtId: 'National Fayda ID: Attached',
+            date: new Date(Date.now() - 3600000 * 5).toISOString()
+          },
+          {
+            type: 'TUTOR',
+            name: 'ቤተልሔም ሰለሞን (Bethelhem S.)',
+            phone: '0944112233',
+            gender: 'ሴት (Female)',
+            uni: 'AAU (Tikur Anbessa Medical)',
+            year: '2nd Year (Medicine)',
+            cgpa: '3.85',
+            subj: 'Biology, Chemistry, English',
+            govtId: 'Kebele ID: Attached',
+            date: new Date(Date.now() - 3600000 * 12).toISOString()
+          }
+        ];
+        localStorage.setItem('astegni_tutor_leads', JSON.stringify(seedTutors));
+      }
+
+      if (!localStorage.getItem('astegni_matches')) {
+        const seedMatches = [
+          {
+            id: 'M-' + Date.now(),
+            parentName: 'ወ/ሮ ሮዛ ሙሉጌታ (W/ro Roza)',
+            parentPhone: '0922446688',
+            tutorName: 'ቤተልሔም ሰለሞን (Bethelhem S.)',
+            tutorPhone: '0944112233',
+            monthlyFee: 3800,
+            rate: 25,
+            commission: 950,
+            status: 'Trial Scheduled',
+            date: new Date().toISOString()
+          }
+        ];
+        localStorage.setItem('astegni_matches', JSON.stringify(seedMatches));
+      }
+    }
+
+    // ==========================================
+    // APPLICATION ENTRYPOINT
+    // ==========================================
+    document.addEventListener('DOMContentLoaded', () => {
       initializeSeedData();
-      
+
       const savedWebhook = localStorage.getItem('teme_astegni_db_webhook');
       if (savedWebhook) {
         document.getElementById('webhook-url-input').value = savedWebhook;
       }
 
-      checkExistingAuth();
+      const owner = localStorage.getItem('teme_astegni_owner');
+      if (!owner) {
+        // First run: No owner exists yet! Render Owner Setup Wizard
+        document.getElementById('screen-owner-setup').style.display = 'flex';
+        document.getElementById('screen-login').style.display = 'none';
+        document.getElementById('main-content').style.display = 'none';
+      } else {
+        // Owner exists: Check session auth
+        const sessionUser = getSessionUser();
+        if (sessionUser) {
+          launchDashboard();
+        } else {
+          document.getElementById('screen-login').style.display = 'flex';
+          document.getElementById('screen-owner-setup').style.display = 'none';
+          document.getElementById('main-content').style.display = 'none';
+        }
+      }
     });
   </script>
 </body>
