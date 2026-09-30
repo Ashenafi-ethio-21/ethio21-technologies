@@ -44,6 +44,7 @@
       padding: 0.75rem 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       margin-bottom: 1.5rem;
+      gap: 0.5rem;
     }
 
     .brand-link {
@@ -80,28 +81,37 @@
 
     .top-nav-links {
       display: flex;
-      gap: 0.5rem;
+      align-items: center;
+      gap: 0.4rem;
     }
 
     .nav-btn {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 750;
       color: #cbd5e1;
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 0.45rem 0.85rem;
+      padding: 0.45rem 0.75rem;
       border-radius: 10px;
       text-decoration: none;
       transition: all 0.2s ease;
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
+      cursor: pointer;
     }
 
     .nav-btn:hover {
       background: rgba(255, 255, 255, 0.12);
       color: #fff;
       border-color: #38bdf8;
+    }
+
+    .lang-toggle-btn {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: rgba(56, 189, 248, 0.4);
+      color: #38bdf8;
+      font-weight: 850;
     }
 
     /* DIRECT PHONE CALL & HOTLINE BANNER (Priority for Parents) */
@@ -143,7 +153,7 @@
       font-size: 0.9rem;
       color: #cbd5e1;
       margin-bottom: 1.25rem;
-      max-width: 580px;
+      max-width: 600px;
       margin-left: auto;
       margin-right: auto;
       line-height: 1.55;
@@ -161,7 +171,7 @@
       text-decoration: none;
       padding: 1.05rem 1.25rem;
       border-radius: 14px;
-      font-size: 1.08rem;
+      font-size: 1.05rem;
       font-weight: 850;
       display: flex;
       align-items: center;
@@ -206,7 +216,49 @@
       transform: translateY(-2px);
     }
 
-    /* BIG TACTILE MODE SELECTOR (What the user asked for: Instant visual feedback) */
+    /* 4 Trust Highlights */
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 480px) {
+      .highlights-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hl-box {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 0.95rem;
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+    }
+
+    .hl-box .icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .hl-box h4 {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.2rem;
+    }
+
+    .hl-box p {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      line-height: 1.45;
+    }
+
+    /* BIG TACTILE MODE SELECTOR */
     .choice-section-heading {
       text-align: center;
       margin-bottom: 0.75rem;
@@ -285,7 +337,7 @@
       transition: all 0.25s ease;
     }
 
-    /* ACTIVE STATES FOR MODE CARDS (Dramatic Visual Feedback) */
+    /* ACTIVE STATES FOR MODE CARDS */
     .mode-card.parent-active {
       border-color: #0284c7 !important;
       background: linear-gradient(135deg, rgba(2, 132, 199, 0.25), rgba(15, 23, 42, 0.95)) !important;
@@ -312,14 +364,13 @@
       border-color: #34d399 !important;
     }
 
-    /* INACTIVE DIMMING */
     .mode-card.dimmed {
       opacity: 0.6;
       border-color: rgba(255, 255, 255, 0.08);
       transform: scale(0.98);
     }
 
-    /* DYNAMIC PORTAL FORM CONTAINER */
+    /* PORTAL FORM CONTAINER */
     .portal-box {
       background: rgba(15, 23, 42, 0.9);
       border: 2.5px solid #0284c7;
@@ -374,7 +425,7 @@
 
     /* Form Fields */
     .field {
-      margin-bottom: 1.15rem;
+      margin-bottom: 1.25rem;
     }
 
     .field label {
@@ -517,48 +568,6 @@
       box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
     }
 
-    /* 4 Trust Highlights */
-    .highlights-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.85rem;
-      margin-bottom: 2rem;
-    }
-
-    @media (max-width: 480px) {
-      .highlights-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .hl-box {
-      background: rgba(30, 41, 59, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
-      padding: 0.95rem;
-      display: flex;
-      gap: 0.6rem;
-      align-items: flex-start;
-    }
-
-    .hl-box .icon {
-      font-size: 1.4rem;
-      flex-shrink: 0;
-    }
-
-    .hl-box h4 {
-      font-size: 0.88rem;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 0.2rem;
-    }
-
-    .hl-box p {
-      font-size: 0.78rem;
-      color: #94a3b8;
-      line-height: 1.45;
-    }
-
     /* Modal */
     .modal-overlay {
       position: fixed;
@@ -616,42 +625,45 @@
 
   <div class="wrap">
     
-    <!-- Top Header -->
+    <!-- Top Header with Language Switcher -->
     <header class="top-bar">
       <a href="index.html" class="brand-link">
         <div class="brand-logo-box">🛡️</div>
         <div>
           <div class="brand-name">ETHIO 21</div>
-          <div class="brand-sub">ተሜ አስጠኚ (Teme Astegni)</div>
+          <div class="brand-sub" id="i18n-brand-sub">Teme Astegni (ተሜ አስጠኚ)</div>
         </div>
       </a>
       <div class="top-nav-links">
+        <button class="nav-btn lang-toggle-btn" id="lang-btn" onclick="toggleLanguage()">
+          <span>🌐 አማርኛ</span>
+        </button>
         <a href="teme-exam-app.html" class="nav-btn">🎓 Exam App</a>
         <a href="index.html" class="nav-btn">🏠 Home</a>
       </div>
     </header>
 
-    <!-- 1. DIRECT PHONE HOTLINE BANNER (For Parents Who Don't Want to Use Forms) -->
+    <!-- 1. DIRECT PHONE HOTLINE BANNER (Priority for Parents) -->
     <section class="hotline-banner">
-      <span class="hotline-pill">📞 24/7 DIRECT CALL HOTLINE • የስልክ ጥሪ መስመር</span>
-      <h1 class="hotline-h1">ለልጅዎ አስጠኚ ለመጠየቅ በቀጥታ ይደውሉ!</h1>
-      <p class="hotline-sub">
-        በዌብሳይት ቅጽ መሙላት ካልፈለጉ አሁኑኑ በቀጥታ በስልክ ደውለው አስጠኚ ማግኘት ይችላሉ። ከሚቀርብዎት ዩኒቨርሲቲ ብቁ ተማሪ እንመድባለን።
+      <span class="hotline-pill" id="i18n-hotline-pill">📞 24/7 DIRECT CALL HOTLINE • የስልክ ጥሪ መስመር</span>
+      <h1 class="hotline-h1" id="i18n-hotline-h1">Call Directly to Book a University Tutor for Your Child!</h1>
+      <p class="hotline-sub" id="i18n-hotline-sub">
+        No need to fill out forms if you prefer calling. Dial directly to speak with our coordinators. We immediately pair you with a top-scoring scholar from the nearest campus.
       </p>
 
       <div class="call-buttons-stack">
         <!-- Call Ashenafi -->
         <a href="tel:+251945399808" class="btn-hotline-call">
-          <span>📞 አሁኑኑ ይደውሉ: 0945 39 98 08 (Call Founder)</span>
+          <span id="i18n-btn-call1">📞 Call Founder (Ashenafi): 0945 39 98 08</span>
         </a>
         <!-- Call Lema -->
         <a href="tel:+251960064466" class="btn-hotline-call secondary">
-          <span>📞 አማራጭ ስልክ: 0960 06 44 66</span>
+          <span id="i18n-btn-call2">📞 Call Co-Founder (Lema): 0960 06 44 66</span>
         </a>
         <!-- Telegram -->
         <a href="https://t.me/ethio21_technologies" target="_blank" rel="noopener noreferrer" class="btn-hotline-tg">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
-          <span>💬 በቴሌግራም መልዕክት ይላኩ (Chat on Telegram)</span>
+          <span id="i18n-btn-tg">💬 Chat with Us on Telegram (@ethio21_technologies)</span>
         </a>
       </div>
     </section>
@@ -661,201 +673,201 @@
       <div class="hl-box">
         <span class="icon">🛡️</span>
         <div>
-          <h4>የተረጋገጠ ማንነት</h4>
-          <p>በብሔራዊ/ቀበሌ መታወቂያ እና በዩኒቨርሲቲ መታወቂያ የተረጋገጡ።</p>
+          <h4 id="i18n-t1-h">Triple-Vetted Identity</h4>
+          <p id="i18n-t1-p">Verified by National Fayda/Kebele ID, University Student ID, and grade slip.</p>
         </div>
       </div>
       <div class="hl-box">
         <span class="icon">⭐</span>
         <div>
-          <h4>2ኛ ዓመት እና ከዚያ በላይ</h4>
-          <p>CGPA ≥ 3.00 ያላቸው ጎበዝ የዩኒቨርሲቲ ተማሪዎች ብቻ።</p>
+          <h4 id="i18n-t2-h">2nd Year+ &amp; CGPA ≥ 3.00</h4>
+          <p id="i18n-t2-p">Only top-scoring university scholars with Grade 'A' subject mastery.</p>
         </div>
       </div>
       <div class="hl-box">
         <span class="icon">📍</span>
         <div>
-          <h4>የካምፓስ ቅርበት</h4>
-          <p>ለቤትዎ ቅርብ ከሆነው የዩኒቨርሲቲ ግቢ ይመደባሉ።</p>
+          <h4 id="i18n-t3-h">Campus Proximity</h4>
+          <p id="i18n-t3-p">Dispatched from university campuses closest to your residential home.</p>
         </div>
       </div>
       <div class="hl-box">
         <span class="icon">🤝</span>
         <div>
-          <h4>የ 1 ቀን ነጻ ሙከራ</h4>
-          <p>የትምህርት አሰጣጡን አይተው እስኪያምኑ ምንም ክፍያ የለም።</p>
+          <h4 id="i18n-t4-h">1-Day Free Trial</h4>
+          <p id="i18n-t4-p">Evaluate teaching chemistry risk-free before confirming monthly contract.</p>
         </div>
       </div>
     </div>
 
-    <!-- 2. BIG TACTILE MODE SELECTOR (VISUAL FEEDBACK WHEN CHOSEN) -->
-    <div class="choice-section-heading">👇 እባክዎ ከታች አንዱን ይምረጡ (Choose an Option) 👇</div>
+    <!-- 2. BIG TACTILE MODE SELECTOR -->
+    <div class="choice-section-heading" id="i18n-choice-heading">👇 Choose an Option / ከታች አንዱን ይምረጡ 👇</div>
 
     <div class="mode-cards-grid">
       <!-- Option 1: Parent Card -->
       <div class="mode-card parent-active" id="btn-mode-parent" onclick="selectMode('parent')">
         <span class="mode-icon">👨‍👩‍👧</span>
-        <div class="mode-card-title">ለልጅዎ አስጠኚ ለመጠየቅ<br><span style="font-size: 0.88rem; color: #38bdf8;">Request a Tutor for Child</span></div>
-        <div class="mode-card-sub">ወላጅ ነኝ • ለልጄ አስተማማኝ አስጠኚ እፈልጋለሁ</div>
-        <span class="mode-status-badge" id="badge-parent">✓ ACTIVE • ተመርጧል</span>
+        <div class="mode-card-title" id="i18n-mc1-title">Request a Tutor for Your Child<br><span style="font-size: 0.88rem; color: #38bdf8;">ለልጅዎ አስጠኚ ለመጠየቅ</span></div>
+        <div class="mode-card-sub" id="i18n-mc1-sub">I am a Parent • Looking for a verified home tutor</div>
+        <span class="mode-status-badge" id="badge-parent">✓ ACTIVE • SELECTED</span>
       </div>
 
       <!-- Option 2: Tutor Card -->
       <div class="mode-card dimmed" id="btn-mode-tutor" onclick="selectMode('tutor')">
         <span class="mode-icon">🎓</span>
-        <div class="mode-card-title">የዩኒቨርሲቲ አስጠኚ ለመሆን<br><span style="font-size: 0.88rem; color: #34d399;">Register as an Astegni</span></div>
-        <div class="mode-card-sub">2ኛ ዓመት+ ተማሪ ነኝ • ማስተማር እፈልጋለሁ</div>
-        <span class="mode-status-badge" id="badge-tutor">ለመምረጥ ይጫኑ (Select)</span>
+        <div class="mode-card-title" id="i18n-mc2-title">Apply as a University Astegni<br><span style="font-size: 0.88rem; color: #34d399;">የዩኒቨርሲቲ አስጠኚ ለመሆን</span></div>
+        <div class="mode-card-sub" id="i18n-mc2-sub">I am a 2nd Year+ Student • Want to teach and earn</div>
+        <span class="mode-status-badge" id="badge-tutor">Select Option</span>
       </div>
     </div>
 
-    <!-- 3. THE INTERACTIVE FORM CONTAINER (MORPHER) -->
+    <!-- 3. THE INTERACTIVE FORM CONTAINER -->
     <div class="portal-box" id="portal-card-box">
       
       <!-- PARENT FORM (Active by default) -->
       <div id="form-container-parent">
-        <div class="portal-banner-tag">👨‍👩‍👧 PARENT BOOKING • የወላጆች መጠየቂያ ቅጽ</div>
-        <h2 class="portal-h2">ለልጅዎ ብቁ የዩኒቨርሲቲ አስጠኚ ይዘዙ</h2>
-        <p class="portal-desc">የሚከተሉትን ቀላል መረጃዎች ይሙሉ፤ በአቅራቢያዎ ከሚገኝ ዩኒቨርሲቲ ተማሪ ወዲያውኑ እናገናኝዎታለን።</p>
+        <div class="portal-banner-tag" id="i18n-p-tag">👨‍👩‍👧 PARENT BOOKING PORTAL • የወላጆች መጠየቂያ ቅጽ</div>
+        <h2 class="portal-h2" id="i18n-p-h2">Book a Verified University Tutor for Your Child</h2>
+        <p class="portal-desc" id="i18n-p-desc">Fill in the quick details below. Our operations team will match you with a scholar from the nearest campus within 24 hours.</p>
 
         <form onsubmit="handleParentSubmit(event)">
           <div class="field">
-            <label>የወላጅ ሙሉ ስም (Parent Full Name) *</label>
-            <input type="text" id="p_name" placeholder="ለምሳሌ፡ ዶ/ር አበበ ወይም ወ/ሮ ሰላም" required>
+            <label id="i18n-p-name-l">Parent / Guardian Full Name *</label>
+            <input type="text" id="p_name" placeholder="e.g. Dr. Abebe Tadesse / W/ro Selam" required>
           </div>
 
           <div class="field">
-            <label>ስልክ ቁጥር (Phone Number / Telebirr) *</label>
-            <input type="tel" id="p_phone" placeholder="0911 23 45 67" required>
+            <label id="i18n-p-phone-l">Phone Number (Telebirr / Calls) *</label>
+            <input type="tel" id="p_phone" placeholder="e.g. 0911 23 45 67" required>
           </div>
 
           <div class="field">
-            <label>የሚኖሩበት አካባቢ / ሰፈር (Neighborhood &amp; City) *</label>
-            <input type="text" id="p_area" placeholder="ለምሳሌ፡ 4 ኪሎ፣ 6 ኪሎ፣ ፈረንሳይ፣ ቦሌ፣ አዳማ..." required>
+            <label id="i18n-p-area-l">Residential Neighborhood &amp; City (Near Campus) *</label>
+            <input type="text" id="p_area" placeholder="e.g. 4 Kilo, 6 Kilo, Ferensay, Bole, Adama, Hawassa..." required>
           </div>
 
           <div class="field">
-            <label>የልጅዎ የክፍል ደረጃ (Child's Grade) *</label>
+            <label id="i18n-p-grade-l">Child's Academic Grade Level *</label>
             <select id="p_grade" required>
-              <option value="" disabled selected>ክፍል ይምረጡ...</option>
-              <option value="1ኛ - 4ኛ ክፍል">1ኛ - 4ኛ ክፍል (መሰረታዊ ትምህርት)</option>
-              <option value="5ኛ - 6ኛ ክፍል">5ኛ - 6ኛ ክፍል</option>
-              <option value="7ኛ - 8ኛ ክፍል">7ኛ - 8ኛ ክፍል (የሚኒስትሪ ዝግጅት)</option>
-              <option value="9ኛ - 10ኛ ክፍል">9ኛ - 10ኛ ክፍል</option>
-              <option value="11ኛ - 12ኛ ክፍል">11ኛ - 12ኛ ክፍል (የማትሪክ / Entrance ዝግጅት)</option>
+              <option value="" disabled selected>Select grade level...</option>
+              <option value="Primary (Grades 1 – 4)">Primary (Grades 1 – 4) • Foundations</option>
+              <option value="Upper Primary (Grades 5 – 6)">Upper Primary (Grades 5 – 6)</option>
+              <option value="Middle School (Grades 7 – 8)">Middle School (Grades 7 – 8) • Ministry Exam Prep</option>
+              <option value="High School (Grades 9 – 10)">High School (Grades 9 – 10)</option>
+              <option value="College Prep (Grades 11 – 12)">College Prep (Grades 11 – 12) • ESSLCE Matric Prep</option>
             </select>
           </div>
 
           <div class="field">
-            <label>ማስጠናት የሚፈልጓቸው የትምህርት አይነቶች (Subjects)</label>
+            <label id="i18n-p-subj-l">Subjects Requiring Tutoring</label>
             <div class="chips-row">
-              <label class="chip"><input type="checkbox" name="subj" value="ሂሳብ" checked> ሂሳብ (Math)</label>
-              <label class="chip"><input type="checkbox" name="subj" value="ፊዚክስ"> ፊዚክስ (Physics)</label>
-              <label class="chip"><input type="checkbox" name="subj" value="ኬሚስትሪ"> ኬሚስትሪ (Chemistry)</label>
-              <label class="chip"><input type="checkbox" name="subj" value="ባዮሎጂ"> ባዮሎጂ (Biology)</label>
-              <label class="chip"><input type="checkbox" name="subj" value="እንግሊዝኛ"> እንግሊዝኛ (English)</label>
-              <label class="chip"><input type="checkbox" name="subj" value="ሁሉም የቤት ስራ"> ሁሉም የቤት ስራ</label>
+              <label class="chip"><input type="checkbox" name="subj" value="Mathematics" checked> Mathematics (ሂሳብ)</label>
+              <label class="chip"><input type="checkbox" name="subj" value="Physics"> Physics (ፊዚክስ)</label>
+              <label class="chip"><input type="checkbox" name="subj" value="Chemistry"> Chemistry (ኬሚስትሪ)</label>
+              <label class="chip"><input type="checkbox" name="subj" value="Biology"> Biology (ባዮሎጂ)</label>
+              <label class="chip"><input type="checkbox" name="subj" value="English"> English Grammar &amp; Reading</label>
+              <label class="chip"><input type="checkbox" name="subj" value="All Homework"> All Subjects / Homework Coaching</label>
             </div>
           </div>
 
           <button type="submit" class="btn-submit-action">
-            <span>📲 አስጠኚ ለመጠየቅ ይላኩ (Submit Request) ›</span>
+            <span id="i18n-p-btn">📲 Submit Request &amp; Match Nearby Scholar ›</span>
           </button>
         </form>
       </div>
 
       <!-- TUTOR FORM (Hidden until tutor mode selected) -->
       <div id="form-container-tutor" style="display: none;">
-        <div class="portal-banner-tag" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: rgba(16, 185, 129, 0.4);">
+        <div class="portal-banner-tag" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: rgba(16, 185, 129, 0.4);" id="i18n-t-tag">
           🎓 2ND YEAR+ TUTOR APPLICATION • የአስጠኚዎች መመዝገቢያ ቅጽ
         </div>
-        <h2 class="portal-h2">የተሜ አስጠኚ (Teme Astegni) ይሁኑ</h2>
-        <p class="portal-desc">መስፈርት፡ <b>2ኛ ዓመት እና ከዚያ በላይ</b> የሆናችሁ፣ <b>CGPA ≥ 3.00</b> ያላችሁ ተማሪዎች በክብር የሚያገኙበት አሰራር።</p>
+        <h2 class="portal-h2" id="i18n-t-h2">Apply as a Certified Teme Astegni</h2>
+        <p class="portal-desc" id="i18n-t-desc">Requirement: <b>2nd Year or above</b> with <b>CGPA ≥ 3.00</b> and verified university enrollment.</p>
 
         <form onsubmit="handleTutorSubmit(event)">
           <div class="field">
-            <label>ሙሉ ስም (Full Name as on Student ID) *</label>
-            <input type="text" id="t_name" placeholder="ሙሉ ስምዎን ያስገቡ" required>
+            <label id="i18n-t-name-l">Full Name (As on Student ID) *</label>
+            <input type="text" id="t_name" placeholder="Enter your full name" required>
           </div>
 
           <div class="field">
-            <label>ስልክ ቁጥር (Phone Number / Telebirr) *</label>
+            <label id="i18n-t-phone-l">Phone Number (Telebirr Registered) *</label>
             <input type="tel" id="t_phone" placeholder="09..." required>
           </div>
 
           <div class="field">
-            <label>ዩኒቨርሲቲ እና ካምፓስ (University &amp; Campus) *</label>
-            <input type="text" id="t_uni" placeholder="ለምሳሌ፡ AAU 4 ኪሎ፣ ASTU አዳማ፣ ጅማ..." required>
+            <label id="i18n-t-uni-l">University &amp; Campus Name *</label>
+            <input type="text" id="t_uni" placeholder="e.g. AAU 4 Kilo, ASTU Adama, Jimma..." required>
           </div>
 
           <div class="field">
-            <label>የትምህርት ዓመት (Academic Year) *</label>
+            <label id="i18n-t-year-l">Academic Year *</label>
             <select id="t_year" required>
-              <option value="" disabled selected>ዓመት ይምረጡ...</option>
-              <option value="2ኛ ዓመት">2ኛ ዓመት ተማሪ (Eligible)</option>
-              <option value="3ኛ ዓመት">3ኛ ዓመት ተማሪ (Eligible)</option>
-              <option value="4ኛ ዓመት">4ኛ ዓመት ተማሪ (Eligible)</option>
-              <option value="5ኛ ዓመት / ተመራቂ">5ኛ ዓመት / ተመራቂ (Eligible)</option>
-              <option value="የማስተርስ ተማሪ">የማስተርስ (Postgraduate) ተማሪ</option>
+              <option value="" disabled selected>Select academic year...</option>
+              <option value="2nd Year">2nd Year Student (Eligible)</option>
+              <option value="3rd Year">3rd Year Student (Eligible)</option>
+              <option value="4th Year">4th Year Student (Eligible)</option>
+              <option value="5th Year / Graduating">5th Year / Graduating Class (Eligible)</option>
+              <option value="Postgraduate / Masters">Postgraduate / Masters Student (Elite)</option>
             </select>
           </div>
 
           <div class="field">
-            <label>አጠቃላይ ውጤት (Cumulative GPA / CGPA) *</label>
-            <input type="number" step="0.01" min="3.00" max="4.00" id="t_cgpa" placeholder="ለምሳሌ፡ 3.75 (ዝቅተኛው 3.00 ነው)" required>
+            <label id="i18n-t-cgpa-l">Cumulative GPA (CGPA) *</label>
+            <input type="number" step="0.01" min="3.00" max="4.00" id="t_cgpa" placeholder="e.g. 3.75 (Minimum 3.00 required)" required>
           </div>
 
           <div class="field">
-            <label>በደንብ ማስተማር የሚችሉት የትምህርት አይነት (Subjects to Teach) *</label>
-            <input type="text" id="t_subj" placeholder="ለምሳሌ፡ ሂሳብ እና ፊዚክስ ወይም እንግሊዝኛ" required>
+            <label id="i18n-t-subj-l">Subjects You Can Confidently Teach (Grade 'A' Required) *</label>
+            <input type="text" id="t_subj" placeholder="e.g. Mathematics, Physics, Chemistry, English" required>
           </div>
 
           <!-- 1. MANDATORY: Campus Student ID Photo -->
           <div class="field">
-            <label style="color: #34d399; font-weight: 850;">📸 የካምፓስ መታወቂያ ፎቶ (Campus Student ID Photo) • ግዴታ ነው (MANDATORY) *</label>
+            <label style="color: #34d399; font-weight: 850;" id="i18n-t-cid-l">📸 Campus Student ID Photo • MANDATORY (ግዴታ ነው) *</label>
             <div class="file-upload-box" id="box-campus-id">
               <input type="file" id="t_campus_id_file" accept="image/*" required onchange="handleCampusIdPick(event)">
               <div style="font-size: 1.6rem; margin-bottom: 0.25rem;">📷</div>
-              <div style="font-size: 0.92rem; font-weight: 800; color: #fff;">የካምፓስ መታወቂያዎን ፎቶ እዚህ ይጫኑ</div>
-              <div style="font-size: 0.78rem; color: #94a3b8;">በስልክ ካሜራ አንስተው ወይም ከጋለሪ ይምረጡ (Take photo or choose from gallery)</div>
+              <div style="font-size: 0.92rem; font-weight: 800; color: #fff;" id="i18n-t-cid-p1">Attach Photo of Your Campus Student ID</div>
+              <div style="font-size: 0.78rem; color: #94a3b8;" id="i18n-t-cid-p2">Take a photo with your phone camera or select from gallery</div>
               <img id="preview-campus-id" class="file-preview-thumb" alt="Campus ID Preview">
-              <div id="status-campus-id" class="file-status-tag">✓ የካምፓስ መታወቂያ ፎቶ ተመርጧል (Photo Selected)</div>
+              <div id="status-campus-id" class="file-status-tag">✓ Campus Student ID Photo Selected</div>
             </div>
           </div>
 
           <!-- 2. GRADE REPORT: Student Portal Screenshot / Transcript -->
           <div class="field">
-            <label style="color: #facc15; font-weight: 800;">📄 የውጤት ሪፖርት (Grade Report / Student Portal Screenshot) *</label>
+            <label style="color: #facc15; font-weight: 800;" id="i18n-t-grade-l">📄 Grade Report / Portal Screenshot (REQUIRED) *</label>
             <div class="file-upload-box" id="box-grade-report" style="border-color: rgba(250, 204, 21, 0.45); background: rgba(250, 204, 21, 0.05);">
               <input type="file" id="t_grade_file" accept="image/*,.pdf" required onchange="handleGradePick(event)">
               <div style="font-size: 1.6rem; margin-bottom: 0.25rem;">📑</div>
-              <div style="font-size: 0.92rem; font-weight: 800; color: #fff;">የግሬድ ሪፖርት ወይም የፖርታል ውጤት ፎቶ ይጫኑ</div>
-              <div style="font-size: 0.78rem; color: #94a3b8;">CGPA ውጤትዎን ለማረጋገጥ (To verify your CGPA)</div>
+              <div style="font-size: 0.92rem; font-weight: 800; color: #fff;" id="i18n-t-grade-p1">Upload Grade Report or Portal Screenshot</div>
+              <div style="font-size: 0.78rem; color: #94a3b8;" id="i18n-t-grade-p2">To verify your CGPA and academic standing</div>
               <img id="preview-grade" class="file-preview-thumb" style="border-color: #facc15;" alt="Grade Report Preview">
-              <div id="status-grade" class="file-status-tag" style="color: #facc15;">✓ የውጤት ሪፖርት ተያይዟል (Report Attached)</div>
+              <div id="status-grade" class="file-status-tag" style="color: #facc15;">✓ Grade Report Attached</div>
             </div>
           </div>
 
           <!-- 3. OPTIONAL 1 OF THEM: National Fayda ID OR Kebele ID -->
           <div class="field">
-            <label style="color: #38bdf8; font-weight: 800;">🆔 ብሔራዊ መታወቂያ ወይም የቀበሌ መታወቂያ (National ID or Kebele ID) • አንዱን ይምረጡ (Choose 1 - Optional)</label>
+            <label style="color: #38bdf8; font-weight: 800;" id="i18n-t-govt-l">🆔 National Fayda ID OR Kebele ID • Choose 1 (OPTIONAL)</label>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem;">
               <select id="t_govt_id_type" style="padding: 0.75rem; background: rgba(30, 41, 59, 0.9); border: 1.5px solid rgba(255, 255, 255, 0.15); color: #fff; border-radius: 10px;">
-                <option value="National Fayda ID">ብሔራዊ መታወቂያ (Fayda ID)</option>
-                <option value="Kebele ID">የቀበሌ መታወቂያ (Kebele ID)</option>
+                <option value="National Fayda ID">National Fayda ID</option>
+                <option value="Kebele ID">Kebele ID</option>
               </select>
-              <input type="text" id="t_govt_id_num" placeholder="የመታወቂያ ቁጥር (ID Number)" style="background: rgba(30, 41, 59, 0.9); border: 1.5px solid rgba(255, 255, 255, 0.15); color: #fff; border-radius: 10px; padding: 0.75rem;">
+              <input type="text" id="t_govt_id_num" placeholder="ID Number (Optional)" style="background: rgba(30, 41, 59, 0.9); border: 1.5px solid rgba(255, 255, 255, 0.15); color: #fff; border-radius: 10px; padding: 0.75rem;">
             </div>
             <div class="file-upload-box optional" id="box-govt-id">
               <input type="file" id="t_govt_file" accept="image/*" onchange="handleGovtPick(event)">
-              <div style="font-size: 0.84rem; color: #7dd3fc; font-weight: 750;">📎 የመታወቂያ ፎቶ (አማራጭ / Optional Attachment)</div>
+              <div style="font-size: 0.84rem; color: #7dd3fc; font-weight: 750;" id="i18n-t-govt-p1">📎 Attach ID Card Photo (Optional)</div>
               <img id="preview-govt" class="file-preview-thumb" style="border-color: #38bdf8;" alt="Govt ID Preview">
-              <div id="status-govt" class="file-status-tag" style="color: #38bdf8;">✓ መታወቂያ ተመርጧል (Govt ID Attached)</div>
+              <div id="status-govt" class="file-status-tag" style="color: #38bdf8;">✓ Government ID Attached</div>
             </div>
           </div>
 
           <button type="submit" class="btn-submit-action tutor">
-            <span>🎓 ማመልከቻዎን ይላኩ (Submit Tutor Application) ›</span>
+            <span id="i18n-t-btn">🎓 Submit Tutor Application for Verification ›</span>
           </button>
         </form>
       </div>
@@ -863,24 +875,24 @@
     </div>
 
     <!-- Escrow Security Notice -->
-    <div style="background: rgba(30, 41, 59, 0.4); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 1.15rem; margin-bottom: 2rem; font-size: 0.84rem; color: #94a3b8; text-align: center; line-height: 1.55;">
-      🛡️ <b>የገንዘብ እና የደህንነት ዋስትና፡</b> ክፍያዎች በ ETHIO 21 እጅ ተይዘው አስጠኚው ወሩን አስተምሮ ሲጨርስ ብቻ ይለቀቃሉ። ምንም አይነት ያልተገባ ክፍያ አይኖርም።
+    <div style="background: rgba(30, 41, 59, 0.4); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 1.15rem; margin-bottom: 2rem; font-size: 0.84rem; color: #94a3b8; text-align: center; line-height: 1.55;" id="i18n-escrow-notice">
+      🛡️ <b>Escrow &amp; Trust Guarantee:</b> Parents deposit monthly tuition directly to ETHIO 21. Tutors are paid only after all monthly sessions are satisfactorily completed.
     </div>
 
-    <!-- Footer -->
+    <!-- Footer with Ecosystem Links -->
     <footer class="footer">
       <p style="margin-bottom: 0.5rem; color: #cbd5e1; font-weight: 750;">
-        ተሜ አስጠኚ (Teme Astegni) • በ ETHIO 21 ቴክኖሎጂስ የበለፀገ
+        Teme Astegni (ተሜ አስጠኚ) • Powered by <b>ETHIO 21 Technologies</b>
       </p>
       <div style="display: flex; justify-content: center; gap: 0.85rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
-        <a href="https://t.me/temeeducationalplatform" target="_blank" style="color: #38bdf8; text-decoration: none; font-weight: 750;">📢 የቴሌግራም ቻናል (Channel)</a> &bull;
-        <a href="https://t.me/+0A6JMTqf6-k3MWU8" target="_blank" style="color: #38bdf8; text-decoration: none; font-weight: 750;">👥 ግሩፕ (Discussion Group)</a> &bull;
-        <a href="https://t.me/ethio21_technologies" target="_blank" style="color: #38bdf8; text-decoration: none; font-weight: 750;">💬 አድሚን (Support)</a>
+        <a href="https://t.me/temeeducationalplatform" target="_blank" style="color: #38bdf8; text-decoration: none; font-weight: 750;">📢 Telegram Channel</a> &bull;
+        <a href="https://t.me/+0A6JMTqf6-k3MWU8" target="_blank" style="color: #38bdf8; text-decoration: none; font-weight: 750;">👥 Discussion Group</a> &bull;
+        <a href="https://t.me/ethio21_technologies" target="_blank" style="color: #38bdf8; text-decoration: none; font-weight: 750;">💬 Support (@ethio21_technologies)</a>
       </div>
       <p style="font-size: 0.8rem; color: #64748b;">
         <a href="tel:+251945399808" style="color: #94a3b8; text-decoration: none;">📞 0945 39 98 08</a> &bull; 
         <a href="tel:+251960064466" style="color: #94a3b8; text-decoration: none;">0960 06 44 66</a> &bull; 
-        <a href="index.html" style="color: #94a3b8; text-decoration: none;">🏠 ዋና ድረ-ገጽ</a>
+        <a href="index.html" style="color: #94a3b8; text-decoration: none;">🏠 Main Website</a>
       </p>
     </footer>
 
@@ -890,26 +902,192 @@
   <div class="modal-overlay" id="dispatch-modal">
     <div class="modal-card">
       <div style="font-size: 3.2rem; margin-bottom: 0.5rem;">🎉</div>
-      <h3 style="font-size: 1.4rem; font-weight: 850; color: #fff; margin-bottom: 0.4rem;" id="modal-title">ጥያቄዎ ተዘጋጅቷል!</h3>
+      <h3 style="font-size: 1.4rem; font-weight: 850; color: #fff; margin-bottom: 0.4rem;" id="modal-title">Request Successfully Prepared!</h3>
       <p style="font-size: 0.9rem; color: #cbd5e1; line-height: 1.55; margin-bottom: 1.5rem;" id="modal-desc">
-        ጥያቄዎን በቀጥታ ወደ አስተዳዳሪው ቴሌግራም በመላክ ወይም በመደወል ወዲያውኑ ማረጋገጫ ያግኙ።
+        Send your request directly to our Telegram coordinator or call our hotline to get matched immediately.
       </p>
 
       <a id="btn-tg-action" href="#" target="_blank" class="btn-modal" style="background: #0088cc; color: #fff;">
-        <span>✈️ በቴሌግራም ላክ (Send on Telegram)</span>
+        <span>✈️ Send Directly on Telegram (@ethio21_technologies)</span>
       </a>
 
       <a href="tel:+251945399808" class="btn-modal" style="background: #10b981; color: #fff;">
-        <span>📞 በቀጥታ ስልክ ደውል (Call Founder)</span>
+        <span>📞 Call Hotline Now (0945 39 98 08)</span>
       </a>
 
       <button onclick="closeModal()" class="btn-modal" style="background: rgba(255, 255, 255, 0.1); color: #cbd5e1;">
-        <span>እሺ ተረድቻለሁ (Done)</span>
+        <span>Done &amp; Close</span>
       </button>
     </div>
   </div>
 
   <script>
+    let currentLang = 'en';
+
+    const translations = {
+      en: {
+        brandSub: "Teme Astegni (ተሜ አስጠኚ)",
+        langBtn: "🌐 አማርኛ",
+        hotlinePill: "📞 24/7 DIRECT CALL HOTLINE • የስልክ ጥሪ መስመር",
+        hotlineH1: "Call Directly to Book a University Tutor for Your Child!",
+        hotlineSub: "No need to fill out forms if you prefer calling. Dial directly to speak with our coordinators. We immediately pair you with a top-scoring scholar from the nearest campus.",
+        call1: "📞 Call Founder (Ashenafi): 0945 39 98 08",
+        call2: "📞 Call Co-Founder (Lema): 0960 06 44 66",
+        tg: "💬 Chat with Us on Telegram (@ethio21_technologies)",
+        t1H: "Triple-Vetted Identity",
+        t1P: "Verified by National Fayda/Kebele ID, University Student ID, and grade slip.",
+        t2H: "2nd Year+ & CGPA ≥ 3.00",
+        t2P: "Only top-scoring university scholars with Grade 'A' subject mastery.",
+        t3H: "Campus Proximity",
+        t3P: "Dispatched from university campuses closest to your residential home.",
+        t4H: "1-Day Free Trial",
+        t4P: "Evaluate teaching chemistry risk-free before confirming monthly contract.",
+        choiceHeading: "👇 Choose an Option / ከታች አንዱን ይምረጡ 👇",
+        mc1Title: "Request a Tutor for Your Child<br><span style='font-size: 0.88rem; color: #38bdf8;'>ለልጅዎ አስጠኚ ለመጠየቅ</span>",
+        mc1Sub: "I am a Parent • Looking for a verified home tutor",
+        mc2Title: "Apply as a University Astegni<br><span style='font-size: 0.88rem; color: #34d399;'>የዩኒቨርሲቲ አስጠኚ ለመሆን</span>",
+        mc2Sub: "I am a 2nd Year+ Student • Want to teach and earn",
+        pTag: "👨‍👩‍👧 PARENT BOOKING PORTAL • የወላጆች መጠየቂያ ቅጽ",
+        pH2: "Book a Verified University Tutor for Your Child",
+        pDesc: "Fill in the quick details below. Our operations team will match you with a scholar from the nearest campus within 24 hours.",
+        pNameL: "Parent / Guardian Full Name *",
+        pPhoneL: "Phone Number (Telebirr / Calls) *",
+        pAreaL: "Residential Neighborhood & City (Near Campus) *",
+        pGradeL: "Child's Academic Grade Level *",
+        pSubjL: "Subjects Requiring Tutoring",
+        pBtn: "📲 Submit Request & Match Nearby Scholar ›",
+        tTag: "🎓 2ND YEAR+ TUTOR APPLICATION • የአስጠኚዎች መመዝገቢያ ቅጽ",
+        tH2: "Apply as a Certified Teme Astegni",
+        tDesc: "Requirement: 2nd Year or above with CGPA ≥ 3.00 and verified university enrollment.",
+        tNameL: "Full Name (As on Student ID) *",
+        tPhoneL: "Phone Number (Telebirr Registered) *",
+        tUniL: "University & Campus Name *",
+        tYearL: "Academic Year *",
+        tCgpaL: "Cumulative GPA (CGPA) *",
+        tSubjL: "Subjects You Can Confidently Teach (Grade 'A' Required) *",
+        tCidL: "📸 Campus Student ID Photo • MANDATORY (ግዴታ ነው) *",
+        tCidP1: "Attach Photo of Your Campus Student ID",
+        tCidP2: "Take a photo with your phone camera or select from gallery",
+        tGradeL: "📄 Grade Report / Portal Screenshot (REQUIRED) *",
+        tGradeP1: "Upload Grade Report or Portal Screenshot",
+        tGradeP2: "To verify your CGPA and academic standing",
+        tGovtL: "🆔 National Fayda ID OR Kebele ID • Choose 1 (OPTIONAL)",
+        tGovtP1: "📎 Attach ID Card Photo (Optional)",
+        tBtn: "🎓 Submit Tutor Application for Verification ›",
+        escrowNotice: "🛡️ <b>Escrow & Trust Guarantee:</b> Parents deposit monthly tuition directly to ETHIO 21. Tutors are paid only after all monthly sessions are satisfactorily completed."
+      },
+      am: {
+        brandSub: "ተሜ አስጠኚ (Teme Astegni)",
+        langBtn: "🌐 English",
+        hotlinePill: "📞 24/7 ቀጥታ የስልክ ጥሪ መስመር",
+        hotlineH1: "ለልጅዎ አስጠኚ ለመጠየቅ በቀጥታ ይደውሉ!",
+        hotlineSub: "በዌብሳይት ቅጽ መሙላት ካልፈለጉ አሁኑኑ በቀጥታ በስልክ ደውለው አስጠኚ ማግኘት ይችላሉ። ከሚቀርብዎት ዩኒቨርሲቲ ብቁ ተማሪ እንመድባለን።",
+        call1: "📞 አሁኑኑ ይደውሉ: 0945 39 98 08 (አሸናፊ)",
+        call2: "📞 አማራጭ ስልክ: 0960 06 44 66 (ሌማ)",
+        tg: "💬 በቴሌግራም መልዕክት ይላኩ (@ethio21_technologies)",
+        t1H: "የተረጋገጠ ማንነት",
+        t1P: "በብሔራዊ/ቀበሌ መታወቂያ እና በዩኒቨርሲቲ መታወቂያ የተረጋገጡ።",
+        t2H: "2ኛ ዓመት እና ከዚያ በላይ",
+        t2P: "CGPA ≥ 3.00 ያላቸው ጎበዝ የዩኒቨርሲቲ ተማሪዎች ብቻ።",
+        t3H: "የካምፓስ ቅርበት",
+        t3P: "ለቤትዎ ቅርብ ከሆነው የዩኒቨርሲቲ ግቢ ይመደባሉ።",
+        t4H: "የ 1 ቀን ነጻ ሙከራ",
+        t4P: "የትምህርት አሰጣጡን አይተው እስኪያምኑ ምንም ክፍያ የለም።",
+        choiceHeading: "👇 እባክዎ ከታች አንዱን ይምረጡ 👇",
+        mc1Title: "ለልጅዎ አስጠኚ ለመጠየቅ<br><span style='font-size: 0.88rem; color: #38bdf8;'>Request a Tutor for Child</span>",
+        mc1Sub: "ወላጅ ነኝ • ለልጄ አስተማማኝ አስጠኚ እፈልጋለሁ",
+        mc2Title: "የዩኒቨርሲቲ አስጠኚ ለመሆን<br><span style='font-size: 0.88rem; color: #34d399;'>Register as an Astegni</span>",
+        mc2Sub: "2ኛ ዓመት+ ተማሪ ነኝ • ማስተማር እና ማግኘት እፈልጋለሁ",
+        pTag: "👨‍👩‍👧 የወላጆች መጠየቂያ ቅጽ • PARENT BOOKING",
+        pH2: "ለልጅዎ ብቁ የዩኒቨርሲቲ አስጠኚ ይዘዙ",
+        pDesc: "የሚከተሉትን ቀላል መረጃዎች ይሙሉ፤ በአቅራቢያዎ ከሚገኝ ዩኒቨርሲቲ ተማሪ ወዲያውኑ እናገናኝዎታለን።",
+        pNameL: "የወላጅ ሙሉ ስም *",
+        pPhoneL: "ስልክ ቁጥር (ቴሌብር / ጥሪ) *",
+        pAreaL: "የሚኖሩበት አካባቢ / ሰፈር (ከግቢ አቅራቢያ) *",
+        pGradeL: "የልጅዎ የክፍል ደረጃ *",
+        pSubjL: "ማስጠናት የሚፈልጓቸው የትምህርት አይነቶች",
+        pBtn: "📲 አስጠኚ ለመጠየቅ ይላኩ ›",
+        tTag: "🎓 የአስጠኚዎች መመዝገቢያ ቅጽ • TUTOR APPLICATION",
+        tH2: "የተሜ አስጠኚ (Teme Astegni) ይሁኑ",
+        tDesc: "መስፈርት፡ 2ኛ ዓመት እና ከዚያ በላይ የሆናችሁ፣ CGPA ≥ 3.00 ያላችሁ ተማሪዎች።",
+        tNameL: "ሙሉ ስም (በመታወቂያው ላይ እንዳለው) *",
+        tPhoneL: "ስልክ ቁጥር (ቴሌብር ያለው) *",
+        tUniL: "ዩኒቨርሲቲ እና ካምፓስ *",
+        tYearL: "የትምህርት ዓመት *",
+        tCgpaL: "አጠቃላይ ውጤት (Cumulative GPA / CGPA) *",
+        tSubjL: "በደንብ ማስተማር የሚችሉት የትምህርት አይነት *",
+        tCidL: "📸 የካምፓስ መታወቂያ ፎቶ • ግዴታ ነው (MANDATORY) *",
+        tCidP1: "የካምፓስ መታወቂያዎን ፎቶ እዚህ ይጫኑ",
+        tCidP2: "በስልክ ካሜራ አንስተው ወይም ከጋለሪ ይምረጡ",
+        tGradeL: "📄 የውጤት ሪፖርት (ግሬድ ሪፖርት / ፖርታል) *",
+        tGradeP1: "የግሬድ ሪፖርት ወይም የፖርታል ውጤት ፎቶ ይጫኑ",
+        tGradeP2: "CGPA ውጤትዎን ለማረጋገጥ",
+        tGovtL: "🆔 ብሔራዊ መታወቂያ ወይም የቀበሌ መታወቂያ • አንዱን ይምረጡ (አማራጭ)",
+        tGovtP1: "📎 የመታወቂያ ፎቶ ያያይዙ (አማራጭ)",
+        tBtn: "🎓 ማመልከቻዎን ይላኩ ›",
+        escrowNotice: "🛡️ <b>የገንዘብ እና የደህንነት ዋስትና፡</b> ክፍያዎች በ ETHIO 21 እጅ ተይዘው አስጠኚው ወሩን አስተምሮ ሲጨርስ ብቻ ይለቀቃሉ። ምንም አይነት ያልተገባ ክፍያ አይኖርም።"
+      }
+    };
+
+    function toggleLanguage() {
+      currentLang = (currentLang === 'en') ? 'am' : 'en';
+      const t = translations[currentLang];
+
+      document.getElementById('i18n-brand-sub').innerText = t.brandSub;
+      document.getElementById('lang-btn').innerHTML = `<span>${t.langBtn}</span>`;
+      document.getElementById('i18n-hotline-pill').innerText = t.hotlinePill;
+      document.getElementById('i18n-hotline-h1').innerText = t.hotlineH1;
+      document.getElementById('i18n-hotline-sub').innerText = t.hotlineSub;
+      document.getElementById('i18n-btn-call1').innerText = t.call1;
+      document.getElementById('i18n-btn-call2').innerText = t.call2;
+      document.getElementById('i18n-btn-tg').innerText = t.tg;
+
+      document.getElementById('i18n-t1-h').innerText = t.t1H;
+      document.getElementById('i18n-t1-p').innerText = t.t1P;
+      document.getElementById('i18n-t2-h').innerText = t.t2H;
+      document.getElementById('i18n-t2-p').innerText = t.t2P;
+      document.getElementById('i18n-t3-h').innerText = t.t3H;
+      document.getElementById('i18n-t3-p').innerText = t.t3P;
+      document.getElementById('i18n-t4-h').innerText = t.t4H;
+      document.getElementById('i18n-t4-p').innerText = t.t4P;
+
+      document.getElementById('i18n-choice-heading').innerText = t.choiceHeading;
+      document.getElementById('i18n-mc1-title').innerHTML = t.mc1Title;
+      document.getElementById('i18n-mc1-sub').innerText = t.mc1Sub;
+      document.getElementById('i18n-mc2-title').innerHTML = t.mc2Title;
+      document.getElementById('i18n-mc2-sub').innerText = t.mc2Sub;
+
+      document.getElementById('i18n-p-tag').innerText = t.pTag;
+      document.getElementById('i18n-p-h2').innerText = t.pH2;
+      document.getElementById('i18n-p-desc').innerText = t.pDesc;
+      document.getElementById('i18n-p-name-l').innerText = t.pNameL;
+      document.getElementById('i18n-p-phone-l').innerText = t.pPhoneL;
+      document.getElementById('i18n-p-area-l').innerText = t.pAreaL;
+      document.getElementById('i18n-p-grade-l').innerText = t.pGradeL;
+      document.getElementById('i18n-p-subj-l').innerText = t.pSubjL;
+      document.getElementById('i18n-p-btn').innerText = t.pBtn;
+
+      document.getElementById('i18n-t-tag').innerText = t.tTag;
+      document.getElementById('i18n-t-h2').innerText = t.tH2;
+      document.getElementById('i18n-t-desc').innerHTML = t.tDesc;
+      document.getElementById('i18n-t-name-l').innerText = t.tNameL;
+      document.getElementById('i18n-t-phone-l').innerText = t.tPhoneL;
+      document.getElementById('i18n-t-uni-l').innerText = t.tUniL;
+      document.getElementById('i18n-t-year-l').innerText = t.tYearL;
+      document.getElementById('i18n-t-cgpa-l').innerText = t.tCgpaL;
+      document.getElementById('i18n-t-subj-l').innerText = t.tSubjL;
+      document.getElementById('i18n-t-cid-l').innerText = t.tCidL;
+      document.getElementById('i18n-t-cid-p1').innerText = t.tCidP1;
+      document.getElementById('i18n-t-cid-p2').innerText = t.tCidP2;
+      document.getElementById('i18n-t-grade-l').innerText = t.tGradeL;
+      document.getElementById('i18n-t-grade-p1').innerText = t.tGradeP1;
+      document.getElementById('i18n-t-grade-p2').innerText = t.tGradeP2;
+      document.getElementById('i18n-t-govt-l').innerText = t.tGovtL;
+      document.getElementById('i18n-t-govt-p1').innerText = t.tGovtP1;
+      document.getElementById('i18n-t-btn').innerText = t.tBtn;
+      document.getElementById('i18n-escrow-notice').innerHTML = t.escrowNotice;
+    }
+
     // MODE SWITCHER WITH DRAMATIC VISUAL FEEDBACK & AUTO-SCROLL
     function selectMode(mode) {
       const btnParent = document.getElementById('btn-mode-parent');
@@ -921,85 +1099,44 @@
       const formTutor = document.getElementById('form-container-tutor');
 
       if (mode === 'parent') {
-        // Parent Active States
         btnParent.classList.add('parent-active');
         btnParent.classList.remove('dimmed');
-        badgeParent.innerText = '✓ ACTIVE • ተመርጧል';
+        badgeParent.innerText = '✓ ACTIVE • SELECTED';
         badgeParent.style.background = '#0284c7';
         badgeParent.style.color = '#fff';
 
-        // Tutor Dimmed States
         btnTutor.classList.remove('tutor-active');
         btnTutor.classList.add('dimmed');
-        badgeTutor.innerText = 'ለመምረጥ ይጫኑ (Select)';
+        badgeTutor.innerText = (currentLang === 'am') ? 'ለመምረጥ ይጫኑ (Select)' : 'Select Option';
         badgeTutor.style.background = 'rgba(255, 255, 255, 0.08)';
         badgeTutor.style.color = '#94a3b8';
 
-        // Portal Theme
         portalBox.classList.remove('tutor-mode-theme');
         formParent.style.display = 'block';
         formTutor.style.display = 'none';
 
       } else {
-        // Tutor Active States
         btnTutor.classList.add('tutor-active');
         btnTutor.classList.remove('dimmed');
-        badgeTutor.innerText = '✓ ACTIVE • ተመርጧል';
+        badgeTutor.innerText = '✓ ACTIVE • SELECTED';
         badgeTutor.style.background = '#10b981';
         badgeTutor.style.color = '#fff';
 
-        // Parent Dimmed States
         btnParent.classList.remove('parent-active');
         btnParent.classList.add('dimmed');
-        badgeParent.innerText = 'ለመምረጥ ይጫኑ (Select)';
+        badgeParent.innerText = (currentLang === 'am') ? 'ለመምረጥ ይጫኑ (Select)' : 'Select Option';
         badgeParent.style.background = 'rgba(255, 255, 255, 0.08)';
         badgeParent.style.color = '#94a3b8';
 
-        // Portal Theme
         portalBox.classList.add('tutor-mode-theme');
         formParent.style.display = 'none';
         formTutor.style.display = 'block';
       }
 
-      // Smoothly scroll down to the form so user immediately sees the change!
       portalBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    // FORM SUBMISSION HANDLERS (TELEGRAM PRE-FILL & LOCAL BACKUP)
-    function handleParentSubmit(e) {
-      e.preventDefault();
-      const name = document.getElementById('p_name').value.trim();
-      const phone = document.getElementById('p_phone').value.trim();
-      const area = document.getElementById('p_area').value.trim();
-      const grade = document.getElementById('p_grade').value;
-
-      const checkedSubjs = [];
-      document.querySelectorAll('input[name="subj"]:checked').forEach(c => checkedSubjs.push(c.value));
-      const subjs = checkedSubjs.join(', ') || 'አጠቃላይ';
-
-      // Save offline backup
-      try {
-        const item = { type: 'PARENT', name, phone, area, grade, subjs, date: new Date().toISOString() };
-        const list = JSON.parse(localStorage.getItem('astegni_parent_leads') || '[]');
-        list.push(item);
-        localStorage.setItem('astegni_parent_leads', JSON.stringify(list));
-      } catch (err) {}
-
-      // Format Telegram message
-      const text = `👨‍👩‍👧 *አዲስ የአስጠኚ ጥያቄ (Teme Astegni)*%0A` +
-                   `👤 *ስም:* ${encodeURIComponent(name)}%0A` +
-                   `📞 *ስልክ:* ${encodeURIComponent(phone)}%0A` +
-                   `📍 *አካባቢ:* ${encodeURIComponent(area)}%0A` +
-                   `📚 *ክፍል:* ${encodeURIComponent(grade)}%0A` +
-                   `✏️ *የትምህርት አይነቶች:* ${encodeURIComponent(subjs)}`;
-
-      document.getElementById('modal-title').innerText = 'የአስጠኚ ጥያቄዎ ተዘጋጅቷል!';
-      document.getElementById('modal-desc').innerText = `ውድ ${name}፣ ጥያቄዎን በቀጥታ ወደ አስተዳዳሪው ቴሌግራም በመላክ ወይም በስልክ በመደወል ወዲያውኑ አስጠኚ ማግኘት ይችላሉ።`;
-      document.getElementById('btn-tg-action').href = `https://t.me/ethio21_technologies?text=${text}`;
-      document.getElementById('dispatch-modal').classList.add('active');
-    }
-
-    // File Attachment Preview Handlers
+    // Attachment Preview Handlers
     function handleCampusIdPick(e) {
       const file = e.target.files[0];
       if (file) {
@@ -1021,7 +1158,7 @@
           preview.style.display = 'inline-block';
         }
         status.style.display = 'block';
-        status.innerText = `✓ ${file.name} ተያይዟል (Attached)`;
+        status.innerText = `✓ ${file.name} Attached`;
       }
     }
 
@@ -1036,6 +1173,43 @@
       }
     }
 
+    // Submission Handlers
+    function handleParentSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('p_name').value.trim();
+      const phone = document.getElementById('p_phone').value.trim();
+      const area = document.getElementById('p_area').value.trim();
+      const grade = document.getElementById('p_grade').value;
+
+      const checkedSubjs = [];
+      document.querySelectorAll('input[name="subj"]:checked').forEach(c => checkedSubjs.push(c.value));
+      const subjs = checkedSubjs.join(', ') || 'General / All';
+
+      // Save offline backup
+      try {
+        const item = { type: 'PARENT', name, phone, area, grade, subjs, date: new Date().toISOString() };
+        const list = JSON.parse(localStorage.getItem('astegni_parent_leads') || '[]');
+        list.push(item);
+        localStorage.setItem('astegni_parent_leads', JSON.stringify(list));
+      } catch (err) {}
+
+      // Format Telegram message
+      const text = `👨‍👩‍👧 *New Tutor Request (Teme Astegni)*%0A` +
+                   `👤 *Parent Name:* ${encodeURIComponent(name)}%0A` +
+                   `📞 *Phone:* ${encodeURIComponent(phone)}%0A` +
+                   `📍 *Neighborhood:* ${encodeURIComponent(area)}%0A` +
+                   `📚 *Grade Level:* ${encodeURIComponent(grade)}%0A` +
+                   `✏️ *Subjects:* ${encodeURIComponent(subjs)}`;
+
+      document.getElementById('modal-title').innerText = (currentLang === 'am') ? 'የአስጠኚ ጥያቄዎ ተዘጋጅቷል!' : 'Request Successfully Prepared!';
+      document.getElementById('modal-desc').innerHTML = (currentLang === 'am')
+        ? `ውድ <b>${name}</b>፣ ጥያቄዎን በቀጥታ ወደ አስተዳዳሪው ቴሌግራም በመላክ ወይም በስልክ በመደወል ወዲያውኑ አስጠኚ ማግኘት ይችላሉ።`
+        : `Dear <b>${name}</b>, your request is ready. Tap below to send it directly to our Telegram coordinator or call our hotline to get matched immediately.`;
+      
+      document.getElementById('btn-tg-action').href = `https://t.me/ethio21_technologies?text=${text}`;
+      document.getElementById('dispatch-modal').classList.add('active');
+    }
+
     function handleTutorSubmit(e) {
       e.preventDefault();
       const name = document.getElementById('t_name').value.trim();
@@ -1048,7 +1222,7 @@
       const campusFile = document.getElementById('t_campus_id_file').files[0];
       const gradeFile = document.getElementById('t_grade_file').files[0];
       const govtType = document.getElementById('t_govt_id_type').value;
-      const govtNum = document.getElementById('t_govt_id_num').value.trim() || 'በቴሌግራም ይላካል';
+      const govtNum = document.getElementById('t_govt_id_num').value.trim() || 'Will send in Telegram';
 
       // Save offline backup
       try {
@@ -1071,19 +1245,22 @@
       } catch (err) {}
 
       // Format Telegram message
-      const text = `🎓 *አዲስ የአስጠኚ ማመልከቻ (Teme Astegni)*%0A` +
-                   `👤 *ስም:* ${encodeURIComponent(name)}%0A` +
-                   `📞 *ስልክ:* ${encodeURIComponent(phone)}%0A` +
-                   `🏛️ *ዩኒቨርሲቲ:* ${encodeURIComponent(uni)}%0A` +
-                   `📅 *ዓመት:* ${encodeURIComponent(year)}%0A` +
+      const text = `🎓 *New Tutor Application (Teme Astegni)*%0A` +
+                   `👤 *Name:* ${encodeURIComponent(name)}%0A` +
+                   `📞 *Phone:* ${encodeURIComponent(phone)}%0A` +
+                   `🏛️ *University:* ${encodeURIComponent(uni)}%0A` +
+                   `📅 *Academic Year:* ${encodeURIComponent(year)}%0A` +
                    `⭐ *CGPA:* ${encodeURIComponent(cgpa)}%0A` +
-                   `📖 *የትምህርት አይነት:* ${encodeURIComponent(subj)}%0A` +
-                   `📸 *የካምፓስ መታወቂያ:* ${campusFile ? '✅ ፎቶ ተመርጧል (Send Photo in TG)' : '❌ አልተያያዘም'}%0A` +
-                   `📄 *የግሬድ ሪፖርት:* ${gradeFile ? '✅ ተመርጧል' : '❌ አልተያያዘም'}%0A` +
+                   `📖 *Subjects:* ${encodeURIComponent(subj)}%0A` +
+                   `📸 *Campus ID Photo:* ${campusFile ? '✅ Selected (Sending in TG)' : '❌ Not selected'}%0A` +
+                   `📄 *Grade Report:* ${gradeFile ? '✅ Selected' : '❌ Not selected'}%0A` +
                    `🆔 *${encodeURIComponent(govtType)}:* ${encodeURIComponent(govtNum)}`;
 
-      document.getElementById('modal-title').innerText = 'የአስጠኚ ማመልከቻዎ ተዘጋጅቷል!';
-      document.getElementById('modal-desc').innerHTML = `ውድ <b>${name}</b>፣ ማመልከቻዎ ተዘጋጅቷል። ያዘጋጁትን <b>የካምፓስ መታወቂያ ፎቶ</b> እና የግሬድ ሪፖርት በቀጥታ በቴሌግራም ወደ አስተዳዳሪው በመላክ ወዲያውኑ ማረጋገጫ ያግኙ።`;
+      document.getElementById('modal-title').innerText = (currentLang === 'am') ? 'የአስጠኚ ማመልከቻዎ ተዘጋጅቷል!' : 'Application Successfully Prepared!';
+      document.getElementById('modal-desc').innerHTML = (currentLang === 'am')
+        ? `ውድ <b>${name}</b>፣ ማመልከቻዎ ተዘጋጅቷል። ያዘጋጁትን <b>የካምፓስ መታወቂያ ፎቶ</b> እና የግሬድ ሪፖርት በቀጥታ በቴሌግራም ወደ አስተዳዳሪው በመላክ ወዲያውኑ ማረጋገጫ ያግኙ።`
+        : `Dear <b>${name}</b>, your application is ready. Tap below to send your details, along with your <b>Campus Student ID Photo</b> and Grade Report directly to our Telegram coordinator.`;
+
       document.getElementById('btn-tg-action').href = `https://t.me/ethio21_technologies?text=${text}`;
       document.getElementById('dispatch-modal').classList.add('active');
     }
