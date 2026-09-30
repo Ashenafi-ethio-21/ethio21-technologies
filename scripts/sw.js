@@ -3,7 +3,7 @@
  * Fast caching and offline-first resilience
  */
 
-const CACHE_NAME = 'ethio21-v18';
+const CACHE_NAME = 'ethio21-v19';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
