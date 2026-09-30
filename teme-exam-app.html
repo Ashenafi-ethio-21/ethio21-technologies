@@ -366,6 +366,144 @@
       font-size: 1.1rem;
     }
 
+    /* Term Selection Cards (Mid vs Final Exam) */
+    .term-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 580px) {
+      .term-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.15rem;
+      }
+    }
+
+    .term-card-btn {
+      background: linear-gradient(145deg, rgba(30, 58, 138, 0.35) 0%, rgba(15, 23, 42, 0.85) 100%);
+      border: 1.5px solid rgba(59, 130, 246, 0.4);
+      border-radius: 20px;
+      padding: 1.35rem 1.25rem;
+      color: var(--text-main);
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    }
+
+    .term-card-btn:hover, .term-card-btn:active {
+      transform: translateY(-3px);
+      border-color: #38bdf8;
+      box-shadow: 0 15px 35px rgba(56, 189, 248, 0.25);
+    }
+
+    .term-card-btn.final-term {
+      background: linear-gradient(145deg, rgba(88, 28, 135, 0.35) 0%, rgba(15, 23, 42, 0.85) 100%);
+      border-color: rgba(168, 85, 247, 0.4);
+    }
+
+    .term-card-btn.final-term:hover, .term-card-btn.final-term:active {
+      border-color: #c084fc;
+      box-shadow: 0 15px 35px rgba(168, 85, 247, 0.25);
+    }
+
+    .term-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .term-icon {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .term-weight-pill {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 0.22rem 0.65rem;
+      border-radius: 9999px;
+      letter-spacing: 0.04em;
+    }
+
+    .term-card-btn.final-term .term-weight-pill {
+      color: #c084fc;
+      background: rgba(192, 132, 252, 0.15);
+      border-color: rgba(192, 132, 252, 0.35);
+    }
+
+    .term-title-text {
+      font-size: 1.15rem;
+      font-weight: 850;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    .term-desc-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .term-action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      font-weight: 750;
+      color: #60a5fa;
+      padding-top: 0.65rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .term-card-btn.final-term .term-action-row {
+      color: #c084fc;
+    }
+
+    .exam-breadcrumb-hud {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #93c5fd;
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      margin-bottom: 0.85rem;
+      width: fit-content;
+      max-width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .term-hud-pill {
+      background: #2563eb;
+      color: #fff;
+      padding: 0.12rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 850;
+      letter-spacing: 0.03em;
+    }
+
+    .term-hud-pill.final {
+      background: #7c3aed;
+    }
+
     /* Back & Nav Buttons */
     .btn-back {
       background: transparent;
@@ -1094,36 +1232,47 @@
   <section id="screen-year" class="screen">
     <button class="btn-back" onclick="navigateTo('screen-uni')"><span id="t-back-uni">⬅️ Back to Universities</span></button>
     <div class="section-banner">
-      <span class="step-tag" id="t-step2-tag">STEP 2 OF 4 &bull; EXAM SESSION</span>
+      <span class="step-tag" id="t-step2-tag">STEP 2 OF 4 &bull; EXAM SESSION YEAR</span>
       <h2 class="section-heading" id="t-step2-title">Select Exam Session Year 📅</h2>
       <p id="year-subtitle" class="section-desc">Choose which past exam year you want to take:</p>
     </div>
     <div id="year-list" class="selection-grid"></div>
   </section>
 
-  <!-- SCREEN 3: Course Selection -->
-  <section id="screen-course" class="screen">
+  <!-- SCREEN 3: Mid or Final Exam Selection -->
+  <section id="screen-term" class="screen">
     <button class="btn-back" onclick="navigateTo('screen-year')"><span id="t-back-year">⬅️ Back to Exam Years</span></button>
     <div class="section-banner">
-      <span class="step-tag" id="t-step3-tag">STEP 3 OF 4 &bull; FRESHMAN COURSE</span>
-      <h2 class="section-heading" id="t-step3-title">Select Course 📚</h2>
+      <span class="step-tag" id="t-step3-tag">STEP 3 OF 4 &bull; EXAM CATEGORY</span>
+      <h2 class="section-heading" id="t-step3-title">Select Exam Type: Mid or Final Exam 📝</h2>
+      <p id="term-subtitle" class="section-desc">Choose whether you want to take the Midterm Examination or Final Examination:</p>
+    </div>
+    <div id="term-list" class="term-grid"></div>
+  </section>
+
+  <!-- SCREEN 4: Course Selection -->
+  <section id="screen-course" class="screen">
+    <button class="btn-back" onclick="navigateTo('screen-term')"><span id="t-back-term">⬅️ Back to Exam Type</span></button>
+    <div class="section-banner">
+      <span class="step-tag" id="t-step4-tag">STEP 4 OF 4 &bull; FRESHMAN COURSE</span>
+      <h2 class="section-heading" id="t-step4-title">Select Course 📚</h2>
       <p id="course-subtitle" class="section-desc">Select which course exam you want to practice:</p>
     </div>
     <div id="course-list" class="selection-grid"></div>
   </section>
 
-  <!-- SCREEN 4: Chapter / Unit Selection -->
+  <!-- SCREEN 5: Chapter / Unit Selection (Optional Focus or Full Exam) -->
   <section id="screen-unit" class="screen">
     <button class="btn-back" onclick="navigateTo('screen-course')"><span id="t-back-course">⬅️ Back to Courses</span></button>
     <div class="section-banner">
-      <span class="step-tag" id="t-step4-tag">STEP 4 OF 4 &bull; CHAPTER SELECTION</span>
-      <h2 class="section-heading" id="t-step4-title">Select Chapter or Comprehensive 🎯</h2>
+      <span class="step-tag" id="t-step5-tag">CHAPTER DRILLDOWN &bull; OPTIONAL FOCUS</span>
+      <h2 class="section-heading" id="t-step5-title">Select Scope: Complete Exam or Chapter 🎯</h2>
       <p id="unit-subtitle" class="section-desc">Practice by chapter or take the complete exam:</p>
     </div>
     <div id="unit-list" class="selection-grid"></div>
   </section>
 
-  <!-- SCREEN 5: Interactive Exam Screen -->
+  <!-- SCREEN 6: Interactive Exam Screen -->
   <section id="screen-exam" class="screen">
     <div class="progress-bar-wrap">
       <div id="progress-fill" class="progress-fill"></div>
@@ -1134,6 +1283,7 @@
     </div>
 
     <div class="section-banner">
+      <div id="exam-breadcrumb-hud" class="exam-breadcrumb-hud"></div>
       <div id="question-text" class="question-box">Loading question...</div>
       <div id="options-container" class="options-list"></div>
 
@@ -1185,7 +1335,7 @@
     </div>
   </section>
 
-  <!-- SCREEN 6: Final Results Screen -->
+  <!-- SCREEN 7: Final Results Screen -->
   <section id="screen-result" class="screen">
     <div class="section-banner result-score-box">
       <span class="step-tag" id="t-result-tag" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.3);">🎉 EXAM COMPLETE!</span>
@@ -1196,10 +1346,12 @@
       </div>
 
       <h3 id="result-rating" style="font-size: 1.35rem; font-weight: 850; color: #fff; margin-bottom: 0.5rem;">🌟 Outstanding! (A Grade)</h3>
-      <p id="result-meta" style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5;"></p>
+      <div id="result-meta" style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5;"></div>
 
       <button class="btn-next" id="t-btn-retake" style="margin-top: 0; margin-bottom: 0.75rem;" onclick="restartCurrentExam()">🔄 Retake This Exam</button>
       <button class="select-card-btn" id="t-btn-another-course" style="justify-content: center; width: 100%; margin-bottom: 0.6rem;" onclick="navigateTo('screen-course')">📚 Select Another Course</button>
+      <button class="select-card-btn" id="t-btn-change-term" style="justify-content: center; width: 100%; margin-bottom: 0.6rem;" onclick="navigateTo('screen-term')">📝 Change Exam Type (Mid / Final)</button>
+      <button class="select-card-btn" id="t-btn-change-year" style="justify-content: center; width: 100%; margin-bottom: 0.6rem;" onclick="navigateTo('screen-year')">📅 Change Exam Year</button>
       <button class="select-card-btn" id="t-btn-change-uni" style="justify-content: center; width: 100%; margin-bottom: 1.25rem;" onclick="navigateTo('screen-uni')">🏛️ Change University</button>
 
       <div style="padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.8rem; color: var(--text-muted);" id="t-footer-credits">
@@ -1223,6 +1375,7 @@
     let userState = {
       uni: null,
       year: null,
+      term: null, // { id: 'mid', name: '...' } or { id: 'final', name: '...' }
       course: null,
       unit: null,
       currentQ: 0,
@@ -1230,32 +1383,54 @@
       answered: false
     };
 
-    // Load Database
-    async function initApp() {
-      try {
-        const response = await fetch('assets/exam_data.json');
-        examData = await response.json();
-        renderUniversities();
-        renderYears();
-        renderCourses();
-      } catch (err) {
-        console.error('Failed to load exam data:', err);
+    // Telegram Native Back Button Sync
+    function syncTelegramBackButton(screenId) {
+      if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.BackButton) {
+        if (screenId === 'screen-uni') {
+          window.Telegram.WebApp.BackButton.hide();
+        } else {
+          window.Telegram.WebApp.BackButton.show();
+          window.Telegram.WebApp.BackButton.onClick(function handleBack() {
+            if (screenId === 'screen-year') navigateTo('screen-uni');
+            else if (screenId === 'screen-term') navigateTo('screen-year');
+            else if (screenId === 'screen-course') navigateTo('screen-term');
+            else if (screenId === 'screen-unit') navigateTo('screen-course');
+            else if (screenId === 'screen-exam') navigateTo('screen-unit');
+            else if (screenId === 'screen-result') navigateTo('screen-course');
+          });
+        }
       }
     }
 
+    // Navigation Router
     function navigateTo(screenId) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       const target = document.getElementById(screenId);
       if (target) {
         target.classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        syncTelegramBackButton(screenId);
       }
+    }
+
+    // Load Database
+    async function initApp() {
+      try {
+        const response = await fetch('assets/exam_data.json');
+        examData = await response.json();
+      } catch (err) {
+        console.warn('Network load failed, using fallback schema:', err);
+      }
+      renderUniversities();
+      renderYears();
+      renderTerms();
+      renderCourses();
     }
 
     // Step 1: Universities
     function renderUniversities() {
       const container = document.getElementById('uni-list');
-      if (!container || !examData) return;
+      if (!container || !examData || !examData.universities) return;
       container.innerHTML = '';
       examData.universities.forEach(u => {
         const btn = document.createElement('button');
@@ -1263,7 +1438,8 @@
         btn.innerHTML = `<span>${u.name}</span><span class="arrow-icon">›</span>`;
         btn.onclick = () => {
           userState.uni = u;
-          document.getElementById('year-subtitle').innerText = `For ${u.name}. Choose examination session:`;
+          const yrSub = document.getElementById('year-subtitle');
+          if (yrSub) yrSub.innerText = `For ${u.name}. Choose academic examination year:`;
           navigateTo('screen-year');
         };
         container.appendChild(btn);
@@ -1273,7 +1449,7 @@
     // Step 2: Years
     function renderYears() {
       const container = document.getElementById('year-list');
-      if (!container || !examData) return;
+      if (!container || !examData || !examData.years) return;
       container.innerHTML = '';
       examData.years.forEach(y => {
         const btn = document.createElement('button');
@@ -1281,56 +1457,165 @@
         btn.innerHTML = `<span>${y.name}</span><span class="arrow-icon">›</span>`;
         btn.onclick = () => {
           userState.year = y;
-          document.getElementById('course-subtitle').innerText = `${userState.uni.name} • ${y.name}`;
-          navigateTo('screen-course');
+          const termSub = document.getElementById('term-subtitle');
+          if (termSub) {
+            termSub.innerText = `${userState.uni ? userState.uni.name : 'University'} • ${y.name}. Select exam category:`;
+          }
+          renderTerms();
+          navigateTo('screen-term');
         };
         container.appendChild(btn);
       });
     }
 
-    // Step 3: Courses
+    // Step 3: Mid Exam or Final Exam Selection
+    function renderTerms() {
+      const container = document.getElementById('term-list');
+      if (!container) return;
+      container.innerHTML = '';
+      const terms = (examData && examData.terms) ? examData.terms : [
+        {
+          id: "mid",
+          name: "📝 Mid Exam (Midterm Examination)",
+          name_am: "📝 የሚድ ተርም ፈተና (Midterm Exam)",
+          tag: "Chapters 1 - 3 • 30% Weight",
+          desc: "Official midterm examination questions covering first-half curriculum: foundational principles, core theorems, and preliminary problem-solving.",
+          badge: "⏱️ 45-60 Mins • 30% Weight"
+        },
+        {
+          id: "final",
+          name: "🎓 Final Exam (Comprehensive Examination)",
+          name_am: "🎓 የፋይናል ፈተና (Final Exam)",
+          tag: "Comprehensive All Chapters • 50% Weight",
+          desc: "Full semester comprehensive exit & final exam covering entire course curriculum, exit standards, integrated applications, and advanced problem-solving.",
+          badge: "⏱️ 90-120 Mins • 50% Weight"
+        }
+      ];
+
+      terms.forEach(t => {
+        const card = document.createElement('div');
+        const isFinal = (t.id === 'final');
+        card.className = `term-card-btn ${isFinal ? 'final-term' : ''}`;
+        card.innerHTML = `
+          <div class="term-badge-row">
+            <span class="term-icon">${isFinal ? '🎓' : '📝'}</span>
+            <span class="term-weight-pill">${t.tag}</span>
+          </div>
+          <div class="term-title-text">${t.name}</div>
+          <div class="term-desc-text">${t.desc}</div>
+          <div class="term-action-row">
+            <span>${t.badge}</span>
+            <span style="display: flex; align-items: center; gap: 0.25rem;">Select ${isFinal ? 'Final Exam' : 'Mid Exam'} <span style="font-size: 1.15rem; font-weight: 900;">›</span></span>
+          </div>
+        `;
+        card.onclick = () => {
+          userState.term = t;
+          const termLabel = isFinal ? 'Final Exam' : 'Mid Exam';
+          const courseSub = document.getElementById('course-subtitle');
+          if (courseSub) {
+            const uniShort = userState.uni ? (userState.uni.name.split('(')[1] ? userState.uni.name.split('(')[1].replace(')', '') : userState.uni.name) : '';
+            const yrShort = userState.year ? (userState.year.id || userState.year.name.split(' ')[1] || '') : '';
+            courseSub.innerText = `${uniShort} • ${yrShort} • ${termLabel}. Select freshman course:`;
+          }
+          renderCourses();
+          navigateTo('screen-course');
+        };
+        container.appendChild(card);
+      });
+    }
+
+    // Step 4: Courses
     function renderCourses() {
       const container = document.getElementById('course-list');
-      if (!container || !examData) return;
+      if (!container || !examData || !examData.courses) return;
       container.innerHTML = '';
+      const isFinal = userState.term && userState.term.id === 'final';
+      const termBadge = isFinal ? '🎓 Final' : '📝 Mid';
+
       examData.courses.forEach(c => {
         const btn = document.createElement('button');
         btn.className = 'select-card-btn';
-        btn.innerHTML = `<span>${c.name}</span><span class="arrow-icon">›</span>`;
+        btn.innerHTML = `
+          <span style="display: flex; align-items: center; gap: 0.5rem; flex: 1;">
+            <span>${c.name}</span>
+          </span>
+          <span class="arrow-icon" style="font-size: 0.8rem; font-weight: 800; color: ${isFinal ? '#c084fc' : '#38bdf8'}; background: rgba(255,255,255,0.06); padding: 0.25rem 0.6rem; border-radius: 8px;">${termBadge} ›</span>
+        `;
         btn.onclick = () => {
           userState.course = c;
           renderUnits(c.id);
-          document.getElementById('unit-subtitle').innerText = `${c.name}`;
+          const unitSub = document.getElementById('unit-subtitle');
+          if (unitSub) {
+            const uniName = userState.uni ? userState.uni.name : '';
+            const yrName = userState.year ? userState.year.name : '';
+            const termName = userState.term ? userState.term.name.split('(')[0].trim() : '';
+            unitSub.innerText = `${uniName} • ${yrName} • ${termName} • ${c.name}`;
+          }
           navigateTo('screen-unit');
         };
         container.appendChild(btn);
       });
     }
 
-    // Step 4: Units
+    // Step 5: Units / Scope Selection (Full Exam or Targeted Chapter)
     function renderUnits(courseId) {
       const container = document.getElementById('unit-list');
       if (!container || !examData) return;
       container.innerHTML = '';
-      const units = examData.units[courseId] || [
-        { id: "all", name: "🏆 Complete Course Past Exam" },
-        { id: "u1", name: "Chapter 1: Foundational Principles" },
-        { id: "u2", name: "Chapter 2: Core Concepts & Applications" }
-      ];
 
-      units.forEach(u => {
-        const btn = document.createElement('button');
-        btn.className = 'select-card-btn';
-        btn.innerHTML = `<span>${u.name}</span><span class="arrow-icon">⚡</span>`;
-        btn.onclick = () => {
-          userState.unit = u;
-          startExam();
-        };
-        container.appendChild(btn);
-      });
+      const isFinal = userState.term && userState.term.id === 'final';
+      const termName = isFinal ? 'Final Exam' : 'Mid Exam';
+
+      // Primary Complete Exam Button (Recommended Pathway)
+      const fullBtn = document.createElement('button');
+      fullBtn.className = 'select-card-btn';
+      fullBtn.style.background = isFinal
+        ? 'linear-gradient(135deg, rgba(88, 28, 135, 0.4) 0%, rgba(15, 23, 42, 0.9) 100%)'
+        : 'linear-gradient(135deg, rgba(30, 58, 138, 0.4) 0%, rgba(15, 23, 42, 0.9) 100%)';
+      fullBtn.style.borderColor = isFinal ? 'rgba(168, 85, 247, 0.6)' : 'rgba(59, 130, 246, 0.6)';
+      fullBtn.style.boxShadow = isFinal ? '0 10px 25px rgba(168, 85, 247, 0.2)' : '0 10px 25px rgba(59, 130, 246, 0.2)';
+
+      const fullTitle = isFinal
+        ? '🏆 Complete Final Exam (Comprehensive All Chapters)'
+        : '🏆 Complete Midterm Past Exam (Chapters 1 - 3)';
+
+      fullBtn.innerHTML = `
+        <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+          <span style="font-weight: 850; color: #fff; font-size: 0.96rem;">${fullTitle}</span>
+          <span style="font-size: 0.76rem; color: ${isFinal ? '#c084fc' : '#38bdf8'}; font-weight: 700;">Official University Exam Format • All Session Questions</span>
+        </div>
+        <span class="arrow-icon" style="color: ${isFinal ? '#c084fc' : '#38bdf8'}; font-weight: 900;">⚡ START</span>
+      `;
+      fullBtn.onclick = () => {
+        userState.unit = { id: "all", name: fullTitle };
+        startExam();
+      };
+      container.appendChild(fullBtn);
+
+      // Chapter-by-chapter breakdowns
+      const rawUnits = (examData.units && examData.units[courseId]) ? examData.units[courseId] : [];
+      const chapterUnits = rawUnits.filter(u => u.id !== 'all');
+
+      if (chapterUnits.length > 0) {
+        // Filter chapters if mid exam: chapters 1 to 3
+        const filteredUnits = isFinal ? chapterUnits : chapterUnits.slice(0, 3);
+        filteredUnits.forEach(u => {
+          const btn = document.createElement('button');
+          btn.className = 'select-card-btn';
+          btn.innerHTML = `
+            <span>${u.name}</span>
+            <span class="arrow-icon" style="font-size: 0.8rem; color: var(--text-muted);">Practice ›</span>
+          `;
+          btn.onclick = () => {
+            userState.unit = u;
+            startExam();
+          };
+          container.appendChild(btn);
+        });
+      }
     }
 
-    // Step 5: Start Exam
+    // Step 6: Start Exam
     function startExam() {
       userState.currentQ = 0;
       userState.score = 0;
@@ -1338,9 +1623,26 @@
       loadQuestion();
     }
 
+    // Question Pool Resolver
     function getQuestionPool() {
-      const cId = userState.course.id;
-      return examData.questions[cId] || examData.questions.math101;
+      const cId = (userState.course && userState.course.id) ? userState.course.id : 'math101';
+      const termId = (userState.term && userState.term.id) ? userState.term.id : 'mid';
+
+      const courseObj = (examData && examData.questions && examData.questions[cId])
+        ? examData.questions[cId]
+        : (examData && examData.questions ? examData.questions.math101 : null);
+
+      if (courseObj) {
+        if (courseObj[termId] && courseObj[termId].length > 0) {
+          return courseObj[termId];
+        }
+        if (Array.isArray(courseObj)) {
+          return courseObj;
+        }
+        if (courseObj.mid && courseObj.mid.length > 0) return courseObj.mid;
+        if (courseObj.final && courseObj.final.length > 0) return courseObj.final;
+      }
+      return [];
     }
 
     function toggleExplanationFlip() {
@@ -1353,12 +1655,38 @@
     function loadQuestion() {
       userState.answered = false;
       const questions = getQuestionPool();
+      if (!questions || questions.length === 0) {
+        document.getElementById('question-text').innerText = 'No questions available for this selection.';
+        return;
+      }
+
       const q = questions[userState.currentQ];
 
       // Reset flip to front (English) for every question
       const flipInner = document.getElementById('explanation-flip-inner');
       if (flipInner) {
         flipInner.classList.remove('flipped');
+      }
+
+      // Update Top HUD Breadcrumb
+      const hudEl = document.getElementById('exam-breadcrumb-hud');
+      if (hudEl) {
+        const uniNameShort = userState.uni ? (userState.uni.name.split('(')[1] ? userState.uni.name.split('(')[1].replace(')', '') : userState.uni.name) : 'University';
+        const yearShort = userState.year ? (userState.year.id || userState.year.name.split(' ')[1] || 'Session') : 'Year';
+        const isFinal = userState.term && userState.term.id === 'final';
+        const termName = isFinal ? '🎓 FINAL EXAM' : '📝 MID EXAM';
+        const termClass = isFinal ? 'final' : '';
+        const courseName = userState.course ? userState.course.name.split('(')[0].trim() : 'Course';
+
+        hudEl.innerHTML = `
+          <span>🏛️ ${uniNameShort}</span>
+          <span style="opacity: 0.4;">•</span>
+          <span>📅 ${yearShort}</span>
+          <span style="opacity: 0.4;">•</span>
+          <span class="term-hud-pill ${termClass}">${termName}</span>
+          <span style="opacity: 0.4;">•</span>
+          <span>📚 ${courseName}</span>
+        `;
       }
 
       document.getElementById('progress-fill').style.width = `${((userState.currentQ + 1) / questions.length) * 100}%`;
@@ -1445,12 +1773,20 @@
       let rating = "📖 Keep Practicing!";
       if (percent >= 80) rating = "🌟 Outstanding! (A Grade)";
       else if (percent >= 60) rating = "👍 Good Work! (B Grade)";
+      else if (percent >= 40) rating = "💪 Fair Effort! (C Grade)";
+
+      const isFinal = userState.term && userState.term.id === 'final';
+      const termName = isFinal ? '🎓 Final Examination (Comprehensive)' : '📝 Midterm Examination';
 
       document.getElementById('result-rating').innerText = rating;
       document.getElementById('result-meta').innerHTML = `
-        <b>University:</b> ${userState.uni.name}<br>
-        <b>Session:</b> ${userState.year.name}<br>
-        <b>Course:</b> ${userState.course.name}
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 0.85rem 1rem; text-align: left; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.86rem;">
+          <div>🏛️ <b>University:</b> ${userState.uni ? userState.uni.name : 'N/A'}</div>
+          <div>📅 <b>Session Year:</b> ${userState.year ? userState.year.name : 'N/A'}</div>
+          <div>📝 <b>Exam Type:</b> <span style="color: ${isFinal ? '#c084fc' : '#38bdf8'}; font-weight: 800;">${termName}</span></div>
+          <div>📚 <b>Course:</b> ${userState.course ? userState.course.name : 'N/A'}</div>
+          <div>🎯 <b>Test Scope:</b> ${userState.unit ? userState.unit.name : 'Complete Exam'}</div>
+        </div>
       `;
 
       navigateTo('screen-result');

@@ -2,14 +2,17 @@
   "texts": {
     "welcome": "🎓 <b>TEME EDUCATIONAL PLATFORM (ተሜ)</b>\n────────────────────────────\n👋 <b>Welcome Freshman Student! / እንኳን ወደ ተሜ በደህና መጡ!</b>\nSelect your <b>University</b> to access official past examination archives and unit tests:\n\n🏛️ <i>Select your university below:</i>",
     "step_year": "────────────────────────────\n📅 <b>Step 2: Select Exam Academic Year:</b>\nChoose which past examination session you want to practice:",
-    "step_course": "────────────────────────────\n📚 <b>Step 3: Select Your Freshman Course:</b>\nChoose which course exam you want to practice:",
-    "step_unit": "────────────────────────────\n🎯 <b>Step 4: Choose Chapter or Comprehensive Exam:</b>",
+    "step_term": "────────────────────────────\n📝 <b>Step 3: Select Exam Category (Mid or Final):</b>\nChoose whether you want to take the Midterm Examination or Final Examination:",
+    "step_course": "────────────────────────────\n📚 <b>Step 4: Select Your Freshman Course:</b>\nChoose which course exam you want to practice:",
+    "step_unit": "────────────────────────────\n🎯 <b>Step 5: Choose Chapter or Comprehensive Exam:</b>",
     "retake": "🔄 Retake This Exam",
     "select_course": "📚 Select Another Course",
+    "change_term": "📝 Change Mid/Final Exam",
     "change_year": "📅 Change Exam Year",
     "change_uni": "🏛️ Change University",
     "back_uni": "⬅️ Back to Universities",
     "back_year": "⬅️ Back to Exam Years",
+    "back_term": "⬅️ Back to Exam Type",
     "back_course": "⬅️ Back to Courses",
     "next_q_prefix": "➡️ Next Question (",
     "finish_btn": "🏆 View Final Score & Rating",
@@ -46,6 +49,30 @@
     { "id": "2014", "name": "📅 2014 E.C. (2022 G.C.) Past Exam", "name_am": "📅 የ 2014 ዓ.ም ፈተና (2022 እ.ኤ.አ)" },
     { "id": "2013", "name": "📅 2013 E.C. (2021 G.C.) Past Exam", "name_am": "📅 የ 2013 ዓ.ም ፈተና (2021 እ.ኤ.አ)" },
     { "id": "model", "name": "🏆 National Freshman Exit/Midterm Model Exam", "name_am": "🏆 ሀገር አቀፍ የፍሬሽማን ሞዴል ፈተና" }
+  ],
+  "terms": [
+    {
+      "id": "mid",
+      "name": "📝 Mid Exam (Midterm Examination)",
+      "name_am": "📝 የሚድ ተርም ፈተና (Midterm Exam)",
+      "tag": "Chapters 1 - 3 • 30% Weight",
+      "tag_am": "ምዕራፍ 1 - 3 • 30% ክብደት",
+      "desc": "Official midterm examination archive covering the first half of the semester: fundamental principles, core theorems, and preliminary problem-solving.",
+      "desc_am": "የመጀመሪያው አጋማሽ የትምህርት ክፍለ ጊዜ (ምዕራፍ 1 እስከ 3) የፈተና ጥያቄዎች ማህደር።",
+      "badge": "⏱️ 45-60 Mins • 30% Weight",
+      "icon": "📝"
+    },
+    {
+      "id": "final",
+      "name": "🎓 Final Exam (Comprehensive Examination)",
+      "name_am": "🎓 የፋይናል ፈተና (Final Exam)",
+      "tag": "Comprehensive All Chapters • 50% Weight",
+      "tag_am": "አጠቃላይ ሙሉ ሴሚስተር • 50% ክብደት",
+      "desc": "Full semester comprehensive exit & final exam covering entire course curriculum, exit standards, integrated applications, and advanced problem-solving.",
+      "desc_am": "የሙሉ ሴሚስተር አጠቃላይ ይዘቶችን ያካተተ ይፋዊ የዩኒቨርሲቲ የፋይናል ፈተና ማህደር።",
+      "badge": "⏱️ 90-120 Mins • 50% Weight",
+      "icon": "🎓"
+    }
   ],
   "courses": [
     { "id": "math101", "name": "📐 Mathematics for Natural / Social Science (Math 101)", "name_am": "📐 የተፈጥሮ እና ማህበራዊ ሳይንስ ሂሳብ (Math 101)" },
@@ -87,358 +114,1606 @@
       { "id": "u2", "name": "Chapter 2: Artificial Intelligence & Machine Learning", "name_am": "ምዕራፍ 2: አርቴፊሻል ኢንተለጀንስ እና ማሽን ለርኒንግ" },
       { "id": "u3", "name": "Chapter 3: Internet of Things (IoT) & Cloud Infrastructure", "name_am": "ምዕራፍ 3: ኢንተርኔት ኦፍ ቲንግስ (IoT) እና ክላውድ" },
       { "id": "u4", "name": "Chapter 4: Cybersecurity & Blockchain Technologies", "name_am": "ምዕራፍ 4: ሳይበር ሴኪውሪቲ እና ብሎክቼይን ቴክኖሎጂ" }
+    ],
+    "comm_skills": [
+      { "id": "all", "name": "🏆 Complete Midterm & Final Past Exam", "name_am": "🏆 አጠቃላይ የሙሉ ኮርስ ፈተና" },
+      { "id": "u1", "name": "Chapter 1: Academic Reading & Study Skills", "name_am": "ምዕራፍ 1: አካዳሚክ ንባብ እና የጥናት ክህሎቶች" },
+      { "id": "u2", "name": "Chapter 2: Sentence Structure & Grammar", "name_am": "ምዕራፍ 2: የአረፍተ ነገር አወቃቀር እና ሰዋሰው" },
+      { "id": "u3", "name": "Chapter 3: Paragraph Writing & Cohesion", "name_am": "ምዕራፍ 3: የአንቀጽ አጻጻፍ እና ትስስር" }
+    ],
+    "intro_computing": [
+      { "id": "all", "name": "🏆 Complete Midterm & Final Past Exam", "name_am": "🏆 አጠቃላይ የሙሉ ኮርስ ፈተና" },
+      { "id": "u1", "name": "Chapter 1: Computer Systems & Architecture", "name_am": "ምዕራፍ 1: የኮምፒውተር ሲስተም እና አወቃቀር" },
+      { "id": "u2", "name": "Chapter 2: Number Systems & Data Representation", "name_am": "ምዕራፍ 2: የቁጥሮች ስርዓት እና ዳታ ውክልና" },
+      { "id": "u3", "name": "Chapter 3: Algorithms & Problem Solving", "name_am": "ምዕራፍ 3: አልጎሪዝም እና ችግር ፈቺ ዘዴዎች" }
+    ],
+    "general_psych": [
+      { "id": "all", "name": "🏆 Complete Midterm & Final Past Exam", "name_am": "🏆 አጠቃላይ የሙሉ ኮርስ ፈተና" },
+      { "id": "u1", "name": "Chapter 1: Essence of Psychology & Biological Basis", "name_am": "ምዕራፍ 1: የሳይኮሎጂ ምንነት እና ባዮሎጂካል መሰረት" },
+      { "id": "u2", "name": "Chapter 2: Sensation, Perception & Learning", "name_am": "ምዕራፍ 2: ስሜት፣ ግንዛቤ እና ትምህርት" },
+      { "id": "u3", "name": "Chapter 3: Memory, Thinking & Motivation", "name_am": "ምዕራፍ 3: የማስታወስ ችሎታ፣ አስተሳሰብ እና ተነሳሽነት" }
+    ],
+    "geography": [
+      { "id": "all", "name": "🏆 Complete Midterm & Final Past Exam", "name_am": "🏆 አጠቃላይ የሙሉ ኮርስ ፈተና" },
+      { "id": "u1", "name": "Chapter 1: Location, Shape & Size of Ethiopia", "name_am": "ምዕራፍ 1: የኢትዮጵያ አቀማመጥ፣ ቅርፅ እና ስፋት" },
+      { "id": "u2", "name": "Chapter 2: Geological History & Topography", "name_am": "ምዕራፍ 2: ጂኦሎጂካል ታሪክ እና የመሬት ገጽታ" },
+      { "id": "u3", "name": "Chapter 3: Drainage Systems & Water Resources", "name_am": "ምዕራፍ 3: የውሃ ተፋሰሶች እና ሀብቶች" }
     ]
   },
   "questions": {
-    "math101": [
-      {
-        "question": "Which of the following compound propositions is logically equivalent to the conditional implication P → Q?",
-        "question_am": "ከሚከተሉት ውህድ ፕሮፖዚሽኖች ውስጥ ከኮንዲሽናል P → Q ጋር በሎጂክ እኩል (equivalent) የሆነው የትኛው ነው?",
-        "options": [
-          "¬P ∨ Q",
-          "P ∧ ¬Q",
-          "¬Q → ¬P",
-          "Both A and C"
-        ],
-        "options_am": [
-          "¬P ∨ Q",
-          "P ∧ ¬Q",
-          "¬Q → ¬P",
-          "ሁለቱም A እና C"
-        ],
-        "correct_index": 3,
-        "explanation": "P → Q is logically equivalent to its contrapositive (¬Q → ¬P) and is also equivalent to ¬P ∨ Q by conditional elimination. Thus both A and C are correct.",
-        "explanation_am": "P → Q በኮንትራፖዚቲቭ (¬Q → ¬P) እንዲሁም በኮንዲሽናል ኤሊሚኔሽን ከ ¬P ∨ Q ጋር አቻ ነው። ስለዚህ ሁለቱም A እና C ትክክል ናቸው።"
-      },
-      {
-        "question": "Let f(x) = (2x + 3) / (x - 1) for x ≠ 1. What is the inverse function f⁻¹(x)?",
-        "question_am": "f(x) = (2x + 3) / (x - 1) ለ x ≠ 1 ቢሆን፣ የተገላቢጦሽ ፈንክሽን f⁻¹(x) ስንት ነው?",
-        "options": [
-          "f⁻¹(x) = (x + 3) / (2x - 1)",
-          "f⁻¹(x) = (x + 3) / (x - 2)",
-          "f⁻¹(x) = (2x - 3) / (x + 1)",
-          "f⁻¹(x) = (x - 3) / (x - 2)"
-        ],
-        "options_am": [
-          "f⁻¹(x) = (x + 3) / (2x - 1)",
-          "f⁻¹(x) = (x + 3) / (x - 2)",
-          "f⁻¹(x) = (2x - 3) / (x + 1)",
-          "f⁻¹(x) = (x - 3) / (x - 2)"
-        ],
-        "correct_index": 1,
-        "explanation": "Setting y = (2x + 3)/(x - 1) gives yx - y = 2x + 3, so x(y - 2) = y + 3, which yields f⁻¹(x) = (x + 3)/(x - 2).",
-        "explanation_am": "y = (2x + 3)/(x - 1) በማስቀመጥ yx - y = 2x + 3 ይሆናል፣ ከዚያም x(y - 2) = y + 3 በመሆኑ f⁻¹(x) = (x + 3)/(x - 2) ይገኛል።"
-      },
-      {
-        "question": "Evaluate the standard trigonometric limit: lim (x → 0) [ sin(5x) / (2x) ].",
-        "question_am": "የሚከተለውን ትሪጎኖሜትሪክ ሊሚት አስሉ: lim (x → 0) [ sin(5x) / (2x) ]?",
-        "options": [
-          "0",
-          "1",
-          "5/2",
-          "Does not exist"
-        ],
-        "options_am": [
-          "0",
-          "1",
-          "5/2",
-          "አይገኝም (Does not exist)"
-        ],
-        "correct_index": 2,
-        "explanation": "Using lim (u → 0) [sin(u)/u] = 1, lim (x → 0) (5/2) * [sin(5x)/(5x)] = (5/2) * 1 = 5/2.",
-        "explanation_am": "lim (u → 0) [sin(u)/u] = 1 ቀመርን በመጠቀም፣ lim (x → 0) (5/2) * [sin(5x)/(5x)] = (5/2) * 1 = 5/2 ይሆናል።"
-      },
-      {
-        "question": "If z = 1 + i√3, what is the polar (trigonometric) form of the complex number z?",
-        "question_am": "z = 1 + i√3 ቢሆን፣ የዚህ ኮምፕሌክስ ቁጥር ፖላር (ትሪጎኖሜትሪክ) ፎርም የትኛው ነው?",
-        "options": [
-          "2 (cos(π/6) + i sin(π/6))",
-          "2 (cos(π/3) + i sin(π/3))",
-          "√3 (cos(π/4) + i sin(π/4))",
-          "4 (cos(π/3) + i sin(π/3))"
-        ],
-        "options_am": [
-          "2 (cos(π/6) + i sin(π/6))",
-          "2 (cos(π/3) + i sin(π/3))",
-          "√3 (cos(π/4) + i sin(π/4))",
-          "4 (cos(π/3) + i sin(π/3))"
-        ],
-        "correct_index": 1,
-        "explanation": "Modulus r = √(1² + (√3)²) = 2. Argument θ = arctan(√3/1) = π/3 (60°). Hence z = 2(cos(π/3) + i sin(π/3)).",
-        "explanation_am": "ሞዱለስ r = √(1² + (√3)²) = 2 ነው። አርጉመንት θ = arctan(√3/1) = π/3 (60°) በመሆኑ z = 2(cos(π/3) + i sin(π/3)) ይሆናል።"
-      },
-      {
-        "question": "Find the first derivative f'(x) of the function f(x) = ln(x² + 4).",
-        "question_am": "የፈንክሽን f(x) = ln(x² + 4) የመጀመሪያ ዴሪቬቲቭ f'(x) ስንት ነው?",
-        "options": [
-          "1 / (x² + 4)",
-          "2x / (x² + 4)",
-          "x / (x² + 4)",
-          "2 / (x + 2)"
-        ],
-        "options_am": [
-          "1 / (x² + 4)",
-          "2x / (x² + 4)",
-          "x / (x² + 4)",
-          "2 / (x + 2)"
-        ],
-        "correct_index": 1,
-        "explanation": "By the Chain Rule, d/dx [ln(u)] = u'/u. For u = x² + 4, u' = 2x, giving f'(x) = 2x / (x² + 4).",
-        "explanation_am": "በቼይን ሩል (Chain Rule) መሠረት d/dx [ln(u)] = u'/u ነው። u = x² + 4 ሲሆን u' = 2x በመሆኑ f'(x) = 2x / (x² + 4) ይሆናል።"
-      }
-    ],
-    "phys101": [
-      {
-        "question": "A stone is thrown vertically upward with an initial velocity of 20 m/s from ground level (take g = 10 m/s²). What is the maximum height reached?",
-        "question_am": "አንድ ድንጋይ ከመሬት ወደ ላይ በ 20 m/s የመጀመሪያ ፍጥነት ተወረወረ (g = 10 m/s² ውሰዱ)። ድንጋዩ የሚደርስበት ከፍተኛው ከፍታ ስንት ነው?",
-        "options": [
-          "15 meters",
-          "20 meters",
-          "25 meters",
-          "40 meters"
-        ],
-        "options_am": [
-          "15 ሜትር",
-          "20 ሜትር",
-          "25 ሜትር",
-          "40 ሜትር"
-        ],
-        "correct_index": 1,
-        "explanation": "At maximum height v = 0. Using v² = u² - 2gh: 0 = (20)² - 2(10)h ⇒ 400 = 20h ⇒ h = 20 meters.",
-        "explanation_am": "በከፍተኛው ከፍታ ላይ የመጨረሻው ፍጥነት v = 0 ነው። በቀመር v² = u² - 2gh መሠረት: 0 = (20)² - 2(10)h ⇒ 400 = 20h ⇒ h = 20 ሜትር ይሆናል።"
-      },
-      {
-        "question": "According to Newton's Third Law of Motion, action and reaction forces:",
-        "question_am": "እንደ ኒውተን 3ኛ የእንቅስቃሴ ህግ (Newton's Third Law)፣ ድርጊት እና ግብረ-መልስ ሃይሎች (Action & Reaction):",
-        "options": [
-          "Act on the same body and cancel each other out",
-          "Act on different bodies simultaneously and never cancel each other",
-          "Are unequal in magnitude if one object accelerates",
-          "Act at different consecutive times"
-        ],
-        "options_am": [
-          "በአንድ አካል ላይ አርፈው እርስ በርስ ይሰረዛሉ",
-          "በተለያዩ ሁለት አካላት ላይ በአንድ ጊዜ የሚያርፉ በመሆናቸው በፍጹም አይሰረዙም",
-          "አንዱ አካል ፍጥነት ከጨመረ መጠናቸው እኩል አይሆንም",
-          "በተከታታይ በተለያዩ ጊዜያት ያርፋሉ"
-        ],
-        "correct_index": 1,
-        "explanation": "Action and reaction forces act on two completely different interacting bodies, so they can never cancel each other out on a single object.",
-        "explanation_am": "የድርጊት እና ግብረ-መልስ ሃይሎች በተለያዩ ሁለት አካላት ላይ ስለሚያርፉ በአንድ አካል ላይ እርስ በርስ በፍጹም ሊሰረዙ አይችሉም።"
-      },
-      {
-        "question": "A body of mass 2 kg moves along the x-axis under potential energy U(x) = 3x² - 6x (in Joules). What is the conservative force F(x) at x = 2 m?",
-        "question_am": "የ 2 ኪሎግራም ክብደት ያለው አካል በ x-አክሲስ ላይ በፖቴንሺያል ኢነርጂ U(x) = 3x² - 6x (በጁል) ይጓዛል። በ x = 2 m ላይ ያለው ኮንሰርቫቲቭ ሃይል F(x) ስንት ነው?",
-        "options": [
-          "-6 N",
-          "+6 N",
-          "-12 N",
-          "0 N"
-        ],
-        "options_am": [
-          "-6 N",
-          "+6 N",
-          "-12 N",
-          "0 N"
-        ],
-        "correct_index": 0,
-        "explanation": "Conservative force F(x) = -dU/dx = -(6x - 6) = 6 - 6x. At x = 2: F(2) = 6 - 6(2) = -6 N.",
-        "explanation_am": "ኮንሰርቫቲቭ ሃይል F(x) = -dU/dx = -(6x - 6) = 6 - 6x ነው። በ x = 2 ሲሆን: F(2) = 6 - 6(2) = -6 N ይሆናል።"
-      },
-      {
-        "question": "In an isolated physical system during a completely inelastic collision between two colliding bodies:",
-        "question_am": "በተዘጋ የፊዚክስ ሲስተም ውስጥ በሁለት አካላት መካከል ፍጹም ኢላስቲክ ባልሆነ ግጭት (inelastic collision) ወቅት:",
-        "options": [
-          "Both total kinetic energy and linear momentum are conserved",
-          "Linear momentum is conserved, but kinetic energy is not conserved",
-          "Kinetic energy is conserved, but linear momentum is not conserved",
-          "Neither kinetic energy nor linear momentum is conserved"
-        ],
-        "options_am": [
-          "ሁለቱም ኪነቲክ ኢነርጂ እና ሊኒየር ሞመንተም ይጠበቃሉ",
-          "ሊኒየር ሞመንተም ይጠበቃል፤ ነገር ግን ኪነቲክ ኢነርጂ አይጠበቅም",
-          "ኪነቲክ ኢነርጂ ይጠበቃል፤ ሊኒየር ሞመንተም ግን አይጠበቅም",
-          "ሁለቱም ኪነቲክ ኢነርጂም ሆነ ሞመንተም አይጠበቁም"
-        ],
-        "correct_index": 1,
-        "explanation": "Linear momentum is always conserved in isolated systems. However, completely inelastic collisions convert maximum kinetic energy into heat and deformation.",
-        "explanation_am": "በተዘጋ ሲስተም ውስጥ ሊኒየር ሞመንተም ምንጊዜም ይጠበቃል። ነገር ግን ኢላስቲክ ባልሆነ ግጭት ከፍተኛው የኪነቲክ ኢነርጂ ክፍል ወደ ሙቀትና ቅርጽ መቀየር ይባክናል።"
-      },
-      {
-        "question": "A uniform solid cylinder of mass M and radius R rolls without slipping down an incline. What fraction of its total kinetic energy is rotational?",
-        "question_am": "መጠኑ M እና ራዲየሱ R የሆነ ጠጣር ሲሊንደር ሳይንሸራተት በዳገት ላይ ይንከባለላል። ከጠቅላላው ኪነቲክ ኢነርጂ ውስጥ የማሽከርከር (rotational) ድርሻ ስንት ነው?",
-        "options": [
-          "1/2",
-          "1/3",
-          "2/3",
-          "1/4"
-        ],
-        "options_am": [
-          "1/2",
-          "1/3",
-          "2/3",
-          "1/4"
-        ],
-        "correct_index": 1,
-        "explanation": "K_rot = (1/2)Iω² = (1/4)Mv². K_trans = (1/2)Mv². Total K = (3/4)Mv². Fraction = (1/4)/(3/4) = 1/3 (33.3%).",
-        "explanation_am": "K_rot = (1/2)Iω² = (1/4)Mv² ነው። K_trans = (1/2)Mv² ነው። ጠቅላላ K = (3/4)Mv² በመሆኑ ድርሻው = (1/4)/(3/4) = 1/3 (33.3%) ነው።"
-      }
-    ],
-    "critical_thinking": [
-      {
-        "question": "Which of the following defines an argument that is both deductively valid and composed entirely of true premises?",
-        "question_am": "ዲዳክቲቭ ቫሊድ የሆነ እና ሁሉም መነሻ ሃሳቦቹ (premises) ሙሉ በሙሉ እውነት የሆኑትን ክርክር የሚገልጸው የትኛው ነው?",
-        "options": [
-          "A Strong Argument",
-          "A Cogent Argument",
-          "A Sound Argument",
-          "An Inductively Verified Argument"
-        ],
-        "options_am": [
-          "ጠንካራ ክርክር (Strong Argument)",
-          "አሳማኝ ክርክር (Cogent Argument)",
-          "ድምጹ እውነተኛ ክርክር (Sound Argument)",
-          "በማስረጃ የተረጋገጠ ክርክር"
-        ],
-        "correct_index": 2,
-        "explanation": "In formal logic, a deductive argument is Sound if and only if its reasoning is valid AND all of its premises are factually true.",
-        "explanation_am": "በመደበኛ ሎጂክ ውስጥ አንድ የዲዳክሽን ክርክር Sound የሚባለው አወቃቀሩ ቫሊድ ሆኖ ሁሉም መነሻ ሃሳቦቹ እውነት ሲሆኑ ብቻ ነው።"
-      },
-      {
-        "question": "Identify the fallacy: 'Candidate X proposes investing in solar energy. But Candidate X has zero fashion taste, so his proposal is invalid.'",
-        "question_am": "ስህተቱን (Fallacy) ለዩ: 'እጩ ተወዳዳሪ X በፀሐይ ኃይል ላይ ኢንቨስት እንድናደርግ ሃሳብ አቅርቧል። ነገር ግን እጩ X ምንም ዓይነት የአለባበስ ስታይል የለውም፣ ስለዚህ ያቀረበው ሃሳብ ተቀባይነት የለውም።'",
-        "options": [
-          "Straw Man Fallacy",
-          "Argumentum Ad Hominem (Abusive)",
-          "Appeal to Pity",
-          "False Dilemma"
-        ],
-        "options_am": [
-          "የገለባ ሰው ስህተት (Straw Man)",
-          "አድ ሆሚነም / ሰውን የማጥቃት ስህተት (Ad Hominem)",
-          "የይድረስልኝ ጥሪ (Appeal to Pity)",
-          "የውሸት አማራጭ (False Dilemma)"
-        ],
-        "correct_index": 1,
-        "explanation": "Ad Hominem attacks personal characteristics rather than evaluating the validity of the argument itself.",
-        "explanation_am": "አድ ሆሚነም የቀረበውን ሃሳብ ወይም ክርክር ትክክለኛነት ከመገምገም ይልቅ የግለሰቡን ማንነት ወይም ባህሪ ማጥቃትን ያካትታል።"
-      },
-      {
-        "question": "What is the converse of the categorical proposition: 'No reptiles are mammals' (E-proposition)?",
-        "question_am": "የካቴጎሪካል ፕሮፖዚሽን 'ምንም ተሳቢ እንስሳት አጥቢዎች አይደሉም' (E-proposition) ኮንቨርስ (converse) የትኛው ነው?",
-        "options": [
-          "Some reptiles are not mammals",
-          "No mammals are reptiles",
-          "All mammals are reptiles",
-          "Some mammals are reptiles"
-        ],
-        "options_am": [
-          "አንዳንድ ተሳቢ እንስሳት አጥቢዎች አይደሉም",
-          "ምንም አጥቢዎች ተሳቢ እንስሳት አይደሉም",
-          "ሁሉም አጥቢዎች ተሳቢ እንስሳት ናቸው",
-          "አንዳንድ አጥቢዎች ተሳቢ እንስሳት ናቸው"
-        ],
-        "correct_index": 1,
-        "explanation": "Conversion simply exchanges the subject and predicate. For universal negative (E) propositions, conversion is logically valid: 'No mammals are reptiles'.",
-        "explanation_am": "ኮንቨርሽን ርዕሱንና ተሳቢውን በቀላሉ ያቀያይራል። ለአለም አቀፍ አሉታዊ (E) ፕሮፖዚሽኖች ኮንቨርሽን ትክክለኛ ህጋዊ ነው: 'ምንም አጥቢዎች ተሳቢ እንስሳት አይደሉም'።"
-      },
-      {
-        "question": "Identify the fallacy: 'You must either agree with our campus policy completely, or you hate university education.'",
-        "question_am": "ስህተቱን (Fallacy) ለዩ: 'የግቢውን ፖሊሲ ሙሉ በሙሉ መደገፍ አለብህ፤ አለበለዚያ የዩኒቨርሲቲ ትምህርትን ትጠላለህ ማለት ነው።'",
-        "options": [
-          "False Cause",
-          "False Dilemma / False Dichotomy",
-          "Slippery Slope",
-          "Hasty Generalization"
-        ],
-        "options_am": [
-          "የውሸት ምክንያት (False Cause)",
-          "የውሸት አማራጭ (False Dilemma / Dichotomy)",
-          "አንሸራታች ቁልቁለት (Slippery Slope)",
-          "ችኮላ ድምዳሜ (Hasty Generalization)"
-        ],
-        "correct_index": 1,
-        "explanation": "A False Dilemma artificially restricts the alternatives to two extremes while ignoring intermediate options.",
-        "explanation_am": "ፎልስ ዲሌማ አማካይ አማራጮችን ችላ በማለት በሰውየው ፊት ሁለት ጽንፍ አማራጮችን ብቻ በማስቀመጥ የሚያሳስት ስህተት ነው።"
-      }
-    ],
-    "critical_emerging": [
-      {
-        "question": "Which core characteristic distinguishes the Fourth Industrial Revolution (Industry 4.0) from Industry 3.0?",
-        "question_am": "አራተኛውን የኢንዱስትሪ አብዮት (Industry 4.0) ከኢንዱስትሪ 3.0 የሚለየው ዋናው መገለጫ የትኛው ነው?",
-        "options": [
-          "The invention of steam engines and mechanical weaving",
-          "The adoption of mass production assembly lines and electricity",
-          "The fusion of digital, biological, and physical spheres via Cyber-Physical Systems (CPS)",
-          "The initial introduction of basic personal computers"
-        ],
-        "options_am": [
-          "የእንፋሎት ሞተር እና የሜካኒካል ሽመና ፈጠራ",
-          "የኤሌክትሪክ ኃይል እና የመሰብሰቢያ መስመር (assembly line) አጠቃቀም",
-          "የዲጂታል፣ ባዮሎጂካል እና ፊዚካል ዓለማት በሳይበር-ፊዚካል ሲስተምስ (CPS) መቀናጀት",
-          "የመጀመሪያዎቹ የግል ኮምፒውተሮች መፈጠር"
-        ],
-        "correct_index": 2,
-        "explanation": "Industry 4.0 is defined by Cyber-Physical Systems (CPS), IoT, big data, and autonomous networks connecting the physical and digital worlds.",
-        "explanation_am": "ኢንዱስትሪ 4.0 በሳይበር-ፊዚካል ሲስተሞች (CPS)፣ IoT፣ ቢግ ዳታ እና ራሳቸውን በሚያስተዳድሩ አውታረ መረቦች ዓለማትን በማቀናጀት ይታወቃል።"
-      },
-      {
-        "question": "In Artificial Intelligence, which learning paradigm trains an agent to make sequential decisions by receiving rewards or penalties?",
-        "question_am": "በአርቴፊሻል ኢንተለጀንስ (AI) ውስጥ አንድ ወኪል (agent) ሽልማቶችንና ቅጣቶችን በመቀበል ተከታታይ ውሳኔዎችን እንዲወስን የሚያሰለጥነው የትምህርት ዘይቤ የትኛው ነው?",
-        "options": [
-          "Supervised Learning",
-          "Unsupervised Clustering",
-          "Reinforcement Learning (RL)",
-          "Semi-Supervised Label Propagation"
-        ],
-        "options_am": [
-          "ሱፐርቫይዝድ ለርኒንግ (Supervised Learning)",
-          "አንሱፐርቫይዝድ ክላስተሪንግ (Unsupervised)",
-          "ሪኢንፎርስመንት ለርኒንግ (Reinforcement Learning - RL)",
-          "ሰሚ-ሱፐርቫይዝድ ለርኒንግ"
-        ],
-        "correct_index": 2,
-        "explanation": "Reinforcement Learning optimizes decision policies through environmental rewards and penalties without pre-labeled data.",
-        "explanation_am": "ሪኢንፎርስመንት ለርኒንግ አስቀድሞ ከተዘጋጀ ዳታ ይልቅ ከአካባቢው ከሚያገኘው ሽልማት እና ቅጣት በመነሳት ትክክለኛ የውሳኔ ፖሊሲን ያዳብራል።"
-      },
-      {
-        "question": "In Internet of Things (IoT) network architecture, which layer is responsible for raw physical data acquisition using sensors and actuators?",
-        "question_am": "በኢንተርኔት ኦፍ ቲንግስ (IoT) ኔትወርክ መዋቅር ውስጥ ጥሬ ፊዚካዊ መረጃዎችን በሴንሰሮችና አንቀሳቃሾች የመሰብሰብ ኃላፊነት ያለበት ንብርብር (layer) የትኛው ነው?",
-        "options": [
-          "Perception (Sensing) Layer",
-          "Network Transmission Layer",
-          "Middleware / Processing Layer",
-          "Business Application Layer"
-        ],
-        "options_am": [
-          "የግንዛቤ/የዳሰሳ ንብርብር (Perception/Sensing Layer)",
-          "የኔትወርክ ማስተላለፊያ ንብርብር (Network Layer)",
-          "የመካከለኛ ሂደት ንብርብር (Middleware Layer)",
-          "የቢዝነስ መተግበሪያ ንብርብር (Application Layer)"
-        ],
-        "correct_index": 0,
-        "explanation": "The Perception Layer gathers raw physical variables (temperature, light, acceleration) using sensors and transducers.",
-        "explanation_am": "የፐርሴፕሽን ንብርብር (Perception Layer) እንደ ሙቀት፣ ብርሃን፣ ፍጥነት ያሉ ጥሬ ፊዚካዊ መረጃዎችን በሴንሰሮች አማካኝነት ይሰበስባል።"
-      },
-      {
-        "question": "Which cryptographic property makes a distributed blockchain ledger virtually immutable against historical alterations?",
-        "question_am": "የብሎክቼይን ቴክኖሎጂ ታሪካዊ መረጃዎች እንዳይቀየሩና እንዳይጭበረበሩ የማይበገር (immutable) የሚያደርገው የትኛው የክሪፕቶግራፊ ባህሪ ነው?",
-        "options": [
-          "Centralized Cloud Database Backups",
-          "Cryptographic Hashing and Proof-of-Work / Consensus Chaining",
-          "Symmetric Key File Encryption",
-          "Public IPv6 Tunneling"
-        ],
-        "options_am": [
-          "ማዕከላዊ የዳታቤዝ ባክአፕ (Backups)",
-          "ክሪፕቶግራፊክ ሃሽ እና የኮንሰንሰስ ሰንሰለት (Cryptographic Hash & Consensus)",
-          "ሲሜትሪክ የፋይል ኢንክሪፕሽን",
-          "የህዝብ IPv6 ቱነሊንግ"
-        ],
-        "correct_index": 1,
-        "explanation": "Each block contains the hash of the preceding block. Tampering with any historical record invalidates all subsequent blocks, which is rejected by consensus.",
-        "explanation_am": "እያንዳንዱ ብሎክ የቀዳሚውን ብሎክ ሃሽ (hash) የያዘ በመሆኑ ማንኛውም ታሪካዊ መረጃ ሲቀየር ሁሉም ተከታይ ብሎኮች ውድቅ ይሆናሉ።"
-      }
-    ]
+    "math101": {
+      "mid": [
+        {
+          "question": "Which of the following compound propositions is logically equivalent to the conditional implication P → Q?",
+          "question_am": "ከሚከተሉት ውህድ ፕሮፖዚሽኖች ውስጥ ከኮንዲሽናል P → Q ጋር በሎጂክ እኩል (equivalent) የሆነው የትኛው ነው?",
+          "options": [
+            "¬P ∨ Q",
+            "P ∧ ¬Q",
+            "¬Q → ¬P",
+            "Both A and C"
+          ],
+          "options_am": [
+            "¬P ∨ Q",
+            "P ∧ ¬Q",
+            "¬Q → ¬P",
+            "ሁለቱም A እና C"
+          ],
+          "correct_index": 3,
+          "explanation": "P → Q is logically equivalent to its contrapositive (¬Q → ¬P) and is also equivalent to ¬P ∨ Q by conditional elimination. Thus both A and C are correct.",
+          "explanation_am": "P → Q በኮንትራፖዚቲቭ (¬Q → ¬P) እንዲሁም በኮንዲሽናል ኤሊሚኔሽን ከ ¬P ∨ Q ጋር አቻ ነው። ስለዚህ ሁለቱም A እና C ትክክል ናቸው።"
+        },
+        {
+          "question": "Let f(x) = (2x + 3) / (x - 1) for x ≠ 1. What is the inverse function f⁻¹(x)?",
+          "question_am": "f(x) = (2x + 3) / (x - 1) ለ x ≠ 1 ቢሆን፣ የተገላቢጦሽ ፈንክሽን f⁻¹(x) ስንት ነው?",
+          "options": [
+            "f⁻¹(x) = (x + 3) / (2x - 1)",
+            "f⁻¹(x) = (x + 3) / (x - 2)",
+            "f⁻¹(x) = (2x - 3) / (x + 1)",
+            "f⁻¹(x) = (x - 3) / (x - 2)"
+          ],
+          "options_am": [
+            "f⁻¹(x) = (x + 3) / (2x - 1)",
+            "f⁻¹(x) = (x + 3) / (x - 2)",
+            "f⁻¹(x) = (2x - 3) / (x + 1)",
+            "f⁻¹(x) = (x - 3) / (x - 2)"
+          ],
+          "correct_index": 1,
+          "explanation": "Setting y = (2x + 3)/(x - 1) gives yx - y = 2x + 3, so x(y - 2) = y + 3, which yields f⁻¹(x) = (x + 3)/(x - 2).",
+          "explanation_am": "y = (2x + 3)/(x - 1) በማስቀመጥ yx - y = 2x + 3 ይሆናል፣ ከዚያም x(y - 2) = y + 3 በመሆኑ f⁻¹(x) = (x + 3)/(x - 2) ይገኛል።"
+        },
+        {
+          "question": "If z = 1 + i√3, what is the polar (trigonometric) form of the complex number z?",
+          "question_am": "z = 1 + i√3 ቢሆን፣ የዚህ ኮምፕሌክስ ቁጥር ፖላር (ትሪጎኖሜትሪክ) ፎርም የትኛው ነው?",
+          "options": [
+            "2 (cos(π/6) + i sin(π/6))",
+            "2 (cos(π/3) + i sin(π/3))",
+            "√3 (cos(π/4) + i sin(π/4))",
+            "4 (cos(π/3) + i sin(π/3))"
+          ],
+          "options_am": [
+            "2 (cos(π/6) + i sin(π/6))",
+            "2 (cos(π/3) + i sin(π/3))",
+            "√3 (cos(π/4) + i sin(π/4))",
+            "4 (cos(π/3) + i sin(π/3))"
+          ],
+          "correct_index": 1,
+          "explanation": "Modulus r = √(1² + (√3)²) = 2. Argument θ = arctan(√3/1) = π/3 (60°). Hence z = 2(cos(π/3) + i sin(π/3)).",
+          "explanation_am": "ሞዱለስ r = √(1² + (√3)²) = 2 ነው። አርጉመንት θ = arctan(√3/1) = π/3 (60°) በመሆኑ z = 2(cos(π/3) + i sin(π/3)) ይሆናል።"
+        },
+        {
+          "question": "For any two arbitrary sets A and B in a universal set U, which of the following is De Morgan's Law for set complement?",
+          "question_am": "በዩኒቨርሳል ሴት U ውስጥ ላሉ ለማንኛቸውም ሁለት ሴቶች A እና B የዲ ሞርጋን ህግ (De Morgan's Law) የትኛው ነው?",
+          "options": [
+            "(A ∪ B)' = A' ∩ B'",
+            "(A ∪ B)' = A' ∪ B'",
+            "(A ∩ B)' = A' ∩ B'",
+            "A \\ B = B \\ A"
+          ],
+          "options_am": [
+            "(A ∪ B)' = A' ∩ B'",
+            "(A ∪ B)' = A' ∪ B'",
+            "(A ∩ B)' = A' ∩ B'",
+            "A \\ B = B \\ A"
+          ],
+          "correct_index": 0,
+          "explanation": "De Morgan's first law states that the complement of the union of two sets is the intersection of their complements: (A ∪ B)' = A' ∩ B'.",
+          "explanation_am": "የዲ ሞርጋን የመጀመሪያ ህግ የሁለት ሴቶች ህብረት ኮምፕሊመንት ከየግላቸው ኮምፕሊመንቶች መገናኛ (intersection) ጋር እኩል ነው: (A ∪ B)' = A' ∩ B'።"
+        },
+        {
+          "question": "Let f(x) = x² + 1 and g(x) = 2x - 3. What is the value of the composite function (f ∘ g)(2)?",
+          "question_am": "f(x) = x² + 1 እና g(x) = 2x - 3 ቢሆኑ፣ የኮምፖዚት ፈንክሽን (f ∘ g)(2) ዋጋ ስንት ነው?",
+          "options": [
+            "2",
+            "5",
+            "10",
+            "7"
+          ],
+          "options_am": [
+            "2",
+            "5",
+            "10",
+            "7"
+          ],
+          "correct_index": 0,
+          "explanation": "First evaluate g(2) = 2(2) - 3 = 1. Then f(g(2)) = f(1) = (1)² + 1 = 2.",
+          "explanation_am": "በቅድሚያ g(2) = 2(2) - 3 = 1 ይሰላል። ከዚያም f(g(2)) = f(1) = (1)² + 1 = 2 ይሆናል።"
+        }
+      ],
+      "final": [
+        {
+          "question": "Evaluate the standard trigonometric limit: lim (x → 0) [ sin(5x) / (2x) ].",
+          "question_am": "የሚከተለውን ትሪጎኖሜትሪክ ሊሚት አስሉ: lim (x → 0) [ sin(5x) / (2x) ]?",
+          "options": [
+            "0",
+            "1",
+            "5/2",
+            "Does not exist"
+          ],
+          "options_am": [
+            "0",
+            "1",
+            "5/2",
+            "አይገኝም (Does not exist)"
+          ],
+          "correct_index": 2,
+          "explanation": "Using lim (u → 0) [sin(u)/u] = 1, lim (x → 0) (5/2) * [sin(5x)/(5x)] = (5/2) * 1 = 5/2.",
+          "explanation_am": "lim (u → 0) [sin(u)/u] = 1 ቀመርን በመጠቀም፣ lim (x → 0) (5/2) * [sin(5x)/(5x)] = (5/2) * 1 = 5/2 ይሆናል።"
+        },
+        {
+          "question": "Find the first derivative f'(x) of the function f(x) = ln(x² + 4).",
+          "question_am": "የፈንክሽን f(x) = ln(x² + 4) የመጀመሪያ ዴሪቬቲቭ f'(x) ስንት ነው?",
+          "options": [
+            "1 / (x² + 4)",
+            "2x / (x² + 4)",
+            "x / (x² + 4)",
+            "2 / (x + 2)"
+          ],
+          "options_am": [
+            "1 / (x² + 4)",
+            "2x / (x² + 4)",
+            "x / (x² + 4)",
+            "2 / (x + 2)"
+          ],
+          "correct_index": 1,
+          "explanation": "By the Chain Rule, d/dx [ln(u)] = u'/u. For u = x² + 4, u' = 2x, giving f'(x) = 2x / (x² + 4).",
+          "explanation_am": "በቼይን ሩል (Chain Rule) መሠረት d/dx [ln(u)] = u'/u ነው። u = x² + 4 ሲሆን u' = 2x በመሆኑ f'(x) = 2x / (x² + 4) ይሆናል።"
+        },
+        {
+          "question": "What is the indefinite integral ∫ (3x² + 4x - 5) dx?",
+          "question_am": "ኢንዴፊኔት ኢንቴግራል ∫ (3x² + 4x - 5) dx ውጤት ስንት ነው?",
+          "options": [
+            "x³ + 2x² - 5x + C",
+            "6x + 4 + C",
+            "3x³ + 4x² - 5x + C",
+            "x³ + 4x² - 5 + C"
+          ],
+          "options_am": [
+            "x³ + 2x² - 5x + C",
+            "6x + 4 + C",
+            "3x³ + 4x² - 5x + C",
+            "x³ + 4x² - 5 + C"
+          ],
+          "correct_index": 0,
+          "explanation": "Integrating term-by-term: 3(x³/3) + 4(x²/2) - 5x + C = x³ + 2x² - 5x + C.",
+          "explanation_am": "እያንዳንዱን ተርም በተናጠል ስናሰላ: 3(x³/3) + 4(x²/2) - 5x + C = x³ + 2x² - 5x + C ይሆናል።"
+        },
+        {
+          "question": "For the function f(x) = 2x³ - 9x² + 12x + 5, what are the critical numbers where f'(x) = 0?",
+          "question_am": "ለፈንክሽን f(x) = 2x³ - 9x² + 12x + 5 ዴሪቬቲቭ f'(x) = 0 የሚሆንባቸው ወሳኝ ቁጥሮች (critical numbers) የትኞቹ ናቸው?",
+          "options": [
+            "x = 1 and x = 2",
+            "x = 0 and x = 3",
+            "x = -1 and x = 2",
+            "x = 2 and x = 3"
+          ],
+          "options_am": [
+            "x = 1 እና x = 2",
+            "x = 0 እና x = 3",
+            "x = -1 እና x = 2",
+            "x = 2 እና x = 3"
+          ],
+          "correct_index": 0,
+          "explanation": "f'(x) = 6x² - 18x + 12 = 6(x² - 3x + 2) = 6(x - 1)(x - 2) = 0, which yields critical numbers x = 1 and x = 2.",
+          "explanation_am": "f'(x) = 6x² - 18x + 12 = 6(x - 1)(x - 2) = 0 ሲሆን ወሳኝ ቁጥሮቹ x = 1 እና x = 2 ይሆናሉ።"
+        },
+        {
+          "question": "A real-valued function f(x) is defined to be continuous at a point x = c if and only if:",
+          "question_am": "አንድ ፈንክሽን f(x) በአንድ ነጥብ x = c ላይ ተከታታይ (continuous) ነው የሚባለው:",
+          "options": [
+            "f(c) is defined, lim(x→c) f(x) exists, and lim(x→c) f(x) = f(c)",
+            "f'(c) exists and is positive",
+            "lim(x→c) f(x) = 0",
+            "f(c) is undefined"
+          ],
+          "options_am": [
+            "f(c) ተገልጾ፣ lim(x→c) f(x) ኖሮ፣ እና lim(x→c) f(x) = f(c) ሲሆን",
+            "f'(c) ኖሮ አዎንታዊ (positive) ሲሆን",
+            "lim(x→c) f(x) = 0 ሲሆን",
+            "f(c) ያልተገለጸ ሲሆን"
+          ],
+          "correct_index": 0,
+          "explanation": "By mathematical definition, continuity requires: (1) f(c) exists, (2) two-sided limit exists, and (3) limit equals function value.",
+          "explanation_am": "በሂሳብ ትርጓሜ መሠረት ኮንቲኒዩቲ: f(c) መኖር፣ ሊሚቱ መኖር፣ እና የሊሚቱ ዋጋ ከ f(c) ጋር እኩል መሆንን ይጠይቃል።"
+        }
+      ]
+    },
+    "phys101": {
+      "mid": [
+        {
+          "question": "A stone is thrown vertically upward with an initial velocity of 20 m/s from ground level (take g = 10 m/s²). What is the maximum height reached?",
+          "question_am": "አንድ ድንጋይ ከመሬት ወደ ላይ በ 20 m/s የመጀመሪያ ፍጥነት ተወረወረ (g = 10 m/s² ውሰዱ)። ድንጋዩ የሚደርስበት ከፍተኛው ከፍታ ስንት ነው?",
+          "options": [
+            "15 meters",
+            "20 meters",
+            "25 meters",
+            "40 meters"
+          ],
+          "options_am": [
+            "15 ሜትር",
+            "20 ሜትር",
+            "25 ሜትር",
+            "40 ሜትር"
+          ],
+          "correct_index": 1,
+          "explanation": "At maximum height v = 0. Using v² = u² - 2gh: 0 = (20)² - 2(10)h ⇒ 400 = 20h ⇒ h = 20 meters.",
+          "explanation_am": "በከፍተኛው ከፍታ ላይ የመጨረሻው ፍጥነት v = 0 ነው። በቀመር v² = u² - 2gh መሠረት: 0 = (20)² - 2(10)h ⇒ 400 = 20h ⇒ h = 20 ሜትር ይሆናል።"
+        },
+        {
+          "question": "According to Newton's Third Law of Motion, action and reaction forces:",
+          "question_am": "እንደ ኒውተን 3ኛ የእንቅስቃሴ ህግ (Newton's Third Law)፣ ድርጊት እና ግብረ-መልስ ሃይሎች (Action & Reaction):",
+          "options": [
+            "Act on the same body and cancel each other out",
+            "Act on different bodies simultaneously and never cancel each other",
+            "Are unequal in magnitude if one object accelerates",
+            "Act at different consecutive times"
+          ],
+          "options_am": [
+            "በአንድ አካል ላይ አርፈው እርስ በርስ ይሰረዛሉ",
+            "በተለያዩ ሁለት አካላት ላይ በአንድ ጊዜ የሚያርፉ በመሆናቸው በፍጹም አይሰረዙም",
+            "አንዱ አካል ፍጥነት ከጨመረ መጠናቸው እኩል አይሆንም",
+            "በተከታታይ በተለያዩ ጊዜያት ያርፋሉ"
+          ],
+          "correct_index": 1,
+          "explanation": "Action and reaction forces act on two completely different interacting bodies, so they can never cancel each other out on a single object.",
+          "explanation_am": "የድርጊት እና ግብረ-መልስ ሃይሎች በተለያዩ ሁለት አካላት ላይ ስለሚያርፉ በአንድ አካል ላይ እርስ በርስ በፍጹም ሊሰረዙ አይችሉም።"
+        },
+        {
+          "question": "A body of mass 2 kg moves along the x-axis under potential energy U(x) = 3x² - 6x (in Joules). What is the conservative force F(x) at x = 2 m?",
+          "question_am": "የ 2 ኪሎግራም ክብደት ያለው አካል በ x-አክሲስ ላይ በፖቴንሺያል ኢነርጂ U(x) = 3x² - 6x (በጁል) ይጓዛል። በ x = 2 m ላይ ያለው ኮንሰርቫቲቭ ሃይል F(x) ስንት ነው?",
+          "options": [
+            "-6 N",
+            "+6 N",
+            "-12 N",
+            "0 N"
+          ],
+          "options_am": [
+            "-6 N",
+            "+6 N",
+            "-12 N",
+            "0 N"
+          ],
+          "correct_index": 0,
+          "explanation": "Conservative force F(x) = -dU/dx = -(6x - 6) = 6 - 6x. At x = 2: F(2) = 6 - 6(2) = -6 N.",
+          "explanation_am": "ኮንሰርቫቲቭ ሃይል F(x) = -dU/dx = -(6x - 6) = 6 - 6x ነው። በ x = 2 ሲሆን: F(2) = 6 - 6(2) = -6 N ይሆናል።"
+        },
+        {
+          "question": "The Work-Energy Theorem states that the net work done by all forces acting on a particle is equal to:",
+          "question_am": "የስራ እና ኢነርጂ ቴዎረም (Work-Energy Theorem) እንደሚገልጸው በአንድ አካል ላይ የተሰራው ጠቅላላ ስራ እኩል የሚሆነው ከ:",
+          "options": [
+            "The change in potential energy",
+            "The change in kinetic energy",
+            "The total mechanical energy",
+            "The change in momentum"
+          ],
+          "options_am": [
+            "ከፖቴንሺያል ኢነርጂ ለውጥ ጋር",
+            "ከኪነቲክ ኢነርጂ ለውጥ (Change in KE) ጋር",
+            "ከጠቅላላ ሜካኒካል ኢነርጂ ጋር",
+            "ከሞመንተም ለውጥ ጋር"
+          ],
+          "correct_index": 1,
+          "explanation": "W_net = ΔK = (1/2)m(v_f² - v_i²). Net work directly equals the change in kinetic energy of the object.",
+          "explanation_am": "W_net = ΔK ነው። በአካል ላይ የተሰራው የተጣራ ስራ ምንጊዜም የኪነቲክ ኢነርጂ ልዩነትን ይወክላል።"
+        },
+        {
+          "question": "In projectile motion near Earth's surface (neglecting air friction), which quantity remains strictly constant throughout the flight?",
+          "question_am": "በፕሮጀክታይል እንቅስቃሴ ወቅት (የአየር ግጭት ችላ ሲባል) በበረራው ሙሉ ጉዞ ላይ ሳይለወጥ ቋሚ ሆኖ የሚቆየው የትኛው ነው?",
+          "options": [
+            "The vertical velocity component (v_y)",
+            "The horizontal velocity component (v_x)",
+            "The total speed of the projectile",
+            "The position coordinate y"
+          ],
+          "options_am": [
+            "የቁልቁለት/ቀጥታ ፍጥነት (v_y)",
+            "የአግድም ፍጥነት (Horizontal velocity v_x)",
+            "ጠቅላላው የፕሮጀክታይሉ ፍጥነት",
+            "የከፍታው መጋጠሚያ y"
+          ],
+          "correct_index": 1,
+          "explanation": "Since there is zero horizontal acceleration (a_x = 0), the horizontal velocity v_x = v_0 * cos(θ) remains unchanged throughout.",
+          "explanation_am": "በአግድም አቅጣጫ ምንም አይነት አክሲለሬሽን ስለሌለ (a_x = 0) አግድም ፍጥነት v_x በጉዞው ሁሉ ቋሚ ሆኖ ይቆያል።"
+        }
+      ],
+      "final": [
+        {
+          "question": "In an isolated physical system during a completely inelastic collision between two colliding bodies:",
+          "question_am": "በተዘጋ የፊዚክስ ሲስተም ውስጥ በሁለት አካላት መካከል ፍጹም ኢላስቲክ ባልሆነ ግጭት (inelastic collision) ወቅት:",
+          "options": [
+            "Both total kinetic energy and linear momentum are conserved",
+            "Linear momentum is conserved, but kinetic energy is not conserved",
+            "Kinetic energy is conserved, but linear momentum is not conserved",
+            "Neither kinetic energy nor linear momentum is conserved"
+          ],
+          "options_am": [
+            "ሁለቱም ኪነቲክ ኢነርጂ እና ሊኒየር ሞመንተም ይጠበቃሉ",
+            "ሊኒየር ሞመንተም ይጠበቃል፤ ነገር ግን ኪነቲክ ኢነርጂ አይጠበቅም",
+            "ኪነቲክ ኢነርጂ ይጠበቃል፤ ሊኒየር ሞመንተም ግን አይጠበቅም",
+            "ሁለቱም ኪነቲክ ኢነርጂም ሆነ ሞመንተም አይጠበቁም"
+          ],
+          "correct_index": 1,
+          "explanation": "Linear momentum is always conserved in isolated systems. However, completely inelastic collisions convert maximum kinetic energy into heat and deformation.",
+          "explanation_am": "በተዘጋ ሲስተም ውስጥ ሊኒየር ሞመንተም ምንጊዜም ይጠበቃል። ነገር ግን ኢላስቲክ ባልሆነ ግጭት ከፍተኛው የኪነቲክ ኢነርጂ ክፍል ወደ ሙቀትና ቅርጽ መቀየር ይባክናል።"
+        },
+        {
+          "question": "A uniform solid cylinder of mass M and radius R rolls without slipping down an incline. What fraction of its total kinetic energy is rotational?",
+          "question_am": "መጠኑ M እና ራዲየሱ R የሆነ ጠጣር ሲሊንደር ሳይንሸራተት በዳገት ላይ ይንከባለላል። ከጠቅላላው ኪነቲክ ኢነርጂ ውስጥ የማሽከርከር (rotational) ድርሻ ስንት ነው?",
+          "options": [
+            "1/2",
+            "1/3",
+            "2/3",
+            "1/4"
+          ],
+          "options_am": [
+            "1/2",
+            "1/3",
+            "2/3",
+            "1/4"
+          ],
+          "correct_index": 1,
+          "explanation": "K_rot = (1/2)Iω² = (1/4)Mv². K_trans = (1/2)Mv². Total K = (3/4)Mv². Fraction = (1/4)/(3/4) = 1/3 (33.3%).",
+          "explanation_am": "K_rot = (1/2)Iω² = (1/4)Mv² ነው። K_trans = (1/2)Mv² ነው። ጠቅላላ K = (3/4)Mv² በመሆኑ ድርሻው = (1/4)/(3/4) = 1/3 (33.3%) ነው።"
+        },
+        {
+          "question": "If the net external torque acting on a rotating system is zero (Στ_ext = 0), which physical law applies?",
+          "question_am": "በአንድ በሚሽከረከር ሲስተም ላይ የሚያርፈው የተጣራ ቶርክ (Torque) ዜሮ ሲሆን የትኛው የፊዚክስ ህግ ተግባራዊ ይሆናል?",
+          "options": [
+            "Conservation of Linear Momentum",
+            "Conservation of Angular Momentum",
+            "Newton's First Law of Optics",
+            "Pascal's Hydraulic Principle"
+          ],
+          "options_am": [
+            "የሊኒየር ሞመንተም ህግ",
+            "የአንጉላር ሞመንተም ጥበቃ ህግ (Conservation of Angular Momentum)",
+            "የኒውተን የብርሃን ህግ",
+            "የፓስካል ሃይድሮሊክ ህግ"
+          ],
+          "correct_index": 1,
+          "explanation": "Because τ = dL/dt, when net external torque is zero, the total angular momentum L = Iω remains strictly conserved.",
+          "explanation_am": "τ = dL/dt በመሆኑ የተጣራ ቶርክ ዜሮ ሲሆን ጠቅላላው አንጉላር ሞመንተም L = Iω ሳይለወጥ ቋሚ ሆኖ ይጠበቃል።"
+        },
+        {
+          "question": "In Simple Harmonic Motion (SHM), the acceleration of an oscillating object is:",
+          "question_am": "በቀላል ሃርሞኒክ እንቅስቃሴ (Simple Harmonic Motion) ውስጥ የአንድ አካል አክሲለሬሽን:",
+          "options": [
+            "Constant throughout the cycle",
+            "Directly proportional to displacement and directed toward equilibrium",
+            "Maximum when the velocity is maximum",
+            "Directly proportional to the square of velocity"
+          ],
+          "options_am": [
+            "በዑደቱ ሁሉ ቋሚ ነው",
+            "ከቦታ ሽግሽጉ (displacement) ጋር ተመጣጣኝ ሆኖ ወደ ሚዛናዊ ነጥብ ያመራል",
+            "ፍጥነቱ ከፍተኛ ሲሆን ከፍተኛ ይሆናል",
+            "ከፍጥነቱ ስኩዌር ጋር ተመጣጣኝ ነው"
+          ],
+          "correct_index": 1,
+          "explanation": "In SHM, restoring force F = -kx implies a = -(k/m)x = -ω²x, showing acceleration is proportional to displacement and opposite in sign.",
+          "explanation_am": "በ SHM ቀመር a = -ω²x መሠረት አክሲለሬሽን ከተጓዘው ርቀት ጋር ቀጥታ ተመጣጣኝ ሆኖ ወደ መሃል ሚዛናዊ ነጥብ ያመራል።"
+        },
+        {
+          "question": "Bernoulli's Principle for an incompressible, non-viscous fluid in streamline flow demonstrates that:",
+          "question_am": "ለማይጨመቅና ፍትጊያ ለሌለው ፈሳሽ የበርኑሊ መርህ (Bernoulli's Principle) የሚያሳየው:",
+          "options": [
+            "An increase in fluid speed occurs simultaneously with a decrease in static pressure",
+            "Pressure increases as velocity increases",
+            "Mass of fluid decreases down a narrow pipe",
+            "Fluid temperature rises linearly with flow rate"
+          ],
+          "options_am": [
+            "የፈሳሹ ፍጥነት ሲጨምር የስታቲክ ጫናው (pressure) ይቀንሳል",
+            "ፍጥነት ሲጨምር ጫና አብሮ ይጨምራል",
+            "በጠባብ ቧንቧ ውስጥ የፈሳሹ ክብደት ይቀንሳል",
+            "የፈሳሹ ሙቀት ከፍጥነቱ ጋር እኩል ያድጋል"
+          ],
+          "correct_index": 0,
+          "explanation": "Along a streamline, P + (1/2)ρv² + ρgh = constant. As flow speed v increases, internal fluid pressure P must decrease.",
+          "explanation_am": "በበርኑሊ ቀመር መሠረት የፈሳሽ ፍጥነት በሚጨምርበት ወቅት የውስጠኛው ስታቲክ ጫና (Pressure) ይቀንሳል።"
+        }
+      ]
+    },
+    "critical_thinking": {
+      "mid": [
+        {
+          "question": "Which of the following defines an argument that is both deductively valid and composed entirely of true premises?",
+          "question_am": "ዲዳክቲቭ ቫሊድ የሆነ እና ሁሉም መነሻ ሃሳቦቹ (premises) ሙሉ በሙሉ እውነት የሆኑትን ክርክር የሚገልጸው የትኛው ነው?",
+          "options": [
+            "A Strong Argument",
+            "A Cogent Argument",
+            "A Sound Argument",
+            "An Inductively Verified Argument"
+          ],
+          "options_am": [
+            "ጠንካራ ክርክር (Strong Argument)",
+            "አሳማኝ ክርክር (Cogent Argument)",
+            "ድምጹ እውነተኛ ክርክር (Sound Argument)",
+            "በማስረጃ የተረጋገጠ ክርክር"
+          ],
+          "correct_index": 2,
+          "explanation": "In formal logic, a deductive argument is Sound if and only if its reasoning is valid AND all of its premises are factually true.",
+          "explanation_am": "በመደበኛ ሎጂክ ውስጥ አንድ የዲዳክሽን ክርክር Sound የሚባለው አወቃቀሩ ቫሊድ ሆኖ ሁሉም መነሻ ሃሳቦቹ እውነት ሲሆኑ ብቻ ነው።"
+        },
+        {
+          "question": "Identify the fallacy: 'Candidate X proposes investing in solar energy. But Candidate X has zero fashion taste, so his proposal is invalid.'",
+          "question_am": "ስህተቱን (Fallacy) ለዩ: 'እጩ ተወዳዳሪ X በፀሐይ ኃይል ላይ ኢንቨስት እንድናደርግ ሃሳብ አቅርቧል። ነገር ግን እጩ X ምንም ዓይነት የአለባበስ ስታይል የለውም፣ ስለዚህ ያቀረበው ሃሳብ ተቀባይነት የለውም።'",
+          "options": [
+            "Straw Man Fallacy",
+            "Argumentum Ad Hominem (Abusive)",
+            "Appeal to Pity",
+            "False Dilemma"
+          ],
+          "options_am": [
+            "የገለባ ሰው ስህተት (Straw Man)",
+            "አድ ሆሚነም / ሰውን የማጥቃት ስህተት (Ad Hominem)",
+            "የይድረስልኝ ጥሪ (Appeal to Pity)",
+            "የውሸት አማራጭ (False Dilemma)"
+          ],
+          "correct_index": 1,
+          "explanation": "Ad Hominem attacks personal characteristics rather than evaluating the validity of the argument itself.",
+          "explanation_am": "አድ ሆሚነም የቀረበውን ሃሳብ ወይም ክርክር ትክክለኛነት ከመገምገም ይልቅ የግለሰቡን ማንነት ወይም ባህሪ ማጥቃትን ያካትታል።"
+        },
+        {
+          "question": "Identify the fallacy: 'You must either agree with our campus policy completely, or you hate university education.'",
+          "question_am": "ስህተቱን (Fallacy) ለዩ: 'የግቢውን ፖሊሲ ሙሉ በሙሉ መደገፍ አለብህ፤ አለበለዚያ የዩኒቨርሲቲ ትምህርትን ትጠላለህ ማለት ነው።'",
+          "options": [
+            "False Cause",
+            "False Dilemma / False Dichotomy",
+            "Slippery Slope",
+            "Hasty Generalization"
+          ],
+          "options_am": [
+            "የውሸት ምክንያት (False Cause)",
+            "የውሸት አማራጭ (False Dilemma / Dichotomy)",
+            "አንሸራታች ቁልቁለት (Slippery Slope)",
+            "ችኮላ ድምዳሜ (Hasty Generalization)"
+          ],
+          "correct_index": 1,
+          "explanation": "A False Dilemma artificially restricts the alternatives to two extremes while ignoring intermediate options.",
+          "explanation_am": "ፎልስ ዲሌማ አማካይ አማራጮችን ችላ በማለት በሰውየው ፊት ሁለት ጽንፍ አማራጮችን ብቻ በማስቀመጥ የሚያሳስት ስህተት ነው።"
+        },
+        {
+          "question": "An inductive argument in which the premises, assuming they are true, make the conclusion highly probable is termed:",
+          "question_am": "መነሻ ሃሳቦቹ እውነት ቢሆኑ ድምዳሜው እውነት የመሆን እድሉ ከፍተኛ (probable) የሆነው የኢንዳክሽን ክርክር ምን ይባላል?",
+          "options": [
+            "Valid Argument",
+            "Strong Argument",
+            "Sound Argument",
+            "Absolute Argument"
+          ],
+          "options_am": [
+            "ቫሊድ ክርክር (Valid)",
+            "ጠንካራ ክርክር (Strong Argument)",
+            "ሳውንድ ክርክር (Sound)",
+            "ፍጹም ክርክር"
+          ],
+          "correct_index": 1,
+          "explanation": "Inductive arguments deal with probability rather than certainty. If premises provide strong probabilistic support, the argument is Strong.",
+          "explanation_am": "የኢንዳክሽን ክርክር በእድል እና በሚዛን የሚመዘን ሲሆን መነሻዎቹ ለድምዳሜው ከፍተኛ እድል ሲሰጡ ጠንካራ (Strong) ይባላል።"
+        },
+        {
+          "question": "Identify the fallacy: 'My opponent argues we should build a new library. Clearly, she wants to bankrupt our student union and leave us penniless.'",
+          "question_am": "ስህተቱን (Fallacy) ለዩ: 'ተፎካካሪዬ አዲስ ቤተ-መጽሐፍት እንድንገነባ ትከራከራለች። በግልጽ እንደሚታየው እሷ የተማሪዎች ህብረትን ማክሰር እና በባዶ እጅ እንድንቀር ትፈልጋለች።'",
+          "options": [
+            "Straw Man Fallacy",
+            "Red Herring",
+            "Begging the Question",
+            "Appeal to Ignorance"
+          ],
+          "options_am": [
+            "የገለባ ሰው ስህተት (Straw Man Fallacy)",
+            "አቅጣጫ የማስቀየር ስህተት (Red Herring)",
+            "ጥያቄውን መለመን (Begging the Question)",
+            "ያለማወቅ ጥሪ (Appeal to Ignorance)"
+          ],
+          "correct_index": 0,
+          "explanation": "The Straw Man fallacy distorts or exaggerates an opponent's actual position into an extreme, easily attackable caricature.",
+          "explanation_am": "ስትሮው ማን (Straw Man) የሌላውን ሰው ሃሳብ በማጋነንና በማዛባት በቀላሉ ለማጥቃት በሚመች መልኩ አቅርቦ መከራከር ነው።"
+        }
+      ],
+      "final": [
+        {
+          "question": "What is the converse of the categorical proposition: 'No reptiles are mammals' (E-proposition)?",
+          "question_am": "የካቴጎሪካል ፕሮፖዚሽን 'ምንም ተሳቢ እንስሳት አጥቢዎች አይደሉም' (E-proposition) ኮንቨርስ (converse) የትኛው ነው?",
+          "options": [
+            "Some reptiles are not mammals",
+            "No mammals are reptiles",
+            "All mammals are reptiles",
+            "Some mammals are reptiles"
+          ],
+          "options_am": [
+            "አንዳንድ ተሳቢ እንስሳት አጥቢዎች አይደሉም",
+            "ምንም አጥቢዎች ተሳቢ እንስሳት አይደሉም",
+            "ሁሉም አጥቢዎች ተሳቢ እንስሳት ናቸው",
+            "አንዳንድ አጥቢዎች ተሳቢ እንስሳት ናቸው"
+          ],
+          "correct_index": 1,
+          "explanation": "Conversion simply exchanges the subject and predicate. For universal negative (E) propositions, conversion is logically valid: 'No mammals are reptiles'.",
+          "explanation_am": "ኮንቨርሽን ርዕሱንና ተሳቢውን በቀላሉ ያቀያይራል። ለአለም አቀፍ አሉታዊ (E) ፕሮፖዚሽኖች ኮንቨርሽን ትክክለኛ ህጋዊ ነው: 'ምንም አጥቢዎች ተሳቢ እንስሳት አይደሉም'።"
+        },
+        {
+          "question": "According to the Traditional Square of Opposition, if an A-proposition ('All S are P') is TRUE, what is the truth value of its contradictory O-proposition ('Some S are not P')?",
+          "question_am": "በትውፊታዊው የፕሮፖዚሽን አደረጃጀት (Traditional Square of Opposition) መሠረት A-ፕሮፖዚሽን እውነት ከሆነ ተቃራኒው O-ፕሮፖዚሽን ምን ይሆናል?",
+          "options": [
+            "Necessarily False",
+            "Necessarily True",
+            "Undetermined",
+            "Both True and False"
+          ],
+          "options_am": [
+            "በግድ ውሸት (Necessarily False)",
+            "በግድ እውነት (Necessarily True)",
+            "ያልተረጋገጠ (Undetermined)",
+            "ሁለቱም እውነትና ውሸት"
+          ],
+          "correct_index": 0,
+          "explanation": "Contradictory statements (A and O, E and I) always have opposite truth values. If A is True, O must be False.",
+          "explanation_am": "ኮንትራዲክተሪ ፕሮፖዚሽኖች (A እና O) ምንጊዜም ተቃራኒ እውነት አላቸው። A እውነት ከሆነ O በግድ ውሸት ይሆናል።"
+        },
+        {
+          "question": "A standard-form categorical syllogism that contains two negative premises commits which formal fallacy?",
+          "question_am": "ሁለት አሉታዊ (negative) መነሻ ሃሳቦችን የያዘ ካቴጎሪካል ሲሎጂዝም የትኛውን መደበኛ ስህተት ይፈጽማል?",
+          "options": [
+            "Fallacy of Exclusive Premises",
+            "Fallacy of Illicit Major",
+            "Fallacy of Four Terms",
+            "Fallacy of Undistributed Middle"
+          ],
+          "options_am": [
+            "የተገለሉ መነሻዎች ስህተት (Exclusive Premises)",
+            "የኢሊሲት ሜጀር ስህተት",
+            "የአራት ተርሞች ስህተት",
+            "ያልተከፋፈለ መካከለኛ ስህተት"
+          ],
+          "correct_index": 0,
+          "explanation": "Syllogistic Rule: No valid conclusion can be drawn from two negative premises. Violating this commits the Fallacy of Exclusive Premises.",
+          "explanation_am": "ከሁለት አሉታዊ መነሻዎች ምንም አይነት ትክክለኛ ድምዳሜ ሊደረስ አይችልም። ይህን መጣስ የ Exclusive Premises ስህተት ይባላል።"
+        },
+        {
+          "question": "Which informal fallacy occurs when a word or phrase is used in two different senses within the same argument?",
+          "question_am": "በአንድ ክርክር ውስጥ አንድ ቃል ወይም ሀረግ በሁለት የተለያዩ ትርጉሞች ጥቅም ላይ ሲውል የሚፈጠረው ስህተት የትኛው ነው?",
+          "options": [
+            "Equivocation",
+            "Amphiboly",
+            "Composition",
+            "Division"
+          ],
+          "options_am": [
+            "ኢክዊቮኬሽን (Equivocation)",
+            "አምፊቦሊ (Amphiboly)",
+            "ኮምፖዚሽን (Composition)",
+            "ዲቪዥን (Division)"
+          ],
+          "correct_index": 0,
+          "explanation": "Equivocation occurs when semantic ambiguity arises from using a keyword with two different meanings in premises and conclusion.",
+          "explanation_am": "ኢክዊቮኬሽን አንድ ቁልፍ ቃል በክርክሩ ውስጥ በተለያዩ አውዶች ሁለት የማይገናኙ ትርጉሞችን ሲይዝ የሚፈጠር ስህተት ነው።"
+        },
+        {
+          "question": "The fallacy of Post Hoc Ergo Propter Hoc ('After this, therefore because of this') is an error in:",
+          "question_am": "የ 'ፖስት ሆክ' (Post Hoc Ergo Propter Hoc) ስህተት በዋነኝነት የሚመነጨው ከምን ዓይነት የተሳሳተ ምክንያት ነው?",
+          "options": [
+            "Assuming that temporal succession proves a causal relationship",
+            "Relying on the majority opinion",
+            "Attacking an opponent's physical appearance",
+            "Defining terms circularly"
+          ],
+          "options_am": [
+            "የጊዜ ቅደም ተከተል ብቻውን መንስኤ መሆኑን ያረጋግጣል ብሎ በማመን",
+            "በብዙሃን ድምጽ በመተማመን",
+            "የተቃዋሚን አካላዊ ገጽታ በመንቀፍ",
+            "ክብ ዙር ትርጓሜ በመጠቀም"
+          ],
+          "correct_index": 0,
+          "explanation": "Post Hoc falsely concludes that event A caused event B merely because event B followed event A in chronological time.",
+          "explanation_am": "ፖስት ሆክ አንዱ ድርጊት ከሌላው ቀድሞ ስለተከሰተ ብቻ አንደኛው የሌላኛው መንስኤ ነው ብሎ በስህተት መደምደም ነው።"
+        }
+      ]
+    },
+    "critical_emerging": {
+      "mid": [
+        {
+          "question": "Which core characteristic distinguishes the Fourth Industrial Revolution (Industry 4.0) from Industry 3.0?",
+          "question_am": "አራተኛውን የኢንዱስትሪ አብዮት (Industry 4.0) ከኢንዱስትሪ 3.0 የሚለየው ዋናው መገለጫ የትኛው ነው?",
+          "options": [
+            "The invention of steam engines and mechanical weaving",
+            "The adoption of mass production assembly lines and electricity",
+            "The fusion of digital, biological, and physical spheres via Cyber-Physical Systems (CPS)",
+            "The initial introduction of basic personal computers"
+          ],
+          "options_am": [
+            "የእንፋሎት ሞተር እና የሜካኒካል ሽመና ፈጠራ",
+            "የኤሌክትሪክ ኃይል እና የመሰብሰቢያ መስመር (assembly line) አጠቃቀም",
+            "የዲጂታል፣ ባዮሎጂካል እና ፊዚካል ዓለማት በሳይበር-ፊዚካል ሲስተምስ (CPS) መቀናጀት",
+            "የመጀመሪያዎቹ የግል ኮምፒውተሮች መፈጠር"
+          ],
+          "options": [
+            "The invention of steam engines and mechanical weaving",
+            "The adoption of mass production assembly lines and electricity",
+            "The fusion of digital, biological, and physical spheres via Cyber-Physical Systems (CPS)",
+            "The initial introduction of basic personal computers"
+          ],
+          "correct_index": 2,
+          "explanation": "Industry 4.0 is defined by Cyber-Physical Systems (CPS), IoT, big data, and autonomous networks connecting the physical and digital worlds.",
+          "explanation_am": "ኢንዱስትሪ 4.0 በሳይበር-ፊዚካል ሲስተሞች (CPS)፣ IoT፣ ቢግ ዳታ እና ራሳቸውን በሚያስተዳድሩ አውታረ መረቦች ዓለማትን በማቀናጀት ይታወቃል።"
+        },
+        {
+          "question": "In Artificial Intelligence, which learning paradigm trains an agent to make sequential decisions by receiving rewards or penalties?",
+          "question_am": "በአርቴፊሻል ኢንተለጀንስ (AI) ውስጥ አንድ ወኪል (agent) ሽልማቶችንና ቅጣቶችን በመቀበል ተከታታይ ውሳኔዎችን እንዲወስን የሚያሰለጥነው የትምህርት ዘይቤ የትኛው ነው?",
+          "options": [
+            "Supervised Learning",
+            "Unsupervised Clustering",
+            "Reinforcement Learning (RL)",
+            "Semi-Supervised Label Propagation"
+          ],
+          "options_am": [
+            "ሱፐርቫይዝድ ለርኒንግ (Supervised Learning)",
+            "አንሱፐርቫይዝድ ክላስተሪንግ (Unsupervised)",
+            "ሪኢንፎርስመንት ለርኒንግ (Reinforcement Learning - RL)",
+            "ሰሚ-ሱፐርቫይዝድ ለርኒንግ"
+          ],
+          "correct_index": 2,
+          "explanation": "Reinforcement Learning optimizes decision policies through environmental rewards and penalties without pre-labeled data.",
+          "explanation_am": "ሪኢንፎርስመንት ለርኒንግ አስቀድሞ ከተዘጋጀ ዳታ ይልቅ ከአካባቢው ከሚያገኘው ሽልማት እና ቅጣት በመነሳት ትክክለኛ የውሳኔ ፖሊሲን ያዳብራል።"
+        },
+        {
+          "question": "Which machine learning approach requires a labeled dataset consisting of input-output pairs to train predictive algorithms?",
+          "question_am": "አልጎሪዝሙን ለማሰልጠን ግብአት እና ውጤቱ አስቀድሞ የተሰየመ (labeled dataset) የሚፈልገው የማሽን ለርኒንግ ዘይቤ የትኛው ነው?",
+          "options": [
+            "Supervised Learning",
+            "Unsupervised Clustering",
+            "Autonomous Association",
+            "Heuristic Random Walk"
+          ],
+          "options_am": [
+            "ሱፐርቫይዝድ ለርኒንግ (Supervised Learning)",
+            "አንሱፐርቫይዝድ ክላስተሪንግ",
+            "ራሱን የቻለ አሶሴሽን",
+            "የግምት ፍለጋ"
+          ],
+          "correct_index": 0,
+          "explanation": "Supervised Learning trains models on ground-truth labeled features to map inputs to verified output targets (e.g. classification/regression).",
+          "explanation_am": "ሱፐርቫይዝድ ለርኒንግ (Supervised Learning) ሞዴሉን የሚያሰለጥነው አስቀድሞ በተሰየመና በተረጋገጠ የግብአትና ውጤት መረጃ ላይ ነው።"
+        },
+        {
+          "question": "Which subfield of Artificial Intelligence enables computers to interpret, identify, and process visual images and video frames?",
+          "question_am": "ኮምፒውተሮች ምስሎችንና ቪዲዮዎችን እንዲረዱ፣ እንዲተነትኑ እና ነገሮችን እንዲለዩ የሚያስችላቸው የ AI ዘርፍ የትኛው ነው?",
+          "options": [
+            "Computer Vision",
+            "Natural Language Generation",
+            "Speech Synthesis",
+            "Network Virtualization"
+          ],
+          "options_am": [
+            "ኮምፒውተር ቪዥን (Computer Vision)",
+            "የቋንቋ ማመንጨት",
+            "የድምጽ ውህደት",
+            "የኔትወርክ ቨርቹዋል አሰራር"
+          ],
+          "correct_index": 0,
+          "explanation": "Computer Vision employs deep convolutional neural networks to extract spatial patterns and recognize real-world objects in digital images.",
+          "explanation_am": "ኮምፒውተር ቪዥን (Computer Vision) በዲጂታል ምስሎች ውስጥ ያሉ ቅርጾችንና ቁሶችን ለመለየት የሚያገለግል የ AI ዘርፍ ነው።"
+        },
+        {
+          "question": "What is the primary objective of Natural Language Processing (NLP) in modern computing?",
+          "question_am": "በዘመናዊ ኮምፒውተር ሳይንስ ውስጥ የ Natural Language Processing (NLP) ዋና ዓላማ ምንድነው?",
+          "options": [
+            "Enabling computers to understand, interpret, and generate human spoken/written language",
+            "Increasing motherboard clock frequencies",
+            "Designing silicon microchips",
+            "Routing high-voltage electricity"
+          ],
+          "options_am": [
+            "ኮምፒውተሮች የሰውን የተነገረና የተጻፈ ቋንቋ እንዲረዱና እንዲያመነጩ ማስቻል",
+            "የኮምፒውተር ፕሮሰሰር ፍጥነትን መጨመር",
+            "የሲሊኮን ቺፖችን መንደፍ",
+            "የኤሌክትሪክ መስመር ማስተላለፍ"
+          ],
+          "correct_index": 0,
+          "explanation": "NLP bridges human linguistics and artificial intelligence, enabling translation, sentiment analysis, chatbots, and text generation.",
+          "explanation_am": "NLP የሰውን የዕለት ተዕለት ቋንቋ ከኮምፒውተር ጋር በማገናኘት የጽሁፍ ትርጉም፣ ቻትቦት እና ትንታኔን እውን ያደርጋል።"
+        }
+      ],
+      "final": [
+        {
+          "question": "In Internet of Things (IoT) network architecture, which layer is responsible for raw physical data acquisition using sensors and actuators?",
+          "question_am": "በኢንተርኔት ኦፍ ቲንግስ (IoT) ኔትወርክ መዋቅር ውስጥ ጥሬ ፊዚካዊ መረጃዎችን በሴንሰሮችና አንቀሳቃሾች የመሰብሰብ ኃላፊነት ያለበት ንብርብር (layer) የትኛው ነው?",
+          "options": [
+            "Perception (Sensing) Layer",
+            "Network Transmission Layer",
+            "Middleware / Processing Layer",
+            "Business Application Layer"
+          ],
+          "options_am": [
+            "የግንዛቤ/የዳሰሳ ንብርብር (Perception/Sensing Layer)",
+            "የኔትወርክ ማስተላለፊያ ንብርብር (Network Layer)",
+            "የመካከለኛ ሂደት ንብርብር (Middleware Layer)",
+            "የቢዝነስ መተግበሪያ ንብርብር (Application Layer)"
+          ],
+          "correct_index": 0,
+          "explanation": "The Perception Layer gathers raw physical variables (temperature, light, acceleration) using sensors and transducers.",
+          "explanation_am": "የፐርሴፕሽን ንብርብር (Perception Layer) እንደ ሙቀት፣ ብርሃን፣ ፍጥነት ያሉ ጥሬ ፊዚካዊ መረጃዎችን በሴንሰሮች አማካኝነት ይሰበስባል።"
+        },
+        {
+          "question": "Which cryptographic property makes a distributed blockchain ledger virtually immutable against historical alterations?",
+          "question_am": "የብሎክቼይን ቴክኖሎጂ ታሪካዊ መረጃዎች እንዳይቀየሩና እንዳይጭበረበሩ የማይበገር (immutable) የሚያደርገው የትኛው የክሪፕቶግራፊ ባህሪ ነው?",
+          "options": [
+            "Centralized Cloud Database Backups",
+            "Cryptographic Hashing and Proof-of-Work / Consensus Chaining",
+            "Symmetric Key File Encryption",
+            "Public IPv6 Tunneling"
+          ],
+          "options_am": [
+            "ማዕከላዊ የዳታቤዝ ባክአፕ (Backups)",
+            "ክሪፕቶግራፊክ ሃሽ እና የኮንሰንሰስ ሰንሰለት (Cryptographic Hash & Consensus)",
+            "ሲሜትሪክ የፋይል ኢንክሪፕሽን",
+            "የህዝብ IPv6 ቱነሊንግ"
+          ],
+          "correct_index": 1,
+          "explanation": "Each block contains the hash of the preceding block. Tampering with any historical record invalidates all subsequent blocks, which is rejected by consensus.",
+          "explanation_am": "እያንዳንዱ ብሎክ የቀዳሚውን ብሎክ ሃሽ (hash) የያዘ በመሆኑ ማንኛውም ታሪካዊ መረጃ ሲቀየር ሁሉም ተከታይ ብሎኮች ውድቅ ይሆናሉ።"
+        },
+        {
+          "question": "In Cloud Computing, which service delivery model provides virtualized computing infrastructure (servers, storage, networks) over the Internet?",
+          "question_am": "በክላውድ ኮምፒውቲንግ ውስጥ ቨርቹዋል የሆኑ ሰርቨሮችን፣ ስቶሬጅ እና ኔትወርክን እንደ አገልግሎት የሚያቀርበው ሞዴል የትኛው ነው?",
+          "options": [
+            "IaaS (Infrastructure as a Service)",
+            "PaaS (Platform as a Service)",
+            "SaaS (Software as a Service)",
+            "DaaS (Database as a Service)"
+          ],
+          "options_am": [
+            "IaaS (መሰረተ-ልማት እንደ አገልግሎት)",
+            "PaaS (ፕላትፎርም እንደ አገልግሎት)",
+            "SaaS (ሶፍትዌር እንደ አገልግሎት)",
+            "DaaS (ዳታቤዝ እንደ አገልግሎት)"
+          ],
+          "correct_index": 0,
+          "explanation": "IaaS supplies raw infrastructure resources (e.g. AWS EC2, Google Compute Engine) allowing users full OS and application control.",
+          "explanation_am": "IaaS ተጠቃሚዎች የራሳቸውን ኦፕሬቲንግ ሲስተም እና አፕሊኬሽን እንዲጭኑበት መሰረተ-ልማትን ያቀርባል።"
+        },
+        {
+          "question": "What are the three fundamental pillars comprising the CIA Triad in Cybersecurity?",
+          "question_am": "በሳይበር ደህንነት (Cybersecurity) ውስጥ የ CIA Triad ሶስቱ መሰረታዊ ምሰሶዎች የትኞቹ ናቸው?",
+          "options": [
+            "Confidentiality, Integrity, and Availability",
+            "Control, Inspection, and Authorization",
+            "Cloud, Internet, and Architecture",
+            "Computation, Intelligence, and Algorithms"
+          ],
+          "options_am": [
+            "ሚስጥራዊነት፣ ትክክለኛነት እና ተደራሽነት (Confidentiality, Integrity, Availability)",
+            "ቁጥጥር፣ ፍተሻ እና ፈቃድ",
+            "ክላውድ፣ ኢንተርኔት እና አርክቴክቸር",
+            "ስሌት፣ አዕምሮ እና አልጎሪዝም"
+          ],
+          "correct_index": 0,
+          "explanation": "The CIA Triad guarantees: Confidentiality (authorized viewing), Integrity (unauthorized tampering prevention), and Availability (system uptime).",
+          "explanation_am": "CIA Triad: ሚስጥራዊነትን (Confidentiality)፣ መረጃው እንዳይቀየር (Integrity)፣ እና በማንኛውም ጊዜ ተደራሽ መሆንን (Availability) ያረጋግጣል።"
+        },
+        {
+          "question": "How does Augmented Reality (AR) fundamentally differ from Virtual Reality (VR)?",
+          "question_am": "አውግሜንትድ ሪያሊቲ (AR) ከቨርቹዋል ሪያሊቲ (VR) በዋነኝነት በምን ይለያል?",
+          "options": [
+            "AR overlays digital computer-generated elements onto the real physical world, while VR replaces the physical world entirely with a simulated environment",
+            "VR requires no headset or display device",
+            "AR only works with sound frequencies",
+            "There is no technical difference"
+          ],
+          "options_am": [
+            "AR በነባራዊው ዓለም ላይ ዲጂታል መረጃዎችን ሲጨምር VR ግን ነባራዊውን ዓለም ሙሉ በሙሉ በዲጂታል ምናባዊ ዓለም ይተካል",
+            "VR ምንም አይነት መነጽር አይፈልግም",
+            "AR በድምጽ ሞገድ ብቻ ይሰራል",
+            "ምንም ዓይነት ልዩነት የላቸውም"
+          ],
+          "correct_index": 0,
+          "explanation": "AR superimposes digital overlays onto live physical surroundings, whereas VR isolates the user in an artificial 360-degree synthesized environment.",
+          "explanation_am": "AR በነባራዊው አካባቢ ላይ ዲጂታል ምስሎችን የሚያሳይ ሲሆን VR ደግሞ ተጠቃሚውን ሙሉ በሙሉ ወደ ምናባዊ ዲጂታል ዓለም ያስገባል።"
+        }
+      ]
+    },
+    "comm_skills": {
+      "mid": [
+        {
+          "question": "Which reading skill is used when a student quickly glances over an article to locate a specific date or name?",
+          "question_am": "አንድ ተማሪ በአንድ ጽሁፍ ውስጥ አንድ የተወሰነ ቀን ወይም ስም በፍጥነት ፈልጎ ለማግኘት የሚጠቀምበት የንባብ ክህሎት የትኛው ነው?",
+          "options": [
+            "Scanning",
+            "Skimming",
+            "Critical Evaluation",
+            "Extensive Reading"
+          ],
+          "options_am": [
+            "ስካኒንግ (Scanning)",
+            "ስኪሚንግ (Skimming)",
+            "ሂሳዊ ግምገማ",
+            "ሰፊ ንባብ"
+          ],
+          "correct_index": 0,
+          "explanation": "Scanning is searching specifically for isolated facts (names, numbers, dates), whereas skimming seeks the general overall idea.",
+          "explanation_am": "ስካኒንግ (Scanning) የተወሰነ መረጃን (ቀን፣ ስም፣ ቁጥር) ፈልጎ ለማግኘት የሚደረግ ፈጣን ንባብ ነው።"
+        },
+        {
+          "question": "Identify the sentence structure: 'Although the midterm exam was rigorous, the freshman students prepared diligently, and they achieved high scores.'",
+          "question_am": "የአረፍተ ነገሩን አወቃቀር ለዩ: 'Although the midterm exam was rigorous, the freshman students prepared diligently, and they achieved high scores.'",
+          "options": [
+            "Simple Sentence",
+            "Compound Sentence",
+            "Complex Sentence",
+            "Compound-Complex Sentence"
+          ],
+          "options_am": [
+            "ቀላል አረፍተ ነገር (Simple)",
+            "ውህድ አረፍተ ነገር (Compound)",
+            "ውስብስብ አረፍተ ነገር (Complex)",
+            "ውህድ-ውስብስብ አረፍተ ነገር (Compound-Complex)"
+          ],
+          "correct_index": 3,
+          "explanation": "It contains one dependent clause ('Although...') and two independent coordinate clauses joined by 'and', making it Compound-Complex.",
+          "explanation_am": "አንድ ጥገኛ ሀረግ እና ሁለት ራሳቸውን የቻሉ አረፍተ ነገሮች በ 'and' ስለተያያዙ Compound-Complex አረፍተ ነገር ይባላል።"
+        },
+        {
+          "question": "Choose the correct subject-verb agreement: 'Each of the freshman dormitory buildings ______ inspected by campus proctors every weekend.'",
+          "question_am": "ትክክለኛውን ሰዋሰው ይምረጡ: 'Each of the freshman dormitory buildings ______ inspected by campus proctors every weekend.'",
+          "options": [
+            "is",
+            "are",
+            "were",
+            "have been"
+          ],
+          "options_am": [
+            "is",
+            "are",
+            "were",
+            "have been"
+          ],
+          "correct_index": 0,
+          "explanation": "The grammatical subject is the singular pronoun 'Each', which strictly requires the singular verb 'is'.",
+          "explanation_am": "ዋናው ባለቤት 'Each' ነጠላ (singular) በመሆኑ ነጠላ ግሥ 'is' መከተል አለበት።"
+        },
+        {
+          "question": "What is the primary function of a topic sentence in an academic paragraph?",
+          "question_am": "በአካዳሚክ አንቀጽ ውስጥ የቶፒክ ሴንቴንስ (Topic Sentence) ዋና ተግባር ምንድነው?",
+          "options": [
+            "To state the central controlling idea of the entire paragraph",
+            "To cite external bibliography sources",
+            "To summarize the entire book",
+            "To provide a counter-example"
+          ],
+          "options_am": [
+            "የአንቀጹን ዋና እና ማዕከላዊ መልዕክት መግለጽ",
+            "የመጽሐፍ ማጣቀሻዎችን መዘርዘር",
+            "ጠቅላላውን መጽሐፍ ማጠቃለል",
+            "ተቃራኒ ምሳሌ መስጠት"
+          ],
+          "correct_index": 0,
+          "explanation": "A topic sentence clearly announces the controlling theme developed by all subsequent supporting details.",
+          "explanation_am": "ቶፒክ ሴንቴንስ በዚያ አንቀጽ ውስጥ የሚብራራውን ዋና ሃሳብ በግልጽ የሚያስቀምጥ የመሪ አረፍተ ነገር ነው።"
+        },
+        {
+          "question": "In contextual vocabulary analysis, words like 'however', 'unlike', and 'on the other hand' signal:",
+          "question_am": "በንባብ ውስጥ እንደ 'however', 'unlike', 'on the other hand' ያሉ ቃላት የሚያመለክቱት:",
+          "options": [
+            "Contrast / Opposite meaning clues",
+            "Chronological time sequences",
+            "Synonymous restatement",
+            "Cause and effect conclusions"
+          ],
+          "options_am": [
+            "ተቃርኖ / ተቃራኒ ትርጉምን (Contrast)",
+            "የጊዜ ቅደም ተከተልን",
+            "አቻ ትርጉምን",
+            "ምክንያት እና ውጤትን"
+          ],
+          "correct_index": 0,
+          "explanation": "These transitional markers introduce contrast clues that help readers infer unfamiliar vocabulary meanings.",
+          "explanation_am": "እነዚህ የማያያዣ ቃላት በአረፍተ ነገሮች መካከል ያለውን ተቃርኖ በማሳየት የአዳዲስ ቃላትን ትርጉም ለመረዳት ያግዛሉ።"
+        }
+      ],
+      "final": [
+        {
+          "question": "Which transitional device best establishes a cause-and-effect relationship between two sentences?",
+          "question_am": "በሁለት አረፍተ ነገሮች መካከል የምክንያትና ውጤት ግንኙነትን በይበልጥ የሚያሳየው የትኛው ነው?",
+          "options": [
+            "Consequently",
+            "Nevertheless",
+            "Similarly",
+            "For instance"
+          ],
+          "options_am": [
+            "Consequently (በዚህም የተነሳ)",
+            "Nevertheless (ቢሆንም ግን)",
+            "Similarly (በተመሳሳይ)",
+            "For instance (ለምሳሌ)"
+          ],
+          "correct_index": 0,
+          "explanation": "'Consequently' indicates that the subsequent statement is a direct logical result or outcome of the preceding cause.",
+          "explanation_am": "'Consequently' የቀደመው ምክንያት ያስከተለውን ቀጥተኛ ውጤት ለመግለጽ የሚያገለግል የውጤት አመልካች ቃል ነው።"
+        },
+        {
+          "question": "What is the primary requirement of ethical academic paraphrasing?",
+          "question_am": "ትክክለኛ አካዳሚክ ፓራፍሬዚንግ (Paraphrasing) ዋናው መመሪያ ምንድነው?",
+          "options": [
+            "Restating the author's ideas in your own unique sentence structure and vocabulary while crediting the original source",
+            "Copying the sentence exactly and changing one word",
+            "Omitting the author's name to claim full ownership",
+            "Translating into a foreign language without citation"
+          ],
+          "options_am": [
+            "የደራሲውን ሃሳብ በራስህ ቃላትና አወቃቀር በማስቀመጥ ዋናውን ምንጭ በአግባቡ መጥቀስ",
+            "አረፍተ ነገሩን ሙሉ በሙሉ ገልብጦ አንድ ቃል ብቻ መቀየር",
+            "የደራሲውን ስም ሆን ብሎ መተው",
+            "ያለ ምንጭ ወደ ሌላ ቋንቋ መተርጎም"
+          ],
+          "correct_index": 0,
+          "explanation": "True paraphrasing thoroughly transforms syntax and diction while preserving meaning and properly acknowledging the author.",
+          "explanation_am": "ትክክለኛ ፓራፍሬዚንግ የደራሲውን ሃሳብ ጠብቆ በራስ የቃላት አወቃቀር በመጻፍ ምንጩን መጥቀስን ይጠይቃል።"
+        },
+        {
+          "question": "In academic writing, which of the following represents an objective statement of FACT rather than an opinion?",
+          "question_am": "በአካዳሚክ ጽሁፍ ውስጥ ከሚከተሉት መካከል የአስተያየት (opinion) ሳይሆን የተጨባጭ ሀቅ (FACT) መግለጫ የሆነው የትኛው ነው?",
+          "options": [
+            "The Nile Basin covers approximately 3.4 million square kilometers of the African continent.",
+            "Freshman mathematics is the most exciting subject in university.",
+            "Online education is universally superior to classroom lectures.",
+            "Addis Ababa has the most beautiful campus weather in the world."
+          ],
+          "options_am": [
+            "የአባይ ወንዝ ተፋሰስ በግምት 3.4 ሚሊዮን ስኩዌር ኪሎሜትር የአፍሪካ ምድርን ይሸፍናል።",
+            "የፍሬሽማን ሂሳብ በዩኒቨርሲቲ ውስጥ እጅግ አስደሳቹ ትምህርት ነው።",
+            "የኦንላይን ትምህርት ከክፍል ትምህርት በሁሉም ነገር ይበልጣል።",
+            "አዲስ አበባ በአለም ላይ እጅግ ምርጥ የግቢ አየር ንብረት አላት።"
+          ],
+          "correct_index": 0,
+          "explanation": "Geographic watershed area can be scientifically measured and verified independently, making it an objective factual statement.",
+          "explanation_am": "የአባይ ተፋሰስ ስፋት በሳይንሳዊ መረጃና ልኬት ሊረጋገጥ የሚችል ተጨባጭ ሀቅ (Fact) ነው።"
+        },
+        {
+          "question": "In standard APA 7th edition referencing format, how should an in-text citation with two authors appear?",
+          "question_am</b>": "በስታንዳርድ APA 7ኛ እትም መሠረት የሁለት ደራሲያን ውስጠ-ጽሁፍ ጥቅስ (in-text citation) እንዴት መጻፍ አለበት?",
+          "options": [
+            "(Girma & Tefera, 2024)",
+            "[Girma and Tefera - 2024]",
+            "(Author 1 + Author 2, p. 2024)",
+            "Girma, Tefera; 2024!"
+          ],
+          "options_am": [
+            "(Girma & Tefera, 2024)",
+            "[Girma and Tefera - 2024]",
+            "(Author 1 + Author 2, p. 2024)",
+            "Girma, Tefera; 2024!"
+          ],
+          "correct_index": 0,
+          "explanation": "APA 7 uses ampersand inside parenthetical citations: (Lastname1 & Lastname2, Year).",
+          "explanation_am": "በ APA ስታንዳርድ መሠረት በቅንፍ ውስጥ የሁለት ደራሲያን ስም በ & ምልክት ተያይዞ ከዓመተ-ምህረት ጋር ይቀመጣል።"
+        },
+        {
+          "question": "What is the primary role of the counterargument and refutation section in an argumentative essay?",
+          "question_am": "በአርጉሜንታቲቭ ድርሰት (Argumentative Essay) ውስጥ የተቃዋሚን ሃሳብ ማቅረብና ማስተባበል (Refutation) ፋይዳው ምንድነው?",
+          "options": [
+            "To acknowledge opposing viewpoints and demonstrate why the author's stance remains superior",
+            "To confuse the grader",
+            "To prove that both sides are completely wrong",
+            "To artificially lengthen the word count"
+          ],
+          "options_am": [
+            "ተቃራኒ አመለካከቶችን በመገንዘብ የራስህ መከራከሪያ ለምን ጠንካራ እንደሆነ ማሳየት",
+            "አንባቢውን ግራ ለማጋባት",
+            "ሁለቱም ወገኖች ስህተት መሆናቸውን ለማረጋገጥ",
+            "የቃላት ብዛትን በከንቱ ለማብዛት"
+          ],
+          "correct_index": 0,
+          "explanation": "Addressing counterarguments exhibits intellectual objectivity and reinforces authorial credibility.",
+          "explanation_am": "ተቃራኒ አመለካከትን ማስተባበል የአንተን ክርክር ተዓማኒነትና ጥንካሬ በከፍተኛ ደረጃ ይጨምራል።"
+        }
+      ]
+    },
+    "intro_computing": {
+      "mid": [
+        {
+          "question": "In the standard Von Neumann computer architecture, which CPU unit is responsible for executing arithmetic operations and logical comparisons?",
+          "question_am": "በቮን ኒውማን የኮምፒውተር አርክቴክቸር ውስጥ የሂሳብ ስሌቶችንና የሎጂክ ንጽጽሮችን የማስላት ኃላፊነት ያለበት የ CPU ክፍል የትኛው ነው?",
+          "options": [
+            "Arithmetic Logic Unit (ALU)",
+            "Control Unit (CU)",
+            "Memory Address Register (MAR)",
+            "System Bus"
+          ],
+          "options_am": [
+            "አሪቲሜቲክ ሎጂክ ዩኒት (ALU)",
+            "ኮንትሮል ዩኒት (CU)",
+            "ሜሞሪ አድሬስ ሬጅስተር (MAR)",
+            "የሲስተም መስመር (Bus)"
+          ],
+          "correct_index": 0,
+          "explanation": "The ALU performs mathematical operations (+, -, *, /) and boolean logic evaluations (AND, OR, NOT).",
+          "explanation_am": "ALU ማንኛውንም የሂሳብ ስሌት እና የሎጂክ ንጽጽር በኮምፒውተር ፕሮሰሰር ውስጥ የሚያከናውን ዋና ክፍል ነው።"
+        },
+        {
+          "question": "What is the decimal equivalent of the binary number (10110)₂?",
+          "question_am": "የባይነሪ ቁጥር (10110)₂ በዴሲማል (Decimal) ሲቀየር ስንት ነው?",
+          "options": [
+            "22",
+            "18",
+            "26",
+            "14"
+          ],
+          "options_am": [
+            "22",
+            "18",
+            "26",
+            "14"
+          ],
+          "correct_index": 0,
+          "explanation": "(1*16) + (0*8) + (1*4) + (1*2) + (0*1) = 16 + 0 + 4 + 2 + 0 = 22.",
+          "explanation_am": "1x2⁴ + 0x2³ + 1x2² + 1x2¹ + 0x2⁰ = 16 + 4 + 2 = 22 ይሆናል።"
+        },
+        {
+          "question": "Which of the following is defined as a finite, unambiguous, step-by-step sequence of instructions designed to solve a problem?",
+          "question_am": "አንድን ችግር ለመፍታት የተዘጋጀ ወሰን ያለው፣ ግልጽ እና ደረጃ በደረጃ የተቀመጠ መመሪያ ምን ይባላል?",
+          "options": [
+            "Algorithm",
+            "Compiler",
+            "Hardware Peripheral",
+            "Data Bus"
+          ],
+          "options_am": [
+            "አልጎሪዝም (Algorithm)",
+            "ኮምፓይለር (Compiler)",
+            "የኮምፒውተር እቃ",
+            "የመረጃ መስመር"
+          ],
+          "correct_index": 0,
+          "explanation": "An algorithm is the systematic logical blueprint executed by computers to process data and yield outputs.",
+          "explanation_am": "አልጎሪዝም አንድን ችግር ለመፍታት ደረጃ በደረጃ የተቀመጠ ግልጽ የሎጂክ መመሪያ ነው።"
+        },
+        {
+          "question": "Which software layer manages computer hardware resources and provides fundamental services for application software?",
+          "question_am": "የኮምፒውተር ሃርድዌር ሀብቶችን የሚያስተዳድር እና ለመተግበሪያዎች መሰረታዊ አገልግሎት የሚሰጠው የሶፍትዌር ንብርብር የትኛው ነው?",
+          "options": [
+            "Operating System (OS)",
+            "Web Browser",
+            "Database Schema",
+            "Spreadsheet Editor"
+          ],
+          "options_am": [
+            "ኦፕሬቲንግ ሲስተም (Operating System - OS)",
+            "ዌብ ብራውዘር",
+            "የዳታቤዝ ስኪማ",
+            "ኤክሴል ሶፍትዌር"
+          ],
+          "correct_index": 0,
+          "explanation": "The OS (e.g. Linux, Windows) schedules CPU time, allocates RAM, and manages peripheral I/O.",
+          "explanation_am": "ኦፕሬቲንግ ሲስተም (OS) የኮምፒውተሩን ፕሮሰሰር፣ ሜሞሪ እና ሌሎች አካላት በሙሉ የሚቆጣጠር ዋና ሲስተም ሶፍትዌር ነው።"
+        },
+        {
+          "question": "Which primitive programming data type is specifically designed to hold truth values (True or False)?",
+          "question_am": "በፕሮግራሚንግ ውስጥ የእውነት ወይም የውሸት (True or False) ዋጋን ብቻ የሚይዘው ዳታ ታይፕ የትኛው ነው?",
+          "options": [
+            "Boolean",
+            "Integer",
+            "Floating Point",
+            "String"
+          ],
+          "options_am": [
+            "ቡሊያን (Boolean)",
+            "ኢንቲጀር (Integer)",
+            "ፍሎት (Float)",
+            "ስትሪንግ (String)"
+          ],
+          "correct_index": 0,
+          "explanation": "Boolean data types evaluate conditional tests and store binary boolean states (1/0, True/False).",
+          "explanation_am": "ቡሊያን ዳታ ታይፕ እውነት ወይም ውሸት (True/False) ዋጋን ብቻ የሚወክል ነው።"
+        }
+      ],
+      "final": [
+        {
+          "question": "What is the time complexity of searching for an item in a sorted array of N elements using Binary Search?",
+          "question_am": "በተደረደረ N አባላት ባሉት አሬይ (array) ውስጥ በባይነሪ ሰርች (Binary Search) አንድን መረጃ የማግኘት የጊዜ ውስብስብነት (Time Complexity) ስንት ነው?",
+          "options": [
+            "O(log n)",
+            "O(n)",
+            "O(n²)",
+            "O(1)"
+          ],
+          "options_am": [
+            "O(log n)",
+            "O(n)",
+            "O(n²)",
+            "O(1)"
+          ],
+          "correct_index": 0,
+          "explanation": "Binary search divides the remaining search interval in half at every step, yielding logarithmic efficiency O(log n).",
+          "explanation_am": "ባይነሪ ሰርች በእያንዳንዱ ዙር የፍለጋውን ክልል በግማሽ ስለሚቀንስ የጊዜ ፍጆታው O(log n) ይሆናል።"
+        },
+        {
+          "question": "In Python programming, what structural syntax denotes a code block beneath a function or loop?",
+          "question_am": "በፓይተን (Python) ፕሮግራሚንግ ቋንቋ ውስጥ በአንድ ፈንክሽን ወይም ሉፕ ስር ያለን የኮድ ክፍል ለመለየት የሚያገለግለው ምንድነው?",
+          "options": [
+            "Indentation (whitespace)",
+            "Curly braces { }",
+            "Square brackets [ ]",
+            "Semicolons at line end"
+          ],
+          "options_am": [
+            "ኢንደንቴሽን / ክፍተት (Indentation)",
+            "የታጠፈ ቅንፍ { }",
+            "ካሬ ቅንፍ [ ]",
+            "ሴሚኮለን ;"
+          ],
+          "correct_index": 0,
+          "explanation": "Python strictly relies on consistent indentation (spaces or tabs) to enforce scope and code hierarchy.",
+          "explanation_am": "ፓይተን ከሌሎች ቋንቋዎች በተለየ የኮድ ብሎክን ለመለየት በክፍተት (Indentation) ይጠቀማል።"
+        },
+        {
+          "question": "Which control flow statement causes the current loop iteration to immediately terminate and transfer control to the following iteration?",
+          "question_am": "በአንድ ሉፕ (Loop) ውስጥ የአሁኑን ዙር ብቻ አቋርጦ በቀጥታ ወደ ሚቀጥለው ዙር የሚያልፈው ትዕዛዝ የትኛው ነው?",
+          "options": [
+            "continue",
+            "break",
+            "return",
+            "exit"
+          ],
+          "options_am": [
+            "continue",
+            "break",
+            "return",
+            "exit"
+          ],
+          "correct_index": 0,
+          "explanation": "'continue' skips the remainder of the current loop cycle, whereas 'break' halts the entire loop altogether.",
+          "explanation_am": "'continue' የአሁኑን ዙር ብቻ ዘሎ ወዲያውኑ ወደ ሚቀጥለው የሉፕ ዙር የሚያሳልፍ ትዕዛዝ ነው።"
+        },
+        {
+          "question": "In the Software Development Life Cycle (SDLC), during which phase are user needs comprehensively analyzed and documented?",
+          "question_am": "በሶፍትዌር ልማት ሂደት (SDLC) ውስጥ የተጠቃሚዎች ፍላጎት በጥልቀት ተጠንቶ የሚሰነደው በየትኛው ምዕራፍ ነው?",
+          "options": [
+            "Requirements Analysis & Specification",
+            "Deployment & Maintenance",
+            "Beta Testing",
+            "Hardware Decommissioning"
+          ],
+          "options_am": [
+            "የፍላጎት ትንተና እና ዝርዝር (Requirements Analysis)",
+            "ማሰራጨት እና ጥገና",
+            "የሙከራ ምዕራፍ",
+            "ሃርድዌር ማቆም"
+          ],
+          "correct_index": 0,
+          "explanation": "Requirements Analysis establishes the exact client objectives and architectural scope before coding commences.",
+          "explanation_am": "የፍላጎት ትንተና (Requirements Analysis) ሶፍትዌሩ ከመሰራቱ በፊት የሚፈለጉትን ነገሮች በሙሉ በትክክል የመለየት ምዕራፍ ነው።"
+        },
+        {
+          "question": "Which data structure follows the Last-In, First-Out (LIFO) operational access protocol?",
+          "question_am": "የመጨረሻ የገባ መጀመሪያ ይወጣል (Last-In, First-Out - LIFO) የሚለውን መርህ የሚከተለው የዳታ አወቃቀር የትኛው ነው?",
+          "options": [
+            "Stack",
+            "Queue",
+            "Array",
+            "Linked List"
+          ],
+          "options_am": [
+            "ስታክ (Stack)",
+            "ኪው (Queue)",
+            "አሬይ (Array)",
+            "ሊንክድ ሊስት"
+          ],
+          "correct_index": 0,
+          "explanation": "A Stack pushes elements on top and pops the most recently inserted element first (LIFO).",
+          "explanation_am": "ስታክ (Stack) ልክ እንደተደረደሩ ሳህኖች የመጨረሻ የገባው እቃ መጀመሪያ የሚነሳበት (LIFO) አሰራር ነው።"
+        }
+      ]
+    },
+    "general_psych": {
+      "mid": [
+        {
+          "question": "Psychology is scientifically defined as:",
+          "question_am": "ሳይኮሎጂ በሳይንሳዊ ትርጓሜው ምን ተብሎ ይገለጻል?",
+          "options": [
+            "The scientific study of human behavior and mental processes",
+            "The philosophical study of psychic phenomena",
+            "The medical prescription of brain stimulants",
+            "The biological dissection of animal anatomy"
+          ],
+          "options_am": [
+            "የሰው ልጅ ባህሪ እና አዕምሯዊ ሂደቶች ሳይንሳዊ ጥናት",
+            "የመንፈሳዊ ነገሮች ፍልስፍናዊ ጥናት",
+            "የአዕምሮ መድሃኒቶችን የማዘዝ ሙያ",
+            "የእንስሳት አካል ጥናት"
+          ],
+          "correct_index": 0,
+          "explanation": "Psychology applies empirical scientific inquiry to observable behaviors and cognitive mental operations.",
+          "explanation_am": "ሳይኮሎጂ የሰውን ልጅ የሚታይ ባህሪ እና የማይታዩ አዕምሯዊ ሂደቶችን በሳይንሳዊ መንገድ የሚያጠና የዕውቀት ዘርፍ ነው።"
+        },
+        {
+          "question": "How do biological neurons transmit signals across the microscopic synaptic cleft to neighboring cells?",
+          "question_am": "የነርቭ ሴሎች (Neurons) በመካከላቸው ባለው ክፍተት (Synapse) በኩል መረጃን ወደ ሚቀጥለው ሴል የሚያስተላልፉት በምን አማካኝነት ነው?",
+          "options": [
+            "Chemical messengers called Neurotransmitters",
+            "Direct optical fiber pulses",
+            "Acoustic sound vibrations",
+            "Thermal convection heat"
+          ],
+          "options_am": [
+            "ኒውሮትራንስሚተር በሚባሉ ኬሚካላዊ መልዕክተኞች",
+            "በቀጥታ የብርሃን ሞገድ",
+            "በድምጽ ንዝረት",
+            "በሙቀት አማካኝነት"
+          ],
+          "correct_index": 0,
+          "explanation": "Action potentials trigger vesicles to release neurotransmitters (e.g. dopamine, serotonin) across the synapse.",
+          "explanation_am": "የነርቭ ሴሎች ኒውሮትራንስሚተርስ (Neurotransmitters) የተባሉ ኬሚካሎችን በመልቀቅ መረጃን ያስተላልፋሉ።"
+        },
+        {
+          "question": "In Ivan Pavlov's classical conditioning experiments with dogs, what was the meat powder before conditioning took place?",
+          "question_am": "በኢቫን ፓቭሎቭ የውሾች ሙከራ ውስጥ ከስልጠናው በፊት የቀረበው የስጋ ዱቄት ምን ተብሎ ይጠራል?",
+          "options": [
+            "Unconditioned Stimulus (UCS)",
+            "Conditioned Stimulus (CS)",
+            "Conditioned Response (CR)",
+            "Neutral Stimulus (NS)"
+          ],
+          "options_am": [
+            "ያልተገራ ቀስቃሽ (Unconditioned Stimulus - UCS)",
+            "የተገራ ቀስቃሽ (Conditioned Stimulus)",
+            "የተገራ ምላሽ (Conditioned Response)",
+            "ገለልተኛ ቀስቃሽ"
+          ],
+          "correct_index": 0,
+          "explanation": "Meat powder naturally and automatically evoked salivation without any prior learning, defining it as an Unconditioned Stimulus (UCS).",
+          "explanation_am": "የስጋ ዱቄቱ ያለ ምንም ቅድመ ልምምድ በተፈጥሮ ምራቅን የሚያስወጣ በመሆኑ UCS ይባላል።"
+        },
+        {
+          "question": "In B.F. Skinner's operant conditioning, positive reinforcement operates by:",
+          "question_am": "በኦፔራንት ኮንዲሽኒንግ ውስጥ ፖዚቲቭ ሪኢንፎርስመንት (Positive Reinforcement) የሚሰራው:",
+          "options": [
+            "Presenting a rewarding stimulus after a behavior to increase the likelihood of that behavior recurring",
+            "Applying an electric shock to eliminate behavior",
+            "Withholding food completely",
+            "Ignoring all responses"
+          ],
+          "options_am": [
+            "ባህሪው እንዲደገም ተፈላጊ ሽልማትን በመስጠት",
+            "የኤሌክትሪክ ንዝረት በመስጠት",
+            "ምግብ በመከልከል",
+            "ምላሾችን ችላ በማለት"
+          ],
+          "correct_index": 0,
+          "explanation": "Positive reinforcement introduces a favorable reward following the target behavior, increasing its future probability.",
+          "explanation_am": "አንድ ጥሩ ባህሪ በተደጋጋሚ እንዲከሰት የሚፈለግ ሽልማትን መስጠት ፖዚቲቭ ሪኢንፎርስመንት ይባላል።"
+        },
+        {
+          "question": "What is the psychological difference between sensation and perception?",
+          "question_am": "በስሜት (Sensation) እና በግንዛቤ (Perception) መካከል ያለው የስነ-ልቦና ልዩነት ምንድነው?",
+          "options": [
+            "Sensation is sensory receptor detection of physical stimuli; perception is the brain's cognitive interpretation of that sensory data",
+            "Sensation occurs only in sleep",
+            "Perception happens exclusively in the eye",
+            "They are completely identical phenomena"
+          ],
+          "options_am": [
+            "ሴንሴሽን ጥሬ መረጃን በስሜት ህዋሳት መቀበል ሲሆን ፐርሴፕሽን ግን ያንን በአዕምሮ መተርጎምና ትርጉም መስጠት ነው",
+            "ሴንሴሽን በእንቅልፍ ወቅት ብቻ ይከሰታል",
+            "ፐርሴፕሽን በአይን ብቻ ነው የሚከናወነው",
+            "ምንም አይነት ልዩነት የላቸውም"
+          ],
+          "correct_index": 0,
+          "explanation": "Sensory organs receive raw environmental energy (sensation); the cerebral cortex synthesizes it into meaningful awareness (perception).",
+          "explanation_am": "ሴንሴሽን በስሜት ህዋሳት ጥሬ መረጃን መቀበል ሲሆን፣ ፐርሴፕሽን ደግሞ አዕምሮ ያንን አቀናጅቶ ትርጉም የሚሰጥበት ሂደት ነው።"
+        }
+      ],
+      "final": [
+        {
+          "question": "According to the Atkinson-Shiffrin model, what is the three-stage chronological flow of memory storage?",
+          "question_am": "በአትኪንሰን-ሺፍሪን ሞዴል መሠረት የማስታወስ ሂደት ቅደም ተከተል የትኛው ነው?",
+          "options": [
+            "Sensory Memory → Short-Term Memory (STM) → Long-Term Memory (LTM)",
+            "LTM → Sensory Memory → STM",
+            "Working Memory → Genetic Memory → Muscle Memory",
+            "Instinct → Reflex → Cognition"
+          ],
+          "options_am": [
+            "የስሜት ህዋስ ማህደረ-ትውስታ → የአጭር ጊዜ ማህደረ-ትውስታ → የረጅም ጊዜ ማህደረ-ትውስታ",
+            "የረጅም ጊዜ → የስሜት ህዋስ → የአጭር ጊዜ",
+            "የስራ ማህደረ-ትውስታ → የዘር ማህደረ-ትውስታ → የጡንቻ",
+            "ደመ-ነፍስ → ሪፍሌክስ → አስተሳሰብ"
+          ],
+          "correct_index": 0,
+          "explanation": "Stimuli enter fleeting sensory buffers, attend to working/short-term memory (~20-30s), and encode into durable long-term storage.",
+          "explanation_am": "መረጃ መጀመሪያ በሴንሰሪ ሜሞሪ ገብቶ ወደ አጭር ጊዜ ማህደረ-ትውስታ (STM) ካለፈ በኋላ ወደ ረጅም ጊዜ (LTM) ይቀመጣል።"
+        },
+        {
+          "question": "What type of forgetting occurs when previously learned information disrupts the recall of newly learned information?",
+          "question_am": "አስቀድሞ የተማሩት የቆየ መረጃ አዲስ የተማሩትን እንዳያስታውሱ ሲያስተጓጉል ምን ዓይነት የመርሳት ዓይነት ይባላል?",
+          "options": [
+            "Proactive Interference",
+            "Retroactive Interference",
+            "Anterograde Amnesia",
+            "Repression"
+          ],
+          "options_am": [
+            "ፕሮአክቲቭ ኢንተርፌረንስ (Proactive Interference)",
+            "ሬትሮአክቲቭ ኢንተርፌረንስ (Retroactive Interference)",
+            "አምኔዥያ",
+            "ሪፕሬሽን"
+          ],
+          "correct_index": 0,
+          "explanation": "Proactive interference: Old memories interfere forward in time with the retrieval of new material.",
+          "explanation_am": "ፕሮአክቲቭ ኢንተርፌረንስ የቆየው መረጃ አዲሱን መረጃ የማስታወስ ሂደትን ሲያስተጓጉል የሚፈጠር ነው።"
+        },
+        {
+          "question": "In Abraham Maslow's Hierarchy of Needs, which foundational tier must be satisfied prior to higher psychosocial growth?",
+          "question_am": "በአብርሃም ማስሎው የፍላጎቶች ቅደም ተከተል (Hierarchy of Needs) ውስጥ በቅድሚያ መሟላት ያለበት መሰረታዊ ፍላጎት የትኛው ነው?",
+          "options": [
+            "Physiological Needs (food, water, warmth, rest)",
+            "Self-Actualization",
+            "Esteem and Status",
+            "Belongingness and Love"
+          ],
+          "options_am": [
+            "ፊዚዮሎጂካል ፍላጎቶች (ምግብ፣ ውሃ፣ መጠለያ)",
+            "ራስን ማሳካት (Self-Actualization)",
+            "ክብር እና ዝና",
+            "ፍቅር እና ወዳጅነት"
+          ],
+          "correct_index": 0,
+          "explanation": "Biological survival needs (physiological) form the bottom base of Maslow's pyramid and dominate human motivation until met.",
+          "explanation_am": "የሰው ልጅ መኖርን የሚያረጋግጡ ፊዚዮሎጂካል ፍላጎቶች (ምግብ፣ ውሃ፣ አየር) በማስሎው ፒራሚድ ስር ያሉ መሰረቶች ናቸው።"
+        },
+        {
+          "question": "According to Sigmund Freud's psychoanalytic personality model, which agency operates on the 'Reality Principle'?",
+          "question_am": "እንደ ሲግመንድ ፍሮይድ የስነ-ልቦና ንድፈ-ሀሳብ በ 'ሪአሊቲ ፕሪንሲፕል' (Reality Principle) የሚመራው የትኛው ነው?",
+          "options": [
+            "The Ego",
+            "The Id",
+            "The Superego",
+            "The Collective Unconscious"
+          ],
+          "options_am": [
+            "ኢጎ (The Ego)",
+            "ኢድ (The Id)",
+            "ሱፐር ኢጎ (The Superego)",
+            "የማህበር ንቃተ-ህሊና"
+          ],
+          "correct_index": 0,
+          "explanation": "The Ego mediates realistically between the instinctual biological urges of the Id and the rigid moral ideals of the Superego.",
+          "explanation_am": "ኢጎ (Ego) በኢድ ደመ-ነፍሳዊ ፍላጎት እና በሱፐር ኢጎ የሞራል ቁጥጥር መካከል በዕውነታው ዓለም ሚዛን ጠብቆ የሚመራ ነው።"
+        },
+        {
+          "question": "Which psychological defense mechanism involves attributing one's own unacceptable impulses or feelings onto other people?",
+          "question_am": "አንድ ሰው የራሱን ተቀባይነት የሌላቸው ስሜቶች ወይም ድክመቶች በሌሎች ሰዎች ላይ አላኮ የማላከክ የመከላከያ ዘዴ ምን ይባላል?",
+          "options": [
+            "Projection",
+            "Reaction Formation",
+            "Sublimation",
+            "Regression"
+          ],
+          "options_am": [
+            "ፕሮጀክሽን (Projection)",
+            "ሪአክሽን ፎርሜሽን",
+            "ሰብሊሜሽን",
+            "ሪግሬሽን"
+          ],
+          "correct_index": 0,
+          "explanation": "Projection disguises threatening personal thoughts by assigning them to external individuals (e.g., 'I hate him' becomes 'He hates me').",
+          "explanation_am": "ፕሮጀክሽን (Projection) የራስን ስህተት ወይም ክፉ ስሜት በሌላው ሰው ላይ እንደ ጥፋት የመለጠፍ የስነ-ልቦና መከላከያ ነው።"
+        }
+      ]
+    },
+    "geography": {
+      "mid": [
+        {
+          "question": "What is the astronomical (absolute) latitudinal extent of Ethiopia?",
+          "question_am": "የኢትዮጵያ ፍጹማዊ (አስትሮኖሚካል) የላቲቲዩድ አቀማመጥ ስንት እስከ ስንት ዲግሪ ሰሜን ነው?",
+          "options": [
+            "3°N to 15°N latitude",
+            "10°S to 25°S latitude",
+            "33°N to 48°N latitude",
+            "0° to 10°S latitude"
+          ],
+          "options_am": [
+            "ከ 3° እስከ 15° ሰሜን ላቲቲዩድ",
+            "ከ 10° እስከ 25° ደቡብ",
+            "ከ 33° እስከ 48° ሰሜን",
+            "ከ 0° እስከ 10° ደቡብ"
+          ],
+          "correct_index": 0,
+          "explanation": "Ethiopia spans from 3°N (Moyale) to 15°N (Bademe) latitude, placing the entire nation within the tropical climatic zone.",
+          "explanation_am": "ኢትዮጵያ ከ 3° ሰሜን (ሞያሌ) እስከ 15° ሰሜን (ባድመ) ኬክሮስ ላይ የምትገኝ ሞቃታማ ቀጠና ውስጥ ያለች ሀገር ናት።"
+        },
+        {
+          "question": "During which major geological era did the formation of the Ethiopian Rift Valley occur?",
+          "question_am": "የኢትዮጵያ ስምጥ ሸለቆ (Rift Valley) የተፈጠረው በየትኛው ዋና የጂኦሎጂ ዘመን ውስጥ ነው?",
+          "options": [
+            "Cenozoic Era",
+            "Precambrian Era",
+            "Paleozoic Era",
+            "Mesozoic Era"
+          ],
+          "options_am": [
+            "ሴኖዞይክ ዘመን (Cenozoic Era)",
+            "ፕሪካምብሪያን ዘመን",
+            "ፓሊዮዞይክ ዘመን",
+            "ሜሶዞይክ ዘመን"
+          ],
+          "correct_index": 0,
+          "explanation": "The massive rifting, tectonic faulting, and basaltic volcanism that fractured the Horn of Africa happened in the Cenozoic (Tertiary & Quaternary periods).",
+          "explanation_am": "የስምጥ ሸለቆ መሰንጠቅና የእሳተ-ገሞራ ፍንዳታዎች የተከሰቱት በሴኖዞይክ የጂኦሎጂ ዘመን ውስጥ ነው።"
+        },
+        {
+          "question": "Which physiographic sub-region contains Ethiopia's highest elevation peak, Ras Dejen (4,550 m)?",
+          "question_am": "የኢትዮጵያ ከፍተኛው ተራራ ራስ ደጀን (4,550 ሜትር) የሚገኘው በየትኛው የመሬት አቀማመጥ ክፍል ውስጥ ነው?",
+          "options": [
+            "North Central Massif (Simien Mountains)",
+            "Southeastern Plateaus (Bale Mountains)",
+            "Afar Depression",
+            "Western Lowlands"
+          ],
+          "options_am": [
+            "የሰሜን መካከለኛው ደጋማ ክፍል (የሰሜን ተራሮች)",
+            "የደቡብ ምስራቅ አምባ (የባሌ ተራሮች)",
+            "የአፋር ዝቅተኛ ስምጥ",
+            "የምዕራብ ቆላማ አካባቢዎች"
+          ],
+          "correct_index": 0,
+          "explanation": "Mount Ras Dejen (4,550 meters above sea level) is situated in the rugged Simien mountain system of the North Central Massif.",
+          "explanation_am": "ራስ ደጀን ተራራ በሰሜን ተራሮች ስርዓት ውስጥ የሚገኝ የኢትዮጵያ ከፍተኛው ነጥብ ነው።"
+        },
+        {
+          "question": "Which Ethiopian drainage basin system is the largest in annual runoff discharge, contributing over 60% of the country's total water output?",
+          "question_am": "ከ 60% በላይ የሚሆነውን የሀገሪቱን የውሃ ፍሰት በመያዝ ቀዳሚው የሆነው የኢትዮጵያ የውሃ ተፋሰስ ስርዓት የትኛው ነው?",
+          "options": [
+            "Western (Mediterranean / Nile) Drainage Basin",
+            "Southeastern (Indian Ocean) Basin",
+            "Rift Valley Internal (Endorheic) Basin",
+            "Red Sea Coastal Basin"
+          ],
+          "options_am": [
+            "የምዕራብ (የሜድትራኒያን / ናይል) ተፋሰስ ስርዓት",
+            "የደቡብ ምስራቅ (የህንድ ውቅያኖስ) ተፋሰስ",
+            "የስምጥ ሸለቆ ውስጣዊ ተፋሰስ",
+            "የቀይ ባህር ጠረፍ ተፋሰስ"
+          ],
+          "correct_index": 0,
+          "explanation": "The Western basin—comprising Abbay, Tekeze, Baro-Akobo, and Ghibe—discharges westward toward the Nile and Mediterranean.",
+          "explanation_am": "አባይን፣ ተከዜን እና ባሮ-አኮቦን የያዘው የምዕራብ ተፋሰስ ከ 60% በላይ የሀገሪቱን አመታዊ የውሃ ፍሰት ይይዛል።"
+        },
+        {
+          "question": "Why does Ethiopia possess diverse localized micro-climates despite its uniform tropical astronomical latitude?",
+          "question_am": "ኢትዮጵያ በሞቃታማ ኬክሮስ ላይ ብትገኝም የተለያየና ውብ የሆነ የአየር ንብረት ባለቤት እንድትሆን ያደረጋት ዋናው ምክንያት ምንድነው?",
+          "options": [
+            "Significant variations in Altitude and Relief topography",
+            "Proximity to the Arctic Circle",
+            "Absence of solar radiation",
+            "Dense underground magma cooling"
+          ],
+          "options_am": [
+            "የከፍታ እና የመሬት ገጽታ (Altitude) ከፍተኛ ልዩነት",
+            "ከአርክቲክ ክልል ጋር ቅርበት ስላላት",
+            "የፀሐይ ብርሃን እጥረት በመኖሩ",
+            "የከርሰ ምድር ማዕድናት"
+          ],
+          "correct_index": 0,
+          "explanation": "High altitude counteracts tropical latitude, lowering temperatures by ~6.4°C per 1,000m rise and creating Dega, Woina Dega, and Kolla zones.",
+          "explanation_am": "የከፍታ ልዩነት የሙቀት መጠኑ በየ 1000 ሜትሩ እንዲቀንስ በማድረግ የተለያዩ የአየር ንብረት ቀጠናዎችን ፈጥሯል።"
+        }
+      ],
+      "final": [
+        {
+          "question": "In the traditional Ethiopian agro-climatic zoning classification, which zone represents the temperate highland belt (1,500m to 2,300m elevation)?",
+          "question_am": "በተለምዷዊው የኢትዮጵያ የአየር ንብረት ክፍፍል መሠረት ከ 1,500 እስከ 2,300 ሜትር ከፍታ ያለው ወይና-ደጋማ ቀጠና የትኛው ነው?",
+          "options": [
+            "Woina Dega",
+            "Kolla",
+            "Bereha",
+            "Wurch"
+          ],
+          "options_am": [
+            "ወይና ደጋ (Woina Dega)",
+            "ቆላ (Kolla)",
+            "በረሃ (Bereha)",
+            "ውርጭ (Wurch)"
+          ],
+          "correct_index": 0,
+          "explanation": "Woina Dega (1,500 - 2,300 m) is the most comfortable and densely inhabited agricultural belt, ideal for teff, maize, and enset.",
+          "explanation_am": "ወይና ደጋ ከ 1,500 እስከ 2,300 ሜትር የሚገኝ ምቹና ለኑሮ እንዲሁም ለእርሻ ተስማሚ ቀጠና ነው።"
+        },
+        {
+          "question": "What is the primary driving environmental cause of severe soil erosion across the northern Ethiopian highlands?",
+          "question_am": "በሰሜን ኢትዮጵያ ደጋማ አካባቢዎች ለከባድ የአፈር መሸርሸር ዋነኛው አካባቢያዊ መንስኤ የትኛው ነው?",
+          "options": [
+            "Severe deforestation combined with steep slope cultivation and torrential rainfall",
+            "Excessive volcanic sulfur deposition",
+            "Frequent marine flooding",
+            "Underground seismic liquefaction"
+          ],
+          "options_am": [
+            "የደን መጨፍጨፍ፣ በዳገታማ መሬት ላይ ማረስ እና ከባድ ዝናብ",
+            "የእሳተ ገሞራ ሰልፈር ክምችት",
+            "የውቅያኖስ ጎርፍ መጥለቅለቅ",
+            "የመሬት መንቀጥቀጥ ፈሳሽ"
+          ],
+          "correct_index": 0,
+          "explanation": "Centuries of continuous cultivation on steep slopes stripped of vegetation cover leads to massive topsoil loss during heavy Kiremt rains.",
+          "explanation_am": "የደን ሽፋን መውደም እና ዳገታማ መሬቶችን ማረስ በክረምት ወራት አፈሩ በጎርፍ እንዲጠረግ ያደርጋል።"
+        },
+        {
+          "question": "What demographic feature characterizes Ethiopia's population age structure pyramid?",
+          "question_am": "የኢትዮጵያን የህዝብ ቁጥር እድሜ አወቃቀር (Population Pyramid) የሚገልጸው ዋናው መገለጫ የትኛው ነው?",
+          "options": [
+            "A broad base with a high proportion of children and youth (high young-age dependency ratio)",
+            "An inverted pyramid with an aging elderly majority",
+            "A completely uniform cylinder with zero birth rate",
+            "A shrinking base due to negative fertility"
+          ],
+          "options_am": [
+            "ሰፊ መሠረት ያለው እና ከፍተኛ የህጻናትና ወጣቶች ድርሻ (Broad base)",
+            "የተገለበጠ ፒራሚድ ከአረጋውያን ብዛት ጋር",
+            "የወሊድ መጠን የሌለው ሲሊንደር",
+            "እየጠበበ የሚሄድ መሠረት"
+          ],
+          "correct_index": 0,
+          "explanation": "Due to high historic fertility, approximately 40%+ of the population is under 15 years old, forming an expansive youthful base.",
+          "explanation_am": "የኢትዮጵያ የህዝብ ፒራሚድ ሰፊ መሠረት ያለው ሆኖ ከ 40% በላይ የሚሆነው ህዝብ ከ 15 ዓመት በታች የሆኑ ወጣቶችና ህጻናት ናቸው።"
+        },
+        {
+          "question": "Which dominant agricultural farming system occupies the moist western and southwestern parts of Ethiopia, featuring perennial crops like coffee and enset?",
+          "question_am": "በደቡብ-ምዕራብ እና በምዕራብ ኢትዮጵያ የሚገኘው እና እንደ ቡና እና እንሰት ያሉ ቋሚ ሰብሎችን የሚያመርተው የእርሻ ስርዓት የትኛው ነው?",
+          "options": [
+            "Perennial / Enset-Coffee Farming System",
+            "Nomadic Pastoralism System",
+            "Shifting Cultivation of the Danakil",
+            "Grain-Plough Highland System"
+          ],
+          "options_am": [
+            "የቋሚ ሰብል (የእንሰት እና የቡና) እርሻ ስርዓት",
+            "የአርብቶ አደር ስርዓት",
+            "የዳናኪል ሽግሽግ እርሻ",
+            "የእህል ማረሻ ደጋማ ስርዓት"
+          ],
+          "correct_index": 0,
+          "explanation": "The south/southwestern moist highlands practice perennial cultivation where enset and coffee provide resilient food and export staples.",
+          "explanation_am": "የደቡብ እና ደቡብ-ምዕራብ ደጋማ ክፍሎች እንደ እንሰትና ቡና ያሉ ቋሚ ሰብሎችን በማምረት ይታወቃሉ።"
+        },
+        {
+          "question": "What is the primary commercial and agricultural importance of the Awash River basin to Ethiopia's national economy?",
+          "question_am": "የአዋሽ ወንዝ ተፋሰስ ለኢትዮጵያ ብሄራዊ ኢኮኖሚ ያለው ዋነኛ የንግድና የግብርና ጠቀሜታ ምንድነው?",
+          "options": [
+            "It is the most extensively utilized river basin for large-scale commercial irrigation (sugarcane, cotton) and agro-industries",
+            "It is the only navigable river reaching the Indian Ocean",
+            "It supplies 95% of national hydroelectric generation",
+            "It is completely dry throughout the year"
+          ],
+          "options_am": [
+            "ለትላልቅ የመስኖ እርሻዎች (ስኳር፣ ጥጥ) እና አግሮ-ኢንዱስትሪ በከፍተኛ ደረጃ የዋለ ወንዝ በመሆኑ",
+            "መርከብ የሚያንሳፍፍ ሆኖ ህንድ ውቅያኖስ የሚደርስ ወንዝ በመሆኑ",
+            "95% የሀገሪቱን የሃይል ማመንጫ ስለሚሸፍን",
+            "አመቱን ሙሉ ደረቅ ስለሆነ"
+          ],
+          "correct_index": 0,
+          "explanation": "Awash flows entirely within Ethiopia into Lake Abbe, supporting major industrial irrigation projects (Wonji, Metehara, Kesem).",
+          "explanation_am": "አዋሽ ወንዝ ለትላልቅ የኢንዱስትሪ የመስኖ እርሻዎች (እንደ ወንጂ እና መተሃራ ስኳር ፋብሪካዎች) በስፋት የዋለ ወንዝ ነው።"
+        }
+      ]
+    }
   }
 }
