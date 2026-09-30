@@ -1029,8 +1029,9 @@
       }
     };
 
-    function toggleLanguage() {
-      currentLang = (currentLang === 'en') ? 'am' : 'en';
+    function applyLanguage(lang) {
+      if (!translations[lang]) return;
+      currentLang = lang;
       const t = translations[currentLang];
 
       document.getElementById('i18n-brand-sub').innerText = t.brandSub;
@@ -1067,6 +1068,12 @@
       document.getElementById('i18n-p-subj-l').innerText = t.pSubjL;
       document.getElementById('i18n-p-btn').innerText = t.pBtn;
 
+      // Update placeholders
+      const pName = document.getElementById('p_name');
+      if (pName) pName.placeholder = (lang === 'am') ? "ሙሉ ስምዎን ያስገቡ" : "e.g. Dr. Abebe Tadesse / W/ro Selam";
+      const pArea = document.getElementById('p_area');
+      if (pArea) pArea.placeholder = (lang === 'am') ? "ምሳሌ፡ 4 ኪሎ፣ 6 ኪሎ፣ ፈረንሳይ፣ ቦሌ..." : "e.g. 4 Kilo, 6 Kilo, Ferensay, Bole, Adama, Hawassa...";
+
       document.getElementById('i18n-t-tag').innerText = t.tTag;
       document.getElementById('i18n-t-h2').innerText = t.tH2;
       document.getElementById('i18n-t-desc').innerHTML = t.tDesc;
@@ -1088,6 +1095,10 @@
       document.getElementById('i18n-escrow-notice').innerHTML = t.escrowNotice;
     }
 
+    function toggleLanguage() {
+      applyLanguage(currentLang === 'en' ? 'am' : 'en');
+    }
+
     // MODE SWITCHER WITH DRAMATIC VISUAL FEEDBACK & AUTO-SCROLL
     function selectMode(mode) {
       const btnParent = document.getElementById('btn-mode-parent');
@@ -1099,15 +1110,16 @@
       const formTutor = document.getElementById('form-container-tutor');
 
       if (mode === 'parent') {
+        applyLanguage('am'); // Default parents portal to Amharic
         btnParent.classList.add('parent-active');
         btnParent.classList.remove('dimmed');
-        badgeParent.innerText = '✓ ACTIVE • SELECTED';
+        badgeParent.innerText = '✓ ተመርጧል (ACTIVE)';
         badgeParent.style.background = '#0284c7';
         badgeParent.style.color = '#fff';
 
         btnTutor.classList.remove('tutor-active');
         btnTutor.classList.add('dimmed');
-        badgeTutor.innerText = (currentLang === 'am') ? 'ለመምረጥ ይጫኑ (Select)' : 'Select Option';
+        badgeTutor.innerText = 'ለመምረጥ ይጫኑ (Select)';
         badgeTutor.style.background = 'rgba(255, 255, 255, 0.08)';
         badgeTutor.style.color = '#94a3b8';
 
@@ -1116,6 +1128,7 @@
         formTutor.style.display = 'none';
 
       } else {
+        applyLanguage('en'); // Default tutors/students portal to English
         btnTutor.classList.add('tutor-active');
         btnTutor.classList.remove('dimmed');
         badgeTutor.innerText = '✓ ACTIVE • SELECTED';
@@ -1124,7 +1137,7 @@
 
         btnParent.classList.remove('parent-active');
         btnParent.classList.add('dimmed');
-        badgeParent.innerText = (currentLang === 'am') ? 'ለመምረጥ ይጫኑ (Select)' : 'Select Option';
+        badgeParent.innerText = 'Select Option (ለመምረጥ)';
         badgeParent.style.background = 'rgba(255, 255, 255, 0.08)';
         badgeParent.style.color = '#94a3b8';
 
@@ -1268,6 +1281,13 @@
     function closeModal() {
       document.getElementById('dispatch-modal').classList.remove('active');
     }
+
+    // Default Parents portal to Amharic on initial load
+    document.addEventListener('DOMContentLoaded', () => {
+      applyLanguage('am');
+    });
+    // In case script executes after DOM is already loaded:
+    applyLanguage('am');
   </script>
 </body>
 </html>
