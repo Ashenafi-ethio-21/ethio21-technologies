@@ -660,10 +660,10 @@
         <a href="tel:+251960064466" class="btn-hotline-call secondary">
           <span id="i18n-btn-call2">📞 Call Co-Founder (Lema): 0960 06 44 66</span>
         </a>
-        <!-- Telegram Coordinator -->
-        <a href="https://t.me/ethio21_technologies" target="_blank" rel="noopener noreferrer" class="btn-hotline-tg">
+        <!-- Ethio - 21 Astegni Ops -->
+        <a href="https://t.me/+cNwM2HRo7A5jYTU0" target="_blank" rel="noopener noreferrer" class="btn-hotline-tg">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
-          <span id="i18n-btn-tg">💬 Chat with Us on Telegram (@ethio21_technologies)</span>
+          <span id="i18n-btn-tg">💬 Direct Ops: Ethio - 21 Astegni Ops</span>
         </a>
         <!-- Official Telegram Channel -->
         <a href="https://t.me/teme_astegni" target="_blank" rel="noopener noreferrer" class="btn-hotline-call" style="background: rgba(14, 165, 233, 0.15); border-color: rgba(14, 165, 233, 0.4); color: #38bdf8;">
@@ -911,8 +911,8 @@
         Send your request directly to our Telegram coordinator or call our hotline to get matched immediately.
       </p>
 
-      <a id="btn-tg-action" href="#" target="_blank" class="btn-modal" style="background: #0088cc; color: #fff;">
-        <span>✈️ Send Directly on Telegram (@ethio21_technologies)</span>
+      <a id="btn-tg-action" href="https://t.me/+cNwM2HRo7A5jYTU0" target="_blank" class="btn-modal" style="background: #0088cc; color: #fff;">
+        <span id="btn-tg-modal-text">✈️ Submit to Ethio - 21 Astegni Ops</span>
       </a>
 
       <a href="tel:+251945399808" class="btn-modal" style="background: #10b981; color: #fff;">
@@ -937,7 +937,7 @@
         hotlineSub: "No need to fill out forms if you prefer calling. Dial directly to speak with our coordinators. We immediately pair you with a top-scoring scholar from the nearest campus.",
         call1: "📞 Call Founder (Ashenafi): 0945 39 98 08",
         call2: "📞 Call Co-Founder (Lema): 0960 06 44 66",
-        tg: "💬 Chat with Us on Telegram (@ethio21_technologies)",
+        tg: "💬 Direct Ops: Ethio - 21 Astegni Ops",
         t1H: "Triple-Vetted Identity",
         t1P: "Verified by National Fayda/Kebele ID, University Student ID, and grade slip.",
         t2H: "2nd Year+ & CGPA ≥ 3.00",
@@ -988,7 +988,7 @@
         hotlineSub: "በዌብሳይት ቅጽ መሙላት ካልፈለጉ አሁኑኑ በቀጥታ በስልክ ደውለው አስጠኚ ማግኘት ይችላሉ። ከሚቀርብዎት ዩኒቨርሲቲ ብቁ ተማሪ እንመድባለን።",
         call1: "📞 አሁኑኑ ይደውሉ: 0945 39 98 08 (አሸናፊ)",
         call2: "📞 አማራጭ ስልክ: 0960 06 44 66 (ሌማ)",
-        tg: "💬 በቴሌግራም መልዕክት ይላኩ (@ethio21_technologies)",
+        tg: "💬 ቀጥታ ማስተባበሪያ፡ Ethio - 21 Astegni Ops",
         t1H: "የተረጋገጠ ማንነት",
         t1P: "በብሔራዊ/ቀበሌ መታወቂያ እና በዩኒቨርሲቲ መታወቂያ የተረጋገጡ።",
         t2H: "2ኛ ዓመት እና ከዚያ በላይ",
@@ -1210,20 +1210,27 @@
         localStorage.setItem('astegni_parent_leads', JSON.stringify(list));
       } catch (err) {}
 
-      // Format Telegram message
-      const text = `👨‍👩‍👧 *New Tutor Request (Teme Astegni)*%0A` +
-                   `👤 *Parent Name:* ${encodeURIComponent(name)}%0A` +
-                   `📞 *Phone:* ${encodeURIComponent(phone)}%0A` +
-                   `📍 *Neighborhood:* ${encodeURIComponent(area)}%0A` +
-                   `📚 *Grade Level:* ${encodeURIComponent(grade)}%0A` +
-                   `✏️ *Subjects:* ${encodeURIComponent(subjs)}`;
+      // Copy formatted text to clipboard for instant pasting
+      const plainText = `👨‍👩‍👧 New Tutor Request (Teme Astegni)\n` +
+                        `👤 Parent Name: ${name}\n` +
+                        `📞 Phone: ${phone}\n` +
+                        `📍 Neighborhood: ${area}\n` +
+                        `📚 Grade Level: ${grade}\n` +
+                        `✏️ Subjects: ${subjs}`;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(plainText).catch(() => {});
+      }
 
       document.getElementById('modal-title').innerText = (currentLang === 'am') ? 'የአስጠኚ ጥያቄዎ ተዘጋጅቷል!' : 'Request Successfully Prepared!';
       document.getElementById('modal-desc').innerHTML = (currentLang === 'am')
-        ? `ውድ <b>${name}</b>፣ ጥያቄዎን በቀጥታ ወደ አስተዳዳሪው ቴሌግራም በመላክ ወይም በስልክ በመደወል ወዲያውኑ አስጠኚ ማግኘት ይችላሉ።`
-        : `Dear <b>${name}</b>, your request is ready. Tap below to send it directly to our Telegram coordinator or call our hotline to get matched immediately.`;
+        ? `ውድ <b>${name}</b>፣ ጥያቄዎ ተዘጋጅቶ ኮፒ ተደርጓል! ከታች ያለውን ሰማያዊ በተን በመጫን በቀጥታ ወደ <b>Ethio - 21 Astegni Ops</b> ይላኩት ወይም በስልክ በመደወል ወዲያውኑ አስጠኚ ማግኘት ይችላሉ።`
+        : `Dear <b>${name}</b>, your request is ready and copied to your clipboard. Tap below to submit directly into <b>Ethio - 21 Astegni Ops</b> or call our hotline to get matched immediately.`;
       
-      document.getElementById('btn-tg-action').href = `https://t.me/ethio21_technologies?text=${text}`;
+      document.getElementById('btn-tg-action').href = `https://t.me/+cNwM2HRo7A5jYTU0`;
+      const btnText = document.getElementById('btn-tg-modal-text');
+      if (btnText) {
+        btnText.innerText = (currentLang === 'am') ? `✈️ ወደ "Ethio - 21 Astegni Ops" ይላኩ` : `✈️ Open "Ethio - 21 Astegni Ops" on Telegram`;
+      }
       document.getElementById('dispatch-modal').classList.add('active');
     }
 
@@ -1261,24 +1268,31 @@
         localStorage.setItem('astegni_tutor_leads', JSON.stringify(list));
       } catch (err) {}
 
-      // Format Telegram message
-      const text = `🎓 *New Tutor Application (Teme Astegni)*%0A` +
-                   `👤 *Name:* ${encodeURIComponent(name)}%0A` +
-                   `📞 *Phone:* ${encodeURIComponent(phone)}%0A` +
-                   `🏛️ *University:* ${encodeURIComponent(uni)}%0A` +
-                   `📅 *Academic Year:* ${encodeURIComponent(year)}%0A` +
-                   `⭐ *CGPA:* ${encodeURIComponent(cgpa)}%0A` +
-                   `📖 *Subjects:* ${encodeURIComponent(subj)}%0A` +
-                   `📸 *Campus ID Photo:* ${campusFile ? '✅ Selected (Sending in TG)' : '❌ Not selected'}%0A` +
-                   `📄 *Grade Report:* ${gradeFile ? '✅ Selected' : '❌ Not selected'}%0A` +
-                   `🆔 *${encodeURIComponent(govtType)}:* ${encodeURIComponent(govtNum)}`;
+      // Copy formatted text to clipboard
+      const plainText = `🎓 New Tutor Application (Teme Astegni)\n` +
+                        `👤 Name: ${name}\n` +
+                        `📞 Phone: ${phone}\n` +
+                        `🏛️ University: ${uni}\n` +
+                        `📅 Academic Year: ${year}\n` +
+                        `⭐ CGPA: ${cgpa}\n` +
+                        `📖 Subjects: ${subj}\n` +
+                        `📸 Campus ID Photo: ${campusFile ? 'Attached (Ready to send)' : 'Not attached'}\n` +
+                        `📄 Grade Report: ${gradeFile ? 'Attached' : 'Not attached'}\n` +
+                        `🆔 ${govtType}: ${govtNum}`;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(plainText).catch(() => {});
+      }
 
       document.getElementById('modal-title').innerText = (currentLang === 'am') ? 'የአስጠኚ ማመልከቻዎ ተዘጋጅቷል!' : 'Application Successfully Prepared!';
       document.getElementById('modal-desc').innerHTML = (currentLang === 'am')
-        ? `ውድ <b>${name}</b>፣ ማመልከቻዎ ተዘጋጅቷል። ያዘጋጁትን <b>የካምፓስ መታወቂያ ፎቶ</b> እና የግሬድ ሪፖርት በቀጥታ በቴሌግራም ወደ አስተዳዳሪው በመላክ ወዲያውኑ ማረጋገጫ ያግኙ።`
-        : `Dear <b>${name}</b>, your application is ready. Tap below to send your details, along with your <b>Campus Student ID Photo</b> and Grade Report directly to our Telegram coordinator.`;
+        ? `ውድ <b>${name}</b>፣ ማመልከቻዎ ተዘጋጅቶ ኮፒ ተደርጓል። ከታች ያለውን ሰማያዊ በተን በመጫን ወደ <b>Ethio - 21 Astegni Ops</b> ይላኩት፤ ያዘጋጁትን <b>የካምፓስ መታወቂያ ፎቶ</b> እና የግሬድ ሪፖርት አብረው ያያይዙ።`
+        : `Dear <b>${name}</b>, your application is ready and copied to your clipboard. Tap below to submit your details, along with your <b>Campus Student ID Photo</b> and Grade Report directly into <b>Ethio - 21 Astegni Ops</b>.`;
 
-      document.getElementById('btn-tg-action').href = `https://t.me/ethio21_technologies?text=${text}`;
+      document.getElementById('btn-tg-action').href = `https://t.me/+cNwM2HRo7A5jYTU0`;
+      const btnText = document.getElementById('btn-tg-modal-text');
+      if (btnText) {
+        btnText.innerText = (currentLang === 'am') ? `✈️ ወደ "Ethio - 21 Astegni Ops" ይላኩ` : `✈️ Open "Ethio - 21 Astegni Ops" on Telegram`;
+      }
       document.getElementById('dispatch-modal').classList.add('active');
     }
 
