@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Teme Astegni Admin • Operations & Database Portal</title>
+  <meta name="description" content="Secure administrative management and matching portal for Teme Astegni coordinators.">
+  <meta name="theme-color" content="#090d16">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Sans+Ethiopic:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --bg-dark: #090d16;
+      --card-bg: #111827;
+      --card-surface: #1e293b;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --accent-green: #34d399;
+      --accent-amber: #fbbf24;
+      --accent-rose: #f43f5e;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', 'Noto Sans Ethiopic', -apple-system, sans-serif;
+      line-height: 1.5;
+      padding-bottom: 5.5rem;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1rem 0.9rem;
+    }
+
+    /* Top Sticky Header */
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      margin-bottom: 1.25rem;
+      position: sticky;
+      top: 0.5rem;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .brand-logo-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .brand-titles h1 {
+      font-size: 1.05rem;
+      font-weight: 850;
+      letter-spacing: -0.3px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .brand-titles span {
+      font-size: 0.72rem;
+      color: var(--accent-blue);
+      font-weight: 700;
+      display: block;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.35rem 0.65rem;
+      border-radius: 20px;
+      background: rgba(52, 211, 153, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      color: var(--accent-green);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      box-shadow: 0 0 6px var(--accent-green);
+    }
+
+    .btn-header {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 0.4rem 0.7rem;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: all 0.2s;
+    }
+
+    .btn-header:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Security PIN Gate Overlay */
+    .pin-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(9, 13, 22, 0.96);
+      backdrop-filter: blur(16px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .pin-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      max-width: 360px;
+      width: 100%;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+      animation: popIn 0.25s ease-out;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .pin-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .pin-title {
+      font-size: 1.35rem;
+      font-weight: 850;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+
+    .pin-subtitle {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .pin-input-group {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .pin-digit {
+      width: 50px;
+      height: 56px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      color: #fff;
+      font-size: 1.6rem;
+      font-weight: 800;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .pin-digit:focus {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+      outline: none;
+    }
+
+    .btn-pin-submit {
+      width: 100%;
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      border: none;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 800;
+      padding: 0.85rem;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+      transition: all 0.2s;
+    }
+
+    .btn-pin-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.5);
+    }
+
+    .pin-error {
+      color: var(--accent-rose);
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-top: 0.75rem;
+      display: none;
+    }
+
+    /* Screens / Views */
+    .view-panel {
+      display: none;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .view-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* KPI Summary Cards */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    @media (min-width: 640px) {
+      .kpi-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1rem 0.9rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.35rem;
+    }
+
+    .kpi-val {
+      font-size: 1.7rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.1;
+    }
+
+    .kpi-sub {
+      font-size: 0.7rem;
+      color: var(--accent-blue);
+      margin-top: 0.3rem;
+      font-weight: 600;
+    }
+
+    /* Filter & Search Bar */
+    .toolbar-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 0.85rem;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    @media (min-width: 640px) {
+      .toolbar-box {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .search-input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 0.65rem 0.85rem;
+      color: #fff;
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-blue);
+    }
+
+    .filter-pills {
+      display: flex;
+      gap: 0.4rem;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .pill-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.4rem 0.75rem;
+      border-radius: 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .pill-btn.active {
+      background: var(--accent-blue);
+      color: #090d16;
+      border-color: var(--accent-blue);
+      font-weight: 800;
+    }
+
+    /* Cards / Lists */
+    .record-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.1rem;
+      margin-bottom: 0.85rem;
+      transition: border-color 0.2s;
+    }
+
+    .record-card:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .record-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 0.65rem;
+      gap: 0.5rem;
+    }
+
+    .record-name {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .tag-badge {
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .tag-pending { background: rgba(251, 191, 36, 0.15); color: var(--accent-amber); border: 1px solid rgba(251, 191, 36, 0.3); }
+    .tag-trial { background: rgba(129, 140, 248, 0.15); color: var(--accent-indigo); border: 1px solid rgba(129, 140, 248, 0.3); }
+    .tag-active { background: rgba(52, 211, 153, 0.15); color: var(--accent-green); border: 1px solid rgba(52, 211, 153, 0.3); }
+    .tag-closed { background: rgba(148, 163, 184, 0.15); color: var(--text-muted); border: 1px solid rgba(148, 163, 184, 0.3); }
+
+    .record-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      margin-bottom: 0.85rem;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 0.75rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .detail-label {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .record-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-act {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 750;
+      padding: 0.45rem 0.75rem;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s;
+    }
+
+    .btn-act:hover {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .btn-act-call {
+      background: rgba(52, 211, 153, 0.15);
+      border-color: rgba(52, 211, 153, 0.3);
+      color: var(--accent-green);
+    }
+
+    .btn-act-primary {
+      background: #2563eb;
+      border-color: #3b82f6;
+      color: #fff;
+    }
+
+    /* Fixed Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0.5rem 0.25rem;
+      z-index: 90;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.7rem;
+      font-weight: 750;
+      padding: 0.3rem 0.5rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      background: transparent;
+    }
+
+    .nav-item .icon {
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .nav-item.active {
+      color: var(--accent-blue);
+    }
+
+    .nav-item.active .icon {
+      transform: scale(1.1);
+    }
+
+    /* Modal Styling */
+    .app-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(10px);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .app-modal.active {
+      display: flex;
+    }
+
+    .modal-sheet {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      max-width: 520px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 1.5rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-sheet h2 {
+      font-size: 1.2rem;
+      font-weight: 850;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+
+    .modal-sheet p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      line-height: 1.45;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 750;
+      color: #cbd5e1;
+      margin-bottom: 0.35rem;
+    }
+
+    .form-ctrl {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 0.7rem 0.85rem;
+      color: #fff;
+      font-size: 0.88rem;
+      font-family: inherit;
+    }
+
+    .form-ctrl:focus {
+      border-color: var(--accent-blue);
+      outline: none;
+    }
+
+    .code-box {
+      background: #000;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 0.85rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+      color: #38bdf8;
+      max-height: 220px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      margin-bottom: 1rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+    }
+
+    .btn-modal-primary {
+      flex: 1;
+      background: #2563eb;
+      border: none;
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 800;
+      padding: 0.75rem;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    .btn-modal-sec {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 750;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MASTER PIN SECURITY GATE -->
+  <div id="pin-gate" class="pin-overlay">
+    <div class="pin-box">
+      <div class="pin-icon">🔐</div>
+      <h2 class="pin-title">Teme Astegni Admin</h2>
+      <p class="pin-subtitle">የተሜ አስጠኚ የአስተዳዳሪ ማረጋገጫ ቁጥር ያስገቡ</p>
+      
+      <div class="pin-input-group">
+        <input type="password" maxlength="1" class="pin-digit" id="d1" inputmode="numeric" autofocus autocomplete="off">
+        <input type="password" maxlength="1" class="pin-digit" id="d2" inputmode="numeric" autocomplete="off">
+        <input type="password" maxlength="1" class="pin-digit" id="d3" inputmode="numeric" autocomplete="off">
+        <input type="password" maxlength="1" class="pin-digit" id="d4" inputmode="numeric" autocomplete="off">
+      </div>
+
+      <button class="btn-pin-submit" onclick="verifyPin()">ፖርታሉን ይክፈቱ (Unlock) ›</button>
+      <div id="pin-error" class="pin-error">የተሳሳተ የይለፍ ቁጥር ነው። እባክዎ እንደገና ይሞክሩ።</div>
+      <div style="font-size: 0.75rem; color: #64748b; margin-top: 1rem;">Master Founder Access • Ethio 21</div>
+    </div>
+  </div>
+
+  <!-- MAIN APP WRAPPER -->
+  <div class="wrap" id="main-content" style="display: none;">
+
+    <!-- TOP HEADER -->
+    <header class="app-header">
+      <div class="brand-group">
+        <img src="assets/teme_astegni_logo.jpg" alt="Teme Astegni Logo" class="brand-logo-img" onerror="this.src='assets/teme_astegni_avatar.jpg'">
+        <div class="brand-titles">
+          <h1>Teme Ops <span>Admin Operations Portal</span></h1>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <span class="status-badge" id="sync-indicator">
+          <span class="status-dot"></span>
+          <span id="sync-text">Live Ready</span>
+        </span>
+        <button class="btn-header" onclick="openSettingsModal()" title="Database Settings">⚙️</button>
+        <button class="btn-header" onclick="lockPortal()" title="Lock Screen">🔒</button>
+      </div>
+    </header>
+
+    <!-- VIEW 1: OVERVIEW & DASHBOARD -->
+    <section id="view-dashboard" class="view-panel active">
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Parent Requests</div>
+          <div class="kpi-val" id="kpi-parents-count">0</div>
+          <div class="kpi-sub" id="kpi-parents-sub">0 Pending Review</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Verified Tutors</div>
+          <div class="kpi-val" id="kpi-tutors-count">0</div>
+          <div class="kpi-sub">CGPA ≥ 3.00 Vetted</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Active Matches</div>
+          <div class="kpi-val" id="kpi-matches-count">0</div>
+          <div class="kpi-sub">Trials & Contracts</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Est. Commission</div>
+          <div class="kpi-val" id="kpi-commission-val">0 ETB</div>
+          <div class="kpi-sub">25% Ethio21 Margin</div>
+        </div>
+      </div>
+
+      <!-- Quick Operations Banner -->
+      <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 1.1rem; margin-bottom: 1.25rem;">
+        <h3 style="font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.4rem;">
+          ⚡ 1-Click Operations Room
+        </h3>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.85rem;">
+          Parents and tutors submitted via the web app automatically log into this secured database. Match verified tutors, schedule 1-day free trials, and collect monthly commissions.
+        </p>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <a href="https://t.me/+cNwM2HRo7A5jYTU0" target="_blank" class="btn-act btn-act-call">
+            ✈️ Open Astegni Ops Telegram
+          </a>
+          <button class="btn-act" onclick="switchView('view-parents')">
+            📥 Review Parent Leads ›
+          </button>
+          <button class="btn-act" onclick="syncCloudDatabase()">
+            🔄 Force Cloud Sync
+          </button>
+        </div>
+      </div>
+
+      <!-- Recent Leads Feed -->
+      <h3 style="font-size: 1rem; font-weight: 850; color: #fff; margin-bottom: 0.75rem;">
+        ⏱️ Recent Inquiries (የቅርብ ጊዜ ጥያቄዎች)
+      </h3>
+      <div id="dashboard-recent-list">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- VIEW 2: PARENTS INBOX -->
+    <section id="view-parents" class="view-panel">
+      <div class="toolbar-box">
+        <input type="text" id="parent-search" class="search-input" placeholder="🔍 Search parent name, phone, area, grade..." oninput="filterParents()">
+        <div class="filter-pills">
+          <button class="pill-btn active" onclick="setParentFilter('ALL', this)">All</button>
+          <button class="pill-btn" onclick="setParentFilter('Pending', this)">Pending</button>
+          <button class="pill-btn" onclick="setParentFilter('Trial Scheduled', this)">In Trial</button>
+          <button class="pill-btn" onclick="setParentFilter('Active Contract', this)">Active</button>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+        <span style="font-size: 0.82rem; color: var(--text-muted); font-weight: 700;" id="parent-list-counter">Showing 0 requests</span>
+        <button class="btn-act" onclick="exportDataToCsv('parents')">📥 Export CSV</button>
+      </div>
+
+      <div id="parents-cards-container">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- VIEW 3: TUTORS DIRECTORY -->
+    <section id="view-tutors" class="view-panel">
+      <div class="toolbar-box">
+        <input type="text" id="tutor-search" class="search-input" placeholder="🔍 Search tutor name, campus, CGPA, subjects..." oninput="filterTutors()">
+        <div class="filter-pills">
+          <button class="pill-btn active" onclick="setTutorFilter('ALL', this)">All</button>
+          <button class="pill-btn" onclick="setTutorFilter('Female', this)">Female</button>
+          <button class="pill-btn" onclick="setTutorFilter('Male', this)">Male</button>
+          <button class="pill-btn" onclick="setTutorFilter('HIGH_GPA', this)">CGPA ≥ 3.50</button>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+        <span style="font-size: 0.82rem; color: var(--text-muted); font-weight: 700;" id="tutor-list-counter">Showing 0 verified tutors</span>
+        <button class="btn-act" onclick="exportDataToCsv('tutors')">📥 Export CSV</button>
+      </div>
+
+      <div id="tutors-cards-container">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- VIEW 4: MATCHES & COMMISSION TRACKER -->
+    <section id="view-matches" class="view-panel">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <div>
+          <h2 style="font-size: 1.15rem; font-weight: 850; color: #fff;">🤝 Active Pairings & Commission</h2>
+          <p style="font-size: 0.8rem; color: var(--text-muted);">Track tutoring contracts and 25% revenue shares.</p>
+        </div>
+        <button class="btn-act btn-act-primary" onclick="openNewMatchModal()">+ New Match</button>
+      </div>
+
+      <div id="matches-cards-container">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- VIEW 5: DATABASE & SETTINGS -->
+    <section id="view-database" class="view-panel">
+      <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 18px; padding: 1.25rem; margin-bottom: 1.25rem;">
+        <h2 style="font-size: 1.15rem; font-weight: 850; color: #fff; margin-bottom: 0.4rem;">
+          ☁️ 100% Free Forever Google Sheets Database
+        </h2>
+        <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1rem;">
+          Teme Astegni uses a zero-cost, high-reliability Google Sheets + Apps Script database. Both Ashenafi and Lemma can view and manage live leads directly on mobile or via this portal.
+        </p>
+
+        <div class="form-group">
+          <label class="form-label">Google Apps Script Webhook Endpoint URL</label>
+          <input type="url" id="webhook-url-input" class="form-ctrl" placeholder="https://script.google.com/macros/s/AKfycb.../exec">
+        </div>
+
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button class="btn-act btn-act-primary" onclick="saveWebhookUrl()">💾 Save Webhook URL</button>
+          <button class="btn-act" onclick="testWebhookConnection()">🔌 Test Connection</button>
+          <button class="btn-act" onclick="syncCloudDatabase()">📥 Fetch Latest Records</button>
+        </div>
+      </div>
+
+      <!-- Setup Instructions & Script Modal Trigger -->
+      <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 18px; padding: 1.25rem; margin-bottom: 1.25rem;">
+        <h3 style="font-size: 0.95rem; font-weight: 850; color: #fff; margin-bottom: 0.5rem;">
+          📋 3-Step Google Sheets Setup Guide
+        </h3>
+        <ol style="font-size: 0.82rem; color: #cbd5e1; line-height: 1.7; padding-left: 1.2rem; margin-bottom: 1rem;">
+          <li>Create a free Google Sheet named <b>"Teme Astegni Cloud Database"</b> in your Google Drive.</li>
+          <li>Click <b>Extensions ➔ Apps Script</b>, paste our free automation script, and click <b>Deploy ➔ New Deployment ➔ Web App (Access: Anyone)</b>.</li>
+          <li>Copy the generated Web App URL and paste it into the box above.</li>
+        </ol>
+        <button class="btn-act" onclick="openScriptCodeModal()">📜 View & Copy Apps Script Code ›</button>
+      </div>
+
+      <!-- Security Settings -->
+      <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 18px; padding: 1.25rem;">
+        <h3 style="font-size: 0.95rem; font-weight: 850; color: #fff; margin-bottom: 0.4rem;">
+          🔒 Security PIN Management
+        </h3>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.85rem;">
+          Change your 4-digit Master PIN (Default: <b>2121</b>).
+        </p>
+        <div style="display: flex; gap: 0.5rem;">
+          <input type="password" id="new-pin-input" class="form-ctrl" placeholder="Enter new 4-digit PIN" maxlength="4" style="max-width: 200px;">
+          <button class="btn-act" onclick="updateMasterPin()">Update PIN</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- FIXED BOTTOM NAVIGATION BAR -->
+  <nav class="bottom-nav" id="admin-bottom-nav" style="display: none;">
+    <button class="nav-item active" onclick="switchView('view-dashboard', this)">
+      <span class="icon">📊</span>
+      <span>Overview</span>
+    </button>
+    <button class="nav-item" onclick="switchView('view-parents', this)">
+      <span class="icon">📥</span>
+      <span>Parents</span>
+    </button>
+    <button class="nav-item" onclick="switchView('view-tutors', this)">
+      <span class="icon">🎓</span>
+      <span>Tutors</span>
+    </button>
+    <button class="nav-item" onclick="switchView('view-matches', this)">
+      <span class="icon">🤝</span>
+      <span>Matches</span>
+    </button>
+    <button class="nav-item" onclick="switchView('view-database', this)">
+      <span class="icon">⚙️</span>
+      <span>Database</span>
+    </button>
+  </nav>
+
+  <!-- MATCH MAKER MODAL -->
+  <div id="modal-match-maker" class="app-modal">
+    <div class="modal-sheet">
+      <h2>🤝 Create New Tutoring Match</h2>
+      <p>Pair an incoming parent request with a vetted university scholar.</p>
+
+      <div class="form-group">
+        <label class="form-label">Select Parent Request</label>
+        <select id="match-select-parent" class="form-ctrl">
+          <!-- Populated dynamically -->
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Select Verified Tutor</label>
+        <select id="match-select-tutor" class="form-ctrl">
+          <!-- Populated dynamically -->
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Monthly Tuition Fee (ETB)</label>
+        <input type="number" id="match-price-input" class="form-ctrl" value="3500" oninput="calculateCommissionPreview()">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Commission Rate (%)</label>
+        <select id="match-rate-select" class="form-ctrl" onchange="calculateCommissionPreview()">
+          <option value="20">20% Margin</option>
+          <option value="25" selected>25% Standard (Ethio 21)</option>
+          <option value="30">30% High-Touch</option>
+        </select>
+      </div>
+
+      <div style="background: rgba(0,0,0,0.3); padding: 0.75rem; border-radius: 12px; margin-bottom: 1rem; font-size: 0.82rem;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+          <span style="color: var(--text-muted);">Tutor Net Take-Home:</span>
+          <span style="color: var(--accent-green); font-weight: 800;" id="calc-tutor-net">2,625 ETB</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-muted);">Ethio 21 Revenue:</span>
+          <span style="color: var(--accent-blue); font-weight: 800;" id="calc-ethio21-share">875 ETB</span>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-modal-sec" onclick="closeModal('modal-match-maker')">Cancel</button>
+        <button class="btn-modal-primary" onclick="confirmNewMatch()">Create Pairing ›</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GOOGLE APPS SCRIPT CODE MODAL -->
+  <div id="modal-script-code" class="app-modal">
+    <div class="modal-sheet" style="max-width: 600px;">
+      <h2>📜 Google Apps Script Webhook Code</h2>
+      <p>Paste this code into Google Sheets <b>Extensions ➔ Apps Script</b> to enable your 100% free cloud database.</p>
+
+      <div class="code-box" id="apps-script-code-box">function doGet(e) {
+  var action = e.parameter.action;
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  
+  if (action === 'getData') {
+    var pSheet = ss.getSheetByName('Parents') || createParentsSheet(ss);
+    var tSheet = ss.getSheetByName('Tutors') || createTutorsSheet(ss);
+    var mSheet = ss.getSheetByName('Matches') || createMatchesSheet(ss);
+    
+    var parents = rowsToJson(pSheet);
+    var tutors = rowsToJson(tSheet);
+    var matches = rowsToJson(mSheet);
+    
+    var output = { parents: parents, tutors: tutors, matches: matches };
+    return ContentService.createTextOutput(JSON.stringify(output))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+  
+  return ContentService.createTextOutput(JSON.stringify({ status: 'OK', message: 'Teme Astegni API Active' }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function doPost(e) {
+  try {
+    var postData = JSON.parse(e.postData.contents);
+    var action = postData.action;
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    
+    if (action === 'addParent') {
+      var sheet = ss.getSheetByName('Parents') || createParentsSheet(ss);
+      var d = postData.data;
+      sheet.appendRow([new Date(), d.name, d.phone, d.area, d.grade, d.genderPref, d.subjs, 'Pending']);
+    } 
+    else if (action === 'addTutor') {
+      var sheet = ss.getSheetByName('Tutors') || createTutorsSheet(ss);
+      var d = postData.data;
+      sheet.appendRow([new Date(), d.name, d.phone, d.gender, d.uni, d.year, d.cgpa, d.subj, d.govtId, 'Verified']);
+    }
+    else if (action === 'addMatch') {
+      var sheet = ss.getSheetByName('Matches') || createMatchesSheet(ss);
+      var d = postData.data;
+      sheet.appendRow([new Date(), d.parentName, d.tutorName, d.monthlyFee, d.commission, d.status]);
+    }
+    
+    return ContentService.createTextOutput(JSON.stringify({ status: 'success' }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService.createTextOutput(JSON.stringify({ status: 'error', error: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function createParentsSheet(ss) {
+  var s = ss.insertSheet('Parents');
+  s.appendRow(['Timestamp', 'Parent Name', 'Phone', 'Location', 'Grade', 'Gender Preference', 'Subjects', 'Status']);
+  return s;
+}
+
+function createTutorsSheet(ss) {
+  var s = ss.insertSheet('Tutors');
+  s.appendRow(['Timestamp', 'Full Name', 'Phone', 'Gender', 'University & Campus', 'Year', 'CGPA', 'Subjects', 'Government ID', 'Status']);
+  return s;
+}
+
+function createMatchesSheet(ss) {
+  var s = ss.insertSheet('Matches');
+  s.appendRow(['Timestamp', 'Parent Name', 'Tutor Name', 'Monthly Fee (ETB)', 'Commission (ETB)', 'Status']);
+  return s;
+}
+
+function rowsToJson(sheet) {
+  var data = sheet.getDataRange().getValues();
+  if (data.length <= 1) return [];
+  var headers = data[0];
+  var rows = [];
+  for (var i = 1; i < data.length; i++) {
+    var obj = {};
+    for (var j = 0; j < headers.length; j++) {
+      obj[headers[j]] = data[i][j];
+    }
+    rows.push(obj);
+  }
+  return rows;
+}</div>
+
+      <div class="modal-actions">
+        <button class="btn-modal-sec" onclick="closeModal('modal-script-code')">Close</button>
+        <button class="btn-modal-primary" onclick="copyAppsScriptCode()">📋 Copy Code to Clipboard</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // APP STATE & CONSTANTS
+    const DEFAULT_PIN = '2121';
+    let currentParentFilter = 'ALL';
+    let currentTutorFilter = 'ALL';
+
+    // Seed Initial Data if empty
+    function initializeSeedData() {
+      if (!localStorage.getItem('astegni_parent_leads')) {
+        const seedParents = [
+          {
+            type: 'PARENT',
+            name: 'ዶ/ር ተስፋዬ በቀለ (Dr. Tesfaye)',
+            phone: '0911223344',
+            area: 'ሳሪስ / ካዲስኮ (Saris, AAU Campus nearby)',
+            grade: 'Grade 9',
+            genderPref: 'ወንድ አስጠኚ ብቻ',
+            subjs: 'Physics, Mathematics',
+            status: 'Pending',
+            date: new Date(Date.now() - 3600000 * 2).toISOString()
+          },
+          {
+            type: 'PARENT',
+            name: 'ወ/ሮ ሮዛ ሙሉጌታ (W/ro Roza)',
+            phone: '0922446688',
+            area: 'ገርጂ / መብራት ኃይል (Gerji)',
+            grade: 'Grade 7',
+            genderPref: 'ሴት አስጠኚ ብቻ',
+            subjs: 'English, General Science',
+            status: 'Trial Scheduled',
+            date: new Date(Date.now() - 3600000 * 8).toISOString()
+          },
+          {
+            type: 'PARENT',
+            name: 'አቶ ዳንኤል ግርማ (Ato Daniel)',
+            phone: '0933778899',
+            area: 'ቦሌ መድሃኒዓለም (Bole)',
+            grade: 'Grade 12',
+            genderPref: 'ምንም ልዩነት የለውም (Any)',
+            subjs: 'Chemistry, Biology',
+            status: 'Active Contract',
+            date: new Date(Date.now() - 3600000 * 24).toISOString()
+          }
+        ];
+        localStorage.setItem('astegni_parent_leads', JSON.stringify(seedParents));
+      }
+
+      if (!localStorage.getItem('astegni_tutor_leads')) {
+        const seedTutors = [
+          {
+            type: 'TUTOR',
+            name: 'ናትናኤል አለማየሁ (Natnael A.)',
+            phone: '0911559900',
+            gender: 'ወንድ (Male)',
+            uni: 'AAU (4 Kilo Campus)',
+            year: '3rd Year (Electrical Eng.)',
+            cgpa: '3.78',
+            subj: 'Physics, Mathematics',
+            govtId: 'National Fayda ID: Attached',
+            date: new Date(Date.now() - 3600000 * 5).toISOString()
+          },
+          {
+            type: 'TUTOR',
+            name: 'ቤተልሔም ሰለሞን (Bethelhem S.)',
+            phone: '0944112233',
+            gender: 'ሴት (Female)',
+            uni: 'AAU (Tikur Anbessa Medical)',
+            year: '2nd Year (Medicine)',
+            cgpa: '3.85',
+            subj: 'Biology, Chemistry, English',
+            govtId: 'Kebele ID: Attached',
+            date: new Date(Date.now() - 3600000 * 12).toISOString()
+          },
+          {
+            type: 'TUTOR',
+            name: 'ዮናስ ታደሰ (Yonas T.)',
+            phone: '0912334455',
+            gender: 'ወንድ (Male)',
+            uni: 'ASTU (Adama Science & Tech)',
+            year: '4th Year (Software Eng.)',
+            cgpa: '3.62',
+            subj: 'Math, ICT, Physics',
+            govtId: 'National Fayda ID: Attached',
+            date: new Date(Date.now() - 3600000 * 18).toISOString()
+          }
+        ];
+        localStorage.setItem('astegni_tutor_leads', JSON.stringify(seedTutors));
+      }
+
+      if (!localStorage.getItem('astegni_matches')) {
+        const seedMatches = [
+          {
+            id: 'M-' + Date.now(),
+            parentName: 'አቶ ዳንኤል ግርማ (Ato Daniel)',
+            parentPhone: '0933778899',
+            tutorName: 'ናትናኤል አለማየሁ (Natnael A.)',
+            tutorPhone: '0911559900',
+            monthlyFee: 4000,
+            rate: 25,
+            commission: 1000,
+            status: 'Active Contract',
+            date: new Date().toISOString()
+          }
+        ];
+        localStorage.setItem('astegni_matches', JSON.stringify(seedMatches));
+      }
+    }
+
+    // PIN SECURITY HANDLING
+    const pinInputs = [document.getElementById('d1'), document.getElementById('d2'), document.getElementById('d3'), document.getElementById('d4')];
+
+    pinInputs.forEach((input, index) => {
+      input.addEventListener('input', (e) => {
+        if (e.target.value.length === 1 && index < 3) {
+          pinInputs[index + 1].focus();
+        }
+        if (index === 3 && e.target.value.length === 1) {
+          verifyPin();
+        }
+      });
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !e.target.value && index > 0) {
+          pinInputs[index - 1].focus();
+        }
+      });
+    });
+
+    function verifyPin() {
+      const enteredPin = pinInputs.map(i => i.value).join('');
+      const masterPin = localStorage.getItem('astegni_admin_pin') || DEFAULT_PIN;
+
+      if (enteredPin === masterPin) {
+        sessionStorage.setItem('astegni_admin_auth', 'true');
+        document.getElementById('pin-gate').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+        document.getElementById('admin-bottom-nav').style.display = 'flex';
+        renderAll();
+      } else {
+        const errEl = document.getElementById('pin-error');
+        errEl.style.display = 'block';
+        pinInputs.forEach(i => {
+          i.value = '';
+          i.style.borderColor = 'var(--accent-rose)';
+        });
+        pinInputs[0].focus();
+      }
+    }
+
+    function lockPortal() {
+      sessionStorage.removeItem('astegni_admin_auth');
+      pinInputs.forEach(i => { i.value = ''; i.style.borderColor = 'rgba(255, 255, 255, 0.15)'; });
+      document.getElementById('pin-error').style.display = 'none';
+      document.getElementById('pin-gate').style.display = 'flex';
+      document.getElementById('main-content').style.display = 'none';
+      document.getElementById('admin-bottom-nav').style.display = 'none';
+      pinInputs[0].focus();
+    }
+
+    function checkExistingAuth() {
+      if (sessionStorage.getItem('astegni_admin_auth') === 'true') {
+        document.getElementById('pin-gate').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+        document.getElementById('admin-bottom-nav').style.display = 'flex';
+        renderAll();
+      }
+    }
+
+    // NAVIGATION
+    function switchView(viewId, btn) {
+      document.querySelectorAll('.view-panel').forEach(v => v.classList.remove('active'));
+      const target = document.getElementById(viewId);
+      if (target) target.classList.add('active');
+
+      if (btn) {
+        document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // DATA RENDERING
+    function renderAll() {
+      renderDashboard();
+      renderParents();
+      renderTutors();
+      renderMatches();
+    }
+
+    function getParents() {
+      return JSON.parse(localStorage.getItem('astegni_parent_leads') || '[]');
+    }
+
+    function getTutors() {
+      return JSON.parse(localStorage.getItem('astegni_tutor_leads') || '[]');
+    }
+
+    function getMatches() {
+      return JSON.parse(localStorage.getItem('astegni_matches') || '[]');
+    }
+
+    function renderDashboard() {
+      const parents = getParents();
+      const tutors = getTutors();
+      const matches = getMatches();
+
+      const pendingParents = parents.filter(p => (p.status || 'Pending') === 'Pending').length;
+      const totalCommission = matches.reduce((sum, m) => sum + (Number(m.commission) || 0), 0);
+
+      document.getElementById('kpi-parents-count').innerText = parents.length;
+      document.getElementById('kpi-parents-sub').innerText = `${pendingParents} Pending Review`;
+      document.getElementById('kpi-tutors-count').innerText = tutors.length;
+      document.getElementById('kpi-matches-count').innerText = matches.length;
+      document.getElementById('kpi-commission-val').innerText = `${totalCommission.toLocaleString()} ETB`;
+
+      // Recent 3 leads
+      const recentList = document.getElementById('dashboard-recent-list');
+      recentList.innerHTML = '';
+      const recentItems = [...parents].reverse().slice(0, 3);
+
+      if (recentItems.length === 0) {
+        recentList.innerHTML = `<div style="color: var(--text-muted); font-size: 0.85rem; padding: 1rem 0;">No inquiries received yet.</div>`;
+        return;
+      }
+
+      recentItems.forEach(p => {
+        const div = document.createElement('div');
+        div.className = 'record-card';
+        div.innerHTML = `
+          <div class="record-top">
+            <div class="record-name">
+              <span>${escapeHtml(p.name)}</span>
+              <span class="tag-badge ${getStatusBadgeClass(p.status || 'Pending')}">${p.status || 'Pending'}</span>
+            </div>
+            <a href="tel:${escapeHtml(p.phone)}" class="btn-act btn-act-call">📞 ${escapeHtml(p.phone)}</a>
+          </div>
+          <div class="record-details">
+            <div class="detail-item"><span class="detail-label">📍 Area:</span> ${escapeHtml(p.area)}</div>
+            <div class="detail-item"><span class="detail-label">🎓 Grade:</span> ${escapeHtml(p.grade)}</div>
+            <div class="detail-item"><span class="detail-label">🚻 Gender Pref:</span> ${escapeHtml(p.genderPref || 'Any')}</div>
+          </div>
+        `;
+        recentList.appendChild(div);
+      });
+    }
+
+    function renderParents() {
+      const parents = getParents();
+      const query = (document.getElementById('parent-search').value || '').toLowerCase();
+      const container = document.getElementById('parents-cards-container');
+      container.innerHTML = '';
+
+      let filtered = parents.filter(p => {
+        const matchesQuery = !query || 
+          p.name.toLowerCase().includes(query) || 
+          p.phone.toLowerCase().includes(query) || 
+          p.area.toLowerCase().includes(query) ||
+          p.grade.toLowerCase().includes(query);
+
+        const status = p.status || 'Pending';
+        const matchesFilter = currentParentFilter === 'ALL' || status === currentParentFilter;
+        return matchesQuery && matchesFilter;
+      });
+
+      document.getElementById('parent-list-counter').innerText = `Showing ${filtered.length} of ${parents.length} requests`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div style="text-align: center; padding: 3rem 1rem; color: var(--text-muted);">No parent inquiries matching this criteria.</div>`;
+        return;
+      }
+
+      filtered.reverse().forEach((p, idx) => {
+        const card = document.createElement('div');
+        card.className = 'record-card';
+        const currentStatus = p.status || 'Pending';
+
+        card.innerHTML = `
+          <div class="record-top">
+            <div>
+              <div class="record-name">
+                ${escapeHtml(p.name)}
+                <span class="tag-badge ${getStatusBadgeClass(currentStatus)}">${currentStatus}</span>
+              </div>
+              <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">
+                📅 Received: ${new Date(p.date).toLocaleString()}
+              </div>
+            </div>
+            <a href="tel:${escapeHtml(p.phone)}" class="btn-act btn-act-call">📞 Call Parent</a>
+          </div>
+
+          <div class="record-details">
+            <div class="detail-item"><span class="detail-label">📞 Phone:</span> ${escapeHtml(p.phone)}</div>
+            <div class="detail-item"><span class="detail-label">📍 Neighborhood:</span> ${escapeHtml(p.area)}</div>
+            <div class="detail-item"><span class="detail-label">🎓 Grade Level:</span> ${escapeHtml(p.grade)}</div>
+            <div class="detail-item"><span class="detail-label">🚻 Gender Pref:</span> ${escapeHtml(p.genderPref || 'Any')}</div>
+            <div class="detail-item" style="grid-column: 1 / -1;"><span class="detail-label">📖 Subjects:</span> ${escapeHtml(p.subjs)}</div>
+          </div>
+
+          <div class="record-actions">
+            <select class="btn-act" onchange="updateParentStatus('${escapeHtml(p.phone)}', this.value)">
+              <option value="Pending" ${currentStatus === 'Pending' ? 'selected' : ''}>Status: Pending</option>
+              <option value="Trial Scheduled" ${currentStatus === 'Trial Scheduled' ? 'selected' : ''}>Status: Trial Scheduled</option>
+              <option value="Active Contract" ${currentStatus === 'Active Contract' ? 'selected' : ''}>Status: Active Contract</option>
+              <option value="Closed" ${currentStatus === 'Closed' ? 'selected' : ''}>Status: Closed</option>
+            </select>
+            <button class="btn-act btn-act-primary" onclick="quickMatchParent('${escapeHtml(p.name)}', '${escapeHtml(p.phone)}')">🤝 Assign Tutor</button>
+            <button class="btn-act" style="color: var(--accent-rose);" onclick="deleteParentLead('${escapeHtml(p.phone)}')">🗑️ Remove</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderTutors() {
+      const tutors = getTutors();
+      const query = (document.getElementById('tutor-search').value || '').toLowerCase();
+      const container = document.getElementById('tutors-cards-container');
+      container.innerHTML = '';
+
+      let filtered = tutors.filter(t => {
+        const matchesQuery = !query || 
+          t.name.toLowerCase().includes(query) || 
+          t.phone.toLowerCase().includes(query) || 
+          t.uni.toLowerCase().includes(query) ||
+          t.subj.toLowerCase().includes(query);
+
+        if (currentTutorFilter === 'ALL') return matchesQuery;
+        if (currentTutorFilter === 'Female') return matchesQuery && (t.gender || '').toLowerCase().includes('female');
+        if (currentTutorFilter === 'Male') return matchesQuery && (t.gender || '').toLowerCase().includes('male');
+        if (currentTutorFilter === 'HIGH_GPA') return matchesQuery && parseFloat(t.cgpa || 0) >= 3.50;
+        return matchesQuery;
+      });
+
+      document.getElementById('tutor-list-counter').innerText = `Showing ${filtered.length} of ${tutors.length} verified tutors`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div style="text-align: center; padding: 3rem 1rem; color: var(--text-muted);">No verified tutors matching this criteria.</div>`;
+        return;
+      }
+
+      filtered.reverse().forEach((t, idx) => {
+        const card = document.createElement('div');
+        card.className = 'record-card';
+
+        card.innerHTML = `
+          <div class="record-top">
+            <div>
+              <div class="record-name">
+                ${escapeHtml(t.name)}
+                <span class="tag-badge tag-active">⭐ CGPA ${escapeHtml(t.cgpa)}</span>
+                <span class="tag-badge tag-trial">${escapeHtml(t.gender || 'Verified')}</span>
+              </div>
+              <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">
+                🏛️ ${escapeHtml(t.uni)} • ${escapeHtml(t.year)}
+              </div>
+            </div>
+            <a href="tel:${escapeHtml(t.phone)}" class="btn-act btn-act-call">📞 Call Astegni</a>
+          </div>
+
+          <div class="record-details">
+            <div class="detail-item"><span class="detail-label">📞 Phone:</span> ${escapeHtml(t.phone)}</div>
+            <div class="detail-item"><span class="detail-label">🆔 ID Verification:</span> ${escapeHtml(t.govtId || 'National ID on File')}</div>
+            <div class="detail-item" style="grid-column: 1 / -1;"><span class="detail-label">📖 Subjects (Grade A):</span> ${escapeHtml(t.subj)}</div>
+          </div>
+
+          <div class="record-actions">
+            <button class="btn-act btn-act-primary" onclick="quickMatchTutor('${escapeHtml(t.name)}', '${escapeHtml(t.phone)}')">🤝 Pair With Parent</button>
+            <a href="https://t.me/+cNwM2HRo7A5jYTU0" target="_blank" class="btn-act">✈️ Send Ops Brief</a>
+            <button class="btn-act" style="color: var(--accent-rose);" onclick="deleteTutorLead('${escapeHtml(t.phone)}')">🗑️ Remove</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderMatches() {
+      const matches = getMatches();
+      const container = document.getElementById('matches-cards-container');
+      container.innerHTML = '';
+
+      if (matches.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 3rem 1rem; color: var(--text-muted); background: var(--card-bg); border-radius: 16px; border: 1px solid var(--card-border);">
+            No matches created yet. Click "+ New Match" above to link a parent and tutor!
+          </div>
+        `;
+        return;
+      }
+
+      matches.reverse().forEach((m, idx) => {
+        const card = document.createElement('div');
+        card.className = 'record-card';
+
+        card.innerHTML = `
+          <div class="record-top">
+            <div>
+              <div class="record-name">
+                👨‍👩‍👧 ${escapeHtml(m.parentName)} ⟷ 🎓 ${escapeHtml(m.tutorName)}
+              </div>
+              <div style="font-size: 0.75rem; color: var(--accent-blue); margin-top: 0.2rem; font-weight: 700;">
+                Monthly Tuition: ${Number(m.monthlyFee).toLocaleString()} ETB | Commission (${m.rate || 25}%): ${Number(m.commission).toLocaleString()} ETB
+              </div>
+            </div>
+            <span class="tag-badge ${getStatusBadgeClass(m.status)}">${m.status}</span>
+          </div>
+
+          <div class="record-details">
+            <div class="detail-item"><span class="detail-label">Parent Phone:</span> <a href="tel:${escapeHtml(m.parentPhone)}" style="color:#fff;">${escapeHtml(m.parentPhone)}</a></div>
+            <div class="detail-item"><span class="detail-label">Tutor Phone:</span> <a href="tel:${escapeHtml(m.tutorPhone)}" style="color:#fff;">${escapeHtml(m.tutorPhone)}</a></div>
+            <div class="detail-item"><span class="detail-label">Pairing Date:</span> ${new Date(m.date).toLocaleDateString()}</div>
+          </div>
+
+          <div class="record-actions">
+            <select class="btn-act" onchange="updateMatchStatus('${m.id}', this.value)">
+              <option value="1-Day Trial Pending" ${m.status === '1-Day Trial Pending' ? 'selected' : ''}>Status: 1-Day Trial Pending</option>
+              <option value="Trial Completed" ${m.status === 'Trial Completed' ? 'selected' : ''}>Status: Trial Completed</option>
+              <option value="Active Contract" ${m.status === 'Active Contract' ? 'selected' : ''}>Status: Active Contract</option>
+              <option value="Commission Paid" ${m.status === 'Commission Paid' ? 'selected' : ''}>Status: Commission Paid</option>
+            </select>
+            <button class="btn-act" style="color: var(--accent-rose);" onclick="deleteMatch('${m.id}')">🗑️ Remove</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // STATUS HELPERS & ACTIONS
+    function getStatusBadgeClass(status) {
+      if (status === 'Pending' || status === '1-Day Trial Pending') return 'tag-pending';
+      if (status === 'Trial Scheduled' || status === 'Trial Completed') return 'tag-trial';
+      if (status === 'Active Contract' || status === 'Commission Paid') return 'tag-active';
+      return 'tag-closed';
+    }
+
+    function updateParentStatus(phone, newStatus) {
+      const parents = getParents();
+      const item = parents.find(p => p.phone === phone);
+      if (item) {
+        item.status = newStatus;
+        localStorage.setItem('astegni_parent_leads', JSON.stringify(parents));
+        renderAll();
+      }
+    }
+
+    function deleteParentLead(phone) {
+      if (!confirm('Are you sure you want to remove this parent inquiry?')) return;
+      let parents = getParents().filter(p => p.phone !== phone);
+      localStorage.setItem('astegni_parent_leads', JSON.stringify(parents));
+      renderAll();
+    }
+
+    function deleteTutorLead(phone) {
+      if (!confirm('Are you sure you want to remove this tutor record?')) return;
+      let tutors = getTutors().filter(t => t.phone !== phone);
+      localStorage.setItem('astegni_tutor_leads', JSON.stringify(tutors));
+      renderAll();
+    }
+
+    function updateMatchStatus(id, newStatus) {
+      const matches = getMatches();
+      const item = matches.find(m => m.id === id);
+      if (item) {
+        item.status = newStatus;
+        localStorage.setItem('astegni_matches', JSON.stringify(matches));
+        renderAll();
+      }
+    }
+
+    function deleteMatch(id) {
+      if (!confirm('Are you sure you want to remove this match record?')) return;
+      let matches = getMatches().filter(m => m.id !== id);
+      localStorage.setItem('astegni_matches', JSON.stringify(matches));
+      renderAll();
+    }
+
+    // MATCH MAKER MODAL
+    function openNewMatchModal() {
+      const parents = getParents();
+      const tutors = getTutors();
+
+      const pSelect = document.getElementById('match-select-parent');
+      const tSelect = document.getElementById('match-select-tutor');
+
+      pSelect.innerHTML = parents.map((p, i) => `<option value="${i}">${escapeHtml(p.name)} (${escapeHtml(p.grade)} - ${escapeHtml(p.area)})</option>`).join('');
+      tSelect.innerHTML = tutors.map((t, i) => `<option value="${i}">${escapeHtml(t.name)} (CGPA ${escapeHtml(t.cgpa)} - ${escapeHtml(t.uni)})</option>`).join('');
+
+      calculateCommissionPreview();
+      document.getElementById('modal-match-maker').classList.add('active');
+    }
+
+    function quickMatchParent(parentName, parentPhone) {
+      openNewMatchModal();
+      const parents = getParents();
+      const idx = parents.findIndex(p => p.phone === parentPhone);
+      if (idx !== -1) document.getElementById('match-select-parent').value = idx;
+    }
+
+    function quickMatchTutor(tutorName, tutorPhone) {
+      openNewMatchModal();
+      const tutors = getTutors();
+      const idx = tutors.findIndex(t => t.phone === tutorPhone);
+      if (idx !== -1) document.getElementById('match-select-tutor').value = idx;
+    }
+
+    function calculateCommissionPreview() {
+      const price = parseFloat(document.getElementById('match-price-input').value) || 0;
+      const rate = parseFloat(document.getElementById('match-rate-select').value) || 25;
+
+      const commission = Math.round(price * (rate / 100));
+      const tutorNet = price - commission;
+
+      document.getElementById('calc-tutor-net').innerText = `${tutorNet.toLocaleString()} ETB`;
+      document.getElementById('calc-ethio21-share').innerText = `${commission.toLocaleString()} ETB`;
+    }
+
+    function confirmNewMatch() {
+      const parents = getParents();
+      const tutors = getTutors();
+      const pIdx = document.getElementById('match-select-parent').value;
+      const tIdx = document.getElementById('match-select-tutor').value;
+
+      if (!parents[pIdx] || !tutors[tIdx]) {
+        alert('Please select both a parent and a tutor.');
+        return;
+      }
+
+      const p = parents[pIdx];
+      const t = tutors[tIdx];
+      const fee = parseFloat(document.getElementById('match-price-input').value) || 0;
+      const rate = parseFloat(document.getElementById('match-rate-select').value) || 25;
+      const commission = Math.round(fee * (rate / 100));
+
+      const newMatch = {
+        id: 'M-' + Date.now(),
+        parentName: p.name,
+        parentPhone: p.phone,
+        tutorName: t.name,
+        tutorPhone: t.phone,
+        monthlyFee: fee,
+        rate: rate,
+        commission: commission,
+        status: '1-Day Trial Pending',
+        date: new Date().toISOString()
+      };
+
+      const matches = getMatches();
+      matches.push(newMatch);
+      localStorage.setItem('astegni_matches', JSON.stringify(matches));
+
+      // Mark parent as trial scheduled
+      p.status = 'Trial Scheduled';
+      localStorage.setItem('astegni_parent_leads', JSON.stringify(parents));
+
+      closeModal('modal-match-maker');
+      renderAll();
+      switchView('view-matches');
+    }
+
+    // CLOUD DATABASE & WEBHOOK INTEGRATION
+    function saveWebhookUrl() {
+      const url = document.getElementById('webhook-url-input').value.trim();
+      localStorage.setItem('teme_astegni_db_webhook', url);
+      alert('Webhook URL saved successfully!');
+    }
+
+    async function testWebhookConnection() {
+      const url = localStorage.getItem('teme_astegni_db_webhook') || document.getElementById('webhook-url-input').value.trim();
+      if (!url) {
+        alert('Please enter your Google Apps Script Webhook URL first.');
+        return;
+      }
+
+      const ind = document.getElementById('sync-indicator');
+      const txt = document.getElementById('sync-text');
+      txt.innerText = 'Testing...';
+
+      try {
+        const res = await fetch(url + '?action=getData');
+        const json = await res.json();
+        if (json && (json.parents || json.status === 'OK')) {
+          txt.innerText = 'Connected 🟢';
+          alert('✅ Google Sheets Cloud Database connected successfully!');
+        } else {
+          txt.innerText = 'Online 🟢';
+          alert('Received response from Google Apps Script!');
+        }
+      } catch (err) {
+        txt.innerText = 'Local Mode';
+        alert('Could not connect to Google Apps Script. Check that deployment access is set to "Anyone" and try again.');
+      }
+    }
+
+    async function syncCloudDatabase() {
+      const url = localStorage.getItem('teme_astegni_db_webhook') || document.getElementById('webhook-url-input').value.trim();
+      if (!url) {
+        alert('Please set your Google Apps Script Webhook URL first in Settings.');
+        switchView('view-database');
+        return;
+      }
+
+      const txt = document.getElementById('sync-text');
+      txt.innerText = 'Syncing...';
+
+      try {
+        const res = await fetch(url + '?action=getData');
+        const json = await res.json();
+
+        if (json.parents && Array.isArray(json.parents)) {
+          // Merge parents
+          const currentParents = getParents();
+          json.parents.forEach(p => {
+            if (!currentParents.some(cp => cp.phone === p.Phone)) {
+              currentParents.push({
+                type: 'PARENT',
+                name: p['Parent Name'],
+                phone: p.Phone,
+                area: p.Location,
+                grade: p.Grade,
+                genderPref: p['Gender Preference'],
+                subjs: p.Subjects,
+                status: p.Status || 'Pending',
+                date: p.Timestamp || new Date().toISOString()
+              });
+            }
+          });
+          localStorage.setItem('astegni_parent_leads', JSON.stringify(currentParents));
+        }
+
+        if (json.tutors && Array.isArray(json.tutors)) {
+          const currentTutors = getTutors();
+          json.tutors.forEach(t => {
+            if (!currentTutors.some(ct => ct.phone === t.Phone)) {
+              currentTutors.push({
+                type: 'TUTOR',
+                name: t['Full Name'],
+                phone: t.Phone,
+                gender: t.Gender,
+                uni: t['University & Campus'],
+                year: t.Year,
+                cgpa: t.CGPA,
+                subj: t.Subjects,
+                govtId: t['Government ID'],
+                date: t.Timestamp || new Date().toISOString()
+              });
+            }
+          });
+          localStorage.setItem('astegni_tutor_leads', JSON.stringify(currentTutors));
+        }
+
+        txt.innerText = 'Synced 🟢';
+        renderAll();
+        alert('✅ Cloud Database successfully synchronized!');
+      } catch (err) {
+        txt.innerText = 'Offline Cache';
+        alert('Sync error: ' + err.message);
+      }
+    }
+
+    // CSV EXPORTER
+    function exportDataToCsv(type) {
+      let data = [];
+      let filename = `teme_astegni_${type}_${Date.now()}.csv`;
+
+      if (type === 'parents') {
+        const parents = getParents();
+        if (parents.length === 0) return alert('No parent records to export.');
+        data = parents.map(p => ({
+          Date: p.date,
+          Name: p.name,
+          Phone: p.phone,
+          Area: p.area,
+          Grade: p.grade,
+          Gender_Preference: p.genderPref || 'Any',
+          Subjects: `"${(p.subjs || '').replace(/"/g, '""')}"`,
+          Status: p.status || 'Pending'
+        }));
+      } else if (type === 'tutors') {
+        const tutors = getTutors();
+        if (tutors.length === 0) return alert('No tutor records to export.');
+        data = tutors.map(t => ({
+          Date: t.date,
+          Name: t.name,
+          Phone: t.phone,
+          Gender: t.gender,
+          University: t.uni,
+          Year: t.year,
+          CGPA: t.cgpa,
+          Subjects: `"${(t.subj || '').replace(/"/g, '""')}"`,
+          Government_ID: t.govtId
+        }));
+      }
+
+      const headers = Object.keys(data[0]).join(',');
+      const rows = data.map(obj => Object.values(obj).join(',')).join('\n');
+      const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + headers + '\n' + rows;
+
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', filename);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // MODALS & HELPERS
+    function openSettingsModal() {
+      switchView('view-database');
+    }
+
+    function openScriptCodeModal() {
+      document.getElementById('modal-script-code').classList.add('active');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    function copyAppsScriptCode() {
+      const code = document.getElementById('apps-script-code-box').innerText;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(code).then(() => {
+          alert('📋 Apps Script code copied to clipboard!');
+        });
+      }
+    }
+
+    function updateMasterPin() {
+      const pin = document.getElementById('new-pin-input').value.trim();
+      if (pin.length !== 4 || isNaN(pin)) {
+        alert('PIN must be exactly 4 numeric digits.');
+        return;
+      }
+      localStorage.setItem('astegni_admin_pin', pin);
+      alert('Master PIN successfully updated!');
+      document.getElementById('new-pin-input').value = '';
+    }
+
+    function setParentFilter(filter, btn) {
+      currentParentFilter = filter;
+      btn.parentElement.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderParents();
+    }
+
+    function filterParents() {
+      renderParents();
+    }
+
+    function setTutorFilter(filter, btn) {
+      currentTutorFilter = filter;
+      btn.parentElement.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderTutors();
+    }
+
+    function filterTutors() {
+      renderTutors();
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // INITIALIZATION
+    document.addEventListener('DOMContentLoaded', () => {
+      initializeSeedData();
+      
+      const savedWebhook = localStorage.getItem('teme_astegni_db_webhook');
+      if (savedWebhook) {
+        document.getElementById('webhook-url-input').value = savedWebhook;
+      }
+
+      checkExistingAuth();
+    });
+  </script>
+</body>
+</html>

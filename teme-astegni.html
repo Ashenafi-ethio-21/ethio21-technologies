@@ -1108,6 +1108,12 @@
           <span class="hotline-btn-pill" style="background: rgba(255, 255, 255, 0.1);" id="i18n-ch-btn">View</span>
         </a>
 
+        <div style="text-align: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08);">
+          <a href="teme-admin.html" style="font-size: 0.78rem; color: #64748b; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem;">
+            <span>🔒 Coordinator Admin Portal (የአስተዳዳሪ መግቢያ) ›</span>
+          </a>
+        </div>
+
       </div>
 
     </div>
@@ -1617,10 +1623,21 @@
 
       // Save offline backup
       try {
-        const item = { type: 'PARENT', name, phone, area, grade, genderPref, subjs, date: new Date().toISOString() };
+        const item = { type: 'PARENT', name, phone, area, grade, genderPref, subjs, status: 'Pending', date: new Date().toISOString() };
         const list = JSON.parse(localStorage.getItem('astegni_parent_leads') || '[]');
         list.push(item);
         localStorage.setItem('astegni_parent_leads', JSON.stringify(list));
+
+        // Asynchronously log to Google Sheets cloud database if configured
+        const webhookUrl = localStorage.getItem('teme_astegni_db_webhook');
+        if (webhookUrl && webhookUrl.startsWith('http')) {
+          fetch(webhookUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'addParent', data: item })
+          }).catch(() => {});
+        }
       } catch (err) {}
 
       // Copy to clipboard
@@ -1688,11 +1705,23 @@
           gradeReportAttached: !!gradeFile,
           govtIdAttached: !!govtFile,
           govtId: `${govtType}: ${govtNum}`,
+          status: 'Verified',
           date: new Date().toISOString() 
         };
         const list = JSON.parse(localStorage.getItem('astegni_tutor_leads') || '[]');
         list.push(item);
         localStorage.setItem('astegni_tutor_leads', JSON.stringify(list));
+
+        // Asynchronously log to Google Sheets cloud database if configured
+        const webhookUrl = localStorage.getItem('teme_astegni_db_webhook');
+        if (webhookUrl && webhookUrl.startsWith('http')) {
+          fetch(webhookUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'addTutor', data: item })
+          }).catch(() => {});
+        }
       } catch (err) {}
 
       // Copy formatted text to clipboard
