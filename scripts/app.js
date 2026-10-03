@@ -732,60 +732,8 @@ ${message ? `"${message}"` : 'Client requested technical consultation and discov
     }
   }, true);
 
-  // 4. Active DevTools Detection & Full-Screen Shield Lockdown Overlay
-  const mainDevToolsThreshold = 160;
-
-  function setMainLockoutState(locked) {
-    let overlay = document.getElementById('devtools-lockout-overlay');
-    if (locked) {
-      if (!overlay && document.body) {
-        overlay = document.createElement('div');
-        overlay.id = 'devtools-lockout-overlay';
-        overlay.className = 'devtools-lockout-overlay';
-        overlay.innerHTML = `
-          <div class="lockout-box">
-            <div class="lockout-shield-badge">🛡️</div>
-            <span class="lockout-tag">ETHIO 21 PROPRIETARY SHIELD v2.4</span>
-            <h2 class="lockout-title">INSPECTOR &amp; DEVTOOLS DETECTED</h2>
-            <p class="lockout-desc">All system architectures, proprietary client interfaces, and interactive calculators are protected under ETHIO 21 Technologies intellectual property rights.</p>
-            <div class="lockout-status">🔒 SESSION BLURRED &amp; SECURED</div>
-            <p class="lockout-sub">Please close Developer Tools or Inspector window to resume exploring.</p>
-          </div>
-        `;
-        document.body.appendChild(overlay);
-      }
-      if (overlay) overlay.classList.add('active');
-      if (document.body) document.body.classList.add('shield-lockdown-blur');
-    } else {
-      if (overlay) overlay.classList.remove('active');
-      if (document.body) document.body.classList.remove('shield-lockdown-blur');
-    }
-  }
-
-  function checkMainDevToolsActivity() {
-    const widthDiff = window.outerWidth - window.innerWidth > mainDevToolsThreshold;
-    const heightDiff = window.outerHeight - window.innerHeight > mainDevToolsThreshold;
-    if (widthDiff || heightDiff) {
-      setMainLockoutState(true);
-    } else {
-      setMainLockoutState(false);
-    }
-  }
-
-  window.addEventListener('resize', checkMainDevToolsActivity);
-  setInterval(checkMainDevToolsActivity, 600);
-
-  // 5. Anti-Debugger Trap Loop
-  setInterval(() => {
-    const start = performance.now();
-    (function() {
-      return false;
-    }['constructor']('debugger')['call']());
-    const duration = performance.now() - start;
-    if (duration > 100) {
-      setMainLockoutState(true);
-    }
-  }, 500);
+  // 4. Clean Security Posture (Safe from false-positive dimension/zoom lockouts)
+  window.setMainLockoutState = function() {};
 
   applyLanguage(state.lang);
 });

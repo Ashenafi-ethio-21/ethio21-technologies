@@ -7,6 +7,13 @@
   <!-- Telegram WebApp SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
+  <!-- OpenGraph / Social Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Teme Freshman Exam Hub (ተሜ)">
+  <meta property="og:description" content="Official university freshman diagnostic exam and entrance testing hub.">
+  <meta property="og:url" content="https://ashenafi-ethio-21.github.io/teme-astegni/teme-exam-app.html">
+  <meta property="og:image" content="https://ashenafi-ethio-21.github.io/teme-astegni/assets/teme_astegni_logo.jpg">
+
   <!-- Cache Invalidation Directives -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
@@ -124,52 +131,8 @@
       }
       window.triggerSecurityToast = triggerSecurityToast;
 
-      // 5. Active DevTools Detection & Shield Lockdown Overlay
-      const threshold = 160;
-
-      function checkDevToolsDimensions() {
-        const widthDiff = window.outerWidth - window.innerWidth > threshold;
-        const heightDiff = window.outerHeight - window.innerHeight > threshold;
-        if (widthDiff || heightDiff) {
-          setLockoutState(true);
-        } else {
-          setLockoutState(false);
-        }
-      }
-
-      function setLockoutState(locked) {
-        let overlay = document.getElementById('devtools-lockout-overlay');
-        if (locked) {
-          if (!overlay && document.body) {
-            overlay = document.createElement('div');
-            overlay.id = 'devtools-lockout-overlay';
-            overlay.className = 'devtools-lockout-overlay';
-            overlay.innerHTML = '<div class="lockout-box"><div class="lockout-shield-badge">🛡️</div><h2 class="lockout-title">INSPECTOR &amp; DEVTOOLS DETECTED</h2><p class="lockout-desc">The ETHIO 21 Proprietary Security Shield has locked this session to protect examination integrity and proprietary source code.</p><div class="lockout-status">🔒 SESSION BLURRED &amp; FROZEN</div><p class="lockout-sub">Please close Developer Tools or Inspector window to resume your test.</p></div>';
-            document.body.appendChild(overlay);
-          }
-          if (overlay) overlay.classList.add('active');
-          if (document.body) document.body.classList.add('shield-lockdown-blur');
-        } else {
-          if (overlay) overlay.classList.remove('active');
-          if (document.body) document.body.classList.remove('shield-lockdown-blur');
-        }
-      }
-
-      window.addEventListener('resize', checkDevToolsDimensions);
-      setInterval(checkDevToolsDimensions, 600);
-
-      // 6. Anti-Debugger Trap Loop
-      // When DevTools is opened, this constructor debugger traps the session
-      setInterval(function() {
-        const start = performance.now();
-        (function() {
-          return false;
-        }['constructor']('debugger')['call']());
-        const timeElapsed = performance.now() - start;
-        if (timeElapsed > 100) {
-          setLockoutState(true);
-        }
-      }, 500);
+      // 5. Clean Security Posture (Safe from false-positive dimension/zoom lockouts)
+      window.setLockoutState = function() {};
 
       // 7. Console Watermark & Periodic Flush
       setInterval(function() {

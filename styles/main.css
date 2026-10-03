@@ -3364,6 +3364,10 @@ body.shield-lockdown-blur > *:not(.devtools-lockout-overlay):not(#security-toast
   transition: transform 0.4s ease;
 }
 
+.founder-card-ashenafi .founder-avatar-img {
+  object-position: center 8%;
+}
+
 .founder-card:hover .founder-avatar-img {
   transform: scale(1.04);
 }
@@ -3701,6 +3705,7 @@ body.shield-lockdown-blur > *:not(.devtools-lockout-overlay):not(#security-toast
 
 .sig-avatar-1 {
   z-index: 2;
+  object-position: center 8%;
 }
 
 .sig-avatar-2 {

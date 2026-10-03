@@ -3,7 +3,7 @@
  * Fast caching and offline-first resilience
  */
 
-const CACHE_NAME = 'ethio21-v33';
+const CACHE_NAME = 'ethio21-v107';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -15,7 +15,8 @@ const ASSETS_TO_CACHE = [
   './styles/main.css',
   './scripts/translations.js',
   './scripts/app.js',
-  './manifest.json'
+  './manifest.json',
+  './manifest-teme.json'
 ];
 
 self.addEventListener('install', (event) => {
