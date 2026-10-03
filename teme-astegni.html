@@ -2810,9 +2810,14 @@
           <p style="font-size: 0.82rem; color: #94a3b8; max-width: 420px; margin: 0 auto 1.4rem; line-height: 1.6;">
             በዚህ ስልክ ወይም ኮምፒውተር የተመዘገበ የአስጠኚ ማመልከቻ የለም። የዩኒቨርሲቲ ተማሪ ከሆኑ ከታች ያለውን ቁልፍ በመጫን ማመልከቻዎን ያስገቡ።
           </p>
-          <button type="button" onclick="showScreen('screen-tutor')" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); border: none; color: #fff; font-weight: 850; font-size: 0.88rem; padding: 0.75rem 1.4rem; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);">
-            ✍️ አስጠኚ ለመሆን ይመዝገቡ (Apply as Astegni) ›
-          </button>
+          <div style="display: flex; gap: 0.65rem; justify-content: center; flex-wrap: wrap;">
+            <button type="button" onclick="showScreen('screen-tutor')" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); border: none; color: #fff; font-weight: 850; font-size: 0.85rem; padding: 0.7rem 1.25rem; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);">
+              ✍️ አስጠኚ ለመሆን ይመዝገቡ (Apply) ›
+            </button>
+            <button type="button" onclick="openProfileRestoreModal()" style="background: rgba(56, 189, 248, 0.15); border: 1.5px solid rgba(56, 189, 248, 0.45); color: #38bdf8; font-weight: 850; font-size: 0.85rem; padding: 0.7rem 1.25rem; border-radius: 12px; cursor: pointer;">
+              🔑 ቀደም ሲል ተመዝግበዋል? ካርድዎን ያገናኙ (Restore Profile) ›
+            </button>
+          </div>
         </div>
 
       </div>
@@ -3106,6 +3111,46 @@
           <span>🚀 የክፍያ ደረሰኙን ላክ (Submit Payment Screenshot) ›</span>
         </button>
       </form>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- UNIVERSAL PROFILE RESTORATION MODAL        -->
+  <!-- ========================================== -->
+  <div class="modal-overlay" id="profile-restore-modal">
+    <div class="modal-card" style="max-width: 480px; width: 94%; text-align: left; border-radius: 24px; border: 1.5px solid rgba(56, 189, 248, 0.45); box-shadow: 0 25px 70px rgba(0,0,0,0.85); background: linear-gradient(180deg, rgba(15, 23, 42, 0.98) 0%, rgba(10, 15, 30, 0.98) 100%); backdrop-filter: blur(28px); padding: 1.75rem 1.4rem;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.75rem;">
+        <div style="display: flex; align-items: center; gap: 0.65rem;">
+          <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(56, 189, 248, 0.2); border: 1px solid rgba(56, 189, 248, 0.4); display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">🔑</div>
+          <div>
+            <div style="font-size: 1.05rem; font-weight: 850; color: #fff;">ካርድዎን ያገናኙ (Restore Profile)</div>
+            <div style="font-size: 0.72rem; color: #38bdf8; font-weight: 700;">Link Existing ID to This Phone</div>
+          </div>
+        </div>
+        <button type="button" onclick="closeProfileRestoreModal()" style="background: rgba(255,255,255,0.08); border: none; color: #94a3b8; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center;">✕</button>
+      </div>
+
+      <p style="font-size: 0.82rem; color: #94a3b8; line-height: 1.5; margin-bottom: 1.15rem;">
+        ስልክ ቀይረዋል ወይም መተግበሪያውን በአዲስ ብሮውዘር ከፍተዋል? የተሰጠዎትን የክትትል መለያ (Tracking ID e.g. <code>AST-P-XXXX</code> ወይም <code>AST-T-XXXX</code>) አሊያም የተመዘገቡበትን ስልክ ቁጥር ያስገቡ።
+      </p>
+
+      <div style="margin-bottom: 1.15rem;">
+        <label style="display: block; font-size: 0.76rem; font-weight: 750; color: #cbd5e1; margin-bottom: 0.4rem;">
+          የክትትል መለያ (Tracking ID) ወይም ስልክ ቁጥር:
+        </label>
+        <input type="text" id="restore-input-val" placeholder="e.g. AST-P-1717 ወይም 0911223344" style="width: 100%; box-sizing: border-box; background: rgba(15, 23, 42, 0.8); border: 1.5px solid rgba(56, 189, 248, 0.4); color: #fff; padding: 0.8rem 1rem; border-radius: 12px; font-size: 0.95rem; font-weight: 700; outline: none;">
+      </div>
+
+      <div id="restore-status-msg" style="display: none; font-size: 0.78rem; padding: 0.6rem; border-radius: 8px; margin-bottom: 1rem;"></div>
+
+      <div style="display: flex; gap: 0.5rem;">
+        <button type="button" id="btn-do-restore" onclick="executeProfileRestoration()" style="flex: 1; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); border: none; color: #fff; font-weight: 850; font-size: 0.88rem; padding: 0.8rem; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.35);">
+          🔍 ካርዴን አምጣ (Restore Profile)
+        </button>
+        <button type="button" onclick="closeProfileRestoreModal()" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #94a3b8; font-weight: 700; font-size: 0.82rem; padding: 0.8rem 1rem; border-radius: 12px; cursor: pointer;">
+          ዝጋ (Cancel)
+        </button>
+      </div>
     </div>
   </div>
 
@@ -3704,14 +3749,142 @@
         showParentStatusModal({ trackingId: savedId, name: 'Parent', phone: localStorage.getItem('my_astegni_parent_phone') || '' });
         return;
       }
-      alert(currentLang === 'am' 
-        ? 'በዚህ ስልክ ላይ የተመዘገበ የወላጅ ጥያቄ አልተገኘም። እባክዎ አዲስ አስጠኚ ይጠይቁ።'
-        : 'No parent request registered on this device yet. Please request a tutor first.');
+      // If not yet saved on this device, open the Profile Restoration Modal directly!
+      openProfileRestoreModal();
     }
 
-    function closeParentLookupModal() {
-      const modal = document.getElementById('parent-lookup-modal');
+    function openProfileRestoreModal() {
+      const modal = document.getElementById('profile-restore-modal');
+      if (modal) {
+        modal.classList.add('active');
+        const inp = document.getElementById('restore-input-val');
+        if (inp) { inp.value = ''; inp.focus(); }
+        const msg = document.getElementById('restore-status-msg');
+        if (msg) msg.style.display = 'none';
+      }
+    }
+
+    function closeProfileRestoreModal() {
+      const modal = document.getElementById('profile-restore-modal');
       if (modal) modal.classList.remove('active');
+    }
+
+    async function executeProfileRestoration() {
+      const inp = document.getElementById('restore-input-val');
+      const msg = document.getElementById('restore-status-msg');
+      const btn = document.getElementById('btn-do-restore');
+      const val = (inp ? inp.value : '').trim();
+
+      if (!val) {
+        if (msg) {
+          msg.style.display = 'block';
+          msg.style.background = 'rgba(239, 68, 68, 0.2)';
+          msg.style.color = '#f87171';
+          msg.innerText = currentLang === 'am' ? 'እባክዎ የክትትል መለያ ወይም ስልክ ቁጥር ያስገቡ።' : 'Please enter a Tracking ID or phone number.';
+        }
+        return;
+      }
+
+      if (btn) {
+        btn.disabled = true;
+        btn.innerText = currentLang === 'am' ? 'በመፈለግ ላይ...' : 'Searching...';
+      }
+      if (msg) {
+        msg.style.display = 'block';
+        msg.style.background = 'rgba(56, 189, 248, 0.15)';
+        msg.style.color = '#38bdf8';
+        msg.innerText = currentLang === 'am' ? 'መረጃዎን በማረጋገጥ ላይ...' : 'Verifying profile...';
+      }
+
+      const cleanVal = val.toUpperCase();
+      const phoneDigits = val.replace(/\D/g, '');
+
+      // 1. Check local lists first (0 network calls)
+      const localParents = JSON.parse(localStorage.getItem('astegni_parent_leads') || '[]');
+      const localTutors = JSON.parse(localStorage.getItem('astegni_tutor_leads') || '[]');
+
+      let foundParent = localParents.find(p => {
+        const id = (p.trackingId || p.id || '').toUpperCase();
+        const ph = (p.phone || '').replace(/\D/g, '');
+        return id === cleanVal || (phoneDigits.length >= 6 && ph.endsWith(phoneDigits.slice(-9)));
+      });
+
+      let foundTutor = !foundParent && localTutors.find(t => {
+        const id = (t.trackingId || t.id || '').toUpperCase();
+        const ph = (t.phone || '').replace(/\D/g, '');
+        return id === cleanVal || (phoneDigits.length >= 6 && ph.endsWith(phoneDigits.slice(-9)));
+      });
+
+      // 2. Single Targeted Firestore Query Fallback (1 read, strictly for this ID)
+      if (!foundParent && !foundTutor && typeof db !== 'undefined' && db) {
+        try {
+          if (cleanVal.startsWith('AST-P-') || (!cleanVal.startsWith('AST-T-') && phoneDigits.length >= 8)) {
+            const pQuery = cleanVal.startsWith('AST-P-')
+              ? db.collection('astegni_parent_leads').where('trackingId', '==', cleanVal).limit(1).get()
+              : db.collection('astegni_parent_leads').where('phone', '==', val).limit(1).get();
+            const pSnap = await pQuery;
+            if (pSnap && !pSnap.empty) {
+              foundParent = pSnap.docs[0].data();
+            }
+          }
+
+          if (!foundParent && (cleanVal.startsWith('AST-T-') || phoneDigits.length >= 8)) {
+            const tQuery = cleanVal.startsWith('AST-T-')
+              ? db.collection('astegni_tutor_leads').where('trackingId', '==', cleanVal).limit(1).get()
+              : db.collection('astegni_tutor_leads').where('phone', '==', val).limit(1).get();
+            const tSnap = await tQuery;
+            if (tSnap && !tSnap.empty) {
+              foundTutor = tSnap.docs[0].data();
+            }
+          }
+        } catch (e) {
+          console.warn('Restore cloud lookup fallback:', e);
+        }
+      }
+
+      if (btn) {
+        btn.disabled = false;
+        btn.innerText = currentLang === 'am' ? '🔍 ካርዴን አምጣ (Restore Profile)' : '🔍 Restore Profile';
+      }
+
+      if (foundParent) {
+        const pId = foundParent.trackingId || foundParent.id || cleanVal;
+        localStorage.setItem('my_astegni_parent_id', pId);
+        localStorage.setItem('my_astegni_parent_phone', foundParent.phone || '');
+        localStorage.setItem('my_astegni_parent_record', JSON.stringify(foundParent));
+        closeProfileRestoreModal();
+        if (typeof updateHomeActiveStatusCards === 'function') updateHomeActiveStatusCards();
+        alert(currentLang === 'am' 
+          ? `🎉 እንኳን ደህና መጡ! የወላጅ ፕሮፋይልዎ (${foundParent.name || pId}) በተሳካ ሁኔታ ተገናኝቷል።` 
+          : `🎉 Welcome back! Parent profile (${foundParent.name || pId}) linked successfully.`);
+        showScreen('screen-home');
+        return;
+      }
+
+      if (foundTutor) {
+        const tId = foundTutor.trackingId || foundTutor.id || cleanVal;
+        localStorage.setItem('my_astegni_tutor_id', tId);
+        localStorage.setItem('my_astegni_tutor_phone', foundTutor.phone || '');
+        localStorage.setItem('my_astegni_tutor_record', JSON.stringify(foundTutor));
+        closeProfileRestoreModal();
+        if (typeof updateHomeActiveStatusCards === 'function') updateHomeActiveStatusCards();
+        if (typeof loadDeviceTutorPortal === 'function') loadDeviceTutorPortal();
+        alert(currentLang === 'am' 
+          ? `🎉 እንኳን ደህና መጡ! የአስጠኚ ፕሮፋይልዎ (${foundTutor.name || tId}) በተሳካ ሁኔታ ተገናኝቷል።` 
+          : `🎉 Welcome back! Tutor profile (${foundTutor.name || tId}) linked successfully.`);
+        showScreen('screen-home');
+        return;
+      }
+
+      // Not found
+      if (msg) {
+        msg.style.display = 'block';
+        msg.style.background = 'rgba(239, 68, 68, 0.2)';
+        msg.style.color = '#f87171';
+        msg.innerText = currentLang === 'am' 
+          ? '❌ ይቅርታ፣ በዚህ መለያ ወይም ስልክ የተመዘገበ መረጃ አልተገኘም። እባክዎ መለያዎን አረጋግጠው በድጋሚ ይሞክሩ ወይም በአዲስ ይመዝገቡ።' 
+          : '❌ No registered profile found for this ID or phone. Please verify and try again or register anew.';
+      }
     }
 
     // ==========================================
@@ -4185,14 +4358,19 @@
 
       if (!parentData && !tutorData) {
         container.innerHTML = `
-          <div style="background: rgba(15, 23, 42, 0.65); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 14px; padding: 0.85rem 1.1rem; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
+          <div style="background: rgba(15, 23, 42, 0.65); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 16px; padding: 1rem 1.15rem; display: flex; align-items: center; justify-content: space-between; gap: 0.85rem; flex-wrap: wrap;">
             <div>
               <div style="font-size: 0.88rem; font-weight: 850; color: #fff;">👨‍👩‍👧 ለልጅዎ ብቁ የዩኒቨርሲቲ አስጠኚ ይፈልጋሉ?</div>
               <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.15rem;">ከአቅራቢያዎ ካምፓስ ከፍተኛ ውጤት ካላቸው ተማሪዎች ጋር በ 24 ሰዓት ውስጥ እናገናኝዎታለን።</div>
             </div>
-            <button type="button" onclick="showScreen('screen-parent')" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); border: none; color: #fff; font-weight: 850; font-size: 0.78rem; padding: 0.5rem 0.95rem; border-radius: 10px; cursor: pointer; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);">
-              📲 አስጠኚ ይጠይቁ (Request Astegni) ›
-            </button>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <button type="button" onclick="showScreen('screen-parent')" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); border: none; color: #fff; font-weight: 850; font-size: 0.78rem; padding: 0.55rem 0.95rem; border-radius: 10px; cursor: pointer; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);">
+                📲 አስጠኚ ይጠይቁ (Request) ›
+              </button>
+              <button type="button" onclick="openProfileRestoreModal()" style="background: rgba(56, 189, 248, 0.15); border: 1.5px solid rgba(56, 189, 248, 0.45); color: #38bdf8; font-weight: 850; font-size: 0.78rem; padding: 0.55rem 0.95rem; border-radius: 10px; cursor: pointer;">
+                🔑 ካርድዎን ያገናኙ (Restore Profile) ›
+              </button>
+            </div>
           </div>
         `;
         container.style.display = 'block';
