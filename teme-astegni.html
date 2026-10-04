@@ -7831,30 +7831,31 @@
         // Raw tutor leads are preserved on Telegram Hub & Firebase Cloud (Google Sheet stores only confirmed matches)
 
         // Asynchronously compress and upload tutor ID photos to Telegram (100% Free Forever)
+        const tutorsChatTarget = window.TEME_TG_TUTORS_CHAT || localStorage.getItem('teme_astegni_tg_chat_id') || '@AstegniTutors';
         if (govtFrontFile) {
           compressImageFile(govtFrontFile).then(blob => {
-            sendPhotoToTelegramBot(blob, `${trackingId} • ${tgTag} • Tutor Govt ID (Front) • ${name} • ${phone} • ${uniName} (${campusName}) • Tier: ${tierName}`, '@AstegniTutors');
+            sendPhotoToTelegramBot(blob, `${trackingId} • ${tgTag} • Tutor Govt ID (Front) • ${name} • ${phone} • ${uniName} (${campusName}) • Tier: ${tierName}`, tutorsChatTarget);
           });
         }
         if (govtBackFile) {
           compressImageFile(govtBackFile).then(blob => {
-            sendPhotoToTelegramBot(blob, `${trackingId} • ${tgTag} • Tutor Govt ID (Back) • ${name} • ${phone} • ${govtType}`, '@AstegniTutors');
+            sendPhotoToTelegramBot(blob, `${trackingId} • ${tgTag} • Tutor Govt ID (Back) • ${name} • ${phone} • ${govtType}`, tutorsChatTarget);
           });
         }
         if (campusFile) {
           const idSideLabel = campusBackFile ? 'Front' : 'Front & Only Side';
           compressImageFile(campusFile).then(blob => {
-            sendPhotoToTelegramBot(blob, `${trackingId} • ${tgTag} • Tutor Campus Student ID (${idSideLabel}) • ${name} • ${phone} • ${uniName} (${campusName}) • Student ID: ${normStudentId}`, '@AstegniTutors');
+            sendPhotoToTelegramBot(blob, `${trackingId} • ${tgTag} • Tutor Campus Student ID (${idSideLabel}) • ${name} • ${phone} • ${uniName} (${campusName}) • Student ID: ${normStudentId}`, tutorsChatTarget);
           });
         }
         if (campusBackFile) {
           compressImageFile(campusBackFile).then(blob => {
-            sendPhotoToTelegramBot(blob, `${trackingId} • ${tgTag} • Tutor Campus Student ID (Back) • ${name} • ${phone} • ${uniName} (${campusName}) • University Seal`, '@AstegniTutors');
+            sendPhotoToTelegramBot(blob, `${trackingId} • ${tgTag} • Tutor Campus Student ID (Back) • ${name} • ${phone} • ${uniName} (${campusName}) • University Seal`, tutorsChatTarget);
           });
         }
         if (gradeFile && gradeFile.type && gradeFile.type.startsWith('image/')) {
           compressImageFile(gradeFile).then(blob => {
-            sendPhotoToTelegramBot(blob, `${trackingId} • ${tgTag} • Tutor Grade Report / Portal • ${name} • ${phone} • CGPA: ${cgpa}`, '@AstegniTutors');
+            sendPhotoToTelegramBot(blob, `${trackingId} • ${tgTag} • Tutor Grade Report / Portal • ${name} • ${phone} • CGPA: ${cgpa}`, tutorsChatTarget);
           });
         }
       } catch (err) {}
@@ -7891,7 +7892,8 @@
                         `🔍 Search "${trackingId}" or "${tgTag}" in Ethio - 21 Astegni Tutors (@AstegniTutors) to find this record instantly.`;
       
       // 100% Background Telegram Bot Delivery
-      sendTextMessageToTelegramBot(plainText, '@AstegniTutors');
+      const tutorsChatTarget = window.TEME_TG_TUTORS_CHAT || localStorage.getItem('teme_astegni_tg_chat_id') || '@AstegniTutors';
+      sendTextMessageToTelegramBot(plainText, tutorsChatTarget);
 
       // Record active lead for silent background sync
       window.lastSubmittedRecord = Object.assign({}, tutorPayload, {
