@@ -3058,10 +3058,25 @@
         <button type="button" onclick="closeParentPaymentModal()" style="background: rgba(255,255,255,0.08); border: none; color: #94a3b8; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center;">✕</button>
       </div>
 
-      <!-- Telegram Escrow Verification Notice -->
-      <div style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 12px; padding: 0.75rem 0.9rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
-        <div style="font-size: 0.75rem; color: #e2e8f0; line-height: 1.4;">
-          🛡️ <b>ደህንነቱ የተጠበቀ ክፍያ (Secure Escrow):</b> የተረጋገጡ ደረሰኞች ከመለያ ቁጥርዎ ጋር በቀጥታ ለፋይናንስ ክፍላችን ደህንነቱ በተጠበቀ ሁኔታ ይላካሉ።
+      <!-- Telegram Escrow Verification Notice & Telebirr Account -->
+      <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.08)); border: 1.5px solid rgba(16, 185, 129, 0.45); border-radius: 14px; padding: 0.95rem 1rem; margin-bottom: 1.1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
+          <div style="font-weight: 850; color: #34d399; font-size: 0.88rem; display: flex; align-items: center; gap: 0.4rem;">
+            <span>📱</span> ይፋዊ የቴሌብር መክፈያ (Official Telebirr Account)
+          </div>
+          <span style="font-size: 0.68rem; background: rgba(16, 185, 129, 0.25); color: #34d399; padding: 0.15rem 0.5rem; border-radius: 6px; font-weight: 800; border: 1px solid rgba(16, 185, 129, 0.4);">Verified Escrow</span>
+        </div>
+        <div style="background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 0.7rem 0.85rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <div>
+            <div style="font-size: 1.15rem; font-weight: 900; color: #fbbf24; font-family: monospace; letter-spacing: 0.05em;">0945 39 98 08</div>
+            <div style="font-size: 0.8rem; color: #e2e8f0; font-weight: 750;">👤 Ashenafi Girma</div>
+          </div>
+          <button type="button" onclick="navigator.clipboard.writeText('0945399808'); this.innerText='✓ ተቀድቷል!'; setTimeout(() => this.innerText='📋 ኮፒ', 2000);" style="background: rgba(56, 189, 248, 0.2); border: 1px solid rgba(56, 189, 248, 0.45); color: #38bdf8; font-weight: 800; font-size: 0.75rem; padding: 0.45rem 0.8rem; border-radius: 8px; cursor: pointer;">
+            📋 ኮፒ
+          </button>
+        </div>
+        <div style="font-size: 0.74rem; color: #cbd5e1; line-height: 1.45;">
+          🛡️ <b>የኢስክሮው ዋስትና (Secure Escrow):</b> ክፍያውን በቴሌብር ለ <b>Ashenafi Girma (0945399808)</b> ከፈጸሙ በኋላ የተቆረጠውን ደረሰኝ ስክሪንሾት ከዚህ በታች ያያይዙ። ገንዘቡ በአስተማማኝ ሁኔታ በኤጀንሲው ዋስትና ስር ይቀመጣል።
         </div>
       </div>
 
@@ -3103,7 +3118,7 @@
         <div style="margin-bottom: 0.85rem;">
           <label style="display: block; font-size: 0.76rem; color: #cbd5e1; font-weight: 750; margin-bottom: 0.35rem;">የክፍያ ዘዴ (Payment Transfer Method) *</label>
           <select id="pay-method" required style="width: 100%; padding: 0.7rem; border-radius: 10px; background: #0f172a; border: 1px solid rgba(255,255,255,0.15); color: #fff; font-size: 0.82rem; box-sizing: border-box;">
-            <option value="Telebirr" selected>📱 Telebirr (0945399808 / 0960064466 / 0786399808)</option>
+            <option value="Telebirr" selected>📱 Telebirr: 0945399808 (Ashenafi Girma)</option>
             <option value="CBE - Commercial Bank of Ethiopia">🏛️ Commercial Bank of Ethiopia (CBE)</option>
             <option value="Awash Bank">🏦 Awash Bank</option>
             <option value="Bank of Abyssinia">🏦 Bank of Abyssinia</option>
