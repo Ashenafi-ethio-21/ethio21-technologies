@@ -1617,10 +1617,10 @@
       </div>
 
       <div class="header-actions">
-        <span id="firebase-sync-badge" class="role-badge" style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; font-weight: 800; display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer;" onclick="syncLocalDataToCloudManually()" title="Click to sync local data to cloud">
+        <span id="firebase-sync-badge" class="role-badge owner-only-feature" style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; font-weight: 800; display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer;" onclick="syncLocalDataToCloudManually()" title="Founder Only: Click to sync local data to cloud">
           🟢 Cloud: Live Sync
         </span>
-        <button class="btn-act" style="background: linear-gradient(135deg, #10b981, #059669); color: #ffffff; font-weight: 850; border: 1.5px solid #34d399; box-shadow: 0 4px 14px rgba(16,185,129,0.4); padding: 0.45rem 0.9rem; font-size: 0.78rem; display: flex; align-items: center; gap: 0.35rem;" onclick="pushLocalRecordsToGoogleSheet()">
+        <button id="header-btn-push-sheet" class="btn-act owner-only-feature" style="background: linear-gradient(135deg, #10b981, #059669); color: #ffffff; font-weight: 850; border: 1.5px solid #34d399; box-shadow: 0 4px 14px rgba(16,185,129,0.4); padding: 0.45rem 0.9rem; font-size: 0.78rem; display: flex; align-items: center; gap: 0.35rem;" onclick="pushLocalRecordsToGoogleSheet()">
           ☁️ Push All to Google Sheet
         </button>
         <span id="user-role-badge" class="role-badge role-badge-owner">
@@ -1631,8 +1631,8 @@
 
     <!-- VIEW 1: OVERVIEW DASHBOARD -->
     <section id="view-dashboard" class="view-panel active">
-      <!-- GOOGLE SHEETS EXECUTIVE SYNC BANNER -->
-      <div style="background: rgba(16, 185, 129, 0.12); border: 1.5px solid rgba(16, 185, 129, 0.4); border-radius: 14px; padding: 0.85rem 1.1rem; margin-bottom: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.65rem;">
+      <!-- GOOGLE SHEETS EXECUTIVE SYNC BANNER (OWNER ONLY) -->
+      <div class="owner-only-feature" style="background: rgba(16, 185, 129, 0.12); width: 100%; border: 1.5px solid rgba(16, 185, 129, 0.4); border-radius: 14px; padding: 0.85rem 1.1rem; margin-bottom: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.65rem;">
         <div>
           <div style="font-size: 0.88rem; font-weight: 850; color: #34d399; display: flex; align-items: center; gap: 0.4rem;">
             <span>☁️</span> Google Sheet Cloud Ledger Synchronization
@@ -3769,13 +3769,16 @@ function rowsToJson(sheet) {
         roleBadge.className = 'role-badge role-badge-owner';
         roleBadge.innerText = `👑 Owner: ${user.name}`;
         document.querySelectorAll('.owner-nav-item').forEach(el => el.style.display = 'flex');
-        document.querySelectorAll('.owner-only-feature').forEach(el => el.style.display = 'inline-flex');
+        document.querySelectorAll('.owner-only-feature').forEach(el => {
+          if (el.tagName === 'DIV') el.style.display = 'flex';
+          else el.style.display = 'inline-flex';
+        });
         document.getElementById('kpi-financial-card').classList.remove('restricted');
       } else {
         roleBadge.className = 'role-badge role-badge-admin';
         roleBadge.innerText = `🛡️ Admin: ${user.name}`;
         
-        // Hide owner only navigation
+        // Hide owner only navigation and features
         document.querySelectorAll('.owner-nav-item').forEach(el => el.style.display = 'none');
         document.querySelectorAll('.owner-only-feature').forEach(el => el.style.display = 'none');
 
@@ -3960,11 +3963,66 @@ function rowsToJson(sheet) {
       }
     }
 
+    const CLOUD_DAILY_READ_LIMIT = 3000;
+    let activeCloudListeners = [];
+
+    function getTodayKey() {
+      return new Date().toISOString().slice(0, 10); // 'YYYY-MM-DD'
+    }
+
+    function getDailyCloudReads() {
+      const today = getTodayKey();
+      const savedDate = localStorage.getItem('teme_astegni_reads_date');
+      if (savedDate !== today) {
+        localStorage.setItem('teme_astegni_reads_date', today);
+        localStorage.setItem('teme_astegni_reads_today', '0');
+        return 0;
+      }
+      return parseInt(localStorage.getItem('teme_astegni_reads_today') || '0', 10);
+    }
+
+    function recordCloudReads(count) {
+      const today = getTodayKey();
+      const savedDate = localStorage.getItem('teme_astegni_reads_date');
+      let currentReads = (savedDate === today) ? parseInt(localStorage.getItem('teme_astegni_reads_today') || '0', 10) : 0;
+      currentReads += (count || 1);
+      localStorage.setItem('teme_astegni_reads_date', today);
+      localStorage.setItem('teme_astegni_reads_today', currentReads.toString());
+      return currentReads;
+    }
+
+    function stopCloudListenersForToday() {
+      if (activeCloudListeners && activeCloudListeners.length > 0) {
+        activeCloudListeners.forEach(unsub => {
+          try { if (typeof unsub === 'function') unsub(); } catch (e) {}
+        });
+        activeCloudListeners = [];
+      }
+      updateCloudSyncBadge('warning', '🟡 Daily Read Limit (3,000) • Cache Mode');
+    }
+
     function initFirebaseRealtimeListeners() {
       if (!db) return;
 
+      const readsToday = getDailyCloudReads();
+      if (readsToday >= CLOUD_DAILY_READ_LIMIT) {
+        console.warn(`[Firebase Shield] Daily read limit reached (${readsToday}/${CLOUD_DAILY_READ_LIMIT}). Operating safely in Local Cache Mode.`);
+        updateCloudSyncBadge('warning', '🟡 Daily Read Limit (3,000) • Cache Mode');
+        return;
+      }
+
+      // Stop any prior active listeners before re-binding
+      stopCloudListenersForToday();
+
       // 1. Live Tutors Listener (Protected with limit to guarantee < 250 reads)
-      db.collection('astegni_tutor_leads').limit(250).onSnapshot((snapshot) => {
+      const unsubTutors = db.collection('astegni_tutor_leads').limit(250).onSnapshot((snapshot) => {
+        const readsUsed = snapshot.docChanges().length || snapshot.docs.length || 1;
+        const total = recordCloudReads(readsUsed);
+        if (total >= CLOUD_DAILY_READ_LIMIT) {
+          stopCloudListenersForToday();
+          return;
+        }
+
         let changed = false;
         let tutors = getTutors();
         snapshot.docChanges().forEach((change) => {
@@ -4006,9 +4064,17 @@ function rowsToJson(sheet) {
         console.warn("Firestore tutor listener:", err);
         updateCloudSyncBadge('warning', 'Local Cache Mode');
       });
+      activeCloudListeners.push(unsubTutors);
 
       // 2. Live Parents Listener (Protected with limit to guarantee < 250 reads)
-      db.collection('astegni_parent_leads').limit(250).onSnapshot((snapshot) => {
+      const unsubParents = db.collection('astegni_parent_leads').limit(250).onSnapshot((snapshot) => {
+        const readsUsed = snapshot.docChanges().length || snapshot.docs.length || 1;
+        const total = recordCloudReads(readsUsed);
+        if (total >= CLOUD_DAILY_READ_LIMIT) {
+          stopCloudListenersForToday();
+          return;
+        }
+
         let changed = false;
         let parents = getParents();
         snapshot.docChanges().forEach((change) => {
@@ -4048,9 +4114,17 @@ function rowsToJson(sheet) {
       }, (err) => {
         console.warn("Firestore parent listener:", err);
       });
+      activeCloudListeners.push(unsubParents);
 
       // 3. Live Matches Listener (Protected with limit to guarantee < 250 reads)
-      db.collection('astegni_matches').limit(250).onSnapshot((snapshot) => {
+      const unsubMatches = db.collection('astegni_matches').limit(250).onSnapshot((snapshot) => {
+        const readsUsed = snapshot.docChanges().length || snapshot.docs.length || 1;
+        const total = recordCloudReads(readsUsed);
+        if (total >= CLOUD_DAILY_READ_LIMIT) {
+          stopCloudListenersForToday();
+          return;
+        }
+
         let changed = false;
         let matches = getMatches();
         snapshot.docChanges().forEach((change) => {
@@ -4084,6 +4158,7 @@ function rowsToJson(sheet) {
       }, (err) => {
         console.warn("Firestore matches listener:", err);
       });
+      activeCloudListeners.push(unsubMatches);
     }
 
     // Two-Way Sync Write Helpers
@@ -4121,8 +4196,13 @@ function rowsToJson(sheet) {
       db.collection('astegni_matches').doc(id).delete().catch(e => console.warn(e));
     }
 
-    // Manual or automatic initial cloud sync of all local data
+    // Manual or automatic initial cloud sync of all local data (Owner Only)
     async function syncLocalDataToCloudManually() {
+      const user = getSessionUser();
+      if (!user || user.role !== 'owner') {
+        showToast('🔒 Access Restricted: Only Founder/Owner can initiate manual cloud data sync.');
+        return;
+      }
       if (!db) {
         showToast('⚠️ Cloud database not connected.');
         return;
@@ -6480,6 +6560,11 @@ function rowsToJson(sheet) {
     }
 
     async function pushLocalRecordsToGoogleSheet() {
+      const user = getSessionUser();
+      if (!user || user.role !== 'owner') {
+        alert('🔒 Access Restricted: Only Founder/Owner (Ashenafi Girma) can push records to the executive Google Sheet ledger.');
+        return;
+      }
       let url = localStorage.getItem('teme_astegni_db_webhook') || (document.getElementById('webhook-url-input') ? document.getElementById('webhook-url-input').value.trim() : '');
       if (!url) {
         const entered = prompt('Please enter your Google Apps Script Webhook URL (https://script.google.com/macros/s/.../exec):');
