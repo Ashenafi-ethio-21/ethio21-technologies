@@ -347,12 +347,15 @@
       top: 0.5rem;
       z-index: 100;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+      flex-wrap: wrap;
+      gap: 0.65rem;
     }
 
     .brand-group {
       display: flex;
       align-items: center;
       gap: 0.65rem;
+      flex-shrink: 0;
     }
 
     .brand-logo-img {
@@ -383,7 +386,18 @@
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 640px) {
+      .app-header {
+        padding: 0.65rem 0.85rem;
+      }
+      .header-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
     }
 
     .role-badge {
@@ -565,6 +579,21 @@
       40%, 80% { transform: translateX(6px); }
     }
 
+    @media (max-width: 420px) {
+      .auth-card {
+        padding: 1.75rem 1rem;
+      }
+      .pin-digit-slot {
+        width: 48px;
+        height: 58px;
+        font-size: 1.6rem;
+        border-radius: 12px;
+      }
+      .pin-display-group {
+        gap: 0.45rem;
+      }
+    }
+
     /* Password Strength Checklist */
     .strength-meter-box {
       background: rgba(0, 0, 0, 0.3);
@@ -666,7 +695,7 @@
     /* KPI CARDS */
     .kpi-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 0.75rem;
       margin-bottom: 1.25rem;
     }
@@ -683,6 +712,11 @@
       border-radius: 16px;
       padding: 1rem 0.9rem;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+      overflow: hidden;
     }
 
     .kpi-card.restricted {
@@ -700,10 +734,11 @@
     }
 
     .kpi-val {
-      font-size: 1.6rem;
+      font-size: clamp(1.2rem, 3.5vw, 1.6rem);
       font-weight: 900;
       color: #fff;
-      line-height: 1.1;
+      line-height: 1.15;
+      word-break: break-word;
     }
 
     .kpi-sub {
@@ -1626,6 +1661,9 @@
         <span id="user-role-badge" class="role-badge role-badge-owner">
           👑 Owner: Ashenafi Girma
         </span>
+        <button class="btn-act" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #f87171; font-weight: 800; padding: 0.42rem 0.75rem; font-size: 0.76rem; display: inline-flex; align-items: center; gap: 0.35rem; border-radius: 10px; cursor: pointer;" onclick="lockPortal()" title="Lock Operations Portal">
+          🔒 Lock
+        </button>
       </div>
     </header>
 
@@ -3779,8 +3817,15 @@ function rowsToJson(sheet) {
         roleBadge.innerText = `👑 Owner: ${user.name}`;
         document.querySelectorAll('.owner-nav-item').forEach(el => el.style.display = 'flex');
         document.querySelectorAll('.owner-only-feature').forEach(el => {
-          if (el.tagName === 'DIV') el.style.display = 'flex';
-          else el.style.display = 'inline-flex';
+          if (el.classList.contains('kpi-card')) {
+            el.style.display = 'flex';
+            el.style.flexDirection = 'column';
+            el.style.justifyContent = 'space-between';
+          } else if (el.tagName === 'DIV') {
+            el.style.display = 'flex';
+          } else {
+            el.style.display = 'inline-flex';
+          }
         });
         document.getElementById('kpi-financial-card').classList.remove('restricted');
       } else {
@@ -7267,29 +7312,26 @@ function rowsToJson(sheet) {
         document.getElementById('tg-payments-chat-input').value = savedPaymentsChat;
       }
 
-      // Check for active authenticated session user
-      const activeUser = getSessionUser();
-      if (!activeUser) {
-        // Enforce Master PIN 2121 / Credential authentication
-        document.getElementById('screen-login').style.display = 'flex';
-        document.getElementById('main-content').style.display = 'none';
-        if (document.getElementById('screen-owner-setup')) {
-          document.getElementById('screen-owner-setup').style.display = 'none';
-        }
-        setupPinInputs();
-        setTimeout(() => {
-          const p1 = document.getElementById('pin-1');
-          if (p1) p1.focus();
-        }, 150);
-      } else {
-        // Active session exists: Launch Operations Portal safely
-        document.getElementById('screen-login').style.display = 'none';
-        if (document.getElementById('screen-owner-setup')) {
-          document.getElementById('screen-owner-setup').style.display = 'none';
-        }
-        launchDashboard();
-        resetInactivityTimer();
+      // Always enforce initial Master PIN (2121) / credential authentication when opened
+      try {
+        sessionStorage.removeItem('teme_session_user');
+        sessionStorage.removeItem('teme_active_user');
+        localStorage.removeItem('teme_active_user');
+      } catch (e) {}
+
+      document.getElementById('screen-login').style.display = 'flex';
+      document.getElementById('main-content').style.display = 'none';
+      if (document.getElementById('admin-bottom-nav')) {
+        document.getElementById('admin-bottom-nav').style.display = 'none';
       }
+      if (document.getElementById('screen-owner-setup')) {
+        document.getElementById('screen-owner-setup').style.display = 'none';
+      }
+      setupPinInputs();
+      setTimeout(() => {
+        const p1 = document.getElementById('pin-1');
+        if (p1) p1.focus();
+      }, 150);
     });
   </script>
 </body>
