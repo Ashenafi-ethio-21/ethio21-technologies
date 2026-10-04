@@ -673,7 +673,7 @@
 
     @media (min-width: 640px) {
       .kpi-grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       }
     }
 
@@ -1667,6 +1667,15 @@
           <div class="kpi-label">Est. Commission</div>
           <div class="kpi-val" id="kpi-commission-val">0 ETB</div>
           <div class="kpi-sub" id="kpi-commission-sub">25% Ethio21 Margin</div>
+        </div>
+        <!-- Asrat / Tithe (10% for Church) Card (Owner Only) -->
+        <div class="kpi-card owner-only-feature" id="kpi-asrat-card" style="background: linear-gradient(135deg, rgba(217, 119, 6, 0.16), rgba(180, 83, 9, 0.05)); border: 1.5px solid rgba(245, 158, 11, 0.45); border-radius: 16px; padding: 1rem 0.9rem; position: relative; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.08);">
+          <div class="kpi-label" style="color: #fbbf24; font-weight: 850; display: flex; align-items: center; justify-content: space-between;">
+            <span style="display: flex; align-items: center; gap: 0.35rem;">⛪ አስራት (10% Tithe)</span>
+            <span style="font-size: 0.65rem; background: rgba(245, 158, 11, 0.22); color: #fde047; padding: 0.15rem 0.45rem; border-radius: 6px; border: 1px solid rgba(245, 158, 11, 0.4); font-weight: 800;">የቤተክርስቲያን ፈንታ</span>
+          </div>
+          <div class="kpi-val" id="kpi-asrat-val" style="color: #fef08a; font-weight: 900; letter-spacing: 0.02em;">0 ETB</div>
+          <div class="kpi-sub" id="kpi-asrat-sub" style="color: #fde68a; font-weight: 600;">10% of Revenue for Church</div>
         </div>
         <!-- 1-Month Payout Due KPI Card -->
         <div class="kpi-card" id="kpi-payout-due-card" style="border-color: rgba(239, 68, 68, 0.45); background: rgba(239, 68, 68, 0.08); cursor: pointer;" onclick="switchView('view-matches'); setMatchFilter('MONTH_REACHED');" title="Click to view pairs reaching 1 month">
@@ -4414,6 +4423,17 @@ function rowsToJson(sheet) {
         document.getElementById('kpi-commission-sub').innerText = totalUpgradeRevenue > 0
           ? `${matchesCommission.toLocaleString()} ETB Margin + ${totalUpgradeRevenue.toLocaleString()} ETB Level Fees`
           : `25% Tutoring Margin (Ethio 21)`;
+
+        // Calculate 10% Asrat (Tithe) for Church
+        const asratAmount = Math.round(totalRevenue * 0.10);
+        const asratVal = document.getElementById('kpi-asrat-val');
+        if (asratVal) {
+          asratVal.innerText = `${asratAmount.toLocaleString()} ETB`;
+        }
+        const asratSub = document.getElementById('kpi-asrat-sub');
+        if (asratSub) {
+          asratSub.innerText = `10% of ${totalRevenue.toLocaleString()} ETB for Church (የቤተክርስቲያን)`;
+        }
       }
 
       // Recent leads
