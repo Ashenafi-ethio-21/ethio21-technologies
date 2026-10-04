@@ -4684,6 +4684,8 @@
               else localMatches.unshift(gasData.match);
               localStorage.setItem('astegni_matches', JSON.stringify(localMatches));
               console.log('✓ Status verified via Google Apps Script (0 Firebase Reads consumed)');
+              if (typeof updateLiveTrackingBanners === 'function') updateLiveTrackingBanners();
+              if (typeof updateHomeActiveStatusCards === 'function') updateHomeActiveStatusCards();
               return; // Successfully resolved with 0 Firebase reads!
             }
           }
@@ -7970,6 +7972,15 @@
           localStorage.setItem('teme_astegni_db_webhook', webhookParam);
         }
       } catch (e) {}
+
+      // Auto-fetch webhook config from public cloud config if not already cached
+      if (!localStorage.getItem('teme_astegni_db_webhook') && typeof db !== 'undefined' && db) {
+        db.collection('astegni_system_config').doc('public_config').get().then(doc => {
+          if (doc.exists && doc.data().webhookUrl) {
+            localStorage.setItem('teme_astegni_db_webhook', doc.data().webhookUrl);
+          }
+        }).catch(err => console.warn("Cloud config discovery:", err));
+      }
 
       // Dynamic name consistency confirmation updater
       const nameInput = document.getElementById('t_name');

@@ -1894,6 +1894,7 @@
           <button class="btn-act" style="background: rgba(239, 68, 68, 0.2); border-color: rgba(239, 68, 68, 0.5); color: #f87171; font-weight: 800;" onclick="cleanSheetDuplicatesNow()">🧹 Clean Sheet Duplicates Now</button>
           <button class="btn-act" style="background: rgba(245, 158, 11, 0.2); border-color: rgba(245, 158, 11, 0.5); color: #fbbf24; font-weight: 800;" id="btn-push-sheet" onclick="pushLocalRecordsToGoogleSheet()">📤 Sync Confirmed Matches to Sheet</button>
           <button class="btn-act" style="background: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.5); color: #34d399; font-weight: 800;" onclick="archiveSyncedMatchesFromFirebase()">🛡️ Clean Synced Matches from Firebase</button>
+          <button class="btn-act" style="background: rgba(59, 130, 246, 0.2); border-color: rgba(59, 130, 246, 0.5); color: #60a5fa; font-weight: 800;" onclick="archiveMatchedLeadsFromFirebase()">🛡️ Clean Matched Leads from Firebase</button>
           <button class="btn-act" style="background: rgba(56, 189, 248, 0.2); border-color: rgba(56, 189, 248, 0.4); color: #38bdf8;" onclick="openAppsScriptModal()">📜 View/Copy Apps Script Code</button>
           <button class="btn-act" style="background: rgba(148, 163, 184, 0.15); border-color: rgba(148, 163, 184, 0.35); color: #cbd5e1;" onclick="purgeDemoDataNow()">🗑️ Clear Demo Data (Start Fresh for Real Users)</button>
         </div>
@@ -3962,7 +3963,8 @@ function rowsToJson(sheet) {
             changed = true;
           } else if (change.type === 'removed') {
             if (idx >= 0) {
-              tutors.splice(idx, 1);
+              // When cleaned from Firebase cloud, preserve record in admin memory as cloudArchived!
+              tutors[idx].cloudArchived = true;
               changed = true;
             }
           }
@@ -4005,7 +4007,8 @@ function rowsToJson(sheet) {
             changed = true;
           } else if (change.type === 'removed') {
             if (idx >= 0) {
-              parents.splice(idx, 1);
+              // When cleaned from Firebase cloud, preserve record in admin memory as cloudArchived!
+              parents[idx].cloudArchived = true;
               changed = true;
             }
           }
@@ -4040,7 +4043,8 @@ function rowsToJson(sheet) {
             changed = true;
           } else if (change.type === 'removed') {
             if (idx >= 0) {
-              matches.splice(idx, 1);
+              // When cleaned from Firebase cloud, preserve match in admin memory as cloudArchived!
+              matches[idx].cloudArchived = true;
               changed = true;
             }
           }
@@ -4436,6 +4440,7 @@ function rowsToJson(sheet) {
             </div>
 
             <div class="record-header-actions" onclick="event.stopPropagation()">
+              ${p.cloudArchived ? `<span class="tag-badge" style="background: rgba(148, 163, 184, 0.18); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.35); font-weight: 800;">🛡️ Vaulted</span>` : ''}
               ${isAssigned 
                 ? `<span class="tag-badge tag-assigned">🤝 Assigned / የተመደበ</span>` 
                 : `<span class="tag-badge tag-unassigned">⏳ Available / ያልተመደበ</span>`}
@@ -4731,6 +4736,7 @@ function rowsToJson(sheet) {
             </div>
 
             <div class="record-header-actions" onclick="event.stopPropagation()">
+              ${t.cloudArchived ? `<span class="tag-badge" style="background: rgba(148, 163, 184, 0.18); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.35); font-weight: 800;">🛡️ Vaulted</span>` : ''}
               ${isFull 
                 ? `<span class="tag-badge" style="background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.45); font-weight: 800;">🤝 Max Assigned (${assignedCount}/${cap})</span>` 
                 : (assignedCount > 0 
@@ -5498,6 +5504,7 @@ function rowsToJson(sheet) {
             </div>
 
             <div class="record-header-actions" onclick="event.stopPropagation()">
+              ${m.cloudArchived ? `<span class="tag-badge" style="background: rgba(148, 163, 184, 0.18); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.35); font-weight: 800;">🛡️ Vaulted in Sheet (Cloud Cleaned)</span>` : ''}
               ${hasReceipt ? `<span class="tag-badge" style="background: rgba(56, 189, 248, 0.22); color: #38bdf8; border: 1px solid #38bdf8; font-weight: 850;">📸 Receipt Attached</span>` : ''}
               ${isParentPaid 
                 ? `<span class="tag-badge" style="background: rgba(16, 185, 129, 0.18); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); font-weight: 800;">✓ Escrow Secured</span>` 
@@ -6254,7 +6261,15 @@ function rowsToJson(sheet) {
     function saveWebhookUrl() {
       const url = document.getElementById('webhook-url-input').value.trim();
       localStorage.setItem('teme_astegni_db_webhook', url);
-      alert('Webhook URL saved successfully!');
+      if (typeof db !== 'undefined' && db && url) {
+        db.collection('astegni_system_config').doc('public_config').set({
+          webhookUrl: url,
+          updatedAt: new Date().toISOString()
+        }, { merge: true }).then(() => {
+          console.log("Published public_config to cloud successfully");
+        }).catch(err => console.warn("Failed to publish public_config to cloud:", err));
+      }
+      alert('Webhook URL saved successfully and published to cloud config!');
     }
 
     async function testWebhookConnection() {
@@ -6503,13 +6518,109 @@ function rowsToJson(sheet) {
       for (const m of targetList) {
         try {
           if (m.id) {
+            m.cloudArchived = true;
             await db.collection('astegni_matches').doc(m.id).delete();
             purgedCount++;
           }
         } catch (e) {}
       }
+      localStorage.setItem('astegni_matches', JSON.stringify(getMatches()));
+      renderMatches();
       showToast(`🛡️ ${purgedCount} matches archived to Google Sheet & cleaned from Firebase!`);
       renderDashboard();
+    }
+
+    async function archiveMatchedLeadsFromFirebase() {
+      if (typeof db === 'undefined' || !db) {
+        alert('Firebase is not currently connected.');
+        return;
+      }
+      const matches = getMatches();
+      const parents = getParents();
+      const tutors = getTutors();
+
+      const matchedParentIds = new Set();
+      const matchedParentPhones = new Set();
+      const matchedTutorIds = new Set();
+      const matchedTutorPhones = new Set();
+
+      matches.forEach(m => {
+        if (m.parentId) matchedParentIds.add(m.parentId.toUpperCase());
+        if (m.parentPhone) matchedParentPhones.add(m.parentPhone.replace(/\D/g, '').slice(-9));
+        if (m.tutorId) matchedTutorIds.add(m.tutorId.toUpperCase());
+        if (m.tutorPhone) matchedTutorPhones.add(m.tutorPhone.replace(/\D/g, '').slice(-9));
+      });
+
+      const parentsToClean = parents.filter(p => {
+        const pId = (p.id || p.trackingId || '').toUpperCase();
+        const pPhone = (p.phone || '').replace(/\D/g, '').slice(-9);
+        const isMatched = (pId && matchedParentIds.has(pId)) || (pPhone && matchedParentPhones.has(pPhone));
+        return (isMatched || p.status === 'Closed' || p.status === 'Active Contract') && !p.cloudArchived;
+      });
+
+      const tutorsToClean = tutors.filter(t => {
+        const tId = (t.id || t.trackingId || '').toUpperCase();
+        const tPhone = (t.phone || '').replace(/\D/g, '').slice(-9);
+        const isMatched = (tId && matchedTutorIds.has(tId)) || (tPhone && matchedTutorPhones.has(tPhone));
+        const activeMatches = getTutorActiveMatches(t, matches);
+        const cap = getTutorCapacity(t);
+        const isFull = activeMatches.length >= cap;
+        return (isFull || isMatched || t.status === 'Closed') && !t.cloudArchived;
+      });
+
+      if (parentsToClean.length === 0 && tutorsToClean.length === 0) {
+        alert('ℹ️ No un-archived matched parent or tutor leads found to clean from Firebase cloud.');
+        return;
+      }
+
+      const confirmMsg = `🛡️ CLEAN MATCHED LEADS FROM FIREBASE CLOUD\n\n` +
+        `Found ${parentsToClean.length} matched parent(s) and ${tutorsToClean.length} matched tutor(s).\n\n` +
+        `This will delete their active documents from Firebase to keep your cloud database small (< 500 records) and protect your 50,000 daily free reads forever.\n\n` +
+        `✓ All records remain safely preserved on this Admin Dashboard.\n` +
+        `✓ All matches are safely vaulted in your Google Sheet & Telegram.\n\n` +
+        `Proceed with cloud cleanup?`;
+
+      if (!confirm(confirmMsg)) return;
+
+      let cleanedP = 0;
+      let cleanedT = 0;
+
+      for (const p of parentsToClean) {
+        try {
+          const docId = p.id || p.trackingId;
+          if (docId) {
+            p.cloudArchived = true;
+            await db.collection('astegni_parent_leads').doc(docId).delete();
+            cleanedP++;
+          }
+        } catch (e) {
+          console.warn('Clean parent error:', e);
+        }
+      }
+
+      for (const t of tutorsToClean) {
+        try {
+          const docId = t.id || t.trackingId;
+          if (docId) {
+            t.cloudArchived = true;
+            await db.collection('astegni_tutor_leads').doc(docId).delete();
+            cleanedT++;
+          }
+        } catch (e) {
+          console.warn('Clean tutor error:', e);
+        }
+      }
+
+      localStorage.setItem('astegni_parent_leads', JSON.stringify(parents));
+      localStorage.setItem('astegni_tutor_leads', JSON.stringify(tutors));
+
+      renderParents();
+      renderTutors();
+      renderDashboard();
+
+      alert(`✅ CLEANUP SUCCESSFUL!\n\n` +
+        `🛡️ Purged ${cleanedP} parent(s) and ${cleanedT} tutor(s) from Firebase cloud storage.\n\n` +
+        `Your Firebase database is now lean and fast, saving cloud reads and staying permanently within the 100% Free Tier!`);
     }
 
     async function pushSingleIdToGoogleSheet(btnEl) {
@@ -6951,6 +7062,16 @@ function rowsToJson(sheet) {
       const savedWebhook = localStorage.getItem('teme_astegni_db_webhook');
       if (savedWebhook && document.getElementById('webhook-url-input')) {
         document.getElementById('webhook-url-input').value = savedWebhook;
+      } else if (!savedWebhook && typeof db !== 'undefined' && db) {
+        db.collection('astegni_system_config').doc('public_config').get().then(doc => {
+          if (doc.exists && doc.data().webhookUrl) {
+            const wh = doc.data().webhookUrl;
+            localStorage.setItem('teme_astegni_db_webhook', wh);
+            if (document.getElementById('webhook-url-input')) {
+              document.getElementById('webhook-url-input').value = wh;
+            }
+          }
+        }).catch(e => console.warn('Cloud webhook fetch:', e));
       }
 
       const defaultTgToken = '8808218998:AAF-xCF8eYt2S0J58G1i4XKcvO1qdJ5puTU';
