@@ -2373,8 +2373,8 @@
 
       <div class="modal-actions">
         <button type="button" class="btn-modal-sec" onclick="closeModal('modal-id-inspect')">Close Inspector</button>
-        <button type="button" class="btn-act" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: rgba(16, 185, 129, 0.4);" onclick="confirmIdAuditInTelegram()">🛡️ Approve &amp; Log to Telegram Ops</button>
-        <a href="https://t.me/AstegniTutors" target="_blank" class="btn-modal-primary" id="inspect-tg-vault-link" style="text-decoration: none; text-align: center;">✈️ Open in Tutors Hub ›</a>
+        <button type="button" class="btn-act owner-only-feature" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: rgba(16, 185, 129, 0.4);" onclick="confirmIdAuditInTelegram()">🛡️ Approve &amp; Log to Telegram Ops</button>
+        <a href="https://t.me/AstegniTutors" target="_blank" class="btn-modal-primary owner-only-feature" id="inspect-tg-vault-link" style="text-decoration: none; text-align: center;">✈️ Open in Tutors Hub ›</a>
       </div>
     </div>
   </div>
@@ -3077,7 +3077,7 @@ function rowsToJson(sheet) {
         <div style="font-size: 0.75rem; color: #e2e8f0;">
           ✈️ <b>Telegram Verified:</b> Receipt routed to the <b>"parents payments"</b> group with Parent ID permanently attached.
         </div>
-        <a href="https://t.me/+1nwxhaCqN9M4Y2E0" target="_blank" rel="noopener" class="btn-act" style="background: #0284c7; color: #fff; text-decoration: none; font-size: 0.72rem; padding: 0.3rem 0.6rem; white-space: nowrap;">
+        <a href="https://t.me/+1nwxhaCqN9M4Y2E0" target="_blank" rel="noopener" class="btn-act owner-only-feature" style="background: #0284c7; color: #fff; text-decoration: none; font-size: 0.72rem; padding: 0.3rem 0.6rem; white-space: nowrap;">
           Open Group ↗
         </a>
       </div>
@@ -3567,6 +3567,12 @@ function rowsToJson(sheet) {
                       `━━━━━━━━━━━━━━━━━━━━\n` +
                       `🔍 Search "${tTrackingId}" or "${tTgTag}" in Ethio - 21 Astegni Tutors (@AstegniTutors) to view full photo attachments.`;
 
+      const user = getSessionUser();
+      if (!user || user.role !== 'owner') {
+        alert('🔒 Restricted: Only the Owner can open Telegram database channels.');
+        return;
+      }
+
       copyToClipboardUniversal(dossier);
       const shareUrl = `https://t.me/share/url?url=${encodeURIComponent('https://t.me/AstegniTutors')}&text=${encodeURIComponent(dossier)}`;
       window.open(shareUrl, '_blank');
@@ -3574,6 +3580,12 @@ function rowsToJson(sheet) {
     }
 
     function forwardParentDossierToTelegram(phone) {
+      const user = getSessionUser();
+      if (!user || user.role !== 'owner') {
+        alert('🔒 Restricted: Only the Owner can open Telegram database channels.');
+        return;
+      }
+
       const parents = getParents();
       const p = parents.find(item => item.phone === phone);
       if (!p) return;
@@ -3603,6 +3615,12 @@ function rowsToJson(sheet) {
     }
 
     function forwardMatchDossierToTelegram(matchId) {
+      const user = getSessionUser();
+      if (!user || user.role !== 'owner') {
+        alert('🔒 Restricted: Only the Owner can open Telegram database channels.');
+        return;
+      }
+
       const matches = getMatches();
       const m = matches.find(item => item.id === matchId);
       if (!m) return;
@@ -4351,6 +4369,7 @@ function rowsToJson(sheet) {
       const query = (document.getElementById('parent-search').value || '').toLowerCase();
       const container = document.getElementById('parents-cards-container');
       const user = getSessionUser();
+      const isOwner = user && user.role === 'owner';
       const canDelete = user && (user.role === 'owner' || user.permissions.canDelete);
 
       container.innerHTML = '';
@@ -4463,7 +4482,9 @@ function rowsToJson(sheet) {
                 : `<span class="tag-badge" style="background: rgba(100, 116, 139, 0.2); color: #cbd5e1; border: 1px solid rgba(100, 116, 139, 0.35);">🎯 Any Tutor Gender</span>`}
               <span class="tag-badge" style="background: rgba(148, 163, 184, 0.15); color: #e2e8f0; border: 1px solid rgba(148, 163, 184, 0.3);">🎒 ${escapeHtml(p.grade)}</span>
               <span class="tag-badge tag-active">🛡️ ${escapeHtml(p.idType || 'National Fayda / Kebele')} Verified</span>
-              <a href="https://t.me/AstegniParents" target="_blank" class="tag-badge" style="text-decoration:none; background: rgba(36, 161, 222, 0.15); color: #24a1de; border: 1px solid rgba(36, 161, 222, 0.35);" title="Search ${escapeHtml(pTgTag)} in @AstegniParents">✈️ ${escapeHtml(pTgTag)}</a>
+              ${isOwner 
+                ? `<a href="https://t.me/AstegniParents" target="_blank" class="tag-badge" style="text-decoration:none; background: rgba(36, 161, 222, 0.15); color: #24a1de; border: 1px solid rgba(36, 161, 222, 0.35);" title="Search ${escapeHtml(pTgTag)} in @AstegniParents">✈️ ${escapeHtml(pTgTag)}</a>`
+                : `<span class="tag-badge" style="background: rgba(36, 161, 222, 0.15); color: #24a1de; border: 1px solid rgba(36, 161, 222, 0.35);">🏷️ ${escapeHtml(pTgTag)}</span>`}
               ${isAssigned ? `<span class="tag-badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4);">🤝 Active Tutor Linked</span>` : ''}
             </div>
 
@@ -4512,8 +4533,8 @@ function rowsToJson(sheet) {
 
               <div class="actions-right-group">
                 <button class="btn-act" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.35);" onclick="openIdInspectModal('PARENT', '${escapeHtml(p.phone)}')">🔍 Inspect ID</button>
-                <button class="btn-act" style="background: rgba(36, 161, 222, 0.22); color: #38bdf8; border-color: rgba(56, 189, 248, 0.45); font-weight: 800;" onclick="forwardParentDossierToTelegram('${escapeHtml(p.phone)}')" title="Send full parent dossier to Telegram Ops group">✈️ Telegram Ops</button>
-                <button class="btn-act" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.35); color: #34d399;" onclick="pushSingleParentToSheet('${escapeHtml(pTrackingId)}')">☁️ Push</button>
+                ${isOwner ? `<button class="btn-act" style="background: rgba(36, 161, 222, 0.22); color: #38bdf8; border-color: rgba(56, 189, 248, 0.45); font-weight: 800;" onclick="forwardParentDossierToTelegram('${escapeHtml(p.phone)}')" title="Send full parent dossier to Telegram Ops group">✈️ Telegram Ops</button>` : ''}
+                ${isOwner ? `<button class="btn-act" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.35); color: #34d399;" onclick="pushSingleParentToSheet('${escapeHtml(pTrackingId)}')">☁️ Push</button>` : ''}
                 ${canDelete ? `<button class="btn-act" style="color: var(--accent-rose); border-color: rgba(244, 63, 94, 0.25);" onclick="deleteParentLead('${escapeHtml(p.phone)}')">🗑️</button>` : ''}
               </div>
             </div>
@@ -4607,6 +4628,7 @@ function rowsToJson(sheet) {
       const query = (document.getElementById('tutor-search').value || '').toLowerCase();
       const container = document.getElementById('tutors-cards-container');
       const user = getSessionUser();
+      const isOwner = user && user.role === 'owner';
       const canDelete = user && (user.role === 'owner' || user.permissions.canDelete);
 
       container.innerHTML = '';
@@ -4783,7 +4805,11 @@ function rowsToJson(sheet) {
               </div>
               <div class="bento-item">
                 <span class="bento-label">✈️ Telegram Tag</span>
-                <div class="bento-value"><a href="https://t.me/AstegniTutors" target="_blank" style="color: #24a1de; text-decoration: none; font-weight: 750;" title="Search ${escapeHtml(tTgTag)} in @AstegniTutors">${escapeHtml(tTgTag)}</a></div>
+                <div class="bento-value">
+                  ${isOwner 
+                    ? `<a href="https://t.me/AstegniTutors" target="_blank" style="color: #24a1de; text-decoration: none; font-weight: 750;" title="Search ${escapeHtml(tTgTag)} in @AstegniTutors">${escapeHtml(tTgTag)}</a>`
+                    : `<span style="color: #38bdf8; font-weight: 750;">${escapeHtml(tTgTag)}</span>`}
+                </div>
               </div>
               ${t.examNotes ? `<div class="record-notes-box">📝 <b>Evaluation Notes:</b> "${escapeHtml(t.examNotes)}"</div>` : ''}
             </div>
@@ -4821,8 +4847,8 @@ function rowsToJson(sheet) {
                 <button class="btn-act" style="background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.35); color: #38bdf8;" onclick="openIdInspectModal('TUTOR', '${escapeHtml(t.phone)}')">🔍 Inspect ID</button>
                 <button class="btn-act" style="background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.35); color: #38bdf8;" onclick="openTutorExamModal('${escapeHtml(t.phone)}')">🎙️ Exam</button>
                 <button class="btn-act" style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.35); color: #fbbf24;" onclick="openLevelUpgradeModal('${escapeHtml(t.phone)}')">⭐ Level</button>
-                <button class="btn-act" style="background: rgba(36, 161, 222, 0.22); color: #38bdf8; border-color: rgba(56, 189, 248, 0.45); font-weight: 800;" onclick="forwardTutorDossierToTelegram('${escapeHtml(t.phone)}')" title="Send full tutor dossier to Telegram Ops group">✈️ Telegram Ops</button>
-                <button class="btn-act" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.35); color: #34d399;" onclick="pushSingleTutorToSheet('${escapeHtml(tTrackingId)}')">☁️ Push</button>
+                ${isOwner ? `<button class="btn-act" style="background: rgba(36, 161, 222, 0.22); color: #38bdf8; border-color: rgba(56, 189, 248, 0.45); font-weight: 800;" onclick="forwardTutorDossierToTelegram('${escapeHtml(t.phone)}')" title="Send full tutor dossier to Telegram Ops group">✈️ Telegram Ops</button>` : ''}
+                ${isOwner ? `<button class="btn-act" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.35); color: #34d399;" onclick="pushSingleTutorToSheet('${escapeHtml(tTrackingId)}')">☁️ Push</button>` : ''}
                 ${canDelete ? `<button class="btn-act" style="color: var(--accent-rose); border-color: rgba(244, 63, 94, 0.25);" onclick="deleteTutorLead('${escapeHtml(t.phone)}')">🗑️</button>` : ''}
               </div>
             </div>
@@ -5328,6 +5354,7 @@ function rowsToJson(sheet) {
       const matches = getMatches();
       const container = document.getElementById('matches-cards-container');
       const user = getSessionUser();
+      const isOwner = user && user.role === 'owner';
       const canViewFin = user && (user.role === 'owner' || user.permissions.viewFinancials);
       const canDelete = user && (user.role === 'owner' || user.permissions.canDelete);
 
@@ -5565,7 +5592,7 @@ function rowsToJson(sheet) {
                 </button>
               </div>
               <div class="actions-right-group">
-                <button class="btn-act" style="background: rgba(36, 161, 222, 0.22); color: #38bdf8; border-color: rgba(56, 189, 248, 0.45); font-weight: 800;" onclick="forwardMatchDossierToTelegram('${m.id}')" title="Send match contract to Private Matches Ops Group">✈️ Private Ops</button>
+                ${isOwner ? `<button class="btn-act" style="background: rgba(36, 161, 222, 0.22); color: #38bdf8; border-color: rgba(56, 189, 248, 0.45); font-weight: 800;" onclick="forwardMatchDossierToTelegram('${m.id}')" title="Send match contract to Private Matches Ops Group">✈️ Private Ops</button>` : ''}
                 ${canDelete ? `<button class="btn-act" style="color: var(--accent-rose); border-color: rgba(244, 63, 94, 0.25);" onclick="deleteMatch('${m.id}')">🗑️ Remove</button>` : ''}
               </div>
             </div>
@@ -6252,8 +6279,12 @@ function rowsToJson(sheet) {
         }).catch(e => console.warn(e));
       }
 
-      if (confirm(`🤝 Match successfully created!\n\nParent: ${p.name} (${pTrackingId})\nTutor: ${t.name} (${tTrackingId})\nMonthly Fee: ${fee.toLocaleString()} ETB | Commission: ${commission.toLocaleString()} ETB\n\nWould you like to open the Private Matches Group now?`)) {
-        window.open('https://t.me/+u0IdrknHN5A4ZGI0', '_blank');
+      if (user && user.role === 'owner') {
+        if (confirm(`🤝 Match successfully created!\n\nParent: ${p.name} (${pTrackingId})\nTutor: ${t.name} (${tTrackingId})\nMonthly Fee: ${fee.toLocaleString()} ETB | Commission: ${commission.toLocaleString()} ETB\n\nWould you like to open the Private Matches Group now?`)) {
+          window.open('https://t.me/+u0IdrknHN5A4ZGI0', '_blank');
+        }
+      } else {
+        alert(`🤝 Match successfully created!\n\nParent: ${p.name} (${pTrackingId})\nTutor: ${t.name} (${tTrackingId})\nMonthly Fee: ${fee.toLocaleString()} ETB | Commission: ${commission.toLocaleString()} ETB`);
       }
     }
 

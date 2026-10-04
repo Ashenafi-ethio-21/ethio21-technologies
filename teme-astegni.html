@@ -3058,14 +3058,11 @@
         <button type="button" onclick="closeParentPaymentModal()" style="background: rgba(255,255,255,0.08); border: none; color: #94a3b8; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center;">✕</button>
       </div>
 
-      <!-- Telegram Group Destination Banner -->
-      <div style="background: rgba(36, 161, 222, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 12px; padding: 0.75rem 0.9rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
+      <!-- Telegram Escrow Verification Notice -->
+      <div style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 12px; padding: 0.75rem 0.9rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
         <div style="font-size: 0.75rem; color: #e2e8f0; line-height: 1.4;">
-          ✈️ <b>ኦፊሴላዊ የቴሌግራም ግሩፕ፡</b> የተረጋገጡ ደረሰኞች ከመለያ ቁጥርዎ ጋር በቀጥታ ወደ <b>"parents payments"</b> ግሩፕ ይገባሉ።
+          🛡️ <b>ደህንነቱ የተጠበቀ ክፍያ (Secure Escrow):</b> የተረጋገጡ ደረሰኞች ከመለያ ቁጥርዎ ጋር በቀጥታ ለፋይናንስ ክፍላችን ደህንነቱ በተጠበቀ ሁኔታ ይላካሉ።
         </div>
-        <a href="https://t.me/+1nwxhaCqN9M4Y2E0" target="_blank" rel="noopener" style="background: #0284c7; color: #fff; text-decoration: none; font-size: 0.7rem; font-weight: 800; padding: 0.35rem 0.65rem; border-radius: 8px; white-space: nowrap;">
-          ግሩፑን ይመልከቱ ↗
-        </a>
       </div>
 
       <form id="form-parent-payment" onsubmit="event.preventDefault(); submitParentPaymentScreenshot();">
@@ -4127,7 +4124,7 @@
 
         closeParentPaymentModal();
 
-        alert(`✅ Payment Screenshot Submitted Successfully!\n\nParent Tracking ID: ${parentId}\nBilling Month: ${monthCycle}\nAmount: ${amount} ETB\n\nYour screenshot is safely attached to your file and dispatched to our finance team on Telegram.\n\nYou can also view the "parents payments" Telegram group at: https://t.me/+1nwxhaCqN9M4Y2E0`);
+        alert(`✅ Payment Screenshot Submitted Successfully!\n\nParent Tracking ID: ${parentId}\nBilling Month: ${monthCycle}\nAmount: ${amount} ETB\n\nYour screenshot has been safely submitted to the Ethio 21 finance desk. Once verified, your escrow protection is activated.`);
 
       } catch(err) {
         console.error('Error submitting payment proof:', err);
