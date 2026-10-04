@@ -1779,7 +1779,7 @@
             <option value="St. Mary">St. Mary's University</option>
           </select>
           <div style="display: flex; gap: 0.5rem;">
-            <button class="btn-act" style="background: rgba(16, 185, 129, 0.18); border-color: rgba(16, 185, 129, 0.4); color: #34d399; font-weight: 850;" onclick="pushLocalRecordsToGoogleSheet()">☁️ Push All to Sheet</button>
+            <button class="btn-act owner-only-feature" style="background: rgba(16, 185, 129, 0.18); border-color: rgba(16, 185, 129, 0.4); color: #34d399; font-weight: 850;" onclick="pushLocalRecordsToGoogleSheet()">☁️ Push All to Sheet</button>
             <button class="btn-act" onclick="exportDataToCsv('tutors')">📥 Export CSV</button>
           </div>
         </div>
@@ -4676,7 +4676,7 @@ function rowsToJson(sheet) {
             </p>
             <div style="display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.25rem;">
               <button class="btn-act btn-act-primary" onclick="copyTutorShareLinkWithWebhook()">📋 Copy Public Tutor Application Link</button>
-              <button class="btn-act" style="background: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.45); color: #34d399; font-weight: 850;" onclick="switchView('view-database')">☁️ Open Google Sheet Cloud Database</button>
+              ${user && user.role === 'owner' ? `<button class="btn-act" style="background: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.45); color: #34d399; font-weight: 850;" onclick="switchView('view-database')">☁️ Open Google Sheet Cloud Database</button>` : ''}
             </div>
             <div style="max-width: 440px; margin: 0 auto; display: flex; gap: 0.6rem;">
               <input type="text" id="empty-tutor-push-id" class="form-ctrl" placeholder="Enter Tutor ID (e.g. AST-T-1024)">
@@ -6925,6 +6925,11 @@ function rowsToJson(sheet) {
     }
 
     function switchView(viewId, btn) {
+      const user = getSessionUser();
+      if ((viewId === 'view-database' || viewId === 'view-admins') && user && user.role !== 'owner') {
+        alert('🔒 ACCESS RESTRICTED: The Database and System Configuration panels are strictly reserved for the Primary Owner.');
+        return;
+      }
       document.querySelectorAll('.view-panel').forEach(v => v.classList.remove('active'));
       const target = document.getElementById(viewId);
       if (target) target.classList.add('active');
