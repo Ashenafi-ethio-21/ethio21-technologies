@@ -4111,13 +4111,14 @@
           }
           const photoBlob = new Blob([ab], { type: mimeString });
 
-          const targetPaymentsChat = window.TEME_TG_PARENTS_PAYMENTS_CHAT || localStorage.getItem('teme_astegni_tg_payments_chat_id') || localStorage.getItem('teme_astegni_tg_chat_id') || '@AstegniParents';
+          const targetPaymentsChat = window.TEME_TG_PARENTS_PAYMENTS_CHAT || localStorage.getItem('teme_astegni_tg_payments_chat_id') || window.TEME_TG_PARENTS_CHAT || '-1003632707084';
           sendPhotoToTelegramBot(photoBlob, tgCaption, targetPaymentsChat);
         } catch(blobErr) {
           console.warn('Telegram photo blob dispatch notice:', blobErr);
         }
 
-        sendTextMessageToTelegramBot(tgCaption, window.TEME_TG_PARENTS_PAYMENTS_CHAT || localStorage.getItem('teme_astegni_tg_payments_chat_id'));
+        const notifyPaymentChat = window.TEME_TG_PARENTS_PAYMENTS_CHAT || localStorage.getItem('teme_astegni_tg_payments_chat_id') || window.TEME_TG_PARENTS_CHAT || '-1003632707084';
+        sendTextMessageToTelegramBot(tgCaption, notifyPaymentChat);
 
         localStorage.setItem('my_astegni_parent_id', parentId);
         localStorage.setItem('my_astegni_parent_phone', parentPhone);
@@ -6381,9 +6382,9 @@
     window.TEME_DEFAULT_WEBHOOK_URL = window.TEME_DEFAULT_WEBHOOK_URL || '';
     window.TEME_DEFAULT_TG_BOT_TOKEN = window.TEME_DEFAULT_TG_BOT_TOKEN || '8808218998:AAF-xCF8eYt2S0J58G1i4XKcvO1qdJ5puTU';
     window.TEME_DEFAULT_TG_CHAT_ID = window.TEME_DEFAULT_TG_CHAT_ID || '@AstegniTutors';
-    window.TEME_TG_TUTORS_CHAT = '@AstegniTutors';
-    window.TEME_TG_PARENTS_CHAT = '@AstegniParents';
-    window.TEME_TG_PARENTS_PAYMENTS_CHAT = localStorage.getItem('teme_astegni_tg_payments_chat_id') || '@AstegniParents';
+    window.TEME_TG_TUTORS_CHAT = localStorage.getItem('teme_astegni_tg_chat_id') || '@AstegniTutors';
+    window.TEME_TG_PARENTS_CHAT = localStorage.getItem('teme_astegni_tg_parents_chat_id') || '-1003632707084';
+    window.TEME_TG_PARENTS_PAYMENTS_CHAT = localStorage.getItem('teme_astegni_tg_payments_chat_id') || '-1003632707084';
     window.TEME_TG_PARENTS_PAYMENTS_INVITE = 'https://t.me/+1nwxhaCqN9M4Y2E0';
 
     // ==========================================
@@ -6488,10 +6489,26 @@
           formData.append('chat_id', primaryChat);
           formData.append('caption', (caption || '').substring(0, 1024));
           formData.append('photo', blob, 'doc_verification.jpg');
-          return await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+          const res = await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
             method: 'POST',
             body: formData
           });
+          const data = await res.json().catch(() => null);
+          if (!res.ok || (data && !data.ok)) {
+            console.warn(`Telegram photo dispatch to ${primaryChat} failed (${data?.description || res.statusText}). Attempting fallback chat...`);
+            const fallbackChat = (primaryChat !== window.TEME_DEFAULT_TG_CHAT_ID) ? window.TEME_DEFAULT_TG_CHAT_ID : null;
+            if (fallbackChat) {
+              const fbForm = new FormData();
+              fbForm.append('chat_id', fallbackChat);
+              fbForm.append('caption', `⚠️ [Auto-Rerouted from ${primaryChat}]\n` + (caption || '').substring(0, 950));
+              fbForm.append('photo', blob, 'doc_verification.jpg');
+              await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+                method: 'POST',
+                body: fbForm
+              });
+            }
+          }
+          return res;
         } catch (err) {
           console.warn('Telegram photo upload skipped:', err);
           return null;
@@ -6507,7 +6524,7 @@
 
       enqueueTelegramDispatch(async () => {
         try {
-          return await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+          const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -6515,6 +6532,22 @@
               text: text
             })
           });
+          const data = await res.json().catch(() => null);
+          if (!res.ok || (data && !data.ok)) {
+            console.warn(`Telegram message dispatch to ${primaryChat} failed (${data?.description || res.statusText}). Attempting fallback chat...`);
+            const fallbackChat = (primaryChat !== window.TEME_DEFAULT_TG_CHAT_ID) ? window.TEME_DEFAULT_TG_CHAT_ID : null;
+            if (fallbackChat) {
+              await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  chat_id: fallbackChat,
+                  text: `⚠️ [Auto-Rerouted from ${primaryChat}]\n` + text
+                })
+              });
+            }
+          }
+          return res;
         } catch (err) {
           console.warn('Telegram text message skipped:', err);
           return null;
@@ -7191,14 +7224,15 @@
         localStorage.setItem('astegni_parent_leads', JSON.stringify(list));
 
         // Asynchronously compress and upload photos to Telegram for 100% free unlimited cloud storage
+        const parentsChatTarget = window.TEME_TG_PARENTS_CHAT || localStorage.getItem('teme_astegni_tg_parents_chat_id') || '-1003632707084';
         if (frontFile) {
           compressImageFile(frontFile).then(blob => {
-            sendPhotoToTelegramBot(blob, `${trackingId} • ${tgTag} • Household ID (Front) • ${name} • ${phone} • ${area}`, '@AstegniParents');
+            sendPhotoToTelegramBot(blob, `${trackingId} • ${tgTag} • Household ID (Front) • ${name} • ${phone} • ${area}`, parentsChatTarget);
           }).catch(e => console.warn('Photo upload front error:', e));
         }
         if (backFile) {
           compressImageFile(backFile).then(blob => {
-            sendPhotoToTelegramBot(blob, `${trackingId} • ${tgTag} • Household ID (Back) • ${name} • ${phone} • ${pIdType}`, '@AstegniParents');
+            sendPhotoToTelegramBot(blob, `${trackingId} • ${tgTag} • Household ID (Back) • ${name} • ${phone} • ${pIdType}`, parentsChatTarget);
           }).catch(e => console.warn('Photo upload back error:', e));
         }
       } catch (err) {}
@@ -7227,11 +7261,12 @@
                         `📅 Schedule: ${packageSchedule}\n` +
                         `🆔 Household ID: ${pIdType} (Front ${backFile ? '& Back ' : ''}Attached • Verified in Vault)\n` +
                         `━━━━━━━━━━━━━━━━━━━━\n` +
-                        `🔍 Search "${trackingId}" or "${tgTag}" in Ethio - 21 Astegni Parents (@AstegniParents) to find this record instantly.`;
+                        `🔍 Search "${trackingId}" or "${tgTag}" in Ethio - 21 Astegni Parents to find this record instantly.`;
       
       // 100% Background Telegram Bot Delivery
       try {
-        sendTextMessageToTelegramBot(plainText, '@AstegniParents');
+        const parentsChatTarget = window.TEME_TG_PARENTS_CHAT || localStorage.getItem('teme_astegni_tg_parents_chat_id') || '-1003632707084';
+        sendTextMessageToTelegramBot(plainText, parentsChatTarget);
       } catch (err) {}
 
       // Record active lead for silent background sync
@@ -7970,11 +8005,26 @@
         }
       } catch (e) {}
 
-      // Auto-fetch webhook config from public cloud config if not already cached
-      if (!localStorage.getItem('teme_astegni_db_webhook') && typeof db !== 'undefined' && db) {
+      // Auto-fetch webhook & Telegram channel configs from public cloud config if available
+      if (typeof db !== 'undefined' && db) {
         db.collection('astegni_system_config').doc('public_config').get().then(doc => {
-          if (doc.exists && doc.data().webhookUrl) {
-            localStorage.setItem('teme_astegni_db_webhook', doc.data().webhookUrl);
+          if (doc.exists) {
+            const cfg = doc.data();
+            if (cfg.webhookUrl && !localStorage.getItem('teme_astegni_db_webhook')) {
+              localStorage.setItem('teme_astegni_db_webhook', cfg.webhookUrl);
+            }
+            if (cfg.parentsChatId) {
+              window.TEME_TG_PARENTS_CHAT = cfg.parentsChatId;
+              localStorage.setItem('teme_astegni_tg_parents_chat_id', cfg.parentsChatId);
+            }
+            if (cfg.tutorsChatId) {
+              window.TEME_TG_TUTORS_CHAT = cfg.tutorsChatId;
+              localStorage.setItem('teme_astegni_tg_chat_id', cfg.tutorsChatId);
+            }
+            if (cfg.botToken) {
+              window.TEME_DEFAULT_TG_BOT_TOKEN = cfg.botToken;
+              localStorage.setItem('teme_astegni_tg_bot_token', cfg.botToken);
+            }
           }
         }).catch(err => console.warn("Cloud config discovery:", err));
       }
