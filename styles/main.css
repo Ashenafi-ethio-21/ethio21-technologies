@@ -3615,6 +3615,20 @@ body.shield-lockdown-blur > *:not(.devtools-lockout-overlay):not(#security-toast
   white-space: nowrap;
 }
 
+.startup-pill-emerald {
+  background: linear-gradient(135deg, #059669, #10b981) !important;
+  color: #ffffff !important;
+  border: 1.5px solid #34d399 !important;
+  font-weight: 900 !important;
+  font-size: 0.74rem !important;
+  padding: 0.28rem 0.85rem !important;
+  border-radius: 9999px !important;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.5) !important;
+  letter-spacing: 0.08em !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6) !important;
+  display: inline-block !important;
+}
+
 .startup-text-block {
   flex: 1;
   min-width: 0;
