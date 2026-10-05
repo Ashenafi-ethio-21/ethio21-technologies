@@ -3334,7 +3334,16 @@
         const tId = (m.tutorId || '').toUpperCase();
         const tPhone = (m.tutorPhone || '').replace(/\D/g, '');
         const isMatch = (tutorId && tId === tutorId) || (qClean.length >= 6 && tPhone.endsWith(qClean.slice(-9)));
-        return isMatch && m.status !== 'Terminated' && m.status !== 'Cancelled';
+        const isActive = (m.status !== 'Terminated' && m.status !== 'Cancelled');
+        
+        // A tutor can also apply as a parent for family, but that parent application
+        // must NEVER be counted as a tutoring student they are teaching!
+        const mParentPhone = (m.parentPhone || '').replace(/\D/g, '');
+        const mParentId = (m.parentId || '').toUpperCase();
+        const isSelfAsParent = (qClean.length >= 6 && mParentPhone.endsWith(qClean.slice(-9))) ||
+                               (tutorId && mParentId && (mParentId === tutorId || mParentId.replace('AST-P-', '') === tutorId.replace('AST-T-', '')));
+        
+        return isMatch && isActive && !isSelfAsParent;
       });
 
       // 3. TARGETED Firestore query ONLY for this specific tutor (at most 1 read, never downloading all matches)
@@ -3347,9 +3356,15 @@
             matchSnap.forEach(doc => {
               const d = doc.data();
               if (d.status !== 'Terminated' && d.status !== 'Cancelled') {
-                const idx = matchesList.findIndex(m => m.id === doc.id || m.id === d.id);
-                if (idx >= 0) matchesList[idx] = d;
-                else matchesList.push(d);
+                const mParentPhone = (d.parentPhone || '').replace(/\D/g, '');
+                const mParentId = (d.parentId || '').toUpperCase();
+                const isSelfAsParent = (qClean.length >= 6 && mParentPhone.endsWith(qClean.slice(-9))) ||
+                                       (tutorId && mParentId && (mParentId === tutorId || mParentId.replace('AST-P-', '') === tutorId.replace('AST-T-', '')));
+                if (!isSelfAsParent) {
+                  const idx = matchesList.findIndex(m => m.id === doc.id || m.id === d.id);
+                  if (idx >= 0) matchesList[idx] = d;
+                  else matchesList.push(d);
+                }
               }
             });
             localStorage.setItem('astegni_matches', JSON.stringify(matchesList));
@@ -3371,9 +3386,9 @@
       const level = tutor ? (Number(tutor.level) || 0) : 0;
       const levelTitle = level === 5 ? 'Level 5 Master' : (level === 4 ? 'Level 4 Distinguished' : (level === 3 ? 'Level 3 Senior' : (level === 2 ? 'Level 2 Advanced' : (level === 1 ? 'Level 1 Communicator' : 'Basic Level 0'))));
 
-      // Tiered Capacity Rules: Level 0-1: 1 student max, Level 2-3: 2 students max, Level 4-5: 3 students max
-      const maxSlots = level >= 4 ? 3 : (level >= 2 ? 2 : 1);
-      const activeCount = matchesList.length;
+      // Tiered Capacity Rules: Level 0-1: 1 student max, Level 2-3: 2 students max, Level 4-5: 3 students max (3 is strict platform max)
+      const maxSlots = Math.min(3, level >= 4 ? 3 : (level >= 2 ? 2 : 1));
+      const activeCount = Math.min(matchesList.length, maxSlots);
 
       let capacityNote = '';
       if (level === 0 || level === 1) {
@@ -3404,8 +3419,8 @@
               You have <b>${activeCount} verified student family booking(s)</b>! Please call the parent(s) directly below within 2 hours to introduce yourself and schedule the 1-Day Evaluation Trial Session:
             </p>
 
-            <!-- Render All Assigned Families -->
-            ${matchesList.map((m, mIdx) => {
+            <!-- Render All Assigned Families (Capped to Max Capacity) -->
+            ${matchesList.slice(0, maxSlots).map((m, mIdx) => {
               const formattedDate = m.date ? new Date(m.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }) : 'Recently Matched';
               const feeNum = Number(m.monthlyFee) || 3000;
               const feeText = `${feeNum.toLocaleString()} ETB / Month`;
@@ -3555,7 +3570,7 @@
               ⭐ ${levelTitle}
             </span>
             <span class="tag-badge" style="background: rgba(168, 85, 247, 0.18); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.45); font-weight: 850;">
-              👥 Slots: ${matchesList.length}/${maxSlots} Students
+              👥 Slots: ${activeCount}/${maxSlots} Students
             </span>
             <span class="tag-badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35);">
               🛡️ ID Vault Verified ✓

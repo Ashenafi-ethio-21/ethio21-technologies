@@ -3,7 +3,7 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v117-community-callcenter';
+const CACHE_NAME = 'ethio21-v118-fix-tutor-parent-capacity';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

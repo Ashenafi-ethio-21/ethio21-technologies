@@ -4377,7 +4377,15 @@ function rowsToJson(sheet) {
         const mId = (m.tutorId || '').toUpperCase();
         const isThisTutor = (tPhoneClean && mPhoneClean && tPhoneClean === mPhoneClean) || (tId && mId && (mId === tId || mId === (tutor.id || '').toUpperCase()));
         const isActive = (m.status !== 'Terminated' && m.status !== 'Cancelled');
-        return isThisTutor && isActive;
+
+        // A tutor can also apply as a parent for family, but that parent application
+        // must NEVER be counted as a tutoring student they are teaching!
+        const mParentPhoneClean = (m.parentPhone || '').replace(/\D/g, '').slice(-9);
+        const mParentId = (m.parentId || '').toUpperCase();
+        const isSelfAsParent = (tPhoneClean && mParentPhoneClean && tPhoneClean === mParentPhoneClean) ||
+                               (tId && mParentId && (mParentId === tId || mParentId.replace('AST-P-', '') === tId.replace('AST-T-', '')));
+
+        return isThisTutor && isActive && !isSelfAsParent;
       });
     }
 
@@ -4906,8 +4914,9 @@ function rowsToJson(sheet) {
         const cap = getTutorCapacity(t);
         const activeMatches = getTutorActiveMatches(t, matches);
         const assignedCount = activeMatches.length;
+        const displayCount = Math.min(assignedCount, cap);
         const isFull = assignedCount >= cap;
-        const openSlots = Math.max(0, cap - assignedCount);
+        const openSlots = Math.max(0, cap - displayCount);
 
         const levelTitle = l === 5 ? 'Level 5 Master' : (l === 4 ? 'Level 4 Distinguished' : (l === 3 ? 'Level 3 Senior' : (l === 2 ? 'Level 2 Advanced' : (l === 1 ? 'Level 1 Communicator' : 'Basic Level 0'))));
         const tTrackingId = t.trackingId || t.id || ('AST-T-' + (t.phone || '').slice(-4));
@@ -4940,7 +4949,7 @@ function rowsToJson(sheet) {
                   <span>•</span>
                   <span>🎯 Entrance: ${t.entranceScore ? `<b style="color: #fbbf24;">${escapeHtml(t.entranceScore)}</b>` : 'N/A'}</span>
                   <span>•</span>
-                  <span>Level ${t.level || 0} (${assignedCount}/${cap} Students)</span>
+                  <span>Level ${t.level || 0} (${displayCount}/${cap} Students)</span>
                 </div>
               </div>
             </div>
@@ -4948,9 +4957,9 @@ function rowsToJson(sheet) {
             <div class="record-header-actions" onclick="event.stopPropagation()">
               ${t.cloudArchived ? `<span class="tag-badge" style="background: rgba(148, 163, 184, 0.18); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.35); font-weight: 800;">🛡️ Vaulted</span>` : ''}
               ${isFull 
-                ? `<span class="tag-badge" style="background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.45); font-weight: 800;">🤝 Max Assigned (${assignedCount}/${cap})</span>` 
+                ? `<span class="tag-badge" style="background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.45); font-weight: 800;">🤝 Max Assigned (${displayCount}/${cap})</span>` 
                 : (assignedCount > 0 
-                  ? `<span class="tag-badge" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.45); font-weight: 800;">⚡ ${assignedCount}/${cap} Active (${openSlots} Open)</span>`
+                  ? `<span class="tag-badge" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.45); font-weight: 800;">⚡ ${displayCount}/${cap} Active (${openSlots} Open)</span>`
                   : `<span class="tag-badge tag-unassigned">⏳ Available (${cap} Slot${cap > 1 ? 's' : ''})</span>`)}
               <span class="tag-badge ${getStatusBadgeClass(t.status || 'Verified')}">${t.status || 'Verified'}</span>
               <a href="tel:${escapeHtml(t.phone)}" class="btn-act btn-act-call-modern">📞 Call</a>
@@ -4967,7 +4976,7 @@ function rowsToJson(sheet) {
               <span class="tag-badge" style="background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.35); font-weight: 850;">⭐ CGPA ${escapeHtml(t.cgpa)}</span>
               ${t.entranceScore ? `<span class="tag-badge" style="background: rgba(245, 158, 11, 0.2); color: #fde047; border: 1.5px solid rgba(245, 158, 11, 0.5); font-weight: 900;">🎯 Entrance: ${escapeHtml(t.entranceScore)}/700</span>` : ''}
               ${getLevelBadgeHtml(t.level, t.cgpa)}
-              <span class="tag-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35); font-weight: 800;">👥 Capacity: ${assignedCount}/${cap} Students</span>
+              <span class="tag-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35); font-weight: 800;">👥 Capacity: ${displayCount}/${cap} Students</span>
               ${getLevelBadgeHtml(t.level, t.cgpa)}
               ${getExamBadgeHtml(t)}
               <span class="tag-badge tag-active">🛡️ Fayda/Campus Verified</span>
@@ -5011,10 +5020,10 @@ function rowsToJson(sheet) {
             ${activeMatches.length > 0 ? `
               <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 12px; padding: 0.75rem; margin: 0.75rem 0;">
                 <div style="font-size: 0.74rem; font-weight: 850; color: #34d399; text-transform: uppercase; margin-bottom: 0.45rem; display: flex; justify-content: space-between; align-items: center;">
-                  <span>🤝 Assigned Student Families (${assignedCount}/${cap} Max):</span>
+                  <span>🤝 Assigned Student Families (${displayCount}/${cap} Max):</span>
                   <span style="font-size: 0.68rem; color: #94a3b8;">${openSlots > 0 ? `🟢 ${openSlots} slot(s) remaining` : '🔴 Full capacity'}</span>
                 </div>
-                ${activeMatches.map((am, amIdx) => `
+                ${activeMatches.slice(0, cap).map((am, amIdx) => `
                   <div style="font-size: 0.8rem; color: #f1f5f9; display: flex; justify-content: space-between; align-items: center; padding: 0.35rem 0; border-bottom: ${amIdx < activeMatches.length - 1 ? '1px dashed rgba(255,255,255,0.08)' : 'none'};">
                     <span><b>${amIdx + 1}.</b> ${escapeHtml(am.parentName)} (${escapeHtml(am.studentGrade || 'General')}, ${escapeHtml(am.parentArea || 'Addis Ababa')})</span>
                     <a href="tel:${escapeHtml(am.parentPhone)}" style="color: #38bdf8; text-decoration: none; font-weight: 800; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 0.25rem;">📞 ${escapeHtml(am.parentPhone)}</a>
@@ -6251,10 +6260,11 @@ function rowsToJson(sheet) {
         const cap = getTutorCapacity(t);
         const activeMatches = getTutorActiveMatches(t, allMatches);
         const activeCount = activeMatches.length;
+        const displayCount = Math.min(activeCount, cap);
         const isFull = activeCount >= cap;
         const tierTag = tier.code === 'GOLDEN' ? 'GOLDEN' : (tier.code === 'SILVER' ? 'SILVER' : 'BRONZE');
 
-        let capBadge = isFull ? `[FULL: ${activeCount}/${cap} Students]` : `[${activeCount}/${cap} Students]`;
+        let capBadge = isFull ? `[FULL: ${displayCount}/${cap} Students]` : `[${displayCount}/${cap} Students]`;
         let lvlPrefix = `${tier.emoji} [${tierTag} L0]`;
         if (lvl === 5) lvlPrefix = `👑 ${tier.emoji} [${tierTag} L5 MASTER]`;
         else if (lvl === 4) lvlPrefix = `💎 ${tier.emoji} [${tierTag} L4]`;
@@ -6350,10 +6360,14 @@ function rowsToJson(sheet) {
       const p = parents[pIdx];
       const t = tutors[tIdx];
 
+      // Prevent self-matching: a tutor cannot be paired with their own parent application
+      if (pPhoneClean && tPhoneClean && pPhoneClean === tPhoneClean) {
+        alert(`⚠️ Self-Matching Not Allowed!\n\nTutor "${t.name}" cannot be paired with their own parent application. When a tutor applies as a parent, please select a different accredited tutor for them.`);
+        return;
+      }
+
       // Prevent duplicate active match between same parent and tutor
       const existingMatches = getMatches();
-      const pPhoneClean = (p.phone || '').replace(/\D/g, '').slice(-9);
-      const tPhoneClean = (t.phone || '').replace(/\D/g, '').slice(-9);
       const isAlreadyMatched = existingMatches.some(m => {
         const mPPhone = (m.parentPhone || '').replace(/\D/g, '').slice(-9);
         const mTPhone = (m.tutorPhone || '').replace(/\D/g, '').slice(-9);
