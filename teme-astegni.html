@@ -1846,8 +1846,8 @@
 
               <div class="field" style="margin-bottom: 0;">
                 <label id="i18n-f-pcampus" style="font-size: 0.8rem; color: #cbd5e1;">🏫 Nearest Campus (የቅርብ ካምፓስ) *</label>
-                <select id="p_campus_select" required onchange="handleParentCampusChange()" disabled>
-                  <option value="" disabled selected>-- አስቀድመው ዩኒቨርሲቲ ይምረጡ --</option>
+                <select id="p_campus_select" required onchange="handleParentCampusChange()">
+                  <option value="" disabled selected>-- የቅርብ ካምፓስ ይምረጡ (Select Nearest Campus) --</option>
                 </select>
               </div>
             </div>
@@ -2228,8 +2228,8 @@
             </div>
             <div class="field">
               <label id="i18n-f-tcampus">🏫 ካምፓስ (Campus) *</label>
-              <select id="t_campus_select" required onchange="handleCampusChange()" disabled>
-                <option value="" disabled selected>-- አስቀድመው ዩኒቨርሲቲ ይምረጡ --</option>
+              <select id="t_campus_select" required onchange="handleCampusChange()">
+                <option value="" disabled selected>-- ካምፓስ ይምረጡ (Select Campus) --</option>
               </select>
             </div>
           </div>
@@ -5469,6 +5469,126 @@
       }
     ];
 
+    // Helper function to dynamically populate campus dropdowns
+    function populateCampusesDropdown(selectEl, selectedUni) {
+      if (!selectEl) return;
+      selectEl.disabled = false;
+
+      const promptCampus = (currentLang === 'en')
+        ? '-- Select Nearest Campus --'
+        : (currentLang === 'or' ? '-- Kaampaasii Dhihoo Filadhaa --' : '-- የቅርብ ካምፓስ ይምረጡ (Select Campus) --');
+
+      const previousVal = selectEl.value;
+      selectEl.innerHTML = '';
+      
+      const defOpt = document.createElement('option');
+      defOpt.value = '';
+      defOpt.disabled = true;
+      defOpt.selected = true;
+      defOpt.textContent = promptCampus;
+      selectEl.appendChild(defOpt);
+
+      // 1. If a specific university is chosen and recognized
+      if (selectedUni && selectedUni !== 'Other Ethiopian University / College') {
+        const uniObj = ETHIOPIAN_UNIVERSITIES.find(u => u.name === selectedUni);
+        if (uniObj && uniObj.campuses && uniObj.campuses.length > 0) {
+          // Option for "Any Campus" within the university
+          const cleanUniName = uniObj.name.split('(')[0].trim();
+          const optAny = document.createElement('option');
+          optAny.value = `Main / Any Campus (${cleanUniName})`;
+          optAny.textContent = (currentLang === 'en')
+            ? `🏛️ Any Campus of ${cleanUniName}`
+            : `🏛️ ማንኛውም የ${cleanUniName} ካምፓስ (Any Campus)`;
+          optAny.dataset.uni = uniObj.name;
+          selectEl.appendChild(optAny);
+
+          // All specific campuses of this university
+          uniObj.campuses.forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c;
+            opt.textContent = c;
+            opt.dataset.uni = uniObj.name;
+            selectEl.appendChild(opt);
+          });
+
+          // Option to view all campuses nationwide
+          const optAll = document.createElement('option');
+          optAll.value = '__SHOW_ALL_CAMPUSES__';
+          optAll.textContent = (currentLang === 'en')
+            ? '🌐 Show All Campuses Across Ethiopia...'
+            : '🌐 ሁሉንም ካምፓሶች አሳይ (Show All Campuses)...';
+          selectEl.appendChild(optAll);
+
+          const optOther = document.createElement('option');
+          optOther.value = 'Other Campus / Specify';
+          optOther.textContent = (currentLang === 'en')
+            ? '✍️ Other Campus / Specify...'
+            : '✍️ ሌላ ካምፓስ / በጽሑፍ ይግለጹ (Specify)...';
+          selectEl.appendChild(optOther);
+
+          if (previousVal && Array.from(selectEl.options).some(o => o.value === previousVal)) {
+            selectEl.value = previousVal;
+          }
+          return;
+        }
+      }
+
+      // 2. Default state or "Show All Campuses" - Show top Addis Ababa campuses first, then all universities
+      const addisGroup = document.createElement('optgroup');
+      addisGroup.label = (currentLang === 'en')
+        ? '🌟 Top Addis Ababa Campuses'
+        : '🌟 አዲስ አበባ ዋና ዋና ካምፓሶች (Addis Ababa)';
+
+      const popularCampuses = [
+        { name: "4 Kilo Campus (Natural & Computational Sciences)", uni: "Addis Ababa University (AAU)" },
+        { name: "5 Kilo Campus (AAiT - Institute of Technology)", uni: "Addis Ababa University (AAU)" },
+        { name: "6 Kilo Campus (Main Campus / Social Sciences & Law)", uni: "Addis Ababa University (AAU)" },
+        { name: "Tikur Anbessa Campus (Health Sciences / Medicine)", uni: "Addis Ababa University (AAU)" },
+        { name: "FBE Campus (College of Business & Economics)", uni: "Addis Ababa University (AAU)" },
+        { name: "Commerce Campus (School of Commerce - Mexico)", uni: "Addis Ababa University (AAU)" },
+        { name: "EiABC Campus (Architecture & Urban Planning - Lideta)", uni: "Addis Ababa University (AAU)" },
+        { name: "Main Campus (Kilinto / Akaki Kality)", uni: "Addis Ababa Science & Technology University (AASTU)" },
+        { name: "Main Campus (Kotebe, Addis Ababa)", uni: "Kotebe University of Education (KUE)" },
+        { name: "Main Campus (Mexico)", uni: "St. Mary's University" },
+        { name: "Gerji Main Campus (Addis Ababa)", uni: "Unity University" }
+      ];
+
+      popularCampuses.forEach(pc => {
+        const opt = document.createElement('option');
+        opt.value = pc.name;
+        opt.textContent = `${pc.uni.split('(')[0].trim()} - ${pc.name}`;
+        opt.dataset.uni = pc.uni;
+        addisGroup.appendChild(opt);
+      });
+      selectEl.appendChild(addisGroup);
+
+      // All Universities and Campuses grouped
+      ETHIOPIAN_UNIVERSITIES.forEach(u => {
+        if (!u.campuses || u.campuses.length === 0) return;
+        const grp = document.createElement('optgroup');
+        grp.label = `🏛️ ${u.name}`;
+        u.campuses.forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c;
+          opt.textContent = `${c}`;
+          opt.dataset.uni = u.name;
+          grp.appendChild(opt);
+        });
+        selectEl.appendChild(grp);
+      });
+
+      const optOther = document.createElement('option');
+      optOther.value = 'Other Campus / Specify';
+      optOther.textContent = (currentLang === 'en')
+        ? '✍️ Other Campus / Specify...'
+        : '✍️ ሌላ ካምፓስ / በጽሑፍ ይግለጹ (Specify)...';
+      selectEl.appendChild(optOther);
+
+      if (previousVal && Array.from(selectEl.options).some(o => o.value === previousVal)) {
+        selectEl.value = previousVal;
+      }
+    }
+
     function initUniversityDropdown(preselectedUni, preselectedCampus) {
       const tUniSelect = document.getElementById('t_uni_select');
       const tCampusSelect = document.getElementById('t_campus_select');
@@ -5476,7 +5596,6 @@
       const pCampusSelect = document.getElementById('p_campus_select');
 
       const promptUni = (currentLang === 'en') ? '-- Select University --' : (currentLang === 'or' ? '-- Yuunivarsitii Filadhaa --' : '-- ዩኒቨርሲቲ ይምረጡ (Select University) --');
-      const promptCampus = (currentLang === 'en') ? '-- Select University First --' : (currentLang === 'or' ? '-- Dura Yuunivarsitii Filadhaa --' : '-- አስቀድመው ዩኒቨርሲቲ ይምረጡ --');
 
       // 1. Setup Tutor Select
       if (tUniSelect) {
@@ -5489,9 +5608,8 @@
             tUniSelect.appendChild(opt);
           });
         }
-        if (tCampusSelect && !tUniSelect.value) {
-          tCampusSelect.disabled = true;
-          tCampusSelect.innerHTML = `<option value="" disabled selected>${promptCampus}</option>`;
+        if (tCampusSelect) {
+          populateCampusesDropdown(tCampusSelect, tUniSelect.value);
         }
       }
 
@@ -5506,9 +5624,8 @@
             pUniSelect.appendChild(opt);
           });
         }
-        if (pCampusSelect && !pUniSelect.value) {
-          pCampusSelect.disabled = true;
-          pCampusSelect.innerHTML = `<option value="" disabled selected>${promptCampus}</option>`;
+        if (pCampusSelect) {
+          populateCampusesDropdown(pCampusSelect, pUniSelect.value);
         }
       }
 
@@ -5529,7 +5646,6 @@
       const uniSelect = document.getElementById('t_uni_select');
       const campusSelect = document.getElementById('t_campus_select');
       const customUniBox = document.getElementById('t_custom_uni_box');
-      const customCampusBox = document.getElementById('t_custom_campus_box');
       if (!uniSelect || !campusSelect) return;
 
       const selectedUni = uniSelect.value;
@@ -5545,32 +5661,11 @@
         }
       }
 
-      const uniObj = ETHIOPIAN_UNIVERSITIES.find(u => u.name === selectedUni);
-      const campusPrompt = (currentLang === 'en') ? '-- Select Campus --' : (currentLang === 'or' ? '-- Kaampaasii Filadhaa --' : '-- ካምፓስ ይምረጡ (Select Campus) --');
-      campusSelect.innerHTML = `<option value="" disabled selected>${campusPrompt}</option>`;
+      populateCampusesDropdown(campusSelect, selectedUni);
 
-      if (uniObj && uniObj.campuses && uniObj.campuses.length > 0) {
-        campusSelect.disabled = false;
-        uniObj.campuses.forEach(c => {
-          const opt = document.createElement('option');
-          opt.value = c;
-          opt.textContent = c;
-          campusSelect.appendChild(opt);
-        });
-
-        if (preselectedCampus) {
-          campusSelect.value = preselectedCampus;
-          handleCampusChange();
-        } else {
-          campusSelect.focus();
-        }
-      } else {
-        campusSelect.disabled = false;
-        campusSelect.innerHTML = `
-          <option value="" disabled selected>${campusPrompt}</option>
-          <option value="Main Campus">Main Campus</option>
-          <option value="Other Campus / Specify">Other Campus / Specify</option>
-        `;
+      if (preselectedCampus) {
+        campusSelect.value = preselectedCampus;
+        handleCampusChange();
       }
 
       updateCombinedUni();
@@ -5581,7 +5676,6 @@
       const uniSelect = document.getElementById('p_uni_select');
       const campusSelect = document.getElementById('p_campus_select');
       const customUniBox = document.getElementById('p_custom_uni_box');
-      const customCampusBox = document.getElementById('p_custom_campus_box');
       if (!uniSelect || !campusSelect) return;
 
       const selectedUni = uniSelect.value;
@@ -5597,32 +5691,11 @@
         }
       }
 
-      const uniObj = ETHIOPIAN_UNIVERSITIES.find(u => u.name === selectedUni);
-      const campusPrompt = (currentLang === 'en') ? '-- Select Campus --' : (currentLang === 'or' ? '-- Kaampaasii Filadhaa --' : '-- ካምፓስ ይምረጡ (Select Campus) --');
-      campusSelect.innerHTML = `<option value="" disabled selected>${campusPrompt}</option>`;
+      populateCampusesDropdown(campusSelect, selectedUni);
 
-      if (uniObj && uniObj.campuses && uniObj.campuses.length > 0) {
-        campusSelect.disabled = false;
-        uniObj.campuses.forEach(c => {
-          const opt = document.createElement('option');
-          opt.value = c;
-          opt.textContent = c;
-          campusSelect.appendChild(opt);
-        });
-
-        if (preselectedCampus) {
-          campusSelect.value = preselectedCampus;
-          handleParentCampusChange();
-        } else {
-          campusSelect.focus();
-        }
-      } else {
-        campusSelect.disabled = false;
-        campusSelect.innerHTML = `
-          <option value="" disabled selected>${campusPrompt}</option>
-          <option value="Main Campus">Main Campus</option>
-          <option value="Other Campus / Specify">Other Campus / Specify</option>
-        `;
+      if (preselectedCampus) {
+        campusSelect.value = preselectedCampus;
+        handleParentCampusChange();
       }
 
       updateCombinedParentArea();
@@ -5630,10 +5703,19 @@
 
     function handleParentCampusChange() {
       const campusSelect = document.getElementById('p_campus_select');
+      const uniSelect = document.getElementById('p_uni_select');
       const customCampusBox = document.getElementById('p_custom_campus_box');
       if (!campusSelect) return;
 
-      if (campusSelect.value === 'Other Campus / Specify') {
+      const val = campusSelect.value;
+      if (val === '__SHOW_ALL_CAMPUSES__') {
+        if (uniSelect) uniSelect.value = '';
+        populateCampusesDropdown(campusSelect, '');
+        updateCombinedParentArea();
+        return;
+      }
+
+      if (val === 'Other Campus / Specify') {
         if (customCampusBox) customCampusBox.style.display = 'block';
         const inp = document.getElementById('p_custom_campus');
         if (inp) inp.focus();
@@ -5643,6 +5725,16 @@
           const inp = document.getElementById('p_custom_campus');
           if (inp) inp.value = '';
         }
+      }
+
+      // Reverse auto-detection: if university is not selected, auto-select it!
+      const selOpt = campusSelect.options[campusSelect.selectedIndex];
+      const targetUni = (selOpt && selOpt.dataset && selOpt.dataset.uni)
+        ? selOpt.dataset.uni
+        : ETHIOPIAN_UNIVERSITIES.find(u => u.campuses && u.campuses.includes(val))?.name;
+
+      if (targetUni && uniSelect && (!uniSelect.value || uniSelect.value === '')) {
+        uniSelect.value = targetUni;
       }
 
       updateCombinedParentArea();
@@ -5666,8 +5758,10 @@
       }
 
       let combined = '';
-      if (uniName && campusName && !campusName.startsWith('--')) {
+      if (uniName && campusName && !campusName.startsWith('--') && campusName !== '__SHOW_ALL_CAMPUSES__') {
         combined = `${uniName} (${campusName})`;
+      } else if (campusName && !campusName.startsWith('--') && campusName !== '__SHOW_ALL_CAMPUSES__') {
+        combined = campusName;
       } else if (uniName) {
         combined = uniName;
       }
@@ -5681,10 +5775,19 @@
 
     function handleCampusChange() {
       const campusSelect = document.getElementById('t_campus_select');
+      const uniSelect = document.getElementById('t_uni_select');
       const customCampusBox = document.getElementById('t_custom_campus_box');
       if (!campusSelect) return;
 
-      if (campusSelect.value === 'Other Campus / Specify') {
+      const val = campusSelect.value;
+      if (val === '__SHOW_ALL_CAMPUSES__') {
+        if (uniSelect) uniSelect.value = '';
+        populateCampusesDropdown(campusSelect, '');
+        updateCombinedUni();
+        return;
+      }
+
+      if (val === 'Other Campus / Specify') {
         if (customCampusBox) customCampusBox.style.display = 'block';
         const inp = document.getElementById('t_custom_campus');
         if (inp) inp.focus();
@@ -5694,6 +5797,16 @@
           const inp = document.getElementById('t_custom_campus');
           if (inp) inp.value = '';
         }
+      }
+
+      // Reverse auto-detection for tutor:
+      const selOpt = campusSelect.options[campusSelect.selectedIndex];
+      const targetUni = (selOpt && selOpt.dataset && selOpt.dataset.uni)
+        ? selOpt.dataset.uni
+        : ETHIOPIAN_UNIVERSITIES.find(u => u.campuses && u.campuses.includes(val))?.name;
+
+      if (targetUni && uniSelect && (!uniSelect.value || uniSelect.value === '')) {
+        uniSelect.value = targetUni;
       }
 
       updateCombinedUni();
@@ -5717,8 +5830,10 @@
       }
 
       let combined = '';
-      if (uniName && campusName && campusName !== '-- አስቀድመው ዩኒቨርሲቲ ይምረጡ --') {
+      if (uniName && campusName && !campusName.startsWith('--') && campusName !== '__SHOW_ALL_CAMPUSES__') {
         combined = `${uniName} - ${campusName}`;
+      } else if (campusName && !campusName.startsWith('--') && campusName !== '__SHOW_ALL_CAMPUSES__') {
+        combined = campusName;
       } else if (uniName) {
         combined = uniName;
       }
@@ -6278,6 +6393,11 @@
       safeSetText('i18n-ops-btn', t.opsBtn);
       safeSetText('i18n-ch-btn', t.chBtn);
       safeSetText('i18n-modal-close', t.modalClose);
+
+      // Refresh uni & campus select prompts if still on default option
+      if (typeof initUniversityDropdown === 'function') {
+        initUniversityDropdown();
+      }
     }
 
     // Copy Phone Number Helper
