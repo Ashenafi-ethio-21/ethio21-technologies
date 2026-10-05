@@ -2252,7 +2252,7 @@
           <!-- Hidden input keeping 100% backward compatibility for t_uni -->
           <input type="hidden" id="t_uni" required>
 
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.65rem;">
             <div class="field">
               <label id="i18n-f-tyear">Academic Year *</label>
               <select id="t_year" required>
@@ -2264,7 +2264,11 @@
             </div>
             <div class="field">
               <label id="i18n-f-tcgpa">CGPA (≥ 3.00) *</label>
-              <input type="number" id="t_cgpa" step="0.01" min="3.00" max="4.00" required>
+              <input type="number" id="t_cgpa" step="0.01" min="3.00" max="4.00" placeholder="e.g. 3.65" required>
+            </div>
+            <div class="field">
+              <label id="i18n-f-tentrance">Entrance Score (መግቢያ ውጤት) *</label>
+              <input type="number" id="t_entrance" min="200" max="700" placeholder="e.g. 520" required>
             </div>
           </div>
 
@@ -5797,6 +5801,7 @@
         fTcampus: "🏫 ካምፓስ (Campus) *",
         fTyear: "የትምህርት ዓመት *",
         fTcgpa: "CGPA (≥ 3.00) *",
+        fTentrance: "የዩኒቨርሲቲ መግቢያ ውጤት (የ12ኛ) *",
         fTsubj: "በደንብ ማስተማር የሚችሉት የትምህርት አይነት (ውጤት 'A') *",
         fTcid: "🏛️ የዩኒቨርሲቲ ተማሪ መታወቂያ • የፊት ገጽ (ግዴታ) እና የኋላ (አስፈላጊ ከሆነ) *",
         fTstudentIdNum: "የዩኒቨርሲቲ ተማሪ መታወቂያ ቁጥር (Student ID No.) *",
@@ -5924,6 +5929,7 @@
         fTcampus: "🏫 Campus *",
         fTyear: "Academic Year *",
         fTcgpa: "CGPA (≥ 3.00) *",
+        fTentrance: "Entrance Exam Score (Grade 12) *",
         fTsubj: "Subjects You Can Confidently Teach (Grade 'A') *",
         fTcid: "🏛️ University Student ID • Front (MANDATORY) & Back (If Two-Sided) *",
         fTstudentIdNum: "University Student ID Card Number *",
@@ -6051,6 +6057,7 @@
         fTcampus: "🏫 Kaampaasii *",
         fTyear: "Waggaa Barnootaa *",
         fTcgpa: "CGPA (≥ 3.00) *",
+        fTentrance: "Qabxii Seensa Yuunivarsitii (Kutaa 12) *",
         fTsubj: "Gosoota Barnootaa Barsiisuu Dandeessan (Qabxii 'A') *",
         fTcid: "🏛️ Waraqaa Eenyummaa Kaampaasii • Fuula Duraa (DIRQAMA) & Duubaa (Yoo qabaate) *",
         fTstudentIdNum: "Lakkoofsa Waraqaa Eenyummaa Barattummaa *",
@@ -6214,6 +6221,7 @@
       safeSetText('i18n-f-tcampus', t.fTcampus);
       safeSetText('i18n-f-tyear', t.fTyear);
       safeSetText('i18n-f-tcgpa', t.fTcgpa);
+      safeSetText('i18n-f-tentrance', t.fTentrance);
       safeSetText('i18n-f-tsubj', t.fTsubj);
       safeSetText('i18n-f-tcid', t.fTcid);
       safeSetText('i18n-f-t-student-id-num', t.fTstudentIdNum);
@@ -7387,6 +7395,7 @@
       const campusSelectEl = document.getElementById('t_campus_select');
       const year = document.getElementById('t_year').value;
       const cgpa = document.getElementById('t_cgpa').value.trim();
+      const entranceScore = document.getElementById('t_entrance')?.value.trim();
       const subj = document.getElementById('t_subj').value.trim();
 
       // Validate name
@@ -7478,6 +7487,16 @@
           ? 'አስጠኚ ለመሆን ዝቅተኛው የውጤት መጠን (CGPA) 3.00 ወይም ከዚያ በላይ መሆን አለበት። እባክዎ ትክክለኛ CGPA ያስገቡ።'
           : 'Minimum required CGPA is 3.00 or higher. Please enter a valid CGPA between 3.00 and 4.00.';
         abortTutorValidation(msg, document.getElementById('t_cgpa'));
+        return;
+      }
+
+      // Validate University Entrance Exam Score
+      const entranceNum = parseFloat(entranceScore);
+      if (!entranceScore || isNaN(entranceNum) || entranceNum < 200 || entranceNum > 700) {
+        const msg = (currentLang === 'am')
+          ? 'እባክዎ ትክክለኛ የዩኒቨርሲቲ መግቢያ (የ12ኛ ክፍል) ፈተና ውጤትዎን ያስገቡ (ምሳሌ፡ 400 - 650)።'
+          : 'Please enter a valid University Entrance Exam score between 200 and 700 (e.g. 520).';
+        abortTutorValidation(msg, document.getElementById('t_entrance'));
         return;
       }
 
@@ -7797,7 +7816,8 @@
           studentIdNumber: normStudentId,
           govtIdNumber: normGovtId,
           imageHashes: imgHashes.filter(Boolean),
-          year, cgpa, subj, 
+          year, cgpa, subj,
+          entranceScore: entranceNum,
           metalTier: tierName,
           rankTitle: rankTitle,
           campusIdAttached: !!campusFile,
@@ -7835,6 +7855,7 @@
           campus: campusName,
           year: year,
           cgpa: cgpa,
+          entranceScore: entranceNum,
           gender: gender,
           subjects: subj,
           govtId: govtType,
@@ -7897,6 +7918,7 @@
                         `🏫 Campus: ${campusName}\n` +
                         `📅 Academic Year: ${year}\n` +
                         `⭐ CGPA: ${cgpa} (${tierEmoji} ${tierName} Tier)\n` +
+                        `🎯 Entrance Exam Score: ${entranceNum} / 700\n` +
                         `🏅 Metal Tier: ${tierEmoji} ${tierName} Tier\n` +
                         `📖 Subjects (Grade A): ${subj}\n` +
                         `🎙️ Communicative Exam: ${examOptIn ? `Requested Voice/Video Exam (Targeting ${tierName} Level 1)` : `Basic ${tierName} (L0)`}\n` +
@@ -7929,6 +7951,7 @@
         campus: campusName,
         year: year,
         cgpa: cgpa,
+        entranceScore: entranceNum,
         tier: tierName,
         tierEmoji: tierEmoji,
         level: 0,

@@ -1824,6 +1824,14 @@
             <option value="Wolkite">Wolkite University (WKU)</option>
             <option value="St. Mary">St. Mary's University</option>
           </select>
+          <select id="tutor-filter-entrance" class="form-ctrl" style="max-width: 210px; padding: 0.55rem 0.85rem; font-size: 0.8rem; background: rgba(15, 23, 42, 0.9); border: 1.5px solid rgba(245, 158, 11, 0.45); border-radius: 12px; color: #fbbf24; font-weight: 750;" onchange="renderTutors()">
+            <option value="">🎯 All Entrance Scores</option>
+            <option value="600">🏆 600+ (Top 1% Elite)</option>
+            <option value="550">🥇 550+ (High Honors)</option>
+            <option value="500">🥈 500+ (Distinction)</option>
+            <option value="450">🥉 450+ (Merit)</option>
+            <option value="400">📚 400+ (Qualified)</option>
+          </select>
           <div style="display: flex; gap: 0.5rem;">
             <button class="btn-act owner-only-feature" style="background: rgba(16, 185, 129, 0.18); border-color: rgba(16, 185, 129, 0.4); color: #34d399; font-weight: 850;" onclick="pushLocalRecordsToGoogleSheet()">☁️ Push All to Sheet</button>
             <button class="btn-act" onclick="exportDataToCsv('tutors')">📥 Export CSV</button>
@@ -1844,7 +1852,7 @@
 
         <!-- Tier 2 Filters: 5-Level Rank & Gender -->
         <div style="font-size: 0.7rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.4rem;">Progression Level & Demographics</div>
-        <div class="filter-pills" style="gap: 0.45rem; flex-wrap: wrap;">
+        <div class="filter-pills" style="gap: 0.45rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
           <button class="pill-btn" onclick="setTutorFilter('L5', this)">👑 L5 Master</button>
           <button class="pill-btn" onclick="setTutorFilter('L4', this)">💎 L4 Distinguished</button>
           <button class="pill-btn" onclick="setTutorFilter('L3', this)">⭐ L3 Senior</button>
@@ -1853,6 +1861,16 @@
           <button class="pill-btn" onclick="setTutorFilter('BASIC', this)">Basic (L0)</button>
           <button class="pill-btn" onclick="setTutorFilter('Female', this)">👩 Female Scholars</button>
           <button class="pill-btn" onclick="setTutorFilter('Male', this)">👨 Male Scholars</button>
+        </div>
+
+        <!-- Tier 3 Filters: Entrance Exam Score -->
+        <div style="font-size: 0.7rem; font-weight: 800; color: #fbbf24; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.4rem;">🎯 University Entrance Exam Score (የመግቢያ ፈተና ውጤት)</div>
+        <div class="filter-pills" style="gap: 0.45rem; flex-wrap: wrap;">
+          <button class="pill-btn" onclick="setTutorFilter('ENTRANCE_600', this)">🏆 600+ Elite</button>
+          <button class="pill-btn" onclick="setTutorFilter('ENTRANCE_550', this)">🥇 550+ High Honors</button>
+          <button class="pill-btn" onclick="setTutorFilter('ENTRANCE_500', this)">🥈 500+ Distinction</button>
+          <button class="pill-btn" onclick="setTutorFilter('ENTRANCE_450', this)">🥉 450+ Merit</button>
+          <button class="pill-btn" onclick="setTutorFilter('ENTRANCE_SORT', this)">📊 Sort by Entrance (High → Low)</button>
         </div>
       </div>
 
@@ -3614,6 +3632,7 @@ function rowsToJson(sheet) {
                       `🏛️ University: ${t.university || 'University'}\n` +
                       `📅 Academic Year: ${t.year || 'N/A'}\n` +
                       `⭐ CGPA: ${t.cgpa || 'N/A'} (${tierEmoji} ${tierName} Tier)\n` +
+                      `🎯 Entrance Score: ${t.entranceScore || 'N/A'} / 700\n` +
                       `🏅 Metal Tier: ${tierEmoji} ${tierName} Tier (Level ${t.level || 0})\n` +
                       `📖 Subjects (Grade A): ${t.subjects || 'N/A'}\n` +
                       `🎙️ Exam / Interview: ${t.examStatus === 'passed' ? 'Passed / Verified' : 'Pending'}\n` +
@@ -4792,10 +4811,14 @@ function rowsToJson(sheet) {
       };
 
       const uniFilter = (document.getElementById('tutor-filter-uni')?.value || '').toLowerCase();
+      const entranceMin = parseFloat(document.getElementById('tutor-filter-entrance')?.value || 0);
 
       let filtered = tutors.filter(t => {
         const tUni = (t.uni || t.university || '').toLowerCase();
         if (uniFilter && !tUni.includes(uniFilter)) return false;
+
+        const entScore = parseFloat(t.entranceScore || t.entranceResult || 0);
+        if (entranceMin > 0 && entScore < entranceMin) return false;
 
         const matchesQuery = !query || 
           (t.name || '').toLowerCase().includes(query) || 
@@ -4803,6 +4826,7 @@ function rowsToJson(sheet) {
           tUni.includes(query) ||
           (t.trackingId && t.trackingId.toLowerCase().includes(query)) ||
           (t.tgTag && t.tgTag.toLowerCase().includes(query)) ||
+          (t.entranceScore && t.entranceScore.toString().includes(query)) ||
           (t.subj || '').toLowerCase().includes(query);
 
         const lvl = Number(t.level) || 0;
@@ -4826,17 +4850,30 @@ function rowsToJson(sheet) {
         if (currentTutorFilter === 'Female') return matchesQuery && (t.gender || '').toLowerCase().includes('female');
         if (currentTutorFilter === 'Male') return matchesQuery && (t.gender || '').toLowerCase().includes('male');
         if (currentTutorFilter === 'HIGH_GPA') return matchesQuery && parseFloat(t.cgpa || 0) >= 3.50;
+        if (currentTutorFilter === 'ENTRANCE_600') return matchesQuery && entScore >= 600;
+        if (currentTutorFilter === 'ENTRANCE_550') return matchesQuery && entScore >= 550;
+        if (currentTutorFilter === 'ENTRANCE_500') return matchesQuery && entScore >= 500;
+        if (currentTutorFilter === 'ENTRANCE_450') return matchesQuery && entScore >= 450;
+        if (currentTutorFilter === 'ENTRANCE_SORT') return matchesQuery;
         return matchesQuery;
       });
 
-      // Sort tutors: Composite Score = (Tier weight * 10) + (Level * 10) + CGPA
-      filtered.sort((a, b) => {
-        const tierA = getTutorMetalTier(a.cgpa);
-        const tierB = getTutorMetalTier(b.cgpa);
-        const scoreA = (tierA.weight * 10) + ((Number(a.level) || 0) * 10) + (parseFloat(a.cgpa) || 0);
-        const scoreB = (tierB.weight * 10) + ((Number(b.level) || 0) * 10) + (parseFloat(b.cgpa) || 0);
-        return scoreB - scoreA;
-      });
+      // Sort tutors: Composite Score or Entrance Exam High-to-Low
+      if (currentTutorFilter === 'ENTRANCE_SORT') {
+        filtered.sort((a, b) => {
+          const entA = parseFloat(a.entranceScore || a.entranceResult || 0);
+          const entB = parseFloat(b.entranceScore || b.entranceResult || 0);
+          return entB - entA;
+        });
+      } else {
+        filtered.sort((a, b) => {
+          const tierA = getTutorMetalTier(a.cgpa);
+          const tierB = getTutorMetalTier(b.cgpa);
+          const scoreA = (tierA.weight * 10) + ((Number(a.level) || 0) * 10) + (parseFloat(a.cgpa) || 0);
+          const scoreB = (tierB.weight * 10) + ((Number(b.level) || 0) * 10) + (parseFloat(b.cgpa) || 0);
+          return scoreB - scoreA;
+        });
+      }
 
       document.getElementById('tutor-list-counter').innerText = `Showing ${filtered.length} of ${tutors.length} verified tutors`;
 
@@ -4904,6 +4941,8 @@ function rowsToJson(sheet) {
                   <span>•</span>
                   <span>⭐ CGPA ${escapeHtml(t.cgpa)}</span>
                   <span>•</span>
+                  <span>🎯 Entrance: ${t.entranceScore ? `<b style="color: #fbbf24;">${escapeHtml(t.entranceScore)}</b>` : 'N/A'}</span>
+                  <span>•</span>
                   <span>Level ${t.level || 0} (${assignedCount}/${cap} Students)</span>
                 </div>
               </div>
@@ -4929,6 +4968,7 @@ function rowsToJson(sheet) {
             <!-- Meta Badges Ribbon -->
             <div class="record-meta-ribbon">
               <span class="tag-badge" style="background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.35); font-weight: 850;">⭐ CGPA ${escapeHtml(t.cgpa)}</span>
+              ${t.entranceScore ? `<span class="tag-badge" style="background: rgba(245, 158, 11, 0.2); color: #fde047; border: 1.5px solid rgba(245, 158, 11, 0.5); font-weight: 900;">🎯 Entrance: ${escapeHtml(t.entranceScore)}/700</span>` : ''}
               ${getLevelBadgeHtml(t.level, t.cgpa)}
               <span class="tag-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35); font-weight: 800;">👥 Capacity: ${assignedCount}/${cap} Students</span>
               ${getLevelBadgeHtml(t.level, t.cgpa)}
@@ -4946,6 +4986,10 @@ function rowsToJson(sheet) {
               <div class="bento-item">
                 <span class="bento-label">📞 Direct Phone</span>
                 <div class="bento-value">${escapeHtml(t.phone)}</div>
+              </div>
+              <div class="bento-item">
+                <span class="bento-label">🎯 Entrance Score</span>
+                <div class="bento-value" style="color: #fbbf24; font-weight: 850;">${t.entranceScore ? `${escapeHtml(t.entranceScore)} / 700` : 'Not Specified'}</div>
               </div>
               <div class="bento-item">
                 <span class="bento-label">🎙️ Teaching Clarity</span>
@@ -7055,6 +7099,7 @@ function rowsToJson(sheet) {
                 uni: t['University / Campus'] || t['University & Campus'] || t.University || 'Nearby Campus',
                 year: t['Academic Year'] || t.Year || '2nd Year+',
                 cgpa: cgpaVal,
+                entranceScore: t['Entrance Score'] || t['Entrance Result'] || t.entranceScore || null,
                 metalTier: rank.includes('Golden') ? 'Golden' : (rank.includes('Silver') ? 'Silver' : 'Bronze'),
                 rankTitle: rank,
                 subj: t['Subjects Taught'] || t.Subjects || 'Academic Curriculum',
@@ -7112,6 +7157,7 @@ function rowsToJson(sheet) {
             University: t.uni || '',
             Year: t.year || '',
             CGPA: t.cgpa || '',
+            Entrance_Score: t.entranceScore || 'N/A',
             Metal_Tier: tier.name,
             Level_Rank: `Level ${lvl}`,
             Combined_Rank: t.rankTitle || `${tier.name} Level ${lvl}`,
