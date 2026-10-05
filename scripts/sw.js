@@ -1,9 +1,9 @@
 /**
  * Ethio 21 Technologies - Service Worker
- * Fast caching and offline-first resilience
+ * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v107';
+const CACHE_NAME = 'ethio21-v115-auto-sync';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -20,19 +20,23 @@ const ASSETS_TO_CACHE = [
 ];
 
 self.addEventListener('install', (event) => {
+  // Activate new SW version immediately without waiting for existing tabs to close
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(ASSETS_TO_CACHE);
-    }).then(() => self.skipWaiting())
+    })
   );
 });
 
 self.addEventListener('activate', (event) => {
+  // Purge all legacy caches so stale files are never served
   event.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
         keys.map((key) => {
           if (key !== CACHE_NAME) {
+            console.log('[SW] Purging outdated cache:', key);
             return caches.delete(key);
           }
         })
@@ -42,17 +46,52 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  const request = event.request;
+
+  // 1. Navigation requests (HTML files) - NETWORK-FIRST!
+  // Ensures all users and their shared links get the latest deployed version instantly!
+  if (request.mode === 'navigate' || (request.method === 'GET' && request.headers.get('accept')?.includes('text/html'))) {
+    event.respondWith(
+      fetch(request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const copy = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+          }
+          return networkResponse;
+        })
+        .catch(() => {
+          // If completely offline, fall back to cached version
+          return caches.match(request).then((cached) => {
+            return cached || caches.match('./teme-astegni.html') || caches.match('./index.html');
+          });
+        })
+    );
+    return;
+  }
+
+  // 2. Static Assets (CSS, JS, images, JSON) - STALE-WHILE-REVALIDATE
+  // Serve fast from cache, while updating the cache in the background for next view
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-      return fetch(event.request).catch(() => {
-        // Fallback to cache index for navigation
-        if (event.request.mode === 'navigate') {
-          return caches.match('./index.html');
+    caches.match(request).then((cachedResponse) => {
+      const fetchPromise = fetch(request).then((networkResponse) => {
+        if (networkResponse && networkResponse.status === 200) {
+          const copy = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
         }
+        return networkResponse;
+      }).catch(() => {
+        // Offline - ignore network error for non-critical assets
       });
+
+      return cachedResponse || fetchPromise;
     })
   );
+});
+
+// Allow client pages to trigger immediate update and takeover
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.action === 'skipWaiting') {
+    self.skipWaiting();
+  }
 });

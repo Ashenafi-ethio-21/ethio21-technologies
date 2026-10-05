@@ -7379,6 +7379,25 @@ function rowsToJson(sheet) {
         if (p1) p1.focus();
       }, 150);
     });
+
+    // PWA Service Worker for Admin with Auto-Update Check
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('scripts/sw.js')
+          .then(reg => {
+            try { reg.update(); } catch (e) {}
+          })
+          .catch(err => console.warn('SW register skipped', err));
+
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (!refreshing) {
+            refreshing = true;
+            window.location.reload();
+          }
+        });
+      });
+    }
   </script>
 </body>
 </html>
