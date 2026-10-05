@@ -3,7 +3,7 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v116-logo-restore';
+const CACHE_NAME = 'ethio21-v117-community-callcenter';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

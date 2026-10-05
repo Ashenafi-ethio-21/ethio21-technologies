@@ -1732,11 +1732,8 @@
           Coordinate student requests, arrange 1-day free in-home trials, and manage accredited university tutors across campuses.
         </p>
         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-          <a href="https://t.me/AstegniTutors" target="_blank" class="btn-act" style="background: rgba(2, 132, 199, 0.2); border-color: rgba(2, 132, 199, 0.4); color: #38bdf8;">
-            ✈️ @AstegniTutors
-          </a>
-          <a href="https://t.me/AstegniParents" target="_blank" class="btn-act" style="background: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.4); color: #34d399;">
-            ✈️ @AstegniParents
+          <a href="https://t.me/Teme_Astegni_community" target="_blank" class="btn-act" style="background: rgba(2, 132, 199, 0.2); border-color: rgba(2, 132, 199, 0.4); color: #38bdf8;">
+            ✈️ Ethio - 21 Teme Astegni (@Teme_Astegni_community)
           </a>
           <a href="https://t.me/+u0IdrknHN5A4ZGI0" target="_blank" class="btn-act" style="background: rgba(245, 158, 11, 0.2); border-color: rgba(245, 158, 11, 0.4); color: #fbbf24;">
             🔒 Private Matches Hub
@@ -1997,7 +1994,7 @@
         <div class="form-group">
           <label class="form-label">Telegram "Parents Payments" Group Chat ID / Link</label>
           <div style="display: flex; gap: 0.5rem;">
-            <input type="text" id="tg-payments-chat-input" class="form-ctrl" placeholder="e.g. @AstegniParentsPayments or Group ID" value="https://t.me/+1nwxhaCqN9M4Y2E0">
+            <input type="text" id="tg-payments-chat-input" class="form-ctrl" placeholder="e.g. @Teme_Astegni_community or Group ID" value="https://t.me/+1nwxhaCqN9M4Y2E0">
             <a href="https://t.me/+1nwxhaCqN9M4Y2E0" target="_blank" rel="noopener" class="btn-act" style="background: #0284c7; color: #fff; text-decoration: none; display: flex; align-items: center; white-space: nowrap; font-size: 0.8rem; font-weight: 800; padding: 0.5rem 0.85rem; border-radius: 10px;">
               ✈️ Open Group ↗
             </a>
@@ -2446,7 +2443,7 @@
       <div class="modal-actions">
         <button type="button" class="btn-modal-sec" onclick="closeModal('modal-id-inspect')">Close Inspector</button>
         <button type="button" class="btn-act owner-only-feature" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: rgba(16, 185, 129, 0.4);" onclick="confirmIdAuditInTelegram()">🛡️ Approve &amp; Log to Telegram Ops</button>
-        <a href="https://t.me/AstegniTutors" target="_blank" class="btn-modal-primary owner-only-feature" id="inspect-tg-vault-link" style="text-decoration: none; text-align: center;">✈️ Open in Tutors Hub ›</a>
+        <a href="https://t.me/Teme_Astegni_community" target="_blank" class="btn-modal-primary owner-only-feature" id="inspect-tg-vault-link" style="text-decoration: none; text-align: center;">✈️ Open in Community Hub ›</a>
       </div>
     </div>
   </div>
@@ -3638,7 +3635,7 @@ function rowsToJson(sheet) {
                       `🎙️ Exam / Interview: ${t.examStatus === 'passed' ? 'Passed / Verified' : 'Pending'}\n` +
                       `🆔 Govt / Campus ID: Verified in Local Vault\n` +
                       `━━━━━━━━━━━━━━━━━━━━\n` +
-                      `🔍 Search "${tTrackingId}" or "${tTgTag}" in Ethio - 21 Astegni Tutors (@AstegniTutors) to view full photo attachments.`;
+                      `🔍 Search "${tTrackingId}" or "${tTgTag}" in Ethio - 21 Teme Astegni (@Teme_Astegni_community) to view full photo attachments.`;
 
       const user = getSessionUser();
       if (!user || user.role !== 'owner') {
@@ -3647,9 +3644,9 @@ function rowsToJson(sheet) {
       }
 
       copyToClipboardUniversal(dossier);
-      const shareUrl = `https://t.me/share/url?url=${encodeURIComponent('https://t.me/AstegniTutors')}&text=${encodeURIComponent(dossier)}`;
+      const shareUrl = `https://t.me/share/url?url=${encodeURIComponent('https://t.me/Teme_Astegni_community')}&text=${encodeURIComponent(dossier)}`;
       window.open(shareUrl, '_blank');
-      showToast('✈️ Tutor dossier copied and opening @AstegniTutors!');
+      showToast('✈️ Tutor dossier copied and opening @Teme_Astegni_community!');
     }
 
     function forwardParentDossierToTelegram(phone) {
@@ -3679,12 +3676,12 @@ function rowsToJson(sheet) {
                       `📊 Status: ${p.status || 'Pending'}\n` +
                       `🆔 Household ID: Verified in Local Vault\n` +
                       `━━━━━━━━━━━━━━━━━━━━\n` +
-                      `🔍 Search "${pTrackingId}" or "${pTgTag}" in Ethio - 21 Astegni Parents (@AstegniParents) to track this family.`;
+                      `🔍 Search "${pTrackingId}" or "${pTgTag}" in Ethio - 21 Teme Astegni (@Teme_Astegni_community) to track this family.`;
 
       copyToClipboardUniversal(dossier);
-      const shareUrl = `https://t.me/share/url?url=${encodeURIComponent('https://t.me/AstegniParents')}&text=${encodeURIComponent(dossier)}`;
+      const shareUrl = `https://t.me/share/url?url=${encodeURIComponent('https://t.me/Teme_Astegni_community')}&text=${encodeURIComponent(dossier)}`;
       window.open(shareUrl, '_blank');
-      showToast('✈️ Parent lead dossier copied and opening @AstegniParents!');
+      showToast('✈️ Parent lead dossier copied and opening @Teme_Astegni_community!');
     }
 
     function forwardMatchDossierToTelegram(matchId) {
@@ -4654,7 +4651,7 @@ function rowsToJson(sheet) {
               <span class="tag-badge" style="background: rgba(148, 163, 184, 0.15); color: #e2e8f0; border: 1px solid rgba(148, 163, 184, 0.3);">🎒 ${escapeHtml(p.grade)}</span>
               <span class="tag-badge tag-active">🛡️ ${escapeHtml(p.idType || 'National Fayda / Kebele')} Verified</span>
               ${isOwner 
-                ? `<a href="https://t.me/AstegniParents" target="_blank" class="tag-badge" style="text-decoration:none; background: rgba(36, 161, 222, 0.15); color: #24a1de; border: 1px solid rgba(36, 161, 222, 0.35);" title="Search ${escapeHtml(pTgTag)} in @AstegniParents">✈️ ${escapeHtml(pTgTag)}</a>`
+                ? `<a href="https://t.me/Teme_Astegni_community" target="_blank" class="tag-badge" style="text-decoration:none; background: rgba(36, 161, 222, 0.15); color: #24a1de; border: 1px solid rgba(36, 161, 222, 0.35);" title="Search ${escapeHtml(pTgTag)} in @Teme_Astegni_community">✈️ ${escapeHtml(pTgTag)}</a>`
                 : `<span class="tag-badge" style="background: rgba(36, 161, 222, 0.15); color: #24a1de; border: 1px solid rgba(36, 161, 222, 0.35);">🏷️ ${escapeHtml(pTgTag)}</span>`}
               ${isAssigned ? `<span class="tag-badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4);">🤝 Active Tutor Linked</span>` : ''}
             </div>
@@ -5003,7 +5000,7 @@ function rowsToJson(sheet) {
                 <span class="bento-label">✈️ Telegram Tag</span>
                 <div class="bento-value">
                   ${isOwner 
-                    ? `<a href="https://t.me/AstegniTutors" target="_blank" style="color: #24a1de; text-decoration: none; font-weight: 750;" title="Search ${escapeHtml(tTgTag)} in @AstegniTutors">${escapeHtml(tTgTag)}</a>`
+                    ? `<a href="https://t.me/Teme_Astegni_community" target="_blank" style="color: #24a1de; text-decoration: none; font-weight: 750;" title="Search ${escapeHtml(tTgTag)} in @Teme_Astegni_community">${escapeHtml(tTgTag)}</a>`
                     : `<span style="color: #38bdf8; font-weight: 750;">${escapeHtml(tTgTag)}</span>`}
                 </div>
               </div>
@@ -6991,7 +6988,7 @@ function rowsToJson(sheet) {
     // DISPATCH ADMIN ACTION LOG TO TELEGRAM OPS (TRACING UNIQUE ID)
     async function dispatchTelegramOpsLog(htmlMessage) {
       const defaultToken = '8808218998:AAF-xCF8eYt2S0J58G1i4XKcvO1qdJ5puTU';
-      const defaultChatId = '@AstegniTutors';
+      const defaultChatId = '@Teme_Astegni_community';
       const token = localStorage.getItem('teme_astegni_tg_bot_token') || 
                     (document.getElementById('tg-bot-token-input') ? document.getElementById('tg-bot-token-input').value.trim() : '') ||
                     defaultToken;
@@ -7337,7 +7334,7 @@ function rowsToJson(sheet) {
       }
 
       const defaultTgToken = '8808218998:AAF-xCF8eYt2S0J58G1i4XKcvO1qdJ5puTU';
-      const defaultTgChat = '@AstegniTutors';
+      const defaultTgChat = '@Teme_Astegni_community';
       const savedTgToken = localStorage.getItem('teme_astegni_tg_bot_token') || defaultTgToken;
       if (document.getElementById('tg-bot-token-input')) {
         document.getElementById('tg-bot-token-input').value = savedTgToken;
