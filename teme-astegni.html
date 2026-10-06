@@ -6907,6 +6907,7 @@
           const formData = new FormData();
           formData.append('chat_id', primaryChat);
           formData.append('caption', (caption || '').substring(0, 1024));
+          formData.append('parse_mode', 'HTML');
           formData.append('photo', blob, 'doc_verification.jpg');
           const res = await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
             method: 'POST',
@@ -6920,6 +6921,7 @@
               const fbForm = new FormData();
               fbForm.append('chat_id', fallbackChat);
               fbForm.append('caption', `⚠️ [Auto-Rerouted from ${primaryChat}]\n` + (caption || '').substring(0, 950));
+              fbForm.append('parse_mode', 'HTML');
               fbForm.append('photo', blob, 'doc_verification.jpg');
               await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
                 method: 'POST',
@@ -6948,7 +6950,8 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               chat_id: primaryChat,
-              text: text
+              text: text,
+              parse_mode: 'HTML'
             })
           });
           const data = await res.json().catch(() => null);
@@ -6961,7 +6964,8 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                   chat_id: fallbackChat,
-                  text: `⚠️ [Auto-Rerouted from ${primaryChat}]\n` + text
+                  text: `⚠️ [Auto-Rerouted from ${primaryChat}]\n` + text,
+                  parse_mode: 'HTML'
                 })
               });
             }
@@ -7654,8 +7658,8 @@
       const pIdType = document.getElementById('p_id_type')?.value || 'National Fayda ID';
 
       // Validate Front & Back ID photos (Front is mandatory, Back is optional)
-      const frontFile = document.getElementById('p_id_front_file')?.files[0];
-      const backFile = document.getElementById('p_id_back_file')?.files[0];
+      const frontFile = document.getElementById('p_id_front_file')?.files[0] || document.getElementById('p_id_front_cam')?.files[0];
+      const backFile = document.getElementById('p_id_back_file')?.files[0] || document.getElementById('p_id_back_cam')?.files[0];
       if (!frontFile) {
         const msg = (currentLang === 'am')
           ? 'እባክዎ የመታወቂያዎን ፎቶ ያያይዙ (የፊት ገጽ ለአስጠኚዎች ደህንነት ግዴታ ነው)።'
@@ -7972,7 +7976,7 @@
       }
 
       // Campus Student ID Front & Back
-      const campusFile = document.getElementById('t_campus_id_file')?.files[0];
+      const campusFile = document.getElementById('t_campus_id_file')?.files[0] || document.getElementById('t_campus_id_cam')?.files[0];
       if (!campusFile) {
         const msg = (currentLang === 'am')
           ? 'እባክዎ የካምፓስ ተማሪ መታወቂያዎን የፊት ገጽ ፎቶ ያያይዙ (ግዴታ ነው)።'
@@ -7981,7 +7985,7 @@
         return;
       }
 
-      const campusBackFile = document.getElementById('t_campus_id_back_file')?.files[0];
+      const campusBackFile = document.getElementById('t_campus_id_back_file')?.files[0] || document.getElementById('t_campus_id_back_cam')?.files[0];
       // Note: campusBackFile is optional for single-sided student ID cards
 
       // File size and integrity sanity guard
@@ -7994,7 +7998,7 @@
       }
 
       // Grade Report
-      const gradeFile = document.getElementById('t_grade_file')?.files[0];
+      const gradeFile = document.getElementById('t_grade_file')?.files[0] || document.getElementById('t_grade_cam')?.files[0];
       if (!gradeFile) {
         const msg = (currentLang === 'am')
           ? 'እባክዎ የውጤት ሪፖርትዎን ወይም የፖርታል ስክሪንሾት ያያይዙ (ግዴታ ነው)።'
@@ -8013,8 +8017,8 @@
 
       // Government ID Front & Back
       const govtType = document.getElementById('t_govt_id_type')?.value || 'National Fayda ID';
-      const govtFrontFile = document.getElementById('t_govt_front_file')?.files[0];
-      const govtBackFile = document.getElementById('t_govt_back_file')?.files[0];
+      const govtFrontFile = document.getElementById('t_govt_front_file')?.files[0] || document.getElementById('t_govt_front_cam')?.files[0];
+      const govtBackFile = document.getElementById('t_govt_back_file')?.files[0] || document.getElementById('t_govt_back_cam')?.files[0];
 
       if (!govtFrontFile || !govtBackFile) {
         const msg = (currentLang === 'am') 

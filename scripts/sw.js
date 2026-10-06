@@ -3,7 +3,7 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v121-camera-capture-receipt-compression';
+const CACHE_NAME = 'ethio21-v122-telegram-dispatch-integrity';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
