@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teme-Astegni | Practical Master Architecture & Operational Workflow</title>
+  <title>Teme-Astegni | Comprehensive Master Architecture & Operational Blueprint</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Cinzel:wght@600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #050811;
-      --bg-surface: #0c1222;
-      --bg-elevated: #131b31;
+      --bg: #040711;
+      --bg-surface: #0a1020;
+      --bg-card: rgba(14, 23, 46, 0.75);
+      --bg-elevated: #111a33;
       --border: rgba(255, 255, 255, 0.08);
       --border-strong: rgba(255, 255, 255, 0.16);
       
       --gold: #d4af37;
-      --gold-light: #f3e5ab;
-      --gold-glow: rgba(212, 175, 55, 0.25);
+      --gold-light: #f5e7b2;
+      --gold-glow: rgba(212, 175, 55, 0.28);
       
       --cyan: #38bdf8;
       --cyan-glow: rgba(56, 189, 248, 0.25);
@@ -28,6 +29,7 @@
       --rose: #f43f5e;
       --amber: #f59e0b;
       --indigo: #6366f1;
+      --purple: #a855f7;
       
       --text: #f8fafc;
       --text-muted: #94a3b8;
@@ -47,8 +49,8 @@
     body {
       background-color: var(--bg);
       background-image: 
-        radial-gradient(circle at 10% 15%, rgba(212, 175, 55, 0.06) 0%, transparent 45%),
-        radial-gradient(circle at 90% 80%, rgba(56, 189, 248, 0.06) 0%, transparent 45%),
+        radial-gradient(circle at 10% 12%, rgba(212, 175, 55, 0.07) 0%, transparent 45%),
+        radial-gradient(circle at 90% 85%, rgba(56, 189, 248, 0.07) 0%, transparent 45%),
         radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.04) 0%, transparent 60%);
       color: var(--text);
       font-family: var(--font-main);
@@ -58,25 +60,25 @@
     }
 
     .wrapper {
-      max-width: 1280px;
+      max-width: 1340px;
       margin: 0 auto;
     }
 
     /* EXECUTIVE HEADER */
     .hero-header {
       text-align: center;
-      margin-bottom: 4rem;
+      margin-bottom: 3.5rem;
       position: relative;
-      padding: 2rem 1rem;
+      padding: 2.5rem 1rem 1rem;
     }
 
     .regal-tag {
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(212, 175, 55, 0.04));
-      border: 1px solid rgba(212, 175, 55, 0.35);
-      padding: 0.4rem 1.25rem;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.04));
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      padding: 0.45rem 1.35rem;
       border-radius: 999px;
       font-size: 0.78rem;
       font-weight: 700;
@@ -93,52 +95,102 @@
       border-radius: 50%;
       background: var(--gold);
       box-shadow: 0 0 10px var(--gold);
+      animation: pulseGold 2s infinite;
+    }
+
+    @keyframes pulseGold {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
     }
 
     .hero-title {
       font-family: var(--font-classic);
       font-size: clamp(2.2rem, 5vw, 3.8rem);
-      font-weight: 800;
-      letter-spacing: 0.02em;
-      background: linear-gradient(135deg, #ffffff 40%, #f3e5ab 75%, #d4af37 100%);
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      background: linear-gradient(135deg, #ffffff 40%, #f5e7b2 75%, #d4af37 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 1rem;
-      line-height: 1.2;
+      margin-bottom: 1.1rem;
+      line-height: 1.15;
     }
 
     .hero-subtitle {
       font-size: 1.15rem;
       color: var(--text-muted);
-      max-width: 840px;
-      margin: 0 auto;
+      max-width: 880px;
+      margin: 0 auto 1.5rem;
       font-weight: 400;
       line-height: 1.7;
+    }
+
+    /* TOP STATS STRIP */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .stat-pill {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      backdrop-filter: blur(12px);
+      border-left: 3.5px solid var(--gold);
+    }
+
+    .stat-pill.cyan { border-left-color: var(--cyan); }
+    .stat-pill.green { border-left-color: var(--emerald); }
+    .stat-pill.purple { border-left-color: var(--purple); }
+
+    .stat-pill .lbl {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-pill .val {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #fff;
+      font-family: var(--font-mono);
+    }
+
+    .stat-pill .sub {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
     }
 
     /* NAVIGATION TABS */
     .tab-bar {
       display: flex;
       justify-content: center;
-      gap: 0.75rem;
-      margin-bottom: 3.5rem;
+      gap: 0.6rem;
+      margin-bottom: 3rem;
       flex-wrap: wrap;
-      background: rgba(12, 18, 34, 0.8);
+      background: rgba(10, 16, 32, 0.85);
       padding: 0.5rem;
       border-radius: 16px;
       border: 1px solid var(--border);
-      max-width: 960px;
-      margin-left: auto;
-      margin-right: auto;
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 1rem;
+      z-index: 100;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
     }
 
     .tab-btn {
       background: transparent;
       border: none;
       color: var(--text-muted);
-      padding: 0.65rem 1.25rem;
-      font-size: 0.88rem;
+      padding: 0.65rem 1.15rem;
+      font-size: 0.86rem;
       font-weight: 700;
       border-radius: 10px;
       cursor: pointer;
@@ -155,12 +207,12 @@
     }
 
     .tab-btn.active {
-      color: #050811;
+      color: #040711;
       background: linear-gradient(135deg, var(--gold-light), var(--gold));
       box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
     }
 
-    /* CONTENT SECTIONS */
+    /* TAB CONTENT PANELS */
     .tab-content {
       display: none;
     }
@@ -175,13 +227,13 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* CARD COMPONENTS */
+    /* CARDS */
     .card {
-      background: var(--bg-surface);
+      background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 2rem;
-      margin-bottom: 2rem;
+      border-radius: 20px;
+      padding: 2.25rem;
+      margin-bottom: 2.5rem;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(14px);
     }
@@ -192,7 +244,7 @@
       justify-content: space-between;
       margin-bottom: 1.5rem;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 1rem;
+      padding-bottom: 1.1rem;
       flex-wrap: wrap;
       gap: 0.75rem;
     }
@@ -204,6 +256,7 @@
       display: flex;
       align-items: center;
       gap: 0.65rem;
+      letter-spacing: -0.01em;
     }
 
     .card-title svg {
@@ -212,26 +265,39 @@
       stroke: var(--gold);
     }
 
-    /* 4-TIER ARCHITECTURE GRID */
-    .arch-grid {
+    /* ARCHITECTURE DEEP-DIVE */
+    .arch-diagram {
+      background: rgba(2, 6, 23, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 14px;
+      padding: 1.75rem;
+      margin: 1.5rem 0 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      line-height: 1.7;
+      overflow-x: auto;
+    }
+
+    .tier-cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
       gap: 1.5rem;
       margin-top: 1.5rem;
     }
 
-    .arch-box {
+    .tier-box {
       background: var(--bg-elevated);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 16px;
       padding: 1.75rem;
-      position: relative;
-      overflow: hidden;
       display: flex;
       flex-direction: column;
+      position: relative;
+      overflow: hidden;
     }
 
-    .arch-box::before {
+    .tier-box::before {
       content: '';
       position: absolute;
       top: 0;
@@ -240,49 +306,86 @@
       height: 4px;
     }
 
-    .arch-box.tier-edge::before { background: var(--cyan); }
-    .arch-box.tier-hot::before { background: var(--amber); }
-    .arch-box.tier-media::before { background: var(--indigo); }
-    .arch-box.tier-cold::before { background: var(--emerald); }
+    .tier-box.t1::before { background: var(--cyan); }
+    .tier-box.t2::before { background: var(--amber); }
+    .tier-box.t3::before { background: var(--indigo); }
+    .tier-box.t4::before { background: var(--emerald); }
 
-    .arch-box-title {
-      font-size: 1.15rem;
+    .tier-box-badge {
+      display: inline-block;
+      align-self: flex-start;
+      font-size: 0.7rem;
       font-weight: 800;
-      color: #fff;
-      margin-bottom: 0.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      margin-bottom: 0.85rem;
+      font-family: var(--font-mono);
     }
 
-    .arch-box-role {
-      font-size: 0.8rem;
+    .t1 .tier-box-badge { background: rgba(56, 189, 248, 0.15); color: var(--cyan); }
+    .t2 .tier-box-badge { background: rgba(245, 158, 11, 0.15); color: var(--amber); }
+    .t3 .tier-box-badge { background: rgba(99, 102, 241, 0.15); color: var(--indigo); }
+    .t4 .tier-box-badge { background: rgba(16, 185, 129, 0.15); color: var(--emerald); }
+
+    .tier-box-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+
+    .tier-box-desc {
+      font-size: 0.85rem;
       color: var(--text-muted);
       margin-bottom: 1.25rem;
       line-height: 1.5;
     }
 
-    .arch-meta-list {
-      list-style: none;
+    .tier-spec-table {
+      width: 100%;
       margin-top: auto;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 0.85rem;
       font-size: 0.82rem;
     }
 
-    .arch-meta-row {
+    .tier-spec-row {
       display: flex;
       justify-content: space-between;
       padding: 0.35rem 0;
       color: var(--text-muted);
     }
 
-    .arch-meta-row strong {
+    .tier-spec-row strong {
       color: #fff;
       font-family: var(--font-mono);
     }
 
-    /* WORK DIVISION MATRIX */
+    /* CODE SNIPPET BOX */
+    .code-preview {
+      background: #020617;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #e2e8f0;
+      overflow-x: auto;
+      margin: 1.25rem 0;
+      line-height: 1.6;
+    }
+
+    .code-comment { color: #64748b; }
+    .code-keyword { color: #f43f5e; font-weight: 600; }
+    .code-func { color: #38bdf8; font-weight: 600; }
+    .code-str { color: #34d399; }
+
+    /* WORK DIVISION TILES */
     .division-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
       gap: 1.5rem;
       margin-top: 1.5rem;
     }
@@ -290,7 +393,7 @@
     .role-card {
       background: var(--bg-elevated);
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 18px;
       padding: 1.75rem;
       position: relative;
     }
@@ -313,10 +416,10 @@
     .badge-parent { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.35); }
 
     .role-title {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       font-weight: 800;
       color: #fff;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
     }
 
     .role-desc {
@@ -329,7 +432,7 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 0.65rem;
+      gap: 0.75rem;
       font-size: 0.84rem;
     }
 
@@ -346,144 +449,259 @@
       line-height: 1.4;
     }
 
-    /* WORKFLOW TIMELINE */
-    .timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      margin-top: 1.5rem;
-      position: relative;
+    /* METAL TIERS & 5-LEVEL ENGINE */
+    .tier-rank-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin: 1.5rem 0 2.5rem;
     }
 
-    .timeline-step {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 1.5rem;
-      background: var(--bg-elevated);
+    .rank-card {
+      background: rgba(2, 6, 23, 0.7);
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 1.5rem;
-      align-items: center;
+      position: relative;
     }
 
-    @media (max-width: 640px) {
-      .timeline-step { grid-template-columns: 1fr; gap: 0.75rem; }
-    }
+    .rank-card.golden { border-top: 4px solid #fbbf24; }
+    .rank-card.diamond { border-top: 4px solid #38bdf8; }
+    .rank-card.silver { border-top: 4px solid #94a3b8; }
+    .rank-card.bronze { border-top: 4px solid #b45309; }
 
-    .step-badge-col {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .step-num {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: rgba(212, 175, 55, 0.12);
-      border: 1.5px solid var(--gold);
-      color: var(--gold-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      font-weight: 800;
+    .rank-badge {
+      font-size: 0.72rem;
       font-family: var(--font-mono);
-      box-shadow: 0 0 15px var(--gold-glow);
+      font-weight: 800;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 0.75rem;
     }
 
-    .step-content h4 {
-      font-size: 1.1rem;
+    .golden .rank-badge { background: rgba(251, 191, 36, 0.15); color: #fbbf24; }
+    .diamond .rank-badge { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
+    .silver .rank-badge { background: rgba(148, 163, 184, 0.15); color: #cbd5e1; }
+    .bronze .rank-badge { background: rgba(180, 83, 9, 0.15); color: #d97706; }
+
+    .rank-title {
+      font-size: 1.15rem;
       font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+
+    .rank-spec {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* 5-LEVEL CAPACITY LADDER */
+    .level-ladder {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .ladder-step {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .ladder-lvl {
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--gold-light);
+      margin-bottom: 0.25rem;
+    }
+
+    .ladder-cap {
+      font-size: 0.85rem;
+      font-weight: 700;
       color: #fff;
       margin-bottom: 0.35rem;
     }
 
-    .step-content p {
-      font-size: 0.86rem;
+    .ladder-desc {
+      font-size: 0.78rem;
       color: var(--text-muted);
-      line-height: 1.6;
     }
 
-    .step-pills {
-      display: flex;
-      gap: 0.5rem;
-      margin-top: 0.75rem;
-      flex-wrap: wrap;
+    /* FINANCIAL CALCULATOR */
+    .calc-container {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(4, 7, 17, 0.98));
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 20px;
+      padding: 2.25rem;
+      margin-top: 1.5rem;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
     }
 
-    .step-pill {
-      font-size: 0.72rem;
-      font-family: var(--font-mono);
-      padding: 0.2rem 0.6rem;
-      border-radius: 5px;
-      font-weight: 700;
-    }
-
-    .pill-blue { background: rgba(56, 189, 248, 0.15); color: var(--cyan); }
-    .pill-green { background: rgba(16, 185, 129, 0.15); color: var(--emerald); }
-    .pill-amber { background: rgba(245, 158, 11, 0.15); color: var(--amber); }
-
-    /* RENEWAL VS CANCELLATION LOGIC BOX */
-    .contract-logic-grid {
+    .calc-inputs-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
+      gap: 2.5rem;
       margin-top: 1.5rem;
     }
 
-    @media (max-width: 768px) {
-      .contract-logic-grid { grid-template-columns: 1fr; }
+    @media (max-width: 820px) {
+      .calc-inputs-grid { grid-template-columns: 1fr; }
     }
 
-    .logic-box {
-      border-radius: 14px;
-      padding: 1.5rem;
-      background: rgba(2, 6, 23, 0.7);
-      border: 1px solid var(--border);
+    .calc-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 0.6rem;
     }
 
-    .logic-box.renew {
-      border-left: 4px solid var(--emerald);
-    }
-
-    .logic-box.close {
-      border-left: 4px solid var(--rose);
-    }
-
-    .logic-box h4 {
-      font-size: 1.05rem;
-      font-weight: 800;
-      margin-bottom: 0.75rem;
+    .calc-slider-box {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 1rem;
     }
 
-    .logic-box.renew h4 { color: #34d399; }
-    .logic-box.close h4 { color: #fb7185; }
-
-    .logic-box p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 0.75rem;
-      line-height: 1.55;
+    .calc-slider {
+      flex: 1;
+      height: 8px;
+      border-radius: 4px;
+      background: #1e293b;
+      outline: none;
+      -webkit-appearance: none;
+      cursor: pointer;
     }
 
-    .logic-box ol {
-      padding-left: 1.25rem;
-      font-size: 0.82rem;
-      color: #cbd5e1;
+    .calc-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--gold);
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+    }
+
+    .calc-val-display {
+      font-family: var(--font-mono);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--gold-light);
+      min-width: 90px;
+      text-align: right;
+    }
+
+    .calc-results-box {
+      background: rgba(2, 6, 23, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 1.75rem;
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
+      gap: 1.1rem;
+      justify-content: center;
+    }
+
+    .calc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .calc-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .calc-row .lbl {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .calc-row .res {
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    .calc-row .res.gold { color: var(--gold-light); }
+    .calc-row .res.green { color: #34d399; }
+    .calc-row .res.cyan { color: var(--cyan); }
+
+    /* SOP INTERACTIVE ACCORDION */
+    .sop-item {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    .sop-header {
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .sop-header:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .sop-header h4 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .sop-body {
+      padding: 0 1.5rem 1.5rem;
+      display: none;
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 1.25rem;
+    }
+
+    .sop-item.open .sop-body {
+      display: block;
+    }
+
+    .sop-item.open .sop-arrow {
+      transform: rotate(180deg);
+    }
+
+    .script-box {
+      background: #020617;
+      border-left: 3px solid var(--gold);
+      padding: 1rem 1.25rem;
+      border-radius: 0 8px 8px 0;
+      margin: 0.85rem 0;
+      font-size: 0.85rem;
+      color: #f1f5f9;
+      line-height: 1.6;
     }
 
     /* FOOTER */
     .master-footer {
       text-align: center;
-      margin-top: 4.5rem;
+      margin-top: 5rem;
       padding-top: 2.5rem;
       border-top: 1px solid var(--border);
       color: var(--text-dim);
@@ -521,7 +739,7 @@
 
     .btn-gold {
       background: linear-gradient(135deg, var(--gold-light), var(--gold));
-      color: #050811;
+      color: #040711;
       border: none;
       box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
     }
@@ -536,112 +754,213 @@
 
   <div class="wrapper">
     
-    <!-- HEADER -->
+    <!-- EXECUTIVE HERO -->
     <header class="hero-header">
       <div class="regal-tag">
         <span class="regal-dot"></span>
         Executive Master Operating System &bull; Ethio 21 Technologies
       </div>
-      <h1 class="hero-title">TEME-ASTEGNI</h1>
+      <h1 class="hero-title">TEME-ASTEGNI MASTER BLUEPRINT</h1>
       <p class="hero-subtitle">
-        The Complete Practical Operating Architecture, Work Division, and Workflow Lifecycle Engine for National Tutoring Operations Across Ethiopia.
+        The Complete Practical Software Architecture, Organizational Work Division, Matchmaking Lifecycle, and Month-to-Month Contract Management Engine for National Tutoring Operations Across Ethiopia.
       </p>
     </header>
 
-    <!-- NAVIGATION TABS -->
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab('tab-arch', this)">🏛️ Software Architecture</button>
-      <button class="tab-btn" onclick="switchTab('tab-division', this)">👥 Work Division &amp; Roles</button>
-      <button class="tab-btn" onclick="switchTab('tab-workflow', this)">🔄 Workflow &amp; Match Lifecycle</button>
-      <button class="tab-btn" onclick="switchTab('tab-monthly', this)">📅 Month-to-Month Management</button>
-      <button class="tab-btn" onclick="switchTab('tab-sop', this)">📋 Coordinator SOP &amp; Rules</button>
+    <!-- KEY SYSTEM METRICS -->
+    <div class="stats-strip">
+      <div class="stat-pill">
+        <div class="lbl">Cloud Architecture Cost</div>
+        <div class="val">$0.00 / Mo</div>
+        <div class="sub">Hard-Capped Free Spark Plan</div>
+      </div>
+      <div class="stat-pill cyan">
+        <div class="lbl">Daily Read/Write Quota</div>
+        <div class="val">50,000 / Day</div>
+        <div class="sub">Resets Automatically at 00:00 UTC</div>
+      </div>
+      <div class="stat-pill green">
+        <div class="lbl">Google Sheet Policy</div>
+        <div class="val">Matches Only</div>
+        <div class="sub">Zero Lead Clutter &bull; Pure Revenue</div>
+      </div>
+      <div class="stat-pill purple">
+        <div class="lbl">Media Cloud Storage</div>
+        <div class="val">Unlimited</div>
+        <div class="sub">Telegram Supergroup Media Vault</div>
+      </div>
     </div>
 
-    <!-- TAB 1: SOFTWARE ARCHITECTURE -->
-    <div id="tab-arch" class="tab-content active">
+    <!-- NAVIGATION TABS -->
+    <nav class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('tab-arch', this)">🏛️ 1. Software Architecture</button>
+      <button class="tab-btn" onclick="switchTab('tab-division', this)">👥 2. Work Division &amp; Roles</button>
+      <button class="tab-btn" onclick="switchTab('tab-engine', this)">⭐ 3. Metal Tiers &amp; 5-Level Engine</button>
+      <button class="tab-btn" onclick="switchTab('tab-finance', this)">💰 4. Financial &amp; Commission Model</button>
+      <button class="tab-btn" onclick="switchTab('tab-monthly', this)">📅 5. Month-to-Month Management</button>
+      <button class="tab-btn" onclick="switchTab('tab-playbook', this)">📋 6. Coordinator SOP &amp; Scripts</button>
+    </nav>
+
+    <!-- ========================================== -->
+    <!-- TAB 1: SOFTWARE ARCHITECTURE DEEP-DIVE     -->
+    <!-- ========================================== -->
+    <section id="tab-arch" class="tab-content active">
       <div class="card">
         <div class="card-header">
           <div class="card-title">
             <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-            Multi-Tier Zero-Cost Architecture ($0.00 / Month)
+            Multi-Tier Zero-Cost Architecture &amp; Data Schemas
           </div>
-          <span style="font-size: 0.8rem; font-family: var(--font-mono); color: #34d399; background: rgba(16, 185, 129, 0.12); padding: 0.3rem 0.75rem; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.3);">
-            ✓ 100% Free Spark Tier &bull; Zero Billing Risk
+          <span style="font-size: 0.8rem; font-family: var(--font-mono); color: #34d399; background: rgba(16, 185, 129, 0.12); padding: 0.35rem 0.85rem; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.3);">
+            Production Spark Tier &bull; Zero Billing Risk
           </span>
         </div>
 
         <p style="color: var(--text-muted); font-size: 0.95rem;">
-          Teme-Astegni eliminates traditional expensive cloud server costs ($150&ndash;$500/mo) through an intelligent 4-tier separation of concerns:
+          Traditional EdTech applications cost between <strong>$150 and $500 per month</strong> in cloud hosting, database bandwidth, and AWS S3 image storage. Teme-Astegni operates with <strong>$0.00 monthly cost</strong> and <strong>infinite scalability</strong> by splitting data responsibilities into 4 specialized tiers:
         </p>
 
-        <div class="arch-grid">
+        <!-- VISUAL DIAGRAM -->
+        <div class="arch-diagram">
++---------------------------------------------------------------------------------------------------------+
+|                                    TEME-ASTEGNI DATA PIPELINE ARCHITECTURE                              |
++---------------------------------------------------------------------------------------------------------+
+                                                     |
+                     [ 1. PARENT / TUTOR REGISTERS ON TEME-ASTEGNI.HTML ]
+                                                     |
+                    +--------------------------------+--------------------------------+
+                    |                                                                 |
+                    v (High-Res Photos: ID, Degree)                                    v (Metadata: Name, Phone, Grade)
+    +--------------------------------+                               +--------------------------------+
+    |   TIER 3: TELEGRAM MEDIA VAULT  |                               |   TIER 2: FIRESTORE HOT DESK   |
+    |   • Parents: -1003632707084    |                               |   • Collection: astegni_...    |
+    |   • Tutors:  -1003847953259    |                               |   • Size: ~0.8 KB - 1.2 KB     |
+    |   • Storage: UNLIMITED & FREE  |                               |   • Zero-Base64 Sanitized      |
+    +--------------------------------+                               +--------------------------------+
+                    |                                                                 |
+                    |                         [ 2. ADMIN REVIEWS & PAIRS ]            |
+                    |                                                                 |
+                    +--------------------------------+--------------------------------+
+                                                     |
+                                                     v (Match Formed: Parent + Tutor + Fee)
+                                     +--------------------------------+
+                                     |   TIER 4: GOOGLE SHEET LEDGER  |
+                                     |   • Matches_Ledger ONLY        |
+                                     |   • Permanent Business Record  |
+                                     |   • Revenue & Commission Stats |
+                                     +--------------------------------+
+                                                     |
+                                                     v (Lead Completed)
+                                     +--------------------------------+
+                                     |    PRUNE FROM FIRESTORE HOT    |
+                                     |    DESK VIA 'VAULT & FREE'     |
+                                     |    (Storage stays < 0.5%)      |
+                                     +--------------------------------+
+        </div>
+
+        <div class="tier-cards-grid">
           <!-- TIER 1 -->
-          <div class="arch-box tier-edge">
-            <div class="arch-box-title">Tier 1: Client Edge (PWA)</div>
-            <div class="arch-box-role">
-              Hosted on GitHub Pages CDN. Zero server costs. Pre-caches portal pages with offline Service Worker resilience.
+          <div class="tier-box t1">
+            <span class="tier-box-badge">Tier 1 &bull; Edge Client</span>
+            <div class="tier-box-title">Client PWA &amp; Service Worker</div>
+            <div class="tier-box-desc">
+              Hosted on GitHub Pages CDN with unlimited free bandwidth. Assets (HTML, CSS, JS) are pre-cached locally in the browser via Service Worker <code>v129</code>.
             </div>
-            <ul class="arch-meta-list">
-              <li class="arch-meta-row"><span>Bandwidth Cost:</span> <strong>$0.00 (Unlimited)</strong></li>
-              <li class="arch-meta-row"><span>Cache Engine:</span> <strong>sw.js v128</strong></li>
-              <li class="arch-meta-row"><span>Deployment:</span> <strong>Instant Git Sync</strong></li>
-            </ul>
+            <div class="tier-spec-table">
+              <div class="tier-spec-row"><span>Bandwidth Cost:</span> <strong>$0.00 (Unlimited)</strong></div>
+              <div class="tier-spec-row"><span>Cache Engine:</span> <strong>scripts/sw.js</strong></div>
+              <div class="tier-spec-row"><span>Offline First:</span> <strong>Instant Page Render</strong></div>
+            </div>
           </div>
 
           <!-- TIER 2 -->
-          <div class="arch-box tier-hot">
-            <div class="arch-box-title">Tier 2: Firestore Hot Desk</div>
-            <div class="arch-box-role">
-              Active working pipeline. Stores only pending leads awaiting matchmaking and active monthly contracts.
+          <div class="tier-box t2">
+            <span class="tier-box-badge">Tier 2 &bull; Hot Desk</span>
+            <div class="tier-box-title">Cloud Firestore Hot Desk</div>
+            <div class="tier-box-desc">
+              Stores only active, pending registrations awaiting admin pairing and ongoing active monthly contracts. Kept ultra-light via the strict Zero-Base64 sanitizer.
             </div>
-            <ul class="arch-meta-list">
-              <li class="arch-meta-row"><span>Free Limit:</span> <strong>1,000 MB (1 GB)</strong></li>
-              <li class="arch-meta-row"><span>Daily Reset:</span> <strong>50K Reads / 20K Writes</strong></li>
-              <li class="arch-meta-row"><span>Sanitizer:</span> <strong>Strict Zero-Base64</strong></li>
-            </ul>
+            <div class="tier-spec-table">
+              <div class="tier-spec-row"><span>Free Limit:</span> <strong>1,000 MB (1.0 GB)</strong></div>
+              <div class="tier-spec-row"><span>Daily Reads:</span> <strong>50,000 reads/day</strong></div>
+              <div class="tier-spec-row"><span>Daily Writes:</span> <strong>20,000 writes/day</strong></div>
+              <div class="tier-spec-row"><span>Reset Time:</span> <strong>Every 24h at 00:00 UTC</strong></div>
+            </div>
           </div>
 
           <!-- TIER 3 -->
-          <div class="arch-box tier-media">
-            <div class="arch-box-title">Tier 3: Telegram Media Vault</div>
-            <div class="arch-box-role">
-              Permanent home for high-resolution photo IDs, Kebele cards, and diplomas. Never touches database limits.
+          <div class="tier-box t3">
+            <span class="tier-box-badge">Tier 3 &bull; Media Vault</span>
+            <div class="tier-box-title">Telegram Supergroup Vault</div>
+            <div class="tier-box-desc">
+              Receives high-resolution student IDs, Kebele cards, university degrees, and grade slips via Bot API. Telegram provides 100% free, permanent cloud hosting for media.
             </div>
-            <ul class="arch-meta-list">
-              <li class="arch-meta-row"><span>Storage Limit:</span> <strong>100% Unlimited</strong></li>
-              <li class="arch-meta-row"><span>Parents Group:</span> <strong>-1003632707084</strong></li>
-              <li class="arch-meta-row"><span>Tutors Group:</span> <strong>-1003847953259</strong></li>
-            </ul>
+            <div class="tier-spec-table">
+              <div class="tier-spec-row"><span>Parents Channel:</span> <strong>-1003632707084</strong></div>
+              <div class="tier-spec-row"><span>Tutors Channel:</span> <strong>-1003847953259</strong></div>
+              <div class="tier-spec-row"><span>Audit Channel:</span> <strong>-1003882772592</strong></div>
+              <div class="tier-spec-row"><span>Media Storage:</span> <strong>100% Unlimited</strong></div>
+            </div>
           </div>
 
           <!-- TIER 4 -->
-          <div class="arch-box tier-cold">
-            <div class="arch-box-title">Tier 4: Google Sheets Ledger</div>
-            <div class="arch-box-role">
-              Executive business repository strictly for <code>Matches_Ledger</code>. Clean contracts, fees, and commissions.
+          <div class="tier-box t4">
+            <span class="tier-box-badge">Tier 4 &bull; Executive Ledger</span>
+            <div class="tier-box-title">Google Sheets Cold Vault</div>
+            <div class="tier-box-desc">
+              Permanent business ledger strictly for <code>Matches_Ledger</code>. Keeps raw leads out of Google Sheets so you only have clean, confirmed financial contracts.
             </div>
-            <ul class="arch-meta-list">
-              <li class="arch-meta-row"><span>Free Capacity:</span> <strong>10,000,000 Cells</strong></li>
-              <li class="arch-meta-row"><span>Clutter Policy:</span> <strong>Matches Only</strong></li>
-              <li class="arch-meta-row"><span>Export:</span> <strong>Excel / CSV 1-Click</strong></li>
-            </ul>
+            <div class="tier-spec-table">
+              <div class="tier-spec-row"><span>Free Capacity:</span> <strong>10,000,000 Cells</strong></div>
+              <div class="tier-spec-row"><span>Clutter Policy:</span> <strong>Matches Only</strong></div>
+              <div class="tier-spec-row"><span>API Method:</span> <strong>Google Apps Script Webhook</strong></div>
+              <div class="tier-spec-row"><span>Exports:</span> <strong>Excel / CSV 1-Click</strong></div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- TAB 2: WORK DIVISION -->
-    <div id="tab-division" class="tab-content">
+        <h3 style="margin: 2.5rem 0 1rem; color: #fff; font-size: 1.15rem;">🛡️ Technical Code Example: Strict Zero-Base64 Cloud Sanitizer</h3>
+        <p style="font-size: 0.88rem; color: var(--text-muted);">
+          Every registration payload passes through this sanitizer before reaching Firestore, guaranteeing that large image files (which would consume megabytes) are completely stripped:
+        </p>
+        <div class="code-preview">
+<span class="code-comment">// Strips any base64 image strings or blob data URLs before writing to Firestore</span>
+<span class="code-keyword">function</span> <span class="code-func">sanitizeDocumentForCloud</span>(raw) {
+  <span class="code-keyword">const</span> clean = { ...raw };
+  <span class="code-comment">// Delete all large image fields</span>
+  <span class="code-keyword">delete</span> clean.idCardUrl;
+  <span class="code-keyword">delete</span> clean.kebeleDocUrl;
+  <span class="code-keyword">delete</span> clean.degreeDocUrl;
+  <span class="code-keyword">delete</span> clean.photoDataUrl;
+  <span class="code-keyword">delete</span> clean.imageBlob;
+
+  <span class="code-comment">// Scan all object keys to ensure no data:image base64 leaks through</span>
+  Object.keys(clean).forEach(k => {
+    <span class="code-keyword">if</span> (<span class="code-keyword">typeof</span> clean[k] === <span class="code-str">'string'</span> &amp;&amp; clean[k].startsWith(<span class="code-str">'data:image'</span>)) {
+      <span class="code-keyword">delete</span> clean[k];
+    }
+  });
+
+  <span class="code-comment">// Average record weight is now reduced to ~0.8 KB - 1.2 KB of clean text!</span>
+  <span class="code-keyword">return</span> clean;
+}
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: WORK DIVISION & ROLES               -->
+    <!-- ========================================== -->
+    <section id="tab-division" class="tab-content">
       <div class="card">
         <div class="card-header">
           <div class="card-title">
             <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-            Operational Work Division &amp; Responsibilities
+            Operational Work Division Matrix &amp; Authorizations
           </div>
         </div>
 
         <p style="color: var(--text-muted); font-size: 0.95rem;">
-          To scale national operations smoothly across multiple cities and regional coordinators, duties are strictly segmented:
+          To scale national operations smoothly across multiple cities and regional coordinators, responsibilities and access permissions are strictly segmented:
         </p>
 
         <div class="division-grid">
@@ -649,12 +968,12 @@
           <div class="role-card">
             <span class="role-badge badge-owner">Role 1 &bull; Founder &amp; Executive Owner</span>
             <div class="role-title">Ashenafi Girma (Founder)</div>
-            <div class="role-desc">Strategic executive oversight, financial control, and platform infrastructure.</div>
+            <div class="role-desc">Strategic executive oversight, financial control, tutor tier promotions, and infrastructure.</div>
             <ul class="task-list">
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Google Sheet Ledger Sync:</strong> Sole authority to execute bulk matches synchronization.</li>
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Tutor Level Upgrades:</strong> Approves Level 1 through Level 5 tutor capacity expansions.</li>
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>System Infrastructure:</strong> Manages Telegram Bot credentials and Firebase project security.</li>
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>National Expansion:</strong> Coordinates marketing campaigns across TikTok, Telegram, and universities.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Google Sheet Financial Sync:</strong> Sole authority to trigger bulk sync of confirmed deals to <code>Matches_Ledger</code>.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Tutor Level Upgrades:</strong> Sole authority to promote tutors from Level 1 up to Level 5.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Infrastructure Administration:</strong> Manages Telegram Bot credentials, webhook URLs, and Firebase Spark quota monitoring.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>National Expansion:</strong> Coordinates marketing across universities, TikTok, and Telegram networks.</li>
             </ul>
           </div>
 
@@ -662,151 +981,254 @@
           <div class="role-card">
             <span class="role-badge badge-coord">Role 2 &bull; Operations &amp; Dispatch</span>
             <div class="role-title">Lead Dispatch Coordinator</div>
-            <div class="role-desc">Day-to-day intake, credential inspection, interview vetting, and tutor matching.</div>
+            <div class="role-desc">Daily lead intake, credential inspection, interview vetting, and tutor matchmaking.</div>
             <ul class="task-list">
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Intake Review:</strong> Monitors incoming parent and tutor leads in Telegram channels in real time.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Real-Time Intake:</strong> Monitors incoming submissions in the Telegram Parents and Tutors channels.</li>
               <li class="task-item"><span class="task-bullet">✦</span> <strong>Credential Verification:</strong> Uses Universal Lightbox to inspect Kebele cards, university degrees, and student IDs.</li>
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Match Execution:</strong> Pairs parents with top-ranking tutors via the <code>🤝 Pair With Parent</code> engine.</li>
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Monthly Fee Follow-up:</strong> Contacts parents at month-end for renewal confirmation.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Pairing &amp; Matchmaking:</strong> Pairs verified tutors with parents using the <code>🤝 Assign Tutor</code> engine based on subject and location.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Month-End Renewal Calls:</strong> Contacts parents at month-end to collect tuition and confirm continuation.</li>
             </ul>
           </div>
 
           <!-- TUTOR -->
           <div class="role-card">
-            <span class="role-badge badge-tutor">Role 3 &bull; Verified Academic Tutor</span>
-            <div class="role-title">University Graduate / Student Tutor</div>
-            <div class="role-desc">Provides in-person tutoring, maintains academic performance, and abides by code of conduct.</div>
+            <span class="role-badge badge-tutor">Role 3 &bull; Academic Tutor</span>
+            <div class="role-title">Verified University Tutor</div>
+            <div class="role-desc">Delivers home tutoring, completes diagnostic exams, and submits progress logs.</div>
             <ul class="task-list">
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Registration:</strong> Submits verified academic credentials (CGPA, Entrance exam score, Kebele ID).</li>
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Diagnostic Exam:</strong> Completes oral and written diagnostic exams for grade level certification.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Profile Registration:</strong> Submits verified academic credentials (CGPA, entrance exam score, Kebele ID).</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Diagnostic Exam:</strong> Completes oral and written diagnostic exams for grade certification.</li>
               <li class="task-item"><span class="task-bullet">✦</span> <strong>Capacity Fulfillment:</strong> Conducts assigned sessions within allotted student slots (1 to 5 families).</li>
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Progress Reporting:</strong> Delivers bi-weekly student learning reports to parents.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Progress Reports:</strong> Delivers bi-weekly student learning reports to parents.</li>
             </ul>
           </div>
 
           <!-- PARENT -->
           <div class="role-card">
-            <span class="role-badge badge-parent">Role 4 &bull; Parent / Guardian Client</span>
+            <span class="role-badge badge-parent">Role 4 &bull; Parent / Guardian</span>
             <div class="role-title">Parent Client</div>
             <div class="role-desc">Submits child tutoring requirements and compensates the service.</div>
             <ul class="task-list">
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Inquiry:</strong> Submits student grade, subjects, specific location (Woreda/Sub-city), and preferred schedule.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Inquiry Submission:</strong> Submits student grade, subjects, specific location (Sub-city/Woreda), and preferred schedule.</li>
               <li class="task-item"><span class="task-bullet">✦</span> <strong>Contract Acceptance:</strong> Reviews tutor credential dossier and confirms start date.</li>
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Monthly Payment:</strong> Remits monthly tuition fee on scheduled renewal date.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Monthly Tuition Remittance:</strong> Pays agreed monthly tuition on scheduled renewal date.</li>
             </ul>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- TAB 3: WORKFLOW LIFECYCLE -->
-    <div id="tab-workflow" class="tab-content">
+    <!-- ========================================== -->
+    <!-- TAB 3: METAL TIERS & 5-LEVEL ENGINE        -->
+    <!-- ========================================== -->
+    <section id="tab-engine" class="tab-content">
       <div class="card">
         <div class="card-header">
           <div class="card-title">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-            End-to-End Operational Lifecycle
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Tutor Academic Metal Tiers &amp; 5-Level Capacity Engine
           </div>
         </div>
 
-        <div class="timeline">
-          <!-- STEP 1 -->
-          <div class="timeline-step">
-            <div class="step-badge-col">
-              <div class="step-num">01</div>
-            </div>
-            <div class="step-content">
-              <h4>Lead Intake &amp; Dual Dispatch</h4>
-              <p>
-                When a parent or tutor submits the form on <code>teme-astegni.html</code>, the system triggers two actions simultaneously:
-                (1) Photo files upload directly to Telegram Supergroup (Zero Cloud Storage used).
-                (2) Lightweight text metadata enters Firestore Hot Desk for active admin processing.
-              </p>
-              <div class="step-pills">
-                <span class="step-pill pill-blue">Edge Form</span>
-                <span class="step-pill pill-green">Telegram Bot</span>
-                <span class="step-pill pill-amber">Firestore Hot Desk</span>
-              </div>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          To guarantee top-tier academic outcomes and build parent trust, Teme-Astegni classifies tutors into 4 Metal Tiers and strictly limits student capacity through the 5-Level Engine:
+        </p>
+
+        <!-- 4 METAL TIERS -->
+        <h3 style="margin: 2rem 0 1rem; color: #fff; font-size: 1.15rem;">🏆 Academic Metal Tier Rubric</h3>
+        <div class="tier-rank-grid">
+          <!-- GOLDEN -->
+          <div class="rank-card golden">
+            <span class="rank-badge">🥇 Golden Tier</span>
+            <div class="rank-title">CGPA &ge; 3.75</div>
+            <div class="rank-spec">
+              <strong>Distinction:</strong> Great Distinction / Top Honors.<br>
+              <strong>Eligible Students:</strong> High school (Grades 9&ndash;12), National Examination candidates, and competitive STEM courses.<br>
+              <strong>Recommended Rate:</strong> 5,000 &ndash; 8,000 ETB/month.
             </div>
           </div>
 
-          <!-- STEP 2 -->
-          <div class="timeline-step">
-            <div class="step-badge-col">
-              <div class="step-num">02</div>
-            </div>
-            <div class="step-content">
-              <h4>Academic Metal Tier Ranking</h4>
-              <p>
-                The automated engine classifies the tutor based on their academic qualifications:
-                <strong>Golden Tier</strong> (CGPA &ge; 3.75), <strong>Diamond Tier</strong> (CGPA &ge; 3.5), 
-                <strong>Silver Tier</strong> (CGPA &ge; 3.2), or <strong>Bronze Tier</strong>.
-                Entrance exam scores (out of 600 or 700) are factored in for high school subject pairing.
-              </p>
-              <div class="step-pills">
-                <span class="step-pill pill-amber">Metal Tier Algorithm</span>
-                <span class="step-pill pill-blue">Level Capacity Check</span>
-              </div>
+          <!-- DIAMOND -->
+          <div class="rank-card diamond">
+            <span class="rank-badge">💎 Diamond Tier</span>
+            <div class="rank-title">CGPA &ge; 3.50</div>
+            <div class="rank-spec">
+              <strong>Distinction:</strong> Distinction Honors.<br>
+              <strong>Eligible Students:</strong> Middle school (Grades 5&ndash;8) &amp; High School foundational subjects.<br>
+              <strong>Recommended Rate:</strong> 4,000 &ndash; 6,000 ETB/month.
             </div>
           </div>
 
-          <!-- STEP 3 -->
-          <div class="timeline-step">
-            <div class="step-badge-col">
-              <div class="step-num">03</div>
-            </div>
-            <div class="step-content">
-              <h4>Coordinator Review &amp; Universal Lightbox Inspection</h4>
-              <p>
-                The coordinator opens <code>teme-admin.html</code>, taps <code>🔍 Inspect ID</code>, and examines high-resolution credentials using the high-contrast zoom lightbox. Once verified, tutor status becomes <code>✅ Verified</code>.
-              </p>
-              <div class="step-pills">
-                <span class="step-pill pill-blue">Universal Lightbox</span>
-                <span class="step-pill pill-green">Identity Verification</span>
-              </div>
+          <!-- SILVER -->
+          <div class="rank-card silver">
+            <span class="rank-badge">🥈 Silver Tier</span>
+            <div class="rank-title">CGPA &ge; 3.20</div>
+            <div class="rank-spec">
+              <strong>Distinction:</strong> Very Good Academic Standing.<br>
+              <strong>Eligible Students:</strong> Primary school (Grades 1&ndash;4) &amp; General foundational tutoring.<br>
+              <strong>Recommended Rate:</strong> 3,000 &ndash; 4,500 ETB/month.
             </div>
           </div>
 
-          <!-- STEP 4 -->
-          <div class="timeline-step">
-            <div class="step-badge-col">
-              <div class="step-num">04</div>
-            </div>
-            <div class="step-content">
-              <h4>Match Execution (Contract Creation)</h4>
-              <p>
-                Coordinator taps <code>🤝 Assign Tutor</code> or <code>🤝 Pair With Parent</code>. A match contract is created with monthly fee and company commission calculation (typically 20&ndash;25%).
-                The temporary parent inquiry has fulfilled its purpose and is marked matched.
-              </p>
-              <div class="step-pills">
-                <span class="step-pill pill-green">Active Match Contract</span>
-                <span class="step-pill pill-amber">Commission Ledger</span>
-              </div>
+          <!-- BRONZE -->
+          <div class="rank-card bronze">
+            <span class="rank-badge">🥉 Bronze Tier</span>
+            <div class="rank-title">Standard Qualifier</div>
+            <div class="rank-spec">
+              <strong>Distinction:</strong> Approved Graduate.<br>
+              <strong>Eligible Students:</strong> Early childhood reading, basic English, and foundational math.<br>
+              <strong>Recommended Rate:</strong> 2,500 &ndash; 3,500 ETB/month.
             </div>
           </div>
+        </div>
 
-          <!-- STEP 5 -->
-          <div class="timeline-step">
-            <div class="step-badge-col">
-              <div class="step-num">05</div>
+        <!-- 5-LEVEL LADDER -->
+        <h3 style="margin: 2rem 0 1rem; color: #fff; font-size: 1.15rem;">🔒 The 5-Level Capacity Ladder (Preventing Tutor Overload)</h3>
+        <p style="font-size: 0.88rem; color: var(--text-muted);">
+          A tutor who teaches too many students becomes fatigued, resulting in poor student grades and parent dissatisfaction. The system enforces strict slot limits:
+        </p>
+
+        <div class="level-ladder">
+          <div class="ladder-step">
+            <div class="ladder-lvl">Level 1</div>
+            <div class="ladder-cap">1 Family Max</div>
+            <div class="ladder-desc">Probationary &bull; Newly onboarded tutor completing their first trial month.</div>
+          </div>
+          <div class="ladder-step">
+            <div class="ladder-lvl">Level 2</div>
+            <div class="ladder-cap">2 Families Max</div>
+            <div class="ladder-desc">Proven &bull; Successfully completed 1 month with positive parent review.</div>
+          </div>
+          <div class="ladder-step">
+            <div class="ladder-lvl">Level 3</div>
+            <div class="ladder-cap">3 Families Max</div>
+            <div class="ladder-desc">Senior &bull; Consistent high retention over 3+ months.</div>
+          </div>
+          <div class="ladder-step">
+            <div class="ladder-lvl">Level 4</div>
+            <div class="ladder-cap">4 Families Max</div>
+            <div class="ladder-desc">Master &bull; Demonstrated exceptional punctuality and academic gains.</div>
+          </div>
+          <div class="ladder-step">
+            <div class="ladder-lvl">Level 5</div>
+            <div class="ladder-cap">5 Families Max</div>
+            <div class="ladder-desc">Elite Lead &bull; Highest distinction &bull; Hard system cap (no tutor may exceed 5).</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: FINANCIAL & COMMISSION MODEL        -->
+    <!-- ========================================== -->
+    <section id="tab-finance" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Financial Model, Pricing &amp; Commission Simulator
+          </div>
+        </div>
+
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          Teme-Astegni operates a sustainable, ethical commission model. The standard company commission is <strong>20% to 25%</strong> of the monthly tuition fee, while the tutor retains <strong>75% to 80%</strong> of the earnings:
+        </p>
+
+        <!-- PRICING TABLE -->
+        <div style="background: rgba(2, 6, 23, 0.7); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-top: 1.5rem;">
+          <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.88rem;">
+            <thead>
+              <tr style="background: rgba(255, 255, 255, 0.03); color: var(--gold-light); font-size: 0.76rem; text-transform: uppercase;">
+                <th style="padding: 1rem 1.25rem;">Grade Level</th>
+                <th style="padding: 1rem 1.25rem;">Typical Monthly Fee</th>
+                <th style="padding: 1rem 1.25rem;">Company Commission (25%)</th>
+                <th style="padding: 1rem 1.25rem;">Tutor Payout (75%)</th>
+              </tr>
+            </thead>
+            <tbody style="color: #cbd5e1;">
+              <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.04);">
+                <td style="padding: 0.85rem 1.25rem; font-weight: 700; color: #fff;">Primary School (Grades 1&ndash;4)</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono);">3,500 ETB</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: var(--gold-light);">875 ETB</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: #34d399;">2,625 ETB</td>
+              </tr>
+              <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.04);">
+                <td style="padding: 0.85rem 1.25rem; font-weight: 700; color: #fff;">Middle School (Grades 5&ndash;8)</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono);">4,500 ETB</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: var(--gold-light);">1,125 ETB</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: #34d399;">3,375 ETB</td>
+              </tr>
+              <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.04);">
+                <td style="padding: 0.85rem 1.25rem; font-weight: 700; color: #fff;">High School (Grades 9&ndash;10)</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono);">5,500 ETB</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: var(--gold-light);">1,375 ETB</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: #34d399;">4,125 ETB</td>
+              </tr>
+              <tr>
+                <td style="padding: 0.85rem 1.25rem; font-weight: 700; color: #fff;">Prep &amp; National Exam (Grades 11&ndash;12)</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono);">7,000 ETB</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: var(--gold-light);">1,750 ETB</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: #34d399;">5,250 ETB</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- INTERACTIVE CALCULATOR -->
+        <div class="calc-container">
+          <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            <span>🧮</span> Interactive Revenue &amp; Commission Projector
+          </h3>
+          <p style="font-size: 0.86rem; color: var(--text-muted);">
+            Adjust active student families and average monthly fee to model monthly recurring revenue (MRR):
+          </p>
+
+          <div class="calc-inputs-grid">
+            <div>
+              <div class="calc-group" style="margin-bottom: 1.5rem;">
+                <label for="calc-students">Active Student Contracts (Families):</label>
+                <div class="calc-slider-box">
+                  <input type="range" id="calc-students" class="calc-slider" min="10" max="1000" step="10" value="150" oninput="runFinancialSimulation()">
+                  <span id="calc-students-disp" class="calc-val-display">150</span>
+                </div>
+              </div>
+
+              <div class="calc-group">
+                <label for="calc-fee">Average Monthly Tuition Fee (ETB):</label>
+                <div class="calc-slider-box">
+                  <input type="range" id="calc-fee" class="calc-slider" min="3000" max="9000" step="250" value="5000" oninput="runFinancialSimulation()">
+                  <span id="calc-fee-disp" class="calc-val-display">5,000 ETB</span>
+                </div>
+              </div>
             </div>
-            <div class="step-content">
-              <h4>Executive Ledger Sync &amp; Hot-Desk Pruning</h4>
-              <p>
-                Confirmed match deals are synchronized to Google Sheet <code>Matches_Ledger</code>. Once confirmed, temporary inquiries can be pruned from Firestore hot-desk via <code>🛡️ Vault &amp; Free Space</code>.
-              </p>
-              <div class="step-pills">
-                <span class="step-pill pill-green">Google Sheet Sync</span>
-                <span class="step-pill pill-blue">Firestore Pruning</span>
+
+            <div class="calc-results-box">
+              <div class="calc-row">
+                <span class="lbl">Total Monthly Tuition Flow:</span>
+                <span id="res-gross" class="res cyan">750,000 ETB</span>
+              </div>
+              <div class="calc-row">
+                <span class="lbl">Company Monthly Commission (25%):</span>
+                <span id="res-comm" class="res gold">187,500 ETB</span>
+              </div>
+              <div class="calc-row">
+                <span class="lbl">Total Tutor Payouts (75%):</span>
+                <span id="res-payout" class="res green">562,500 ETB</span>
+              </div>
+              <div class="calc-row">
+                <span class="lbl">Annual Company Run-Rate:</span>
+                <span id="res-annual" class="res gold">2,250,000 ETB / Yr</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- TAB 4: MONTH-TO-MONTH MANAGEMENT -->
-    <div id="tab-monthly" class="tab-content">
+    <!-- ========================================== -->
+    <!-- TAB 5: MONTH-TO-MONTH MANAGEMENT           -->
+    <!-- ========================================== -->
+    <section id="tab-monthly" class="tab-content">
       <div class="card">
         <div class="card-header">
           <div class="card-title">
@@ -819,95 +1241,143 @@
           How active ongoing tutoring contracts are handled in Month 2, Month 3, and beyond without losing history or consuming database space:
         </p>
 
-        <div class="contract-logic-grid">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
           <!-- CASE 1: RENEWAL -->
-          <div class="logic-box renew">
-            <h4>🟢 Case A: Contract RENEWS (Continues Next Month)</h4>
-            <p>
-              When a parent and tutor decide to continue tutoring for another month:
+          <div style="background: rgba(2, 6, 23, 0.7); border: 1px solid var(--border); border-left: 4px solid var(--emerald); border-radius: 14px; padding: 1.75rem;">
+            <h4 style="color: #34d399; font-size: 1.15rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+              <span>🟢</span> Case A: Contract RENEWS (Continues Next Month)
+            </h4>
+            <p style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.6;">
+              When parent and tutor decide to continue tutoring for another month:
             </p>
-            <ol>
-              <li><strong>Stays Active in Firestore:</strong> The match document in <code>astegni_matches</code> remains active. Active contracts are tiny (300 bytes of text) and take negligible space.</li>
-              <li><strong>Record Payment:</strong> The coordinator records the renewal payment in the Admin Portal.</li>
-              <li><strong>Sync to Sheet:</strong> Tap <code>☁️ Sync Confirmed Matches to Sheet</code>. Google Sheet records the new month's commission row in <code>Matches_Ledger</code>.</li>
-              <li><strong>Classes Continue:</strong> Lessons proceed smoothly with zero interruption.</li>
+            <ol style="padding-left: 1.25rem; font-size: 0.84rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 0.6rem;">
+              <li><strong>Stays Live in Firestore:</strong> Active contracts remain in <code>astegni_matches</code>. Active contract records are tiny (300 bytes of text) and consume negligible space.</li>
+              <li><strong>Payment Collection:</strong> The coordinator contacts the parent 3 days before month-end and records the renewal payment.</li>
+              <li><strong>Ledger Sync:</strong> Founder clicks <code>☁️ Sync Confirmed Matches to Sheet</code>. Google Sheet logs the new month's commission row into <code>Matches_Ledger</code>.</li>
+              <li><strong>Lessons Continue:</strong> Lessons proceed smoothly with zero interruption.</li>
             </ol>
           </div>
 
           <!-- CASE 2: TERMINATION -->
-          <div class="logic-box close">
-            <h4>🔴 Case B: Contract STOPS (Cancellation / Completion)</h4>
-            <p>
-              When tutoring ends (e.g., student passed national exam or relocated):
+          <div style="background: rgba(2, 6, 23, 0.7); border: 1px solid var(--border); border-left: 4px solid var(--rose); border-radius: 14px; padding: 1.75rem;">
+            <h4 style="color: #fb7185; font-size: 1.15rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+              <span>🔴</span> Case B: Contract STOPS (Cancellation / Completion)
+            </h4>
+            <p style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.6;">
+              When tutoring concludes (e.g., student passed national exam or relocated):
             </p>
-            <ol>
-              <li><strong>Mark Status Closed:</strong> Admin switches the match status dropdown to <code>🔒 Closed (የተጠናቀቀ)</code>.</li>
-              <li><strong>Update Ledger:</strong> The final closure status is pushed to Google Sheets.</li>
-              <li><strong>Prune from Hot Desk:</strong> Because the contract is now permanently finished and archived in Google Sheets and Telegram, it can be deleted from Firestore to free space.</li>
+            <ol style="padding-left: 1.25rem; font-size: 0.84rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 0.6rem;">
+              <li><strong>Status Change:</strong> Admin switches the match status dropdown to <code>🔒 Closed (የተጠናቀቀ)</code>.</li>
+              <li><strong>Final Sync:</strong> The closure is pushed to Google Sheets to finalize the financial ledger.</li>
+              <li><strong>Cloud Prune:</strong> Because the contract is now permanently finished and archived in Google Sheets and Telegram, it can be deleted from Firestore to free space.</li>
               <li><strong>Tutor Slot Frees Up:</strong> The tutor automatically gets an open slot to accept a new family!</li>
             </ol>
           </div>
         </div>
 
-        <div style="background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 12px; padding: 1.25rem; margin-top: 2rem;">
-          <h4 style="color: var(--gold-light); font-size: 0.95rem; margin-bottom: 0.35rem;">💡 What if an old parent calls back 6 months later?</h4>
-          <p style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.5;">
+        <div style="background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 12px; padding: 1.35rem; margin-top: 2rem;">
+          <h4 style="color: var(--gold-light); font-size: 1rem; margin-bottom: 0.4rem;">💡 What if an old parent calls back 6 months later?</h4>
+          <p style="font-size: 0.86rem; color: #cbd5e1; line-height: 1.6;">
             Their historical records are permanently preserved in your <strong>Telegram Parents Group (`-1003632707084`)</strong> and in your <strong>Google Sheet</strong>. Simply search their phone number or tag (e.g. <code>#AST_P_1234</code>) to see all past tutors and feedback, then create a new match in seconds!
           </p>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- TAB 5: COORDINATOR SOP -->
-    <div id="tab-sop" class="tab-content">
+    <!-- ========================================== -->
+    <!-- TAB 6: COORDINATOR SOP & SCRIPTS           -->
+    <!-- ========================================== -->
+    <section id="tab-playbook" class="tab-content">
       <div class="card">
         <div class="card-header">
           <div class="card-title">
             <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-            Standard Operating Procedures (SOP) Checklist
+            Coordinator SOP, Scenarios &amp; Calling Scripts
           </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-          <div style="background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
-            <h4 style="color: var(--gold); margin-bottom: 0.75rem; font-size: 1rem;">Morning Routine (9:00 AM)</h4>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.84rem; color: #cbd5e1;">
-              <li>☑ Open Telegram Parents Channel &amp; Tutors Channel.</li>
-              <li>☑ Open <code>teme-admin.html</code> and review new pending leads.</li>
-              <li>☑ Verify pending tutor credentials using <code>🔍 Inspect ID</code>.</li>
-              <li>☑ Forward urgent inquiries to Telegram Ops group.</li>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+          Standard Operating Procedures and phone scripts for daily operational handling:
+        </p>
+
+        <!-- ACCORDION 1 -->
+        <div class="sop-item open">
+          <div class="sop-header" onclick="toggleAccordion(this)">
+            <h4><span>📞</span> Scenario 1: Initial Parent Welcome &amp; Matching Call</h4>
+            <span class="sop-arrow">▼</span>
+          </div>
+          <div class="sop-body">
+            <p><strong>Goal:</strong> Verify student weaknesses, location landmarks, and confirm monthly budget.</p>
+            <div class="script-box">
+              <strong>Amharic:</strong><br>
+              "ጤና ይስጥልኝ እቴጌ/ጋሽ [የወላጅ ስም]፣ ከተመ-አስጠኚ (Teme-Astegni) አስተባባሪ [የአስተባባሪው ስም] ነኝ። በድረ-ገጻችን ላስገቡት የአስጠኚ ጥያቄ ምስጋና እናቀርባለን። የልጅዎ [የተማሪው ስም] የትምህርት ደረጃ [ክፍል] ሲሆን በተለይ በየትኛው የትምህርት ዓይነት ላይ ድጋፍ እንዲደረግላቸው ይፈልጋሉ? የመኖሪያ አካባቢዎ [ሰፈር/ወረዳ] ትክክለኛ መለያ ቦታ (Landmark) ሊነግሩን ይችላሉ?"
+            </div>
+            <div class="script-box">
+              <strong>English:</strong><br>
+              "Hello [Parent Name], this is [Coordinator Name] from Teme-Astegni. We received your tutor inquiry for Grade [X]. Could you confirm which specific subjects need the most attention, and could you provide a convenient landmark near your residence in [Sub-city]?"
+            </div>
+          </div>
+        </div>
+
+        <!-- ACCORDION 2 -->
+        <div class="sop-item">
+          <div class="sop-header" onclick="toggleAccordion(this)">
+            <h4><span>🔍</span> Scenario 2: Tutor ID &amp; Credential Inspection SOP</h4>
+            <span class="sop-arrow">▼</span>
+          </div>
+          <div class="sop-body">
+            <p><strong>Inspection Checklist Before Verification:</strong></p>
+            <ul style="padding-left: 1.25rem; font-size: 0.84rem; display: flex; flex-direction: column; gap: 0.4rem; margin: 0.75rem 0;">
+              <li>☑ Open Universal Lightbox via <code>🔍 Inspect ID</code> in Admin Portal.</li>
+              <li>☑ Verify student ID or university degree text matches tutor's full name.</li>
+              <li>☑ Verify CGPA matches the grade report document.</li>
+              <li>☑ Check Kebele ID photo matches the applicant's profile.</li>
+              <li>☑ If document is blurry, reject and send Telegram message requesting a clear daylight photo.</li>
             </ul>
           </div>
+        </div>
 
-          <div style="background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
-            <h4 style="color: var(--cyan); margin-bottom: 0.75rem; font-size: 1rem;">Afternoon Pairing (2:00 PM)</h4>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.84rem; color: #cbd5e1;">
-              <li>☑ Match verified tutors with parent requests using <code>🤝 Assign Tutor</code>.</li>
-              <li>☑ Confirm family location proximity (Bole, CMC, Sarbet, etc.).</li>
-              <li>☑ Agree on monthly rate (e.g., 3,000 &ndash; 6,000 ETB/month).</li>
-              <li>☑ Send contract summary to tutor and parent via Telegram/Phone.</li>
-            </ul>
+        <!-- ACCORDION 3 -->
+        <div class="sop-item">
+          <div class="sop-header" onclick="toggleAccordion(this)">
+            <h4><span>🔄</span> Scenario 3: Mid-Month Tutor Replacement (Dispute Resolution)</h4>
+            <span class="sop-arrow">▼</span>
           </div>
+          <div class="sop-body">
+            <p><strong>Policy:</strong> If a parent is dissatisfied with tutor punctuality or teaching methodology within the first 14 days, Teme-Astegni provides <strong>1 Free Replacement Tutor</strong> without any additional fee.</p>
+            <div class="script-box">
+              <strong>Protocol:</strong><br>
+              1. Coordinator listens to parent's feedback without argument.<br>
+              2. Tutor is politely reassigned or placed on temporary review.<br>
+              3. A higher-tier tutor (e.g. Diamond or Golden Tier) is matched within 24&ndash;48 hours.<br>
+              4. Lessons resume smoothly without financial friction.
+            </div>
+          </div>
+        </div>
 
-          <div style="background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
-            <h4 style="color: var(--emerald); margin-bottom: 0.75rem; font-size: 1rem;">Evening Ledger Sync (6:00 PM)</h4>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.84rem; color: #cbd5e1;">
-              <li>☑ Review closed and confirmed matches of the day.</li>
-              <li>☑ Owner clicks <code>☁️ Sync Confirmed Matches to Sheet</code>.</li>
-              <li>☑ Prune resolved temporary leads via <code>🛡️ Vault &amp; Free Space</code>.</li>
-              <li>☑ Check Firestore quota status (confirm &lt; 0.5% used).</li>
-            </ul>
+        <!-- ACCORDION 4 -->
+        <div class="sop-item">
+          <div class="sop-header" onclick="toggleAccordion(this)">
+            <h4><span>💳</span> Scenario 4: Month-End Renewal Remittance Call</h4>
+            <span class="sop-arrow">▼</span>
+          </div>
+          <div class="sop-body">
+            <p><strong>Timing:</strong> Call 3 days before month-end (e.g. Day 27 of 30).</p>
+            <div class="script-box">
+              <strong>Amharic:</strong><br>
+              "ጤና ይስጥልኝ [የወላጅ ስም]፣ ከተመ-አስጠኚ ደውለንልዎ ነበር። የአስጠኚያችን [የአስጠኚ ስም] የመጀመሪያ ወር አገልግሎት በልጅዎ ላይ ያሳየውን የትምህርት መሻሻል እንዴት አገኙት? ለቀጣዩ ወር ትምህርቱን ለማስቀጠል የወር ክፍያዎን በቴሌብር (Telebirr) ወይም በCBE በኩል እንዲያስተላልፉ በትህትና እናሳስባለን።"
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- FOOTER & LINKS -->
+    <!-- FOOTER -->
     <footer class="master-footer">
       <p>&copy; 2026 Teme-Astegni &bull; Ethio 21 Technologies &bull; Architected by Ashenafi Girma</p>
       <div class="quick-links">
         <a href="teme-admin.html" class="btn-link btn-gold">Open Admin Portal</a>
-        <a href="architecture_blueprint.html" class="btn-link">View Interactive Blueprint</a>
+        <a href="architecture_blueprint.html" class="btn-link">Quota &amp; Capacity Simulator</a>
         <a href="teme-astegni.html" class="btn-link">Public Registration Portal</a>
         <a href="https://t.me/+zH2Ov8OM20YzYTc0" target="_blank" rel="noopener" class="btn-link">Parents Telegram</a>
         <a href="https://t.me/+B1gN_P8r7X85YjE0" target="_blank" rel="noopener" class="btn-link">Tutors Telegram</a>
@@ -925,6 +1395,32 @@
       if (target) target.classList.add('active');
       if (btn) btn.classList.add('active');
     }
+
+    function toggleAccordion(header) {
+      const parent = header.parentElement;
+      parent.classList.toggle('open');
+    }
+
+    function runFinancialSimulation() {
+      const students = parseInt(document.getElementById('calc-students').value, 10);
+      const fee = parseInt(document.getElementById('calc-fee').value, 10);
+
+      document.getElementById('calc-students-disp').innerText = students.toLocaleString();
+      document.getElementById('calc-fee-disp').innerText = fee.toLocaleString() + ' ETB';
+
+      const gross = students * fee;
+      const commission = Math.round(gross * 0.25);
+      const payout = gross - commission;
+      const annual = commission * 12;
+
+      document.getElementById('res-gross').innerText = gross.toLocaleString() + ' ETB';
+      document.getElementById('res-comm').innerText = commission.toLocaleString() + ' ETB';
+      document.getElementById('res-payout').innerText = payout.toLocaleString() + ' ETB';
+      document.getElementById('res-annual').innerText = annual.toLocaleString() + ' ETB / Yr';
+    }
+
+    // Run initial financial calculation
+    runFinancialSimulation();
   </script>
 </body>
 </html>
