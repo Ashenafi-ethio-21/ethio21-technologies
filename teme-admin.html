@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>Teme Astegni • Enterprise RBAC Operations Portal</title>
+  <title>Teme Astegni • Enterprise Administration Portal</title>
   <meta name="description" content="Secure Role-Based Access Control Portal for Teme Astegni Founders and Coordinator Admins.">
   <meta name="theme-color" content="#090d16">
   <link rel="icon" type="image/jpeg" href="assets/teme_astegni_logo.jpg">
@@ -1574,10 +1574,10 @@
       </div>
 
       <h2 class="auth-title" style="font-size: 1.35rem; font-weight: 850; letter-spacing: -0.02em; margin-bottom: 0.35rem;">
-        Teme Astegni <span style="color: #fbbf24;">Ops Portal</span>
+        Teme Astegni <span style="color: #fbbf24;">Admin Portal</span>
       </h2>
       <p class="auth-subtitle" style="font-size: 0.82rem; color: #94a3b8; line-height: 1.5; margin-bottom: 1.25rem;">
-        Enter Master Founder PIN to access operations, applicant files, and Google Sheet cloud ledger.
+        Enter Master Founder PIN to access administration, applicant files, and Google Sheet cloud ledger.
       </p>
 
       <!-- TAB 1: MASTER PIN LOGIN (DEFAULT) -->
@@ -1594,7 +1594,7 @@
         </div>
 
         <button type="button" id="btn-submit-pin" class="btn-auth-submit" onclick="handlePinSubmit()" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
-          🔓 Unlock Operations Portal ›
+          🔓 Unlock Admin Portal ›
         </button>
 
         <div style="margin-top: 1rem;">
@@ -1620,7 +1620,7 @@
             </div>
           </div>
 
-          <button type="submit" class="btn-auth-submit">Unlock Operations Portal ›</button>
+          <button type="submit" class="btn-auth-submit">Unlock Admin Portal ›</button>
 
           <div style="margin-top: 1rem;">
             <button type="button" onclick="switchAuthTab('pin')" style="background: transparent; border: none; color: #38bdf8; font-size: 0.78rem; text-decoration: underline; cursor: pointer;">
@@ -1647,7 +1647,7 @@
       <div class="brand-group">
         <img src="assets/teme_astegni_logo.jpg" alt="Teme Astegni Logo" class="brand-logo-img">
         <div class="brand-titles">
-          <h1>Teme Ops <span>Operations Portal</span></h1>
+          <h1>Teme Astegni <span>Admin Portal</span></h1>
         </div>
       </div>
 
@@ -1661,7 +1661,7 @@
         <span id="user-role-badge" class="role-badge role-badge-owner">
           👑 Owner: Ashenafi Girma
         </span>
-        <button class="btn-act" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #f87171; font-weight: 800; padding: 0.42rem 0.75rem; font-size: 0.76rem; display: inline-flex; align-items: center; gap: 0.35rem; border-radius: 10px; cursor: pointer;" onclick="lockPortal()" title="Lock Operations Portal">
+        <button class="btn-act" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #f87171; font-weight: 800; padding: 0.42rem 0.75rem; font-size: 0.76rem; display: inline-flex; align-items: center; gap: 0.35rem; border-radius: 10px; cursor: pointer;" onclick="lockPortal()" title="Lock Admin Portal">
           🔒 Lock
         </button>
       </div>

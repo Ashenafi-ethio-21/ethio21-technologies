@@ -3,7 +3,7 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v119-inhouse-badge-contrast';
+const CACHE_NAME = 'ethio21-v120-universal-pwa-install-dialog';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

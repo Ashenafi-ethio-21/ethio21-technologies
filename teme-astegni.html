@@ -1561,7 +1561,7 @@
 
       <!-- Private Matching Notice -->
       <div style="background: rgba(30, 41, 59, 0.4); border: 1px dashed rgba(255, 255, 255, 0.12); border-radius: 14px; padding: 0.9rem; font-size: 0.78rem; color: #94a3b8; text-align: center; line-height: 1.45;" id="i18n-home-privacy">
-        🛡️ <b>100% Confidential Matching:</b> Requests are handled privately by Teme Astegni coordinators in <b>Ethio 21 Astegni Ops</b>. No jobs are posted publicly to prevent fake locations.
+        🛡️ <b>100% Confidential Matching:</b> Requests are handled privately by Teme Astegni coordinators at <b>Ethio 21 Teme Astegni</b>. No jobs are posted publicly to prevent fake locations.
       </div>
 
       <!-- Meet the Founders Compact Action Button on Home -->
@@ -1731,7 +1731,7 @@
             </div>
             <div style="text-align: right;">
               <span style="font-size: 0.75rem; background: rgba(56,189,248,0.18); color: #38bdf8; padding: 0.25rem 0.6rem; border-radius: 6px; font-weight: 800; border: 1px solid rgba(56,189,248,0.35); font-family: monospace;" id="live-parent-tg-tag">#AST_P_4821</span>
-              <div style="font-size: 0.68rem; color: #94a3b8; margin-top: 0.25rem; font-weight: 600;">Ethio - 21 Ops Verified</div>
+              <div style="font-size: 0.68rem; color: #94a3b8; margin-top: 0.25rem; font-weight: 600;">Ethio - 21 Verified</div>
             </div>
           </div>
 
@@ -2125,7 +2125,7 @@
             </div>
             <div style="text-align: right;">
               <span style="font-size: 0.75rem; background: rgba(16, 185, 129, 0.18); color: #34d399; padding: 0.25rem 0.6rem; border-radius: 6px; font-weight: 800; border: 1px solid rgba(16, 185, 129, 0.35); font-family: monospace;" id="live-tutor-tg-tag">#AST_T_7193</span>
-              <div style="font-size: 0.68rem; color: #94a3b8; margin-top: 0.25rem; font-weight: 600;">Ethio - 21 Ops Verified</div>
+              <div style="font-size: 0.68rem; color: #94a3b8; margin-top: 0.25rem; font-weight: 600;">Ethio - 21 Verified</div>
             </div>
           </div>
 
@@ -2922,37 +2922,34 @@
   </div>
 
   <!-- ========================================== -->
-  <!-- iOS SAFARI ADD TO HOME SCREEN MODAL        -->
+  <!-- UNIVERSAL APP INSTALL MODAL                -->
   <!-- ========================================== -->
-  <div class="ios-install-modal" id="pwa-ios-modal" onclick="if(event.target === this) closeIosModal()">
+  <div class="ios-install-modal" id="pwa-universal-modal" onclick="if(event.target === this) closeUniversalInstallModal()">
     <div class="ios-install-sheet">
       <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.1rem;">
         <div style="display: flex; align-items: center; gap: 0.75rem;">
-          <img src="assets/teme_astegni_logo.jpg" alt="Teme Astegni" style="width: 44px; height: 44px; border-radius: 12px; border: 1.5px solid #38bdf8; object-fit: cover;">
+          <img src="assets/teme_astegni_logo.jpg" alt="Teme Astegni" style="width: 46px; height: 46px; border-radius: 13px; border: 1.5px solid #38bdf8; object-fit: cover; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);">
           <div>
-            <div style="font-size: 1.05rem; font-weight: 850; color: #fff;">Install Teme Astegni</div>
-            <div style="font-size: 0.76rem; color: #94a3b8;">Add to your iPhone / iPad Home Screen</div>
+            <div style="font-size: 1.08rem; font-weight: 850; color: #fff;">Install Teme Astegni • ተሜ አስጠኚ</div>
+            <div style="font-size: 0.76rem; color: #94a3b8;" id="pwa-modal-subtitle">Add official app to your phone home screen</div>
           </div>
         </div>
-        <button onclick="closeIosModal()" style="background: rgba(255,255,255,0.08); border:none; color:#cbd5e1; width:32px; height:32px; border-radius:50%; cursor:pointer; font-weight:700;">✕</button>
+        <button onclick="closeUniversalInstallModal()" style="background: rgba(255,255,255,0.08); border:none; color:#cbd5e1; width:32px; height:32px; border-radius:50%; cursor:pointer; font-weight:700;">✕</button>
       </div>
 
-      <div class="ios-step">
-        <div class="ios-step-num">1</div>
-        <div class="ios-step-text">Tap the <strong>Share button</strong> at the bottom of your Safari browser (<span style="font-size: 1.1rem; color: #38bdf8;">⎋</span> or square with arrow pointing up).</div>
+      <!-- Quick 1-Click Native Install Button (if browser supports direct prompt) -->
+      <div id="pwa-direct-install-box" style="display: none; margin-bottom: 1rem;">
+        <button onclick="executeNativePwaPrompt()" style="width: 100%; background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #fff; border: 1.5px solid #34d399; padding: 0.95rem; border-radius: 14px; font-weight: 900; font-size: 1rem; cursor: pointer; box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+          <span>📲</span> <span>Install Now / አሁኑኑ ጫን</span>
+        </button>
       </div>
 
-      <div class="ios-step">
-        <div class="ios-step-num">2</div>
-        <div class="ios-step-text">Scroll down the sharing options and tap <strong>"Add to Home Screen"</strong> (<span style="font-size: 1.05rem; color: #38bdf8;">⊞</span> ወደ ዋና ገጽ ጨምር).</div>
+      <!-- Guided Steps Container: Populated Dynamically -->
+      <div id="pwa-steps-container">
+        <!-- Rendered by openUniversalInstallModal() -->
       </div>
 
-      <div class="ios-step">
-        <div class="ios-step-num">3</div>
-        <div class="ios-step-text">Tap <strong>"Add"</strong> in the top right corner. The <strong>Teme Astegni logo</strong> will appear right on your phone home screen!</div>
-      </div>
-
-      <button onclick="closeIosModal()" style="width: 100%; margin-top: 0.8rem; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; border:none; padding: 0.85rem; border-radius: 14px; font-weight: 800; font-size: 0.92rem; cursor:pointer;">
+      <button onclick="closeUniversalInstallModal()" style="width: 100%; margin-top: 0.9rem; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; border:none; padding: 0.85rem; border-radius: 14px; font-weight: 850; font-size: 0.92rem; cursor:pointer;">
         Got It (ገባኝ)
       </button>
     </div>
@@ -5926,7 +5923,7 @@
         t3P: "ለቤትዎ ቅርብ ከሆነው የዩኒቨርሲቲ ግቢ ይመደባሉ።",
         t4H: "🤝 የ 1 ቀን ነጻ ሙከራ",
         t4P: "የትምህርት አሰጣጡን አይተው እስኪያምኑ ምንም ክፍያ የለም።",
-        homePrivacy: "🛡️ <b>100% ሚስጥራዊ አሰራር፡</b> የወላጆች መረጃ በይፋ አይለጠፍም፤ በቀጥታ በ <b>Ethio 21 Astegni Ops</b> አስተዳዳሪዎች ብቻ በሚስጥር ይመረጣል።",
+        homePrivacy: "🛡️ <b>100% ሚስጥራዊ አሰራር፡</b> የወላጆች መረጃ በይፋ አይለጠፍም፤ በቀጥታ በ <b>Ethio 21 Teme Astegni</b> አስተዳዳሪዎች ብቻ በሚስጥር ይመረጣል።",
         tabHome: "ዋና ገጽ",
         tabParent: "ወላጆች",
         tabTutor: "አስጠኚ",
@@ -6026,9 +6023,9 @@
         p4Status: "በመስመር ላይ • የድርጅቱ ቀጥታ የድጋፍ መስመር",
         p5Status: "በመስመር ላይ • ኦፕሬሽንስና ፋይናንስ",
         p6Status: "በመስመር ላይ • የአስጠኚዎች ቅበላና አስተዳደር",
-        opsDesc: "የቀጥታ ስምሪት እና የመለያ (ID) መፈለጊያ ክፍል",
+        opsDesc: "የቀጥታ ስምሪት እና የማህበረሰብ ቴሌግራም",
         chDesc: "ኦፊሴላዊ የቴሌግራም ቻናልና ማስታወቂያዎች",
-        opsBtn: "ቴሌግራም Ops",
+        opsBtn: "ቴሌግራም ማህበረሰብ",
         chBtn: "ቻናል",
         modalClose: "ዝጋ / ተጠናቋል",
         headerInstall: "ጫን",
@@ -6057,7 +6054,7 @@
         t3P: "Dispatched from university campuses closest to home.",
         t4H: "🤝 1-Day Free Trial",
         t4P: "Evaluate teaching chemistry with zero obligation.",
-        homePrivacy: "🛡️ <b>100% Confidential Matching:</b> Requests are handled privately by Teme Astegni coordinators in <b>Ethio 21 Astegni Ops</b>. No jobs are posted publicly to prevent fake locations.",
+        homePrivacy: "🛡️ <b>100% Confidential Matching:</b> Requests are handled privately by Teme Astegni coordinators at <b>Ethio 21 Teme Astegni</b>. No jobs are posted publicly to prevent fake locations.",
         tabHome: "Home",
         tabParent: "Parents",
         tabTutor: "Tutors",
@@ -6157,9 +6154,9 @@
         p4Status: "Online • Executive Direct Support",
         p5Status: "Online • Operations & Finance Lead",
         p6Status: "Online • Tutor Vetting & Senior Administration",
-        opsDesc: "Live Dispatch & ID Lookup Operations Room",
+        opsDesc: "Live Community & Verified Coordinator Hub",
         chDesc: "Official Announcements & Updates Channel",
-        opsBtn: "Join Ops",
+        opsBtn: "Community",
         chBtn: "Channel",
         modalClose: "Close / Done",
         headerInstall: "Install",
@@ -6188,7 +6185,7 @@
         t3P: "Kaampaasii yuunivarsitii mana keessanitti dhihoo irraa ramadamu.",
         t4H: "🤝 Guyyaa 1 Bilisaan Yaaluu",
         t4P: "Barsiisuu isaanii ilaaltanii hanga amantanitti kaffaltiin hin jiru.",
-        homePrivacy: "🛡️ <b>Sirna Qindeessaa Iccitii 100%:</b> Odeeffannoon warrarraa ifaan hin maxxanfamu; kallattiin qindeessitoota <b>Ethio 21 Astegni Ops</b> tiin qofa qindeeffama.",
+        homePrivacy: "🛡️ <b>Sirna Qindeessaa Iccitii 100%:</b> Odeeffannoon warrarraa ifaan hin maxxanfamu; kallattiin qindeessitoota <b>Ethio 21 Teme Astegni</b> tiin qofa qindeeffama.",
         tabHome: "Mana",
         tabParent: "Maatii",
         tabTutor: "Barsiisota",
@@ -6288,9 +6285,9 @@
         p4Status: "Sarara Kallattii • Deeggarsa Dhaabbataa",
         p5Status: "Hojii Qindeessaa & Faayinaansii",
         p6Status: "Ramaddii Barsiisotaa & Bulchiinsa",
-        opsDesc: "Kutaa Hojii fi Barbaacha ID Telegiraamii",
+        opsDesc: "Kutaa Hawaasa Telegiraamii fi Qindeessaa",
         chDesc: "Chaanaalii Beeksisootaa fi Oduuwwan",
-        opsBtn: "Ops Galmoomaa",
+        opsBtn: "Hawaasa",
         chBtn: "Chaanaalii",
         modalClose: "Cufaa / Xumurameera",
         headerInstall: "Fe'aa",
@@ -8443,7 +8440,7 @@
 
       setTimeout(() => {
         showPwaBannerIfEligible();
-      }, 1500);
+      }, 800);
     });
 
     // Check eligibility and reveal install prompt banner
@@ -8454,9 +8451,9 @@
         return;
       }
 
-      const lastDismissed = localStorage.getItem('teme_astegni_pwa_dismissed');
-      const now = Date.now();
-      if (lastDismissed && (now - parseInt(lastDismissed, 10)) < (24 * 60 * 60 * 1000)) {
+      // Check session dismissal so user is not repeatedly spammed in the same tab, but always gets it on fresh visits
+      const dismissedThisSession = sessionStorage.getItem('teme_astegni_pwa_dismissed_session');
+      if (dismissedThisSession) {
         return;
       }
 
@@ -8468,31 +8465,126 @@
 
     // Trigger installation flow
     function triggerPwaInstall() {
-      if (isIosDevice()) {
-        openIosModal();
-        return;
-      }
-
       if (deferredInstallPrompt) {
         deferredInstallPrompt.prompt();
         deferredInstallPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
             console.log('User accepted Teme Astegni PWA installation');
             dismissPwaBanner(true);
+            closeUniversalInstallModal();
           } else {
-            console.log('User dismissed Teme Astegni PWA installation prompt');
+            console.log('User dismissed Teme Astegni native install prompt');
           }
           deferredInstallPrompt = null;
         }).catch((err) => {
           console.warn('Install prompt error:', err);
+          openUniversalInstallModal();
         });
       } else {
-        if (isIosDevice()) {
-          openIosModal();
+        openUniversalInstallModal();
+      }
+    }
+
+    // Direct install execution from inside the universal modal
+    function executeNativePwaPrompt() {
+      if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        deferredInstallPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            dismissPwaBanner(true);
+            closeUniversalInstallModal();
+          }
+          deferredInstallPrompt = null;
+        }).catch(() => {
+          closeUniversalInstallModal();
+        });
+      } else {
+        closeUniversalInstallModal();
+      }
+    }
+
+    // Open universal device-adaptive installation modal
+    function openUniversalInstallModal() {
+      const modal = document.getElementById('pwa-universal-modal') || document.getElementById('pwa-ios-modal');
+      const directBox = document.getElementById('pwa-direct-install-box');
+      const stepsContainer = document.getElementById('pwa-steps-container');
+      const subtitle = document.getElementById('pwa-modal-subtitle');
+
+      if (directBox) {
+        directBox.style.display = deferredInstallPrompt ? 'block' : 'none';
+      }
+
+      if (stepsContainer) {
+        const ua = (navigator.userAgent || '').toLowerCase();
+        const isTelegram = /telegram/i.test(ua);
+        const isIos = /iphone|ipad|ipod/.test(ua) && !window.MSStream;
+
+        if (isTelegram) {
+          if (subtitle) subtitle.textContent = 'Open in External Browser to Install (በብራውዘር ይክፈቱ)';
+          stepsContainer.innerHTML = `
+            <div class="ios-step" style="background: rgba(36, 161, 222, 0.12); border-color: rgba(36, 161, 222, 0.35);">
+              <div class="ios-step-num" style="background: #24a1de;">1</div>
+              <div class="ios-step-text">Tap the <strong>⋮</strong> or <strong>⋯</strong> menu in the <strong>top-right corner</strong> of Telegram.</div>
+            </div>
+            <div class="ios-step" style="background: rgba(36, 161, 222, 0.12); border-color: rgba(36, 161, 222, 0.35);">
+              <div class="ios-step-num" style="background: #24a1de;">2</div>
+              <div class="ios-step-text">Tap <strong>"Open in Chrome"</strong> (ወይም በ Safari ይክፈቱ).</div>
+            </div>
+            <div class="ios-step" style="background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.35);">
+              <div class="ios-step-num" style="background: #10b981;">3</div>
+              <div class="ios-step-text">Tap <strong>"Install"</strong> to place the official Teme Astegni app on your phone home screen!</div>
+            </div>
+          `;
+        } else if (isIos) {
+          if (subtitle) subtitle.textContent = 'Add to iPhone / iPad Home Screen (ወደ ዋና ገጽ ይጫኑ)';
+          stepsContainer.innerHTML = `
+            <div class="ios-step">
+              <div class="ios-step-num">1</div>
+              <div class="ios-step-text">Tap the <strong>Share button</strong> (<span style="font-size: 1.15rem; color: #38bdf8;">⎋</span> or square with arrow) at the bottom of Safari.</div>
+            </div>
+            <div class="ios-step">
+              <div class="ios-step-num">2</div>
+              <div class="ios-step-text">Scroll down the sharing options and tap <strong>"Add to Home Screen"</strong> (<span style="font-size: 1.05rem; color: #38bdf8;">⊞</span> ወደ ዋና ገጽ ጨምር).</div>
+            </div>
+            <div class="ios-step">
+              <div class="ios-step-num">3</div>
+              <div class="ios-step-text">Tap <strong>"Add"</strong> in the top right. The <strong>Teme Astegni logo</strong> will appear right on your home screen!</div>
+            </div>
+          `;
         } else {
-          alert("To install Teme Astegni:\n\n1. Tap your browser menu (⋮ or ⋯)\n2. Select 'Install App' or 'Add to Home screen'\n\nThe official logo will be added to your home screen!");
+          // Android Chrome / Samsung Internet / Edge / Desktop
+          if (subtitle) subtitle.textContent = 'Add to Android / Phone Home Screen (ወደ ዋና ገጽ ይጫኑ)';
+          stepsContainer.innerHTML = `
+            <div class="ios-step">
+              <div class="ios-step-num">1</div>
+              <div class="ios-step-text">Tap your browser menu (<strong>⋮</strong> or <strong>⋯</strong>) in the top-right corner.</div>
+            </div>
+            <div class="ios-step">
+              <div class="ios-step-num">2</div>
+              <div class="ios-step-text">Tap <strong>"Install app"</strong> or <strong>"Add to Home screen"</strong> (ወደ ዋና ገጽ ጨምር).</div>
+            </div>
+            <div class="ios-step">
+              <div class="ios-step-num">3</div>
+              <div class="ios-step-text">Tap <strong>"Install"</strong>! The official <strong>Teme Astegni</strong> app icon will be installed.</div>
+            </div>
+          `;
         }
       }
+
+      if (modal) modal.classList.add('active');
+    }
+
+    function closeUniversalInstallModal() {
+      const modal = document.getElementById('pwa-universal-modal') || document.getElementById('pwa-ios-modal');
+      if (modal) modal.classList.remove('active');
+    }
+
+    function openIosModal() {
+      openUniversalInstallModal();
+    }
+
+    function closeIosModal() {
+      closeUniversalInstallModal();
     }
 
     // Dismiss banner
@@ -8501,22 +8593,10 @@
       if (banner) {
         banner.classList.remove('show');
       }
+      sessionStorage.setItem('teme_astegni_pwa_dismissed_session', '1');
       if (permanent) {
-        localStorage.setItem('teme_astegni_pwa_dismissed', Date.now() + (30 * 24 * 60 * 60 * 1000));
-      } else {
-        localStorage.setItem('teme_astegni_pwa_dismissed', Date.now());
+        localStorage.setItem('teme_astegni_pwa_installed', '1');
       }
-    }
-
-    // iOS Modal handlers
-    function openIosModal() {
-      const modal = document.getElementById('pwa-ios-modal');
-      if (modal) modal.classList.add('active');
-    }
-
-    function closeIosModal() {
-      const modal = document.getElementById('pwa-ios-modal');
-      if (modal) modal.classList.remove('active');
     }
 
     // Detect when app was successfully installed
@@ -8528,17 +8608,15 @@
       deferredInstallPrompt = null;
     });
 
-    // Check after load
+    // Check after load - show install banner for ALL devices
     setTimeout(() => {
       if (!isRunningStandalone()) {
-        if (isIosDevice()) {
-          showPwaBannerIfEligible();
-        }
+        showPwaBannerIfEligible();
       } else {
         const headerBtn = document.getElementById('btn-header-install');
         if (headerBtn) headerBtn.style.display = 'none';
       }
-    }, 2000);
+    }, 1200);
   </script>
 
 </body>
