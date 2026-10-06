@@ -7107,14 +7107,32 @@
       console.warn("Firebase client init skipped:", e);
     }
 
-    // Direct Cloud Lead Persistence Helpers
+    // Strict Zero-Base64 Sanitizer for Firestore Cloud Storage Protection
+    function sanitizeDocumentForCloud(raw) {
+      if (!raw || typeof raw !== 'object') return raw;
+      const clean = {};
+      for (const [key, val] of Object.entries(raw)) {
+        // Strictly exclude any base64 image strings, data URLs, or oversized strings
+        if (typeof val === 'string' && (val.startsWith('data:image') || val.length > 2048)) {
+          continue;
+        }
+        // Exclude binary Files or Blobs
+        if (typeof File !== 'undefined' && val instanceof File) continue;
+        if (typeof Blob !== 'undefined' && val instanceof Blob) continue;
+        clean[key] = val;
+      }
+      return clean;
+    }
+
+    // Direct Cloud Lead Persistence Helpers (Ultra-Lean & Storage-Shielded)
     async function saveTutorToCloud(tutorData) {
       if (!db || !tutorData) return false;
       const id = tutorData.id || tutorData.trackingId;
       if (!id) return false;
       try {
-        await db.collection('astegni_tutor_leads').doc(id).set(tutorData, { merge: true });
-        console.log("✓ Tutor safely stored in Firebase Cloud:", id);
+        const leanData = sanitizeDocumentForCloud(tutorData);
+        await db.collection('astegni_tutor_leads').doc(id).set(leanData, { merge: true });
+        console.log("✓ Tutor safely stored in Firebase Cloud (Lean):", id);
         return true;
       } catch (err) {
         console.warn("Cloud tutor save fallback:", err);
@@ -7127,8 +7145,9 @@
       const id = parentData.id || parentData.trackingId;
       if (!id) return false;
       try {
-        await db.collection('astegni_parent_leads').doc(id).set(parentData, { merge: true });
-        console.log("✓ Parent safely stored in Firebase Cloud:", id);
+        const leanData = sanitizeDocumentForCloud(parentData);
+        await db.collection('astegni_parent_leads').doc(id).set(leanData, { merge: true });
+        console.log("✓ Parent safely stored in Firebase Cloud (Lean):", id);
         return true;
       } catch (err) {
         console.warn("Cloud parent save fallback:", err);

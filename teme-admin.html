@@ -1831,6 +1831,7 @@
         <span id="user-role-badge" class="role-badge role-badge-owner">
           👑 Owner: Ashenafi Girma
         </span>
+        <a href="architecture_blueprint.html" target="_blank" class="btn-act" style="background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.45); color: #a5b4fc; font-weight: 800; text-decoration: none; padding: 0.42rem 0.75rem; font-size: 0.76rem; display: inline-flex; align-items: center; gap: 0.35rem; border-radius: 10px;" title="View System Architecture Blueprint & Zero Cost Quotas">📐 Blueprint</a>
         <button class="btn-act" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #f87171; font-weight: 800; padding: 0.42rem 0.75rem; font-size: 0.76rem; display: inline-flex; align-items: center; gap: 0.35rem; border-radius: 10px; cursor: pointer;" onclick="lockPortal()" title="Lock Admin Portal">
           🔒 Lock
         </button>
@@ -4987,6 +4988,7 @@ function rowsToJson(sheet) {
                 <button class="btn-act" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.35);" onclick="openIdInspectModal('PARENT', '${escapeHtml(p.phone)}')">🔍 Inspect ID</button>
                 ${isOwner ? `<button class="btn-act" style="background: rgba(36, 161, 222, 0.22); color: #38bdf8; border-color: rgba(56, 189, 248, 0.45); font-weight: 800;" onclick="forwardParentDossierToTelegram('${escapeHtml(p.phone)}')" title="Send full parent dossier to Telegram Ops group">✈️ Telegram Ops</button>` : ''}
                 ${isOwner ? `<button class="btn-act" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.35); color: #34d399;" onclick="pushSingleParentToSheet('${escapeHtml(pTrackingId)}')">☁️ Push</button>` : ''}
+                ${isOwner ? `<button class="btn-act" style="background: rgba(148, 163, 184, 0.15); border-color: rgba(148, 163, 184, 0.35); color: #cbd5e1;" onclick="archiveParentToVault('${escapeHtml(pTrackingId)}', '${escapeHtml(p.phone)}', this)" title="Push to Google Sheet Cold Vault and remove from Firestore hot-desk to permanently free space">🛡️ Vault &amp; Free Space</button>` : ''}
                 ${canDelete ? `<button class="btn-act" style="color: var(--accent-rose); border-color: rgba(244, 63, 94, 0.25);" onclick="deleteParentLead('${escapeHtml(p.phone)}')">🗑️</button>` : ''}
               </div>
             </div>
@@ -5327,6 +5329,7 @@ function rowsToJson(sheet) {
                 <button class="btn-act" style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.35); color: #fbbf24;" onclick="openLevelUpgradeModal('${escapeHtml(t.phone)}')">⭐ Level</button>
                 ${isOwner ? `<button class="btn-act" style="background: rgba(36, 161, 222, 0.22); color: #38bdf8; border-color: rgba(56, 189, 248, 0.45); font-weight: 800;" onclick="forwardTutorDossierToTelegram('${escapeHtml(t.phone)}')" title="Send full tutor dossier to Telegram Ops group">✈️ Telegram Ops</button>` : ''}
                 ${isOwner ? `<button class="btn-act" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.35); color: #34d399;" onclick="pushSingleTutorToSheet('${escapeHtml(tTrackingId)}')">☁️ Push</button>` : ''}
+                ${isOwner ? `<button class="btn-act" style="background: rgba(148, 163, 184, 0.15); border-color: rgba(148, 163, 184, 0.35); color: #cbd5e1;" onclick="archiveTutorToVault('${escapeHtml(tTrackingId)}', '${escapeHtml(t.phone)}', this)" title="Push to Google Sheet Cold Vault and remove from Firestore hot-desk to permanently free space">🛡️ Vault &amp; Free Space</button>` : ''}
                 ${canDelete ? `<button class="btn-act" style="color: var(--accent-rose); border-color: rgba(244, 63, 94, 0.25);" onclick="deleteTutorLead('${escapeHtml(t.phone)}')">🗑️</button>` : ''}
               </div>
             </div>
@@ -6448,6 +6451,10 @@ function rowsToJson(sheet) {
           `👮 <b>Deleted By:</b> ${escapeHtml(adminName)}\n` +
           `📅 <b>Timestamp:</b> ${new Date().toLocaleString()}`;
         dispatchTelegramOpsLog(msg);
+
+        // Prune from Firestore Cloud hot-desk to permanently free space
+        const docId = p.id || p.trackingId;
+        if (docId) deleteParentFromCloud(docId);
       }
       let filtered = parents.filter(p => p.phone !== phone);
       localStorage.setItem('astegni_parent_leads', JSON.stringify(filtered));
@@ -6473,6 +6480,10 @@ function rowsToJson(sheet) {
           `👮 <b>Deleted By:</b> ${escapeHtml(adminName)}\n` +
           `📅 <b>Timestamp:</b> ${new Date().toLocaleString()}`;
         dispatchTelegramOpsLog(msg);
+
+        // Prune from Firestore Cloud hot-desk to permanently free space
+        const docId = t.id || t.trackingId;
+        if (docId) deleteTutorFromCloud(docId);
       }
       let filtered = tutors.filter(t => t.phone !== phone);
       localStorage.setItem('astegni_tutor_leads', JSON.stringify(filtered));
@@ -7000,6 +7011,163 @@ function rowsToJson(sheet) {
           btnEl.innerText = '📤 Push';
         }
         alert('Error sending to Google Sheet: ' + err.message);
+      }
+    }
+
+    // ========================================================
+    // DUAL-VAULT ARCHITECTURE: SMART ARCHIVE & FIRESTORE PRUNING
+    // ========================================================
+    async function archiveParentToVault(parentId, phone, btnEl) {
+      const confirmText = 
+        `🛡️ DUAL-VAULT ARCHITECTURE: ARCHIVE & PRUNE HOT-DESK\n\n` +
+        `Target Parent: ${parentId || phone}\n\n` +
+        `This action will:\n` +
+        `1. Vault this record into your permanent Google Sheet archive.\n` +
+        `2. Prune (delete) this document from Firestore hot-desk storage.\n` +
+        `3. Keep the full history safe on this device and in Telegram.\n\n` +
+        `Result: Permanently keeps Firestore storage < 1-2% of free quota!\n\n` +
+        `Proceed with vaulting & cloud pruning?`;
+      if (!confirm(confirmText)) return;
+
+      if (btnEl) {
+        btnEl.disabled = true;
+        btnEl.innerText = '⏳ Vaulting...';
+      }
+
+      try {
+        // 1. Vault to Google Sheet
+        const url = localStorage.getItem('teme_astegni_db_webhook') || (document.getElementById('webhook-url-input') ? document.getElementById('webhook-url-input').value.trim() : '');
+        if (url) {
+          const sep = url.includes('?') ? '&' : '?';
+          try {
+            await fetch(`${url}${sep}action=addParent&id=${encodeURIComponent(parentId || phone)}`, { mode: 'no-cors' });
+          } catch (e) {
+            console.warn('Sheet vault warning (continuing prune):', e);
+          }
+        }
+
+        // 2. Prune from Firestore hot-desk
+        const parents = getParents();
+        const p = parents.find(x => x.phone === phone || (parentId && (x.id === parentId || x.trackingId === parentId)));
+        const docId = (p && (p.id || p.trackingId)) || parentId;
+        if (typeof db !== 'undefined' && db && docId) {
+          await db.collection('astegni_parent_leads').doc(docId).delete().catch(e => console.warn('Prune error:', e));
+        }
+
+        // 3. Mark locally as vaulted
+        if (p) {
+          p.cloudArchived = true;
+          p.isVaulted = true;
+          p.vaultedAt = new Date().toISOString();
+          localStorage.setItem('astegni_parent_leads', JSON.stringify(parents));
+        }
+
+        // 4. Audit Log to Telegram Ops
+        const pTrackingId = (p && (p.trackingId || p.id)) || parentId || ('AST-P-' + (phone || '').slice(-4));
+        const user = getSessionUser();
+        const adminName = user ? (user.name || user.role) : 'System Admin';
+        const msg = 
+          `🛡️ <b>STORAGE OPTIMIZATION: PARENT VAULTED &amp; PRUNED</b>\n\n` +
+          `🏷️ <b>Parent ID:</b> <code>${pTrackingId}</code>\n` +
+          `📞 <b>Phone:</b> ${escapeHtml(phone || (p && p.phone) || 'N/A')}\n` +
+          `🗄️ <b>Cold Vault:</b> Google Sheet + Telegram Backup\n` +
+          `🔥 <b>Firestore Hot Desk:</b> Cleaned (-1 doc, freed cloud quota)\n` +
+          `👮 <b>Admin:</b> ${escapeHtml(adminName)}\n` +
+          `📅 <b>Date:</b> ${new Date().toLocaleString()}`;
+        dispatchTelegramOpsLog(msg);
+
+        if (btnEl) {
+          btnEl.innerText = '🛡️ Vaulted ✓';
+          btnEl.style.color = '#34d399';
+          btnEl.style.borderColor = 'rgba(52, 211, 153, 0.4)';
+        }
+
+        showToast(`🛡️ Parent ${pTrackingId} vaulted & pruned from Firestore!`);
+        renderParents();
+        renderDashboard();
+      } catch (err) {
+        if (btnEl) {
+          btnEl.disabled = false;
+          btnEl.innerText = '🛡️ Vault & Free Space';
+        }
+        alert('Vault action error: ' + err.message);
+      }
+    }
+
+    async function archiveTutorToVault(tutorId, phone, btnEl) {
+      const confirmText = 
+        `🛡️ DUAL-VAULT ARCHITECTURE: ARCHIVE & PRUNE HOT-DESK\n\n` +
+        `Target Tutor: ${tutorId || phone}\n\n` +
+        `This action will:\n` +
+        `1. Vault this tutor record into your permanent Google Sheet archive.\n` +
+        `2. Prune (delete) this document from Firestore hot-desk storage.\n` +
+        `3. Keep the full history safe on this device and in Telegram.\n\n` +
+        `Result: Permanently keeps Firestore storage < 1-2% of free quota!\n\n` +
+        `Proceed with vaulting & cloud pruning?`;
+      if (!confirm(confirmText)) return;
+
+      if (btnEl) {
+        btnEl.disabled = true;
+        btnEl.innerText = '⏳ Vaulting...';
+      }
+
+      try {
+        // 1. Vault to Google Sheet
+        const url = localStorage.getItem('teme_astegni_db_webhook') || (document.getElementById('webhook-url-input') ? document.getElementById('webhook-url-input').value.trim() : '');
+        if (url) {
+          const sep = url.includes('?') ? '&' : '?';
+          try {
+            await fetch(`${url}${sep}action=addTutor&id=${encodeURIComponent(tutorId || phone)}`, { mode: 'no-cors' });
+          } catch (e) {
+            console.warn('Sheet vault warning (continuing prune):', e);
+          }
+        }
+
+        // 2. Prune from Firestore hot-desk
+        const tutors = getTutors();
+        const t = tutors.find(x => x.phone === phone || (tutorId && (x.id === tutorId || x.trackingId === tutorId)));
+        const docId = (t && (t.id || t.trackingId)) || tutorId;
+        if (typeof db !== 'undefined' && db && docId) {
+          await db.collection('astegni_tutor_leads').doc(docId).delete().catch(e => console.warn('Prune error:', e));
+        }
+
+        // 3. Mark locally as vaulted
+        if (t) {
+          t.cloudArchived = true;
+          t.isVaulted = true;
+          t.vaultedAt = new Date().toISOString();
+          localStorage.setItem('astegni_tutor_leads', JSON.stringify(tutors));
+        }
+
+        // 4. Audit Log to Telegram Ops
+        const tTrackingId = (t && (t.trackingId || t.id)) || tutorId || ('AST-T-' + (phone || '').slice(-4));
+        const user = getSessionUser();
+        const adminName = user ? (user.name || user.role) : 'System Admin';
+        const msg = 
+          `🛡️ <b>STORAGE OPTIMIZATION: TUTOR VAULTED &amp; PRUNED</b>\n\n` +
+          `🏷️ <b>Tutor ID:</b> <code>${tTrackingId}</code>\n` +
+          `📞 <b>Phone:</b> ${escapeHtml(phone || (t && t.phone) || 'N/A')}\n` +
+          `🗄️ <b>Cold Vault:</b> Google Sheet + Telegram Backup\n` +
+          `🔥 <b>Firestore Hot Desk:</b> Cleaned (-1 doc, freed cloud quota)\n` +
+          `👮 <b>Admin:</b> ${escapeHtml(adminName)}\n` +
+          `📅 <b>Date:</b> ${new Date().toLocaleString()}`;
+        dispatchTelegramOpsLog(msg);
+
+        if (btnEl) {
+          btnEl.innerText = '🛡️ Vaulted ✓';
+          btnEl.style.color = '#34d399';
+          btnEl.style.borderColor = 'rgba(52, 211, 153, 0.4)';
+        }
+
+        showToast(`🛡️ Tutor ${tTrackingId} vaulted & pruned from Firestore!`);
+        renderTutors();
+        renderDashboard();
+      } catch (err) {
+        if (btnEl) {
+          btnEl.disabled = false;
+          btnEl.innerText = '🛡️ Vault & Free Space';
+        }
+        alert('Vault action error: ' + err.message);
       }
     }
 

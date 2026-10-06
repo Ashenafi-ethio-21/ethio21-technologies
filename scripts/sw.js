@@ -3,13 +3,14 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v127-parents-routing-precision-lightbox';
+const CACHE_NAME = 'ethio21-v128-zero-cost-dual-vault-blueprint';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './teme-exam-app.html',
   './teme-astegni.html',
   './teme-admin.html',
+  './architecture_blueprint.html',
   './assets/exam_data.json',
   './assets/teme_astegni_logo.jpg',
   './styles/main.css',
