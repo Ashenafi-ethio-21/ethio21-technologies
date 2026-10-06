@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teme-Astegni | Practical Master Architecture & Operational Workflow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050811;
+      --bg-surface: #0c1222;
+      --bg-elevated: #131b31;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      
+      --gold: #d4af37;
+      --gold-light: #f3e5ab;
+      --gold-glow: rgba(212, 175, 55, 0.25);
+      
+      --cyan: #38bdf8;
+      --cyan-glow: rgba(56, 189, 248, 0.25);
+      
+      --emerald: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.25);
+      
+      --rose: #f43f5e;
+      --amber: #f59e0b;
+      --indigo: #6366f1;
+      
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      
+      --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-classic: 'Cinzel', serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 10% 15%, rgba(212, 175, 55, 0.06) 0%, transparent 45%),
+        radial-gradient(circle at 90% 80%, rgba(56, 189, 248, 0.06) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.04) 0%, transparent 60%);
+      color: var(--text);
+      font-family: var(--font-main);
+      line-height: 1.65;
+      padding: 2.5rem 1.25rem 6rem;
+      min-height: 100vh;
+    }
+
+    .wrapper {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* EXECUTIVE HEADER */
+    .hero-header {
+      text-align: center;
+      margin-bottom: 4rem;
+      position: relative;
+      padding: 2rem 1rem;
+    }
+
+    .regal-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(212, 175, 55, 0.04));
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      padding: 0.4rem 1.25rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 20px var(--gold-glow);
+    }
+
+    .regal-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 10px var(--gold);
+    }
+
+    .hero-title {
+      font-family: var(--font-classic);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      background: linear-gradient(135deg, #ffffff 40%, #f3e5ab 75%, #d4af37 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 840px;
+      margin: 0 auto;
+      font-weight: 400;
+      line-height: 1.7;
+    }
+
+    /* NAVIGATION TABS */
+    .tab-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+      background: rgba(12, 18, 34, 0.8);
+      padding: 0.5rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+      backdrop-filter: blur(12px);
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.65rem 1.25rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--font-main);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .tab-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .tab-btn.active {
+      color: #050811;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
+    }
+
+    /* CONTENT SECTIONS */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* CARD COMPONENTS */
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(14px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .card-title svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--gold);
+    }
+
+    /* 4-TIER ARCHITECTURE GRID */
+    .arch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .arch-box {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .arch-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+
+    .arch-box.tier-edge::before { background: var(--cyan); }
+    .arch-box.tier-hot::before { background: var(--amber); }
+    .arch-box.tier-media::before { background: var(--indigo); }
+    .arch-box.tier-cold::before { background: var(--emerald); }
+
+    .arch-box-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+
+    .arch-box-role {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      line-height: 1.5;
+    }
+
+    .arch-meta-list {
+      list-style: none;
+      margin-top: auto;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 1rem;
+      font-size: 0.82rem;
+    }
+
+    .arch-meta-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.35rem 0;
+      color: var(--text-muted);
+    }
+
+    .arch-meta-row strong {
+      color: #fff;
+      font-family: var(--font-mono);
+    }
+
+    /* WORK DIVISION MATRIX */
+    .division-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .role-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      position: relative;
+    }
+
+    .role-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.7rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      font-family: var(--font-mono);
+    }
+
+    .badge-owner { background: rgba(212, 175, 55, 0.15); color: var(--gold-light); border: 1px solid rgba(212, 175, 55, 0.35); }
+    .badge-coord { background: rgba(56, 189, 248, 0.15); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.35); }
+    .badge-tutor { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35); }
+    .badge-parent { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.35); }
+
+    .role-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .role-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .task-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      font-size: 0.84rem;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      color: #cbd5e1;
+    }
+
+    .task-bullet {
+      color: var(--gold);
+      font-weight: 800;
+      line-height: 1.4;
+    }
+
+    /* WORKFLOW TIMELINE */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      position: relative;
+    }
+
+    .timeline-step {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 1.5rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      align-items: center;
+    }
+
+    @media (max-width: 640px) {
+      .timeline-step { grid-template-columns: 1fr; gap: 0.75rem; }
+    }
+
+    .step-badge-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-num {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1.5px solid var(--gold);
+      color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      box-shadow: 0 0 15px var(--gold-glow);
+    }
+
+    .step-content h4 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+
+    .step-content p {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .step-pills {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .step-pill {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      padding: 0.2rem 0.6rem;
+      border-radius: 5px;
+      font-weight: 700;
+    }
+
+    .pill-blue { background: rgba(56, 189, 248, 0.15); color: var(--cyan); }
+    .pill-green { background: rgba(16, 185, 129, 0.15); color: var(--emerald); }
+    .pill-amber { background: rgba(245, 158, 11, 0.15); color: var(--amber); }
+
+    /* RENEWAL VS CANCELLATION LOGIC BOX */
+    .contract-logic-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .contract-logic-grid { grid-template-columns: 1fr; }
+    }
+
+    .logic-box {
+      border-radius: 14px;
+      padding: 1.5rem;
+      background: rgba(2, 6, 23, 0.7);
+      border: 1px solid var(--border);
+    }
+
+    .logic-box.renew {
+      border-left: 4px solid var(--emerald);
+    }
+
+    .logic-box.close {
+      border-left: 4px solid var(--rose);
+    }
+
+    .logic-box h4 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logic-box.renew h4 { color: #34d399; }
+    .logic-box.close h4 { color: #fb7185; }
+
+    .logic-box p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      line-height: 1.55;
+    }
+
+    .logic-box ol {
+      padding-left: 1.25rem;
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    /* FOOTER */
+    .master-footer {
+      text-align: center;
+      margin-top: 4.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-dim);
+      font-size: 0.88rem;
+    }
+
+    .quick-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-link {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 0.65rem 1.25rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .btn-link:hover {
+      border-color: var(--gold);
+      color: var(--gold-light);
+      transform: translateY(-2px);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      color: #050811;
+      border: none;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .btn-gold:hover {
+      color: #000;
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    
+    <!-- HEADER -->
+    <header class="hero-header">
+      <div class="regal-tag">
+        <span class="regal-dot"></span>
+        Executive Master Operating System &bull; Ethio 21 Technologies
+      </div>
+      <h1 class="hero-title">TEME-ASTEGNI</h1>
+      <p class="hero-subtitle">
+        The Complete Practical Operating Architecture, Work Division, and Workflow Lifecycle Engine for National Tutoring Operations Across Ethiopia.
+      </p>
+    </header>
+
+    <!-- NAVIGATION TABS -->
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('tab-arch', this)">🏛️ Software Architecture</button>
+      <button class="tab-btn" onclick="switchTab('tab-division', this)">👥 Work Division &amp; Roles</button>
+      <button class="tab-btn" onclick="switchTab('tab-workflow', this)">🔄 Workflow &amp; Match Lifecycle</button>
+      <button class="tab-btn" onclick="switchTab('tab-monthly', this)">📅 Month-to-Month Management</button>
+      <button class="tab-btn" onclick="switchTab('tab-sop', this)">📋 Coordinator SOP &amp; Rules</button>
+    </div>
+
+    <!-- TAB 1: SOFTWARE ARCHITECTURE -->
+    <div id="tab-arch" class="tab-content active">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            Multi-Tier Zero-Cost Architecture ($0.00 / Month)
+          </div>
+          <span style="font-size: 0.8rem; font-family: var(--font-mono); color: #34d399; background: rgba(16, 185, 129, 0.12); padding: 0.3rem 0.75rem; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.3);">
+            ✓ 100% Free Spark Tier &bull; Zero Billing Risk
+          </span>
+        </div>
+
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          Teme-Astegni eliminates traditional expensive cloud server costs ($150&ndash;$500/mo) through an intelligent 4-tier separation of concerns:
+        </p>
+
+        <div class="arch-grid">
+          <!-- TIER 1 -->
+          <div class="arch-box tier-edge">
+            <div class="arch-box-title">Tier 1: Client Edge (PWA)</div>
+            <div class="arch-box-role">
+              Hosted on GitHub Pages CDN. Zero server costs. Pre-caches portal pages with offline Service Worker resilience.
+            </div>
+            <ul class="arch-meta-list">
+              <li class="arch-meta-row"><span>Bandwidth Cost:</span> <strong>$0.00 (Unlimited)</strong></li>
+              <li class="arch-meta-row"><span>Cache Engine:</span> <strong>sw.js v128</strong></li>
+              <li class="arch-meta-row"><span>Deployment:</span> <strong>Instant Git Sync</strong></li>
+            </ul>
+          </div>
+
+          <!-- TIER 2 -->
+          <div class="arch-box tier-hot">
+            <div class="arch-box-title">Tier 2: Firestore Hot Desk</div>
+            <div class="arch-box-role">
+              Active working pipeline. Stores only pending leads awaiting matchmaking and active monthly contracts.
+            </div>
+            <ul class="arch-meta-list">
+              <li class="arch-meta-row"><span>Free Limit:</span> <strong>1,000 MB (1 GB)</strong></li>
+              <li class="arch-meta-row"><span>Daily Reset:</span> <strong>50K Reads / 20K Writes</strong></li>
+              <li class="arch-meta-row"><span>Sanitizer:</span> <strong>Strict Zero-Base64</strong></li>
+            </ul>
+          </div>
+
+          <!-- TIER 3 -->
+          <div class="arch-box tier-media">
+            <div class="arch-box-title">Tier 3: Telegram Media Vault</div>
+            <div class="arch-box-role">
+              Permanent home for high-resolution photo IDs, Kebele cards, and diplomas. Never touches database limits.
+            </div>
+            <ul class="arch-meta-list">
+              <li class="arch-meta-row"><span>Storage Limit:</span> <strong>100% Unlimited</strong></li>
+              <li class="arch-meta-row"><span>Parents Group:</span> <strong>-1003632707084</strong></li>
+              <li class="arch-meta-row"><span>Tutors Group:</span> <strong>-1003847953259</strong></li>
+            </ul>
+          </div>
+
+          <!-- TIER 4 -->
+          <div class="arch-box tier-cold">
+            <div class="arch-box-title">Tier 4: Google Sheets Ledger</div>
+            <div class="arch-box-role">
+              Executive business repository strictly for <code>Matches_Ledger</code>. Clean contracts, fees, and commissions.
+            </div>
+            <ul class="arch-meta-list">
+              <li class="arch-meta-row"><span>Free Capacity:</span> <strong>10,000,000 Cells</strong></li>
+              <li class="arch-meta-row"><span>Clutter Policy:</span> <strong>Matches Only</strong></li>
+              <li class="arch-meta-row"><span>Export:</span> <strong>Excel / CSV 1-Click</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: WORK DIVISION -->
+    <div id="tab-division" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            Operational Work Division &amp; Responsibilities
+          </div>
+        </div>
+
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          To scale national operations smoothly across multiple cities and regional coordinators, duties are strictly segmented:
+        </p>
+
+        <div class="division-grid">
+          <!-- FOUNDER / OWNER -->
+          <div class="role-card">
+            <span class="role-badge badge-owner">Role 1 &bull; Founder &amp; Executive Owner</span>
+            <div class="role-title">Ashenafi Girma (Founder)</div>
+            <div class="role-desc">Strategic executive oversight, financial control, and platform infrastructure.</div>
+            <ul class="task-list">
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Google Sheet Ledger Sync:</strong> Sole authority to execute bulk matches synchronization.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Tutor Level Upgrades:</strong> Approves Level 1 through Level 5 tutor capacity expansions.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>System Infrastructure:</strong> Manages Telegram Bot credentials and Firebase project security.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>National Expansion:</strong> Coordinates marketing campaigns across TikTok, Telegram, and universities.</li>
+            </ul>
+          </div>
+
+          <!-- LEAD COORDINATOR -->
+          <div class="role-card">
+            <span class="role-badge badge-coord">Role 2 &bull; Operations &amp; Dispatch</span>
+            <div class="role-title">Lead Dispatch Coordinator</div>
+            <div class="role-desc">Day-to-day intake, credential inspection, interview vetting, and tutor matching.</div>
+            <ul class="task-list">
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Intake Review:</strong> Monitors incoming parent and tutor leads in Telegram channels in real time.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Credential Verification:</strong> Uses Universal Lightbox to inspect Kebele cards, university degrees, and student IDs.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Match Execution:</strong> Pairs parents with top-ranking tutors via the <code>🤝 Pair With Parent</code> engine.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Monthly Fee Follow-up:</strong> Contacts parents at month-end for renewal confirmation.</li>
+            </ul>
+          </div>
+
+          <!-- TUTOR -->
+          <div class="role-card">
+            <span class="role-badge badge-tutor">Role 3 &bull; Verified Academic Tutor</span>
+            <div class="role-title">University Graduate / Student Tutor</div>
+            <div class="role-desc">Provides in-person tutoring, maintains academic performance, and abides by code of conduct.</div>
+            <ul class="task-list">
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Registration:</strong> Submits verified academic credentials (CGPA, Entrance exam score, Kebele ID).</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Diagnostic Exam:</strong> Completes oral and written diagnostic exams for grade level certification.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Capacity Fulfillment:</strong> Conducts assigned sessions within allotted student slots (1 to 5 families).</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Progress Reporting:</strong> Delivers bi-weekly student learning reports to parents.</li>
+            </ul>
+          </div>
+
+          <!-- PARENT -->
+          <div class="role-card">
+            <span class="role-badge badge-parent">Role 4 &bull; Parent / Guardian Client</span>
+            <div class="role-title">Parent Client</div>
+            <div class="role-desc">Submits child tutoring requirements and compensates the service.</div>
+            <ul class="task-list">
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Inquiry:</strong> Submits student grade, subjects, specific location (Woreda/Sub-city), and preferred schedule.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Contract Acceptance:</strong> Reviews tutor credential dossier and confirms start date.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong>Monthly Payment:</strong> Remits monthly tuition fee on scheduled renewal date.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: WORKFLOW LIFECYCLE -->
+    <div id="tab-workflow" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            End-to-End Operational Lifecycle
+          </div>
+        </div>
+
+        <div class="timeline">
+          <!-- STEP 1 -->
+          <div class="timeline-step">
+            <div class="step-badge-col">
+              <div class="step-num">01</div>
+            </div>
+            <div class="step-content">
+              <h4>Lead Intake &amp; Dual Dispatch</h4>
+              <p>
+                When a parent or tutor submits the form on <code>teme-astegni.html</code>, the system triggers two actions simultaneously:
+                (1) Photo files upload directly to Telegram Supergroup (Zero Cloud Storage used).
+                (2) Lightweight text metadata enters Firestore Hot Desk for active admin processing.
+              </p>
+              <div class="step-pills">
+                <span class="step-pill pill-blue">Edge Form</span>
+                <span class="step-pill pill-green">Telegram Bot</span>
+                <span class="step-pill pill-amber">Firestore Hot Desk</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 2 -->
+          <div class="timeline-step">
+            <div class="step-badge-col">
+              <div class="step-num">02</div>
+            </div>
+            <div class="step-content">
+              <h4>Academic Metal Tier Ranking</h4>
+              <p>
+                The automated engine classifies the tutor based on their academic qualifications:
+                <strong>Golden Tier</strong> (CGPA &ge; 3.75), <strong>Diamond Tier</strong> (CGPA &ge; 3.5), 
+                <strong>Silver Tier</strong> (CGPA &ge; 3.2), or <strong>Bronze Tier</strong>.
+                Entrance exam scores (out of 600 or 700) are factored in for high school subject pairing.
+              </p>
+              <div class="step-pills">
+                <span class="step-pill pill-amber">Metal Tier Algorithm</span>
+                <span class="step-pill pill-blue">Level Capacity Check</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 3 -->
+          <div class="timeline-step">
+            <div class="step-badge-col">
+              <div class="step-num">03</div>
+            </div>
+            <div class="step-content">
+              <h4>Coordinator Review &amp; Universal Lightbox Inspection</h4>
+              <p>
+                The coordinator opens <code>teme-admin.html</code>, taps <code>🔍 Inspect ID</code>, and examines high-resolution credentials using the high-contrast zoom lightbox. Once verified, tutor status becomes <code>✅ Verified</code>.
+              </p>
+              <div class="step-pills">
+                <span class="step-pill pill-blue">Universal Lightbox</span>
+                <span class="step-pill pill-green">Identity Verification</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 4 -->
+          <div class="timeline-step">
+            <div class="step-badge-col">
+              <div class="step-num">04</div>
+            </div>
+            <div class="step-content">
+              <h4>Match Execution (Contract Creation)</h4>
+              <p>
+                Coordinator taps <code>🤝 Assign Tutor</code> or <code>🤝 Pair With Parent</code>. A match contract is created with monthly fee and company commission calculation (typically 20&ndash;25%).
+                The temporary parent inquiry has fulfilled its purpose and is marked matched.
+              </p>
+              <div class="step-pills">
+                <span class="step-pill pill-green">Active Match Contract</span>
+                <span class="step-pill pill-amber">Commission Ledger</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 5 -->
+          <div class="timeline-step">
+            <div class="step-badge-col">
+              <div class="step-num">05</div>
+            </div>
+            <div class="step-content">
+              <h4>Executive Ledger Sync &amp; Hot-Desk Pruning</h4>
+              <p>
+                Confirmed match deals are synchronized to Google Sheet <code>Matches_Ledger</code>. Once confirmed, temporary inquiries can be pruned from Firestore hot-desk via <code>🛡️ Vault &amp; Free Space</code>.
+              </p>
+              <div class="step-pills">
+                <span class="step-pill pill-green">Google Sheet Sync</span>
+                <span class="step-pill pill-blue">Firestore Pruning</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: MONTH-TO-MONTH MANAGEMENT -->
+    <div id="tab-monthly" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            Month-to-Month Contract Management (Continuations vs. Cancellations)
+          </div>
+        </div>
+
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          How active ongoing tutoring contracts are handled in Month 2, Month 3, and beyond without losing history or consuming database space:
+        </p>
+
+        <div class="contract-logic-grid">
+          <!-- CASE 1: RENEWAL -->
+          <div class="logic-box renew">
+            <h4>🟢 Case A: Contract RENEWS (Continues Next Month)</h4>
+            <p>
+              When a parent and tutor decide to continue tutoring for another month:
+            </p>
+            <ol>
+              <li><strong>Stays Active in Firestore:</strong> The match document in <code>astegni_matches</code> remains active. Active contracts are tiny (300 bytes of text) and take negligible space.</li>
+              <li><strong>Record Payment:</strong> The coordinator records the renewal payment in the Admin Portal.</li>
+              <li><strong>Sync to Sheet:</strong> Tap <code>☁️ Sync Confirmed Matches to Sheet</code>. Google Sheet records the new month's commission row in <code>Matches_Ledger</code>.</li>
+              <li><strong>Classes Continue:</strong> Lessons proceed smoothly with zero interruption.</li>
+            </ol>
+          </div>
+
+          <!-- CASE 2: TERMINATION -->
+          <div class="logic-box close">
+            <h4>🔴 Case B: Contract STOPS (Cancellation / Completion)</h4>
+            <p>
+              When tutoring ends (e.g., student passed national exam or relocated):
+            </p>
+            <ol>
+              <li><strong>Mark Status Closed:</strong> Admin switches the match status dropdown to <code>🔒 Closed (የተጠናቀቀ)</code>.</li>
+              <li><strong>Update Ledger:</strong> The final closure status is pushed to Google Sheets.</li>
+              <li><strong>Prune from Hot Desk:</strong> Because the contract is now permanently finished and archived in Google Sheets and Telegram, it can be deleted from Firestore to free space.</li>
+              <li><strong>Tutor Slot Frees Up:</strong> The tutor automatically gets an open slot to accept a new family!</li>
+            </ol>
+          </div>
+        </div>
+
+        <div style="background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 12px; padding: 1.25rem; margin-top: 2rem;">
+          <h4 style="color: var(--gold-light); font-size: 0.95rem; margin-bottom: 0.35rem;">💡 What if an old parent calls back 6 months later?</h4>
+          <p style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.5;">
+            Their historical records are permanently preserved in your <strong>Telegram Parents Group (`-1003632707084`)</strong> and in your <strong>Google Sheet</strong>. Simply search their phone number or tag (e.g. <code>#AST_P_1234</code>) to see all past tutors and feedback, then create a new match in seconds!
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: COORDINATOR SOP -->
+    <div id="tab-sop" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+            Standard Operating Procedures (SOP) Checklist
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+          <div style="background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
+            <h4 style="color: var(--gold); margin-bottom: 0.75rem; font-size: 1rem;">Morning Routine (9:00 AM)</h4>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.84rem; color: #cbd5e1;">
+              <li>☑ Open Telegram Parents Channel &amp; Tutors Channel.</li>
+              <li>☑ Open <code>teme-admin.html</code> and review new pending leads.</li>
+              <li>☑ Verify pending tutor credentials using <code>🔍 Inspect ID</code>.</li>
+              <li>☑ Forward urgent inquiries to Telegram Ops group.</li>
+            </ul>
+          </div>
+
+          <div style="background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
+            <h4 style="color: var(--cyan); margin-bottom: 0.75rem; font-size: 1rem;">Afternoon Pairing (2:00 PM)</h4>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.84rem; color: #cbd5e1;">
+              <li>☑ Match verified tutors with parent requests using <code>🤝 Assign Tutor</code>.</li>
+              <li>☑ Confirm family location proximity (Bole, CMC, Sarbet, etc.).</li>
+              <li>☑ Agree on monthly rate (e.g., 3,000 &ndash; 6,000 ETB/month).</li>
+              <li>☑ Send contract summary to tutor and parent via Telegram/Phone.</li>
+            </ul>
+          </div>
+
+          <div style="background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
+            <h4 style="color: var(--emerald); margin-bottom: 0.75rem; font-size: 1rem;">Evening Ledger Sync (6:00 PM)</h4>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.84rem; color: #cbd5e1;">
+              <li>☑ Review closed and confirmed matches of the day.</li>
+              <li>☑ Owner clicks <code>☁️ Sync Confirmed Matches to Sheet</code>.</li>
+              <li>☑ Prune resolved temporary leads via <code>🛡️ Vault &amp; Free Space</code>.</li>
+              <li>☑ Check Firestore quota status (confirm &lt; 0.5% used).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER & LINKS -->
+    <footer class="master-footer">
+      <p>&copy; 2026 Teme-Astegni &bull; Ethio 21 Technologies &bull; Architected by Ashenafi Girma</p>
+      <div class="quick-links">
+        <a href="teme-admin.html" class="btn-link btn-gold">Open Admin Portal</a>
+        <a href="architecture_blueprint.html" class="btn-link">View Interactive Blueprint</a>
+        <a href="teme-astegni.html" class="btn-link">Public Registration Portal</a>
+        <a href="https://t.me/+zH2Ov8OM20YzYTc0" target="_blank" rel="noopener" class="btn-link">Parents Telegram</a>
+        <a href="https://t.me/+B1gN_P8r7X85YjE0" target="_blank" rel="noopener" class="btn-link">Tutors Telegram</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+      const target = document.getElementById(tabId);
+      if (target) target.classList.add('active');
+      if (btn) btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>

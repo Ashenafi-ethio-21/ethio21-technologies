@@ -3,7 +3,7 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v128-zero-cost-dual-vault-blueprint';
+const CACHE_NAME = 'ethio21-v129-master-practical-blueprint';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -11,6 +11,7 @@ const ASSETS_TO_CACHE = [
   './teme-astegni.html',
   './teme-admin.html',
   './architecture_blueprint.html',
+  './teme_astegni_master_architecture.html',
   './assets/exam_data.json',
   './assets/teme_astegni_logo.jpg',
   './styles/main.css',
