@@ -3,7 +3,7 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v124-tutor-photo-dispatch-uXdWxrADSSc3ZTc0';
+const CACHE_NAME = 'ethio21-v127-parents-routing-precision-lightbox';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

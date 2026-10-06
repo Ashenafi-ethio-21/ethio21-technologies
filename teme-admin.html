@@ -1495,6 +1495,176 @@
       border-radius: 12px;
       cursor: pointer;
     }
+
+    /* UNIVERSAL HIGH-RES PRECISION LIGHTBOX */
+    .image-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      background: rgba(3, 7, 18, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
+    }
+    .image-lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+    .lightbox-dialog {
+      width: 100%;
+      max-width: 940px;
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      background: #0b1329;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 18px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85);
+      overflow: hidden;
+    }
+    .lightbox-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.1rem;
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      gap: 0.5rem;
+    }
+    .lightbox-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      min-width: 0;
+    }
+    .lightbox-badge {
+      font-size: 0.68rem;
+      font-weight: 850;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      background: rgba(56, 189, 248, 0.2);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+    .lightbox-title {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #f1f5f9;
+      font-weight: 750;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .lightbox-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex-shrink: 0;
+    }
+    .lightbox-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #cbd5e1;
+      padding: 0.35rem 0.65rem;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 750;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .lightbox-btn:hover {
+      background: rgba(56, 189, 248, 0.2);
+      color: #38bdf8;
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+    .lightbox-btn-close {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.35);
+      color: #fca5a5;
+      font-size: 0.95rem;
+      padding: 0.25rem 0.6rem;
+    }
+    .lightbox-btn-close:hover {
+      background: rgba(239, 68, 68, 0.3);
+      color: #fff;
+    }
+    .lightbox-viewport {
+      flex: 1;
+      min-height: 280px;
+      max-height: calc(88vh - 100px);
+      overflow: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #020617;
+      padding: 0.75rem;
+      cursor: zoom-in;
+    }
+    .lightbox-viewport.zoomed {
+      cursor: zoom-out;
+      display: block;
+    }
+    .lightbox-image {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      transition: transform 0.2s ease;
+      user-select: none;
+    }
+    .lightbox-viewport.zoomed .lightbox-image {
+      max-width: none;
+      max-height: none;
+      width: 165%;
+      margin: 0 auto;
+      display: block;
+    }
+    .lightbox-caption {
+      padding: 0.45rem 1rem;
+      background: rgba(15, 23, 42, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.72rem;
+      color: #94a3b8;
+      text-align: center;
+    }
+
+    /* PRECISION COMPACT THUMBNAIL BOX */
+    .compact-doc-thumb-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 0.5rem;
+      text-align: center;
+      transition: border-color 0.15s ease;
+    }
+    .compact-doc-thumb-box:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+    .compact-doc-img {
+      height: 64px;
+      width: 100%;
+      object-fit: contain;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 6px;
+      cursor: zoom-in;
+      display: block;
+      transition: transform 0.15s ease;
+    }
+    .compact-doc-img:hover {
+      transform: scale(1.02);
+    }
   </style>
 </head>
 <body>
@@ -2337,116 +2507,116 @@
     </div>
   </div>
 
-  <!-- MODAL: ID & CREDENTIAL INSPECTOR (FRONT & BACK + 1-MONTH VALIDITY) -->
+  <!-- MODAL: ID & CREDENTIAL INSPECTOR (PRECISION 2-COLUMN COMPACT LAYOUT) -->
   <div id="modal-id-inspect" class="app-modal">
-    <div class="modal-sheet" style="max-width: 620px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-        <h2 style="margin: 0; font-size: 1.2rem;">🔍 ID &amp; Credential Inspector</h2>
-        <span id="inspect-role-badge" class="tag-badge tag-active">Tutor Verified</span>
-      </div>
-      <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">
-        Verify that both <b>Front &amp; Back</b> photos are sharp, unblurred, and that the ID has at least 1 month (30 days) of remaining validity before expiration.
-      </p>
-
-      <!-- Subject Summary -->
-      <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid var(--card-border); border-radius: 12px; padding: 0.85rem; margin-bottom: 1rem;">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <div>
-            <div style="font-size: 1rem; font-weight: 850; color: #fff;" id="inspect-person-name">Person Name</div>
-            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.2rem;" id="inspect-person-meta">Phone • Location</div>
-          </div>
-          <div style="text-align: right;">
-            <div style="font-size: 0.75rem; color: #94a3b8;">Document Type</div>
-            <div style="font-size: 0.82rem; font-weight: 800; color: #38bdf8;" id="inspect-doc-type">National Fayda ID</div>
-          </div>
+    <div class="modal-sheet" style="max-width: 720px; padding: 1.25rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <h2 style="margin: 0; font-size: 1.15rem;">🔍 ID &amp; Credential Inspector</h2>
+          <span id="inspect-role-badge" class="tag-badge tag-active">Tutor Verified</span>
         </div>
+        <button type="button" onclick="closeModal('modal-id-inspect')" style="background: rgba(255,255,255,0.08); border: none; color: #94a3b8; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center;">✕</button>
       </div>
 
-      <!-- Security Status Box -->
-      <div id="inspect-expiry-box" style="background: rgba(16, 185, 129, 0.1); border: 1.5px solid rgba(16, 185, 129, 0.35); border-radius: 12px; padding: 0.75rem 1rem; margin-bottom: 1rem;">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <span style="font-size: 1.1rem;">🛡️</span>
-            <div>
-              <span style="font-size: 0.75rem; color: #cbd5e1; font-weight: 700;">Document Status:</span>
-              <div style="font-size: 0.88rem; font-weight: 850; color: #fff;">Official Government / Campus ID</div>
+      <!-- Precision 2-Column Grid: Left (Audit & Info), Right (Compact Click-to-Enlarge Gallery) -->
+      <div style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 0.85rem; margin-bottom: 0.85rem;">
+        
+        <!-- Left Column: Applicant Profile, Security Status, and Consistency Checklist -->
+        <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+          <!-- Person Summary -->
+          <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid var(--card-border); border-radius: 10px; padding: 0.65rem 0.85rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+              <div>
+                <div style="font-size: 0.95rem; font-weight: 850; color: #fff;" id="inspect-person-name">Person Name</div>
+                <div style="font-size: 0.73rem; color: #94a3b8; margin-top: 0.15rem;" id="inspect-person-meta">Phone • Location</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-size: 0.68rem; color: #94a3b8; text-transform: uppercase;">Doc Type</div>
+                <div style="font-size: 0.78rem; font-weight: 800; color: #38bdf8;" id="inspect-doc-type">National Fayda ID</div>
+              </div>
             </div>
           </div>
-          <div id="inspect-expiry-status" style="font-size: 0.78rem; font-weight: 800; color: #34d399; background: rgba(16, 185, 129, 0.2); padding: 0.3rem 0.65rem; border-radius: 8px;">
-            ✓ Active &amp; Verified in Vault
+
+          <!-- Security Status Box -->
+          <div id="inspect-expiry-box" style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 10px; padding: 0.5rem 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 0.4rem;">
+              <span style="font-size: 0.95rem;">🛡️</span>
+              <span style="font-size: 0.74rem; color: #cbd5e1; font-weight: 750;">Document Status:</span>
+            </div>
+            <div id="inspect-expiry-status" style="font-size: 0.74rem; font-weight: 800; color: #34d399; background: rgba(16, 185, 129, 0.2); padding: 0.2rem 0.5rem; border-radius: 6px;">
+              ✓ Active &amp; Verified in Vault
+            </div>
+          </div>
+
+          <!-- Name Consistency & Audit Checklist -->
+          <div id="inspect-name-match-card" style="background: rgba(251, 191, 36, 0.06); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 10px; padding: 0.65rem 0.8rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+              <div style="font-size: 0.76rem; font-weight: 850; color: #fbbf24;">🔍 Name Consistency Audit</div>
+              <span class="tag-badge" style="background: rgba(251, 191, 36, 0.2); color: #fbbf24; font-size: 0.62rem; padding: 0.15rem 0.4rem;">Single Identity</span>
+            </div>
+            <div style="font-size: 0.71rem; color: #cbd5e1; margin-bottom: 0.35rem;">
+              Target Legal Name: <b id="inspect-target-legal-name" style="color: #38bdf8; font-size: 0.8rem;"></b>
+            </div>
+            <div id="inspect-checks-container" style="display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.72rem; color: #e2e8f0;">
+              <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+                <input type="checkbox" id="inspect-check-campus-name" checked style="accent-color: #10b981; width: 14px; height: 14px;">
+                <span>1. <b>Campus Student ID</b> name matches target legal name</span>
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+                <input type="checkbox" id="inspect-check-grade-name" checked style="accent-color: #10b981; width: 14px; height: 14px;">
+                <span>2. <b>Grade Report / Portal</b> name matches target legal name</span>
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+                <input type="checkbox" id="inspect-check-govt-name" checked style="accent-color: #10b981; width: 14px; height: 14px;">
+                <span>3. <b>National Fayda / Kebele ID</b> name matches target legal name</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Precision Document Photo Gallery (Small Clickable Thumbnails) -->
+        <div style="display: flex; flex-direction: column; gap: 0.45rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.74rem; font-weight: 800; color: #cbd5e1;">📸 Attached Documents</span>
+            <span style="font-size: 0.65rem; color: #38bdf8; font-weight: 700;">🔍 Click photo to view large</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;" id="inspect-docs-grid">
+            <!-- Front Govt ID -->
+            <div class="compact-doc-thumb-box" id="thumb-wrap-front">
+              <div style="font-size: 0.68rem; font-weight: 800; color: #fff; margin-bottom: 0.25rem;">📸 Govt ID Front</div>
+              <img id="inspect-img-front" src="" alt="ID Front" class="compact-doc-img" onclick="openImageLightbox(this.src, 'Govt ID Front', 'FRONT ID')">
+              <span id="inspect-empty-front" style="font-size: 0.66rem; color: #64748b; display: none;">No Photo</span>
+            </div>
+
+            <!-- Back Govt ID -->
+            <div class="compact-doc-thumb-box" id="thumb-wrap-back">
+              <div style="font-size: 0.68rem; font-weight: 800; color: #fff; margin-bottom: 0.25rem;">🔄 Govt ID Back</div>
+              <img id="inspect-img-back" src="" alt="ID Back" class="compact-doc-img" onclick="openImageLightbox(this.src, 'Govt ID Back', 'BACK ID')">
+              <span id="inspect-empty-back" style="font-size: 0.66rem; color: #64748b; display: none;">No Photo</span>
+            </div>
+
+            <!-- Campus Student ID -->
+            <div class="compact-doc-thumb-box" id="thumb-wrap-campus">
+              <div style="font-size: 0.68rem; font-weight: 800; color: #fff; margin-bottom: 0.25rem;">🎓 Campus Student ID</div>
+              <img id="inspect-img-campus" src="" alt="Campus ID" class="compact-doc-img" onclick="openImageLightbox(this.src, 'Campus Student ID', 'CAMPUS ID')">
+              <span id="inspect-empty-campus" style="font-size: 0.66rem; color: #64748b; display: none;">No Photo</span>
+            </div>
+
+            <!-- Grade Report / Portal -->
+            <div class="compact-doc-thumb-box" id="thumb-wrap-grade">
+              <div style="font-size: 0.68rem; font-weight: 800; color: #facc15; margin-bottom: 0.25rem;">📊 Grade Report / Portal</div>
+              <img id="inspect-img-grade" src="" alt="Grade Report" class="compact-doc-img" onclick="openImageLightbox(this.src, 'Grade Report / Portal', 'GRADE REPORT')">
+              <span id="inspect-empty-grade" style="font-size: 0.66rem; color: #64748b; display: none;">No Photo</span>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Front and Back ID Previews Grid -->
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-bottom: 1rem;">
-        <!-- Front Side -->
-        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); border-radius: 12px; padding: 0.75rem; text-align: center;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
-            <span style="font-size: 0.76rem; font-weight: 800; color: #fff;">📸 ID Front (የፊት ገጽ)</span>
-            <span class="tag-badge tag-active" style="font-size: 0.65rem;">Front Side</span>
-          </div>
-          <div style="height: 140px; background: rgba(0,0,0,0.4); border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid rgba(255,255,255,0.08);">
-            <img id="inspect-img-front" src="" alt="ID Front" style="max-width: 100%; max-height: 100%; object-fit: contain; cursor: zoom-in;" onclick="window.open(this.src, '_blank')">
-            <span id="inspect-empty-front" style="font-size: 0.75rem; color: #64748b;">No Front Photo Uploaded</span>
-          </div>
-          <div style="font-size: 0.7rem; color: #94a3b8; margin-top: 0.4rem;">Click image to open high-res</div>
-        </div>
-
-        <!-- Back Side -->
-        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); border-radius: 12px; padding: 0.75rem; text-align: center;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
-            <span style="font-size: 0.76rem; font-weight: 800; color: #fff;">🔄 ID Back (የኋላ ገጽ)</span>
-            <span class="tag-badge tag-active" style="font-size: 0.65rem;">Back Side</span>
-          </div>
-          <div style="height: 140px; background: rgba(0,0,0,0.4); border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid rgba(255,255,255,0.08);">
-            <img id="inspect-img-back" src="" alt="ID Back" style="max-width: 100%; max-height: 100%; object-fit: contain; cursor: zoom-in;" onclick="window.open(this.src, '_blank')">
-            <span id="inspect-empty-back" style="font-size: 0.75rem; color: #64748b;">No Back Photo Uploaded</span>
-          </div>
-          <div style="font-size: 0.7rem; color: #94a3b8; margin-top: 0.4rem;">Click image to open high-res</div>
-        </div>
-      </div>
-
-      <!-- Name Consistency Verification Panel (Single User Credential Rule) -->
-      <div id="inspect-name-match-card" style="background: rgba(251, 191, 36, 0.08); border: 1.5px solid rgba(251, 191, 36, 0.35); border-radius: 12px; padding: 0.85rem; margin-bottom: 1rem;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
-          <div style="font-size: 0.82rem; font-weight: 850; color: #fbbf24;">🔍 Name Consistency &amp; Credential Matching Audit</div>
-          <span class="tag-badge" style="background: rgba(251, 191, 36, 0.2); color: #fbbf24; font-size: 0.65rem;">Single Identity Rule</span>
-        </div>
-        <div style="font-size: 0.74rem; color: #cbd5e1; margin-bottom: 0.5rem;">
-          Target Legal Name: <b id="inspect-target-legal-name" style="color: #38bdf8; font-size: 0.84rem;"></b>
-        </div>
-        <div id="inspect-checks-container" style="display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.74rem; color: #e2e8f0;">
-          <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-            <input type="checkbox" id="inspect-check-campus-name" checked style="accent-color: #10b981; width: 16px; height: 16px;">
-            <span>1. <b>Campus Student ID</b> name matches target legal name</span>
-          </label>
-          <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-            <input type="checkbox" id="inspect-check-grade-name" checked style="accent-color: #10b981; width: 16px; height: 16px;">
-            <span>2. <b>Grade Report / Portal</b> name matches target legal name</span>
-          </label>
-          <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-            <input type="checkbox" id="inspect-check-govt-name" checked style="accent-color: #10b981; width: 16px; height: 16px;">
-            <span>3. <b>National Fayda / Kebele ID</b> name matches target legal name</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Coordinator Verification Actions -->
-      <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; padding: 0.85rem; margin-bottom: 1rem;">
-        <div style="font-size: 0.8rem; font-weight: 850; color: #38bdf8; margin-bottom: 0.35rem;">🛡️ Coordinator Legibility Audit Checklist:</div>
-        <div style="font-size: 0.74rem; color: #cbd5e1; line-height: 1.45;">
-          • Name matches form input precisely.<br>
-          • Photo is clear, recognizable, and has no digital alterations.<br>
-          • Expiry date shows at least 1 month remaining validity.<br>
-          • Household location correlates with Kebele / Fayda address.
-        </div>
-      </div>
-
-      <div class="modal-actions">
-        <button type="button" class="btn-modal-sec" onclick="closeModal('modal-id-inspect')">Close Inspector</button>
-        <button type="button" class="btn-act owner-only-feature" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: rgba(16, 185, 129, 0.4);" onclick="confirmIdAuditInTelegram()">🛡️ Approve &amp; Log to Telegram Ops</button>
-        <a href="https://t.me/Teme_Astegni_community" target="_blank" class="btn-modal-primary owner-only-feature" id="inspect-tg-vault-link" style="text-decoration: none; text-align: center;">✈️ Open in Community Hub ›</a>
+      <div class="modal-actions" style="margin-top: 0.4rem; gap: 0.5rem;">
+        <button type="button" class="btn-modal-sec" onclick="closeModal('modal-id-inspect')">Close</button>
+        <button type="button" class="btn-act owner-only-feature" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: rgba(16, 185, 129, 0.4); font-size: 0.8rem;" onclick="confirmIdAuditInTelegram()">🛡️ Approve &amp; Log to Telegram Ops</button>
+        <a href="https://t.me/Teme_Astegni_community" target="_blank" class="btn-modal-primary owner-only-feature" id="inspect-tg-vault-link" style="text-decoration: none; text-align: center; font-size: 0.82rem;">✈️ Open in Community Hub ›</a>
       </div>
     </div>
   </div>
@@ -3176,10 +3346,13 @@ function rowsToJson(sheet) {
         </div>
       </div>
 
-      <!-- Screenshot Display -->
-      <div style="background: rgba(0,0,0,0.45); border: 1px solid var(--card-border); border-radius: 14px; padding: 0.75rem; text-align: center; margin-bottom: 1rem; max-height: 380px; overflow-y: auto;">
-        <img id="viewer-pay-screenshot-img" src="" alt="Payment Receipt Screenshot" style="max-width: 100%; border-radius: 10px; display: block; margin: 0 auto; box-shadow: 0 4px 18px rgba(0,0,0,0.6);">
-        <div id="viewer-pay-no-img" style="display: none; padding: 2rem; color: var(--text-muted); font-size: 0.85rem;">
+      <!-- Compact Click-to-Enlarge Screenshot Display -->
+      <div style="background: rgba(0,0,0,0.45); border: 1px solid var(--card-border); border-radius: 12px; padding: 0.6rem; text-align: center; margin-bottom: 0.85rem;">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+          <span style="font-size: 0.72rem; color: #38bdf8; font-weight: 750; cursor: pointer;" onclick="const img = document.getElementById('viewer-pay-screenshot-img'); if(img && img.src) openImageLightbox(img.src, 'Telebirr Payment Receipt Screenshot', 'RECEIPT');">🔍 Click Receipt to View Full-Screen (ሙሉ ስክሪን አሳይ)</span>
+        </div>
+        <img id="viewer-pay-screenshot-img" src="" alt="Payment Receipt Screenshot" style="height: 95px; max-width: 100%; border-radius: 8px; display: block; margin: 0 auto; box-shadow: 0 4px 14px rgba(0,0,0,0.6); cursor: zoom-in; object-fit: contain;" onclick="openImageLightbox(this.src, 'Telebirr Payment Receipt Screenshot', 'RECEIPT')">
+        <div id="viewer-pay-no-img" style="display: none; padding: 1.2rem; color: var(--text-muted); font-size: 0.8rem;">
           No screenshot image file attached to this record.
         </div>
       </div>
@@ -3195,7 +3368,107 @@ function rowsToJson(sheet) {
     </div>
   </div>
 
+  <!-- UNIVERSAL IMAGE LIGHTBOX MODAL (HIGH-RES PRECISION VIEWER) -->
+  <div id="image-lightbox-modal" class="image-lightbox" onclick="if(event.target === this) closeImageLightbox()">
+    <div class="lightbox-dialog" onclick="event.stopPropagation()">
+      <div class="lightbox-header">
+        <div class="lightbox-title-wrap">
+          <span class="lightbox-badge" id="lightbox-badge">VERIFIED</span>
+          <h3 class="lightbox-title" id="lightbox-title">Document Inspection</h3>
+        </div>
+        <div class="lightbox-controls">
+          <button type="button" class="lightbox-btn" onclick="toggleLightboxZoom()" title="Toggle Zoom (1x / 1.65x)">
+            <span id="lightbox-zoom-icon">🔍</span> <span id="lightbox-zoom-text">Zoom</span>
+          </button>
+          <button type="button" class="lightbox-btn" onclick="rotateLightboxImage()" title="Rotate 90°">
+            🔄 Rotate
+          </button>
+          <a id="lightbox-download-link" href="#" target="_blank" class="lightbox-btn" title="Open Full in New Tab">
+            ↗ Tab
+          </a>
+          <button type="button" class="lightbox-btn lightbox-btn-close" onclick="closeImageLightbox()" title="Close (Esc)">
+            ✕
+          </button>
+        </div>
+      </div>
+      <div class="lightbox-viewport" id="lightbox-viewport" onclick="toggleLightboxZoom()">
+        <img id="lightbox-img" src="" alt="Full View Document" class="lightbox-image">
+      </div>
+      <div class="lightbox-caption" id="lightbox-caption">
+        Click or tap image to zoom in / out. Use Esc key to close.
+      </div>
+    </div>
+  </div>
+
   <script>
+    // ==========================================
+    // UNIVERSAL IMAGE LIGHTBOX CONTROLLER
+    // ==========================================
+    let currentLightboxRotation = 0;
+
+    function openImageLightbox(src, title = 'Document Preview', badge = 'VERIFIED') {
+      if (!src || src.trim() === '') return;
+      const modal = document.getElementById('image-lightbox-modal');
+      const img = document.getElementById('lightbox-img');
+      const titleEl = document.getElementById('lightbox-title');
+      const badgeEl = document.getElementById('lightbox-badge');
+      const tabLink = document.getElementById('lightbox-download-link');
+      const viewport = document.getElementById('lightbox-viewport');
+      
+      currentLightboxRotation = 0;
+      if (viewport) viewport.classList.remove('zoomed');
+      const zoomText = document.getElementById('lightbox-zoom-text');
+      if (zoomText) zoomText.innerText = 'Zoom';
+
+      if (img) {
+        img.src = src;
+        img.style.transform = 'rotate(0deg)';
+      }
+      if (titleEl) titleEl.innerText = title;
+      if (badgeEl) badgeEl.innerText = badge;
+      if (tabLink) tabLink.href = src;
+
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeImageLightbox() {
+      const modal = document.getElementById('image-lightbox-modal');
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+      const viewport = document.getElementById('lightbox-viewport');
+      if (viewport) viewport.classList.remove('zoomed');
+    }
+
+    function toggleLightboxZoom() {
+      const viewport = document.getElementById('lightbox-viewport');
+      const zoomText = document.getElementById('lightbox-zoom-text');
+      if (viewport) {
+        viewport.classList.toggle('zoomed');
+        if (zoomText) {
+          zoomText.innerText = viewport.classList.contains('zoomed') ? 'Reset' : 'Zoom';
+        }
+      }
+    }
+
+    function rotateLightboxImage() {
+      const img = document.getElementById('lightbox-img');
+      if (img) {
+        currentLightboxRotation = (currentLightboxRotation + 90) % 360;
+        img.style.transform = `rotate(${currentLightboxRotation}deg)`;
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeImageLightbox();
+      }
+    });
+
     // ==========================================
     // CRYPTOGRAPHY & PASSWORD STRENGTH ENGINE
     // ==========================================
@@ -5861,14 +6134,28 @@ function rowsToJson(sheet) {
         const emptyFront = document.getElementById('inspect-empty-front');
         const backImg = document.getElementById('inspect-img-back');
         const emptyBack = document.getElementById('inspect-empty-back');
+        const campusWrap = document.getElementById('thumb-wrap-campus');
+        const gradeWrap = document.getElementById('thumb-wrap-grade');
 
-        frontImg.src = 'assets/teme_astegni_logo.jpg';
-        frontImg.style.display = 'block';
-        emptyFront.style.display = 'none';
+        if (campusWrap) campusWrap.style.display = 'none';
+        if (gradeWrap) gradeWrap.style.display = 'none';
 
-        backImg.src = 'assets/teme_astegni_logo.jpg';
-        backImg.style.display = 'block';
-        emptyBack.style.display = 'none';
+        const frontSrc = record.frontImg || record.idFront || 'assets/teme_astegni_logo.jpg';
+        const backSrc = record.backImg || record.idBack || 'assets/teme_astegni_logo.jpg';
+
+        if (frontImg) {
+          frontImg.src = frontSrc;
+          frontImg.onclick = () => openImageLightbox(frontSrc, `${record.name} - Household ID (Front)`, 'PARENT ID');
+          frontImg.style.display = 'block';
+        }
+        if (emptyFront) emptyFront.style.display = 'none';
+
+        if (backImg) {
+          backImg.src = backSrc;
+          backImg.onclick = () => openImageLightbox(backSrc, `${record.name} - Household ID (Back)`, 'PARENT ID');
+          backImg.style.display = 'block';
+        }
+        if (emptyBack) emptyBack.style.display = 'none';
 
       } else {
         const tutors = getTutors();
@@ -5890,16 +6177,16 @@ function rowsToJson(sheet) {
         const checksEl = document.getElementById('inspect-checks-container');
         if (checksEl) {
           checksEl.innerHTML = `
-            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-              <input type="checkbox" id="inspect-check-campus-name" checked style="accent-color: #10b981; width: 16px; height: 16px;">
+            <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+              <input type="checkbox" id="inspect-check-campus-name" checked style="accent-color: #10b981; width: 14px; height: 14px;">
               <span>1. <b>Campus Student ID</b> name matches target legal name (<b>${escapeHtml(record.name)}</b>)</span>
             </label>
-            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-              <input type="checkbox" id="inspect-check-grade-name" checked style="accent-color: #10b981; width: 16px; height: 16px;">
+            <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+              <input type="checkbox" id="inspect-check-grade-name" checked style="accent-color: #10b981; width: 14px; height: 14px;">
               <span>2. <b>Grade Report / Portal</b> name matches target legal name (<b>${escapeHtml(record.name)}</b>)</span>
             </label>
-            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-              <input type="checkbox" id="inspect-check-govt-name" checked style="accent-color: #10b981; width: 16px; height: 16px;">
+            <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+              <input type="checkbox" id="inspect-check-govt-name" checked style="accent-color: #10b981; width: 14px; height: 14px;">
               <span>3. <b>National Fayda / Kebele ID</b> name matches target legal name (<b>${escapeHtml(record.name)}</b>)</span>
             </label>
           `;
@@ -5914,14 +6201,48 @@ function rowsToJson(sheet) {
         const emptyFront = document.getElementById('inspect-empty-front');
         const backImg = document.getElementById('inspect-img-back');
         const emptyBack = document.getElementById('inspect-empty-back');
+        const campusImg = document.getElementById('inspect-img-campus');
+        const emptyCampus = document.getElementById('inspect-empty-campus');
+        const gradeImg = document.getElementById('inspect-img-grade');
+        const emptyGrade = document.getElementById('inspect-empty-grade');
+        const campusWrap = document.getElementById('thumb-wrap-campus');
+        const gradeWrap = document.getElementById('thumb-wrap-grade');
 
-        frontImg.src = 'assets/teme_astegni_logo.jpg';
-        frontImg.style.display = 'block';
-        emptyFront.style.display = 'none';
+        if (campusWrap) campusWrap.style.display = 'block';
+        if (gradeWrap) gradeWrap.style.display = 'block';
 
-        backImg.src = 'assets/teme_astegni_logo.jpg';
-        backImg.style.display = 'block';
-        emptyBack.style.display = 'none';
+        const frontSrc = record.govtFrontImg || record.frontImg || 'assets/teme_astegni_logo.jpg';
+        const backSrc = record.govtBackImg || record.backImg || 'assets/teme_astegni_logo.jpg';
+        const campusSrc = record.campusIdImg || 'assets/teme_astegni_logo.jpg';
+        const gradeSrc = record.gradeReportImg || 'assets/teme_astegni_logo.jpg';
+
+        if (frontImg) {
+          frontImg.src = frontSrc;
+          frontImg.onclick = () => openImageLightbox(frontSrc, `${record.name} - Govt ID Front`, 'GOVT ID');
+          frontImg.style.display = 'block';
+        }
+        if (emptyFront) emptyFront.style.display = 'none';
+
+        if (backImg) {
+          backImg.src = backSrc;
+          backImg.onclick = () => openImageLightbox(backSrc, `${record.name} - Govt ID Back`, 'GOVT ID');
+          backImg.style.display = 'block';
+        }
+        if (emptyBack) emptyBack.style.display = 'none';
+
+        if (campusImg) {
+          campusImg.src = campusSrc;
+          campusImg.onclick = () => openImageLightbox(campusSrc, `${record.name} - Campus Student ID`, 'CAMPUS ID');
+          campusImg.style.display = 'block';
+        }
+        if (emptyCampus) emptyCampus.style.display = 'none';
+
+        if (gradeImg) {
+          gradeImg.src = gradeSrc;
+          gradeImg.onclick = () => openImageLightbox(gradeSrc, `${record.name} - Grade Report / Portal`, 'GRADE REPORT');
+          gradeImg.style.display = 'block';
+        }
+        if (emptyGrade) emptyGrade.style.display = 'none';
       }
 
       document.getElementById('modal-id-inspect').classList.add('active');
@@ -6942,7 +7263,8 @@ function rowsToJson(sheet) {
     function saveTelegramConfig() {
       const rawChatId = document.getElementById('tg-chat-id-input').value.trim() || '-1004410573815';
       const chatId = (rawChatId.includes('uXdWxrADSSc3ZTc0') || rawChatId.startsWith('http') || rawChatId.includes('/+')) ? '-1004410573815' : rawChatId;
-      const parentsChat = (document.getElementById('tg-parents-chat-input') ? document.getElementById('tg-parents-chat-input').value.trim() : '') || '-1003632707084';
+      const rawParents = (document.getElementById('tg-parents-chat-input') ? document.getElementById('tg-parents-chat-input').value.trim() : '') || '-1003632707084';
+      const parentsChat = (rawParents.includes('zH2Ov8OM20YzYTc0') || rawParents.startsWith('http') || rawParents.includes('/+')) ? '-1003632707084' : rawParents;
       const rawPayments = (document.getElementById('tg-payments-chat-input') ? document.getElementById('tg-payments-chat-input').value.trim() : '');
       const paymentsChat = (rawPayments.startsWith('http') || rawPayments.includes('/+')) ? '' : rawPayments;
 
@@ -6972,7 +7294,8 @@ function rowsToJson(sheet) {
     async function testTelegramAlert() {
       let rawChat = localStorage.getItem('teme_astegni_tg_chat_id') || document.getElementById('tg-chat-id-input').value.trim() || '-1004410573815';
       const chatId = (rawChat.includes('uXdWxrADSSc3ZTc0') || rawChat.startsWith('http') || rawChat.includes('/+')) ? '-1004410573815' : rawChat;
-      const parentsChat = localStorage.getItem('teme_astegni_tg_parents_chat_id') || (document.getElementById('tg-parents-chat-input') ? document.getElementById('tg-parents-chat-input').value.trim() : '') || '-1003632707084';
+      const rawParents = localStorage.getItem('teme_astegni_tg_parents_chat_id') || (document.getElementById('tg-parents-chat-input') ? document.getElementById('tg-parents-chat-input').value.trim() : '') || '-1003632707084';
+      const parentsChat = (rawParents.includes('zH2Ov8OM20YzYTc0') || rawParents.startsWith('http') || rawParents.includes('/+')) ? '-1003632707084' : rawParents;
       const rawPayments = localStorage.getItem('teme_astegni_tg_payments_chat_id') || (document.getElementById('tg-payments-chat-input') ? document.getElementById('tg-payments-chat-input').value.trim() : '');
       const paymentsChat = (rawPayments.startsWith('http') || rawPayments.includes('/+')) ? '' : rawPayments;
 

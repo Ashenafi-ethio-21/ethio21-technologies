@@ -1424,6 +1424,160 @@
     .ios-step-text strong {
       color: #38bdf8;
     }
+
+    /* UNIVERSAL HIGH-RES PRECISION LIGHTBOX */
+    .image-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      background: rgba(3, 7, 18, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
+    }
+    .image-lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+    .lightbox-dialog {
+      width: 100%;
+      max-width: 920px;
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      background: #0b1329;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 18px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85);
+      overflow: hidden;
+    }
+    .lightbox-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      gap: 0.5rem;
+    }
+    .lightbox-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      min-width: 0;
+    }
+    .lightbox-badge {
+      font-size: 0.65rem;
+      font-weight: 850;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      background: rgba(56, 189, 248, 0.2);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+    .lightbox-title {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #f1f5f9;
+      font-weight: 750;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .lightbox-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-shrink: 0;
+    }
+    .lightbox-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #cbd5e1;
+      padding: 0.35rem 0.65rem;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 750;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .lightbox-btn:hover {
+      background: rgba(56, 189, 248, 0.2);
+      color: #38bdf8;
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+    .lightbox-btn-close {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.35);
+      color: #fca5a5;
+      font-size: 0.95rem;
+      padding: 0.25rem 0.6rem;
+    }
+    .lightbox-btn-close:hover {
+      background: rgba(239, 68, 68, 0.3);
+      color: #fff;
+    }
+    .lightbox-viewport {
+      flex: 1;
+      min-height: 280px;
+      max-height: calc(88vh - 100px);
+      overflow: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #020617;
+      padding: 0.75rem;
+      cursor: zoom-in;
+    }
+    .lightbox-viewport.zoomed {
+      cursor: zoom-out;
+      display: block;
+    }
+    .lightbox-image {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      transition: transform 0.2s ease;
+      user-select: none;
+    }
+    .lightbox-viewport.zoomed .lightbox-image {
+      max-width: none;
+      max-height: none;
+      width: 160%;
+      margin: 0 auto;
+      display: block;
+    }
+    .lightbox-caption {
+      padding: 0.45rem 1rem;
+      background: rgba(15, 23, 42, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.72rem;
+      color: #94a3b8;
+      text-align: center;
+    }
+    .file-preview-thumb {
+      max-height: 55px !important;
+      border-radius: 8px;
+      cursor: zoom-in;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .file-preview-thumb:hover {
+      transform: scale(1.04);
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);
+    }
   </style>
 </head>
 <body>
@@ -2058,7 +2212,7 @@
                     <span>📁</span> <span>ጋለሪ</span>
                   </button>
                 </div>
-                <img id="preview-p-front" class="file-preview-thumb" alt="ID Front Preview" style="max-width: 100px; max-height: 70px; margin-top: 0.4rem; display: none;">
+                <img id="preview-p-front" class="file-preview-thumb" alt="ID Front Preview" style="max-width: 100px; max-height: 55px; margin-top: 0.4rem; display: none; cursor: zoom-in;" onclick="openImageLightbox(this.src, 'Household ID (Front)', 'PARENT ID')" title="Click to view large">
                 <div id="status-p-front" class="file-status-tag" style="font-size: 0.7rem; display: none;">✓ Front Attached</div>
                 <div id="p-front-clarity" style="font-size: 0.68rem; margin-top: 0.2rem; display: none;"></div>
               </div>
@@ -2078,7 +2232,7 @@
                     <span>📁</span> <span>ጋለሪ</span>
                   </button>
                 </div>
-                <img id="preview-p-back" class="file-preview-thumb" alt="ID Back Preview" style="max-width: 100px; max-height: 70px; margin-top: 0.4rem; display: none;">
+                <img id="preview-p-back" class="file-preview-thumb" alt="ID Back Preview" style="max-width: 100px; max-height: 55px; margin-top: 0.4rem; display: none; cursor: zoom-in;" onclick="openImageLightbox(this.src, 'Household ID (Back)', 'PARENT ID')" title="Click to view large">
                 <div id="status-p-back" class="file-status-tag" style="font-size: 0.7rem; display: none;">✓ Back Attached</div>
                 <div id="p-back-clarity" style="font-size: 0.68rem; margin-top: 0.2rem; display: none;"></div>
               </div>
@@ -2329,7 +2483,7 @@
                     <span>📁</span> <span>ጋለሪ</span>
                   </button>
                 </div>
-                <img id="preview-campus-id" class="file-preview-thumb" alt="Campus ID Front Preview" style="max-width: 100px; max-height: 70px; margin-top: 0.4rem; display: none;">
+                <img id="preview-campus-id" class="file-preview-thumb" alt="Campus ID Front Preview" style="max-width: 100px; max-height: 55px; margin-top: 0.4rem; display: none; cursor: zoom-in;" onclick="openImageLightbox(this.src, 'Campus Student ID (Front)', 'CAMPUS ID')" title="Click to view large">
                 <div id="status-campus-id" class="file-status-tag" style="font-size: 0.7rem; color: #34d399; display: none;">✓ Front Attached</div>
                 <div id="t-cid-front-clarity" style="font-size: 0.68rem; margin-top: 0.2rem; display: none;"></div>
               </div>
@@ -2349,7 +2503,7 @@
                     <span>📁</span> <span>ጋለሪ</span>
                   </button>
                 </div>
-                <img id="preview-campus-id-back" class="file-preview-thumb" alt="Campus ID Back Preview" style="max-width: 100px; max-height: 70px; margin-top: 0.4rem; display: none;">
+                <img id="preview-campus-id-back" class="file-preview-thumb" alt="Campus ID Back Preview" style="max-width: 100px; max-height: 55px; margin-top: 0.4rem; display: none; cursor: zoom-in;" onclick="openImageLightbox(this.src, 'Campus Student ID (Back)', 'CAMPUS ID')" title="Click to view large">
                 <div id="status-campus-id-back" class="file-status-tag" style="font-size: 0.7rem; color: #34d399; display: none;">✓ Back Attached</div>
                 <div id="t-cid-back-clarity" style="font-size: 0.68rem; margin-top: 0.2rem; display: none;"></div>
               </div>
@@ -2376,7 +2530,7 @@
                   <span>📁</span> <span>ፋይል / ጋለሪ</span>
                 </button>
               </div>
-              <img id="preview-grade" class="file-preview-thumb" style="border-color: #facc15; margin-top: 0.4rem; display: none;" alt="Grade Report Preview">
+              <img id="preview-grade" class="file-preview-thumb" style="border-color: #facc15; margin-top: 0.4rem; display: none; cursor: zoom-in;" onclick="openImageLightbox(this.src, 'Grade Report / Portal Screenshot', 'GRADE REPORT')" title="Click to view large" alt="Grade Report Preview">
               <div id="status-grade" class="file-status-tag" style="color: #facc15; display: none;">✓ Grade Report Attached</div>
             </div>
           </div>
@@ -2451,7 +2605,7 @@
                     <span>📁</span> <span>ጋለሪ</span>
                   </button>
                 </div>
-                <img id="preview-t-front" class="file-preview-thumb" alt="ID Front Preview" style="max-width: 100px; max-height: 70px; margin-top: 0.4rem; display: none;">
+                <img id="preview-t-front" class="file-preview-thumb" alt="ID Front Preview" style="max-width: 100px; max-height: 55px; margin-top: 0.4rem; display: none; cursor: zoom-in;" onclick="openImageLightbox(this.src, 'Tutor National Fayda / Kebele ID (Front)', 'GOVT ID')" title="Click to view large">
                 <div id="status-t-front" class="file-status-tag" style="font-size: 0.7rem; display: none;">✓ Front Attached</div>
                 <div id="t-front-clarity" style="font-size: 0.68rem; margin-top: 0.2rem; display: none;"></div>
               </div>
@@ -2471,7 +2625,7 @@
                     <span>📁</span> <span>ጋለሪ</span>
                   </button>
                 </div>
-                <img id="preview-t-back" class="file-preview-thumb" alt="ID Back Preview" style="max-width: 100px; max-height: 70px; margin-top: 0.4rem; display: none;">
+                <img id="preview-t-back" class="file-preview-thumb" alt="ID Back Preview" style="max-width: 100px; max-height: 55px; margin-top: 0.4rem; display: none; cursor: zoom-in;" onclick="openImageLightbox(this.src, 'Tutor National Fayda / Kebele ID (Back)', 'GOVT ID')" title="Click to view large">
                 <div id="status-t-back" class="file-status-tag" style="font-size: 0.7rem; display: none;">✓ Back Attached</div>
                 <div id="t-back-clarity" style="font-size: 0.68rem; margin-top: 0.2rem; display: none;"></div>
               </div>
@@ -3249,8 +3403,9 @@
           </div>
 
           <!-- Live Preview & Compression Feedback Box -->
-          <div id="pay-screenshot-preview" style="display: none; margin-top: 0.75rem; text-align: center; background: rgba(0,0,0,0.45); border: 1.5px dashed #10b981; border-radius: 14px; padding: 0.85rem;">
-            <img id="pay-preview-img" src="" alt="Receipt Preview" style="max-height: 180px; max-width: 100%; border-radius: 10px; border: 1.5px solid rgba(16, 185, 129, 0.5); box-shadow: 0 6px 20px rgba(0,0,0,0.6); display: block; margin: 0 auto 0.6rem;">
+          <div id="pay-screenshot-preview" style="display: none; margin-top: 0.75rem; text-align: center; background: rgba(0,0,0,0.45); border: 1.5px dashed #10b981; border-radius: 14px; padding: 0.75rem;">
+            <img id="pay-preview-img" src="" alt="Receipt Preview" style="max-height: 80px; max-width: 100%; border-radius: 8px; border: 1.5px solid rgba(16, 185, 129, 0.5); box-shadow: 0 4px 15px rgba(0,0,0,0.6); display: block; margin: 0 auto 0.4rem; cursor: zoom-in;" onclick="openImageLightbox(this.src, 'የክፍያ ደረሰኝ (Telebirr Receipt)', 'PAYMENT')" title="Click to view large">
+            <div style="font-size: 0.72rem; color: #38bdf8; margin-bottom: 0.4rem; cursor: pointer;" onclick="openImageLightbox(document.getElementById('pay-preview-img').src, 'የክፍያ ደረሰኝ (Telebirr Receipt)', 'PAYMENT')">🔍 በሙሉ ስክሪን አጉልተው ይመልከቱ (Click to Enlarge Full Screen)</div>
             <div id="pay-preview-status" style="font-size: 0.76rem; color: #34d399; font-weight: 800; margin-bottom: 0.4rem;">
               ✓ ደረሰኙ ተዘጋጅቷል (Receipt Compressed &amp; Ready)
             </div>
@@ -3312,7 +3467,107 @@
     </div>
   </div>
 
+  <!-- UNIVERSAL IMAGE LIGHTBOX MODAL (HIGH-RES PRECISION VIEWER) -->
+  <div id="image-lightbox-modal" class="image-lightbox" onclick="if(event.target === this) closeImageLightbox()">
+    <div class="lightbox-dialog" onclick="event.stopPropagation()">
+      <div class="lightbox-header">
+        <div class="lightbox-title-wrap">
+          <span class="lightbox-badge" id="lightbox-badge">VERIFIED DOC</span>
+          <h3 class="lightbox-title" id="lightbox-title">Document Inspection</h3>
+        </div>
+        <div class="lightbox-controls">
+          <button type="button" class="lightbox-btn" onclick="toggleLightboxZoom()" title="Toggle Zoom (1x / 1.6x)">
+            <span id="lightbox-zoom-icon">🔍</span> <span id="lightbox-zoom-text">Zoom</span>
+          </button>
+          <button type="button" class="lightbox-btn" onclick="rotateLightboxImage()" title="Rotate 90°">
+            🔄 Rotate
+          </button>
+          <a id="lightbox-download-link" href="#" target="_blank" class="lightbox-btn" title="Open Full in New Tab">
+            ↗ Tab
+          </a>
+          <button type="button" class="lightbox-btn lightbox-btn-close" onclick="closeImageLightbox()" title="Close (Esc)">
+            ✕
+          </button>
+        </div>
+      </div>
+      <div class="lightbox-viewport" id="lightbox-viewport" onclick="toggleLightboxZoom()">
+        <img id="lightbox-img" src="" alt="Full View Document" class="lightbox-image">
+      </div>
+      <div class="lightbox-caption" id="lightbox-caption">
+        Click or tap image to zoom in / out. Use Esc key to close.
+      </div>
+    </div>
+  </div>
+
   <script>
+    // ==========================================
+    // UNIVERSAL IMAGE LIGHTBOX CONTROLLER
+    // ==========================================
+    let currentLightboxRotation = 0;
+
+    function openImageLightbox(src, title = 'Document Preview', badge = 'VERIFIED') {
+      if (!src || src.trim() === '') return;
+      const modal = document.getElementById('image-lightbox-modal');
+      const img = document.getElementById('lightbox-img');
+      const titleEl = document.getElementById('lightbox-title');
+      const badgeEl = document.getElementById('lightbox-badge');
+      const tabLink = document.getElementById('lightbox-download-link');
+      const viewport = document.getElementById('lightbox-viewport');
+      
+      currentLightboxRotation = 0;
+      if (viewport) viewport.classList.remove('zoomed');
+      const zoomText = document.getElementById('lightbox-zoom-text');
+      if (zoomText) zoomText.innerText = 'Zoom';
+
+      if (img) {
+        img.src = src;
+        img.style.transform = 'rotate(0deg)';
+      }
+      if (titleEl) titleEl.innerText = title;
+      if (badgeEl) badgeEl.innerText = badge;
+      if (tabLink) tabLink.href = src;
+
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeImageLightbox() {
+      const modal = document.getElementById('image-lightbox-modal');
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+      const viewport = document.getElementById('lightbox-viewport');
+      if (viewport) viewport.classList.remove('zoomed');
+    }
+
+    function toggleLightboxZoom() {
+      const viewport = document.getElementById('lightbox-viewport');
+      const zoomText = document.getElementById('lightbox-zoom-text');
+      if (viewport) {
+        viewport.classList.toggle('zoomed');
+        if (zoomText) {
+          zoomText.innerText = viewport.classList.contains('zoomed') ? 'Reset' : 'Zoom';
+        }
+      }
+    }
+
+    function rotateLightboxImage() {
+      const img = document.getElementById('lightbox-img');
+      if (img) {
+        currentLightboxRotation = (currentLightboxRotation + 90) % 360;
+        img.style.transform = `rotate(${currentLightboxRotation}deg)`;
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeImageLightbox();
+      }
+    });
+
     // GLOBAL SECURITY & TEXT SANITIZER
     function escapeHtml(str) {
       if (str === null || str === undefined) return '';
@@ -6804,6 +7059,8 @@
     window.TEME_TG_TUTORS_CHAT = '-1004410573815'; // Dedicated Tutors Group
     window.TEME_TG_PARENTS_CHAT = '-1003632707084'; // Dedicated Parents Group
     window.TEME_TG_PARENTS_PAYMENTS_CHAT = '-1003632707084'; // Dedicated Payments Group / Fallback
+    window.TEME_TG_PARENTS_INVITE = 'https://t.me/+zH2Ov8OM20YzYTc0';
+    window.TEME_TG_TUTORS_INVITE = 'https://t.me/+uXdWxrADSSc3ZTc0';
     window.TEME_TG_PARENTS_PAYMENTS_INVITE = 'https://t.me/+1nwxhaCqN9M4Y2E0';
 
     function getValidTelegramChatId(chatId, fallbackId) {
@@ -6812,6 +7069,10 @@
       // Directly map Tutors Telegram group invite link
       if (str.includes('uXdWxrADSSc3ZTc0') || str === '+uXdWxrADSSc3ZTc0') {
         return '-1004410573815';
+      }
+      // Directly map Parents Telegram group invite link
+      if (str.includes('zH2Ov8OM20YzYTc0') || str === '+zH2Ov8OM20YzYTc0') {
+        return '-1003632707084';
       }
       // If someone stored an invite link URL like https://t.me/+..., ignore it and use valid numeric/handle fallback
       if (str.startsWith('http://') || str.startsWith('https://') || str.startsWith('+') || str.includes('/+')) {
@@ -6913,7 +7174,7 @@
     // Send Photo to Telegram Bot / Channel (Queued & Rate-Protected)
     function sendPhotoToTelegramBot(blob, caption, targetChatId) {
       const botToken = localStorage.getItem('teme_astegni_tg_bot_token') || window.TEME_DEFAULT_TG_BOT_TOKEN;
-      const primaryChat = getValidTelegramChatId(targetChatId || localStorage.getItem('teme_astegni_tg_chat_id'), window.TEME_TG_TUTORS_CHAT || window.TEME_DEFAULT_TG_CHAT_ID);
+      const primaryChat = getValidTelegramChatId(targetChatId, window.TEME_TG_TUTORS_CHAT || window.TEME_DEFAULT_TG_CHAT_ID);
       if (!botToken || !primaryChat || !blob) return;
 
       enqueueTelegramDispatch(async () => {
@@ -6941,7 +7202,7 @@
     // Send Formatted Applicant Dossier Text to Telegram Bot / Channel (Queued & Rate-Protected)
     function sendTextMessageToTelegramBot(text, targetChatId) {
       const botToken = localStorage.getItem('teme_astegni_tg_bot_token') || window.TEME_DEFAULT_TG_BOT_TOKEN;
-      const primaryChat = getValidTelegramChatId(targetChatId || localStorage.getItem('teme_astegni_tg_chat_id'), window.TEME_DEFAULT_TG_CHAT_ID);
+      const primaryChat = getValidTelegramChatId(targetChatId, window.TEME_DEFAULT_TG_CHAT_ID);
       if (!botToken || !primaryChat || !text) return;
 
       enqueueTelegramDispatch(async () => {
@@ -6956,19 +7217,7 @@
           });
           const data = await res.json().catch(() => null);
           if (!res.ok || (data && !data.ok)) {
-            console.warn(`Telegram message dispatch to ${primaryChat} failed (${data?.description || res.statusText}). Attempting fallback chat...`);
-            const fallbackChat = (primaryChat !== window.TEME_DEFAULT_TG_CHAT_ID) ? window.TEME_DEFAULT_TG_CHAT_ID : null;
-            if (fallbackChat) {
-              await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  chat_id: fallbackChat,
-                  text: `⚠️ [Auto-Rerouted from ${primaryChat}]\n` + text,
-                  parse_mode: 'HTML'
-                })
-              });
-            }
+            console.warn(`Telegram message dispatch to ${primaryChat} failed (${data?.description || res.statusText}).`);
           }
           return res;
         } catch (err) {
@@ -6976,25 +7225,6 @@
           return null;
         }
       });
-
-      // Deliver duplicate copy to admin/ops chat if separate chatId configured
-      const opsChat = localStorage.getItem('teme_astegni_tg_chat_id');
-      if (opsChat && opsChat !== primaryChat) {
-        enqueueTelegramDispatch(async () => {
-          try {
-            return await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                chat_id: opsChat,
-                text: text
-              })
-            });
-          } catch (err) {
-            return null;
-          }
-        });
-      }
     }
 
     // Active Submission Tracking State
