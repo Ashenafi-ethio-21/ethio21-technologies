@@ -3,7 +3,7 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v129-master-practical-blueprint';
+const CACHE_NAME = 'ethio21-v130-bilingual-clean-navbar';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
