@@ -1979,28 +1979,31 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">Telegram Admin Channel / Group Chat ID</label>
-          <input type="text" id="tg-chat-id-input" class="form-ctrl" placeholder="e.g. @Ethio21AstegniOps or -100123456789">
+          <label class="form-label">Telegram Tutors Group Chat ID</label>
+          <input type="text" id="tg-chat-id-input" class="form-ctrl" placeholder="-1004410573815" value="-1004410573815">
+          <p style="font-size: 0.72rem; color: #94a3b8; margin-top: 0.25rem;">
+            Default Tutors Supergroup ID: <code>-1004410573815</code> ("Tutors" group). Make sure <code>@ethio21_official_bot</code> is promoted to <b>Administrator</b>.
+          </p>
         </div>
 
         <div class="form-group">
           <label class="form-label">Telegram Parents Group Chat ID</label>
           <input type="text" id="tg-parents-chat-input" class="form-ctrl" placeholder="-1003632707084" value="-1003632707084">
           <p style="font-size: 0.72rem; color: #94a3b8; margin-top: 0.25rem;">
-            Default Supergroup ID: <code>-1003632707084</code> (Make sure <code>@ethio21_official_bot</code> is added and promoted to <b>Administrator</b> with "Post Messages" permission).
+            Default Parents Supergroup ID: <code>-1003632707084</code> ("Parents" group). Make sure <code>@ethio21_official_bot</code> is promoted to <b>Administrator</b>.
           </p>
         </div>
 
         <div class="form-group">
-          <label class="form-label">Telegram "Parents Payments" Group Chat ID / Link</label>
+          <label class="form-label">Telegram "Parents Payments" Group Chat ID</label>
           <div style="display: flex; gap: 0.5rem;">
-            <input type="text" id="tg-payments-chat-input" class="form-ctrl" placeholder="e.g. @Teme_Astegni_community or Group ID" value="https://t.me/+1nwxhaCqN9M4Y2E0">
+            <input type="text" id="tg-payments-chat-input" class="form-ctrl" placeholder="e.g. -100xxxxxxxxxx (Numeric Chat ID)">
             <a href="https://t.me/+1nwxhaCqN9M4Y2E0" target="_blank" rel="noopener" class="btn-act" style="background: #0284c7; color: #fff; text-decoration: none; display: flex; align-items: center; white-space: nowrap; font-size: 0.8rem; font-weight: 800; padding: 0.5rem 0.85rem; border-radius: 10px;">
               ✈️ Open Group ↗
             </a>
           </div>
           <p style="font-size: 0.74rem; color: var(--text-muted); margin-top: 0.25rem; line-height: 1.4;">
-            Official Group Link: <b>https://t.me/+1nwxhaCqN9M4Y2E0</b>. Parent payment screenshots &amp; transfer receipts stream here with Parent Tracking ID (AST-P-XXXX) permanently attached.
+            Official Invite: <b>https://t.me/+1nwxhaCqN9M4Y2E0</b>. Enter the numeric chat ID of the payments group. If left blank, payment receipts will safely route to the Parents Group (<code>-1003632707084</code>).
           </p>
         </div>
 
@@ -6938,61 +6941,90 @@ function rowsToJson(sheet) {
 
     function saveTelegramConfig() {
       const token = document.getElementById('tg-bot-token-input').value.trim();
-      const chatId = document.getElementById('tg-chat-id-input').value.trim();
+      const chatId = document.getElementById('tg-chat-id-input').value.trim() || '-1004410573815';
       const parentsChat = (document.getElementById('tg-parents-chat-input') ? document.getElementById('tg-parents-chat-input').value.trim() : '') || '-1003632707084';
-      const paymentsChat = (document.getElementById('tg-payments-chat-input') ? document.getElementById('tg-payments-chat-input').value.trim() : '');
+      const rawPayments = (document.getElementById('tg-payments-chat-input') ? document.getElementById('tg-payments-chat-input').value.trim() : '');
+      const paymentsChat = (rawPayments.startsWith('http') || rawPayments.includes('/+')) ? '' : rawPayments;
+
       localStorage.setItem('teme_astegni_tg_bot_token', token);
       localStorage.setItem('teme_astegni_tg_chat_id', chatId);
       localStorage.setItem('teme_astegni_tg_parents_chat_id', parentsChat);
-      if (paymentsChat) localStorage.setItem('teme_astegni_tg_payments_chat_id', paymentsChat);
+      if (paymentsChat) {
+        localStorage.setItem('teme_astegni_tg_payments_chat_id', paymentsChat);
+      } else {
+        localStorage.removeItem('teme_astegni_tg_payments_chat_id');
+      }
 
       if (typeof db !== 'undefined' && db) {
         db.collection('astegni_system_config').doc('public_config').set({
           botToken: token,
           tutorsChatId: chatId,
           parentsChatId: parentsChat,
-          paymentsChatId: paymentsChat,
+          paymentsChatId: paymentsChat || parentsChat,
           updatedAt: new Date().toISOString()
         }, { merge: true }).then(() => {
           console.log("Synced telegram config to cloud public_config");
         }).catch(e => console.warn(e));
       }
-      alert('✅ Telegram Settings saved and synced to cloud! All uploads, parent applications, and tutor alerts will route accurately.');
+      alert('✅ Telegram Settings saved! All uploads are segmented:\n• Parents ➔ ' + parentsChat + '\n• Tutors ➔ ' + chatId + '\n• Payments ➔ ' + (paymentsChat || parentsChat));
     }
 
     async function testTelegramAlert() {
       const token = localStorage.getItem('teme_astegni_tg_bot_token') || document.getElementById('tg-bot-token-input').value.trim();
-      const chatId = localStorage.getItem('teme_astegni_tg_chat_id') || document.getElementById('tg-chat-id-input').value.trim();
+      const chatId = localStorage.getItem('teme_astegni_tg_chat_id') || document.getElementById('tg-chat-id-input').value.trim() || '-1004410573815';
       const parentsChat = localStorage.getItem('teme_astegni_tg_parents_chat_id') || (document.getElementById('tg-parents-chat-input') ? document.getElementById('tg-parents-chat-input').value.trim() : '') || '-1003632707084';
+      const rawPayments = localStorage.getItem('teme_astegni_tg_payments_chat_id') || (document.getElementById('tg-payments-chat-input') ? document.getElementById('tg-payments-chat-input').value.trim() : '');
+      const paymentsChat = (rawPayments.startsWith('http') || rawPayments.includes('/+')) ? '' : rawPayments;
+
       if (!token) {
         alert('Please enter Telegram Bot Token first.');
         return;
       }
 
       try {
-        const text = '🚀 <b>Teme Astegni Test Alert</b>\n\nCloud connection active. Verified inquiries and ID verification photos will arrive here safely.';
+        const textTutors = '🎓 <b>Tutors Group Test Alert</b>\n\nVerified tutor applications, campus IDs, and grade reports will stream into this group.';
+        const textParents = '👨‍👩‍👧 <b>Parents Group Test Alert</b>\n\nVerified parent tutoring inquiries and household IDs will stream into this group.';
+        const textPayments = '💳 <b>Payments Group Test Alert</b>\n\nParent escrow transfer receipts and payment screenshots will stream into this group.';
+
         let resAdmin = null;
         if (chatId) {
           const r = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ chat_id: chatId, text: text, parse_mode: 'HTML' })
+            body: JSON.stringify({ chat_id: chatId, text: textTutors, parse_mode: 'HTML' })
           });
           resAdmin = await r.json();
         }
+
         let resParents = null;
         if (parentsChat) {
           const r = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ chat_id: parentsChat, text: '👨‍👩‍👧 <b>Parents Group Test Alert</b>\n\nParent inquiries will stream into this group.', parse_mode: 'HTML' })
+            body: JSON.stringify({ chat_id: parentsChat, text: textParents, parse_mode: 'HTML' })
           });
           resParents = await r.json();
         }
 
+        let resPayments = null;
+        if (paymentsChat) {
+          const r = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: paymentsChat, text: textPayments, parse_mode: 'HTML' })
+          });
+          resPayments = await r.json();
+        }
+
         let msg = '📊 Telegram Test Results:\n';
-        if (resAdmin) msg += `\n• Admin/Tutors Chat (${chatId}): ${resAdmin.ok ? '✓ Sent Successfully!' : '❌ Error: ' + resAdmin.description}`;
-        if (resParents) msg += `\n• Parents Group (${parentsChat}): ${resParents.ok ? '✓ Sent Successfully!' : '❌ Error: ' + resParents.description + ' (Note: Bot must be promoted to Administrator in this group)'}`;
+        if (resAdmin) msg += `\n• Tutors Group (${chatId}): ${resAdmin.ok ? '✓ Connected & Sent!' : '❌ Error: ' + resAdmin.description}`;
+        if (resParents) msg += `\n• Parents Group (${parentsChat}): ${resParents.ok ? '✓ Connected & Sent!' : '❌ Error: ' + resParents.description}`;
+        if (paymentsChat && resPayments) {
+          msg += `\n• Payments Group (${paymentsChat}): ${resPayments.ok ? '✓ Connected & Sent!' : '❌ Error: ' + resPayments.description}`;
+        } else {
+          msg += `\n• Payments Stream: Routed to Parents Group (${parentsChat}) ✓`;
+        }
+        msg += '\n\n(Important: Ensure @ethio21_official_bot is promoted to Administrator with "Post Messages" permission in each group)';
         alert(msg);
       } catch (err) {
         alert('Connection error: ' + err.message);
@@ -7348,7 +7380,7 @@ function rowsToJson(sheet) {
       }
 
       const defaultTgToken = '8808218998:AAF-xCF8eYt2S0J58G1i4XKcvO1qdJ5puTU';
-      const defaultTgChat = '@Teme_Astegni_community';
+      const defaultTgChat = '-1004410573815'; // Dedicated Tutors Supergroup
       const savedTgToken = localStorage.getItem('teme_astegni_tg_bot_token') || defaultTgToken;
       if (document.getElementById('tg-bot-token-input')) {
         document.getElementById('tg-bot-token-input').value = savedTgToken;
@@ -7364,7 +7396,8 @@ function rowsToJson(sheet) {
         document.getElementById('tg-parents-chat-input').value = savedParentsChat;
       }
 
-      const savedPaymentsChat = localStorage.getItem('teme_astegni_tg_payments_chat_id') || 'https://t.me/+1nwxhaCqN9M4Y2E0';
+      const rawPaymentsChat = localStorage.getItem('teme_astegni_tg_payments_chat_id') || '';
+      const savedPaymentsChat = (rawPaymentsChat.startsWith('http') || rawPaymentsChat.includes('/+')) ? '' : rawPaymentsChat;
       if (document.getElementById('tg-payments-chat-input')) {
         document.getElementById('tg-payments-chat-input').value = savedPaymentsChat;
       }

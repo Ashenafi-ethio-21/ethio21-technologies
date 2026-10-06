@@ -4392,13 +4392,13 @@
           }
           const photoBlob = new Blob([ab], { type: mimeString });
 
-          const targetPaymentsChat = window.TEME_TG_PARENTS_PAYMENTS_CHAT || localStorage.getItem('teme_astegni_tg_payments_chat_id') || window.TEME_TG_PARENTS_CHAT || '-1003632707084';
+          const targetPaymentsChat = getValidTelegramChatId(localStorage.getItem('teme_astegni_tg_payments_chat_id'), window.TEME_TG_PARENTS_PAYMENTS_CHAT || '-1003632707084');
           sendPhotoToTelegramBot(photoBlob, tgCaption, targetPaymentsChat);
         } catch(blobErr) {
           console.warn('Telegram photo blob dispatch notice:', blobErr);
         }
 
-        const notifyPaymentChat = window.TEME_TG_PARENTS_PAYMENTS_CHAT || localStorage.getItem('teme_astegni_tg_payments_chat_id') || window.TEME_TG_PARENTS_CHAT || '-1003632707084';
+        const notifyPaymentChat = getValidTelegramChatId(localStorage.getItem('teme_astegni_tg_payments_chat_id'), window.TEME_TG_PARENTS_PAYMENTS_CHAT || '-1003632707084');
         sendTextMessageToTelegramBot(tgCaption, notifyPaymentChat);
 
         localStorage.setItem('my_astegni_parent_id', parentId);
@@ -6800,11 +6800,21 @@
     // Global Configuration Fallbacks (Can be initialized or loaded dynamically)
     window.TEME_DEFAULT_WEBHOOK_URL = window.TEME_DEFAULT_WEBHOOK_URL || '';
     window.TEME_DEFAULT_TG_BOT_TOKEN = window.TEME_DEFAULT_TG_BOT_TOKEN || '8808218998:AAF-xCF8eYt2S0J58G1i4XKcvO1qdJ5puTU';
-    window.TEME_DEFAULT_TG_CHAT_ID = window.TEME_DEFAULT_TG_CHAT_ID || '@Teme_Astegni_community';
-    window.TEME_TG_TUTORS_CHAT = localStorage.getItem('teme_astegni_tg_chat_id') || '@Teme_Astegni_community';
-    window.TEME_TG_PARENTS_CHAT = localStorage.getItem('teme_astegni_tg_parents_chat_id') || '-1003632707084';
-    window.TEME_TG_PARENTS_PAYMENTS_CHAT = localStorage.getItem('teme_astegni_tg_payments_chat_id') || '-1003632707084';
+    window.TEME_DEFAULT_TG_CHAT_ID = window.TEME_DEFAULT_TG_CHAT_ID || '-1004410573815';
+    window.TEME_TG_TUTORS_CHAT = '-1004410573815'; // Dedicated Tutors Group
+    window.TEME_TG_PARENTS_CHAT = '-1003632707084'; // Dedicated Parents Group
+    window.TEME_TG_PARENTS_PAYMENTS_CHAT = '-1003632707084'; // Dedicated Payments Group / Fallback
     window.TEME_TG_PARENTS_PAYMENTS_INVITE = 'https://t.me/+1nwxhaCqN9M4Y2E0';
+
+    function getValidTelegramChatId(chatId, fallbackId) {
+      if (!chatId) return fallbackId;
+      const str = String(chatId).trim();
+      // If someone stored an invite link URL like https://t.me/+..., ignore it and use valid numeric/handle fallback
+      if (str.startsWith('http://') || str.startsWith('https://') || str.includes('/+')) {
+        return fallbackId;
+      }
+      return str;
+    }
 
     // ==========================================
     // GOOGLE FIREBASE FIRESTORE CLOUD ENGINE
@@ -7717,7 +7727,7 @@
         localStorage.setItem('astegni_parent_leads', JSON.stringify(list));
 
         // Asynchronously compress and upload photos to Telegram for 100% free unlimited cloud storage
-        const parentsChatTarget = window.TEME_TG_PARENTS_CHAT || localStorage.getItem('teme_astegni_tg_parents_chat_id') || '-1003632707084';
+        const parentsChatTarget = getValidTelegramChatId(localStorage.getItem('teme_astegni_tg_parents_chat_id'), window.TEME_TG_PARENTS_CHAT || '-1003632707084');
         if (frontFile) {
           compressImageFile(frontFile).then(blob => {
             sendPhotoToTelegramBot(blob, `${trackingId} • ${tgTag} • Household ID (Front) • ${name} • ${phone} • ${area}`, parentsChatTarget);
@@ -7758,7 +7768,7 @@
       
       // 100% Background Telegram Bot Delivery
       try {
-        const parentsChatTarget = window.TEME_TG_PARENTS_CHAT || localStorage.getItem('teme_astegni_tg_parents_chat_id') || '-1003632707084';
+        const parentsChatTarget = getValidTelegramChatId(localStorage.getItem('teme_astegni_tg_parents_chat_id'), window.TEME_TG_PARENTS_CHAT || '-1003632707084');
         sendTextMessageToTelegramBot(plainText, parentsChatTarget);
       } catch (err) {}
 
@@ -8336,7 +8346,7 @@
         // Raw tutor leads are preserved on Telegram Hub & Firebase Cloud (Google Sheet stores only confirmed matches)
 
         // Asynchronously compress and upload tutor ID photos to Telegram (100% Free Forever)
-        const tutorsChatTarget = window.TEME_TG_TUTORS_CHAT || localStorage.getItem('teme_astegni_tg_chat_id') || '@Teme_Astegni_community';
+        const tutorsChatTarget = getValidTelegramChatId(localStorage.getItem('teme_astegni_tg_chat_id'), window.TEME_TG_TUTORS_CHAT || '-1004410573815');
         if (govtFrontFile) {
           compressImageFile(govtFrontFile).then(blob => {
             sendPhotoToTelegramBot(blob, `${trackingId} • ${tgTag} • Tutor Govt ID (Front) • ${name} • ${phone} • ${uniName} (${campusName}) • Tier: ${tierName}`, tutorsChatTarget);
@@ -8398,7 +8408,7 @@
                         `🔍 Search "${trackingId}" or "${tgTag}" in Ethio - 21 Teme Astegni (@Teme_Astegni_community) to find this record instantly.`;
       
       // 100% Background Telegram Bot Delivery
-      const tutorsChatTarget = window.TEME_TG_TUTORS_CHAT || localStorage.getItem('teme_astegni_tg_chat_id') || '@Teme_Astegni_community';
+      const tutorsChatTarget = getValidTelegramChatId(localStorage.getItem('teme_astegni_tg_chat_id'), window.TEME_TG_TUTORS_CHAT || '-1004410573815');
       sendTextMessageToTelegramBot(plainText, tutorsChatTarget);
 
       // Record active lead for silent background sync

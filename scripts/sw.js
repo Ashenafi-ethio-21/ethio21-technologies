@@ -3,7 +3,7 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v122-telegram-dispatch-integrity';
+const CACHE_NAME = 'ethio21-v123-segmented-telegram-dispatch';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
