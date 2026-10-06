@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teme-Astegni | Comprehensive Master Architecture & Operational Blueprint</title>
+  <title>Teme-Astegni | Master Architecture & Operational Blueprint (Bilingual)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Cinzel:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Cinzel:wght@600;700;800;900&family=Noto+Sans+Ethiopic:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #040711;
@@ -36,6 +36,7 @@
       --text-dim: #64748b;
       
       --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-am: 'Noto Sans Ethiopic', 'Plus Jakarta Sans', sans-serif;
       --font-classic: 'Cinzel', serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
@@ -59,9 +60,69 @@
       min-height: 100vh;
     }
 
+    body.lang-am {
+      font-family: var(--font-am);
+    }
+
+    /* BILINGUAL VISIBILITY TOGGLE */
+    body.lang-am .lang-en { display: none !important; }
+    body:not(.lang-am) .lang-am { display: none !important; }
+
     .wrapper {
       max-width: 1340px;
       margin: 0 auto;
+    }
+
+    /* TOP LANGUAGE SWITCHER */
+    .top-lang-bar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .lang-switcher-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(10, 16, 32, 0.9);
+      border: 1.5px solid rgba(212, 175, 55, 0.45);
+      padding: 0.35rem 0.5rem;
+      border-radius: 999px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .lang-switcher-label {
+      font-size: 0.76rem;
+      color: #94a3b8;
+      font-weight: 700;
+      padding: 0 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: #cbd5e1;
+      padding: 0.3rem 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .lang-btn:hover {
+      color: #fff;
+    }
+
+    .lang-btn.active {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      color: #040711;
+      border-color: var(--gold);
+      font-weight: 800;
+      box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
     }
 
     /* EXECUTIVE HEADER */
@@ -69,7 +130,7 @@
       text-align: center;
       margin-bottom: 3.5rem;
       position: relative;
-      padding: 2.5rem 1rem 1rem;
+      padding: 1.5rem 1rem 1rem;
     }
 
     .regal-tag {
@@ -115,6 +176,11 @@
       line-height: 1.15;
     }
 
+    body.lang-am .hero-title {
+      font-family: var(--font-am);
+      font-weight: 900;
+    }
+
     .hero-subtitle {
       font-size: 1.15rem;
       color: var(--text-muted);
@@ -127,7 +193,7 @@
     /* TOP STATS STRIP */
     .stats-strip {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 1.25rem;
       margin-bottom: 3.5rem;
     }
@@ -171,7 +237,7 @@
     .tab-bar {
       display: flex;
       justify-content: center;
-      gap: 0.6rem;
+      gap: 0.5rem;
       margin-bottom: 3rem;
       flex-wrap: wrap;
       background: rgba(10, 16, 32, 0.85);
@@ -195,7 +261,7 @@
       border-radius: 10px;
       cursor: pointer;
       transition: all 0.2s ease;
-      font-family: var(--font-main);
+      font-family: inherit;
       display: flex;
       align-items: center;
       gap: 0.45rem;
@@ -265,20 +331,22 @@
       stroke: var(--gold);
     }
 
-    /* ARCHITECTURE DEEP-DIVE */
-    .arch-diagram {
-      background: rgba(2, 6, 23, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.07);
+    /* CODE & ASCII PREVIEW BOXES */
+    .code-box {
+      background: #020617;
+      border: 1.5px solid rgba(212, 175, 55, 0.35);
       border-radius: 14px;
       padding: 1.75rem;
       margin: 1.5rem 0 2rem;
       font-family: var(--font-mono);
-      font-size: 0.85rem;
-      color: #cbd5e1;
-      line-height: 1.7;
+      font-size: 0.86rem;
+      color: #f8fafc;
+      line-height: 1.75;
       overflow-x: auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
     }
 
+    /* TIER CARDS GRID */
     .tier-cards-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
@@ -340,7 +408,7 @@
       font-size: 0.85rem;
       color: var(--text-muted);
       margin-bottom: 1.25rem;
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
     .tier-spec-table {
@@ -362,25 +430,6 @@
       color: #fff;
       font-family: var(--font-mono);
     }
-
-    /* CODE SNIPPET BOX */
-    .code-preview {
-      background: #020617;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 1.25rem;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: #e2e8f0;
-      overflow-x: auto;
-      margin: 1.25rem 0;
-      line-height: 1.6;
-    }
-
-    .code-comment { color: #64748b; }
-    .code-keyword { color: #f43f5e; font-weight: 600; }
-    .code-func { color: #38bdf8; font-weight: 600; }
-    .code-str { color: #34d399; }
 
     /* WORK DIVISION TILES */
     .division-grid {
@@ -495,7 +544,7 @@
     .rank-spec {
       font-size: 0.83rem;
       color: var(--text-muted);
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
     /* 5-LEVEL CAPACITY LADDER */
@@ -637,7 +686,7 @@
     .calc-row .res.green { color: #34d399; }
     .calc-row .res.cyan { color: var(--cyan); }
 
-    /* SOP INTERACTIVE ACCORDION */
+    /* ACCORDION */
     .sop-item {
       background: var(--bg-elevated);
       border: 1px solid var(--border);
@@ -754,51 +803,114 @@
 
   <div class="wrapper">
     
+    <!-- TOP LANGUAGE TOGGLE CONTROLLER -->
+    <div class="top-lang-bar">
+      <div class="lang-switcher-pill">
+        <span class="lang-switcher-label">🌐 ቋንቋ / LANG:</span>
+        <button id="btn-en" class="lang-btn active" onclick="setMasterLanguage('en')">🇬🇧 English</button>
+        <button id="btn-am" class="lang-btn" onclick="setMasterLanguage('am')">🇪🇹 አማርኛ</button>
+      </div>
+    </div>
+
     <!-- EXECUTIVE HERO -->
     <header class="hero-header">
       <div class="regal-tag">
         <span class="regal-dot"></span>
-        Executive Master Operating System &bull; Ethio 21 Technologies
+        <span class="lang-en">Executive Master Operating System &bull; Ethio 21 Technologies</span>
+        <span class="lang-am">የሥራ አመራር ዋና ሥርዓት &bull; ኢትዮ 21 ቴክኖሎጂስ</span>
       </div>
-      <h1 class="hero-title">TEME-ASTEGNI MASTER BLUEPRINT</h1>
+      <h1 class="hero-title">
+        <span class="lang-en">TEME-ASTEGNI MASTER BLUEPRINT</span>
+        <span class="lang-am">የተመ-አስጠኚ ዋና የአሠራር ንድፍ</span>
+      </h1>
       <p class="hero-subtitle">
-        The Complete Practical Software Architecture, Organizational Work Division, Matchmaking Lifecycle, and Month-to-Month Contract Management Engine for National Tutoring Operations Across Ethiopia.
+        <span class="lang-en">
+          The Complete Practical Software Architecture, Organizational Work Division, Matchmaking Lifecycle, and Month-to-Month Contract Management Engine for National Tutoring Operations Across Ethiopia.
+        </span>
+        <span class="lang-am">
+          በኢትዮጵያ አቀፍ ደረጃ የሚሰራው የተመ-አስጠኚ የተሟላ የሶፍትዌር ሥነ-ሕንፃ፣ የተማሪና የአስጠኚ የስራ ክፍፍል፣ የወር በወር የውል አስተዳደር እና የዩኒቨርሲቲ ተማሪዎች የስራ ቡድን አመራር መመሪያ።
+        </span>
       </p>
     </header>
 
     <!-- KEY SYSTEM METRICS -->
     <div class="stats-strip">
       <div class="stat-pill">
-        <div class="lbl">Cloud Architecture Cost</div>
+        <div class="lbl">
+          <span class="lang-en">Cloud Architecture Cost</span>
+          <span class="lang-am">የደመና አገልግሎት ወጪ</span>
+        </div>
         <div class="val">$0.00 / Mo</div>
-        <div class="sub">Hard-Capped Free Spark Plan</div>
+        <div class="sub">
+          <span class="lang-en">Hard-Capped Free Spark Plan</span>
+          <span class="lang-am">ነፃ የጎግል ስፓርክ ፕላን (ዜሮ ወጪ)</span>
+        </div>
       </div>
       <div class="stat-pill cyan">
-        <div class="lbl">Daily Read/Write Quota</div>
+        <div class="lbl">
+          <span class="lang-en">Daily Read/Write Quota</span>
+          <span class="lang-am">የቀን የዳታ ማንበብ ገደብ</span>
+        </div>
         <div class="val">50,000 / Day</div>
-        <div class="sub">Resets Automatically at 00:00 UTC</div>
+        <div class="sub">
+          <span class="lang-en">Resets Automatically at 00:00 UTC</span>
+          <span class="lang-am">በየእኩለ ሌሊት ወደ ዜሮ ይመለሳል</span>
+        </div>
       </div>
       <div class="stat-pill green">
-        <div class="lbl">Google Sheet Policy</div>
+        <div class="lbl">
+          <span class="lang-en">Google Sheet Policy</span>
+          <span class="lang-am">የጉግል ሽት ፖሊሲ</span>
+        </div>
         <div class="val">Matches Only</div>
-        <div class="sub">Zero Lead Clutter &bull; Pure Revenue</div>
+        <div class="sub">
+          <span class="lang-en">Zero Lead Clutter &bull; Pure Revenue</span>
+          <span class="lang-am">የተጠናቀቁ ውሎችና ገቢ ብቻ</span>
+        </div>
       </div>
       <div class="stat-pill purple">
-        <div class="lbl">Media Cloud Storage</div>
+        <div class="lbl">
+          <span class="lang-en">Media Cloud Storage</span>
+          <span class="lang-am">የፎቶና ማስረጃ ማከማቻ</span>
+        </div>
         <div class="val">Unlimited</div>
-        <div class="sub">Telegram Supergroup Media Vault</div>
+        <div class="sub">
+          <span class="lang-en">Telegram Supergroup Media Vault</span>
+          <span class="lang-am">ያልተገደበ የቴሌግራም ክላውድ</span>
+        </div>
       </div>
     </div>
 
     <!-- NAVIGATION TABS -->
     <nav class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab('tab-arch', this)">🏛️ 1. Software Architecture</button>
-      <button class="tab-btn" onclick="switchTab('tab-division', this)">👥 2. Work Division &amp; Roles</button>
-      <button class="tab-btn" onclick="switchTab('tab-campus', this)">🎓 3. Campus Team &amp; Founder Management</button>
-      <button class="tab-btn" onclick="switchTab('tab-engine', this)">⭐ 4. Metal Tiers &amp; 5-Level Engine</button>
-      <button class="tab-btn" onclick="switchTab('tab-finance', this)">💰 5. Financial &amp; Commission Model</button>
-      <button class="tab-btn" onclick="switchTab('tab-monthly', this)">📅 6. Month-to-Month Management</button>
-      <button class="tab-btn" onclick="switchTab('tab-playbook', this)">📋 7. Coordinator SOP &amp; Scripts</button>
+      <button class="tab-btn active" onclick="switchTab('tab-arch', this)">
+        <span class="lang-en">🏛️ 1. Software Architecture</span>
+        <span class="lang-am">🏛️ 1. የሶፍትዌር ሥነ-ሕንፃ</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-division', this)">
+        <span class="lang-en">👥 2. Work Division &amp; Roles</span>
+        <span class="lang-am">👥 2. የስራ ክፍፍልና ኃላፊነት</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-campus', this)">
+        <span class="lang-en">🎓 3. Campus Team &amp; Founder</span>
+        <span class="lang-am">🎓 3. የካምፓስ ቡድንና አመራር</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-engine', this)">
+        <span class="lang-en">⭐ 4. Metal Tiers &amp; 5-Levels</span>
+        <span class="lang-am">⭐ 4. የአስጠኚዎች ደረጃዎች</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-finance', this)">
+        <span class="lang-en">💰 5. Financial &amp; Commission</span>
+        <span class="lang-am">💰 5. የገንዘብና የኮሚሽን ሞዴል</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-monthly', this)">
+        <span class="lang-en">📅 6. Month-to-Month Contracts</span>
+        <span class="lang-am">📅 6. የወር በወር የውል አስተዳደር</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-playbook', this)">
+        <span class="lang-en">📋 7. Coordinator SOP &amp; Scripts</span>
+        <span class="lang-am">📋 7. የአስተባባሪዎች የጥሪ ስክሪፕት</span>
+      </button>
     </nav>
 
     <!-- ========================================== -->
@@ -809,22 +921,29 @@
         <div class="card-header">
           <div class="card-title">
             <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-            Multi-Tier Zero-Cost Architecture &amp; Data Schemas
+            <span class="lang-en">Multi-Tier Zero-Cost Architecture &amp; Data Schemas</span>
+            <span class="lang-am">ባለ 4-ደረጃ ዜሮ-ወጪ የሶፍትዌር ሥነ-ሕንፃ</span>
           </div>
           <span style="font-size: 0.8rem; font-family: var(--font-mono); color: #34d399; background: rgba(16, 185, 129, 0.12); padding: 0.35rem 0.85rem; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.3);">
-            Production Spark Tier &bull; Zero Billing Risk
+            <span class="lang-en">Production Spark Tier &bull; Zero Billing Risk</span>
+            <span class="lang-am">የጎግል ስፓርክ ፕላን &bull; ምንም የክፍያ ስጋት የሌለበት</span>
           </span>
         </div>
 
         <p style="color: var(--text-muted); font-size: 0.95rem;">
-          Traditional EdTech applications cost between <strong>$150 and $500 per month</strong> in cloud hosting, database bandwidth, and AWS S3 image storage. Teme-Astegni operates with <strong>$0.00 monthly cost</strong> and <strong>infinite scalability</strong> by splitting data responsibilities into 4 specialized tiers:
+          <span class="lang-en">
+            Traditional EdTech applications cost between <strong>$150 and $500 per month</strong> in cloud hosting, database bandwidth, and AWS S3 image storage. Teme-Astegni operates with <strong>$0.00 monthly cost</strong> and <strong>infinite scalability</strong> by splitting data responsibilities into 4 specialized tiers:
+          </span>
+          <span class="lang-am">
+            የተለመዱ የትምህርት ቴክኖሎጂ ሲስተሞች በወር ከ<strong>$150 እስከ $500 ዶላር</strong> የደመናና የዳታቤዝ ክፍያ ይጠይቃሉ። ተመ-አስጠኚ ግን ዳታዎችን በ4 ልዩ ደረጃዎች በመከፋፈል <strong>በወር 0.00 ብር ወጪ</strong> ያለምንም ክፍያ ስጋት እስከ በመቶ ሺህ ለሚቆጠሩ ተጠቃሚዎች እንዲያገለግል ተደርጎ የተገነባ ነው፡
+          </span>
         </p>
 
         <!-- VISUAL DIAGRAM -->
-        <div class="arch-diagram">
-+---------------------------------------------------------------------------------------------------------+
+        <div class="code-box">
+<span style="color: #d4af37; font-weight: 800;">+---------------------------------------------------------------------------------------------------------+
 |                                    TEME-ASTEGNI DATA PIPELINE ARCHITECTURE                              |
-+---------------------------------------------------------------------------------------------------------+
++---------------------------------------------------------------------------------------------------------+</span>
                                                      |
                      [ 1. PARENT / TUTOR REGISTERS ON TEME-ASTEGNI.HTML ]
                                                      |
@@ -862,9 +981,13 @@
           <!-- TIER 1 -->
           <div class="tier-box t1">
             <span class="tier-box-badge">Tier 1 &bull; Edge Client</span>
-            <div class="tier-box-title">Client PWA &amp; Service Worker</div>
+            <div class="tier-box-title">
+              <span class="lang-en">Client PWA &amp; Service Worker</span>
+              <span class="lang-am">የተጠቃሚ ዌብ መተግበሪያ (PWA)</span>
+            </div>
             <div class="tier-box-desc">
-              Hosted on GitHub Pages CDN with unlimited free bandwidth. Assets (HTML, CSS, JS) are pre-cached locally in the browser via Service Worker <code>v129</code>.
+              <span class="lang-en">Hosted on GitHub Pages CDN with unlimited free bandwidth. Assets are pre-cached locally in the browser via Service Worker v129.</span>
+              <span class="lang-am">ያለ ምንም ክፍያ በጊትሀብ ፔጅስ ላይ የተስተናገደ። ሁሉም ፋይሎች በሰርቪስ ወርከር v129 አማካኝነት በተጠቃሚው ስልክ ላይ ተቀምጠው በፍጥነት ይከፈታሉ።</span>
             </div>
             <div class="tier-spec-table">
               <div class="tier-spec-row"><span>Bandwidth Cost:</span> <strong>$0.00 (Unlimited)</strong></div>
@@ -876,9 +999,13 @@
           <!-- TIER 2 -->
           <div class="tier-box t2">
             <span class="tier-box-badge">Tier 2 &bull; Hot Desk</span>
-            <div class="tier-box-title">Cloud Firestore Hot Desk</div>
+            <div class="tier-box-title">
+              <span class="lang-en">Cloud Firestore Hot Desk</span>
+              <span class="lang-am">ፋየርቤዝ ሆት-ዴስክ (ወቅታዊ ዳታ)</span>
+            </div>
             <div class="tier-box-desc">
-              Stores only active, pending registrations awaiting admin pairing and ongoing active monthly contracts. Kept ultra-light via the strict Zero-Base64 sanitizer.
+              <span class="lang-en">Stores only active, pending registrations awaiting admin pairing and ongoing active monthly contracts. Kept ultra-light via Zero-Base64 stripping.</span>
+              <span class="lang-am">በሂደት ላይ ያሉ አዳዲስ ጥያቄዎችንና ንቁ የሆኑ ወርሃዊ ውሎችን ብቻ ይይዛል። ፎቶዎች ስለማይገቡበት መጠኑ እጅግ በጣም አነስተኛ (0.8 KB) ሆኖ ይቆያል።</span>
             </div>
             <div class="tier-spec-table">
               <div class="tier-spec-row"><span>Free Limit:</span> <strong>1,000 MB (1.0 GB)</strong></div>
@@ -891,9 +1018,13 @@
           <!-- TIER 3 -->
           <div class="tier-box t3">
             <span class="tier-box-badge">Tier 3 &bull; Media Vault</span>
-            <div class="tier-box-title">Telegram Supergroup Vault</div>
+            <div class="tier-box-title">
+              <span class="lang-en">Telegram Supergroup Vault</span>
+              <span class="lang-am">የቴሌግራም ፎቶና ሰነድ ማከማቻ</span>
+            </div>
             <div class="tier-box-desc">
-              Receives high-resolution student IDs, Kebele cards, university degrees, and grade slips via Bot API. Telegram provides 100% free, permanent cloud hosting for media.
+              <span class="lang-en">Receives high-resolution student IDs, Kebele cards, university degrees, and grade slips via Bot API. Telegram provides 100% free permanent cloud hosting.</span>
+              <span class="lang-am">የቀበሌ መታወቂያ፣ የዩኒቨርሲቲ ዲግሪና ውጤት ማጠቃለያ ፎቶዎች በቀጥታ ወደ ቴሌግራም ሱፐር-ግሩፖች ይላካሉ። ቴሌግራም ያልተገደበ ነፃ ማከማቻ ይሰጠናል።</span>
             </div>
             <div class="tier-spec-table">
               <div class="tier-spec-row"><span>Parents Channel:</span> <strong>-1003632707084</strong></div>
@@ -906,44 +1037,21 @@
           <!-- TIER 4 -->
           <div class="tier-box t4">
             <span class="tier-box-badge">Tier 4 &bull; Executive Ledger</span>
-            <div class="tier-box-title">Google Sheets Cold Vault</div>
+            <div class="tier-box-title">
+              <span class="lang-en">Google Sheets Cold Vault</span>
+              <span class="lang-am">የጉግል ሽት የውልና ገቢ መዝገብ</span>
+            </div>
             <div class="tier-box-desc">
-              Permanent business ledger strictly for <code>Matches_Ledger</code>. Keeps raw leads out of Google Sheets so you only have clean, confirmed financial contracts.
+              <span class="lang-en">Permanent business ledger strictly for Matches_Ledger. Keeps raw leads out of Google Sheets so you only have clean, confirmed financial contracts.</span>
+              <span class="lang-am">ለተረጋገጡ ውሎችና ገቢ ብቻ (Matches_Ledger) የሚያገለግል ንፁህ መዝገብ። ያልተጠናቀቁ ጥያቄዎች አይገቡበትም፤ ውሎችና ኮሚሽኖች ብቻ በቋሚነት ይቀመጣሉ።</span>
             </div>
             <div class="tier-spec-table">
               <div class="tier-spec-row"><span>Free Capacity:</span> <strong>10,000,000 Cells</strong></div>
               <div class="tier-spec-row"><span>Clutter Policy:</span> <strong>Matches Only</strong></div>
-              <div class="tier-spec-row"><span>API Method:</span> <strong>Google Apps Script Webhook</strong></div>
+              <div class="tier-spec-row"><span>API Method:</span> <strong>Apps Script Webhook</strong></div>
               <div class="tier-spec-row"><span>Exports:</span> <strong>Excel / CSV 1-Click</strong></div>
             </div>
           </div>
-        </div>
-
-        <h3 style="margin: 2.5rem 0 1rem; color: #fff; font-size: 1.15rem;">🛡️ Technical Code Example: Strict Zero-Base64 Cloud Sanitizer</h3>
-        <p style="font-size: 0.88rem; color: var(--text-muted);">
-          Every registration payload passes through this sanitizer before reaching Firestore, guaranteeing that large image files (which would consume megabytes) are completely stripped:
-        </p>
-        <div class="code-preview">
-<span class="code-comment">// Strips any base64 image strings or blob data URLs before writing to Firestore</span>
-<span class="code-keyword">function</span> <span class="code-func">sanitizeDocumentForCloud</span>(raw) {
-  <span class="code-keyword">const</span> clean = { ...raw };
-  <span class="code-comment">// Delete all large image fields</span>
-  <span class="code-keyword">delete</span> clean.idCardUrl;
-  <span class="code-keyword">delete</span> clean.kebeleDocUrl;
-  <span class="code-keyword">delete</span> clean.degreeDocUrl;
-  <span class="code-keyword">delete</span> clean.photoDataUrl;
-  <span class="code-keyword">delete</span> clean.imageBlob;
-
-  <span class="code-comment">// Scan all object keys to ensure no data:image base64 leaks through</span>
-  Object.keys(clean).forEach(k => {
-    <span class="code-keyword">if</span> (<span class="code-keyword">typeof</span> clean[k] === <span class="code-str">'string'</span> &amp;&amp; clean[k].startsWith(<span class="code-str">'data:image'</span>)) {
-      <span class="code-keyword">delete</span> clean[k];
-    }
-  });
-
-  <span class="code-comment">// Average record weight is now reduced to ~0.8 KB - 1.2 KB of clean text!</span>
-  <span class="code-keyword">return</span> clean;
-}
         </div>
       </div>
     </section>
@@ -956,183 +1064,432 @@
         <div class="card-header">
           <div class="card-title">
             <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-            Operational Work Division Matrix &amp; Authorizations
+            <span class="lang-en">Operational Work Division Matrix &amp; Authorizations</span>
+            <span class="lang-am">የሥራ ክፍፍልና የተግባር ኃላፊነቶች</span>
           </div>
         </div>
 
         <p style="color: var(--text-muted); font-size: 0.95rem;">
-          To scale national operations smoothly across multiple cities and regional coordinators, responsibilities and access permissions are strictly segmented:
+          <span class="lang-en">To scale national operations smoothly across multiple cities and regional coordinators, responsibilities and access permissions are strictly segmented:</span>
+          <span class="lang-am">የአሰራር ሂደቱ በግልፅ ተከፋፍሎ አስተባባሪዎች ስራቸውን በብቃት እንዲወጡና ስህተቶች እንዳይፈጠሩ ኃላፊነቶች በሚከተለው መልኩ ተደራጅተዋል፡</span>
         </p>
 
         <div class="division-grid">
           <!-- FOUNDER / OWNER -->
           <div class="role-card">
-            <span class="role-badge badge-owner">Role 1 &bull; Founder &amp; Executive Owner</span>
-            <div class="role-title">Ashenafi Girma (Founder)</div>
-            <div class="role-desc">Strategic executive oversight, financial control, tutor tier promotions, and infrastructure.</div>
+            <span class="role-badge badge-owner">Role 1 &bull; Founder</span>
+            <div class="role-title">
+              <span class="lang-en">Ashenafi Girma (Founder)</span>
+              <span class="lang-am">አሸናፊ ግርማ (መስራችና ዋና ባለቤት)</span>
+            </div>
+            <div class="role-desc">
+              <span class="lang-en">Strategic executive oversight, financial control, tutor tier promotions, and infrastructure.</span>
+              <span class="lang-am">አጠቃላይ ስትራቴጂካዊ አመራር፣ የገንዘብ ቁጥጥር፣ የአስጠኚዎች እድገት ማጽደቅ እና ሲስተም አስተዳደር።</span>
+            </div>
             <ul class="task-list">
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Google Sheet Financial Sync:</strong> Sole authority to trigger bulk sync of confirmed deals to <code>Matches_Ledger</code>.</li>
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Tutor Level Upgrades:</strong> Sole authority to promote tutors from Level 1 up to Level 5.</li>
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Infrastructure Administration:</strong> Manages Telegram Bot credentials, webhook URLs, and Firebase Spark quota monitoring.</li>
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>National Expansion:</strong> Coordinates marketing across universities, TikTok, and Telegram networks.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong><span class="lang-en">Google Sheet Sync:</span><span class="lang-am">የገንዘብ ማመሳከሪያ፡</span></strong> <span class="lang-en">Sole authority to trigger bulk sync of confirmed deals to Matches_Ledger.</span><span class="lang-am">የተጠናቀቁ ውሎችን ወደ ጉግል ሽት የማስተላለፍ ብቸኛ ስልጣን።</span></li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong><span class="lang-en">Tutor Upgrades:</span><span class="lang-am">የአስጠኚዎች እድገት፡</span></strong> <span class="lang-en">Sole authority to promote tutors from Level 1 up to Level 5.</span><span class="lang-am">አስጠኚዎችን ከደረጃ 1 እስከ ደረጃ 5 የማሳደግ ፈቃድ።</span></li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong><span class="lang-en">Infrastructure:</span><span class="lang-am">የሲስተም ጥበቃ፡</span></strong> <span class="lang-en">Manages Telegram Bot tokens, webhook URLs, and Firebase Spark quota monitoring.</span><span class="lang-am">የቴሌግራም ቦት፣ ዌብሁክ እና የፋየርቤዝ ኮታዎችን በበላይነት ይከታተላል።</span></li>
             </ul>
           </div>
 
           <!-- LEAD COORDINATOR -->
           <div class="role-card">
-            <span class="role-badge badge-coord">Role 2 &bull; Operations &amp; Dispatch</span>
-            <div class="role-title">Lead Dispatch Coordinator</div>
-            <div class="role-desc">Daily lead intake, credential inspection, interview vetting, and tutor matchmaking.</div>
+            <span class="role-badge badge-coord">Role 2 &bull; Operations</span>
+            <div class="role-title">
+              <span class="lang-en">Lead Dispatch Coordinator</span>
+              <span class="lang-am">ዋና አስተባባሪና አጣማሪ</span>
+            </div>
+            <div class="role-desc">
+              <span class="lang-en">Daily lead intake, credential inspection, interview vetting, and tutor matchmaking.</span>
+              <span class="lang-am">የወላጆችን ጥያቄ መከታተል፣ የአስጠኚዎችን ማስረጃ መመርመር እና ፈጣን ማጣመር።</span>
+            </div>
             <ul class="task-list">
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Real-Time Intake:</strong> Monitors incoming submissions in the Telegram Parents and Tutors channels.</li>
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Credential Verification:</strong> Uses Universal Lightbox to inspect Kebele cards, university degrees, and student IDs.</li>
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Pairing &amp; Matchmaking:</strong> Pairs verified tutors with parents using the <code>🤝 Assign Tutor</code> engine based on subject and location.</li>
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Month-End Renewal Calls:</strong> Contacts parents at month-end to collect tuition and confirm continuation.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong><span class="lang-en">Real-Time Intake:</span><span class="lang-am">ፈጣን አቀባበል፡</span></strong> <span class="lang-en">Monitors incoming submissions in Telegram channels.</span><span class="lang-am">በቴሌግራም የሚመጡ አዳዲስ የወላጅ ጥያቄዎችን በቅጽበት ይደውላል።</span></li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong><span class="lang-en">Credential Audit:</span><span class="lang-am">ማስረጃ ማረጋገጥ፡</span></strong> <span class="lang-en">Uses Universal Lightbox to inspect Kebele cards, university degrees, and student IDs.</span><span class="lang-am">የአስጠኚዎችን የቀበሌ መታወቂያ፣ የዩኒቨርሲቲ ዲግሪና ፎቶ በዩኒቨርሳል ላይትቦክስ ይመረምራል።</span></li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong><span class="lang-en">Match Execution:</span><span class="lang-am">ውል ማጣመር፡</span></strong> <span class="lang-en">Pairs verified tutors with parents using the 🤝 Assign Tutor engine based on location.</span><span class="lang-am">ወላጅንና አስጠኚን በሰፈርና በትምህርት አይነት በጥንቃቄ ያጣምራል።</span></li>
             </ul>
           </div>
 
           <!-- TUTOR -->
           <div class="role-card">
-            <span class="role-badge badge-tutor">Role 3 &bull; Academic Tutor</span>
-            <div class="role-title">Verified University Tutor</div>
-            <div class="role-desc">Delivers home tutoring, completes diagnostic exams, and submits progress logs.</div>
+            <span class="role-badge badge-tutor">Role 3 &bull; Tutor</span>
+            <div class="role-title">
+              <span class="lang-en">Verified University Tutor</span>
+              <span class="lang-am">የተረጋገጠ የዩኒቨርሲቲ አስጠኚ</span>
+            </div>
+            <div class="role-desc">
+              <span class="lang-en">Delivers home tutoring, completes diagnostic exams, and submits progress logs.</span>
+              <span class="lang-am">በተማሪዎች ቤት በመገኘት ብቁ የማስተማር አገልግሎት ይሰጣል፣ ሪፖርት ያቀርባል።</span>
+            </div>
             <ul class="task-list">
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Profile Registration:</strong> Submits verified academic credentials (CGPA, entrance exam score, Kebele ID).</li>
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Diagnostic Exam:</strong> Completes oral and written diagnostic exams for grade certification.</li>
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Capacity Fulfillment:</strong> Conducts assigned sessions within allotted student slots (1 to 5 families).</li>
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Progress Reports:</strong> Delivers bi-weekly student learning reports to parents.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong><span class="lang-en">Credential Submission:</span><span class="lang-am">ትክክለኛ ማስረጃ፡</span></strong> <span class="lang-en">Submits verified academic credentials (CGPA, entrance exam score, Kebele ID).</span><span class="lang-am">ትክክለኛ የዩኒቨርሲቲ ውጤትና መታወቂያ ያቀርባል።</span></li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong><span class="lang-en">Slot Fulfillment:</span><span class="lang-am">የሰዓት አክባሪነት፡</span></strong> <span class="lang-en">Conducts assigned sessions within allotted student slots (1 to 5 families).</span><span class="lang-am">በተፈቀደለት የተማሪዎች ብዛት (1 እስከ 5) ብቻ ሳያዛንፍ ያስተምራል።</span></li>
             </ul>
           </div>
 
           <!-- PARENT -->
           <div class="role-card">
-            <span class="role-badge badge-parent">Role 4 &bull; Parent / Guardian</span>
-            <div class="role-title">Parent Client</div>
-            <div class="role-desc">Submits child tutoring requirements and compensates the service.</div>
+            <span class="role-badge badge-parent">Role 4 &bull; Client</span>
+            <div class="role-title">
+              <span class="lang-en">Parent / Guardian</span>
+              <span class="lang-am">ወላጅ / አሳዳጊ</span>
+            </div>
+            <div class="role-desc">
+              <span class="lang-en">Submits child tutoring requirements and compensates the service.</span>
+              <span class="lang-am">የልጁን የትምህርት ፍላጎት ያስመዘግባል፣ ወርሃዊ ክፍያውን ይፈጽማል።</span>
+            </div>
             <ul class="task-list">
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Inquiry Submission:</strong> Submits student grade, subjects, specific location (Sub-city/Woreda), and preferred schedule.</li>
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Contract Acceptance:</strong> Reviews tutor credential dossier and confirms start date.</li>
-              <li class="task-item"><span class="task-bullet">✦</span> <strong>Monthly Tuition Remittance:</strong> Pays agreed monthly tuition on scheduled renewal date.</li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong><span class="lang-en">Inquiry:</span><span class="lang-am">ምዝገባ፡</span></strong> <span class="lang-en">Submits student grade, subjects, specific location (Sub-city/Woreda).</span><span class="lang-am">የተማሪውን ክፍል፣ ደካማ ጎን እና የመኖሪያ ሰፈር ይመዘግባል።</span></li>
+              <li class="task-item"><span class="task-bullet">✦</span> <strong><span class="lang-en">Payment:</span><span class="lang-am">ክፍያ፡</span></strong> <span class="lang-en">Pays agreed monthly tuition on scheduled renewal date.</span><span class="lang-am">በየወሩ በተስማማው ቀን የትምህርት ክፍያውን በቴሌብር ወይም በCBE ይከፍላል።</span></li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- ======================================================== -->
+    <!-- TAB 3: CAMPUS TEAM SIZING & FOUNDER MANAGEMENT           -->
+    <!-- ======================================================== -->
+    <section id="tab-campus" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+            <span class="lang-en">Campus Student Team Sizing &amp; Founder Management System</span>
+            <span class="lang-am">የካምፓስ ተማሪዎች የስራ ቡድን መጠንና የአመራር መመሪያ</span>
+          </div>
+          <span style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--gold-light); background: rgba(212, 175, 55, 0.15); padding: 0.35rem 0.85rem; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.35);">
+            <span class="lang-en">🎓 University Student Founder Playbook &bull; Zero Office Rent</span>
+            <span class="lang-am">🎓 የዩኒቨርሲቲ ተማሪዎች ጅምር ቢዝነስ &bull; ዜሮ የቢሮ ኪራይ</span>
+          </span>
+        </div>
+
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          <span class="lang-en">
+            <strong>Ashenafi's Strategic Advantage:</strong> You are a university student balancing lectures, exams, and labs. You do not need to rent an expensive office in Bole or Kazanchis. Your university campus is an <strong>elite talent goldmine</strong> filled with high-achieving student peers (engineers, medics, scientists) who want flexible part-time income.
+          </span>
+          <span class="lang-am">
+            <strong>የአሸናፊ ትልቅ እድልና ስትራቴጂ፡</strong> አንተ የዩኒቨርሲቲ ተማሪ ነህ፤ ትምህርት፣ ፈተናዎች እና ላቦራቶሪ አለብህ። ቦሌ ወይም ካዛንቺስ ውድ ቢሮ መከራየት አያስፈልግህም! የዩኒቨርሲቲ ግቢህ ምርጥ እውቀት ያላቸው (ኢንጂነሪንግ፣ ህክምና፣ ሳይንስ) ተማሪዎች የሞሉበት <strong>የወርቅ ማዕድን</strong> ነው። ከክፍልህ ውጪ የሆኑ ተማሪዎችን ቀጥረህ ሲስተሙን በትርፍ ሰዓት እንዲያስተባብሩ ማድረግ ትችላለህ።
+          </span>
+        </p>
+
+        <!-- MODERN CLASSIC TREE DIAGRAM -->
+        <h3 style="margin: 2.25rem 0 1rem; color: #fff; font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
+          <span>👥</span> 
+          <span class="lang-en">1. How Many Employees Do You Need? (Team Sizing Blueprint)</span>
+          <span class="lang-am">1. ስንት ሰራተኞች ያስፈልጉሃል? (የቡድን መጠንና የእድገት ደረጃ)</span>
+        </h3>
+
+        <div class="code-box">
+<span style="color: #d4af37; font-weight: 800; font-size: 0.95rem;">🏛️ TEAM SIZING &amp; GROWTH PROGRESSION (የቡድን መጠንና የእድገት ደረጃዎች)</span>
+                 
+<span style="color: #38bdf8; font-weight: 800;">  PHASE 1: BOOTSTRAP (1 &ndash; 50 Families) [ደረጃ 1፡ ጅምር (1 - 50 ቤተሰቦች)]</span>
+  └── <span style="color: #34d399; font-weight: 700;">3 Campus Student Employees</span> (Part-time shifts: 2&ndash;3 hrs/day) [3 የካምፓስ ተማሪ ሰራተኞች]
+      ├── <span style="color: #e2e8f0;">Staff #1:</span> <span style="color: #38bdf8; font-weight: 600;">Lead Parent Dispatcher</span> (የወላጅ ጥሪ ተቀባይና አጣማሪ)
+      ├── <span style="color: #e2e8f0;">Staff #2:</span> <span style="color: #38bdf8; font-weight: 600;">Campus Tutor Vetting Officer</span> (የአስጠኚዎች መታወቂያና ቃለ-መጠይቅ አድራጊ)
+      └── <span style="color: #e2e8f0;">Staff #3:</span> <span style="color: #38bdf8; font-weight: 600;">Billing &amp; Renewal Specialist</span> (የቴሌብር ደረሰኝና የወር መጨረሻ እድሳት ተከታታይ)
+      
+<span style="color: #fbbf24; font-weight: 800;">  PHASE 2: REGIONAL SCALE (50 &ndash; 200 Families) [ደረጃ 2፡ የከተማ አቀፍ እድገት (50 - 200 ቤተሰቦች)]</span>
+  └── <span style="color: #34d399; font-weight: 700;">5 Campus Student Employees</span> [5 የካምፓስ ተማሪ ሰራተኞች]
+      ├── <span style="color: #e2e8f0;">2 Parent Dispatchers</span> (Shift A: 8 AM&ndash;1 PM | Shift B: 1 PM&ndash;6 PM) [2 የወላጅ አጣማሪዎች በፈረቃ]
+      ├── <span style="color: #e2e8f0;">2 Campus Ambassadors</span> (Engineering &amp; Science Dorms) [2 በዶርም ያሉ አምባሳደሮች]
+      └── <span style="color: #e2e8f0;">1 Customer Care &amp; Operations Lead</span> (ቅሬታ ሰሚና ልዩ ድጋፍ ሰጪ)
+      
+<span style="color: #a855f7; font-weight: 800;">  PHASE 3: MULTI-CAMPUS (200 &ndash; 500+ Families) [ደረጃ 3፡ የበርካታ ዩኒቨርሲቲዎች ስፋት (200 - 500+ ቤተሰቦች)]</span>
+  └── <span style="color: #34d399; font-weight: 700;">8 to 10 Campus Student Employees</span> [8 እስከ 10 የካምፓስ ተማሪ ሰራተኞች]
+      └── <span style="color: #e2e8f0;">Branch leads across major campuses</span> (AAU 4-Kilo/5-Kilo, AASTU, ASTU, etc.)
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+          <!-- PHASE 1 -->
+          <div style="background: var(--bg-elevated); border: 1px solid var(--border); border-top: 4px solid var(--cyan); border-radius: 16px; padding: 1.75rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--cyan); font-weight: 800; background: rgba(56, 189, 248, 0.12); padding: 0.2rem 0.6rem; border-radius: 4px;">PHASE 1</span>
+              <strong style="color: #fff; font-size: 1.1rem; font-family: var(--font-mono);">3 Student Staff</strong>
+            </div>
+            <h4 style="font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 0.35rem;">1 to 50 Active Families</h4>
+            <p style="font-size: 0.83rem; color: var(--text-muted); margin-bottom: 1rem;">
+              <span class="lang-en">Lean startup mode. Fits around standard campus lecture schedules (2&ndash;3 hours/day per student).</span>
+              <span class="lang-am">የመጀመሪያው ደረጃ። ከተማሪዎች የክፍል ሰዓት ጋር በቀላሉ የሚጣጣም (በቀን 2 እስከ 3 ሰዓት ብቻ)።</span>
+            </p>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.82rem; color: #cbd5e1;">
+              <li><strong>• Staff #1 (Dispatcher):</strong> 1:00 PM &ndash; 4:00 PM (Calls parents).</li>
+              <li><strong>• Staff #2 (Tutor Screener):</strong> 4:00 PM &ndash; 7:00 PM (Vets IDs &amp; CGPA in library).</li>
+              <li><strong>• Staff #3 (Billing/Renewals):</strong> Evenings (Verifies Telebirr receipts).</li>
+            </ul>
+          </div>
+
+          <!-- PHASE 2 -->
+          <div style="background: var(--bg-elevated); border: 1px solid var(--border); border-top: 4px solid var(--gold); border-radius: 16px; padding: 1.75rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--gold-light); font-weight: 800; background: rgba(212, 175, 55, 0.12); padding: 0.2rem 0.6rem; border-radius: 4px;">PHASE 2</span>
+              <strong style="color: #fff; font-size: 1.1rem; font-family: var(--font-mono);">5 Student Staff</strong>
+            </div>
+            <h4 style="font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 0.35rem;">50 to 200 Active Families</h4>
+            <p style="font-size: 0.83rem; color: var(--text-muted); margin-bottom: 1rem;">
+              <span class="lang-en">Full day coverage without missing calls during lecture times.</span>
+              <span class="lang-am">የጠዋትና የከሰአት ፈረቃ በማድረግ አንድም የወላጅ ጥሪ ሳያመልጥ ማስተናገድ።</span>
+            </p>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.82rem; color: #cbd5e1;">
+              <li><strong>• 2 Dispatchers:</strong> Shift A (8 AM&ndash;1 PM) &amp; Shift B (1 PM&ndash;6 PM).</li>
+              <li><strong>• 2 Ambassadors:</strong> Engineering &amp; Science dorm recruiters.</li>
+              <li><strong>• 1 Operations Lead:</strong> Solves parent disputes &amp; free replacements.</li>
+            </ul>
+          </div>
+
+          <!-- PHASE 3 -->
+          <div style="background: var(--bg-elevated); border: 1px solid var(--border); border-top: 4px solid var(--emerald); border-radius: 16px; padding: 1.75rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <span style="font-size: 0.72rem; font-family: var(--font-mono); color: #34d399; font-weight: 800; background: rgba(16, 185, 129, 0.12); padding: 0.2rem 0.6rem; border-radius: 4px;">PHASE 3</span>
+              <strong style="color: #fff; font-size: 1.1rem; font-family: var(--font-mono);">8 to 10 Student Staff</strong>
+            </div>
+            <h4 style="font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 0.35rem;">200 to 500+ Active Families</h4>
+            <p style="font-size: 0.83rem; color: var(--text-muted); margin-bottom: 1rem;">
+              <span class="lang-en">Multi-university expansion across Addis Ababa (AAU, AASTU, ASTU).</span>
+              <span class="lang-am">በበርካታ የኢትዮጵያ ዩኒቨርሲቲዎች ቅርንጫፎች ተከፍተው የሚሰሩበት ትልቅ ደረጃ።</span>
+            </p>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.82rem; color: #cbd5e1;">
+              <li><strong>• 4 Regional Dispatchers:</strong> North, South, East, West Addis.</li>
+              <li><strong>• 4 Campus Branch Leads:</strong> AAU 4-Kilo/5-Kilo, AASTU, ASTU.</li>
+              <li><strong>• 2 Quality Officers:</strong> Grade checks &amp; monthly audits.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- COMPENSATION MODEL FOR CAMPUS STUDENTS -->
+        <h3 style="margin: 2.75rem 0 1rem; color: #fff; font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
+          <span>💵</span> 
+          <span class="lang-en">2. Student Employee Compensation (Work-Study Pay Model)</span>
+          <span class="lang-am">2. የተማሪ ሰራተኞች የክፍያ ስሌት (መሰረታዊ ደሞዝ + ቦነስ)</span>
+        </h3>
+
+        <div style="background: rgba(2, 6, 23, 0.7); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 2rem;">
+          <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.88rem;">
+            <thead>
+              <tr style="background: rgba(255, 255, 255, 0.03); color: var(--gold-light); font-size: 0.76rem; text-transform: uppercase;">
+                <th style="padding: 1rem 1.25rem;">Role / የስራ ድርሻ</th>
+                <th style="padding: 1rem 1.25rem;">Base Stipend / ወርሃዊ ቋሚ</th>
+                <th style="padding: 1rem 1.25rem;">Match Bonus / የማጣመር ቦነስ</th>
+                <th style="padding: 1rem 1.25rem;">Typical Take-Home / አጠቃላይ ገቢ</th>
+              </tr>
+            </thead>
+            <tbody style="color: #cbd5e1;">
+              <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.04);">
+                <td style="padding: 0.85rem 1.25rem; font-weight: 700; color: #fff;">Lead Parent Dispatcher (አጣማሪ)</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono);">2,000 ETB</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: var(--cyan);">+200 ETB per matched family</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: #34d399; font-weight: 700;">5,000 &ndash; 7,000 ETB / Mo</td>
+              </tr>
+              <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.04);">
+                <td style="padding: 0.85rem 1.25rem; font-weight: 700; color: #fff;">Tutor Vetting Officer (መታወቂያ መርማሪ)</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono);">1,800 ETB</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: var(--cyan);">+150 ETB per verified tutor</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: #34d399; font-weight: 700;">4,500 &ndash; 6,000 ETB / Mo</td>
+              </tr>
+              <tr>
+                <td style="padding: 0.85rem 1.25rem; font-weight: 700; color: #fff;">Renewal &amp; Billing Officer (ክፍያ ተከታታይ)</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono);">1,800 ETB</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: var(--cyan);">+150 ETB per renewed family</td>
+                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: #34d399; font-weight: 700;">4,500 &ndash; 6,500 ETB / Mo</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ASHENAFI'S FOUNDER MANAGEMENT GUIDE -->
+        <h3 style="margin: 2.75rem 0 1rem; color: #fff; font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
+          <span>👑</span> 
+          <span class="lang-en">3. Ashenafi's Founder Operating System (How You Manage Them All)</span>
+          <span class="lang-am">3. የአሸናፊ 4ቱ የአመራር ህጎች (ትምህርትህን እየተማርክ የምትመራበት መንገድ)</span>
+        </h3>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.5rem;">
+          <!-- PROTOCOL 1 -->
+          <div style="background: rgba(2, 6, 23, 0.6); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem;">
+            <div style="font-size: 0.74rem; font-family: var(--font-mono); color: var(--gold-light); font-weight: 800; margin-bottom: 0.5rem;">
+              <span class="lang-en">PROTOCOL 1 &bull; 15-MIN STANDUP</span>
+              <span class="lang-am">ደንብ 1 &bull; የ15 ደቂቃ የምሽት ስብሰባ</span>
+            </div>
+            <h4 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem;">
+              <span class="lang-en">Nightly Dorm / Telegram Voice Check</span>
+              <span class="lang-am">የምሽት የቴሌግራም ወይም የዶርም ስብሰባ</span>
+            </h4>
+            <p style="font-size: 0.83rem; color: var(--text-muted); line-height: 1.55;">
+              <span class="lang-en">Every evening at 9:00 PM (15 mins max), check: (1) Parent calls made, (2) Tutors vetted, (3) Any unmatched families waiting.</span>
+              <span class="lang-am">በየምሽቱ 3:00 ሰዓት ላይ (ለ15 ደቂቃ ብቻ) በቴሌግራም የድምጽ ጥሪ በመሰብሰብ፡ ስንት ወላጆች ተደወሉ? ስንት አስጠኚዎች ተጣመሩ? የሚለውን መገምገም።</span>
+            </p>
+          </div>
+
+          <!-- PROTOCOL 2 -->
+          <div style="background: rgba(2, 6, 23, 0.6); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem;">
+            <div style="font-size: 0.74rem; font-family: var(--font-mono); color: var(--rose); font-weight: 800; margin-bottom: 0.5rem;">
+              <span class="lang-en">PROTOCOL 2 &bull; ACCESS SECURITY</span>
+              <span class="lang-am">ደንብ 2 &bull; የይለፍ ቃል ጥበቃ</span>
+            </div>
+            <h4 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem;">
+              <span class="lang-en">Security &amp; PIN Lockdown</span>
+              <span class="lang-am">የዳታና የገንዘብ ቁጥጥር ስልጣን</span>
+            </h4>
+            <p style="font-size: 0.83rem; color: var(--text-muted); line-height: 1.55;">
+              <span class="lang-en">Only Ashenafi holds the Owner Master PIN and Google Sheet access. Student staff can pair tutors but cannot delete leads or modify ledgers.</span>
+              <span class="lang-am">አሸናፊ ብቻ ዋናውን የኦነር ፒን (Master PIN) እና የጉግል ሽት መዝገብ ይይዛል። ተማሪዎች መረጃ ማየትና ማጣመር ይችላሉ እንጂ ማጥፋት ወይም የገንዘብ መረጃ መቀየር አይችሉም።</span>
+            </p>
+          </div>
+
+          <!-- PROTOCOL 3 -->
+          <div style="background: rgba(2, 6, 23, 0.6); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem;">
+            <div style="font-size: 0.74rem; font-family: var(--font-mono); color: var(--indigo); font-weight: 800; margin-bottom: 0.5rem;">
+              <span class="lang-en">PROTOCOL 3 &bull; EXAM ROTATION</span>
+              <span class="lang-am">ደንብ 3 &bull; የፈተና ወቅት 50/50 ቅያሬ</span>
+            </div>
+            <h4 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem;">
+              <span class="lang-en">Midterm &amp; Final Exam Protocol</span>
+              <span class="lang-am">የትምህርት ፈተና ወቅት አሰራር</span>
+            </h4>
+            <p style="font-size: 0.83rem; color: var(--text-muted); line-height: 1.55;">
+              <span class="lang-en">During university exam weeks, enforce the 50/50 Shift Swap: Team Alpha covers dispatch while Team Beta sits for exams, then swap.</span>
+              <span class="lang-am">የዩኒቨርሲቲ ፈተና ወቅት ሲደርስ የቡድኑ ግማሾቹ ፈተናቸውን ሲያጠኑ የቀሩት ስራውን ይሸፍናሉ፤ በሚቀጥለው ሳምንት ይቀያየራሉ። ውጤታቸውም ቢዝነሱም አይጎዳም።</span>
+            </p>
+          </div>
+
+          <!-- PROTOCOL 4 -->
+          <div style="background: rgba(2, 6, 23, 0.6); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem;">
+            <div style="font-size: 0.74rem; font-family: var(--font-mono); color: #34d399; font-weight: 800; margin-bottom: 0.5rem;">
+              <span class="lang-en">PROTOCOL 4 &bull; FRIDAY RECONCILIATION</span>
+              <span class="lang-am">ደንብ 4 &bull; የዓርብ የገንዘብ ማጠቃለያ</span>
+            </div>
+            <h4 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem;">
+              <span class="lang-en">Weekly Financial Reconciliation</span>
+              <span class="lang-am">የሳምንታዊ ክፍያዎች ኦዲት</span>
+            </h4>
+            <p style="font-size: 0.83rem; color: var(--text-muted); line-height: 1.55;">
+              <span class="lang-en">Review Matches_Ledger on Google Sheets, send tutor payouts via Telebirr, pay employee commissions, and save net founder profits.</span>
+              <span class="lang-am">በየሳምንቱ ዓርብ ከሰአት፡ በቴሌብር የገባውን ገቢ በጉግል ሽት ማመሳከር፣ የአስጠኚዎችንና የሰራተኞችን ቦነስ በቴሌብር መክፈል፣ የተጣራውን ትርፍ ወደ ባንክ ማዛወር።</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <!-- ========================================== -->
-    <!-- TAB 3: METAL TIERS & 5-LEVEL ENGINE        -->
+    <!-- TAB 4: METAL TIERS & 5-LEVEL ENGINE        -->
     <!-- ========================================== -->
     <section id="tab-engine" class="tab-content">
       <div class="card">
         <div class="card-header">
           <div class="card-title">
             <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            Tutor Academic Metal Tiers &amp; 5-Level Capacity Engine
+            <span class="lang-en">Tutor Academic Metal Tiers &amp; 5-Level Capacity Engine</span>
+            <span class="lang-am">የአስጠኚዎች የውጤት ደረጃዎችና የ5-ደረጃ የቦታ ሞተር</span>
           </div>
         </div>
 
         <p style="color: var(--text-muted); font-size: 0.95rem;">
-          To guarantee top-tier academic outcomes and build parent trust, Teme-Astegni classifies tutors into 4 Metal Tiers and strictly limits student capacity through the 5-Level Engine:
+          <span class="lang-en">To guarantee top-tier academic outcomes and build parent trust, Teme-Astegni classifies tutors into 4 Metal Tiers and strictly limits student capacity through the 5-Level Engine:</span>
+          <span class="lang-am">የተማሪዎችን ውጤት ለማሻሻልና የወላጆችን እምነት ለማትረፍ አስጠኚዎች በዩኒቨርሲቲ ውጤታቸው (CGPA) በ4 ደረጃዎች ይከፈላሉ፤ የማስተማር አቅማቸውም በደረጃ ይወሰናል፡</span>
         </p>
 
         <!-- 4 METAL TIERS -->
-        <h3 style="margin: 2rem 0 1rem; color: #fff; font-size: 1.15rem;">🏆 Academic Metal Tier Rubric</h3>
         <div class="tier-rank-grid">
           <!-- GOLDEN -->
           <div class="rank-card golden">
-            <span class="rank-badge">🥇 Golden Tier</span>
+            <span class="rank-badge">🥇 Golden Tier (ወርቃማ)</span>
             <div class="rank-title">CGPA &ge; 3.75</div>
             <div class="rank-spec">
-              <strong>Distinction:</strong> Great Distinction / Top Honors.<br>
-              <strong>Eligible Students:</strong> High school (Grades 9&ndash;12), National Examination candidates, and competitive STEM courses.<br>
-              <strong>Recommended Rate:</strong> 5,000 &ndash; 8,000 ETB/month.
+              <strong>Distinction:</strong> Great Distinction (ከፍተኛ ማዕረግ).<br>
+              <strong>Eligible Students:</strong> Grades 9&ndash;12, National Exam prep, and STEM subjects.<br>
+              <strong>Rate:</strong> 5,000 &ndash; 8,000 ETB / Mo.
             </div>
           </div>
 
           <!-- DIAMOND -->
           <div class="rank-card diamond">
-            <span class="rank-badge">💎 Diamond Tier</span>
+            <span class="rank-badge">💎 Diamond Tier (ዳይመንድ)</span>
             <div class="rank-title">CGPA &ge; 3.50</div>
             <div class="rank-spec">
-              <strong>Distinction:</strong> Distinction Honors.<br>
+              <strong>Distinction:</strong> Distinction (ማዕረግ).<br>
               <strong>Eligible Students:</strong> Middle school (Grades 5&ndash;8) &amp; High School foundational subjects.<br>
-              <strong>Recommended Rate:</strong> 4,000 &ndash; 6,000 ETB/month.
+              <strong>Rate:</strong> 4,000 &ndash; 6,000 ETB / Mo.
             </div>
           </div>
 
           <!-- SILVER -->
           <div class="rank-card silver">
-            <span class="rank-badge">🥈 Silver Tier</span>
+            <span class="rank-badge">🥈 Silver Tier (ብር)</span>
             <div class="rank-title">CGPA &ge; 3.20</div>
             <div class="rank-spec">
               <strong>Distinction:</strong> Very Good Academic Standing.<br>
-              <strong>Eligible Students:</strong> Primary school (Grades 1&ndash;4) &amp; General foundational tutoring.<br>
-              <strong>Recommended Rate:</strong> 3,000 &ndash; 4,500 ETB/month.
+              <strong>Eligible Students:</strong> Primary school (Grades 1&ndash;4) foundational tutoring.<br>
+              <strong>Rate:</strong> 3,000 &ndash; 4,500 ETB / Mo.
             </div>
           </div>
 
           <!-- BRONZE -->
           <div class="rank-card bronze">
-            <span class="rank-badge">🥉 Bronze Tier</span>
+            <span class="rank-badge">🥉 Bronze Tier (ነሐስ)</span>
             <div class="rank-title">Standard Qualifier</div>
             <div class="rank-spec">
               <strong>Distinction:</strong> Approved Graduate.<br>
               <strong>Eligible Students:</strong> Early childhood reading, basic English, and foundational math.<br>
-              <strong>Recommended Rate:</strong> 2,500 &ndash; 3,500 ETB/month.
+              <strong>Rate:</strong> 2,500 &ndash; 3,500 ETB / Mo.
             </div>
           </div>
         </div>
 
         <!-- 5-LEVEL LADDER -->
-        <h3 style="margin: 2rem 0 1rem; color: #fff; font-size: 1.15rem;">🔒 The 5-Level Capacity Ladder (Preventing Tutor Overload)</h3>
-        <p style="font-size: 0.88rem; color: var(--text-muted);">
-          A tutor who teaches too many students becomes fatigued, resulting in poor student grades and parent dissatisfaction. The system enforces strict slot limits:
-        </p>
+        <h3 style="margin: 2rem 0 1rem; color: #fff; font-size: 1.15rem;">
+          <span class="lang-en">🔒 The 5-Level Capacity Ladder (Preventing Tutor Overload)</span>
+          <span class="lang-am">🔒 የ5-ደረጃ የማስተማር አቅም መቆጣጠሪያ (አስጠኚዎች እንዳይደክሙ የሚከላከል)</span>
+        </h3>
 
         <div class="level-ladder">
           <div class="ladder-step">
             <div class="ladder-lvl">Level 1</div>
             <div class="ladder-cap">1 Family Max</div>
-            <div class="ladder-desc">Probationary &bull; Newly onboarded tutor completing their first trial month.</div>
+            <div class="ladder-desc">Probationary &bull; አዲስ የጀመረ አስጠኚ (የመጀመሪያ ወር ሙከራ)</div>
           </div>
           <div class="ladder-step">
             <div class="ladder-lvl">Level 2</div>
             <div class="ladder-cap">2 Families Max</div>
-            <div class="ladder-desc">Proven &bull; Successfully completed 1 month with positive parent review.</div>
+            <div class="ladder-desc">Proven &bull; 1 ወር በጥሩ ውጤት ያጠናቀቀ አስጠኚ</div>
           </div>
           <div class="ladder-step">
             <div class="ladder-lvl">Level 3</div>
             <div class="ladder-cap">3 Families Max</div>
-            <div class="ladder-desc">Senior &bull; Consistent high retention over 3+ months.</div>
+            <div class="ladder-desc">Senior &bull; ከ3 ወር በላይ በታማኝነት ያስተማረ</div>
           </div>
           <div class="ladder-step">
             <div class="ladder-lvl">Level 4</div>
             <div class="ladder-cap">4 Families Max</div>
-            <div class="ladder-desc">Master &bull; Demonstrated exceptional punctuality and academic gains.</div>
+            <div class="ladder-desc">Master &bull; ልዩ የማስተማር ብቃት ያለው ከፍተኛ አስጠኚ</div>
           </div>
           <div class="ladder-step">
             <div class="ladder-lvl">Level 5</div>
             <div class="ladder-cap">5 Families Max</div>
-            <div class="ladder-desc">Elite Lead &bull; Highest distinction &bull; Hard system cap (no tutor may exceed 5).</div>
+            <div class="ladder-desc">Elite Lead &bull; የመጨረሻው ከፍተኛ ጣሪያ (ማንም አስጠኚ ከ5 በላይ አይፈቀድለትም)</div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 4: FINANCIAL & COMMISSION MODEL        -->
+    <!-- TAB 5: FINANCIAL & COMMISSION MODEL        -->
     <!-- ========================================== -->
     <section id="tab-finance" class="tab-content">
       <div class="card">
         <div class="card-header">
           <div class="card-title">
             <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            Financial Model, Pricing &amp; Commission Simulator
+            <span class="lang-en">Financial Model, Pricing &amp; Commission Simulator</span>
+            <span class="lang-am">የገንዘብ፣ የዋጋ ተመንና የኮሚሽን ስሌት</span>
           </div>
         </div>
 
         <p style="color: var(--text-muted); font-size: 0.95rem;">
-          Teme-Astegni operates a sustainable, ethical commission model. The standard company commission is <strong>20% to 25%</strong> of the monthly tuition fee, while the tutor retains <strong>75% to 80%</strong> of the earnings:
+          <span class="lang-en">Teme-Astegni operates a fair 25% company commission model, while the tutor retains 75% of earnings:</span>
+          <span class="lang-am">ተመ-አስጠኚ ግልጽና ፍትሃዊ የሆነ የ25% የኩባንያ ኮሚሽንና የ75% የአስጠኚ ክፍያ ስምምነት አለው፡</span>
         </p>
 
         <!-- PRICING TABLE -->
@@ -1140,33 +1497,33 @@
           <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.88rem;">
             <thead>
               <tr style="background: rgba(255, 255, 255, 0.03); color: var(--gold-light); font-size: 0.76rem; text-transform: uppercase;">
-                <th style="padding: 1rem 1.25rem;">Grade Level</th>
-                <th style="padding: 1rem 1.25rem;">Typical Monthly Fee</th>
+                <th style="padding: 1rem 1.25rem;">Grade / የክፍል ደረጃ</th>
+                <th style="padding: 1rem 1.25rem;">Monthly Fee / ወርሃዊ ክፍያ</th>
                 <th style="padding: 1rem 1.25rem;">Company Commission (25%)</th>
                 <th style="padding: 1rem 1.25rem;">Tutor Payout (75%)</th>
               </tr>
             </thead>
             <tbody style="color: #cbd5e1;">
               <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.04);">
-                <td style="padding: 0.85rem 1.25rem; font-weight: 700; color: #fff;">Primary School (Grades 1&ndash;4)</td>
+                <td style="padding: 0.85rem 1.25rem; font-weight: 700; color: #fff;">Primary (Grades 1&ndash;4) [1ኛ - 4ኛ ክፍል]</td>
                 <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono);">3,500 ETB</td>
                 <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: var(--gold-light);">875 ETB</td>
                 <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: #34d399;">2,625 ETB</td>
               </tr>
               <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.04);">
-                <td style="padding: 0.85rem 1.25rem; font-weight: 700; color: #fff;">Middle School (Grades 5&ndash;8)</td>
+                <td style="padding: 0.85rem 1.25rem; font-weight: 700; color: #fff;">Middle (Grades 5&ndash;8) [5ኛ - 8ኛ ክፍል]</td>
                 <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono);">4,500 ETB</td>
                 <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: var(--gold-light);">1,125 ETB</td>
                 <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: #34d399;">3,375 ETB</td>
               </tr>
               <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.04);">
-                <td style="padding: 0.85rem 1.25rem; font-weight: 700; color: #fff;">High School (Grades 9&ndash;10)</td>
+                <td style="padding: 0.85rem 1.25rem; font-weight: 700; color: #fff;">High School (Grades 9&ndash;10) [9ኛ - 10ኛ ክፍል]</td>
                 <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono);">5,500 ETB</td>
                 <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: var(--gold-light);">1,375 ETB</td>
                 <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: #34d399;">4,125 ETB</td>
               </tr>
               <tr>
-                <td style="padding: 0.85rem 1.25rem; font-weight: 700; color: #fff;">Prep &amp; National Exam (Grades 11&ndash;12)</td>
+                <td style="padding: 0.85rem 1.25rem; font-weight: 700; color: #fff;">Prep &amp; National (Grades 11&ndash;12) [11ኛ - 12ኛ ክፍል]</td>
                 <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono);">7,000 ETB</td>
                 <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: var(--gold-light);">1,750 ETB</td>
                 <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: #34d399;">5,250 ETB</td>
@@ -1177,17 +1534,19 @@
 
         <!-- INTERACTIVE CALCULATOR -->
         <div class="calc-container">
-          <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-            <span>🧮</span> Interactive Revenue &amp; Commission Projector
+          <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 0.5rem;">
+            <span>🧮</span> 
+            <span class="lang-en">Interactive Revenue &amp; Commission Projector</span>
+            <span class="lang-am">የገቢና የኮሚሽን ማስያ ማሽን</span>
           </h3>
-          <p style="font-size: 0.86rem; color: var(--text-muted);">
-            Adjust active student families and average monthly fee to model monthly recurring revenue (MRR):
-          </p>
 
           <div class="calc-inputs-grid">
             <div>
               <div class="calc-group" style="margin-bottom: 1.5rem;">
-                <label for="calc-students">Active Student Contracts (Families):</label>
+                <label for="calc-students">
+                  <span class="lang-en">Active Student Families:</span>
+                  <span class="lang-am">ንቁ የተማሪ ቤተሰቦች ብዛት፡</span>
+                </label>
                 <div class="calc-slider-box">
                   <input type="range" id="calc-students" class="calc-slider" min="10" max="1000" step="10" value="150" oninput="runFinancialSimulation()">
                   <span id="calc-students-disp" class="calc-val-display">150</span>
@@ -1195,7 +1554,10 @@
               </div>
 
               <div class="calc-group">
-                <label for="calc-fee">Average Monthly Tuition Fee (ETB):</label>
+                <label for="calc-fee">
+                  <span class="lang-en">Average Monthly Tuition Fee (ETB):</span>
+                  <span class="lang-am">አማካኝ ወርሃዊ የትምህርት ክፍያ (ብር)፡</span>
+                </label>
                 <div class="calc-slider-box">
                   <input type="range" id="calc-fee" class="calc-slider" min="3000" max="9000" step="250" value="5000" oninput="runFinancialSimulation()">
                   <span id="calc-fee-disp" class="calc-val-display">5,000 ETB</span>
@@ -1205,19 +1567,19 @@
 
             <div class="calc-results-box">
               <div class="calc-row">
-                <span class="lbl">Total Monthly Tuition Flow:</span>
+                <span class="lbl"><span class="lang-en">Total Monthly Flow:</span><span class="lang-am">ጠቅላላ ወርሃዊ የገንዘብ ዝውውር፡</span></span>
                 <span id="res-gross" class="res cyan">750,000 ETB</span>
               </div>
               <div class="calc-row">
-                <span class="lbl">Company Monthly Commission (25%):</span>
+                <span class="lbl"><span class="lang-en">Company Commission (25%):</span><span class="lang-am">የኩባንያው የተጣራ ኮሚሽን (25%)፡</span></span>
                 <span id="res-comm" class="res gold">187,500 ETB</span>
               </div>
               <div class="calc-row">
-                <span class="lbl">Total Tutor Payouts (75%):</span>
+                <span class="lbl"><span class="lang-en">Tutor Payouts (75%):</span><span class="lang-am">ለአስጠኚዎች የሚከፈል (75%)፡</span></span>
                 <span id="res-payout" class="res green">562,500 ETB</span>
               </div>
               <div class="calc-row">
-                <span class="lbl">Annual Company Run-Rate:</span>
+                <span class="lbl"><span class="lang-en">Annual Company Run-Rate:</span><span class="lang-am">ዓመታዊ የተጣራ ገቢ፡</span></span>
                 <span id="res-annual" class="res gold">2,250,000 ETB / Yr</span>
               </div>
             </div>
@@ -1227,94 +1589,80 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 5: MONTH-TO-MONTH MANAGEMENT           -->
+    <!-- TAB 6: MONTH-TO-MONTH MANAGEMENT           -->
     <!-- ========================================== -->
     <section id="tab-monthly" class="tab-content">
       <div class="card">
         <div class="card-header">
           <div class="card-title">
             <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            Month-to-Month Contract Management (Continuations vs. Cancellations)
+            <span class="lang-en">Month-to-Month Contract Management</span>
+            <span class="lang-am">የወር በወር የውል አስተዳደር (እድሳት vs ማቋረጥ)</span>
           </div>
         </div>
-
-        <p style="color: var(--text-muted); font-size: 0.95rem;">
-          How active ongoing tutoring contracts are handled in Month 2, Month 3, and beyond without losing history or consuming database space:
-        </p>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
           <!-- CASE 1: RENEWAL -->
           <div style="background: rgba(2, 6, 23, 0.7); border: 1px solid var(--border); border-left: 4px solid var(--emerald); border-radius: 14px; padding: 1.75rem;">
-            <h4 style="color: #34d399; font-size: 1.15rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
-              <span>🟢</span> Case A: Contract RENEWS (Continues Next Month)
+            <h4 style="color: #34d399; font-size: 1.15rem; margin-bottom: 0.75rem;">
+              <span>🟢</span> 
+              <span class="lang-en">Case A: Contract RENEWS (Continues)</span>
+              <span class="lang-am">ሁኔታ 1፡ ውሉ ሲቀጥል (የወር እድሳት)</span>
             </h4>
-            <p style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.6;">
-              When parent and tutor decide to continue tutoring for another month:
-            </p>
             <ol style="padding-left: 1.25rem; font-size: 0.84rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 0.6rem;">
-              <li><strong>Stays Live in Firestore:</strong> Active contracts remain in <code>astegni_matches</code>. Active contract records are tiny (300 bytes of text) and consume negligible space.</li>
-              <li><strong>Payment Collection:</strong> The coordinator contacts the parent 3 days before month-end and records the renewal payment.</li>
-              <li><strong>Ledger Sync:</strong> Founder clicks <code>☁️ Sync Confirmed Matches to Sheet</code>. Google Sheet logs the new month's commission row into <code>Matches_Ledger</code>.</li>
-              <li><strong>Lessons Continue:</strong> Lessons proceed smoothly with zero interruption.</li>
+              <li><strong><span class="lang-en">Live in Firestore:</span><span class="lang-am">በፋየርቤዝ ይቆያል፡</span></strong> <span class="lang-en">Active contracts remain in astegni_matches (~300 bytes only).</span><span class="lang-am">ንቁ ውሎች በፋየርቤዝ ውስጥ ይቀመጣሉ፤ መጠናቸው በጣም አነስተኛ (300 bytes) ስለሆነ ቦታ አይዙም።</span></li>
+              <li><strong><span class="lang-en">Payment Logged:</span><span class="lang-am">ክፍያ ይመዘገባል፡</span></strong> <span class="lang-en">Coordinator records payment receipt in portal.</span><span class="lang-am">አስተባባሪው የወላጁን የቴሌብር/CBE ክፍያ ይመዘግባል።</span></li>
+              <li><strong><span class="lang-en">Ledger Sync:</span><span class="lang-am">ወደ ሽት ይተላለፋል፡</span></strong> <span class="lang-en">Owner clicks Sync Confirmed Matches to Sheet.</span><span class="lang-am">አሸናፊ "Sync to Sheet" ሲነካ አዲሱ ወር በጉግል ሽት ይመዘገባል።</span></li>
             </ol>
           </div>
 
           <!-- CASE 2: TERMINATION -->
           <div style="background: rgba(2, 6, 23, 0.7); border: 1px solid var(--border); border-left: 4px solid var(--rose); border-radius: 14px; padding: 1.75rem;">
-            <h4 style="color: #fb7185; font-size: 1.15rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
-              <span>🔴</span> Case B: Contract STOPS (Cancellation / Completion)
+            <h4 style="color: #fb7185; font-size: 1.15rem; margin-bottom: 0.75rem;">
+              <span>🔴</span> 
+              <span class="lang-en">Case B: Contract STOPS (Cancellation)</span>
+              <span class="lang-am">ሁኔታ 2፡ ውሉ ሲጠናቀቅ ወይም ሲቋረጥ</span>
             </h4>
-            <p style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.6;">
-              When tutoring concludes (e.g., student passed national exam or relocated):
-            </p>
             <ol style="padding-left: 1.25rem; font-size: 0.84rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 0.6rem;">
-              <li><strong>Status Change:</strong> Admin switches the match status dropdown to <code>🔒 Closed (የተጠናቀቀ)</code>.</li>
-              <li><strong>Final Sync:</strong> The closure is pushed to Google Sheets to finalize the financial ledger.</li>
-              <li><strong>Cloud Prune:</strong> Because the contract is now permanently finished and archived in Google Sheets and Telegram, it can be deleted from Firestore to free space.</li>
-              <li><strong>Tutor Slot Frees Up:</strong> The tutor automatically gets an open slot to accept a new family!</li>
+              <li><strong><span class="lang-en">Status Closed:</span><span class="lang-am">ውሉ ይዘጋል፡</span></strong> <span class="lang-en">Admin sets status to Closed (የተጠናቀቀ).</span><span class="lang-am">አስተባባሪው የውሉን ሁኔታ ወደ "Closed (የተጠናቀቀ)" ይቀይራል።</span></li>
+              <li><strong><span class="lang-en">Final Sync:</span><span class="lang-am">የመጨረሻ ሽት ምዝገባ፡</span></strong> <span class="lang-en">Closure status is recorded on Google Sheet.</span><span class="lang-am">የመጨረሻው ውጤት በጉግል ሽት ላይ ይቀመጣል።</span></li>
+              <li><strong><span class="lang-en">Prune from Cloud:</span><span class="lang-am">ከዳታቤዝ ይሰረዛል፡</span></strong> <span class="lang-en">Deleted from Firestore hot-desk to free quota.</span><span class="lang-am">በቴሌግራም ስለተቀመጠ ከፋየርቤዝ ይሰረዛል፤ የአስጠኚው ክፍት ቦታ ለሌላ ተማሪ ነፃ ይሆናል።</span></li>
             </ol>
           </div>
-        </div>
-
-        <div style="background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 12px; padding: 1.35rem; margin-top: 2rem;">
-          <h4 style="color: var(--gold-light); font-size: 1rem; margin-bottom: 0.4rem;">💡 What if an old parent calls back 6 months later?</h4>
-          <p style="font-size: 0.86rem; color: #cbd5e1; line-height: 1.6;">
-            Their historical records are permanently preserved in your <strong>Telegram Parents Group (`-1003632707084`)</strong> and in your <strong>Google Sheet</strong>. Simply search their phone number or tag (e.g. <code>#AST_P_1234</code>) to see all past tutors and feedback, then create a new match in seconds!
-          </p>
         </div>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 6: COORDINATOR SOP & SCRIPTS           -->
+    <!-- TAB 7: COORDINATOR SOP & SCRIPTS           -->
     <!-- ========================================== -->
     <section id="tab-playbook" class="tab-content">
       <div class="card">
         <div class="card-header">
           <div class="card-title">
             <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-            Coordinator SOP, Scenarios &amp; Calling Scripts
+            <span class="lang-en">Coordinator SOP, Scenarios &amp; Calling Scripts</span>
+            <span class="lang-am">የአስተባባሪዎች የጥሪ ስክሪፕቶችና የአሰራር መመሪያዎች</span>
           </div>
         </div>
-
-        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
-          Standard Operating Procedures and phone scripts for daily operational handling:
-        </p>
 
         <!-- ACCORDION 1 -->
         <div class="sop-item open">
           <div class="sop-header" onclick="toggleAccordion(this)">
-            <h4><span>📞</span> Scenario 1: Initial Parent Welcome &amp; Matching Call</h4>
+            <h4>
+              <span>📞</span> 
+              <span class="lang-en">Scenario 1: Initial Parent Welcome &amp; Matching Call</span>
+              <span class="lang-am">ሁኔታ 1፡ የመጀመሪያው የወላጅ አቀባበልና ማጣመር ጥሪ</span>
+            </h4>
             <span class="sop-arrow">▼</span>
           </div>
           <div class="sop-body">
-            <p><strong>Goal:</strong> Verify student weaknesses, location landmarks, and confirm monthly budget.</p>
             <div class="script-box">
-              <strong>Amharic:</strong><br>
+              <strong>የአማርኛ የጥሪ ስክሪፕት (Amharic):</strong><br>
               "ጤና ይስጥልኝ እቴጌ/ጋሽ [የወላጅ ስም]፣ ከተመ-አስጠኚ (Teme-Astegni) አስተባባሪ [የአስተባባሪው ስም] ነኝ። በድረ-ገጻችን ላስገቡት የአስጠኚ ጥያቄ ምስጋና እናቀርባለን። የልጅዎ [የተማሪው ስም] የትምህርት ደረጃ [ክፍል] ሲሆን በተለይ በየትኛው የትምህርት ዓይነት ላይ ድጋፍ እንዲደረግላቸው ይፈልጋሉ? የመኖሪያ አካባቢዎ [ሰፈር/ወረዳ] ትክክለኛ መለያ ቦታ (Landmark) ሊነግሩን ይችላሉ?"
             </div>
             <div class="script-box">
-              <strong>English:</strong><br>
+              <strong>English Script:</strong><br>
               "Hello [Parent Name], this is [Coordinator Name] from Teme-Astegni. We received your tutor inquiry for Grade [X]. Could you confirm which specific subjects need the most attention, and could you provide a convenient landmark near your residence in [Sub-city]?"
             </div>
           </div>
@@ -1323,17 +1671,18 @@
         <!-- ACCORDION 2 -->
         <div class="sop-item">
           <div class="sop-header" onclick="toggleAccordion(this)">
-            <h4><span>🔍</span> Scenario 2: Tutor ID &amp; Credential Inspection SOP</h4>
+            <h4>
+              <span>🔍</span> 
+              <span class="lang-en">Scenario 2: Tutor ID &amp; Credential Inspection SOP</span>
+              <span class="lang-am">ሁኔታ 2፡ የአስጠኚዎች መታወቂያና ማስረጃ የማረጋገጫ ሂደት</span>
+            </h4>
             <span class="sop-arrow">▼</span>
           </div>
           <div class="sop-body">
-            <p><strong>Inspection Checklist Before Verification:</strong></p>
-            <ul style="padding-left: 1.25rem; font-size: 0.84rem; display: flex; flex-direction: column; gap: 0.4rem; margin: 0.75rem 0;">
-              <li>☑ Open Universal Lightbox via <code>🔍 Inspect ID</code> in Admin Portal.</li>
-              <li>☑ Verify student ID or university degree text matches tutor's full name.</li>
-              <li>☑ Verify CGPA matches the grade report document.</li>
-              <li>☑ Check Kebele ID photo matches the applicant's profile.</li>
-              <li>☑ If document is blurry, reject and send Telegram message requesting a clear daylight photo.</li>
+            <ul style="padding-left: 1.25rem; font-size: 0.84rem; display: flex; flex-direction: column; gap: 0.45rem;">
+              <li>☑ በAdmin Portal ውስጥ <code>🔍 Inspect ID</code> በመጫን ማስረጃዎችን በከፍተኛ ጥራት ይመልከቱ።</li>
+              <li>☑ የመታወቂያው ስም፣ ፎቶ እና የዩኒቨርሲቲ ውጤት ትክክለኛ መሆናቸውን ያረጋግጡ።</li>
+              <li>☑ ፎቶው ደብዛዛ ከሆነ በቴሌግራም መልስ በመጻፍ ግልጽ ፎቶ እንዲልኩ ይጠይቁ።</li>
             </ul>
           </div>
         </div>
@@ -1341,17 +1690,17 @@
         <!-- ACCORDION 3 -->
         <div class="sop-item">
           <div class="sop-header" onclick="toggleAccordion(this)">
-            <h4><span>🔄</span> Scenario 3: Mid-Month Tutor Replacement (Dispute Resolution)</h4>
+            <h4>
+              <span>🔄</span> 
+              <span class="lang-en">Scenario 3: Mid-Month Tutor Replacement (Free Policy)</span>
+              <span class="lang-am">ሁኔታ 3፡ የአስጠኚ ቅያሬ ጥያቄ ሲነሳ (የነፃ ቅያሬ ፖሊሲ)</span>
+            </h4>
             <span class="sop-arrow">▼</span>
           </div>
           <div class="sop-body">
-            <p><strong>Policy:</strong> If a parent is dissatisfied with tutor punctuality or teaching methodology within the first 14 days, Teme-Astegni provides <strong>1 Free Replacement Tutor</strong> without any additional fee.</p>
             <div class="script-box">
-              <strong>Protocol:</strong><br>
-              1. Coordinator listens to parent's feedback without argument.<br>
-              2. Tutor is politely reassigned or placed on temporary review.<br>
-              3. A higher-tier tutor (e.g. Diamond or Golden Tier) is matched within 24&ndash;48 hours.<br>
-              4. Lessons resume smoothly without financial friction.
+              <strong>ፖሊሲ (Policy):</strong><br>
+              ወላጅ በመጀመሪያዎቹ 14 ቀናት ውስጥ በአስጠኚው የማስተማር ዘዴ ወይም ሰዓት አክባሪነት ካልረካ፣ ተመ-አስጠኚ <strong>ያለ ምንም ተጨማሪ ክፍያ 1 ጊዜ ነፃ ሌላ አስጠኚ የመቀየር</strong> ሙሉ ዋስትና ይሰጣል።
             </div>
           </div>
         </div>
@@ -1359,13 +1708,16 @@
         <!-- ACCORDION 4 -->
         <div class="sop-item">
           <div class="sop-header" onclick="toggleAccordion(this)">
-            <h4><span>💳</span> Scenario 4: Month-End Renewal Remittance Call</h4>
+            <h4>
+              <span>💳</span> 
+              <span class="lang-en">Scenario 4: Month-End Renewal Remittance Call</span>
+              <span class="lang-am">ሁኔታ 4፡ የወር መጨረሻ የክፍያና የእድሳት ጥሪ</span>
+            </h4>
             <span class="sop-arrow">▼</span>
           </div>
           <div class="sop-body">
-            <p><strong>Timing:</strong> Call 3 days before month-end (e.g. Day 27 of 30).</p>
             <div class="script-box">
-              <strong>Amharic:</strong><br>
+              <strong>የአማርኛ ስክሪፕት (Amharic):</strong><br>
               "ጤና ይስጥልኝ [የወላጅ ስም]፣ ከተመ-አስጠኚ ደውለንልዎ ነበር። የአስጠኚያችን [የአስጠኚ ስም] የመጀመሪያ ወር አገልግሎት በልጅዎ ላይ ያሳየውን የትምህርት መሻሻል እንዴት አገኙት? ለቀጣዩ ወር ትምህርቱን ለማስቀጠል የወር ክፍያዎን በቴሌብር (Telebirr) ወይም በCBE በኩል እንዲያስተላልፉ በትህትና እናሳስባለን።"
             </div>
           </div>
@@ -1373,206 +1725,22 @@
       </div>
     </section>
 
-    <!-- ========================================== -->
-    <!-- TAB 3: CAMPUS TEAM & FOUNDER MANAGEMENT    -->
-    <!-- ========================================== -->
-    <section id="tab-campus" class="tab-content">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
-            Campus Student Team Sizing &amp; Founder Management System
-          </div>
-          <span style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--gold-light); background: rgba(212, 175, 55, 0.15); padding: 0.35rem 0.85rem; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.35);">
-            🎓 University Student Founder Playbook &bull; Zero Office Rent
-          </span>
-        </div>
-
-        <p style="color: var(--text-muted); font-size: 0.95rem;">
-          <strong>Ashenafi's Strategic Advantage:</strong> You are a university student balancing lectures, exams, and labs. You do not need to rent an expensive office in Bole or Kazanchis. Your university campus is an <strong>elite talent goldmine</strong> filled with high-achieving student peers (engineers, medics, scientists) who want flexible part-time income. Here is your complete guide to sizing your team, dividing jobs, and managing them while succeeding in your university classes:
-        </p>
-
-        <!-- TEAM SIZING BY GROWTH PHASE -->
-        <h3 style="margin: 2.25rem 0 1rem; color: #fff; font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
-          <span>👥</span> 1. How Many Employees Do You Need? (Team Sizing Blueprint)
-        </h3>
-
-        <!-- MODERN CLASSIC TREE DIAGRAM -->
-        <div style="background: #020617; border: 1.5px solid rgba(212, 175, 55, 0.35); border-radius: 14px; padding: 1.75rem; margin-bottom: 2rem; font-family: var(--font-mono); font-size: 0.86rem; color: #f8fafc; line-height: 1.75; overflow-x: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.7);">
-<span style="color: #d4af37; font-weight: 800; font-size: 0.95rem;">🏛️ TEAM SIZING &amp; GROWTH PROGRESSION</span>
-                 
-<span style="color: #38bdf8; font-weight: 800;">  PHASE 1: BOOTSTRAP (1 &ndash; 50 Families)</span>
-  └── <span style="color: #34d399; font-weight: 700;">3 Campus Student Employees</span> (Part-time shifts: 2&ndash;3 hrs/day)
-      ├── <span style="color: #e2e8f0;">Staff #1:</span> <span style="color: #38bdf8; font-weight: 600;">Lead Parent Dispatcher</span>
-      ├── <span style="color: #e2e8f0;">Staff #2:</span> <span style="color: #38bdf8; font-weight: 600;">Campus Tutor Vetting Officer</span>
-      └── <span style="color: #e2e8f0;">Staff #3:</span> <span style="color: #38bdf8; font-weight: 600;">Billing &amp; Renewal Specialist</span>
-      
-<span style="color: #fbbf24; font-weight: 800;">  PHASE 2: REGIONAL SCALE (50 &ndash; 200 Families)</span>
-  └── <span style="color: #34d399; font-weight: 700;">5 Campus Student Employees</span>
-      ├── <span style="color: #e2e8f0;">2 Parent Dispatchers</span> (Shift A: 8 AM&ndash;1 PM | Shift B: 1 PM&ndash;6 PM)
-      ├── <span style="color: #e2e8f0;">2 Campus Ambassadors</span> (Engineering &amp; Science Dorms)
-      └── <span style="color: #e2e8f0;">1 Customer Care &amp; Operations Lead</span>
-      
-<span style="color: #a855f7; font-weight: 800;">  PHASE 3: MULTI-CAMPUS (200 &ndash; 500+ Families)</span>
-  └── <span style="color: #34d399; font-weight: 700;">8 to 10 Campus Student Employees</span>
-      └── <span style="color: #e2e8f0;">Branch leads across major campuses</span> (AAU 4-Kilo/5-Kilo, AASTU, ASTU, etc.)
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
-          <!-- PHASE 1 -->
-          <div style="background: var(--bg-elevated); border: 1px solid var(--border); border-top: 4px solid var(--cyan); border-radius: 16px; padding: 1.75rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-              <span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--cyan); font-weight: 800; background: rgba(56, 189, 248, 0.12); padding: 0.2rem 0.6rem; border-radius: 4px;">PHASE 1: BOOTSTRAP</span>
-              <strong style="color: #fff; font-size: 1.1rem; font-family: var(--font-mono);">3 Student Staff</strong>
-            </div>
-            <h4 style="font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 0.35rem;">1 to 50 Active Families</h4>
-            <p style="font-size: 0.83rem; color: var(--text-muted); margin-bottom: 1rem;">Lean startup mode. Fits around standard campus lecture schedules (2&ndash;3 hours/day per student).</p>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.82rem; color: #cbd5e1;">
-              <li><strong>• Staff #1 (Dispatcher):</strong> Takes parent calls, confirms home landmarks, checks subject needs. (Shift: 1:00 PM &ndash; 4:00 PM).</li>
-              <li><strong>• Staff #2 (Tutor Screener):</strong> Recruits campus tutors, checks IDs and CGPAs in campus library/lounge. (Shift: 4:00 PM &ndash; 7:00 PM).</li>
-              <li><strong>• Staff #3 (Billing/Renewals):</strong> Follows up on monthly Telebirr/CBE receipts and parent satisfaction. (Shift: Evening).</li>
-            </ul>
-          </div>
-
-          <!-- PHASE 2 -->
-          <div style="background: var(--bg-elevated); border: 1px solid var(--border); border-top: 4px solid var(--gold); border-radius: 16px; padding: 1.75rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-              <span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--gold-light); font-weight: 800; background: rgba(212, 175, 55, 0.12); padding: 0.2rem 0.6rem; border-radius: 4px;">PHASE 2: GROWTH</span>
-              <strong style="color: #fff; font-size: 1.1rem; font-family: var(--font-mono);">5 Student Staff</strong>
-            </div>
-            <h4 style="font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 0.35rem;">50 to 200 Active Families</h4>
-            <p style="font-size: 0.83rem; color: var(--text-muted); margin-bottom: 1rem;">Dedicated shift coverage so no parent inquiries are missed during lecture times.</p>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.82rem; color: #cbd5e1;">
-              <li><strong>• 2 Parent Dispatchers:</strong> Split morning (8 AM &ndash; 1 PM) and afternoon (1 PM &ndash; 6 PM) shifts.</li>
-              <li><strong>• 2 Campus Ambassadors:</strong> 1 in Engineering Dorms + 1 in Natural Sciences/Medicine Dorms.</li>
-              <li><strong>• 1 Operations Lead:</strong> Handles difficult family disputes and emergency tutor reassignments.</li>
-            </ul>
-          </div>
-
-          <!-- PHASE 3 -->
-          <div style="background: var(--bg-elevated); border: 1px solid var(--border); border-top: 4px solid var(--emerald); border-radius: 16px; padding: 1.75rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-              <span style="font-size: 0.72rem; font-family: var(--font-mono); color: #34d399; font-weight: 800; background: rgba(16, 185, 129, 0.12); padding: 0.2rem 0.6rem; border-radius: 4px;">PHASE 3: MULTI-CAMPUS</span>
-              <strong style="color: #fff; font-size: 1.1rem; font-family: var(--font-mono);">8 to 10 Student Staff</strong>
-            </div>
-            <h4 style="font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 0.35rem;">200 to 500+ Active Families</h4>
-            <p style="font-size: 0.83rem; color: var(--text-muted); margin-bottom: 1rem;">Multi-university expansion across Addis Ababa (AAU 4-Kilo/5-Kilo, AASTU Kilinto, ASTU Adama).</p>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.82rem; color: #cbd5e1;">
-              <li><strong>• 4 Regional Dispatchers:</strong> Covering North, South, East, and West Addis Ababa zones.</li>
-              <li><strong>• 4 University Campus Leads:</strong> Managing local tutor supply in each major campus.</li>
-              <li><strong>• 2 Quality Assurance Officers:</strong> Verifying monthly student test score improvements.</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- COMPENSATION MODEL FOR CAMPUS STUDENTS -->
-        <h3 style="margin: 2.75rem 0 1rem; color: #fff; font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
-          <span>💵</span> 2. Student Employee Compensation (Work-Study Incentive Model)
-        </h3>
-        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
-          To keep student staff highly motivated while keeping fixed company overhead low, use the <strong>Hybrid Stipend + Commission Model</strong>:
-        </p>
-
-        <div style="background: rgba(2, 6, 23, 0.7); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 2rem;">
-          <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.88rem;">
-            <thead>
-              <tr style="background: rgba(255, 255, 255, 0.03); color: var(--gold-light); font-size: 0.76rem; text-transform: uppercase;">
-                <th style="padding: 1rem 1.25rem;">Role Title</th>
-                <th style="padding: 1rem 1.25rem;">Base Monthly Stipend</th>
-                <th style="padding: 1rem 1.25rem;">Match Success Bonus</th>
-                <th style="padding: 1rem 1.25rem;">Typical Monthly Take-Home</th>
-              </tr>
-            </thead>
-            <tbody style="color: #cbd5e1;">
-              <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.04);">
-                <td style="padding: 0.85rem 1.25rem; font-weight: 700; color: #fff;">Lead Parent Dispatcher</td>
-                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono);">2,000 ETB / Mo</td>
-                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: var(--cyan);">+200 ETB per matched family</td>
-                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: #34d399; font-weight: 700;">5,000 &ndash; 7,000 ETB / Mo</td>
-              </tr>
-              <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.04);">
-                <td style="padding: 0.85rem 1.25rem; font-weight: 700; color: #fff;">Campus Tutor Vetting Officer</td>
-                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono);">1,800 ETB / Mo</td>
-                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: var(--cyan);">+150 ETB per verified tutor hired</td>
-                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: #34d399; font-weight: 700;">4,500 &ndash; 6,000 ETB / Mo</td>
-              </tr>
-              <tr>
-                <td style="padding: 0.85rem 1.25rem; font-weight: 700; color: #fff;">Customer Care &amp; Renewal Officer</td>
-                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono);">1,800 ETB / Mo</td>
-                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: var(--cyan);">+150 ETB per renewed family</td>
-                <td style="padding: 0.85rem 1.25rem; font-family: var(--font-mono); color: #34d399; font-weight: 700;">4,500 &ndash; 6,500 ETB / Mo</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p style="font-size: 0.82rem; color: var(--text-dim); margin-top: -1rem; margin-bottom: 2rem;">
-          💡 <em>Why this works: 5,000 to 7,000 ETB per month is a life-changing income for an Ethiopian university student, while cost per match is a fraction of your 1,250 ETB company commission per student!</em>
-        </p>
-
-        <!-- ASHENAFI'S FOUNDER MANAGEMENT GUIDE -->
-        <h3 style="margin: 2.75rem 0 1rem; color: #fff; font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
-          <span>👑</span> 3. Ashenafi's Founder Operating System (How You Manage Them All)
-        </h3>
-        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.25rem;">
-          You cannot micromanage every minute while you are in class or taking midterms. Use these 4 Executive Management Protocols:
-        </p>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.5rem;">
-          <!-- PROTOCOL 1 -->
-          <div style="background: rgba(2, 6, 23, 0.6); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem;">
-            <div style="font-size: 0.74rem; font-family: var(--font-mono); color: var(--gold-light); font-weight: 800; margin-bottom: 0.5rem;">PROTOCOL 1 &bull; 15-MIN STANDUP</div>
-            <h4 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem;">Evening Dorm / Telegram Standup</h4>
-            <p style="font-size: 0.83rem; color: var(--text-muted); line-height: 1.55;">
-              Every evening at <strong>9:00 PM</strong> (15 minutes maximum), hold a quick voice chat on Telegram. Ask each employee 3 quick questions:
-              <br>1. How many parent leads did you call today?
-              <br>2. How many tutors did you interview/verify?
-              <br>3. Are there any parents waiting without a tutor?
-            </p>
-          </div>
-
-          <!-- PROTOCOL 2 -->
-          <div style="background: rgba(2, 6, 23, 0.6); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem;">
-            <div style="font-size: 0.74rem; font-family: var(--font-mono); color: var(--rose); font-weight: 800; margin-bottom: 0.5rem;">PROTOCOL 2 &bull; ACCESS SECURITY</div>
-            <h4 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem;">Security &amp; PIN Lockdown</h4>
-            <p style="font-size: 0.83rem; color: var(--text-muted); line-height: 1.55;">
-              Ashenafi holds the <strong>Master Owner PIN</strong> and sole access to the Google Sheet. Campus student coordinators can access <code>teme-admin.html</code> to review leads and pair tutors, but <strong>CANNOT delete records</strong> or modify company financial ledgers.
-            </p>
-          </div>
-
-          <!-- PROTOCOL 3 -->
-          <div style="background: rgba(2, 6, 23, 0.6); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem;">
-            <div style="font-size: 0.74rem; font-family: var(--font-mono); color: var(--indigo); font-weight: 800; margin-bottom: 0.5rem;">PROTOCOL 3 &bull; EXAM SHIFT ROTATION</div>
-            <h4 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem;">Midterm &amp; Final Exam Protocol</h4>
-            <p style="font-size: 0.83rem; color: var(--text-muted); line-height: 1.55;">
-              During university exam weeks, do not let operations freeze. Enforce the <strong>50/50 Shift Swap</strong>: Team Alpha covers dispatch while Team Beta sits for their exams, and they swap the next week. Neither student GPAs nor business revenue suffers.
-            </p>
-          </div>
-
-          <!-- PROTOCOL 4 -->
-          <div style="background: rgba(2, 6, 23, 0.6); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem;">
-            <div style="font-size: 0.74rem; font-family: var(--font-mono); color: #34d399; font-weight: 800; margin-bottom: 0.5rem;">PROTOCOL 4 &bull; FRIDAY RECONCILIATION</div>
-            <h4 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem;">Weekly Financial Reconciliation</h4>
-            <p style="font-size: 0.83rem; color: var(--text-muted); line-height: 1.55;">
-              Every Friday afternoon:
-              <br>1. Review <code>Matches_Ledger</code> on Google Sheets.
-              <br>2. Confirm all tuition receipts in Telebirr/CBE.
-              <br>3. Send tutor payouts via Telebirr bulk transfer.
-              <br>4. Pay student employee bonuses.
-              <br>5. Retain clean founder profits in treasury.
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
     <!-- FOOTER -->
     <footer class="master-footer">
       <p>&copy; 2026 Teme-Astegni &bull; Ethio 21 Technologies &bull; Architected by Ashenafi Girma</p>
       <div class="quick-links">
-        <a href="teme-admin.html" class="btn-link btn-gold">Open Admin Portal</a>
-        <a href="architecture_blueprint.html" class="btn-link">Quota &amp; Capacity Simulator</a>
-        <a href="teme-astegni.html" class="btn-link">Public Registration Portal</a>
+        <a href="teme-admin.html" class="btn-link btn-gold">
+          <span class="lang-en">Open Admin Portal</span>
+          <span class="lang-am">የአድሚን ፖርታል ክፈት</span>
+        </a>
+        <a href="architecture_blueprint.html" class="btn-link">
+          <span class="lang-en">Quota Simulator</span>
+          <span class="lang-am">የዳታ ኮታ ማሽን</span>
+        </a>
+        <a href="teme-astegni.html" class="btn-link">
+          <span class="lang-en">Registration Portal</span>
+          <span class="lang-am">የምዝገባ ገጽ</span>
+        </a>
         <a href="https://t.me/+zH2Ov8OM20YzYTc0" target="_blank" rel="noopener" class="btn-link">Parents Telegram</a>
         <a href="https://t.me/+B1gN_P8r7X85YjE0" target="_blank" rel="noopener" class="btn-link">Tutors Telegram</a>
       </div>
@@ -1581,6 +1749,23 @@
   </div>
 
   <script>
+    function setMasterLanguage(lang) {
+      if (lang === 'am') {
+        document.body.classList.add('lang-am');
+        document.getElementById('btn-am').classList.add('active');
+        document.getElementById('btn-en').classList.remove('active');
+      } else {
+        document.body.classList.remove('lang-am');
+        document.getElementById('btn-en').classList.add('active');
+        document.getElementById('btn-am').classList.remove('active');
+      }
+      localStorage.setItem('teme_blueprint_lang', lang);
+    }
+
+    // Load saved language preference or default to English
+    const savedLang = localStorage.getItem('teme_blueprint_lang') || 'en';
+    setMasterLanguage(savedLang);
+
     function switchTab(tabId, btn) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
