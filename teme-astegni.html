@@ -6809,8 +6809,12 @@
     function getValidTelegramChatId(chatId, fallbackId) {
       if (!chatId) return fallbackId;
       const str = String(chatId).trim();
+      // Directly map Tutors Telegram group invite link
+      if (str.includes('uXdWxrADSSc3ZTc0') || str === '+uXdWxrADSSc3ZTc0') {
+        return '-1004410573815';
+      }
       // If someone stored an invite link URL like https://t.me/+..., ignore it and use valid numeric/handle fallback
-      if (str.startsWith('http://') || str.startsWith('https://') || str.includes('/+')) {
+      if (str.startsWith('http://') || str.startsWith('https://') || str.startsWith('+') || str.includes('/+')) {
         return fallbackId;
       }
       return str;
@@ -6909,7 +6913,7 @@
     // Send Photo to Telegram Bot / Channel (Queued & Rate-Protected)
     function sendPhotoToTelegramBot(blob, caption, targetChatId) {
       const botToken = localStorage.getItem('teme_astegni_tg_bot_token') || window.TEME_DEFAULT_TG_BOT_TOKEN;
-      const primaryChat = targetChatId || localStorage.getItem('teme_astegni_tg_chat_id') || window.TEME_DEFAULT_TG_CHAT_ID;
+      const primaryChat = getValidTelegramChatId(targetChatId || localStorage.getItem('teme_astegni_tg_chat_id'), window.TEME_TG_TUTORS_CHAT || window.TEME_DEFAULT_TG_CHAT_ID);
       if (!botToken || !primaryChat || !blob) return;
 
       enqueueTelegramDispatch(async () => {
@@ -6917,7 +6921,6 @@
           const formData = new FormData();
           formData.append('chat_id', primaryChat);
           formData.append('caption', (caption || '').substring(0, 1024));
-          formData.append('parse_mode', 'HTML');
           formData.append('photo', blob, 'doc_verification.jpg');
           const res = await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
             method: 'POST',
@@ -6925,19 +6928,7 @@
           });
           const data = await res.json().catch(() => null);
           if (!res.ok || (data && !data.ok)) {
-            console.warn(`Telegram photo dispatch to ${primaryChat} failed (${data?.description || res.statusText}). Attempting fallback chat...`);
-            const fallbackChat = (primaryChat !== window.TEME_DEFAULT_TG_CHAT_ID) ? window.TEME_DEFAULT_TG_CHAT_ID : null;
-            if (fallbackChat) {
-              const fbForm = new FormData();
-              fbForm.append('chat_id', fallbackChat);
-              fbForm.append('caption', `⚠️ [Auto-Rerouted from ${primaryChat}]\n` + (caption || '').substring(0, 950));
-              fbForm.append('parse_mode', 'HTML');
-              fbForm.append('photo', blob, 'doc_verification.jpg');
-              await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
-                method: 'POST',
-                body: fbForm
-              });
-            }
+            console.warn(`Telegram photo dispatch to ${primaryChat} failed (${data?.description || res.statusText}).`);
           }
           return res;
         } catch (err) {
@@ -6950,7 +6941,7 @@
     // Send Formatted Applicant Dossier Text to Telegram Bot / Channel (Queued & Rate-Protected)
     function sendTextMessageToTelegramBot(text, targetChatId) {
       const botToken = localStorage.getItem('teme_astegni_tg_bot_token') || window.TEME_DEFAULT_TG_BOT_TOKEN;
-      const primaryChat = targetChatId || localStorage.getItem('teme_astegni_tg_chat_id') || window.TEME_DEFAULT_TG_CHAT_ID;
+      const primaryChat = getValidTelegramChatId(targetChatId || localStorage.getItem('teme_astegni_tg_chat_id'), window.TEME_DEFAULT_TG_CHAT_ID);
       if (!botToken || !primaryChat || !text) return;
 
       enqueueTelegramDispatch(async () => {
@@ -6960,8 +6951,7 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               chat_id: primaryChat,
-              text: text,
-              parse_mode: 'HTML'
+              text: text
             })
           });
           const data = await res.json().catch(() => null);

@@ -6940,8 +6940,8 @@ function rowsToJson(sheet) {
     }
 
     function saveTelegramConfig() {
-      const token = document.getElementById('tg-bot-token-input').value.trim();
-      const chatId = document.getElementById('tg-chat-id-input').value.trim() || '-1004410573815';
+      const rawChatId = document.getElementById('tg-chat-id-input').value.trim() || '-1004410573815';
+      const chatId = (rawChatId.includes('uXdWxrADSSc3ZTc0') || rawChatId.startsWith('http') || rawChatId.includes('/+')) ? '-1004410573815' : rawChatId;
       const parentsChat = (document.getElementById('tg-parents-chat-input') ? document.getElementById('tg-parents-chat-input').value.trim() : '') || '-1003632707084';
       const rawPayments = (document.getElementById('tg-payments-chat-input') ? document.getElementById('tg-payments-chat-input').value.trim() : '');
       const paymentsChat = (rawPayments.startsWith('http') || rawPayments.includes('/+')) ? '' : rawPayments;
@@ -6970,8 +6970,8 @@ function rowsToJson(sheet) {
     }
 
     async function testTelegramAlert() {
-      const token = localStorage.getItem('teme_astegni_tg_bot_token') || document.getElementById('tg-bot-token-input').value.trim();
-      const chatId = localStorage.getItem('teme_astegni_tg_chat_id') || document.getElementById('tg-chat-id-input').value.trim() || '-1004410573815';
+      let rawChat = localStorage.getItem('teme_astegni_tg_chat_id') || document.getElementById('tg-chat-id-input').value.trim() || '-1004410573815';
+      const chatId = (rawChat.includes('uXdWxrADSSc3ZTc0') || rawChat.startsWith('http') || rawChat.includes('/+')) ? '-1004410573815' : rawChat;
       const parentsChat = localStorage.getItem('teme_astegni_tg_parents_chat_id') || (document.getElementById('tg-parents-chat-input') ? document.getElementById('tg-parents-chat-input').value.trim() : '') || '-1003632707084';
       const rawPayments = localStorage.getItem('teme_astegni_tg_payments_chat_id') || (document.getElementById('tg-payments-chat-input') ? document.getElementById('tg-payments-chat-input').value.trim() : '');
       const paymentsChat = (rawPayments.startsWith('http') || rawPayments.includes('/+')) ? '' : rawPayments;
