@@ -2367,7 +2367,7 @@
       <div class="form-group" id="match-rate-group">
         <label class="form-label">Agency Commission Model</label>
         <select id="match-rate-select" class="form-ctrl" onchange="calculateCommissionPreview()">
-          <option value="AGENCY_STANDARD" selected>⭐ Official Agency Model: Month 1 (40% Cut) ➔ Month 2+ (200 ETB Flat Cut)</option>
+          <option value="AGENCY_STANDARD" selected>⭐ Official Agency Model: Month 1 (30% Cut) ➔ Month 2+ (200 ETB / Match)</option>
           <option value="25">25% Flat Monthly Margin</option>
           <option value="20">20% Introductory Margin</option>
           <option value="30">30% High-Touch Margin</option>
@@ -2385,12 +2385,12 @@
             <span style="color: #fff; font-weight: 750;" id="calc-m1-parent-pay">3,000 ETB</span>
           </div>
           <div style="display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 0.15rem;">
-            <span style="color: var(--text-muted);">Agency Retained Cut (40%):</span>
-            <span style="color: var(--accent-blue); font-weight: 800;" id="calc-m1-agency-share">1,200 ETB</span>
+            <span style="color: var(--text-muted);">Agency Retained Cut (30%):</span>
+            <span style="color: var(--accent-blue); font-weight: 800;" id="calc-m1-agency-share">900 ETB</span>
           </div>
           <div style="display: flex; justify-content: space-between; font-size: 0.78rem;">
-            <span style="color: var(--text-muted);">Tutor Payout (60% at 30 Days):</span>
-            <span style="color: var(--accent-green); font-weight: 800;" id="calc-m1-tutor-net">1,800 ETB</span>
+            <span style="color: var(--text-muted);">Tutor Payout (70% at 30 Days):</span>
+            <span style="color: var(--accent-green); font-weight: 800;" id="calc-m1-tutor-net">2,100 ETB</span>
           </div>
         </div>
         <div style="background: rgba(15, 23, 42, 0.65); padding: 0.6rem 0.75rem; border-radius: 8px; border-left: 3px solid #10b981;">
@@ -2400,15 +2400,18 @@
             <span style="color: #fff; font-weight: 750;" id="calc-m2-parent-pay">3,000 ETB</span>
           </div>
           <div style="display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 0.15rem;">
-            <span style="color: var(--text-muted);">Agency Retained Cut (Flat):</span>
+            <span style="color: var(--text-muted);">Agency Retained Cut (Flat per match):</span>
             <span style="color: var(--accent-blue); font-weight: 800;" id="calc-m2-agency-share">200 ETB</span>
           </div>
           <div style="display: flex; justify-content: space-between; font-size: 0.78rem;">
-            <span style="color: var(--text-muted);">Tutor Payout (Fee - 200 ETB):</span>
+            <span style="color: var(--text-muted);">Tutor Payout (Fee - 200 ETB per match):</span>
             <span style="color: var(--accent-green); font-weight: 800;" id="calc-m2-tutor-net">2,800 ETB</span>
           </div>
         </div>
-        <div style="font-size: 0.7rem; color: #94a3b8; margin-top: 0.45rem; line-height: 1.4;">
+        <div style="font-size: 0.72rem; color: #fbbf24; margin-top: 0.45rem; line-height: 1.4; background: rgba(245, 158, 11, 0.1); padding: 0.35rem 0.55rem; border-radius: 6px; border: 1px solid rgba(245, 158, 11, 0.25);">
+          ⚡ <b>Household Match Rule:</b> 200 ETB is charged per matched student (e.g., if 1 tutor teaches 2 students in 1 house = 400 ETB agency fee from Month 2+).
+        </div>
+        <div style="font-size: 0.7rem; color: #94a3b8; margin-top: 0.4rem; line-height: 1.4;">
           🔒 <b>Escrow Rule:</b> Tutor payout is strictly released after parent pays and each 30-day period completes.
         </div>
       </div>
@@ -5723,13 +5726,13 @@ function rowsToJson(sheet) {
       let policyDesc = '';
 
       if (curCycle === 1) {
-        agencyCut = Math.round(fee * 0.40); // 40% Month 1 Agency Cut
-        tutorNet = fee - agencyCut;        // 60% Month 1 Tutor Net
-        policyDesc = 'Month 1 Onboarding: 40% Agency Cut / 60% Tutor Payout';
+        agencyCut = Math.round(fee * 0.30); // 30% Month 1 Agency Cut
+        tutorNet = fee - agencyCut;        // 70% Month 1 Tutor Net
+        policyDesc = 'Month 1 Onboarding: 30% Agency Cut / 70% Tutor Payout';
       } else {
-        agencyCut = Math.min(fee, 200);     // 200 ETB Flat Month 2+ Agency Cut
+        agencyCut = Math.min(fee, 200);     // 200 ETB Flat Month 2+ Agency Cut (Per Student Match)
         tutorNet = Math.max(0, fee - agencyCut); // Remainder to Tutor
-        policyDesc = `Month ${curCycle} Maintenance: 200 ETB Flat Agency Cut / Remainder to Tutor`;
+        policyDesc = `Month ${curCycle} Recurring: 200 ETB Cut per Match / Remainder to Tutor`;
       }
 
       if (!confirm(`💸 CONFIRM TUTOR PAYOUT FOR MONTH ${curCycle}?\n\n• Policy: ${policyDesc}\n• Monthly Tuition Collected: ${fee.toLocaleString()} ETB\n• Ethio 21 Retained Cut: ${agencyCut.toLocaleString()} ETB\n• Tutor Take-Home (Telebirr): ${tutorNet.toLocaleString()} ETB\n\nConfirm that you have transferred ${tutorNet.toLocaleString()} ETB to tutor "${m.tutorName}"? This completes Month ${curCycle} and sets up Month ${curCycle + 1} (awaiting parent renewal).`)) {
@@ -5754,7 +5757,7 @@ function rowsToJson(sheet) {
         `👨‍👩‍👧 <b>Parent / Student:</b> ${escapeHtml(m.parentName)} (📞 ${escapeHtml(m.parentPhone)})\n` +
         `📅 <b>Completed Cycle:</b> Month ${curCycle} (30 Days)\n` +
         `💵 <b>Tutor Net Paid:</b> <b>${tutorNet.toLocaleString()} ETB</b> via Telebirr\n` +
-        `💼 <b>Ethio-21 Retained:</b> <b>${agencyCut.toLocaleString()} ETB</b> (${curCycle === 1 ? '40% Matchmaking Cut' : '200 ETB Flat Cut'})\n` +
+        `💼 <b>Ethio-21 Retained:</b> <b>${agencyCut.toLocaleString()} ETB</b> (${curCycle === 1 ? '30% Matchmaking Cut' : '200 ETB Flat Cut per Match'})\n` +
         `🔄 <b>Upcoming:</b> Month ${curCycle + 1} Awaiting Parent Renewal\n` +
         `👮 <b>Authorized By:</b> ${escapeHtml(adminName)}\n` +
         `⏰ <b>Timestamp:</b> ${new Date().toLocaleString('en-US', { timeZone: 'Africa/Addis_Ababa' })}`;
@@ -5926,7 +5929,7 @@ function rowsToJson(sheet) {
         let agencyCut = 0;
         let tutorNet = 0;
         if (curCycle === 1) {
-          agencyCut = Math.round(fee * 0.40);
+          agencyCut = Math.round(fee * 0.30);
           tutorNet = fee - agencyCut;
         } else {
           agencyCut = Math.min(fee, 200);
@@ -6009,7 +6012,7 @@ function rowsToJson(sheet) {
               </div>
               <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.6rem;">
                 <div style="font-size: 0.8rem; color: #e2e8f0;">
-                  <span>Ethio 21 Cut: <strong style="color: #60a5fa;">${agencyCut.toLocaleString()} ETB (${curCycle === 1 ? '40%' : '200 ETB Flat'})</strong></span>
+                  <span>Ethio 21 Cut: <strong style="color: #60a5fa;">${agencyCut.toLocaleString()} ETB (${curCycle === 1 ? '30%' : '200 ETB / Match'})</strong></span>
                   <span style="margin: 0 0.4rem;">•</span>
                   <span>Tutor Take-Home: <strong style="color: #34d399; font-size: 0.95rem;">${tutorNet.toLocaleString()} ETB</strong></span>
                 </div>
@@ -6060,8 +6063,8 @@ function rowsToJson(sheet) {
           <div id="${detailsId}" class="card-expandable-body" style="display: none; margin-top: 1rem; padding-top: 0.95rem; border-top: 1px solid rgba(255, 255, 255, 0.08);">
             <!-- Meta Ribbon -->
             <div class="record-meta-ribbon">
-              <span class="tag-badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35); font-weight: 750;">💵 Tutor Net: ${tutorNet.toLocaleString()} ETB (${curCycle === 1 ? '60%' : 'Fee - 200 ETB'})</span>
-              <span class="tag-badge" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.35); font-weight: 750;">💼 Agency Cut: ${agencyCut.toLocaleString()} ETB (${curCycle === 1 ? '40%' : '200 ETB Flat'})</span>
+              <span class="tag-badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35); font-weight: 750;">💵 Tutor Net: ${tutorNet.toLocaleString()} ETB (${curCycle === 1 ? '70%' : 'Fee - 200 ETB'})</span>
+              <span class="tag-badge" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.35); font-weight: 750;">💼 Agency Cut: ${agencyCut.toLocaleString()} ETB (${curCycle === 1 ? '30%' : '200 ETB / Match'})</span>
               <span class="tag-badge ${isParentPaid ? 'tag-active' : 'tag-trial'}">${isParentPaid ? '✓ Parent Paid in Escrow' : '⏳ Parent Payment Pending'}</span>
               <span class="tag-badge" style="background: rgba(148, 163, 184, 0.15); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.3);">🔄 Cycle Month: ${curCycle}</span>
             </div>
@@ -6681,12 +6684,12 @@ function rowsToJson(sheet) {
       let m2Tutor = Math.max(0, price - 200);
 
       if (rateVal === 'AGENCY_STANDARD') {
-        m1Agency = Math.round(price * 0.40);
+        m1Agency = Math.round(price * 0.30);
         m1Tutor = price - m1Agency;
         m2Agency = Math.min(price, 200);
         m2Tutor = Math.max(0, price - m2Agency);
       } else {
-        const pct = parseFloat(rateVal) || 25;
+        const pct = parseFloat(rateVal) || 30;
         m1Agency = Math.round(price * (pct / 100));
         m1Tutor = price - m1Agency;
         m2Agency = m1Agency;
@@ -6758,12 +6761,12 @@ function rowsToJson(sheet) {
       const fee = parseFloat(document.getElementById('match-price-input').value) || 0;
       const rateVal = document.getElementById('match-rate-select')?.value || 'AGENCY_STANDARD';
 
-      let rate = 40;
-      let commission = Math.round(fee * 0.40);
+      let rate = 30;
+      let commission = Math.round(fee * 0.30);
       let month2FeeCut = 200;
 
       if (rateVal !== 'AGENCY_STANDARD') {
-        rate = parseFloat(rateVal) || 25;
+        rate = parseFloat(rateVal) || 30;
         commission = Math.round(fee * (rate / 100));
         month2FeeCut = commission;
       }
