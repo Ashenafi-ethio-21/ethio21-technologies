@@ -6924,9 +6924,12 @@ function rowsToJson(sheet) {
         `📅 <b>Timestamp:</b> ${new Date().toLocaleString()}\n\n` +
         `🔍 <i>Private Matches Group: https://t.me/+u0IdrknHN5A4ZGI0</i>`;
 
-      const matchesTarget = localStorage.getItem('teme_astegni_tg_matches_chat_id') || 
-                            document.getElementById('tg-matches-chat-input')?.value.trim() || 
-                            '';
+      const rawMatchTarget = localStorage.getItem('teme_astegni_tg_matches_chat_id') || 
+                             document.getElementById('tg-matches-chat-input')?.value.trim() || 
+                             '-5225265679';
+      const matchesTarget = (rawMatchTarget.includes('u0IdrknHN5A4ZGI0') || rawMatchTarget.startsWith('http') || rawMatchTarget.includes('/+') || !rawMatchTarget) 
+        ? '-5225265679' 
+        : rawMatchTarget;
       dispatchTelegramOpsLog(msg, matchesTarget);
 
       // Also forward match to Google Sheet if webhook configured
@@ -7624,7 +7627,7 @@ function rowsToJson(sheet) {
         }
 
         let detectedPayments = '-1004427351129';
-        let detectedMatches = null;
+        let detectedMatches = '-5225265679';
         let detectedTutors = null;
         let detectedParents = null;
 
@@ -7632,9 +7635,9 @@ function rowsToJson(sheet) {
           const tLower = (chat.title || '').toLowerCase();
           if (tLower.includes('payment') || tLower.includes('ክፍያ')) {
             detectedPayments = String(chat.id);
-          } else if (tLower.includes('match') || tLower.includes('toutor') || tLower.includes('ድርድር') || tLower.includes('ጥንድ')) {
+          } else if (tLower.includes('match') || tLower.includes('matches') || tLower.includes('ጥንድ') || tLower.includes('ድርድር') || tLower.includes('toutor match')) {
             detectedMatches = String(chat.id);
-          } else if (tLower.includes('tutor') || tLower.includes('አስጠኚ')) {
+          } else if (tLower.includes('tutor') || tLower.includes('toutor') || tLower.includes('አስጠኚ')) {
             detectedTutors = String(chat.id);
           } else if (tLower.includes('parent') || tLower.includes('ወላጅ')) {
             detectedParents = String(chat.id);
@@ -7730,8 +7733,13 @@ function rowsToJson(sheet) {
       const token = localStorage.getItem('teme_astegni_tg_bot_token') || 
                     (document.getElementById('tg-bot-token-input') ? document.getElementById('tg-bot-token-input').value.trim() : '') ||
                     defaultToken;
-      const matchesChat = localStorage.getItem('teme_astegni_tg_matches_chat_id') || 
-                          (document.getElementById('tg-matches-chat-input') ? document.getElementById('tg-matches-chat-input').value.trim() : '');
+      const rawMatchesChat = localStorage.getItem('teme_astegni_tg_matches_chat_id') || 
+                             (document.getElementById('tg-matches-chat-input') ? document.getElementById('tg-matches-chat-input').value.trim() : '') ||
+                             '-5225265679';
+      const matchesChat = (rawMatchesChat.includes('u0IdrknHN5A4ZGI0') || rawMatchesChat.startsWith('http') || rawMatchesChat.includes('/+') || !rawMatchesChat)
+        ? '-5225265679'
+        : rawMatchesChat;
+
       const tutorsChat = localStorage.getItem('teme_astegni_tg_chat_id') || 
                          (document.getElementById('tg-chat-id-input') ? document.getElementById('tg-chat-id-input').value.trim() : '') ||
                          '-1004410573815';
@@ -7741,7 +7749,19 @@ function rowsToJson(sheet) {
       const webhookUrl = localStorage.getItem('teme_astegni_db_webhook') || 
                          (document.getElementById('webhook-url-input') ? document.getElementById('webhook-url-input').value.trim() : '');
 
-      const targetChat = customTargetChat || matchesChat || tutorsChat || parentsChat;
+      let targetChat = customTargetChat;
+      if (targetChat && (targetChat.includes('u0IdrknHN5A4ZGI0') || targetChat.startsWith('http') || targetChat.includes('/+'))) {
+        targetChat = matchesChat;
+      }
+
+      // If no custom target chat was specified, intelligently route by event type
+      if (!targetChat) {
+        if (htmlMessage && (htmlMessage.includes('NEW TUTOR-PARENT MATCH') || htmlMessage.includes('Toutor Matches') || htmlMessage.includes('Tutor Matches') || htmlMessage.includes('MATCH') || htmlMessage.includes('ጥንድ'))) {
+          targetChat = matchesChat;
+        } else {
+          targetChat = tutorsChat || parentsChat || matchesChat;
+        }
+      }
       if (!targetChat) return false;
 
       let sentDirectly = false;
@@ -8120,6 +8140,7 @@ function rowsToJson(sheet) {
       if (document.getElementById('tg-matches-chat-input')) {
         document.getElementById('tg-matches-chat-input').value = savedMatchesChat;
       }
+      localStorage.setItem('teme_astegni_tg_matches_chat_id', savedMatchesChat);
 
       // Check cloud public_config if local inputs are unconfigured
       if (typeof db !== 'undefined' && db) {
