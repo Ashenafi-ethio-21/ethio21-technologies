@@ -6805,25 +6805,28 @@ function rowsToJson(sheet) {
       if (legacyAg) legacyAg.innerText = `${m1Agency.toLocaleString()} ETB`;
     }
 
-    function confirmNewMatch() {
-      const parents = getParents();
-      const tutors = getTutors();
-      const pIdx = document.getElementById('match-select-parent').value;
-      const tIdx = document.getElementById('match-select-tutor').value;
+    async function confirmNewMatch() {
+      try {
+        const parents = getParents();
+        const tutors = getTutors();
+        const pIdx = document.getElementById('match-select-parent').value;
+        const tIdx = document.getElementById('match-select-tutor').value;
 
-      if (!parents[pIdx] || !tutors[tIdx]) {
-        alert('Please select both a parent and a tutor.');
-        return;
-      }
+        if (!parents[pIdx] || !tutors[tIdx]) {
+          alert('Please select both a parent and a tutor.');
+          return;
+        }
 
-      const p = parents[pIdx];
-      const t = tutors[tIdx];
+        const p = parents[pIdx];
+        const t = tutors[tIdx];
+        const pPhoneClean = (p.phone || '').replace(/\D/g, '').slice(-9);
+        const tPhoneClean = (t.phone || '').replace(/\D/g, '').slice(-9);
 
-      // Prevent self-matching: a tutor cannot be paired with their own parent application
-      if (pPhoneClean && tPhoneClean && pPhoneClean === tPhoneClean) {
-        alert(`⚠️ Self-Matching Not Allowed!\n\nTutor "${t.name}" cannot be paired with their own parent application. When a tutor applies as a parent, please select a different accredited tutor for them.`);
-        return;
-      }
+        // Prevent self-matching: a tutor cannot be paired with their own parent application
+        if (pPhoneClean && tPhoneClean && pPhoneClean === tPhoneClean) {
+          alert(`⚠️ Self-Matching Not Allowed!\n\nTutor "${t.name}" cannot be paired with their own parent application. When a tutor applies as a parent, please select a different accredited tutor for them.`);
+          return;
+        }
 
       // Prevent duplicate active match between same parent and tutor
       const existingMatches = getMatches();
@@ -6894,7 +6897,7 @@ function rowsToJson(sheet) {
       };
 
       const matches = getMatches();
-      matches.push(newMatch);
+      matches.unshift(newMatch);
       saveMatches(matches);
 
       p.status = 'Trial Scheduled';
@@ -6960,7 +6963,11 @@ function rowsToJson(sheet) {
       } else {
         alert(`🤝 Match successfully created!\n\nParent: ${p.name} (${pTrackingId})\nTutor: ${t.name} (${tTrackingId})\nMonthly Fee: ${fee.toLocaleString()} ETB | Commission: ${commission.toLocaleString()} ETB`);
       }
+    } catch (err) {
+      console.error("Match creation error:", err);
+      alert("⚠️ Error creating match: " + err.message);
     }
+  }
 
     // CLOUD DATABASE
     function saveWebhookUrl() {
@@ -8073,7 +8080,7 @@ function rowsToJson(sheet) {
     function purgeSeedPlaceholdersSilently() {
       try {
         const seedTrackingIds = ['AST-P-1042', 'AST-P-2051', 'AST-T-8419', 'AST-T-7204', 'AST-T-5190', 'AST-T-0000', 'AST-P-0000'];
-        const seedNames = ['ዶ/ር ተስፋዬ በቀለ (Dr. Tesfaye)', 'ወ/ሮ ሮዛ ሙሉጌታ (W/ro Roza)', 'ቤተልሔም ሰለሞን (Bethelhem S.)', 'ናትናኤል አለማየሁ (Natnael A.)', 'ዮሐንስ መላኩ (Yohannes M.)', 'ጴጥሮስ ኃይሌ (Petros H.)', 'ዳዊት ግርማ (Dawit Girma)', 'Test User', 'Test Tutor', 'Test Parent'];
+        const seedNames = ['ዶ/ር ተስፋዬ በቀለ (Dr. Tesfaye)', 'ወ/ሮ ሮዛ ሙሉጌታ (W/ro Roza)', 'ቤተልሔም ሰለሞን (Bethelhem S.)', 'ናትናኤል አለማየሁ (Natnael A.)', 'ዮሐንስ መላኩ (Yohannes M.)', 'ጴጥሮስ ኃይሌ (Petros H.)', 'ዳዊት ግርማ (Dawit Girma)'];
         
         const rawParents = JSON.parse(localStorage.getItem('astegni_parent_leads') || '[]');
         const cleanParents = deduplicateByPhone(rawParents.filter(p => !seedTrackingIds.includes(p.trackingId) && !seedTrackingIds.includes(p.id) && !seedNames.includes(p.name)));
