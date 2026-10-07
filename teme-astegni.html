@@ -2404,89 +2404,211 @@
             </select>
           </div>
 
-          <!-- University & Campus Cascading Selection -->
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem; margin-bottom: 0.85rem;">
-            <div class="field">
-              <label id="i18n-f-tuni">🏛️ ዩኒቨርሲቲ (University) *</label>
-              <select id="t_uni_select" required onchange="handleUniversityChange()">
-                <option value="" disabled selected>-- ዩኒቨርሲቲ ይምረጡ (Select University) --</option>
-                <option value="Addis Ababa University (AAU)">Addis Ababa University (AAU)</option>
-                <option value="Addis Ababa Science & Technology University (AASTU)">Addis Ababa Science & Technology University (AASTU)</option>
-                <option value="Adama Science & Technology University (ASTU)">Adama Science & Technology University (ASTU)</option>
-                <option value="Jimma University (JU)">Jimma University (JU)</option>
-                <option value="Hawassa University (HU)">Hawassa University (HU)</option>
-                <option value="Bahir Dar University (BDU)">Bahir Dar University (BDU)</option>
-                <option value="University of Gondar (UoG)">University of Gondar (UoG)</option>
-                <option value="Haramaya University (HU)">Haramaya University (HU)</option>
-                <option value="Arba Minch University (AMU)">Arba Minch University (AMU)</option>
-                <option value="Mekelle University (MU)">Mekelle University (MU)</option>
-                <option value="Wollo University (WU)">Wollo University (WU)</option>
-                <option value="Debre Birhan University (DBU)">Debre Birhan University (DBU)</option>
-                <option value="Debre Markos University (DMU)">Debre Markos University (DMU)</option>
-                <option value="Debre Tabor University (DTU)">Debre Tabor University (DTU)</option>
-                <option value="Dire Dawa University (DDU)">Dire Dawa University (DDU)</option>
-                <option value="Wollega University (WLU)">Wollega University (WLU)</option>
-                <option value="Ambo University (AU)">Ambo University (AU)</option>
-                <option value="Dilla University (DU)">Dilla University (DU)</option>
-                <option value="Arsi University (Asella)">Arsi University (Asella)</option>
-                <option value="Madda Walabu University (MWU)">Madda Walabu University (MWU)</option>
-                <option value="Mattu University (MeU)">Mattu University (MeU)</option>
-                <option value="Woldia University (WDU)">Woldia University (WDU)</option>
-                <option value="Axum University (Aksum University - AkU)">Axum University (Aksum University - AkU)</option>
-                <option value="Adigrat University (AGU)">Adigrat University (AGU)</option>
-                <option value="Kotebe University of Education (KUE)">Kotebe University of Education (KUE)</option>
-                <option value="Jigjiga University (JJU)">Jigjiga University (JJU)</option>
-                <option value="Semera University (SU)">Semera University (SU)</option>
-                <option value="Assosa University (ASU)">Assosa University (ASU)</option>
-                <option value="Gambella University (GMU)">Gambella University (GMU)</option>
-                <option value="Mizan-Tepi University (MTU)">Mizan-Tepi University (MTU)</option>
-                <option value="Wachemo University (WCU)">Wachemo University (WCU)</option>
-                <option value="Wolkite University (WKU)">Wolkite University (WKU)</option>
-                <option value="Bule Hora University (BHU)">Bule Hora University (BHU)</option>
-                <option value="Oda Bultum University (OBU)">Oda Bultum University (OBU)</option>
-                <option value="Kebri Dehar University (KDU)">Kebri Dehar University (KDU)</option>
-                <option value="Raya University (RU)">Raya University (RU)</option>
-                <option value="Debark University (DKU)">Debark University (DKU)</option>
-                <option value="Injibara University (IU)">Injibara University (IU)</option>
-                <option value="Jinka University (JKU)">Jinka University (JKU)</option>
-                <option value="Bonga University (BU)">Bonga University (BU)</option>
-                <option value="Werabe University (WRU)">Werabe University (WRU)</option>
-                <option value="Selale University (SLU)">Selale University (SLU)</option>
-                <option value="Dembi Dolo University (DeDU)">Dembi Dolo University (DeDU)</option>
-                <option value="Borana University (BU)">Borana University (BU)</option>
-                <option value="Ethiopian Civil Service University (ECSU)">Ethiopian Civil Service University (ECSU)</option>
-                <option value="FDRE Defense University">FDRE Defense University</option>
-                <option value="Ethiopian Police University (EPU)">Ethiopian Police University (EPU)</option>
-                <option value="Ethiopian Aviation University">Ethiopian Aviation University</option>
-                <option value="Federal Technical & Vocational Training Institute (FTVETI)">Federal Technical & Vocational Training Institute (FTVETI)</option>
-                <option value="Oromia State University (Batu)">Oromia State University (Batu)</option>
-                <option value="St. Mary's University">St. Mary's University</option>
-                <option value="Unity University">Unity University</option>
-                <option value="Rift Valley University (RVU)">Rift Valley University (RVU)</option>
-                <option value="Admas University">Admas University</option>
-                <option value="HilCoE School of Computer Science & Technology">HilCoE School of Computer Science & Technology</option>
-                <option value="Alpha University College">Alpha University College</option>
-                <option value="CPU Business & Information Technology College">CPU Business & Information Technology College</option>
-                <option value="Hope University College">Hope University College</option>
-                <option value="Yardstick International College">Yardstick International College</option>
-                <option value="MicroLink Information Technology College">MicroLink Information Technology College</option>
-                <option value="Queen's College">Queen's College</option>
-                <option value="Leadstar University College">Leadstar University College</option>
-                <option value="Gage College">Gage College</option>
-                <option value="Kiamed Health Sciences College">Kiamed Health Sciences College</option>
-                <option value="New Generation University College">New Generation University College</option>
-                <option value="Dynamic University College">Dynamic University College</option>
-                <option value="Universal Medical College">Universal Medical College</option>
-                <option value="Bethel Medical College">Bethel Medical College</option>
-                <option value="Other Ethiopian University / College">Other Ethiopian University / College</option>
-              </select>
+          <style>
+            .academic-affiliation-card {
+              background: linear-gradient(145deg, rgba(15, 23, 42, 0.98) 0%, rgba(24, 34, 53, 0.92) 100%);
+              border: 1.5px solid rgba(56, 189, 248, 0.35);
+              border-radius: 20px;
+              padding: 1.35rem 1.25rem;
+              margin-bottom: 1.25rem;
+              box-shadow: 0 16px 45px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+              position: relative;
+              transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .academic-affiliation-card:hover {
+              border-color: rgba(56, 189, 248, 0.55);
+              box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.15);
+            }
+            .modern-academic-select {
+              width: 100%;
+              padding: 0.88rem 2.6rem 0.88rem 1.15rem;
+              border-radius: 14px;
+              background: linear-gradient(145deg, #060d1f 0%, #0d1830 100%);
+              border: 1.5px solid rgba(56, 189, 248, 0.35);
+              color: #ffffff;
+              font-weight: 750;
+              font-size: 0.89rem;
+              letter-spacing: 0.2px;
+              -webkit-appearance: none;
+              appearance: none;
+              cursor: pointer;
+              transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+              box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+              box-sizing: border-box;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+            }
+            .modern-academic-select:hover {
+              border-color: #38bdf8;
+              background: linear-gradient(145deg, #09132c 0%, #112040 100%);
+              box-shadow: 0 6px 20px rgba(56, 189, 248, 0.25);
+            }
+            .modern-academic-select:focus {
+              outline: none;
+              border-color: #38bdf8;
+              box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.35), 0 10px 25px rgba(0, 0, 0, 0.55);
+            }
+            .modern-academic-select option {
+              background: #0b1329;
+              color: #ffffff;
+              padding: 0.65rem;
+              font-size: 0.88rem;
+            }
+          </style>
+
+          <!-- Modern Classic University & Campus Affiliation Card -->
+          <div class="academic-affiliation-card" id="academic-affiliation-card">
+            
+            <!-- Card Header -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.05rem; flex-wrap: wrap; gap: 0.6rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 0.85rem;">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <div style="width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, rgba(56, 189, 248, 0.28), rgba(16, 185, 129, 0.28)); border: 1.5px solid rgba(56, 189, 248, 0.5); display: flex; align-items: center; justify-content: center; font-size: 1.45rem; box-shadow: 0 6px 18px rgba(56, 189, 248, 0.25);">
+                  🏛️
+                </div>
+                <div>
+                  <div style="font-weight: 850; color: #fff; font-size: 0.98rem; letter-spacing: 0.3px; display: flex; align-items: center; gap: 0.45rem;">
+                    <span>የአካዳሚክ ተቋም እና ካምፓስ</span>
+                    <span style="font-size: 0.73rem; color: #38bdf8; font-weight: 700;">(Academic Affiliation)</span>
+                  </div>
+                  <div style="font-size: 0.74rem; color: #94a3b8; margin-top: 0.15rem;">
+                    🔒 ከውጤት ሪፖርት እና ከተማሪ መታወቂያ ጋር በራስ-ሰር የሚመሳከር (Strict Document Cross-Check)
+                  </div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.4rem;">
+                <span style="font-size: 0.68rem; font-weight: 800; background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35); padding: 0.28rem 0.7rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; display: inline-flex; align-items: center; gap: 0.35rem;">
+                  <span style="width: 6px; height: 6px; border-radius: 50%; background: #10b981; box-shadow: 0 0 8px #10b981;"></span>
+                  <span>Accredited Institution</span>
+                </span>
+              </div>
             </div>
-            <div class="field">
-              <label id="i18n-f-tcampus">🏫 ካምፓስ (Campus) *</label>
-              <select id="t_campus_select" required onchange="handleCampusChange()">
-                <option value="" disabled selected>-- ካምፓስ ይምረጡ (Select Campus) --</option>
-              </select>
+
+            <!-- Two Column Modern Cascading Dropdowns -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+              
+              <!-- University Dropdown -->
+              <div class="field" style="margin-bottom: 0;">
+                <label id="i18n-f-tuni" style="color: #38bdf8; font-weight: 850; font-size: 0.86rem; display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.45rem;">
+                  <span style="display: flex; align-items: center; gap: 0.4rem;">
+                    <span>🏛️</span> <span>ዩኒቨርሲቲ (University) *</span>
+                  </span>
+                  <span style="font-size: 0.68rem; color: #94a3b8; font-weight: normal;">50+ Universities</span>
+                </label>
+                <div style="position: relative;">
+                  <select id="t_uni_select" class="modern-academic-select" required onchange="handleUniversityChange()">
+                    <option value="" disabled selected>-- ዩኒቨርሲቲ ይምረጡ (Select University) --</option>
+                    <option value="Addis Ababa University (AAU)">Addis Ababa University (AAU)</option>
+                    <option value="Addis Ababa Science & Technology University (AASTU)">Addis Ababa Science & Technology University (AASTU)</option>
+                    <option value="Adama Science & Technology University (ASTU)">Adama Science & Technology University (ASTU)</option>
+                    <option value="Jimma University (JU)">Jimma University (JU)</option>
+                    <option value="Hawassa University (HU)">Hawassa University (HU)</option>
+                    <option value="Bahir Dar University (BDU)">Bahir Dar University (BDU)</option>
+                    <option value="University of Gondar (UoG)">University of Gondar (UoG)</option>
+                    <option value="Haramaya University (HU)">Haramaya University (HU)</option>
+                    <option value="Arba Minch University (AMU)">Arba Minch University (AMU)</option>
+                    <option value="Mekelle University (MU)">Mekelle University (MU)</option>
+                    <option value="Wollo University (WU)">Wollo University (WU)</option>
+                    <option value="Debre Birhan University (DBU)">Debre Birhan University (DBU)</option>
+                    <option value="Debre Markos University (DMU)">Debre Markos University (DMU)</option>
+                    <option value="Debre Tabor University (DTU)">Debre Tabor University (DTU)</option>
+                    <option value="Dire Dawa University (DDU)">Dire Dawa University (DDU)</option>
+                    <option value="Wollega University (WLU)">Wollega University (WLU)</option>
+                    <option value="Ambo University (AU)">Ambo University (AU)</option>
+                    <option value="Dilla University (DU)">Dilla University (DU)</option>
+                    <option value="Arsi University (Asella)">Arsi University (Asella)</option>
+                    <option value="Madda Walabu University (MWU)">Madda Walabu University (MWU)</option>
+                    <option value="Mattu University (MeU)">Mattu University (MeU)</option>
+                    <option value="Woldia University (WDU)">Woldia University (WDU)</option>
+                    <option value="Axum University (Aksum University - AkU)">Axum University (Aksum University - AkU)</option>
+                    <option value="Adigrat University (AGU)">Adigrat University (AGU)</option>
+                    <option value="Kotebe University of Education (KUE)">Kotebe University of Education (KUE)</option>
+                    <option value="Jigjiga University (JJU)">Jigjiga University (JJU)</option>
+                    <option value="Semera University (SU)">Semera University (SU)</option>
+                    <option value="Assosa University (ASU)">Assosa University (ASU)</option>
+                    <option value="Gambella University (GMU)">Gambella University (GMU)</option>
+                    <option value="Mizan-Tepi University (MTU)">Mizan-Tepi University (MTU)</option>
+                    <option value="Wachemo University (WCU)">Wachemo University (WCU)</option>
+                    <option value="Wolkite University (WKU)">Wolkite University (WKU)</option>
+                    <option value="Bule Hora University (BHU)">Bule Hora University (BHU)</option>
+                    <option value="Oda Bultum University (OBU)">Oda Bultum University (OBU)</option>
+                    <option value="Kebri Dehar University (KDU)">Kebri Dehar University (KDU)</option>
+                    <option value="Raya University (RU)">Raya University (RU)</option>
+                    <option value="Debark University (DKU)">Debark University (DKU)</option>
+                    <option value="Injibara University (IU)">Injibara University (IU)</option>
+                    <option value="Jinka University (JKU)">Jinka University (JKU)</option>
+                    <option value="Bonga University (BU)">Bonga University (BU)</option>
+                    <option value="Werabe University (WRU)">Werabe University (WRU)</option>
+                    <option value="Selale University (SLU)">Selale University (SLU)</option>
+                    <option value="Dembi Dolo University (DeDU)">Dembi Dolo University (DeDU)</option>
+                    <option value="Borana University (BU)">Borana University (BU)</option>
+                    <option value="Ethiopian Civil Service University (ECSU)">Ethiopian Civil Service University (ECSU)</option>
+                    <option value="FDRE Defense University">FDRE Defense University</option>
+                    <option value="Ethiopian Police University (EPU)">Ethiopian Police University (EPU)</option>
+                    <option value="Ethiopian Aviation University">Ethiopian Aviation University</option>
+                    <option value="Federal Technical & Vocational Training Institute (FTVETI)">Federal Technical & Vocational Training Institute (FTVETI)</option>
+                    <option value="Oromia State University (Batu)">Oromia State University (Batu)</option>
+                    <option value="St. Mary's University">St. Mary's University</option>
+                    <option value="Unity University">Unity University</option>
+                    <option value="Rift Valley University (RVU)">Rift Valley University (RVU)</option>
+                    <option value="Admas University">Admas University</option>
+                    <option value="HilCoE School of Computer Science & Technology">HilCoE School of Computer Science & Technology</option>
+                    <option value="Alpha University College">Alpha University College</option>
+                    <option value="CPU Business & Information Technology College">CPU Business & Information Technology College</option>
+                    <option value="Hope University College">Hope University College</option>
+                    <option value="Yardstick International College">Yardstick International College</option>
+                    <option value="MicroLink Information Technology College">MicroLink Information Technology College</option>
+                    <option value="Queen's College">Queen's College</option>
+                    <option value="Leadstar University College">Leadstar University College</option>
+                    <option value="Gage College">Gage College</option>
+                    <option value="Kiamed Health Sciences College">Kiamed Health Sciences College</option>
+                    <option value="New Generation University College">New Generation University College</option>
+                    <option value="Dynamic University College">Dynamic University College</option>
+                    <option value="Universal Medical College">Universal Medical College</option>
+                    <option value="Bethel Medical College">Bethel Medical College</option>
+                    <option value="Other Ethiopian University / College">Other Ethiopian University / College</option>
+                  </select>
+                  <div style="position: absolute; right: 1.1rem; top: 50%; transform: translateY(-50%); pointer-events: none; color: #38bdf8; font-size: 0.8rem; display: flex; align-items: center;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </div>
+                </div>
+                <div style="font-size: 0.72rem; color: #94a3b8; margin-top: 0.4rem; display: flex; align-items: center; gap: 0.35rem;">
+                  <span>📋</span> <span>ሰነድዎ ከተመረጠው ዩኒቨርሲቲ ጋር መመሳሰል አለበት</span>
+                </div>
+              </div>
+
+              <!-- Campus Dropdown -->
+              <div class="field" style="margin-bottom: 0;">
+                <label id="i18n-f-tcampus" style="color: #38bdf8; font-weight: 850; font-size: 0.86rem; display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.45rem;">
+                  <span style="display: flex; align-items: center; gap: 0.4rem;">
+                    <span>🏫</span> <span>ካምፓስ / ቅርንጫፍ (Campus) *</span>
+                  </span>
+                  <span id="t-campus-count-badge" style="font-size: 0.68rem; color: #94a3b8; font-weight: normal;">Branch / Dorm Area</span>
+                </label>
+                <div style="position: relative;">
+                  <select id="t_campus_select" class="modern-academic-select" required onchange="handleCampusChange()">
+                    <option value="" disabled selected>-- ካምፓስ ይምረጡ (Select Campus) --</option>
+                  </select>
+                  <div style="position: absolute; right: 1.1rem; top: 50%; transform: translateY(-50%); pointer-events: none; color: #38bdf8; font-size: 0.8rem; display: flex; align-items: center;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </div>
+                </div>
+                <div style="font-size: 0.72rem; color: #94a3b8; margin-top: 0.4rem; display: flex; align-items: center; gap: 0.35rem;">
+                  <span>📍</span> <span>በአካባቢዎ ካሉ ቤተሰቦች ጋር በቀላሉ ያገናኘዎታል</span>
+                </div>
+              </div>
+
             </div>
+
+            <!-- Dynamic Live Affiliation Pill -->
+            <div id="t-uni-live-status-pill" style="display: none; margin-top: 0.9rem; padding: 0.65rem 1rem; border-radius: 12px; font-size: 0.78rem; font-weight: 800; background: rgba(16, 185, 129, 0.12); border: 1.5px solid rgba(16, 185, 129, 0.45); color: #34d399; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.45rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-size: 1.05rem;">✓</span>
+                <span id="t-uni-live-status-text">Selected: Addis Ababa University</span>
+              </div>
+              <span id="t-uni-audit-badge" style="font-size: 0.68rem; background: rgba(16, 185, 129, 0.25); color: #6ee7b7; padding: 0.18rem 0.55rem; border-radius: 6px; text-transform: uppercase;">🛡️ Ready for Document Audit</span>
+            </div>
+
           </div>
 
           <!-- Custom "Other" fields (shown only if "Other" is chosen) -->
@@ -3339,27 +3461,27 @@
   <div class="modal-overlay" id="doc-mismatch-modal" style="display: none; z-index: 999999;">
     <div class="modal-card" style="max-width: 440px; width: 92%; max-height: 86vh; overflow-y: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; text-align: center; border-radius: 22px; border: 1.5px solid rgba(239, 68, 68, 0.6); box-shadow: 0 25px 70px rgba(239, 68, 68, 0.35); background: linear-gradient(180deg, rgba(28, 10, 16, 0.98) 0%, rgba(15, 6, 10, 0.98) 100%); backdrop-filter: blur(28px); padding: 1.4rem 1.25rem; margin: auto;">
       
-      <div style="width: 50px; height: 50px; margin: 0 auto 0.6rem; border-radius: 50%; background: rgba(239, 68, 68, 0.18); border: 2px solid #ef4444; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; box-shadow: 0 0 25px rgba(239, 68, 68, 0.45);">
+      <div id="mismatch-modal-icon" style="width: 50px; height: 50px; margin: 0 auto 0.6rem; border-radius: 50%; background: rgba(239, 68, 68, 0.18); border: 2px solid #ef4444; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; box-shadow: 0 0 25px rgba(239, 68, 68, 0.45);">
         🚨
       </div>
 
-      <h3 style="font-size: 1.15rem; font-weight: 850; color: #f87171; margin-bottom: 0.35rem;">
+      <h3 id="mismatch-modal-title" style="font-size: 1.15rem; font-weight: 850; color: #f87171; margin-bottom: 0.35rem;">
         የሰነድ ባለቤትነት አለመጣጣም (Document Mismatch)
       </h3>
 
       <div style="background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 12px; padding: 0.75rem 0.85rem; margin-bottom: 0.85rem; text-align: left; font-size: 0.78rem; line-height: 1.5; color: #fecaca;">
         <div style="margin-bottom: 0.35rem;">
-          <strong style="color: #fff;">የተመዘገበው አስጠኚ ስም:</strong> <span id="mismatch-expected-name" style="color: #38bdf8; font-weight: 800;"></span>
+          <strong id="mismatch-expected-label" style="color: #fff;">የተመዘገበው አስጠኚ ስም:</strong> <span id="mismatch-expected-name" style="color: #38bdf8; font-weight: 800;"></span>
         </div>
         <div style="margin-bottom: 0.35rem;">
-          <strong style="color: #fff;">በሰነዱ ላይ የተገኘው ስም:</strong> <span id="mismatch-detected-name" style="color: #f87171; font-weight: 800;"></span>
+          <strong id="mismatch-detected-label" style="color: #fff;">በሰነዱ ላይ የተገኘው ስም:</strong> <span id="mismatch-detected-name" style="color: #f87171; font-weight: 800;"></span>
         </div>
-        <div style="font-size: 0.72rem; color: #cbd5e1; border-top: 1px dashed rgba(239, 68, 68, 0.3); padding-top: 0.4rem; margin-top: 0.35rem;">
+        <div id="mismatch-modal-desc" style="font-size: 0.72rem; color: #cbd5e1; border-top: 1px dashed rgba(239, 68, 68, 0.3); padding-top: 0.4rem; margin-top: 0.35rem;">
           የተያያዘው የትምህርት ማስረጃ (Grade Report / Student ID) የሌላ ተማሪ ስም ያሳያል! ለህፃናት ደህንነት እና ለትምህርት ጥራት የራስዎን ህጋዊ ማስረጃ ብቻ ማቅረብ ይኖርብዎታል። የሌላ ሰውን ሰነድ መጠቀም በጥብቅ የተከለከለ ነው።
         </div>
       </div>
 
-      <button type="button" onclick="closeDocMismatchModal()" style="width: 100%; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: #fff; border: none; font-weight: 850; font-size: 0.88rem; padding: 0.75rem; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.35);">
+      <button type="button" id="mismatch-modal-btn" onclick="closeDocMismatchModal()" style="width: 100%; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: #fff; border: none; font-weight: 850; font-size: 0.88rem; padding: 0.75rem; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.35);">
         ማስረጃውን አስተካክላለሁ (I Will Upload My Own Document)
       </button>
     </div>
@@ -6368,10 +6490,13 @@
       console.warn('Immediate initUniversityDropdown warning:', e);
     }
 
-    function handleUniversityChange(preselectedCampus) {
+    async function handleUniversityChange(preselectedCampus) {
       const uniSelect = document.getElementById('t_uni_select');
       const campusSelect = document.getElementById('t_campus_select');
       const customUniBox = document.getElementById('t_custom_uni_box');
+      const livePill = document.getElementById('t-uni-live-status-pill');
+      const liveText = document.getElementById('t-uni-live-status-text');
+      const countBadge = document.getElementById('t-campus-count-badge');
       if (!uniSelect || !campusSelect) return;
 
       const selectedUni = uniSelect.value;
@@ -6389,12 +6514,52 @@
 
       populateCampusesDropdown(campusSelect, selectedUni);
 
+      // Dynamically update campus count badge
+      if (countBadge) {
+        const uniObj = ETHIOPIAN_UNIVERSITIES.find(u => u.name === selectedUni);
+        if (uniObj && uniObj.campuses && uniObj.campuses.length > 0) {
+          countBadge.innerText = `${uniObj.campuses.length} Campuses Available`;
+          countBadge.style.color = '#38bdf8';
+        } else {
+          countBadge.innerText = 'Branch / Dorm Area';
+          countBadge.style.color = '#94a3b8';
+        }
+      }
+
+      // Dynamically display live affiliation pill
+      if (livePill && liveText && selectedUni) {
+        livePill.style.display = 'flex';
+        livePill.style.background = 'rgba(16, 185, 129, 0.12)';
+        livePill.style.borderColor = 'rgba(16, 185, 129, 0.45)';
+        livePill.style.color = '#34d399';
+        liveText.innerText = `Selected: ${selectedUni}`;
+      }
+
       if (preselectedCampus) {
         campusSelect.value = preselectedCampus;
         handleCampusChange();
       }
 
       updateCombinedUni();
+
+      // If document files are already picked, perform reactive cross-audit immediately
+      const gradeFile = document.getElementById('t_grade_report')?.files?.[0];
+      const campusFile = document.getElementById('t_cid_front')?.files?.[0];
+      if ((gradeFile || campusFile) && selectedUni && typeof auditUniversityOwnership === 'function') {
+        const uniAudit = await auditUniversityOwnership(gradeFile, campusFile, selectedUni);
+        if (!uniAudit.passed) {
+          if (livePill && liveText) {
+            livePill.style.display = 'flex';
+            livePill.style.background = 'rgba(239, 68, 68, 0.16)';
+            livePill.style.borderColor = '#ef4444';
+            livePill.style.color = '#f87171';
+            liveText.innerText = `⚠️ ሰነድ አለመጣጣም: ሰነድዎ የሚያሳየው ${uniAudit.detectedUni} ነው!`;
+          }
+          if (typeof showUniversityMismatchModal === 'function') {
+            showUniversityMismatchModal(selectedUni, uniAudit.detectedUni, uniAudit.docType);
+          }
+        }
+      }
     }
 
     // PARENT Cascading University & Campus Handlers
@@ -7935,16 +8100,25 @@
       });
     }
 
+    // Memory Cache for Optical Character Recognition results
+    const _ocrTextCache = new Map();
+
     // Optical character recognition using Tesseract (if loaded) with Canvas fallback
     async function extractTextFromImage(file) {
       if (!file || !file.type || !file.type.startsWith('image/')) return '';
+      const cacheKey = `${file.name}_${file.size}_${file.lastModified}`;
+      if (_ocrTextCache.has(cacheKey)) {
+        return _ocrTextCache.get(cacheKey);
+      }
       try {
         if (typeof Tesseract !== 'undefined') {
           const preprocessed = await preprocessImageForFastOcr(file);
           const timeoutPromise = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 4500));
           const ocrPromise = Tesseract.recognize(preprocessed, 'eng', { logger: () => {} });
           const res = await Promise.race([ocrPromise, timeoutPromise]);
-          return res?.data?.text || '';
+          const text = res?.data?.text || '';
+          _ocrTextCache.set(cacheKey, text);
+          return text;
         }
       } catch (err) {
         console.warn('OCR processing skipped or timed out:', err);
@@ -8027,12 +8201,346 @@
       return { passed: true, confidence: 'VERIFIED', extractedText: text };
     }
 
-    function showDocMismatchModal(expectedName, detectedName, docType) {
+    // Comprehensive Ethiopian Universities Signature Catalog for Strict Cross-Check
+    const ETHIO_UNI_CATALOG = [
+      {
+        id: 'AAU',
+        name: 'Addis Ababa University (AAU)',
+        keywords: ['addis ababa university', 'addis ababa univ', 'aau', 'a.a.u', 'sidist kilo', 'arat kilo', '4 kilo', '6 kilo', 'tikur anbessa', 'yared school', 'fbe campus', 'አዲስ አበባ ዩኒቨርሲቲ']
+      },
+      {
+        id: 'AASTU',
+        name: 'Addis Ababa Science & Technology University (AASTU)',
+        keywords: ['addis ababa science & technology', 'addis ababa science and technology', 'aastu', 'a.a.s.t.u', 'kilinto', 'አዲስ አበባ ሳይንስና ቴክኖሎጂ']
+      },
+      {
+        id: 'ASTU',
+        name: 'Adama Science & Technology University (ASTU)',
+        keywords: ['adama science & technology', 'adama science and technology', 'astu', 'a.s.t.u', 'adama university', 'adama univ', 'አዳማ ሳይንስና ቴክኖሎጂ', 'አዳማ ዩኒቨርሲቲ', 'አዳማ']
+      },
+      {
+        id: 'JU',
+        name: 'Jimma University (JU)',
+        keywords: ['jimma university', 'jimma univ', 'ju', 'j.u', 'kito furdisa', 'becho bore', 'ጅማ ዩኒቨርሲቲ', 'ጅማ']
+      },
+      {
+        id: 'HU',
+        name: 'Hawassa University (HU)',
+        keywords: ['hawassa university', 'hawassa univ', 'hu', 'h.u', 'wondo genet', 'main campus hawassa', 'ሃዋሳ ዩኒቨርሲቲ', 'ሃዋሳ']
+      },
+      {
+        id: 'BDU',
+        name: 'Bahir Dar University (BDU)',
+        keywords: ['bahir dar university', 'bahirdar university', 'bahir dar univ', 'bdu', 'b.d.u', 'poly campus', 'pedi campus', 'ባህር ዳር ዩኒቨርሲቲ', 'ባህር ዳር']
+      },
+      {
+        id: 'UOG',
+        name: 'University of Gondar (UoG)',
+        keywords: ['university of gondar', 'gondar university', 'uog', 'u.o.g', 'maraki campus', 'teda campus', 'atse tewodros', 'ጎንደር ዩኒቨርሲቲ', 'ጎንደር']
+      },
+      {
+        id: 'HARAMAYA',
+        name: 'Haramaya University (HU)',
+        keywords: ['haramaya university', 'haramaya univ', 'alembaya', 'ሐረማያ ዩኒቨርሲቲ', 'ሐረማያ']
+      },
+      {
+        id: 'AMU',
+        name: 'Arba Minch University (AMU)',
+        keywords: ['arba minch university', 'arba minch univ', 'arbaminch', 'amu', 'a.m.u', 'secha campus', 'nech sar', 'አርባ ምንጭ ዩኒቨርሲቲ', 'አርባ ምንጭ']
+      },
+      {
+        id: 'MU',
+        name: 'Mekelle University (MU)',
+        keywords: ['mekelle university', 'mekelle univ', 'mu', 'm.u', 'arid campus', 'adi haki', 'quiha', 'መቐለ ዩኒቨርሲቲ', 'መቀሌ ዩኒቨርሲቲ', 'መቐለ', 'መቀሌ']
+      },
+      {
+        id: 'WU',
+        name: 'Wollo University (WU)',
+        keywords: ['wollo university', 'wollo univ', 'wu', 'w.u', 'kombolcha campus', 'ወሎ ዩኒቨርሲቲ', 'ወሎ']
+      },
+      {
+        id: 'DBU',
+        name: 'Debre Birhan University (DBU)',
+        keywords: ['debre birhan university', 'debreberhan', 'dbu', 'd.b.u', 'ደብረ ብርሃን ዩኒቨርሲቲ', 'ደብረ ብርሃን']
+      },
+      {
+        id: 'DMU',
+        name: 'Debre Markos University (DMU)',
+        keywords: ['debre markos university', 'debremarkos', 'dmu', 'd.m.u', 'ደብረ ማርቆስ ዩኒቨርሲቲ', 'ደብረ ማርቆስ']
+      },
+      {
+        id: 'DTU',
+        name: 'Debre Tabor University (DTU)',
+        keywords: ['debre tabor university', 'debretabor', 'dtu', 'd.t.u', 'ደብረ ታቦር ዩኒቨርሲቲ', 'ደብረ ታቦር']
+      },
+      {
+        id: 'DDU',
+        name: 'Dire Dawa University (DDU)',
+        keywords: ['dire dawa university', 'dire dawa univ', 'diredawa', 'ddu', 'd.d.u', 'ድሬዳዋ ዩኒቨርሲቲ', 'ድሬዳዋ']
+      },
+      {
+        id: 'WLU',
+        name: 'Wollega University (WLU)',
+        keywords: ['wollega university', 'wollega univ', 'wlu', 'w.l.u', 'nekemte', 'shambu', 'ወለጋ ዩኒቨርሲቲ', 'ወለጋ']
+      },
+      {
+        id: 'AU',
+        name: 'Ambo University (AU)',
+        keywords: ['ambo university', 'ambo univ', 'au', 'a.u', 'awaro campus', 'አምቦ ዩኒቨርሲቲ', 'አምቦ']
+      },
+      {
+        id: 'DU',
+        name: 'Dilla University (DU)',
+        keywords: ['dilla university', 'dilla univ', 'du', 'd.u', 'ዲላ ዩኒቨርሲቲ', 'ዲላ']
+      },
+      {
+        id: 'KUE',
+        name: 'Kotebe University of Education (KUE)',
+        keywords: ['kotebe university', 'kotebe college', 'kue', 'k.u.e', 'ኮተቤ ዩኒቨርሲቲ', 'ኮተቤ']
+      },
+      {
+        id: 'WDU',
+        name: 'Woldia University (WDU)',
+        keywords: ['woldia university', 'wdu', 'w.d.u', 'ወልዲያ ዩኒቨርሲቲ', 'ወልዲያ']
+      },
+      {
+        id: 'AKU',
+        name: 'Axum University (Aksum University - AkU)',
+        keywords: ['axum university', 'aksum university', 'aku', 'a.k.u', 'አክሱም ዩኒቨርሲቲ', 'አክሱም']
+      },
+      {
+        id: 'JJU',
+        name: 'Jigjiga University (JJU)',
+        keywords: ['jigjiga university', 'jju', 'j.j.u', 'ጅግጅጋ ዩኒቨርሲቲ', 'ጅግጅጋ']
+      },
+      {
+        id: 'SU',
+        name: 'Semera University (SU)',
+        keywords: ['semera university', 'samara university', 'su', 's.u', 'ሰመራ ዩኒቨርሲቲ', 'ሰመራ']
+      },
+      {
+        id: 'ASU',
+        name: 'Assosa University (ASU)',
+        keywords: ['assosa university', 'asu', 'a.s.u', 'አሶሳ ዩኒቨርሲቲ', 'አሶሳ']
+      },
+      {
+        id: 'GMU',
+        name: 'Gambella University (GMU)',
+        keywords: ['gambella university', 'gmu', 'g.m.u', 'ጋምቤላ ዩኒቨርሲቲ', 'ጋምቤላ']
+      },
+      {
+        id: 'MTU',
+        name: 'Mizan-Tepi University (MTU)',
+        keywords: ['mizan-tepi university', 'mizan tepi', 'mtu', 'm.t.u', 'ሚዛን ቴፒ ዩኒቨርሲቲ', 'ሚዛን']
+      },
+      {
+        id: 'WCU',
+        name: 'Wachemo University (WCU)',
+        keywords: ['wachemo university', 'wcu', 'w.c.u', 'hosaena', 'ዋቸሞ ዩኒቨርሲቲ', 'ዋቸሞ', 'ሆሳዕና']
+      },
+      {
+        id: 'WKU',
+        name: 'Wolkite University (WKU)',
+        keywords: ['wolkite university', 'wku', 'w.k.u', 'ወልቂጤ ዩኒቨርሲቲ', 'ወልቂጤ']
+      },
+      {
+        id: 'BHU',
+        name: 'Bule Hora University (BHU)',
+        keywords: ['bule hora university', 'bhu', 'b.h.u', 'ቡሌ ሆራ ዩኒቨርሲቲ', 'ቡሌ ሆራ']
+      },
+      {
+        id: 'STMARY',
+        name: "St. Mary's University",
+        keywords: ['st. mary', 'saint mary', 'st mary', 'ቅድስት ማርያም']
+      },
+      {
+        id: 'UNITY',
+        name: 'Unity University',
+        keywords: ['unity university', 'unity univ', 'ዩኒቲ ዩኒቨርሲቲ', 'ዩኒቲ']
+      },
+      {
+        id: 'RIFTVALLEY',
+        name: 'Rift Valley University (RVU)',
+        keywords: ['rift valley university', 'rift valley', 'rvu', 'r.v.u', 'ሪፍት ቫሊ']
+      },
+      {
+        id: 'ADMAS',
+        name: 'Admas University',
+        keywords: ['admas university', 'admas univ', 'አድማስ ዩኒቨርሲቲ', 'አድማስ']
+      },
+      {
+        id: 'HILCOE',
+        name: 'HilCoE School of Computer Science & Technology',
+        keywords: ['hilcoe', 'school of computer science', 'ሂልኮ']
+      }
+    ];
+
+    // University Ownership & Strict Document Cross-Check Audit Engine
+    async function auditUniversityOwnership(gradeFile, campusFile, selectedUniName) {
+      if (!selectedUniName || selectedUniName === 'Other Ethiopian University / College') {
+        const customUni = document.getElementById('t_custom_uni')?.value?.trim();
+        if (!customUni) return { passed: true };
+        selectedUniName = customUni;
+      }
+
+      const cleanSelected = (selectedUniName || '').trim().toLowerCase();
+      if (!cleanSelected) return { passed: true };
+
+      // Identify selected institution in ETHIO_UNI_CATALOG
+      let selectedCatalogEntry = ETHIO_UNI_CATALOG.find(u => {
+        const uClean = u.name.toLowerCase();
+        return cleanSelected.includes(uClean.slice(0, 10)) || uClean.includes(cleanSelected.slice(0, 10)) ||
+               u.keywords.some(kw => cleanSelected.includes(kw));
+      });
+
+      // Extract OCR texts
+      let gradeText = '';
+      let campusText = '';
+      if (gradeFile) {
+        try { gradeText = await extractTextFromImage(gradeFile); } catch(e){}
+      }
+      if (campusFile) {
+        try { campusText = await extractTextFromImage(campusFile); } catch(e){}
+      }
+
+      // Helper function to scan a document text against university catalog
+      function detectConflictingInstitution(text, docType) {
+        if (!text || text.length < 20) return null;
+        const lower = text.toLowerCase();
+        
+        // Scan each catalog university
+        for (const entry of ETHIO_UNI_CATALOG) {
+          if (selectedCatalogEntry && entry.id === selectedCatalogEntry.id) continue;
+          
+          for (const kw of entry.keywords) {
+            if (kw.length >= 5) {
+              if (lower.includes(kw)) {
+                return { conflict: true, detectedUni: entry.name, docType, matchedKeyword: kw };
+              }
+            } else if (kw.length >= 2) {
+              const regex = new RegExp(`\\b${kw.replace('.', '\\.')}\\b`, 'i');
+              if (regex.test(lower)) {
+                if (lower.includes('university') || lower.includes('college') || lower.includes('student') || lower.includes('campus') || lower.includes('registrar') || lower.includes('grade')) {
+                  return { conflict: true, detectedUni: entry.name, docType, matchedKeyword: kw };
+                }
+              }
+            }
+          }
+        }
+        return null;
+      }
+
+      // Check Grade Report for conflicting university
+      if (gradeText) {
+        const conflictOnGrade = detectConflictingInstitution(gradeText, 'Grade Report');
+        if (conflictOnGrade) {
+          return {
+            passed: false,
+            reason: 'UNIVERSITY_CONFLICT',
+            detectedUni: conflictOnGrade.detectedUni,
+            docType: 'Grade Report',
+            selectedUni: selectedUniName
+          };
+        }
+      }
+
+      // Check Student ID for conflicting university
+      if (campusText) {
+        const conflictOnCampus = detectConflictingInstitution(campusText, 'University Student ID');
+        if (conflictOnCampus) {
+          return {
+            passed: false,
+            reason: 'UNIVERSITY_CONFLICT',
+            detectedUni: conflictOnCampus.detectedUni,
+            docType: 'University Student ID',
+            selectedUni: selectedUniName
+          };
+        }
+      }
+
+      // Check positive verification if document is clear and long (>120 chars) with institutional header
+      const combinedText = (gradeText + ' ' + campusText).toLowerCase();
+      if (combinedText.length > 120 && (combinedText.includes('registrar') || combinedText.includes('official transcript') || combinedText.includes('grade report') || combinedText.includes('student academic record'))) {
+        if (selectedCatalogEntry) {
+          const matchedSelected = selectedCatalogEntry.keywords.some(kw => {
+            if (kw.length >= 4) return combinedText.includes(kw);
+            return new RegExp(`\\b${kw.replace('.', '\\.')}\\b`, 'i').test(combinedText);
+          });
+          if (!matchedSelected && (combinedText.includes('university') || combinedText.includes('college'))) {
+            const headerMatch = combinedText.match(/([a-z\s]{4,30}\s+(?:university|college|institute))/i);
+            if (headerMatch && headerMatch[1]) {
+              const detectedCandidate = headerMatch[1].trim();
+              if (!detectedCandidate.toLowerCase().includes(cleanSelected.slice(0, 5))) {
+                return {
+                  passed: false,
+                  reason: 'UNIVERSITY_MISMATCH_HEADER',
+                  detectedUni: detectedCandidate.toUpperCase(),
+                  docType: gradeText ? 'Grade Report' : 'Student ID',
+                  selectedUni: selectedUniName
+                };
+              }
+            }
+          }
+        }
+      }
+
+      return { passed: true, confidence: 'VERIFIED' };
+    }
+
+    function showUniversityMismatchModal(selectedUni, detectedUni, docType) {
+      window.lastMismatchType = 'UNIVERSITY';
       const modal = document.getElementById('doc-mismatch-modal');
+      const icon = document.getElementById('mismatch-modal-icon');
+      const title = document.getElementById('mismatch-modal-title');
+      const expLabel = document.getElementById('mismatch-expected-label');
       const expEl = document.getElementById('mismatch-expected-name');
+      const detLabel = document.getElementById('mismatch-detected-label');
       const detEl = document.getElementById('mismatch-detected-name');
+      const descEl = document.getElementById('mismatch-modal-desc');
+      const btnEl = document.getElementById('mismatch-modal-btn');
+
+      if (icon) icon.innerText = '🏛️';
+      if (title) title.innerText = 'የዩኒቨርሲቲ አለመጣጣም (University Mismatch)';
+      if (expLabel) expLabel.innerText = 'የተመረጠው ዩኒቨርሲቲ (Selected):';
+      if (expEl) expEl.innerText = selectedUni || 'የተመረጠው ዩኒቨርሲቲ';
+      if (detLabel) detLabel.innerText = 'በሰነዱ ላይ የተገኘው ዩኒቨርሲቲ (Detected):';
+      if (detEl) detEl.innerText = (detectedUni || 'የተለየ የትምህርት ተቋም') + (docType ? ` (${docType})` : '');
+      if (descEl) {
+        descEl.innerText = 'የተያያዘው የትምህርት ማስረጃ (Grade Report / Student ID) ከተመረጠው ዩኒቨርሲቲ ጋር አይዛመድም! እባክዎ ትክክለኛውን ዩኒቨርሲቲ ይምረጡ ወይም የራስዎን ትክክለኛ ሰነድ ያያይዙ። የሌላ ተቋም ወይም የሌላ ሰው ማስረጃ ማቅረብ በጥብቅ የተከለከለ ነው።';
+      }
+      if (btnEl) {
+        btnEl.innerText = 'ዩኒቨርሲቲውን አስተካክላለሁ (Fix University Selection)';
+      }
+
+      if (modal) modal.style.display = 'flex';
+      try { playScanErrorTone(); } catch(e){}
+    }
+
+    function showDocMismatchModal(expectedName, detectedName, docType) {
+      window.lastMismatchType = 'NAME';
+      const modal = document.getElementById('doc-mismatch-modal');
+      const icon = document.getElementById('mismatch-modal-icon');
+      const title = document.getElementById('mismatch-modal-title');
+      const expLabel = document.getElementById('mismatch-expected-label');
+      const expEl = document.getElementById('mismatch-expected-name');
+      const detLabel = document.getElementById('mismatch-detected-label');
+      const detEl = document.getElementById('mismatch-detected-name');
+      const descEl = document.getElementById('mismatch-modal-desc');
+      const btnEl = document.getElementById('mismatch-modal-btn');
+
+      if (icon) icon.innerText = '🚨';
+      if (title) title.innerText = 'የሰነድ ባለቤትነት አለመጣጣም (Document Mismatch)';
+      if (expLabel) expLabel.innerText = 'የተመዘገበው አስጠኚ ስም:';
       if (expEl) expEl.innerText = expectedName || 'የእርስዎ ስም';
+      if (detLabel) detLabel.innerText = 'በሰነዱ ላይ የተገኘው ስም:';
       if (detEl) detEl.innerText = (detectedName || 'የተገኘው የሌላ ሰው ስም') + (docType ? ` (${docType})` : '');
+      if (descEl) {
+        descEl.innerText = 'የተያያዘው የትምህርት ማስረጃ (Grade Report / Student ID) የሌላ ተማሪ ስም ያሳያል! ለህፃናት ደህንነት እና ለትምህርት ጥራት የራስዎን ህጋዊ ማስረጃ ብቻ ማቅረብ ይኖርብዎታል። የሌላ ሰውን ሰነድ መጠቀም በጥብቅ የተከለከለ ነው።';
+      }
+      if (btnEl) {
+        btnEl.innerText = 'ማስረጃውን አስተካክላለሁ (I Will Upload My Own Document)';
+      }
+
       if (modal) modal.style.display = 'flex';
       try { playScanErrorTone(); } catch(e){}
     }
@@ -8040,8 +8548,24 @@
     function closeDocMismatchModal() {
       const modal = document.getElementById('doc-mismatch-modal');
       if (modal) modal.style.display = 'none';
-      const box = document.getElementById('box-grade-report');
-      if (box) box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      if (window.lastMismatchType === 'UNIVERSITY') {
+        const uniCard = document.getElementById('academic-affiliation-card');
+        const uniSelect = document.getElementById('t_uni_select');
+        if (uniCard) uniCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (uniSelect) {
+          uniSelect.focus();
+          uniSelect.style.borderColor = '#ef4444';
+          uniSelect.style.boxShadow = '0 0 20px rgba(239, 68, 68, 0.6)';
+          setTimeout(() => {
+            uniSelect.style.borderColor = 'rgba(56, 189, 248, 0.35)';
+            uniSelect.style.boxShadow = '0 4px 14px rgba(0, 0, 0, 0.35)';
+          }, 3000);
+        }
+      } else {
+        const box = document.getElementById('box-grade-report');
+        if (box) box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
     }
 
     // Check duplicate ID registry against local and cloud Firestore
@@ -8923,8 +9447,11 @@
       handleImageClarityCheck(e, 'preview-campus-id', 'status-campus-id', 't-cid-front-clarity');
       const file = e.target.files[0];
       const tutorName = document.getElementById('t_name')?.value.trim();
+      const uniSelect = document.getElementById('t_uni_select');
+      const selectedUni = uniSelect ? uniSelect.value : '';
       const status = document.getElementById('status-campus-id');
       const box = document.getElementById('box-campus-id');
+
       if (file && tutorName && tutorName.length >= 3) {
         const audit = await auditDocumentNameOwnership(file, tutorName, 'University Student ID');
         if (!audit.passed) {
@@ -8937,11 +9464,38 @@
             box.style.background = 'rgba(239, 68, 68, 0.12)';
           }
           showDocMismatchModal(tutorName, audit.detectedName, 'University Student ID');
+          return;
+        }
+      }
+
+      // Audit University on Student ID
+      if (file && selectedUni) {
+        const uniAudit = await auditUniversityOwnership(null, file, selectedUni);
+        if (!uniAudit.passed) {
+          if (status) {
+            status.innerText = `❌ የዩኒቨርሲቲ አለመጣጣም፡ መታወቂያው ${uniAudit.detectedUni} ያሳያል!`;
+            status.style.color = '#ef4444';
+          }
+          if (box) {
+            box.style.borderColor = '#ef4444';
+            box.style.background = 'rgba(239, 68, 68, 0.12)';
+          }
+          showUniversityMismatchModal(selectedUni, uniAudit.detectedUni, 'University Student ID');
+          return;
         } else {
           if (status) {
-            status.innerText = `✓ Student ID Verified (${file.name})`;
+            status.innerText = `✓ Student ID & University Verified (${file.name})`;
             status.style.color = '#34d399';
           }
+          if (box) {
+            box.style.borderColor = '#10b981';
+            box.style.background = 'rgba(16, 185, 129, 0.05)';
+          }
+        }
+      } else if (file) {
+        if (status) {
+          status.innerText = `✓ Student ID Attached (${file.name})`;
+          status.style.color = '#38bdf8';
         }
       }
     }
@@ -8977,6 +9531,9 @@
         }
 
         const tutorName = document.getElementById('t_name')?.value.trim();
+        const uniSelect = document.getElementById('t_uni_select');
+        const selectedUni = uniSelect ? uniSelect.value : '';
+
         if (tutorName && tutorName.length >= 3 && file.type.startsWith('image/')) {
           const audit = await auditDocumentNameOwnership(file, tutorName, 'Grade Report');
           if (!audit.passed) {
@@ -8990,14 +9547,31 @@
             }
             showDocMismatchModal(tutorName, audit.detectedName, 'Grade Report');
             return;
+          }
+        }
+
+        // Audit University on Grade Report
+        if (selectedUni && file.type.startsWith('image/')) {
+          const uniAudit = await auditUniversityOwnership(file, null, selectedUni);
+          if (!uniAudit.passed) {
+            if (status) {
+              status.innerText = `❌ የዩኒቨርሲቲ አለመጣጣም፡ የውጤት ሪፖርቱ ${uniAudit.detectedUni} ያሳያል!`;
+              status.style.color = '#ef4444';
+            }
+            if (box) {
+              box.style.borderColor = '#ef4444';
+              box.style.background = 'rgba(239, 68, 68, 0.12)';
+            }
+            showUniversityMismatchModal(selectedUni, uniAudit.detectedUni, 'Grade Report');
+            return;
           } else {
             if (status) {
-              status.innerText = `✓ Grade Report Verified (${file.name})`;
+              status.innerText = `✓ Grade Report & University Verified (${file.name})`;
               status.style.color = '#10b981';
             }
             if (box) {
-              box.style.borderColor = 'rgba(250, 204, 21, 0.45)';
-              box.style.background = 'rgba(250, 204, 21, 0.05)';
+              box.style.borderColor = 'rgba(16, 185, 129, 0.5)';
+              box.style.background = 'rgba(16, 185, 129, 0.05)';
             }
           }
         } else {
@@ -9692,6 +10266,18 @@
         return;
       }
 
+      // Audit University Affiliation Cross-Check on Grade Report & Student ID
+      const uniAudit = await auditUniversityOwnership(gradeFile, campusFile, uniName);
+      if (!uniAudit.passed) {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnHtml;
+        }
+        if (credCard) credCard.style.display = 'none';
+        showUniversityMismatchModal(uniName, uniAudit.detectedUni, uniAudit.docType || 'Grade Report / Student ID');
+        return;
+      }
+
       // 1. UNIQUE ID & DUPLICATION PREVENTION CHECK
       const dupCheck = await checkDuplicateIdRegistry(normStudentId, normGovtId, cleanPhone, imgHashes);
       if (dupCheck.isDuplicate) {
@@ -9785,45 +10371,24 @@
       }
 
       // 3. UNIVERSITY MATCHING (Selected University vs University on Student ID Card / Grade Report)
-      // Checks front photo, back photo (if present), and grade report header
       const idExtractedText = `${campusIdFrontText} ${campusIdBackText} ${gradeReportText}`.trim();
       let uniVerificationStatus = 'VERIFIED';
 
       if (idExtractedText && idExtractedText.length > 15) {
         const uniCheck = verifyUniversityIdMatch(uniName, idExtractedText);
         if (!uniCheck.matched) {
-          const knownUniversities = [
-            'Addis Ababa', 'Adama', 'Jimma', 'Hawassa', 'Gondar', 'Bahir Dar', 
-            'Haramaya', 'Mekelle', 'Wollo', 'Debre Birhan', 'Arba Minch', 'Dire Dawa',
-            'Ambo', 'Dilla', 'Wollega', 'Woldia', 'Kotebe', 'St. Mary', 'Unity'
-          ];
-          let conflictingUni = null;
-          const lowerIdText = idExtractedText.toLowerCase();
-          for (const kn of knownUniversities) {
-            if (!uniName.toLowerCase().includes(kn.toLowerCase().slice(0, 4)) && lowerIdText.includes(kn.toLowerCase().slice(0, 4))) {
-              conflictingUni = kn;
-              break;
+          // Check against comprehensive Ethiopian university catalog
+          const uniAuditStrict = await auditUniversityOwnership(gradeFile, campusFile, uniName);
+          if (!uniAuditStrict.passed) {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = originalBtnHtml;
             }
-          }
-
-          if (conflictingUni) {
-            const uniMismatchMsg = (currentLang === 'am')
-              ? `⚠️ የዩኒቨርሲቲ ሰነድ ማረጋገጫ ችግር፡ የተያያዘው የተማሪ መታወቂያ ከተመረጠው ዩኒቨርሲቲ (${uniName}) ጋር አይዛመድም። እባክዎ ትክክለኛውን ዩኒቨርሲቲ ይምረጡ ወይም ተገቢውን መታወቂያ ያያይዙ።`
-              : `⚠️ University Credential Mismatch: The uploaded Student ID does not correspond to the selected university (${uniName}). Please verify your selected campus or attach the correct student ID.`;
-            
-            if (credCard && credBadge && credDetails) {
-              credBadge.innerText = 'MISMATCH';
-              credBadge.style.background = 'rgba(239, 68, 68, 0.2)';
-              credBadge.style.color = '#ef4444';
-              if (credSpinner) credSpinner.innerText = '⚠️';
-              credDetails.innerText = uniMismatchMsg;
-            }
-            abortTutorValidation(uniMismatchMsg, document.getElementById('t_uni_select'), document.getElementById('box-campus-id'));
+            if (credCard) credCard.style.display = 'none';
+            showUniversityMismatchModal(uniName, uniAuditStrict.detectedUni, uniAuditStrict.docType || 'Grade Report / Student ID');
             return;
-          } else {
-            // Older, worn, or low-contrast card; passed with coordinator audit tag
-            uniVerificationStatus = 'LEGACY_CARD_AUDIT';
           }
+          uniVerificationStatus = 'ACADEMIC_AUDIT_VERIFIED';
         }
       }
 
