@@ -7,6 +7,9 @@
   <meta name="description" content="Official Management and Software Architecture Blueprint for Teme Astegni: Zero-Cost 4-Tier Cloud Infrastructure, 4 Telegram Hubs, Fayda KYC, and 30% / 200 ETB Commission Model.">
   <link rel="icon" type="image/svg+xml" href="assets/branding/svg-vector/ethio21_favicon.svg">
 
+  <!-- Mermaid.js for Ultra-Clean Native Vector Diagrams -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
   <style>
     :root {
       --bg-canvas: #06040a;
@@ -191,46 +194,24 @@
     @media (max-width: 900px) { .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 650px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
 
-    /* Swatches */
-    .swatches-bar {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 0.75rem;
-      margin-top: 1rem;
-    }
-
-    .swatch-item {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--border-glass);
-      border-radius: 14px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .swatch-item:hover { transform: translateY(-3px); }
-    .swatch-color { height: 48px; width: 100%; }
-    .swatch-label {
-      padding: 0.5rem;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      display: flex;
-      justify-content: space-between;
-      color: var(--text-secondary);
-    }
-
-    /* Component Sandbox Preview */
-    .sandbox-preview {
-      background: #0b0612;
+    /* Diagram Styling */
+    .diagram-container {
+      background: #08040f;
       border: 1px solid var(--border-glass);
       border-radius: 18px;
-      padding: 1.75rem;
-      margin-top: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
+      padding: 1.75rem 1.25rem;
+      margin-top: 1.25rem;
+      overflow-x: auto;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
     }
 
+    .diagram-container .mermaid {
+      display: flex;
+      justify-content: center;
+      min-width: 650px;
+    }
+
+    /* Buttons */
     .btn-violet-primary {
       background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
       color: #ffffff;
@@ -405,7 +386,6 @@
       gap: 0.5rem;
     }
 
-    /* Code blocks */
     pre code {
       display: block;
       padding: 1rem;
@@ -418,7 +398,6 @@
       border: 1px solid var(--border-glass);
     }
 
-    /* Toast */
     #toast {
       position: fixed;
       bottom: 2rem;
@@ -473,37 +452,118 @@
       </div>
     </div>
 
-    <!-- Section 1: Founder Vision & Plain-English Meaning -->
-    <div class="grid-2">
-      <div class="glass-card">
-        <h3 style="font-size: 1.25rem; font-weight: 850; margin-bottom: 0.75rem; color: var(--accent);">
-          ⚡ Founder's Architecture Vision (Ashenafi)
-        </h3>
-        <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.65;">
-          "I engineered Teme Astegni as a university student founder without foreign venture capital or expensive monthly server bills. By combining <strong>Telegram's unlimited cloud vault</strong> for high-resolution ID photos with <strong>Cloud Firestore</strong> for sub-100ms lightweight metadata matching, we eliminated database bloat entirely. Our student dispatchers coordinate live pairings in minutes while our fixed server overhead remains exactly <strong>$0.00 ETB forever</strong>."
-        </p>
-      </div>
-
-      <div class="glass-card">
-        <h3 style="font-size: 1.25rem; font-weight: 850; margin-bottom: 0.75rem; color: var(--gold);">
-          💡 Plain-English Summary (How It Works)
-        </h3>
-        <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.65;">
-          Think of Teme Astegni like an ultra-lean airport control tower. Heavy student documents and parent payment screenshots bypass our database directly into private Telegram vault rooms. Our dispatch team reviews the applicants on their phones, pairs parents with top-GPA campus tutors, and deposits commission revenues straight into the master business ledger.
-        </p>
-      </div>
-    </div>
-
-    <!-- Section 2: Four Connected Telegram Hubs -->
+    <!-- Section 1: How It Works In Practice (Featured Workflow Diagram) -->
     <div class="glass-card">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.75rem;">
         <div>
-          <h3 style="font-size: 1.3rem; font-weight: 850; color: #fff;">Four Dedicated Telegram Hubs (@ethio21_official_bot)</h3>
-          <p style="color: var(--text-secondary); font-size: 0.85rem;">All dispatch notifications, document audits, and payment verifications flow into these verified channels.</p>
+          <div class="hero-badge" style="background: rgba(168, 85, 247, 0.15); color: #c084fc; border-color: rgba(168, 85, 247, 0.4);">
+            CORE OPERATING BLUEPRINT
+          </div>
+          <h2 style="font-size: 1.45rem; font-weight: 850; color: #fff;">How It Works in Practice: The Automated 3-Stage Pipeline</h2>
         </div>
         <div style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.35rem 0.85rem; border-radius: var(--radius-pill); background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); font-size: 0.78rem; font-weight: 700; color: #34d399;">
           <span class="status-dot-violet" style="background: #10b981; box-shadow: 0 0 10px #10b981;"></span>
-          <span>Bot Dispatcher Active &bull; Verified Production Channels</span>
+          <span>Zero Spreadsheet Fatigue &bull; Founder Financial Shield</span>
+        </div>
+      </div>
+      <p style="color: var(--text-secondary); font-size: 0.9rem; max-width: 850px;">
+        Admins work 100% inside the web dashboard. The silent background engine synchronizes with Google Sheets and Telegram, ensuring zero staff tampering and instant revenue logging.
+      </p>
+
+      <div class="diagram-container">
+        <div class="mermaid">
+flowchart TD
+    subgraph AdminDesk["1. What Your Admins See (teme-admin.html)"]
+        A1["📞 Incoming Parent Request<br/>(Bole, Kazanchis, CMC)"] --> A2["🎓 Filter High-CGPA Tutors<br/>(AAU / AASTU / ASTU)"]
+        A2 --> A3["⚡ Click 'Confirm Match & Dispatch'<br/>(1-Day Home Trial Scheduled)"]
+    end
+
+    subgraph SilentEngine["2. Silent Background Automation Engine"]
+        A3 --> B1["Trigger Secure Webhook API<br/>(Google Apps Script Engine)"]
+        B1 --> B2["Append Row to Matches_Ledger<br/>[Date, Parent, Tutor, Fee, Commission]"]
+        A3 --> B3["Post Dispatch to Toutor Matches<br/>(Telegram Chat ID: -5225265679)"]
+        B2 --> B4["🧹 Auto-Prune from Firestore Hot Desk<br/>(Storage Returns to Zero KB)"]
+    end
+
+    subgraph MasterVault["3. Private Master Vault (Owner Access Only)"]
+        B2 --> C1["👑 Founder (Ashenafi Girma)<br/>ashenafitobe@gmail.com"]
+        C1 --> C2["📊 Live Telebirr / CBE Revenue Analytics<br/>(30% Month 1 + 200 ETB Month 2+)"]
+        C1 --> C3["📑 1-Click Excel / CSV Export<br/>(Certified Tax & Business Filing)"]
+    end
+
+    style AdminDesk fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#fff
+    style SilentEngine fill:#1e102e,stroke:#a855f7,stroke-width:1.5px,color:#fff
+    style MasterVault fill:#06231a,stroke:#10b981,stroke-width:1.5px,color:#fff
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: 4-Tier Zero-Cost Storage Architecture Diagram -->
+    <div class="glass-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.75rem;">
+        <div>
+          <div class="hero-badge" style="background: rgba(56, 189, 248, 0.15); color: var(--cyan); border-color: rgba(56, 189, 248, 0.4);">
+            DATA TOPOLOGY &amp; CLOUD ARCHITECTURE
+          </div>
+          <h2 style="font-size: 1.45rem; font-weight: 850; color: #fff;">Four-Tier Zero-Cost Storage Dataflow</h2>
+        </div>
+        <span style="font-size: 0.75rem; font-family: var(--font-mono); color: #34d399; background: rgba(52, 211, 153, 0.12); padding: 0.3rem 0.75rem; border-radius: 20px; border: 1px solid rgba(52, 211, 153, 0.3); font-weight: 700;">
+          95% Bandwidth Compression &bull; 0.00 ETB Cost
+        </span>
+      </div>
+      <p style="color: var(--text-secondary); font-size: 0.9rem;">
+        Heavy photo binaries never touch Firestore. Client PWAs compress photos on the user's phone, streaming high-res images to Telegram and micro-JSON text to Firestore.
+      </p>
+
+      <div class="diagram-container">
+        <div class="mermaid">
+flowchart LR
+    User["👨‍👩‍👧 Parent / 🎓 Tutor<br/>Client Smartphone"] -->|1. Upload Photo + Text| PWA["📱 Tier 1: Client Edge PWA<br/>(Canvas 75% Image Compression)<br/>6 MB -> 180 KB (95% saved)"]
+
+    PWA -->|2a. High-Res Photos & IDs| TG["📸 Tier 3: Telegram Cloud Vault<br/>(@ethio21_official_bot)<br/>Unlimited Free Media Hosting"]
+    PWA -->|2b. Light Text Only < 1.2 KB| FS["⚡ Tier 2: Firestore Hot Desk<br/>(Sub-100ms Live Dispatch)<br/>Free 50k Reads / 20k Writes"]
+
+    FS -->|3. Match Confirmed| Admin["🛡️ Admin Cockpit<br/>(teme-admin.html)"]
+    Admin -->|4. Permanent Archive| GS["📗 Tier 4: Master Ledger<br/>(Google Sheets Matches_Ledger)<br/>Permanent Revenue Archive"]
+    GS -.->|5. Prune Temporary Lead| FS
+
+    style PWA fill:#0c4a6e,stroke:#38bdf8,stroke-width:1.5px,color:#fff
+    style TG fill:#4c1d95,stroke:#a855f7,stroke-width:1.5px,color:#fff
+    style FS fill:#78350f,stroke:#fbbf24,stroke-width:1.5px,color:#fff
+    style GS fill:#064e3b,stroke:#34d399,stroke-width:1.5px,color:#fff
+        </div>
+      </div>
+
+      <div class="grid-4" style="margin-top: 1.5rem;">
+        <div class="hub-card" style="border-top: 3px solid var(--cyan);">
+          <div style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--cyan);">TIER 1 &bull; CLIENT EDGE</div>
+          <div style="font-weight: 800; color: #fff; margin: 0.3rem 0;">HTML5 Canvas Engine</div>
+          <p style="font-size: 0.78rem; color: var(--text-secondary);">Downsamples photos to 1200px before uploading. Prevents network timeouts in Ethiopia.</p>
+        </div>
+        <div class="hub-card" style="border-top: 3px solid #fbbf24;">
+          <div style="font-size: 0.75rem; font-family: var(--font-mono); color: #fbbf24;">TIER 2 &bull; REALTIME DESK</div>
+          <div style="font-weight: 800; color: #fff; margin: 0.3rem 0;">Cloud Firestore</div>
+          <p style="font-size: 0.78rem; color: var(--text-secondary);">Holds ~1 KB JSON text only. Zero photo strings. Syncs in under 100ms within Spark quota.</p>
+        </div>
+        <div class="hub-card" style="border-top: 3px solid #a855f7;">
+          <div style="font-size: 0.75rem; font-family: var(--font-mono); color: #c084fc;">TIER 3 &bull; PERMANENT VAULT</div>
+          <div style="font-weight: 800; color: #fff; margin: 0.3rem 0;">Telegram Cloud API</div>
+          <p style="font-size: 0.78rem; color: var(--text-secondary);">Unlimited free media storage for Fayda IDs, Grade Reports, and Payment receipts.</p>
+        </div>
+        <div class="hub-card" style="border-top: 3px solid #34d399;">
+          <div style="font-size: 0.75rem; font-family: var(--font-mono); color: #34d399;">TIER 4 &bull; MASTER LEDGER</div>
+          <div style="font-weight: 800; color: #fff; margin: 0.3rem 0;">Google Sheets Ledger</div>
+          <p style="font-size: 0.78rem; color: var(--text-secondary);">Permanent audited revenue archive (<code>Matches_Ledger</code>). Holds only finalized paid pairings.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Four Connected Telegram Hubs -->
+    <div class="glass-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+        <div>
+          <h2 style="font-size: 1.35rem; font-weight: 850; color: #fff;">Four Dedicated Telegram Hubs (@ethio21_official_bot)</h2>
+          <p style="color: var(--text-secondary); font-size: 0.85rem;">All dispatch notifications, document audits, and payment verifications flow into these verified channels.</p>
         </div>
       </div>
 
@@ -515,9 +575,7 @@
               <span class="hub-badge" style="background: rgba(56, 189, 248, 0.15); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.3);">KYC &amp; TUTORS</span>
               <span style="font-size: 0.7rem; color: var(--text-secondary);">Channel #1</span>
             </div>
-            <div class="hub-title">
-              <span>🎓</span> Tutors Hub
-            </div>
+            <div class="hub-title"><span>🎓</span> Tutors Hub</div>
             <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
               Vetted university applicant profiles, student IDs, Fayda verification, and GPA records.
             </p>
@@ -541,9 +599,7 @@
               <span class="hub-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3);">CLIENT REQUESTS</span>
               <span style="font-size: 0.7rem; color: var(--text-secondary);">Channel #2</span>
             </div>
-            <div class="hub-title">
-              <span>👨‍👩‍👧</span> Parents Hub
-            </div>
+            <div class="hub-title"><span>👨‍👩‍👧</span> Parents Hub</div>
             <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
               Inbound tutor requests from parents across Addis Ababa: subjects, child grade, and location.
             </p>
@@ -567,9 +623,7 @@
               <span class="hub-badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3);">FINANCIAL KYC</span>
               <span style="font-size: 0.7rem; color: var(--text-secondary);">Channel #3</span>
             </div>
-            <div class="hub-title">
-              <span>💳</span> Parents Payments
-            </div>
+            <div class="hub-title"><span>💳</span> Parents Payments</div>
             <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
               Deposit screenshots, Telebirr/CBE receipts, and registration fees sent by families.
             </p>
@@ -593,9 +647,7 @@
               <span class="hub-badge" style="background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3);">ACTIVE CONTRACTS</span>
               <span style="font-size: 0.7rem; color: var(--text-secondary);">Channel #4</span>
             </div>
-            <div class="hub-title">
-              <span>🤝</span> Toutor Matches
-            </div>
+            <div class="hub-title"><span>🤝</span> Toutor Matches</div>
             <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
               Official matchmaking dispatches, confirmed pairings, trial contracts, and commission terms.
             </p>
@@ -614,17 +666,39 @@
       </div>
     </div>
 
-    <!-- Section 3: Revenue & Commission Architecture (With Live Calculator) -->
+    <!-- Section 4: Revenue & Commission Architecture Diagram -->
     <div class="glass-card">
-      <div class="hero-badge" style="color: var(--gold); border-color: rgba(212, 175, 55, 0.4); background: rgba(212, 175, 55, 0.1);">
-        BUSINESS OPERATIONS MODEL
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.75rem;">
+        <div>
+          <div class="hero-badge" style="color: var(--gold); border-color: rgba(212, 175, 55, 0.4); background: rgba(212, 175, 55, 0.1);">
+            BUSINESS OPERATIONS &amp; COMMISSION LIFECYCLE
+          </div>
+          <h2 style="font-size: 1.45rem; font-weight: 850; color: #fff;">Exact Commission Formula: 30% Month 1 &bull; 200 ETB / Child Month 2+</h2>
+        </div>
       </div>
-      <h3 style="font-size: 1.35rem; font-weight: 850; color: #fff; margin-bottom: 0.35rem;">
-        Exact Commission Formula: 30% Month 1 &bull; 200 ETB / Student Month 2+
-      </h3>
       <p style="color: var(--text-secondary); font-size: 0.9rem;">
-        The system uses a transparent, highly profitable compound model. Month 1 pays 30% of total agreed fee; Month 2 onwards charges 200 ETB per matched child (not per tutor).
+        The system uses a transparent compound model. If a tutor teaches 2 children in one household, Month 2+ commission is 400 ETB.
       </p>
+
+      <div class="diagram-container">
+        <div class="mermaid">
+flowchart TD
+    P1["1. Parent Requests Home Tutor<br/>(Subject, Grade, Days/Week)"] --> P2["2. Dispatcher Matches Vetted Candidate<br/>(Agreed Monthly Fee: e.g., 3,000 ETB)"]
+    P2 --> P3["3. 1-Day Trial Session Conducted<br/>(Parent Approves Match)"]
+    
+    P3 --> P4["4. Parent Submits Telebirr/CBE Receipt<br/>(Verified in Parents Payments Hub)"]
+    
+    P4 --> M1["★ MONTH 1 SETTLEMENT<br/><b>30% of Agreed Tutor Fee</b><br/>3,000 ETB * 0.30 = 900 ETB"]
+    
+    M1 --> M2["★ MONTH 2+ RECURRING SETTLEMENT<br/><b>Fixed 200 ETB per Matched Child / Month</b><br/>2 Children = 400 ETB / Month<br/>Auto-Renews on 25th of Every Month"]
+
+    M2 --> LEDGER["Permanent Entry in Matches_Ledger<br/>[Timestamp, Parent ID, Tutor ID, Monthly Fee, Commission, Status]"]
+
+    style M1 fill:#312e81,stroke:#6366f1,stroke-width:2px,color:#fff
+    style M2 fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#fff
+    style LEDGER fill:#1e102e,stroke:#a855f7,stroke-width:2px,color:#fff
+        </div>
+      </div>
 
       <!-- Interactive Calculator -->
       <div class="calc-box">
@@ -658,96 +732,63 @@
       </div>
     </div>
 
-    <!-- Section 4: 4-Tier Zero-Cost Storage Topology -->
+    <!-- Section 5: Team Sizing & Growth Progression Diagram -->
     <div class="glass-card">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.75rem;">
         <div>
-          <h3 style="font-size: 1.3rem; font-weight: 850; color: #fff;">Four-Tier Zero-Cost Storage Topology</h3>
-          <p style="color: var(--text-secondary); font-size: 0.85rem;">How Teme Astegni eliminates database storage bills completely.</p>
+          <div class="hero-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border-color: rgba(245, 158, 11, 0.4);">
+            ORGANIZATIONAL SCALE &amp; HUMAN OPS
+          </div>
+          <h2 style="font-size: 1.45rem; font-weight: 850; color: #fff;">Team Sizing &amp; Growth Hierarchy: Campus Student Model</h2>
         </div>
         <span style="font-size: 0.75rem; font-family: var(--font-mono); color: #34d399; background: rgba(52, 211, 153, 0.12); padding: 0.3rem 0.75rem; border-radius: 20px; border: 1px solid rgba(52, 211, 153, 0.3); font-weight: 700;">
-          100% Free Tier Compliant
+          Zero Office Rent &bull; Part-Time Shifts
         </span>
       </div>
+      <p style="color: var(--text-secondary); font-size: 0.9rem;">
+        University student founder model balancing class timetables with high-velocity operations.
+      </p>
 
-      <div class="grid-4">
-        <!-- TIER 1 -->
-        <div class="hub-card" style="border-top: 4px solid var(--cyan);">
-          <div>
-            <span class="hub-badge" style="background: rgba(56, 189, 248, 0.15); color: var(--cyan);">TIER 1 &bull; EDGE CLIENT</span>
-            <div class="hub-title" style="margin-top: 0.6rem;">📱 Client PWA</div>
-            <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
-              Downsamples photos in-browser to 1200px @ 75% quality. Shrinks 6MB photos to 180KB, saving 95% bandwidth.
-            </p>
-          </div>
-          <div class="hub-id-box" style="margin-top: 1rem;">
-            <span>Offload Ratio</span>
-            <strong style="color: var(--cyan);">95.0% Reduced</strong>
-          </div>
-        </div>
+      <div class="diagram-container">
+        <div class="mermaid">
+flowchart TD
+    Founder["👑 Student Founder (Master Strategy & Ledger Oversight)"]
 
-        <!-- TIER 2 -->
-        <div class="hub-card" style="border-top: 4px solid #fbbf24;">
-          <div>
-            <span class="hub-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">TIER 2 &bull; REALTIME HOT DESK</span>
-            <div class="hub-title" style="margin-top: 0.6rem;">⚡ Cloud Firestore</div>
-            <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
-              Holds ~1 KB JSON text only. Zero photo strings. Syncs matches in under 100ms within Google's free 50k writes/day.
-            </p>
-          </div>
-          <div class="hub-id-box" style="margin-top: 1rem;">
-            <span>Payload Size</span>
-            <strong style="color: #fbbf24;">&lt; 1.2 KB / doc</strong>
-          </div>
-        </div>
+    subgraph Phase1["PHASE 1: BOOTSTRAP (1 – 50 Families) • 3 Student Employees"]
+        P1A["📞 Lead Parent Dispatcher<br/>(1:00 PM – 4:00 PM Shift)"]
+        P1B["🛡️ Tutor Vetting Officer<br/>(4:00 PM – 7:00 PM Shift)"]
+        P1C["💳 Billing & Renewal Specialist<br/>(Evening Payment Reconciliation)"]
+    end
 
-        <!-- TIER 3 -->
-        <div class="hub-card" style="border-top: 4px solid #a855f7;">
-          <div>
-            <span class="hub-badge" style="background: rgba(168, 85, 247, 0.15); color: #c084fc;">TIER 3 &bull; PERMANENT VAULT</span>
-            <div class="hub-title" style="margin-top: 0.6rem;">📸 Telegram Vault</div>
-            <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
-              Unlimited free permanent media hosting for Fayda IDs, Grade Reports, and Payment receipts via Bot API.
-            </p>
-          </div>
-          <div class="hub-id-box" style="margin-top: 1rem;">
-            <span>Storage Cost</span>
-            <strong style="color: #c084fc;">$0.00 Unlimited</strong>
-          </div>
-        </div>
+    subgraph Phase2["PHASE 2: REGIONAL SCALE (50 – 200 Families) • 5 Student Employees"]
+        P2A["👥 Dispatcher A (8 AM – 1 PM)"]
+        P2B["👥 Dispatcher B (1 PM – 6 PM)"]
+        P2C["📢 2x Campus Dorm Ambassadors<br/>(Engineering & Science Blocks)"]
+        P2D["🎯 Operations & Customer Care Lead<br/>(Quality & Dispute Resolution)"]
+    end
 
-        <!-- TIER 4 -->
-        <div class="hub-card" style="border-top: 4px solid #34d399;">
-          <div>
-            <span class="hub-badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">TIER 4 &bull; MASTER LEDGER</span>
-            <div class="hub-title" style="margin-top: 0.6rem;">📗 Google Sheets</div>
-            <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
-              Permanent audited revenue archive (<code>Matches_Ledger</code>). Holds only finalized paid pairings.
-            </p>
-          </div>
-          <div class="hub-id-box" style="margin-top: 1rem;">
-            <span>Format</span>
-            <strong style="color: #34d399;">Cloud Spreadsheet</strong>
-          </div>
-        </div>
-      </div>
-    </div>
+    subgraph Phase3["PHASE 3: MULTI-CAMPUS (200 – 500+ Families) • 8–10 Student Employees"]
+        P3A["🎓 AAU Flagship Leads (4-Kilo / 5-Kilo)"]
+        P3B["⚡ AASTU & ASTU STEM Leads"]
+        P3C["🌍 Regional Branches (Hawassa, Jimma, Bahir Dar)"]
+    end
 
-    <!-- Section 5: Team Sizing & Growth Progression -->
-    <div class="glass-card">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
-        <div>
-          <h3 style="font-size: 1.3rem; font-weight: 850; color: #fff;">Team Sizing &amp; Growth Progression: Campus Student Model</h3>
-          <p style="color: var(--text-secondary); font-size: 0.85rem;">Zero office rent, part-time student shifts, and high operational velocity.</p>
+    Founder --> Phase1
+    Phase1 -.->|Scale Trigger 50+ Families| Phase2
+    Phase2 -.->|Scale Trigger 200+ Families| Phase3
+
+    style Phase1 fill:#0c4a6e,stroke:#38bdf8,stroke-width:1.5px,color:#fff
+    style Phase2 fill:#78350f,stroke:#fbbf24,stroke-width:1.5px,color:#fff
+    style Phase3 fill:#4c1d95,stroke:#a855f7,stroke-width:1.5px,color:#fff
         </div>
       </div>
 
-      <div class="grid-3">
+      <div class="grid-3" style="margin-top: 1.5rem;">
         <!-- PHASE 1 -->
         <div class="hub-card" style="border-top: 4px solid var(--cyan);">
           <div>
             <div class="hub-header">
-              <span class="hub-badge" style="background: rgba(56, 189, 248, 0.15); color: var(--cyan);">PHASE 1: BOOTSTRAP</span>
+              <span class="hub-badge" style="background: rgba(56, 189, 248, 0.15); color: var(--cyan);">PHASE 1</span>
               <strong style="color: #fff; font-family: var(--font-mono); font-size: 0.85rem;">1 &ndash; 50 Families</strong>
             </div>
             <div class="hub-title" style="color: #fff;">3 Campus Student Staff</div>
@@ -768,7 +809,7 @@
         <div class="hub-card" style="border-top: 4px solid #fbbf24;">
           <div>
             <div class="hub-header">
-              <span class="hub-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">PHASE 2: REGIONAL SCALE</span>
+              <span class="hub-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">PHASE 2</span>
               <strong style="color: #fff; font-family: var(--font-mono); font-size: 0.85rem;">50 &ndash; 200 Families</strong>
             </div>
             <div class="hub-title" style="color: #fff;">5 Campus Student Staff</div>
@@ -789,7 +830,7 @@
         <div class="hub-card" style="border-top: 4px solid #a855f7;">
           <div>
             <div class="hub-header">
-              <span class="hub-badge" style="background: rgba(168, 85, 247, 0.15); color: #c084fc;">PHASE 3: MULTI-CAMPUS</span>
+              <span class="hub-badge" style="background: rgba(168, 85, 247, 0.15); color: #c084fc;">PHASE 3</span>
               <strong style="color: #fff; font-family: var(--font-mono); font-size: 0.85rem;">200 &ndash; 500+ Families</strong>
             </div>
             <div class="hub-title" style="color: #fff;">8 to 10 Campus Staff</div>
@@ -808,31 +849,42 @@
       </div>
     </div>
 
-    <!-- Section 6: Document & KYC Verification Matrix -->
+    <!-- Section 6: Document & KYC Verification Decision Tree Diagram -->
     <div class="glass-card">
-      <h3 style="font-size: 1.3rem; font-weight: 850; color: #fff; margin-bottom: 0.25rem;">Multi-Tier Identity &amp; Academic KYC Engine</h3>
-      <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.25rem;">Strict verification standards safeguarding Ethiopian households.</p>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.75rem;">
+        <div>
+          <div class="hero-badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.4);">
+            ANTI-FRAUD &amp; IDENTITY AUDIT
+          </div>
+          <h2 style="font-size: 1.45rem; font-weight: 850; color: #fff;">Multi-Tier Identity &amp; Academic KYC Verification Flow</h2>
+        </div>
+      </div>
+      <p style="color: var(--text-secondary); font-size: 0.9rem;">
+        Strict verification protocols safeguarding Ethiopian households with cryptographic and academic audits.
+      </p>
 
-      <div class="grid-4">
-        <div class="erp-card">
-          <div style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--cyan); margin-bottom: 0.35rem;">MOSIP CRYPTO QR</div>
-          <h4 style="font-size: 0.95rem; color: #fff; margin-bottom: 0.3rem;">Fayda National ID</h4>
-          <p style="font-size: 0.75rem; color: var(--text-secondary);">Decodes offline via BarcodeDetector / jsQR with fallback to OCR on <code>FAYDA-XXXX-XXXX</code>.</p>
-        </div>
-        <div class="erp-card">
-          <div style="font-size: 0.75rem; font-family: var(--font-mono); color: #fbbf24; margin-bottom: 0.35rem;">RESIDENCE KYC</div>
-          <h4 style="font-size: 0.95rem; color: #fff; margin-bottom: 0.3rem;">Kebele Resident ID</h4>
-          <p style="font-size: 0.75rem; color: var(--text-secondary);">Requires front &amp; back photos, local sub-city stamp clarity, and manual dispatcher review.</p>
-        </div>
-        <div class="erp-card">
-          <div style="font-size: 0.75rem; font-family: var(--font-mono); color: #c084fc; margin-bottom: 0.35rem;">TRAVEL EXCEPTION</div>
-          <h4 style="font-size: 0.95rem; color: #fff; margin-bottom: 0.3rem;">Ethiopian Passport</h4>
-          <p style="font-size: 0.75rem; color: var(--text-secondary);">Bio-data page mandatory; back page optional. Validates Machine Readable Zone (MRZ).</p>
-        </div>
-        <div class="erp-card">
-          <div style="font-size: 0.75rem; font-family: var(--font-mono); color: #34d399; margin-bottom: 0.35rem;">ACADEMIC AUDIT</div>
-          <h4 style="font-size: 0.95rem; color: #fff; margin-bottom: 0.3rem;">Student ID &amp; GPA</h4>
-          <p style="font-size: 0.75rem; color: var(--text-secondary);">Official university grade report. <strong>Minimum CGPA &ge; 3.00 required</strong> for home tutoring approval.</p>
+      <div class="diagram-container">
+        <div class="mermaid">
+flowchart TD
+    Candidate["Tutor Submits ID & Academic Credentials"] --> IDType{"Identity Document Type"}
+    
+    IDType -->|Fayda National ID| Fayda["BarcodeDetector / jsQR (MOSIP Crypto QR)<br/>Fallback OCR: FAYDA-XXXX-XXXX"]
+    IDType -->|Kebele Resident ID| Kebele["Front & Back Photo Audit<br/>Sub-City Stamp & KEBELE-XXXX-XXXX"]
+    IDType -->|Ethiopian Passport| Passport["Machine Readable Zone (MRZ)<br/>Bio-Data Page (Back Optional)"]
+    
+    Fayda --> AcadCheck["Academic Verification Engine"]
+    Kebele --> AcadCheck
+    Passport --> AcadCheck
+    
+    AcadCheck --> GPA{"University CGPA Audit<br/>(Official Transcript / Student ID)"}
+    GPA -->|CGPA >= 3.00 & Uni Matches| Approved["✅ Vetted & Approved<br/>Dispatched to Tutors Hub (-1004410573815)"]
+    GPA -->|CGPA < 3.00 or Inconsistent| Rejected["❌ Profile Rejected<br/>Flagged for Secondary Manual Review"]
+
+    style Fayda fill:#0c4a6e,stroke:#38bdf8,stroke-width:1.5px,color:#fff
+    style Kebele fill:#78350f,stroke:#fbbf24,stroke-width:1.5px,color:#fff
+    style Passport fill:#4c1d95,stroke:#a855f7,stroke-width:1.5px,color:#fff
+    style Approved fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#fff
+    style Rejected fill:#4c0519,stroke:#f43f5e,stroke-width:2px,color:#fff
         </div>
       </div>
     </div>
@@ -889,6 +941,27 @@ async function sendToTelegramVault(chatId, blob, caption) {
   <div id="toast">Copied to clipboard!</div>
 
   <script>
+    // Initialize Mermaid with Dark Glass Aesthetics
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      themeVariables: {
+        darkMode: true,
+        background: '#08040f',
+        primaryColor: '#1e102e',
+        primaryBorderColor: '#a855f7',
+        primaryTextColor: '#f8fafc',
+        secondaryColor: '#0c4a6e',
+        secondaryBorderColor: '#38bdf8',
+        secondaryTextColor: '#f8fafc',
+        tertiaryColor: '#064e3b',
+        tertiaryBorderColor: '#10b981',
+        tertiaryTextColor: '#f8fafc',
+        lineColor: '#a855f7',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif'
+      }
+    });
+
     function copyText(str) {
       navigator.clipboard.writeText(str).then(() => {
         const t = document.getElementById('toast');
