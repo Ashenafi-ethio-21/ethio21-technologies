@@ -3260,75 +3260,108 @@
   </div>
 
   <!-- ========================================== -->
-  <!-- RESULT DISPATCH MODAL                      -->
+  <!-- RESULT DISPATCH MODAL (COMPACT & RESPONSIVE)-->
   <!-- ========================================== -->
   <div class="modal-overlay" id="dispatch-modal">
-    <div class="modal-card" style="max-width: 460px; text-align: center; border-radius: 26px; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 25px 70px rgba(0,0,0,0.85); background: linear-gradient(180deg, rgba(15, 23, 42, 0.98) 0%, rgba(10, 15, 30, 0.98) 100%); backdrop-filter: blur(28px); padding: 2.2rem 1.8rem;">
+    <div class="modal-card" style="max-width: 440px; width: 92%; max-height: 86vh; overflow-y: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; text-align: center; border-radius: 22px; border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 25px 70px rgba(0,0,0,0.85); background: linear-gradient(180deg, rgba(15, 23, 42, 0.98) 0%, rgba(10, 15, 30, 0.98) 100%); backdrop-filter: blur(28px); padding: 1.4rem 1.25rem; margin: auto;">
       
       <!-- Top Glowing Verification Icon -->
-      <div style="width: 72px; height: 72px; margin: 0 auto 1.1rem; border-radius: 50%; background: linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(56, 189, 248, 0.22)); border: 2px solid #10b981; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; box-shadow: 0 0 30px rgba(16, 185, 129, 0.35);">
+      <div style="width: 50px; height: 50px; margin: 0 auto 0.6rem; border-radius: 50%; background: linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(56, 189, 248, 0.22)); border: 2px solid #10b981; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 0 25px rgba(16, 185, 129, 0.35);">
         ✨
       </div>
 
       <!-- Header Title -->
-      <h3 id="modal-title" style="font-size: 1.35rem; font-weight: 850; margin-bottom: 0.5rem; color: #ffffff; letter-spacing: -0.01em;">
+      <h3 id="modal-title" style="font-size: 1.2rem; font-weight: 850; margin-bottom: 0.35rem; color: #ffffff; letter-spacing: -0.01em;">
         Registration Successful!
       </h3>
 
       <!-- Descriptive Body -->
-      <p id="modal-desc" style="font-size: 0.88rem; line-height: 1.6; color: #cbd5e1; margin-bottom: 1.1rem;">
+      <p id="modal-desc" style="font-size: 0.8rem; line-height: 1.45; color: #cbd5e1; margin-bottom: 0.75rem;">
         Your application and credentials have been securely received. Our academic coordinators will review your details and reach out within 24 hours.
       </p>
 
       <!-- Reference Tracking Pill (Clean & Non-Intimidating) -->
-      <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 16px; padding: 0.85rem 1.1rem; margin-bottom: 1.3rem; display: flex; align-items: center; justify-content: space-between;">
+      <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; padding: 0.6rem 0.9rem; margin-bottom: 0.75rem; display: flex; align-items: center; justify-content: space-between;">
         <div style="text-align: left;">
-          <div style="font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: #94a3b8; font-weight: 700;">Reference Tracking ID</div>
-          <div style="font-size: 1.15rem; font-weight: 850; color: #38bdf8; font-family: monospace;" id="modal-tracking-pill">AST-T-2026-0000</div>
+          <div style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em; color: #94a3b8; font-weight: 700;">Reference Tracking ID</div>
+          <div style="font-size: 1.05rem; font-weight: 850; color: #38bdf8; font-family: monospace;" id="modal-tracking-pill">AST-T-2026-0000</div>
         </div>
-        <button type="button" onclick="copyTrackingIdOnly()" style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; border-radius: 10px; padding: 0.45rem 0.75rem; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.35rem;" id="btn-copy-tracking-id">
+        <button type="button" onclick="copyTrackingIdOnly()" style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; border-radius: 8px; padding: 0.35rem 0.65rem; font-size: 0.74rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.3rem;" id="btn-copy-tracking-id">
           📋 <span id="btn-copy-tracking-text">Copy ID</span>
         </button>
       </div>
 
-      <!-- CRUCIAL AST RETENTION WARNING (NEVER FORGET YOUR AST NUMBER) -->
-      <div style="background: rgba(245, 158, 11, 0.14); border: 1.5px solid rgba(245, 158, 11, 0.55); border-radius: 14px; padding: 0.85rem 1rem; margin-bottom: 1.25rem; text-align: left;">
-        <div style="display: flex; align-items: center; gap: 0.45rem; font-size: 0.84rem; font-weight: 850; color: #fbbf24; margin-bottom: 0.3rem;">
+      <!-- CRUCIAL AST RETENTION WARNING (COMPACT) -->
+      <div style="background: rgba(245, 158, 11, 0.12); border: 1.5px solid rgba(245, 158, 11, 0.5); border-radius: 12px; padding: 0.65rem 0.85rem; margin-bottom: 0.85rem; text-align: left;">
+        <div style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.78rem; font-weight: 850; color: #fbbf24; margin-bottom: 0.2rem;">
           <span>⚠️</span> <span>አስፈላጊ ማሳሰቢያ፡ ይህንን የ AST መለያ ቁጥርዎን በጭራሽ አይርሱ!</span>
         </div>
-        <div style="font-size: 0.76rem; color: #cbd5e1; line-height: 1.5;">
-          እባክዎ ይህንን የ <b>AST መለያ ቁጥርዎን Screenshot በማንሳት ወይም በወረቀት ላይ በማስታወሻ</b> ያስቀምጡ! ስልክ ቢቀይሩ፣ ቢጠፋ ወይም አዲስ ብሮውዘር ቢከፍቱ ፕሮፋይልዎን፣ የተመደበውን አስጠኚ/ወላጅ እና ክፍያዎን መልሰው ለማግኘት <b>ይህ መለያ ቁጥር ብቻ</b> ያስፈልግዎታል።
+        <div style="font-size: 0.72rem; color: #cbd5e1; line-height: 1.4;">
+          ይህንን የ <b>AST መለያ ቁጥርዎን Screenshot በማንሳት ወይም በማስታወሻ</b> ያስቀምጡ! ስልክ ቢቀይሩ ወይም አዲስ ብሮውዘር ቢከፍቱ ፕሮፋይልዎንና ክፍያዎን ለማግኘት <b>ይህ መለያ ቁጥር ብቻ</b> ያስፈልግዎታል።
         </div>
       </div>
 
-      <!-- Action Button: Direct Telegram Channel/Group Join -->
-      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-        <a href="https://t.me/Teme_Astegni_community" target="_blank" rel="noopener noreferrer" class="btn-tg-action" id="btn-single-submit" style="background: linear-gradient(135deg, #0284c7 0%, #10b981 100%); text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.65rem; font-size: 1rem; font-weight: 850; padding: 0.95rem 1.4rem; border-radius: 16px; box-shadow: 0 8px 24px rgba(16,185,129,0.35); color: #fff; transition: transform 0.2s ease;">
-          <span style="font-size: 1.25rem;">👉</span>
-          <span id="btn-single-submit-text">Join Ethio - 21 Teme Astegni Community</span>
+      <!-- Action Button Group -->
+      <div style="display: flex; flex-direction: column; gap: 0.55rem;">
+        <!-- Primary Community Join Button -->
+        <a href="https://t.me/Teme_Astegni_community" target="_blank" rel="noopener noreferrer" class="btn-tg-action" id="btn-single-submit" style="background: linear-gradient(135deg, #0284c7 0%, #10b981 100%); text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.92rem; font-weight: 850; padding: 0.75rem 1rem; border-radius: 12px; box-shadow: 0 6px 18px rgba(16,185,129,0.3); color: #fff;">
+          <span>👉</span>
+          <span id="btn-single-submit-text">Join Ethio - 21 Community</span>
         </a>
 
-        <!-- Check Tutor Portal Button -->
-        <button type="button" onclick="closeModal(); openTutorPortalScreen();" style="background: rgba(16, 185, 129, 0.18); border: 1px solid rgba(16, 185, 129, 0.45); color: #34d399; font-weight: 850; font-size: 0.88rem; padding: 0.8rem; border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: background 0.2s;">
-          <span>🎓</span> <span>View My Live Profile &amp; Match Status ›</span>
-        </button>
-
-        <!-- Direct Telegram Support Group -->
-        <a href="https://t.me/+RB15jRbw4Ak4MDA0" target="_blank" rel="noopener noreferrer" style="background: rgba(56, 189, 248, 0.15); border: 1.5px solid rgba(56, 189, 248, 0.4); color: #38bdf8; text-decoration: none; font-weight: 850; font-size: 0.85rem; padding: 0.75rem; border-radius: 14px; display: flex; align-items: center; justify-content: center; gap: 0.45rem;">
-          <span>💬</span> <span>የቴሌግራም የቀጥታ ድጋፍ (Telegram Support Desk) ›</span>
-        </a>
+        <!-- Secondary 2-Column Grid (View Profile & Telegram Desk) -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+          <button type="button" onclick="closeModal(); openTutorPortalScreen();" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #34d399; font-weight: 800; font-size: 0.75rem; padding: 0.6rem 0.4rem; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.35rem;">
+            <span>🎓</span> <span>My Profile ›</span>
+          </button>
+          <a href="https://t.me/+RB15jRbw4Ak4MDA0" target="_blank" rel="noopener noreferrer" style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; text-decoration: none; font-weight: 800; font-size: 0.75rem; padding: 0.6rem 0.4rem; border-radius: 10px; display: flex; align-items: center; justify-content: center; gap: 0.35rem;">
+            <span>💬</span> <span>Support Desk ›</span>
+          </a>
+        </div>
 
         <!-- Close / Done button -->
-        <button type="button" class="btn-modal-close" onclick="closeModal()" id="i18n-modal-close" style="width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: #cbd5e1; font-weight: 700; font-size: 0.88rem; padding: 0.75rem; border-radius: 14px; cursor: pointer; transition: background 0.2s;">
+        <button type="button" class="btn-modal-close" onclick="closeModal()" id="i18n-modal-close" style="width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: #cbd5e1; font-weight: 700; font-size: 0.78rem; padding: 0.55rem; border-radius: 10px; cursor: pointer;">
           Done / Close
         </button>
       </div>
 
-      <!-- Discreet Support Footer -->
-      <div style="margin-top: 1.1rem; font-size: 0.72rem; color: #64748b; line-height: 1.4;">
-        Need support? Telegram: <a href="https://t.me/+RB15jRbw4Ak4MDA0" target="_blank" style="color: #38bdf8; text-decoration: underline; font-weight: 750;">t.me/+RB15jRbw4Ak4MDA0</a> • Phone: <a href="tel:0947501570" style="color: #94a3b8; text-decoration: underline;">0947 50 15 70</a> / <a href="tel:0937450094" style="color: #94a3b8; text-decoration: underline;">0937 45 00 94</a>
+      <!-- Support Footer -->
+      <div style="margin-top: 0.75rem; font-size: 0.68rem; color: #64748b; line-height: 1.35;">
+        Need help? Telegram: <a href="https://t.me/+RB15jRbw4Ak4MDA0" target="_blank" style="color: #38bdf8; text-decoration: underline;">t.me/+RB15jRbw4Ak4MDA0</a> • Hotline: <a href="tel:0947501570" style="color: #94a3b8; text-decoration: underline;">0947 50 15 70</a>
       </div>
 
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- ANTI-FRAUD CREDENTIAL MISMATCH MODAL       -->
+  <!-- ========================================== -->
+  <div class="modal-overlay" id="doc-mismatch-modal" style="display: none; z-index: 999999;">
+    <div class="modal-card" style="max-width: 440px; width: 92%; max-height: 86vh; overflow-y: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; text-align: center; border-radius: 22px; border: 1.5px solid rgba(239, 68, 68, 0.6); box-shadow: 0 25px 70px rgba(239, 68, 68, 0.35); background: linear-gradient(180deg, rgba(28, 10, 16, 0.98) 0%, rgba(15, 6, 10, 0.98) 100%); backdrop-filter: blur(28px); padding: 1.4rem 1.25rem; margin: auto;">
+      
+      <div style="width: 50px; height: 50px; margin: 0 auto 0.6rem; border-radius: 50%; background: rgba(239, 68, 68, 0.18); border: 2px solid #ef4444; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; box-shadow: 0 0 25px rgba(239, 68, 68, 0.45);">
+        🚨
+      </div>
+
+      <h3 style="font-size: 1.15rem; font-weight: 850; color: #f87171; margin-bottom: 0.35rem;">
+        የሰነድ ባለቤትነት አለመጣጣም (Document Mismatch)
+      </h3>
+
+      <div style="background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 12px; padding: 0.75rem 0.85rem; margin-bottom: 0.85rem; text-align: left; font-size: 0.78rem; line-height: 1.5; color: #fecaca;">
+        <div style="margin-bottom: 0.35rem;">
+          <strong style="color: #fff;">የተመዘገበው አስጠኚ ስም:</strong> <span id="mismatch-expected-name" style="color: #38bdf8; font-weight: 800;"></span>
+        </div>
+        <div style="margin-bottom: 0.35rem;">
+          <strong style="color: #fff;">በሰነዱ ላይ የተገኘው ስም:</strong> <span id="mismatch-detected-name" style="color: #f87171; font-weight: 800;"></span>
+        </div>
+        <div style="font-size: 0.72rem; color: #cbd5e1; border-top: 1px dashed rgba(239, 68, 68, 0.3); padding-top: 0.4rem; margin-top: 0.35rem;">
+          የተያያዘው የትምህርት ማስረጃ (Grade Report / Student ID) የሌላ ተማሪ ስም ያሳያል! ለህፃናት ደህንነት እና ለትምህርት ጥራት የራስዎን ህጋዊ ማስረጃ ብቻ ማቅረብ ይኖርብዎታል። የሌላ ሰውን ሰነድ መጠቀም በጥብቅ የተከለከለ ነው።
+        </div>
+      </div>
+
+      <button type="button" onclick="closeDocMismatchModal()" style="width: 100%; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: #fff; border: none; font-weight: 850; font-size: 0.88rem; padding: 0.75rem; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.35);">
+        ማስረጃውን አስተካክላለሁ (I Will Upload My Own Document)
+      </button>
     </div>
   </div>
 
@@ -7858,13 +7891,54 @@
       });
     }
 
+    // High-speed Canvas Image Enhancer for OCR (Grayscale + Dynamic Thresholding)
+    async function preprocessImageForFastOcr(file) {
+      if (!file || !file.type || !file.type.startsWith('image/')) return file;
+      return new Promise((resolve) => {
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+        img.onload = () => {
+          URL.revokeObjectURL(url);
+          try {
+            const canvas = document.createElement('canvas');
+            let w = img.width, h = img.height;
+            const maxDim = 1200;
+            if (w > maxDim || h > maxDim) {
+              if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
+              else { w = Math.round((w * maxDim) / h); h = maxDim; }
+            }
+            canvas.width = w; canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, w, h);
+            const imgData = ctx.getImageData(0, 0, w, h);
+            const d = imgData.data;
+            for (let i = 0; i < d.length; i += 4) {
+              const lum = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+              const contrast = lum > 135 ? 255 : (lum < 90 ? 0 : lum);
+              d[i] = d[i + 1] = d[i + 2] = contrast;
+            }
+            ctx.putImageData(imgData, 0, 0);
+            canvas.toBlob((blob) => resolve(blob || file), 'image/jpeg', 0.85);
+          } catch (e) {
+            resolve(file);
+          }
+        };
+        img.onerror = () => {
+          URL.revokeObjectURL(url);
+          resolve(file);
+        };
+        img.src = url;
+      });
+    }
+
     // Optical character recognition using Tesseract (if loaded) with Canvas fallback
     async function extractTextFromImage(file) {
       if (!file || !file.type || !file.type.startsWith('image/')) return '';
       try {
         if (typeof Tesseract !== 'undefined') {
-          const timeoutPromise = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 2500));
-          const ocrPromise = Tesseract.recognize(file, 'eng', { logger: () => {} });
+          const preprocessed = await preprocessImageForFastOcr(file);
+          const timeoutPromise = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 4500));
+          const ocrPromise = Tesseract.recognize(preprocessed, 'eng', { logger: () => {} });
           const res = await Promise.race([ocrPromise, timeoutPromise]);
           return res?.data?.text || '';
         }
@@ -7872,6 +7946,98 @@
         console.warn('OCR processing skipped or timed out:', err);
       }
       return '';
+    }
+
+    // Advanced Document & Name Ownership Audit Engine
+    async function auditDocumentNameOwnership(file, expectedFullName, docType) {
+      if (!file) return { passed: true };
+      
+      const cleanExpected = (expectedFullName || '').trim().toLowerCase();
+      if (!cleanExpected || cleanExpected.length < 3) return { passed: true };
+
+      const expectedWords = cleanExpected
+        .replace(/[^a-z0-9\s]/g, '')
+        .split(/\s+/)
+        .filter(w => w.length >= 3 && !['ato', 'wro', 'mr', 'ms', 'dr', 'student'].includes(w));
+
+      if (expectedWords.length === 0) return { passed: true };
+
+      let text = '';
+      try {
+        text = await extractTextFromImage(file);
+      } catch (err) {}
+
+      if (!text || text.length < 15) {
+        return { passed: true, confidence: 'MANUAL_AUDIT_REQUIRED', extractedText: text };
+      }
+
+      const upperText = text.toUpperCase();
+      const lowerText = text.toLowerCase();
+
+      // Look for explicit Student Name patterns commonly found on Grade Reports / Portals
+      const namePatterns = [
+        /(?:STUDENT\s+NAME|NAME\s+OF\s+STUDENT|CANDIDATE\s+NAME|FULL\s+NAME)[\s:\-]+([A-Z\s]{4,35})/i,
+        /(?:NAME)[\s:\-]+([A-Z\s]{4,30})/i
+      ];
+
+      let detectedNameCandidate = null;
+      for (const pat of namePatterns) {
+        const m = upperText.match(pat);
+        if (m && m[1]) {
+          const candidate = m[1].split(/[\n\r;,]/)[0].trim();
+          if (candidate.length >= 4 && !candidate.includes('GRADE') && !candidate.includes('REPORT') && !candidate.includes('PORTAL') && !candidate.includes('UNIVERSITY') && !candidate.includes('SEMESTER')) {
+            detectedNameCandidate = candidate;
+            break;
+          }
+        }
+      }
+
+      const anyWordFound = expectedWords.some(w => lowerText.includes(w));
+
+      if (detectedNameCandidate) {
+        const detectedLower = detectedNameCandidate.toLowerCase();
+        const candidateMatchesExpected = expectedWords.some(w => detectedLower.includes(w));
+        
+        if (!candidateMatchesExpected) {
+          return {
+            passed: false,
+            detectedName: detectedNameCandidate,
+            expectedName: expectedFullName,
+            docType: docType || 'Grade Report',
+            reason: 'NAME_CONFLICT_DETECTED'
+          };
+        }
+      }
+
+      if (text.length > 120 && !anyWordFound && (upperText.includes('GRADE') || upperText.includes('CGPA') || upperText.includes('GPA') || upperText.includes('STUDENT'))) {
+        let fallbackName = detectedNameCandidate || 'የሌላ ተማሪ ስም (Another Student)';
+        return {
+          passed: false,
+          detectedName: fallbackName,
+          expectedName: expectedFullName,
+          docType: docType || 'Grade Report',
+          reason: 'NAME_NOT_FOUND_ON_CREDENTIAL'
+        };
+      }
+
+      return { passed: true, confidence: 'VERIFIED', extractedText: text };
+    }
+
+    function showDocMismatchModal(expectedName, detectedName, docType) {
+      const modal = document.getElementById('doc-mismatch-modal');
+      const expEl = document.getElementById('mismatch-expected-name');
+      const detEl = document.getElementById('mismatch-detected-name');
+      if (expEl) expEl.innerText = expectedName || 'የእርስዎ ስም';
+      if (detEl) detEl.innerText = (detectedName || 'የተገኘው የሌላ ሰው ስም') + (docType ? ` (${docType})` : '');
+      if (modal) modal.style.display = 'flex';
+      try { playScanErrorTone(); } catch(e){}
+    }
+
+    function closeDocMismatchModal() {
+      const modal = document.getElementById('doc-mismatch-modal');
+      if (modal) modal.style.display = 'none';
+      const box = document.getElementById('box-grade-report');
+      if (box) box.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     // Check duplicate ID registry against local and cloud Firestore
@@ -8748,9 +8914,32 @@
       }
     }
 
-    function handleCampusIdFrontPick(e) {
+    async function handleCampusIdFrontPick(e) {
       handleCampusIdPick(e);
       handleImageClarityCheck(e, 'preview-campus-id', 'status-campus-id', 't-cid-front-clarity');
+      const file = e.target.files[0];
+      const tutorName = document.getElementById('t_name')?.value.trim();
+      const status = document.getElementById('status-campus-id');
+      const box = document.getElementById('box-campus-id');
+      if (file && tutorName && tutorName.length >= 3) {
+        const audit = await auditDocumentNameOwnership(file, tutorName, 'University Student ID');
+        if (!audit.passed) {
+          if (status) {
+            status.innerText = `❌ የሰነድ አለመጣጣም፡ በተማሪ መታወቂያው ላይ ያለው ስም (${audit.detectedName}) ከስምዎ ጋር አይጣጣምም!`;
+            status.style.color = '#ef4444';
+          }
+          if (box) {
+            box.style.borderColor = '#ef4444';
+            box.style.background = 'rgba(239, 68, 68, 0.12)';
+          }
+          showDocMismatchModal(tutorName, audit.detectedName, 'University Student ID');
+        } else {
+          if (status) {
+            status.innerText = `✓ Student ID Verified (${file.name})`;
+            status.style.color = '#34d399';
+          }
+        }
+      }
     }
 
     function handleCampusIdBackPick(e) {
@@ -8767,18 +8956,52 @@
       }
     }
 
-    function handleGradePick(e) {
+    async function handleGradePick(e) {
       const file = e.target.files[0];
       if (file) {
         const preview = document.getElementById('preview-grade');
         const status = document.getElementById('status-grade');
+        const box = document.getElementById('box-grade-report');
         if (file.type.startsWith('image/') && preview) {
           preview.src = URL.createObjectURL(file);
           preview.style.display = 'inline-block';
         }
         if (status) {
           status.style.display = 'block';
-          status.innerText = `✓ ${file.name} Attached`;
+          status.style.color = '#38bdf8';
+          status.innerText = `🔍 ሰነዱን በመመርመር ላይ... (Analyzing Grade Report...)`;
+        }
+
+        const tutorName = document.getElementById('t_name')?.value.trim();
+        if (tutorName && tutorName.length >= 3 && file.type.startsWith('image/')) {
+          const audit = await auditDocumentNameOwnership(file, tutorName, 'Grade Report');
+          if (!audit.passed) {
+            if (status) {
+              status.innerText = `❌ የሰነድ አለመጣጣም፡ በውጤት ሪፖርቱ ላይ ያለው ስም (${audit.detectedName}) ከስምዎ (${tutorName}) ጋር አይጣጣምም!`;
+              status.style.color = '#ef4444';
+            }
+            if (box) {
+              box.style.borderColor = '#ef4444';
+              box.style.background = 'rgba(239, 68, 68, 0.12)';
+            }
+            showDocMismatchModal(tutorName, audit.detectedName, 'Grade Report');
+            return;
+          } else {
+            if (status) {
+              status.innerText = `✓ Grade Report Verified (${file.name})`;
+              status.style.color = '#10b981';
+            }
+            if (box) {
+              box.style.borderColor = 'rgba(250, 204, 21, 0.45)';
+              box.style.background = 'rgba(250, 204, 21, 0.05)';
+            }
+          }
+        } else {
+          if (status) {
+            status.style.display = 'block';
+            status.style.color = '#facc15';
+            status.innerText = `✓ ${file.name} Attached`;
+          }
         }
       }
     }
@@ -9431,6 +9654,37 @@
           ? '⚠️ የመታወቂያው የፊት እና የኋላ ገጽ ተመሳሳይ ፎቶ ሊሆኑ አይችሉም። እባክዎ ትክክለኛውን የኋላ ገጽ ያያይዙ።'
           : '⚠️ Verification Notice: The front and back of your ID cannot be the same image.';
         abortTutorValidation(dupDocMsg, null, document.getElementById('box-t-id-back'));
+        return;
+      }
+
+      // 1b. STRICT DOCUMENT NAME & IDENTITY OWNERSHIP AUDIT
+      if (credDetails) {
+        credDetails.innerText = (currentLang === 'am')
+          ? 'የውጤት ሪፖርት እና የተማሪ መታወቂያ ባለቤትነትን በ OCR በመመርመር ላይ...'
+          : 'Auditing Grade Report & Student ID credential ownership via OCR...';
+      }
+
+      // Audit Grade Report
+      const gradeAudit = await auditDocumentNameOwnership(gradeFile, name, 'Grade Report');
+      if (!gradeAudit.passed) {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnHtml;
+        }
+        if (credCard) credCard.style.display = 'none';
+        showDocMismatchModal(name, gradeAudit.detectedName, 'Grade Report');
+        return;
+      }
+
+      // Audit Student ID
+      const campusAudit = await auditDocumentNameOwnership(campusFile, name, 'University Student ID');
+      if (!campusAudit.passed) {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnHtml;
+        }
+        if (credCard) credCard.style.display = 'none';
+        showDocMismatchModal(name, campusAudit.detectedName, 'University Student ID');
         return;
       }
 
