@@ -3,7 +3,7 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v131-commission-30pct-200etb-match';
+const CACHE_NAME = 'ethio21-v132-modern-pipeline-infographic';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
