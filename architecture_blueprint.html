@@ -416,6 +416,257 @@
       pointer-events: none;
     }
     #toast.show { transform: translateY(0); opacity: 1; }
+
+    /* Blueprint Mode Filter Bar */
+    .view-switch-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: rgba(18, 10, 28, 0.75);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-pill);
+      padding: 0.65rem 1.25rem;
+      margin-bottom: 2.25rem;
+      backdrop-filter: var(--glass-blur);
+    }
+    .view-switch-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+    }
+    .view-switch-btns {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .view-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .view-btn:hover {
+      color: #fff;
+      border-color: rgba(168, 85, 247, 0.4);
+      background: rgba(168, 85, 247, 0.1);
+    }
+    .view-btn.active {
+      background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+      color: #fff;
+      border-color: var(--accent);
+      box-shadow: 0 4px 15px var(--accent-glow);
+    }
+
+    /* Embedded Action Playbook Cards */
+    .playbook-card {
+      margin-top: 1.5rem;
+      background: linear-gradient(145deg, rgba(16, 8, 28, 0.9) 0%, rgba(9, 5, 18, 0.97) 100%);
+      border: 1px solid var(--border-highlight);
+      border-radius: 20px;
+      padding: 1.6rem 1.75rem;
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 1.6rem;
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08), 0 12px 30px -10px rgba(0, 0, 0, 0.6);
+      position: relative;
+      overflow: hidden;
+    }
+    .playbook-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--accent), var(--cyan), var(--emerald));
+    }
+    @media (max-width: 860px) {
+      .playbook-card {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+    }
+    .playbook-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .playbook-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.65rem;
+    }
+    .playbook-tag {
+      font-size: 0.68rem;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-pill);
+    }
+    .tag-what {
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--cyan);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+    .tag-action {
+      background: rgba(16, 185, 129, 0.12);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .playbook-title {
+      font-size: 1.08rem;
+      font-weight: 850;
+      color: #fff;
+      margin-bottom: 0.45rem;
+      line-height: 1.35;
+    }
+    .playbook-desc {
+      font-size: 0.83rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      margin-bottom: 0.85rem;
+    }
+    .playbook-bullets {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      font-size: 0.8rem;
+      color: #e2e8f0;
+    }
+    .playbook-bullet-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      line-height: 1.45;
+    }
+    .playbook-bullet-item .icon {
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+      font-size: 0.88rem;
+    }
+    .action-steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .action-step-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 0.75rem 0.9rem;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      transition: all 0.2s;
+    }
+    .action-step-item:hover {
+      border-color: rgba(168, 85, 247, 0.35);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .action-badge {
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .badge-admin {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--cyan);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+    .badge-founder {
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--gold);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+    }
+    .badge-auto {
+      background: rgba(168, 85, 247, 0.15);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.35);
+    }
+    .badge-billing {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+    .badge-vetting {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+    .action-step-body {
+      flex: 1;
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+    .action-step-body strong {
+      color: #fff;
+    }
+    .action-cta-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.75rem;
+    }
+    .btn-micro {
+      font-size: 0.74rem;
+      font-weight: 750;
+      padding: 0.35rem 0.8rem;
+      border-radius: var(--radius-pill);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-micro-violet {
+      background: rgba(168, 85, 247, 0.15);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.35);
+    }
+    .btn-micro-violet:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-micro-gold {
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--gold);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+    }
+    .btn-micro-gold:hover {
+      background: var(--gold);
+      color: #000;
+    }
+    .btn-micro-cyan {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--cyan);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+    .btn-micro-cyan:hover {
+      background: var(--cyan);
+      color: #000;
+    }
   </style>
 </head>
 <body>
@@ -449,6 +700,19 @@
       <div class="color-spec-orb" onclick="copyText('v137-production')" title="Click to copy Version">
         <span>v137-LIVE</span>
         <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.2rem;">Copy Version</span>
+      </div>
+    </div>
+
+    <!-- Executive View Switcher Bar -->
+    <div class="view-switch-bar">
+      <div class="view-switch-label">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        <span>EXECUTIVE VIEW MODE:</span>
+      </div>
+      <div class="view-switch-btns">
+        <button class="view-btn active" id="btn-mode-all" onclick="setBlueprintMode('all')">🌟 Full System (All Specs &amp; Guides)</button>
+        <button class="view-btn" id="btn-mode-playbook" onclick="setBlueprintMode('playbook')">⚡ Action Protocols ("What To Do") Only</button>
+        <button class="view-btn" id="btn-mode-diagrams" onclick="setBlueprintMode('diagrams')">📐 Technical Diagrams Only</button>
       </div>
     </div>
 
@@ -494,6 +758,77 @@ flowchart TD
     style AdminDesk fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#fff
     style SilentEngine fill:#1e102e,stroke:#a855f7,stroke-width:1.5px,color:#fff
     style MasterVault fill:#06231a,stroke:#10b981,stroke-width:1.5px,color:#fff
+        </div>
+      </div>
+
+      <!-- Section 1 Playbook -->
+      <div class="playbook-card">
+        <div class="playbook-col">
+          <div>
+            <div class="playbook-header">
+              <span class="playbook-tag tag-what">💡 What This Is</span>
+              <span style="font-size: 0.72rem; color: var(--text-secondary); font-family: var(--font-mono);">Automated 3-Stage Highway</span>
+            </div>
+            <div class="playbook-title">Unified 3-Tier Enterprise Operations Highway</div>
+            <p class="playbook-desc">
+              Clean separation of powers between your daily university dispatchers, the automated synchronization layer, and your private founder financial vault.
+            </p>
+            <div class="playbook-bullets">
+              <div class="playbook-bullet-item">
+                <span class="icon">🛡️</span>
+                <span><strong>Zero Database Confusion:</strong> Admins operate only inside the browser UI. They never touch raw databases, JSON files, or Google Sheet permissions.</span>
+              </div>
+              <div class="playbook-bullet-item">
+                <span class="icon">⚡</span>
+                <span><strong>Tamper-Proof Audit Trail:</strong> Every dispatch writes an append-only row into <code>Matches_Ledger</code> with date, tutor, parent fee, and commission.</span>
+              </div>
+              <div class="playbook-bullet-item">
+                <span class="icon">🧹</span>
+                <span><strong>Storage Quota Recycling:</strong> Dispatched leads are automatically pruned from the Firestore Hot Desk, resetting live database storage to 0 KB.</span>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 1rem; font-size: 0.75rem; color: var(--cyan); font-family: var(--font-mono);">
+            ⚡ System State: Fully Connected &amp; Operating
+          </div>
+        </div>
+
+        <div class="playbook-col">
+          <div>
+            <div class="playbook-header">
+              <span class="playbook-tag tag-action">⚡ What You Need To Do</span>
+              <span style="font-size: 0.72rem; color: var(--text-secondary); font-family: var(--font-mono);">SOP &amp; Action Guide</span>
+            </div>
+            <div class="action-steps-list">
+              <div class="action-step-item">
+                <span class="action-badge badge-admin">Admin Staff</span>
+                <div class="action-step-body">
+                  <strong>Dispatch from Cockpit:</strong> Open <code>teme-admin.html</code>, review parent inquiries (Bole, Kazanchis, CMC), filter vetted tutors, and click <strong>"Confirm Match &amp; Dispatch"</strong>. Never use notebooks or private scratchpads.
+                </div>
+              </div>
+              <div class="action-step-item">
+                <span class="action-badge badge-founder">Founder / Owner</span>
+                <div class="action-step-body">
+                  <strong>Monitor Master Ledger:</strong> Bookmark the Google Sheets <code>Matches_Ledger</code>. Review your live 30% first-month commission and 200 ETB recurring monthly retainers without staff interference.
+                </div>
+              </div>
+              <div class="action-step-item">
+                <span class="action-badge badge-auto">Automated Engine</span>
+                <div class="action-step-body">
+                  <strong>Zero Manual Labor:</strong> The silent engine streams matches to Telegram Hub #4, appends the Google Sheet, and cleans the live database in under 400ms.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="action-cta-row">
+            <a href="teme-admin.html" target="_blank" class="btn-micro btn-micro-violet">
+              <span>Launch Admin Cockpit</span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <button onclick="copyText('Matches_Ledger')" class="btn-micro btn-micro-gold">
+              <span>Copy Ledger Name</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -554,6 +889,80 @@ flowchart LR
           <div style="font-size: 0.75rem; font-family: var(--font-mono); color: #34d399;">TIER 4 &bull; MASTER LEDGER</div>
           <div style="font-weight: 800; color: #fff; margin: 0.3rem 0;">Google Sheets Ledger</div>
           <p style="font-size: 0.78rem; color: var(--text-secondary);">Permanent audited revenue archive (<code>Matches_Ledger</code>). Holds only finalized paid pairings.</p>
+        </div>
+      </div>
+
+      <!-- Section 2 Playbook -->
+      <div class="playbook-card">
+        <div class="playbook-col">
+          <div>
+            <div class="playbook-header">
+              <span class="playbook-tag tag-what">💡 What This Is</span>
+              <span style="font-size: 0.72rem; color: var(--text-secondary); font-family: var(--font-mono);">4-Tier Storage Topology</span>
+            </div>
+            <div class="playbook-title">Zero-Cost Scalable Storage Architecture</div>
+            <p class="playbook-desc">
+              High-efficiency cloud architecture designed for Ethiopia. Heavy photos are completely isolated from the database, guaranteeing <strong>$0.00 infrastructure bills</strong> even with 400,000 users.
+            </p>
+            <div class="playbook-bullets">
+              <div class="playbook-bullet-item">
+                <span class="icon">📱</span>
+                <span><strong>Tier 1 (Client Canvas):</strong> Compresses 6 MB photos to 180 KB right on the user's phone, avoiding mobile network drops in Addis Ababa.</span>
+              </div>
+              <div class="playbook-bullet-item">
+                <span class="icon">⚡</span>
+                <span><strong>Tier 2 (Firestore Hot Desk):</strong> Holds tiny text only (&lt;1.2 KB), allowing 50,000 free operations daily with instant real-time sync.</span>
+              </div>
+              <div class="playbook-bullet-item">
+                <span class="icon">📸</span>
+                <span><strong>Tier 3 (Telegram Cloud Vault):</strong> Acts as an unlimited free media store for National IDs and bank receipts.</span>
+              </div>
+              <div class="playbook-bullet-item">
+                <span class="icon">📗</span>
+                <span><strong>Tier 4 (Google Sheets Ledger):</strong> Permanent historical financial record requiring 0 Firestore reads or storage bytes.</span>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 1rem; font-size: 0.75rem; color: #34d399; font-family: var(--font-mono);">
+            💰 Monthly Hosting Cost: 0.00 ETB / 0.00 USD
+          </div>
+        </div>
+
+        <div class="playbook-col">
+          <div>
+            <div class="playbook-header">
+              <span class="playbook-tag tag-action">⚡ What You Need To Do</span>
+              <span style="font-size: 0.72rem; color: var(--text-secondary); font-family: var(--font-mono);">Operational Protocol</span>
+            </div>
+            <div class="action-steps-list">
+              <div class="action-step-item">
+                <span class="action-badge badge-founder">Founder Protocol</span>
+                <div class="action-step-body">
+                  <strong>Zero Server Maintenance:</strong> You do not need to buy AWS servers, configure Docker, or pay database subscriptions. The 4-tier pipeline runs 100% serverless.
+                </div>
+              </div>
+              <div class="action-step-item">
+                <span class="action-badge badge-admin">Admin Staff</span>
+                <div class="action-step-body">
+                  <strong>Use Web Dashboard Normally:</strong> When you view or match tutors, the app streams images directly from Telegram and text from Firestore seamlessly behind the scenes.
+                </div>
+              </div>
+              <div class="action-step-item">
+                <span class="action-badge badge-auto">Automated Engine</span>
+                <div class="action-step-body">
+                  <strong>Automatic Compression:</strong> Every uploaded document or payment receipt is automatically compressed by 95% on the edge before cloud storage.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="action-cta-row">
+            <span class="btn-micro btn-micro-cyan">
+              <span>95% Data Savings Active</span>
+            </span>
+            <button onclick="copyText('https://api.telegram.org/bot')" class="btn-micro btn-micro-violet">
+              <span>Telegram Vault Online</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -664,6 +1073,83 @@ flowchart LR
           </div>
         </div>
       </div>
+
+      <!-- Section 3 Playbook -->
+      <div class="playbook-card">
+        <div class="playbook-col">
+          <div>
+            <div class="playbook-header">
+              <span class="playbook-tag tag-what">💡 What This Is</span>
+              <span style="font-size: 0.72rem; color: var(--text-secondary); font-family: var(--font-mono);">4 Operational Hubs</span>
+            </div>
+            <div class="playbook-title">Command &amp; Control Telegram Hubs</div>
+            <p class="playbook-desc">
+              All inbound leads, applicant credentials, payment screenshots, and confirmed match pairings are routed in real-time into 4 dedicated, invite-only Telegram channels.
+            </p>
+            <div class="playbook-bullets">
+              <div class="playbook-bullet-item">
+                <span class="icon">🎓</span>
+                <span><strong>Hub #1 (Tutors Hub):</strong> Student IDs, Fayda biometric verification, and academic transcripts from university applicants.</span>
+              </div>
+              <div class="playbook-bullet-item">
+                <span class="icon">👨‍👩‍👧</span>
+                <span><strong>Hub #2 (Parents Hub):</strong> Live stream of inbound home tutoring requests across Addis Ababa (grade, subjects, location).</span>
+              </div>
+              <div class="playbook-bullet-item">
+                <span class="icon">💳</span>
+                <span><strong>Hub #3 (Parents Payments):</strong> Audited channel receiving Telebirr and CBE transaction screenshots directly from families.</span>
+              </div>
+              <div class="playbook-bullet-item">
+                <span class="icon">🤝</span>
+                <span><strong>Hub #4 (Toutor Matches):</strong> Real-time dispatch bulletin broadcasting confirmed pairings, trial dates, and commission terms.</span>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 1rem; font-size: 0.75rem; color: var(--accent); font-family: var(--font-mono);">
+            🤖 Powered by @ethio21_official_bot
+          </div>
+        </div>
+
+        <div class="playbook-col">
+          <div>
+            <div class="playbook-header">
+              <span class="playbook-tag tag-action">⚡ What You Need To Do</span>
+              <span style="font-size: 0.72rem; color: var(--text-secondary); font-family: var(--font-mono);">Founder &amp; Staff Playbook</span>
+            </div>
+            <div class="action-steps-list">
+              <div class="action-step-item">
+                <span class="action-badge badge-founder">Founder &amp; Staff</span>
+                <div class="action-step-body">
+                  <strong>Join All 4 Channels:</strong> Click the purple "Join Hub" buttons on the cards above to join each channel from your smartphone or desktop Telegram app.
+                </div>
+              </div>
+              <div class="action-step-item">
+                <span class="action-badge badge-founder">Founder Protocol</span>
+                <div class="action-step-body">
+                  <strong>Pin &amp; Unmute Alerts:</strong> Pin the 4 channels to the top of your Telegram screen. Enable sound notifications for instant response to new client leads.
+                </div>
+              </div>
+              <div class="action-step-item">
+                <span class="action-badge badge-billing">Billing Officer</span>
+                <div class="action-step-body">
+                  <strong>Reconcile in Hub #3:</strong> Check payment screenshots in Hub #3 against your Telebirr / CBE app before authorizing dispatchers to share contact information.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="action-cta-row">
+            <a href="https://t.me/ethio21_official_bot" target="_blank" class="btn-micro btn-micro-violet">
+              <span>Open @ethio21_official_bot</span>
+            </a>
+            <button onclick="copyText('-1004410573815')" class="btn-micro btn-micro-cyan">
+              <span>Copy Tutors Hub ID</span>
+            </button>
+            <button onclick="copyText('-1004427351129')" class="btn-micro btn-micro-gold">
+              <span>Copy Payments Hub ID</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Section 4: Revenue & Commission Architecture Diagram -->
@@ -727,6 +1213,76 @@ flowchart TD
               <span style="color: var(--gold); font-weight: 700;">6-Month Total Lifetime Value:</span>
               <strong style="color: var(--gold);" id="res-ltv">2,900 ETB</strong>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 4 Playbook -->
+      <div class="playbook-card">
+        <div class="playbook-col">
+          <div>
+            <div class="playbook-header">
+              <span class="playbook-tag tag-what">💡 What This Is</span>
+              <span style="font-size: 0.72rem; color: var(--text-secondary); font-family: var(--font-mono);">Compound Commission Engine</span>
+            </div>
+            <div class="playbook-title">Commission Formula &amp; Lifetime Value Architecture</div>
+            <p class="playbook-desc">
+              Teme Astegni's high-margin monetization engine: 30% upfront placement commission followed by a predictable 200 ETB / child recurring monthly retainer.
+            </p>
+            <div class="playbook-bullets">
+              <div class="playbook-bullet-item">
+                <span class="icon">💎</span>
+                <span><strong>Month 1 (30% Placement Fee):</strong> Paid after the 1-Day Trial is approved (e.g., 3,000 ETB tutor fee = 900 ETB platform revenue).</span>
+              </div>
+              <div class="playbook-bullet-item">
+                <span class="icon">🔁</span>
+                <span><strong>Month 2+ (200 ETB / Child):</strong> Low-friction recurring fee. 2 children in 1 home = 400 ETB / month ongoing retainer.</span>
+              </div>
+              <div class="playbook-bullet-item">
+                <span class="icon">📈</span>
+                <span><strong>Compound Household LTV:</strong> A 2-student family generates ~2,900 ETB across 6 months with zero recurring marketing cost.</span>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-family: var(--font-mono);">
+            💵 Recurring Settlement: 25th of Every Month
+          </div>
+        </div>
+
+        <div class="playbook-col">
+          <div>
+            <div class="playbook-header">
+              <span class="playbook-tag tag-action">⚡ What You Need To Do</span>
+              <span style="font-size: 0.72rem; color: var(--text-secondary); font-family: var(--font-mono);">Billing SOP &amp; Cashflow Protocol</span>
+            </div>
+            <div class="action-steps-list">
+              <div class="action-step-item">
+                <span class="action-badge badge-billing">Billing Specialist</span>
+                <div class="action-step-body">
+                  <strong>Invoice Month 1 After Trial:</strong> Once parent approves the 1-Day Trial, issue the 30% invoice immediately via Telebirr or CBE.
+                </div>
+              </div>
+              <div class="action-step-item">
+                <span class="action-badge badge-admin">Admin Staff</span>
+                <div class="action-step-body">
+                  <strong>Trigger Month 2 Retainer (25th):</strong> On the 25th of each month, message the family to confirm tutor continuity and collect 200 ETB/child.
+                </div>
+              </div>
+              <div class="action-step-item">
+                <span class="action-badge badge-founder">Founder / Owner</span>
+                <div class="action-step-body">
+                  <strong>Use Live Calculator:</strong> Use the tool above to model projections. All revenue reconciles automatically to your private Google Sheet ledger.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="action-cta-row">
+            <button onclick="document.getElementById('calc-fee').focus()" class="btn-micro btn-micro-gold">
+              <span>Test Fee Calculation</span>
+            </button>
+            <span class="btn-micro" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35);">
+              <span>30% + 200 ETB Model Locked</span>
+            </span>
           </div>
         </div>
       </div>
@@ -847,6 +1403,76 @@ flowchart TD
           </div>
         </div>
       </div>
+
+      <!-- Section 5 Playbook -->
+      <div class="playbook-card">
+        <div class="playbook-col">
+          <div>
+            <div class="playbook-header">
+              <span class="playbook-tag tag-what">💡 What This Is</span>
+              <span style="font-size: 0.72rem; color: var(--text-secondary); font-family: var(--font-mono);">Campus Student Workforce</span>
+            </div>
+            <div class="playbook-title">Zero-Rent Student Pod Organization</div>
+            <p class="playbook-desc">
+              A high-velocity organizational hierarchy structured specifically for university students. Enables you to operate across Addis Ababa without expensive commercial office rents.
+            </p>
+            <div class="playbook-bullets">
+              <div class="playbook-bullet-item">
+                <span class="icon">🎓</span>
+                <span><strong>Phase 1 (1–50 Families):</strong> Lean 3-student pod working 2–3 hour evening shifts around lecture schedules.</span>
+              </div>
+              <div class="playbook-bullet-item">
+                <span class="icon">⚡</span>
+                <span><strong>Phase 2 (50–200 Families):</strong> 5 student employees with split shifts (8 AM–1 PM &amp; 1 PM–6 PM) + campus dorm ambassadors.</span>
+              </div>
+              <div class="playbook-bullet-item">
+                <span class="icon">🌍</span>
+                <span><strong>Phase 3 (200–500+ Families):</strong> Multi-campus leads across AAU (4-Kilo / 5-Kilo), AASTU, ASTU, and regional chapters.</span>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 1rem; font-size: 0.75rem; color: #fbbf24; font-family: var(--font-mono);">
+            👥 Student Ops: $0 Fixed Office Overhead
+          </div>
+        </div>
+
+        <div class="playbook-col">
+          <div>
+            <div class="playbook-header">
+              <span class="playbook-tag tag-action">⚡ What You Need To Do</span>
+              <span style="font-size: 0.72rem; color: var(--text-secondary); font-family: var(--font-mono);">Hiring Roadmap &amp; Shift Protocols</span>
+            </div>
+            <div class="action-steps-list">
+              <div class="action-step-item">
+                <span class="action-badge badge-founder">Founder Action</span>
+                <div class="action-step-body">
+                  <strong>Recruit Initial 3 Classmates:</strong> Assign 1 Lead Dispatcher (calls parents), 1 Vetting Officer (checks CGPA), and 1 Billing Specialist (tracks receipts).
+                </div>
+              </div>
+              <div class="action-step-item">
+                <span class="action-badge badge-founder">Scaling Trigger</span>
+                <div class="action-step-body">
+                  <strong>Expand at 50 Families:</strong> Once you cross 50 active family contracts, split shifts into Shift A (morning) and Shift B (afternoon) to eliminate bottlenecks.
+                </div>
+              </div>
+              <div class="action-step-item">
+                <span class="action-badge badge-admin">Team Protocol</span>
+                <div class="action-step-body">
+                  <strong>5-Minute Shift Handover:</strong> Outgoing and incoming dispatchers do a 5-minute sync in Telegram Hub #4 to ensure zero pending leads remain untouched.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="action-cta-row">
+            <span class="btn-micro" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35);">
+              <span>Phase 1 Active (1-50 Families)</span>
+            </span>
+            <button onclick="copyText('Dispatcher: 1-4PM | Vetting: 4-7PM | Billing: Evening')" class="btn-micro btn-micro-violet">
+              <span>Copy Shift Roster</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Section 6: Document & KYC Verification Decision Tree Diagram -->
@@ -885,6 +1511,76 @@ flowchart TD
     style Passport fill:#4c1d95,stroke:#a855f7,stroke-width:1.5px,color:#fff
     style Approved fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#fff
     style Rejected fill:#4c0519,stroke:#f43f5e,stroke-width:2px,color:#fff
+        </div>
+      </div>
+
+      <!-- Section 6 Playbook -->
+      <div class="playbook-card">
+        <div class="playbook-col">
+          <div>
+            <div class="playbook-header">
+              <span class="playbook-tag tag-what">💡 What This Is</span>
+              <span style="font-size: 0.72rem; color: var(--text-secondary); font-family: var(--font-mono);">Multi-Tier Identity &amp; GPA SOP</span>
+            </div>
+            <div class="playbook-title">Household Safety &amp; Academic Vetting Protocol</div>
+            <p class="playbook-desc">
+              Standard Operating Procedure (SOP) safeguarding Ethiopian families. Every tutor undergoes identity cross-checking and academic GPA verification prior to home dispatch.
+            </p>
+            <div class="playbook-bullets">
+              <div class="playbook-bullet-item">
+                <span class="icon">🪪</span>
+                <span><strong>Fayda National ID Dual-Check:</strong> High-density MOSIP QR decoding with client-side OCR fallback extracting FIN number &amp; phone number.</span>
+              </div>
+              <div class="playbook-bullet-item">
+                <span class="icon">🏛️</span>
+                <span><strong>Kebele &amp; Passport Options:</strong> Front &amp; back audit for Kebele cards; machine-readable zone verification for Ethiopian passports.</span>
+              </div>
+              <div class="playbook-bullet-item">
+                <span class="icon">🎓</span>
+                <span><strong>CGPA &ge; 3.00 Threshold:</strong> Only university scholars with verified transcript proof &ge; 3.00 from accredited universities are certified.</span>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 1rem; font-size: 0.75rem; color: #34d399; font-family: var(--font-mono);">
+            🛡️ Zero Compromise Household Security
+          </div>
+        </div>
+
+        <div class="playbook-col">
+          <div>
+            <div class="playbook-header">
+              <span class="playbook-tag tag-action">⚡ What You Need To Do</span>
+              <span style="font-size: 0.72rem; color: var(--text-secondary); font-family: var(--font-mono);">Vetting Officer Action Guide</span>
+            </div>
+            <div class="action-steps-list">
+              <div class="action-step-item">
+                <span class="action-badge badge-vetting">Vetting Officer</span>
+                <div class="action-step-body">
+                  <strong>Audit in Hub #1:</strong> Inspect incoming candidate files in Telegram Hub #1. Match the tutor's selfie against their Fayda / Kebele photo.
+                </div>
+              </div>
+              <div class="action-step-item">
+                <span class="action-badge badge-vetting">Academic Audit</span>
+                <div class="action-step-body">
+                  <strong>Verify Student ID &amp; CGPA:</strong> Confirm university enrollment (AAU, AASTU, etc.) and ensure cumulative GPA is 3.00 or higher.
+                </div>
+              </div>
+              <div class="action-step-item">
+                <span class="action-badge badge-admin">Dispatch Rule</span>
+                <div class="action-step-body">
+                  <strong>Vetted-Only Dispatch:</strong> In <code>teme-admin.html</code>, only tutors with verified badges appear in the dispatch matcher. Unverified tutors cannot be dispatched.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="action-cta-row">
+            <a href="https://t.me/+uXdWxrADSSc3ZTc0" target="_blank" class="btn-micro btn-micro-cyan">
+              <span>Inspect Tutors Hub #1</span>
+            </a>
+            <span class="btn-micro" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35);">
+              <span>CGPA &ge; 3.00 Enforced</span>
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -935,6 +1631,76 @@ async function sendToTelegramVault(chatId, blob, caption) {
   });
 }</code></pre>
       </div>
+
+      <!-- Section 7 Playbook -->
+      <div class="playbook-card">
+        <div class="playbook-col">
+          <div>
+            <div class="playbook-header">
+              <span class="playbook-tag tag-what">💡 What This Is</span>
+              <span style="font-size: 0.72rem; color: var(--text-secondary); font-family: var(--font-mono);">Edge Compression &amp; API</span>
+            </div>
+            <div class="playbook-title">Production Edge Drivers &amp; Telegram API Core</div>
+            <p class="playbook-desc">
+              Reference code snippets demonstrating how user devices compress images locally before streaming directly into the Telegram Cloud Vault without taxing database limits.
+            </p>
+            <div class="playbook-bullets">
+              <div class="playbook-bullet-item">
+                <span class="icon">🖼️</span>
+                <span><strong>75% Offscreen Canvas:</strong> Scales photos to 1200px and 75% JPEG quality in &lt;120ms before any network transmission occurs.</span>
+              </div>
+              <div class="playbook-bullet-item">
+                <span class="icon">🚀</span>
+                <span><strong>Multipart Telegram POST:</strong> Streams photo blobs directly to Telegram servers, returning permanent CDN file IDs.</span>
+              </div>
+              <div class="playbook-bullet-item">
+                <span class="icon">🔑</span>
+                <span><strong>Zero Static Hardcoding:</strong> Credentials and endpoints synchronize dynamically from Firestore system configurations.</span>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 1rem; font-size: 0.75rem; color: var(--accent); font-family: var(--font-mono);">
+            ⚙️ Status: Active Inside Live Web Applications
+          </div>
+        </div>
+
+        <div class="playbook-col">
+          <div>
+            <div class="playbook-header">
+              <span class="playbook-tag tag-action">⚡ What You Need To Do</span>
+              <span style="font-size: 0.72rem; color: var(--text-secondary); font-family: var(--font-mono);">Developer &amp; Admin Guide</span>
+            </div>
+            <div class="action-steps-list">
+              <div class="action-step-item">
+                <span class="action-badge badge-founder">Founder &amp; Admins</span>
+                <div class="action-step-body">
+                  <strong>Zero Maintenance Required:</strong> These algorithms are already running automatically inside <code>teme-astegni.html</code> and <code>teme-admin.html</code>.
+                </div>
+              </div>
+              <div class="action-step-item">
+                <span class="action-badge badge-admin">Software Engineers</span>
+                <div class="action-step-body">
+                  <strong>App Development Spec:</strong> When building future native iOS / Android mobile applications, use this exact canvas compression and Telegram multipart pipeline.
+                </div>
+              </div>
+              <div class="action-step-item">
+                <span class="action-badge badge-auto">Connectivity Test</span>
+                <div class="action-step-body">
+                  <strong>Verify Telegram Bot:</strong> Use the button above to message <code>@ethio21_official_bot</code> if Telegram connectivity ever needs a health check.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="action-cta-row">
+            <a href="https://t.me/ethio21_official_bot" target="_blank" class="btn-micro btn-micro-violet">
+              <span>Ping @ethio21_official_bot</span>
+            </a>
+            <button onclick="copyText('compressImage')" class="btn-micro btn-micro-cyan">
+              <span>Copy Function Signature</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -982,6 +1748,32 @@ async function sendToTelegramVault(chatId, blob, caption) {
       document.getElementById('res-m1').textContent = `${m1.toLocaleString()} ETB`;
       document.getElementById('res-m2').textContent = `${m2.toLocaleString()} ETB / mo`;
       document.getElementById('res-ltv').textContent = `${ltv.toLocaleString()} ETB`;
+    }
+
+    // Interactive Blueprint Mode Switcher
+    function setBlueprintMode(mode) {
+      const allBtn = document.getElementById('btn-mode-all');
+      const playbookBtn = document.getElementById('btn-mode-playbook');
+      const diagramsBtn = document.getElementById('btn-mode-diagrams');
+      
+      [allBtn, playbookBtn, diagramsBtn].forEach(b => { if (b) b.classList.remove('active'); });
+
+      const diagrams = document.querySelectorAll('.diagram-container');
+      const playbooks = document.querySelectorAll('.playbook-card');
+
+      if (mode === 'playbook') {
+        if (playbookBtn) playbookBtn.classList.add('active');
+        diagrams.forEach(d => d.style.display = 'none');
+        playbooks.forEach(p => p.style.display = 'grid');
+      } else if (mode === 'diagrams') {
+        if (diagramsBtn) diagramsBtn.classList.add('active');
+        diagrams.forEach(d => d.style.display = 'block');
+        playbooks.forEach(p => p.style.display = 'none');
+      } else {
+        if (allBtn) allBtn.classList.add('active');
+        diagrams.forEach(d => d.style.display = 'block');
+        playbooks.forEach(p => p.style.display = 'grid');
+      }
     }
   </script>
 </body>
