@@ -2029,6 +2029,10 @@
           <button class="pill-btn" onclick="setTutorFilter('BASIC', this)">Basic (L0)</button>
           <button class="pill-btn" onclick="setTutorFilter('Female', this)">👩 Female Scholars</button>
           <button class="pill-btn" onclick="setTutorFilter('Male', this)">👨 Male Scholars</button>
+          <button class="pill-btn" onclick="setTutorFilter('Orthodox', this)">☦️ Orthodox</button>
+          <button class="pill-btn" onclick="setTutorFilter('Muslim', this)">☪️ Muslim</button>
+          <button class="pill-btn" onclick="setTutorFilter('Protestant', this)">✝️ Protestant</button>
+          <button class="pill-btn" onclick="setTutorFilter('Catholic', this)">✝️ Catholic</button>
         </div>
 
         <!-- Tier 3 Filters: Entrance Exam Score -->
@@ -4996,8 +5000,11 @@ function rowsToJson(sheet) {
               ${(p.monthlyFee || p.packageName) ? `<span class="tag-badge" style="background: rgba(234, 179, 8, 0.18); color: #fbbf24; border: 1px solid rgba(234, 179, 8, 0.45); font-weight: 800;">💰 ${Number(p.monthlyFee || 3000).toLocaleString()} ETB/mo (${escapeHtml(p.packageName || 'Standard 3d/wk')})</span>` : ''}
               <span class="tag-badge" style="background: rgba(56, 189, 248, 0.12); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.28);">🧒 ${escapeHtml(p.studentGender || p.childGender || 'Student')}</span>
               ${(p.preferredTutorGender && p.preferredTutorGender !== 'Any') 
-                ? `<span class="tag-badge" style="background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.45); font-weight: 800;">🎯 Pref: ${escapeHtml(p.preferredTutorGender)} Tutor</span>` 
+                ? `<span class="tag-badge" style="background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.45); font-weight: 800;">🎯 Pref Sex: ${escapeHtml(p.preferredTutorGender)} Tutor</span>` 
                 : `<span class="tag-badge" style="background: rgba(100, 116, 139, 0.2); color: #cbd5e1; border: 1px solid rgba(100, 116, 139, 0.35);">🎯 Any Tutor Gender</span>`}
+              ${(p.preferredTutorReligion && p.preferredTutorReligion !== 'Any')
+                ? `<span class="tag-badge" style="background: rgba(14, 165, 233, 0.2); color: #38bdf8; border: 1px solid rgba(14, 165, 233, 0.45); font-weight: 800;">⛪ Pref Rel: ${escapeHtml(p.preferredTutorReligion)}</span>`
+                : `<span class="tag-badge" style="background: rgba(100, 116, 139, 0.2); color: #cbd5e1; border: 1px solid rgba(100, 116, 139, 0.35);">⛪ Any Religion</span>`}
               <span class="tag-badge" style="background: rgba(148, 163, 184, 0.15); color: #e2e8f0; border: 1px solid rgba(148, 163, 184, 0.3);">🎒 ${escapeHtml(p.grade)}</span>
               <span class="tag-badge tag-active">🛡️ ${escapeHtml(p.idType || 'National Fayda / Kebele')} Verified</span>
               ${isOwner 
@@ -5027,6 +5034,15 @@ function rowsToJson(sheet) {
                 <span class="bento-label">🎯 Preferred Tutor Sex</span>
                 <div class="bento-value" style="color: #c084fc; font-weight: 800;">${escapeHtml(p.preferredTutorGender === 'Female' ? '👩‍🏫 Female Tutor Only' : (p.preferredTutorGender === 'Male' ? '👨‍🏫 Male Tutor Only' : '✨ Any (No Preference)'))}</div>
               </div>
+              <div class="bento-item">
+                <span class="bento-label">⛪ Preferred Tutor Religion</span>
+                <div class="bento-value" style="color: #38bdf8; font-weight: 800;">${escapeHtml(p.preferredTutorReligion || p.tutorReligionPreference || '✨ Any (No Preference)')}</div>
+              </div>
+              ${(p.familyReligion && p.familyReligion !== 'Any') ? `
+              <div class="bento-item">
+                <span class="bento-label">🏠 Family Religion</span>
+                <div class="bento-value" style="color: #cbd5e1;">${escapeHtml(p.familyReligion)}</div>
+              </div>` : ''}
               <div class="bento-item">
                 <span class="bento-label">📞 Direct Phone</span>
                 <div class="bento-value">${escapeHtml(p.phone)}</div>
@@ -5174,6 +5190,7 @@ function rowsToJson(sheet) {
           tUni.includes(query) ||
           (t.trackingId && t.trackingId.toLowerCase().includes(query)) ||
           (t.tgTag && t.tgTag.toLowerCase().includes(query)) ||
+          (t.religion && t.religion.toLowerCase().includes(query)) ||
           (t.entranceScore && t.entranceScore.toString().includes(query)) ||
           (t.subj || '').toLowerCase().includes(query);
 
@@ -5197,6 +5214,10 @@ function rowsToJson(sheet) {
         if (currentTutorFilter === 'EXAM_PASSED') return matchesQuery && examPassed;
         if (currentTutorFilter === 'Female') return matchesQuery && (t.gender || '').toLowerCase().includes('female');
         if (currentTutorFilter === 'Male') return matchesQuery && (t.gender || '').toLowerCase().includes('male');
+        if (currentTutorFilter === 'Orthodox') return matchesQuery && (t.religion || '').toLowerCase().includes('orthodox');
+        if (currentTutorFilter === 'Muslim') return matchesQuery && (t.religion || '').toLowerCase().includes('muslim');
+        if (currentTutorFilter === 'Protestant') return matchesQuery && (t.religion || '').toLowerCase().includes('protestant');
+        if (currentTutorFilter === 'Catholic') return matchesQuery && (t.religion || '').toLowerCase().includes('catholic');
         if (currentTutorFilter === 'HIGH_GPA') return matchesQuery && parseFloat(t.cgpa || 0) >= 3.50;
         if (currentTutorFilter === 'ENTRANCE_600') return matchesQuery && entScore >= 600;
         if (currentTutorFilter === 'ENTRANCE_550') return matchesQuery && entScore >= 550;
@@ -5288,6 +5309,8 @@ function rowsToJson(sheet) {
                   <span>•</span>
                   <span>🚻 ${escapeHtml(t.gender || 'Scholar')}</span>
                   <span>•</span>
+                  <span>⛪ ${escapeHtml(t.religion || 'Not Specified')}</span>
+                  <span>•</span>
                   <span>⭐ CGPA ${escapeHtml(t.cgpa)}</span>
                   <span>•</span>
                   <span>🎯 Entrance: ${t.entranceScore ? `<b style="color: #fbbf24;">${escapeHtml(t.entranceScore)}</b>` : 'N/A'}</span>
@@ -5318,6 +5341,7 @@ function rowsToJson(sheet) {
             <div class="record-meta-ribbon">
               <span class="tag-badge" style="background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.35); font-weight: 850;">⭐ CGPA ${escapeHtml(t.cgpa)}</span>
               ${t.entranceScore ? `<span class="tag-badge" style="background: rgba(245, 158, 11, 0.2); color: #fde047; border: 1.5px solid rgba(245, 158, 11, 0.5); font-weight: 900;">🎯 Entrance: ${escapeHtml(t.entranceScore)}/700</span>` : ''}
+              ${t.religion ? `<span class="tag-badge" style="background: rgba(14, 165, 233, 0.18); color: #38bdf8; border: 1px solid rgba(14, 165, 233, 0.4); font-weight: 800;">⛪ ${escapeHtml(t.religion)}</span>` : ''}
               ${getLevelBadgeHtml(t.level, t.cgpa)}
               <span class="tag-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35); font-weight: 800;">👥 Capacity: ${displayCount}/${cap} Students</span>
               ${getExamBadgeHtml(t)}
@@ -5335,6 +5359,10 @@ function rowsToJson(sheet) {
               <div class="bento-item">
                 <span class="bento-label">📞 Direct Phone</span>
                 <div class="bento-value">${escapeHtml(t.phone)}</div>
+              </div>
+              <div class="bento-item">
+                <span class="bento-label">⛪ Religion / Faith</span>
+                <div class="bento-value" style="color: #38bdf8; font-weight: 800;">${escapeHtml(t.religion || 'Not Specified')}</div>
               </div>
               <div class="bento-item">
                 <span class="bento-label">🎯 Entrance Score</span>
@@ -6629,8 +6657,59 @@ function rowsToJson(sheet) {
 
       pSelect.innerHTML = parents.map((p, i) => {
         const pkgText = p.monthlyFee ? ` • 💰 ${Number(p.monthlyFee).toLocaleString()} ETB (${escapeHtml(p.packageName || 'Plan')})` : '';
-        return `<option value="${i}">${escapeHtml(p.name)} (${escapeHtml(p.grade)} - ${escapeHtml(p.area)})${pkgText}</option>`;
+        const prefSex = (p.preferredTutorGender && p.preferredTutorGender !== 'Any') ? ` • 🎯 Pref Sex: ${p.preferredTutorGender}` : '';
+        const prefRel = (p.preferredTutorReligion && p.preferredTutorReligion !== 'Any') ? ` • ⛪ Pref Rel: ${p.preferredTutorReligion}` : '';
+        return `<option value="${i}">${escapeHtml(p.name)} (${escapeHtml(p.grade)} - ${escapeHtml(p.area)})${prefSex}${prefRel}${pkgText}</option>`;
       }).join('');
+
+      function populateMatchTutors(pIndex) {
+        const selP = parents[pIndex];
+        const allMatches = getMatches();
+        const reqRel = (selP && selP.preferredTutorReligion && selP.preferredTutorReligion !== 'Any') ? selP.preferredTutorReligion.toLowerCase() : '';
+
+        const sortedTutorsWithIndex = tutors.map((t, originalIndex) => ({ tutor: t, originalIndex }))
+          .sort((a, b) => {
+            const relMatchA = (reqRel && (a.tutor.religion || '').toLowerCase() === reqRel) ? 1 : 0;
+            const relMatchB = (reqRel && (b.tutor.religion || '').toLowerCase() === reqRel) ? 1 : 0;
+            if (relMatchB !== relMatchA) return relMatchB - relMatchA; // Prioritize religion matches!
+
+            const tierA = getTutorMetalTier(a.tutor.cgpa);
+            const tierB = getTutorMetalTier(b.tutor.cgpa);
+            const scoreA = (tierA.weight * 10) + ((Number(a.tutor.level) || 0) * 10) + (parseFloat(a.tutor.cgpa) || 0);
+            const scoreB = (tierB.weight * 10) + ((Number(b.tutor.level) || 0) * 10) + (parseFloat(b.tutor.cgpa) || 0);
+            return scoreB - scoreA;
+          });
+
+        tSelect.innerHTML = sortedTutorsWithIndex.map(item => {
+          const t = item.tutor;
+          const tier = getTutorMetalTier(t.cgpa);
+          const lvl = Number(t.level) || 0;
+          const cap = getTutorCapacity(t);
+          const activeMatches = getTutorActiveMatches(t, allMatches);
+          const activeCount = activeMatches.length;
+          const displayCount = Math.min(activeCount, cap);
+          const isFull = activeCount >= cap;
+          const tierTag = tier.code === 'GOLDEN' ? 'GOLDEN' : (tier.code === 'SILVER' ? 'SILVER' : 'BRONZE');
+
+          let capBadge = isFull ? `[FULL: ${displayCount}/${cap} Students]` : `[${displayCount}/${cap} Students]`;
+          let lvlPrefix = `${tier.emoji} [${tierTag} L0]`;
+          if (lvl === 5) lvlPrefix = `👑 ${tier.emoji} [${tierTag} L5 MASTER]`;
+          else if (lvl === 4) lvlPrefix = `💎 ${tier.emoji} [${tierTag} L4]`;
+          else if (lvl === 3) lvlPrefix = `⭐ ${tier.emoji} [${tierTag} L3]`;
+          else if (lvl === 2) lvlPrefix = `⚡ ${tier.emoji} [${tierTag} L2]`;
+          else if (lvl === 1) lvlPrefix = `🎙️ ${tier.emoji} [${tierTag} L1 EXAM PASSED]`;
+
+          let matchRelBadge = '';
+          if (reqRel && (t.religion || '').toLowerCase() === reqRel) {
+            matchRelBadge = ' 🎯[RELIGION MATCH ✓]';
+          }
+
+          const relTag = t.religion ? ` • ⛪ ${t.religion}` : '';
+          const examNote = (t.examStatus === 'passed' || t.examStatus === 'Passed') ? ` • Exam: ${t.examScore || 88}%` : '';
+          const disabledAttr = isFull ? 'disabled style="color: #64748b;"' : '';
+          return `<option value="${item.originalIndex}" ${disabledAttr}>${capBadge} ${lvlPrefix}${matchRelBadge} ${escapeHtml(t.name)} (CGPA ${escapeHtml(t.cgpa)} - ${escapeHtml(t.uni)}${relTag}${examNote})</option>`;
+        }).join('');
+      }
 
       pSelect.onchange = function() {
         const selP = parents[this.value];
@@ -6641,6 +6720,7 @@ function rowsToJson(sheet) {
             calculateCommissionPreview();
           }
         }
+        populateMatchTutors(this.value);
       };
 
       if (parents.length > 0 && parents[0].monthlyFee) {
@@ -6648,40 +6728,7 @@ function rowsToJson(sheet) {
         if (inp) inp.value = parents[0].monthlyFee;
       }
 
-      // Sort tutors by composite score: Metal Tier (Golden > Silver > Bronze) & Level (L5 down to L0) & CGPA
-      const sortedTutorsWithIndex = tutors.map((t, originalIndex) => ({ tutor: t, originalIndex }))
-        .sort((a, b) => {
-          const tierA = getTutorMetalTier(a.tutor.cgpa);
-          const tierB = getTutorMetalTier(b.tutor.cgpa);
-          const scoreA = (tierA.weight * 10) + ((Number(a.tutor.level) || 0) * 10) + (parseFloat(a.tutor.cgpa) || 0);
-          const scoreB = (tierB.weight * 10) + ((Number(b.tutor.level) || 0) * 10) + (parseFloat(b.tutor.cgpa) || 0);
-          return scoreB - scoreA;
-        });
-
-      const allMatches = getMatches();
-      tSelect.innerHTML = sortedTutorsWithIndex.map(item => {
-        const t = item.tutor;
-        const tier = getTutorMetalTier(t.cgpa);
-        const lvl = Number(t.level) || 0;
-        const cap = getTutorCapacity(t);
-        const activeMatches = getTutorActiveMatches(t, allMatches);
-        const activeCount = activeMatches.length;
-        const displayCount = Math.min(activeCount, cap);
-        const isFull = activeCount >= cap;
-        const tierTag = tier.code === 'GOLDEN' ? 'GOLDEN' : (tier.code === 'SILVER' ? 'SILVER' : 'BRONZE');
-
-        let capBadge = isFull ? `[FULL: ${displayCount}/${cap} Students]` : `[${displayCount}/${cap} Students]`;
-        let lvlPrefix = `${tier.emoji} [${tierTag} L0]`;
-        if (lvl === 5) lvlPrefix = `👑 ${tier.emoji} [${tierTag} L5 MASTER]`;
-        else if (lvl === 4) lvlPrefix = `💎 ${tier.emoji} [${tierTag} L4]`;
-        else if (lvl === 3) lvlPrefix = `⭐ ${tier.emoji} [${tierTag} L3]`;
-        else if (lvl === 2) lvlPrefix = `⚡ ${tier.emoji} [${tierTag} L2]`;
-        else if (lvl === 1) lvlPrefix = `🎙️ ${tier.emoji} [${tierTag} L1 EXAM PASSED]`;
-
-        const examNote = (t.examStatus === 'passed' || t.examStatus === 'Passed') ? ` • Exam: ${t.examScore || 88}%` : '';
-        const disabledAttr = isFull ? 'disabled style="color: #64748b;"' : '';
-        return `<option value="${item.originalIndex}" ${disabledAttr}>${capBadge} ${lvlPrefix} ${escapeHtml(t.name)} (CGPA ${escapeHtml(t.cgpa)} - ${escapeHtml(t.uni)}${examNote})</option>`;
-      }).join('');
+      populateMatchTutors(pSelect.value || 0);
 
       // Restrict commission controls if not permitted
       if (user && !user.permissions.viewFinancials && user.role !== 'owner') {
@@ -6700,7 +6747,13 @@ function rowsToJson(sheet) {
       openNewMatchModal();
       const parents = getParents();
       const idx = parents.findIndex(p => p.phone === parentPhone);
-      if (idx !== -1) document.getElementById('match-select-parent').value = idx;
+      if (idx !== -1) {
+        const pSel = document.getElementById('match-select-parent');
+        if (pSel) {
+          pSel.value = idx;
+          if (pSel.onchange) pSel.onchange();
+        }
+      }
     }
 
     function quickMatchTutor(tutorName, tutorPhone) {
@@ -6819,6 +6872,7 @@ function rowsToJson(sheet) {
         parentName: p.name,
         parentPhone: p.phone,
         parentArea: p.area || 'Addis Ababa',
+        parentPreferredReligion: p.preferredTutorReligion || 'Any',
         studentGrade: p.grade || 'General',
         subjects: p.subjs || t.subj || 'All Subjects',
         tutorId: tTrackingId,
@@ -6826,6 +6880,7 @@ function rowsToJson(sheet) {
         tutorName: t.name,
         tutorPhone: t.phone,
         tutorUni: t.uni || '',
+        tutorReligion: t.religion || 'Not Specified',
         monthlyFee: fee,
         rate: rate,
         commission: commission,
@@ -7834,6 +7889,9 @@ function rowsToJson(sheet) {
           Phone: p.phone,
           Area: p.area || '',
           Student_Gender: p.studentGender || p.childGender || 'Student',
+          Preferred_Tutor_Gender: p.preferredTutorGender || 'Any',
+          Preferred_Tutor_Religion: p.preferredTutorReligion || 'Any',
+          Family_Religion: p.familyReligion || 'Not Specified',
           Grade: p.grade || '',
           Subjects: `"${(p.subjs || '').replace(/"/g, '""')}"`,
           Status: p.status || 'Pending'
@@ -7851,6 +7909,7 @@ function rowsToJson(sheet) {
             Name: t.name,
             Phone: t.phone,
             Gender: t.gender || '',
+            Religion: t.religion || 'Not Specified',
             University: t.uni || '',
             Year: t.year || '',
             CGPA: t.cgpa || '',

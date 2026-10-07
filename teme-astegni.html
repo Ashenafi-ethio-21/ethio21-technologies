@@ -2042,7 +2042,7 @@
           </div>
 
           <!-- GENDER SELECTION GRID (Student Gender & Preferred Tutor Gender) -->
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.75rem; margin-bottom: 1rem;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.75rem; margin-bottom: 0.85rem;">
             <!-- 1. The Student who will be tutored -->
             <div class="field" style="margin-bottom: 0;">
               <label id="i18n-f-pchild-gender" style="color: #38bdf8; font-weight: 850;">Student Gender (የሚማረው ተማሪ ፆታ) *</label>
@@ -2060,6 +2060,35 @@
                 <option value="Any" selected id="i18n-popt-tutor-any">✨ ማንኛውም ፆታ / No Preference (Any)</option>
                 <option value="Female" id="i18n-popt-tutor-fem">👩‍🏫 ሴት አስጠኚ ብቻ (Female Tutor Only)</option>
                 <option value="Male" id="i18n-popt-tutor-male">👨‍🏫 ወንድ አስጠኚ ብቻ (Male Tutor Only)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- RELIGION SELECTION GRID (Family Religion & Preferred Tutor Religion) -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.75rem; margin-bottom: 1rem;">
+            <!-- 1. Family / Student Faith Background -->
+            <div class="field" style="margin-bottom: 0;">
+              <label id="i18n-f-pfamily-religion" style="color: #38bdf8; font-weight: 850;">Family / Student Religion (የቤተሰቡ / የተማሪው ሃይማኖት)</label>
+              <select id="p_family_religion">
+                <option value="Any" selected id="i18n-popt-famrel-any">✨ መግለጽ አልፈልግም / Not Specified</option>
+                <option value="Orthodox" id="i18n-popt-famrel-ortho">☦️ ኦርቶዶክስ ተዋሕዶ (Orthodox Tewahedo)</option>
+                <option value="Muslim" id="i18n-popt-famrel-muslim">☪️ እስልምና / ሙስሊም (Islam / Muslim)</option>
+                <option value="Protestant" id="i18n-popt-famrel-prot">✝️ ፕሮቴስታንት / ወንጌላዊ (Protestant / Evangelical)</option>
+                <option value="Catholic" id="i18n-popt-famrel-cath">✝️ ካቶሊክ (Catholic)</option>
+                <option value="Other" id="i18n-popt-famrel-other">ሌላ (Other)</option>
+              </select>
+            </div>
+
+            <!-- 2. Preferred Tutor Religion Choice -->
+            <div class="field" style="margin-bottom: 0;">
+              <label id="i18n-f-ptutor-religion" style="color: #38bdf8; font-weight: 850;">Preferred Tutor Religion (የአስጠኚው ሃይማኖት ምርጫ) *</label>
+              <select id="p_tutor_religion" required>
+                <option value="Any" selected id="i18n-popt-tutorrel-any">✨ ማንኛውም ሃይማኖት / No Preference (Any)</option>
+                <option value="Orthodox" id="i18n-popt-tutorrel-ortho">☦️ ኦርቶዶክስ ተዋሕዶ አስጠኚ (Orthodox Tutor Only)</option>
+                <option value="Muslim" id="i18n-popt-tutorrel-muslim">☪️ እስልምና / ሙስሊም አስጠኚ (Muslim Tutor Only)</option>
+                <option value="Protestant" id="i18n-popt-tutorrel-prot">✝️ ፕሮቴስታንት አስጠኚ (Protestant Tutor Only)</option>
+                <option value="Catholic" id="i18n-popt-tutorrel-cath">✝️ ካቶሊክ አስጠኚ (Catholic Tutor Only)</option>
+                <option value="Other" id="i18n-popt-tutorrel-other">ሌላ (Other)</option>
               </select>
             </div>
           </div>
@@ -2360,6 +2389,19 @@
                 <option value="Female" id="i18n-topt-female">ሴት (Female)</option>
               </select>
             </div>
+          </div>
+
+          <div class="field" style="margin-bottom: 0.85rem;">
+            <label id="i18n-f-treligion" style="color: #38bdf8; font-weight: 850;">Religion / Faith Background (የእርስዎ ሃይማኖት) *</label>
+            <select id="t_religion" required>
+              <option value="" disabled selected id="i18n-topt-rel-sel">-- ሃይማኖትዎን ይምረጡ (Select Religion) * --</option>
+              <option value="Orthodox" id="i18n-topt-rel-ortho">☦️ ኦርቶዶክስ ተዋሕዶ (Orthodox Tewahedo)</option>
+              <option value="Muslim" id="i18n-topt-rel-muslim">☪️ እስልምና / ሙስሊም (Islam / Muslim)</option>
+              <option value="Protestant" id="i18n-topt-rel-prot">✝️ ፕሮቴስታንት / ወንጌላዊ (Protestant / Evangelical)</option>
+              <option value="Catholic" id="i18n-topt-rel-cath">✝️ ካቶሊክ (Catholic)</option>
+              <option value="Other" id="i18n-topt-rel-other">ሌላ (Other)</option>
+              <option value="Prefer not to say" id="i18n-topt-rel-pnts">መግለጽ አልፈልግም (Prefer not to say)</option>
+            </select>
           </div>
 
           <!-- University & Campus Cascading Selection -->
@@ -4950,6 +4992,10 @@
             <div style="font-size: 0.84rem; font-weight: 800; color: #38bdf8;">${escapeHtml(prefTutorText)}</div>
           </div>
           <div>
+            <div style="font-size: 0.66rem; text-transform: uppercase; color: #94a3b8; font-weight: 750;">⛪ የአስጠኚው ሃይማኖት ምርጫ (Preferred Tutor Religion)</div>
+            <div style="font-size: 0.84rem; font-weight: 800; color: #38bdf8;">${escapeHtml(parentData.preferredTutorReligion || parentData.tutorReligionPreference || 'Any')}</div>
+          </div>
+          <div>
             <div style="font-size: 0.66rem; text-transform: uppercase; color: #94a3b8; font-weight: 750;">📖 የትምህርት አይነቶች (Subjects)</div>
             <div style="font-size: 0.84rem; font-weight: 800; color: #38bdf8;">${escapeHtml(parentData.subjects || 'General')}</div>
           </div>
@@ -5191,6 +5237,10 @@
                 <div style="font-weight: 800; color: #38bdf8; margin-top: 0.15rem;">${escapeHtml(pTutorGenderPref === 'Female' ? '👩‍🏫 ሴት አስጠኚ ብቻ' : (pTutorGenderPref === 'Male' ? '👨‍🏫 ወንድ አስጠኚ ብቻ' : '✨ ማንኛውም ፆታ (Any)'))}</div>
               </div>
               <div>
+                <div style="font-size: 0.66rem; color: #94a3b8; font-weight: 750; text-transform: uppercase;">⛪ የአስጠኚው ሃይማኖት ምርጫ (Preferred Religion)</div>
+                <div style="font-weight: 800; color: #38bdf8; margin-top: 0.15rem;">${escapeHtml(parentData.preferredTutorReligion || parentData.tutorReligionPreference || '✨ ማንኛውም ሃይማኖት (Any)')}</div>
+              </div>
+              <div>
                 <div style="font-size: 0.66rem; color: #94a3b8; font-weight: 750; text-transform: uppercase;">🛡️ ማረጋገጫ (Verification &amp; Date)</div>
                 <div style="font-weight: 800; color: #34d399; margin-top: 0.15rem;">${escapeHtml(pIdType)} (የተረጋገጠ ✓)</div>
                 <div style="font-size: 0.68rem; color: #94a3b8;">${escapeHtml(pDate)}</div>
@@ -5291,6 +5341,10 @@
               <div>
                 <div style="font-size: 0.66rem; color: #94a3b8; font-weight: 750; text-transform: uppercase;">📖 Subjects</div>
                 <div style="font-weight: 850; color: #fff; margin-top: 0.15rem;">${escapeHtml(tSubjs)}</div>
+              </div>
+              <div>
+                <div style="font-size: 0.66rem; color: #94a3b8; font-weight: 750; text-transform: uppercase;">⛪ Religion (ሃይማኖት)</div>
+                <div style="font-weight: 850; color: #38bdf8; margin-top: 0.15rem;">${escapeHtml(tutorData.religion || 'Not Specified')}</div>
               </div>
             </div>
 
@@ -6539,6 +6593,20 @@
         poptTutorAny: "✨ ማንኛውም ፆታ / No Preference (Any)",
         poptTutorFem: "👩‍🏫 ሴት አስጠኚ ብቻ (Female Tutor Only)",
         poptTutorMale: "👨‍🏫 ወንድ አስጠኚ ብቻ (Male Tutor Only)",
+        fPfamilyReligion: "የቤተሰቡ / የተማሪው ሃይማኖት (Family Religion)",
+        poptFamrelAny: "✨ መግለጽ አልፈልግም / Not Specified",
+        poptFamrelOrtho: "☦️ ኦርቶዶክስ ተዋሕዶ (Orthodox Tewahedo)",
+        poptFamrelMuslim: "☪️ እስልምና / ሙስሊም (Islam / Muslim)",
+        poptFamrelProt: "✝️ ፕሮቴስታንት / ወንጌላዊ (Protestant / Evangelical)",
+        poptFamrelCath: "✝️ ካቶሊክ (Catholic)",
+        poptFamrelOther: "ሌላ (Other)",
+        fPtutorReligion: "የአስጠኚው ሃይማኖት ምርጫ (Preferred Tutor Religion) *",
+        poptTutorrelAny: "✨ ማንኛውም ሃይማኖት / ምንም ልዩነት የለውም (No Preference / Any)",
+        poptTutorrelOrtho: "☦️ ኦርቶዶክስ ተዋሕዶ አስጠኚ (Orthodox Tutor Only)",
+        poptTutorrelMuslim: "☪️ እስልምና / ሙስሊም አስጠኚ (Muslim Tutor Only)",
+        poptTutorrelProt: "✝️ ፕሮቴስታንት አስጠኚ (Protestant Tutor Only)",
+        poptTutorrelCath: "✝️ ካቶሊክ አስጠኚ (Catholic Tutor Only)",
+        poptTutorrelOther: "ሌላ (Other)",
         fPgrade: "የልጅዎ የክፍል ደረጃ *",
         fPsubj: "ማስጠናት የሚፈልጓቸው የትምህርት አይነቶች",
         btnPsubmit: "📲 አስጠኚ ለመጠየቅ ይላኩ ›",
@@ -6551,6 +6619,14 @@
         toptSel: "ፆታዎን ይምረጡ *",
         toptMale: "ወንድ (Male)",
         toptFemale: "ሴት (Female)",
+        fTreligion: "የእርስዎ ሃይማኖት (Religion / Faith Background) *",
+        toptRelSel: "-- ሃይማኖትዎን ይምረጡ (Select Religion) * --",
+        toptRelOrtho: "☦️ ኦርቶዶክስ ተዋሕዶ (Orthodox Tewahedo)",
+        toptRelMuslim: "☪️ እስልምና / ሙስሊም (Islam / Muslim)",
+        toptRelProt: "✝️ ፕሮቴስታንት / ወንጌላዊ (Protestant / Evangelical)",
+        toptRelCath: "✝️ ካቶሊክ (Catholic)",
+        toptRelOther: "ሌላ (Other)",
+        toptRelPnts: "መግለጽ አልፈልግም (Prefer not to say)",
         fTuni: "🏛️ ዩኒቨርሲቲ (University) *",
         fTcampus: "🏫 ካምፓስ (Campus) *",
         fTyear: "የትምህርት ዓመት *",
@@ -6670,6 +6746,20 @@
         poptTutorAny: "✨ Any Gender / No Preference (Any)",
         poptTutorFem: "👩‍🏫 Female Tutor Only",
         poptTutorMale: "👨‍🏫 Male Tutor Only",
+        fPfamilyReligion: "Family / Student Religion (Optional)",
+        poptFamrelAny: "✨ Not Specified / Prefer Not to Say",
+        poptFamrelOrtho: "☦️ Orthodox Tewahedo",
+        poptFamrelMuslim: "☪️ Islam / Muslim",
+        poptFamrelProt: "✝️ Protestant / Evangelical",
+        poptFamrelCath: "✝️ Catholic",
+        poptFamrelOther: "Other",
+        fPtutorReligion: "Preferred Tutor Religion *",
+        poptTutorrelAny: "✨ Any Religion / No Preference (Any)",
+        poptTutorrelOrtho: "☦️ Orthodox Tewahedo Tutor Only",
+        poptTutorrelMuslim: "☪️ Muslim Tutor Only",
+        poptTutorrelProt: "✝️ Protestant Tutor Only",
+        poptTutorrelCath: "✝️ Catholic Tutor Only",
+        poptTutorrelOther: "Other",
         fPgrade: "Child's Academic Grade Level *",
         fPsubj: "Subjects Requiring Tutoring",
         btnPsubmit: "📲 Submit Request & Match Nearby Scholar ›",
@@ -6682,6 +6772,14 @@
         toptSel: "Select Gender *",
         toptMale: "Male",
         toptFemale: "Female",
+        fTreligion: "Religion / Faith Background *",
+        toptRelSel: "-- Select Your Religion * --",
+        toptRelOrtho: "☦️ Orthodox Tewahedo",
+        toptRelMuslim: "☪️ Islam / Muslim",
+        toptRelProt: "✝️ Protestant / Evangelical",
+        toptRelCath: "✝️ Catholic",
+        toptRelOther: "Other",
+        toptRelPnts: "Prefer not to say",
         fTuni: "🏛️ University *",
         fTcampus: "🏫 Campus *",
         fTyear: "Academic Year *",
@@ -6801,6 +6899,20 @@
         poptTutorAny: "✨ Saala Kamiyyuu / Garaagarummaa Hin Qabu (Kamiyyuu)",
         poptTutorFem: "👩‍🏫 Barsiistuu Dubaraa Qofa (Female Tutor Only)",
         poptTutorMale: "👨‍🏫 Barsiisaa Dhiiraa Qofa (Male Tutor Only)",
+        fPfamilyReligion: "Amantii Maatii / Barataa (Filannoo)",
+        poptFamrelAny: "✨ Ibsuu Hin Barbaadu / Filannoo Hin Qabu",
+        poptFamrelOrtho: "☦️ Ortodooksii Tawaahidoo",
+        poptFamrelMuslim: "☪️ Islaama / Musliima",
+        poptFamrelProt: "✝️ Pirootestaantii / Wangeelaa",
+        poptFamrelCath: "✝️ Kaatolikii",
+        poptFamrelOther: "Kan Biraa",
+        fPtutorReligion: "Filannoo Amantii Barsiisaa *",
+        poptTutorrelAny: "✨ Amantii Kamiyyuu / Garaagarummaa Hin Qabu",
+        poptTutorrelOrtho: "☦️ Barsiisaa Ortodooksii Qofa",
+        poptTutorrelMuslim: "☪️ Barsiisaa Musliima Qofa",
+        poptTutorrelProt: "✝️ Barsiisaa Pirootestaantii Qofa",
+        poptTutorrelCath: "✝️ Barsiisaa Kaatolikii Qofa",
+        poptTutorrelOther: "Kan Biraa",
         fPgrade: "Kutaa Barnootaa Barataa *",
         fPsubj: "Gosoota Barnootaa Barsiifamuu Qaban",
         btnPsubmit: "📲 Barsiisaa Gaafachuuf Ergaa ›",
@@ -6813,6 +6925,14 @@
         toptSel: "Saala Keessan Filadhaa *",
         toptMale: "Dhiira (Male)",
         toptFemale: "Dubara (Female)",
+        fTreligion: "Amantii Keessan *",
+        toptRelSel: "-- Amantii Keessan Filadhaa * --",
+        toptRelOrtho: "☦️ Ortodooksii Tawaahidoo",
+        toptRelMuslim: "☪️ Islaama / Musliima",
+        toptRelProt: "✝️ Pirootestaantii / Wangeelaa",
+        toptRelCath: "✝️ Kaatolikii",
+        toptRelOther: "Kan Biraa",
+        toptRelPnts: "Ibsuu Hin Barbaadu",
         fTuni: "🏛️ Yuunivarsitii *",
         fTcampus: "🏫 Kaampaasii *",
         fTyear: "Waggaa Barnootaa *",
@@ -6965,6 +7085,20 @@
       safeSetText('i18n-popt-tutor-any', t.poptTutorAny);
       safeSetText('i18n-popt-tutor-fem', t.poptTutorFem);
       safeSetText('i18n-popt-tutor-male', t.poptTutorMale);
+      safeSetText('i18n-f-pfamily-religion', t.fPfamilyReligion);
+      safeSetText('i18n-popt-famrel-any', t.poptFamrelAny);
+      safeSetText('i18n-popt-famrel-ortho', t.poptFamrelOrtho);
+      safeSetText('i18n-popt-famrel-muslim', t.poptFamrelMuslim);
+      safeSetText('i18n-popt-famrel-prot', t.poptFamrelProt);
+      safeSetText('i18n-popt-famrel-cath', t.poptFamrelCath);
+      safeSetText('i18n-popt-famrel-other', t.poptFamrelOther);
+      safeSetText('i18n-f-ptutor-religion', t.fPtutorReligion);
+      safeSetText('i18n-popt-tutorrel-any', t.poptTutorrelAny);
+      safeSetText('i18n-popt-tutorrel-ortho', t.poptTutorrelOrtho);
+      safeSetText('i18n-popt-tutorrel-muslim', t.poptTutorrelMuslim);
+      safeSetText('i18n-popt-tutorrel-prot', t.poptTutorrelProt);
+      safeSetText('i18n-popt-tutorrel-cath', t.poptTutorrelCath);
+      safeSetText('i18n-popt-tutorrel-other', t.poptTutorrelOther);
       safeSetText('i18n-f-pgrade', t.fPgrade);
       safeSetText('i18n-f-psubj', t.fPsubj);
       safeSetText('i18n-btn-psubmit', t.btnPsubmit);
@@ -6980,6 +7114,14 @@
       safeSetText('i18n-topt-sel', t.toptSel);
       safeSetText('i18n-topt-male', t.toptMale);
       safeSetText('i18n-topt-female', t.toptFemale);
+      safeSetText('i18n-f-treligion', t.fTreligion);
+      safeSetText('i18n-topt-rel-sel', t.toptRelSel);
+      safeSetText('i18n-topt-rel-ortho', t.toptRelOrtho);
+      safeSetText('i18n-topt-rel-muslim', t.toptRelMuslim);
+      safeSetText('i18n-topt-rel-prot', t.toptRelProt);
+      safeSetText('i18n-topt-rel-cath', t.toptRelCath);
+      safeSetText('i18n-topt-rel-other', t.toptRelOther);
+      safeSetText('i18n-topt-rel-pnts', t.toptRelPnts);
       safeSetText('i18n-f-tuni', t.fTuni);
       safeSetText('i18n-f-tcampus', t.fTcampus);
       safeSetText('i18n-f-tyear', t.fTyear);
@@ -8796,6 +8938,9 @@
         childGender: studentGender,
         preferredTutorGender: preferredTutorGender,
         tutorGenderPreference: preferredTutorGender,
+        preferredTutorReligion: document.getElementById('p_tutor_religion')?.value || 'Any',
+        tutorReligionPreference: document.getElementById('p_tutor_religion')?.value || 'Any',
+        familyReligion: document.getElementById('p_family_religion')?.value || 'Any',
         grade: grade,
         subjects: subjs,
         monthlyFee: monthlyFee,
@@ -8843,6 +8988,17 @@
         ? 'Female Only (ሴት አስጠኚ)' 
         : (preferredTutorGender === 'Male' ? 'Male Only (ወንድ አስጠኚ)' : 'Any Gender / No Preference (ማንኛውም)');
 
+      const prefRelVal = document.getElementById('p_tutor_religion')?.value || 'Any';
+      const tutorRelPrefLabel = prefRelVal === 'Orthodox'
+        ? '☦️ Orthodox Tewahedo (ኦርቶዶክስ ተዋሕዶ)'
+        : (prefRelVal === 'Muslim'
+          ? '☪️ Islam / Muslim (እስልምና / ሙስሊም)'
+          : (prefRelVal === 'Protestant'
+            ? '✝️ Protestant / Evangelical (ፕሮቴስታንት)'
+            : (prefRelVal === 'Catholic'
+              ? '✝️ Catholic (ካቶሊክ)'
+              : (prefRelVal === 'Other' ? 'Other' : '✨ Any Religion / No Preference (ማንኛውም)'))));
+
       const plainText = `🏷️ ID: ${trackingId}\n` +
                         `📌 SEARCH TAG: ${tgTag}\n` +
                         `━━━━━━━━━━━━━━━━━━━━\n` +
@@ -8852,6 +9008,7 @@
                         `📍 Location: ${area}\n` +
                         `🧒 Student Gender: ${studentGender}\n` +
                         `🎯 Preferred Tutor Sex: ${tutorPrefLabel}\n` +
+                        `⛪ Preferred Tutor Religion: ${tutorRelPrefLabel}\n` +
                         `🎓 Academic Grade: ${grade}\n` +
                         `📖 Subjects: ${subjs}\n` +
                         `💰 Selected Plan: ${packageTitle} (${monthlyFee.toLocaleString()} ETB/month)\n` +
@@ -9016,6 +9173,15 @@
       if (!gender) {
         const msg = (currentLang === 'am') ? 'እባክዎ ፆታዎን ይምረጡ።' : (currentLang === 'or' ? 'Moo saala keessan filadhaa.' : 'Please select your gender.');
         abortTutorValidation(msg, document.getElementById('t_gender'));
+        return;
+      }
+
+      const religion = document.getElementById('t_religion')?.value || '';
+      if (!religion) {
+        const msg = (currentLang === 'am') 
+          ? 'እባክዎ ሃይማኖትዎን ይምረጡ (ለወላጆች ምርጫ ማሟያነት ያስፈልጋል)።' 
+          : (currentLang === 'or' ? 'Maaloo amantii keessan filadhaa.' : 'Please select your religion/faith background.');
+        abortTutorValidation(msg, document.getElementById('t_religion'));
         return;
       }
 
@@ -9401,6 +9567,7 @@
           tgTag: tgTag,
           type: 'TUTOR', 
           name, phone, gender, uni,
+          religion: religion,
           university: uniName,
           campus: campusName,
           studentIdNumber: normStudentId,
@@ -9449,6 +9616,7 @@
           cgpa: cgpa,
           entranceScore: entranceNum,
           gender: gender,
+          religion: religion,
           subjects: subj,
           govtId: govtType,
           faydaVerified: !!window.currentTutorFaydaVerified,
@@ -9507,6 +9675,7 @@
                         `  • National Fayda / Kebele: Must Match "${name}"\n` +
                         `  • Applicant Sworn Match: Confirmed Exact Match ✓\n` +
                         `🚻 Gender / Sex: ${gender}\n` +
+                        `⛪ Religion: ${religion}\n` +
                         `📞 Phone: ${phone}\n` +
                         `🏛️ University: ${uniName}\n` +
                         `🏫 Campus: ${campusName}\n` +
