@@ -7475,7 +7475,7 @@
     window.TEME_TG_TUTORS_CHAT = '-1004410573815'; // Dedicated Tutors Group
     window.TEME_TG_PARENTS_CHAT = '-1003632707084'; // Dedicated Parents Group
     window.TEME_TG_PARENTS_PAYMENTS_CHAT = '-1004427351129'; // Dedicated Parents Payments Group
-    window.TEME_TG_MATCHES_CHAT = '-5225265679'; // Dedicated Toutor Matches Group
+    window.TEME_TG_MATCHES_CHAT = '-1004357940585'; // Dedicated Toutor Matches Supergroup
     window.TEME_TG_PARENTS_INVITE = 'https://t.me/+zH2Ov8OM20YzYTc0';
     window.TEME_TG_TUTORS_INVITE = 'https://t.me/+uXdWxrADSSc3ZTc0';
     window.TEME_TG_PARENTS_PAYMENTS_INVITE = 'https://t.me/+1nwxhaCqN9M4Y2E0';
@@ -7484,6 +7484,10 @@
     function getValidTelegramChatId(chatId, fallbackId) {
       if (!chatId) return fallbackId;
       const str = String(chatId).trim();
+      // Upgrade legacy group ID to upgraded supergroup ID
+      if (str === '-5225265679') {
+        return '-1004357940585';
+      }
       // Directly map Tutors Telegram group invite link
       if (str.includes('uXdWxrADSSc3ZTc0') || str === '+uXdWxrADSSc3ZTc0') {
         return '-1004410573815';
@@ -7498,7 +7502,7 @@
       }
       // Directly map Toutor Matches Telegram group invite link
       if (str.includes('u0IdrknHN5A4ZGI0') || str === '+u0IdrknHN5A4ZGI0') {
-        return '-5225265679';
+        return '-1004357940585';
       }
       // If someone stored an invite link URL like https://t.me/+..., ignore it and use valid numeric/handle fallback
       if (str.startsWith('http://') || str.startsWith('https://') || str.startsWith('+') || str.includes('/+')) {

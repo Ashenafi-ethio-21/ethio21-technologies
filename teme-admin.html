@@ -2217,7 +2217,7 @@
         <div class="form-group">
           <label class="form-label">Telegram "Toutor Matches" Group Chat ID</label>
           <div style="display: flex; gap: 0.5rem;">
-            <input type="text" id="tg-matches-chat-input" class="form-ctrl" value="-5225265679" placeholder="e.g. -100xxxxxxxxxx (Numeric Chat ID)">
+            <input type="text" id="tg-matches-chat-input" class="form-ctrl" value="-1004357940585" placeholder="e.g. -100xxxxxxxxxx (Numeric Chat ID)">
             <a href="https://t.me/+u0IdrknHN5A4ZGI0" target="_blank" rel="noopener" class="btn-act" style="background: rgba(36, 161, 222, 0.25); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); text-decoration: none; display: flex; align-items: center; white-space: nowrap; font-size: 0.8rem; font-weight: 800; padding: 0.5rem 0.85rem; border-radius: 10px;">
               ✈️ Open Group ↗
             </a>
@@ -6926,9 +6926,9 @@ function rowsToJson(sheet) {
 
       const rawMatchTarget = localStorage.getItem('teme_astegni_tg_matches_chat_id') || 
                              document.getElementById('tg-matches-chat-input')?.value.trim() || 
-                             '-5225265679';
-      const matchesTarget = (rawMatchTarget.includes('u0IdrknHN5A4ZGI0') || rawMatchTarget.startsWith('http') || rawMatchTarget.includes('/+') || !rawMatchTarget) 
-        ? '-5225265679' 
+                             '-1004357940585';
+      const matchesTarget = (rawMatchTarget.includes('u0IdrknHN5A4ZGI0') || rawMatchTarget.startsWith('http') || rawMatchTarget.includes('/+') || rawMatchTarget === '-5225265679' || !rawMatchTarget) 
+        ? '-1004357940585' 
         : rawMatchTarget;
       dispatchTelegramOpsLog(msg, matchesTarget);
 
@@ -7568,8 +7568,8 @@ function rowsToJson(sheet) {
       const parentsChat = (rawParents.includes('zH2Ov8OM20YzYTc0') || rawParents.startsWith('http') || rawParents.includes('/+')) ? '-1003632707084' : rawParents;
       const rawPayments = (document.getElementById('tg-payments-chat-input')?.value || '').trim() || '-1004427351129';
       const paymentsChat = (rawPayments.includes('1nwxhaCqN9M4Y2E0') || rawPayments === '+1nwxhaCqN9M4Y2E0' || rawPayments.startsWith('http') || rawPayments.includes('/+') || !rawPayments) ? '-1004427351129' : rawPayments;
-      const rawMatches = (document.getElementById('tg-matches-chat-input')?.value || '').trim() || '-5225265679';
-      const matchesChat = (rawMatches.includes('u0IdrknHN5A4ZGI0') || rawMatches === '+u0IdrknHN5A4ZGI0' || rawMatches.startsWith('http') || rawMatches.includes('/+') || !rawMatches) ? '-5225265679' : rawMatches;
+      const rawMatches = (document.getElementById('tg-matches-chat-input')?.value || '').trim() || '-1004357940585';
+      const matchesChat = (rawMatches.includes('u0IdrknHN5A4ZGI0') || rawMatches === '+u0IdrknHN5A4ZGI0' || rawMatches.startsWith('http') || rawMatches.includes('/+') || rawMatches === '-5225265679' || !rawMatches) ? '-1004357940585' : rawMatches;
 
       localStorage.setItem('teme_astegni_tg_bot_token', rawToken);
       localStorage.setItem('teme_astegni_tg_chat_id', chatId);
@@ -7627,7 +7627,7 @@ function rowsToJson(sheet) {
         }
 
         let detectedPayments = '-1004427351129';
-        let detectedMatches = '-5225265679';
+        let detectedMatches = '-1004357940585';
         let detectedTutors = null;
         let detectedParents = null;
 
@@ -7684,8 +7684,8 @@ function rowsToJson(sheet) {
       const rawPay = localStorage.getItem('teme_astegni_tg_payments_chat_id') || document.getElementById('tg-payments-chat-input')?.value.trim() || '-1004427351129';
       const paymentsChat = (rawPay.includes('1nwxhaCqN9M4Y2E0') || rawPay === '+1nwxhaCqN9M4Y2E0' || rawPay.startsWith('http') || rawPay.includes('/+') || !rawPay) ? '-1004427351129' : rawPay;
       
-      const rawMatch = localStorage.getItem('teme_astegni_tg_matches_chat_id') || document.getElementById('tg-matches-chat-input')?.value.trim() || '-5225265679';
-      const matchesChat = (rawMatch.includes('u0IdrknHN5A4ZGI0') || rawMatch === '+u0IdrknHN5A4ZGI0' || rawMatch.startsWith('http') || rawMatch.includes('/+') || !rawMatch) ? '-5225265679' : rawMatch;
+      const rawMatch = localStorage.getItem('teme_astegni_tg_matches_chat_id') || document.getElementById('tg-matches-chat-input')?.value.trim() || '-1004357940585';
+      const matchesChat = (rawMatch.includes('u0IdrknHN5A4ZGI0') || rawMatch === '+u0IdrknHN5A4ZGI0' || rawMatch.startsWith('http') || rawMatch.includes('/+') || rawMatch === '-5225265679' || !rawMatch) ? '-1004357940585' : rawMatch;
 
       const results = [];
 
@@ -7735,9 +7735,9 @@ function rowsToJson(sheet) {
                     defaultToken;
       const rawMatchesChat = localStorage.getItem('teme_astegni_tg_matches_chat_id') || 
                              (document.getElementById('tg-matches-chat-input') ? document.getElementById('tg-matches-chat-input').value.trim() : '') ||
-                             '-5225265679';
-      const matchesChat = (rawMatchesChat.includes('u0IdrknHN5A4ZGI0') || rawMatchesChat.startsWith('http') || rawMatchesChat.includes('/+') || !rawMatchesChat)
-        ? '-5225265679'
+                             '-1004357940585';
+      const matchesChat = (rawMatchesChat.includes('u0IdrknHN5A4ZGI0') || rawMatchesChat.startsWith('http') || rawMatchesChat.includes('/+') || rawMatchesChat === '-5225265679' || !rawMatchesChat)
+        ? '-1004357940585'
         : rawMatchesChat;
 
       const tutorsChat = localStorage.getItem('teme_astegni_tg_chat_id') || 
@@ -7750,7 +7750,7 @@ function rowsToJson(sheet) {
                          (document.getElementById('webhook-url-input') ? document.getElementById('webhook-url-input').value.trim() : '');
 
       let targetChat = customTargetChat;
-      if (targetChat && (targetChat.includes('u0IdrknHN5A4ZGI0') || targetChat.startsWith('http') || targetChat.includes('/+'))) {
+      if (targetChat && (targetChat.includes('u0IdrknHN5A4ZGI0') || targetChat.startsWith('http') || targetChat.includes('/+') || targetChat === '-5225265679')) {
         targetChat = matchesChat;
       }
 
@@ -7777,7 +7777,26 @@ function rowsToJson(sheet) {
         });
         const json = await res.json();
         sentDirectly = json.ok;
-        if (!json.ok && json.description && json.description.includes('can\'t parse entities')) {
+
+        // Auto-heal Telegram supergroup migration
+        if (!json.ok && json.parameters && json.parameters.migrate_to_chat_id) {
+          const migratedChatId = String(json.parameters.migrate_to_chat_id);
+          localStorage.setItem('teme_astegni_tg_matches_chat_id', migratedChatId);
+          if (document.getElementById('tg-matches-chat-input')) {
+            document.getElementById('tg-matches-chat-input').value = migratedChatId;
+          }
+          const retryRes = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: migratedChatId,
+              text: htmlMessage,
+              parse_mode: 'HTML'
+            })
+          });
+          const retryJson = await retryRes.json();
+          sentDirectly = retryJson.ok;
+        } else if (!json.ok && json.description && json.description.includes('can\'t parse entities')) {
           await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -8135,8 +8154,8 @@ function rowsToJson(sheet) {
         document.getElementById('tg-payments-chat-input').value = savedPaymentsChat;
       }
 
-      const rawMatchesChat = localStorage.getItem('teme_astegni_tg_matches_chat_id') || '-5225265679';
-      const savedMatchesChat = (rawMatchesChat.includes('u0IdrknHN5A4ZGI0') || rawMatchesChat === '+u0IdrknHN5A4ZGI0' || rawMatchesChat === '' || rawMatchesChat.startsWith('http') || rawMatchesChat.includes('/+')) ? '-5225265679' : rawMatchesChat;
+      const rawMatchesChat = localStorage.getItem('teme_astegni_tg_matches_chat_id') || '-1004357940585';
+      const savedMatchesChat = (rawMatchesChat.includes('u0IdrknHN5A4ZGI0') || rawMatchesChat === '+u0IdrknHN5A4ZGI0' || rawMatchesChat === '' || rawMatchesChat.startsWith('http') || rawMatchesChat.includes('/+') || rawMatchesChat === '-5225265679') ? '-1004357940585' : rawMatchesChat;
       if (document.getElementById('tg-matches-chat-input')) {
         document.getElementById('tg-matches-chat-input').value = savedMatchesChat;
       }
