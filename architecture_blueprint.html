@@ -1,1121 +1,915 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teme-Astegni | Zero-Cost Dual-Vault Architecture Blueprint</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Teme Astegni (ተመ አስጠኚ) — Management &amp; Software Architecture Blueprint | ETHIO 21</title>
+  <meta name="description" content="Official Management and Software Architecture Blueprint for Teme Astegni: Zero-Cost 4-Tier Cloud Infrastructure, 4 Telegram Hubs, Fayda KYC, and 30% / 200 ETB Commission Model.">
+  <link rel="icon" type="image/svg+xml" href="assets/branding/svg-vector/ethio21_favicon.svg">
+
   <style>
     :root {
-      --bg-dark: #070d18;
-      --card-bg: rgba(15, 23, 42, 0.75);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --card-hover: rgba(30, 41, 59, 0.85);
+      --bg-canvas: #06040a;
+      --bg-card: rgba(22, 12, 32, 0.75);
+      --bg-card-hover: rgba(30, 16, 44, 0.9);
+      --border-glass: rgba(168, 85, 247, 0.18);
+      --border-highlight: rgba(168, 85, 247, 0.45);
+      --accent: #a855f7;
+      --accent-glow: rgba(168, 85, 247, 0.35);
+      --accent-soft: rgba(168, 85, 247, 0.1);
+      --gold: #d4af37;
+      --gold-glow: rgba(212, 175, 55, 0.35);
       --cyan: #38bdf8;
-      --cyan-glow: rgba(56, 189, 248, 0.25);
       --emerald: #10b981;
-      --emerald-glow: rgba(16, 185, 129, 0.25);
-      --amber: #f59e0b;
-      --amber-glow: rgba(245, 158, 11, 0.25);
-      --rose: #f43f5e;
-      --indigo: #6366f1;
-      --text-main: #f1f5f9;
-      --text-muted: #94a3b8;
-      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --font-system: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', system-ui, sans-serif;
+      --font-mono: 'SF Mono', ui-monospace, Menlo, Consolas, monospace;
+      --glass-blur: blur(28px) saturate(190%);
+      --radius-card: 24px;
+      --radius-pill: 100px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    [data-theme="light"] {
+      --bg-canvas: #faf5ff;
+      --bg-card: rgba(255, 255, 255, 0.9);
+      --bg-card-hover: #ffffff;
+      --border-glass: rgba(168, 85, 247, 0.25);
+      --border-highlight: rgba(126, 34, 206, 0.4);
+      --text-primary: #581c87;
+      --text-secondary: #334155;
     }
 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background-color: var(--bg-dark);
-      background-image: 
-        radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.07) 0%, transparent 40%),
-        radial-gradient(circle at 85% 75%, rgba(16, 185, 129, 0.07) 0%, transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.04) 0%, transparent 60%);
-      color: var(--text-main);
-      font-family: var(--font-sans);
+      font-family: var(--font-system);
+      background: var(--bg-canvas);
+      color: var(--text-primary);
       line-height: 1.6;
-      padding: 2rem 1.25rem 5rem;
-      min-height: 100vh;
+      padding-bottom: 6rem;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 85% 75%, rgba(212, 175, 55, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.05) 0%, transparent 60%);
+      background-attachment: fixed;
     }
 
-    .container {
-      max-width: 1240px;
-      margin: 0 auto;
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* Nav Bar */
+    .pillar-nav {
+      padding: 1.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-glass);
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
-    /* HEADER */
-    .blueprint-header {
-      text-align: center;
-      margin-bottom: 3.5rem;
-      position: relative;
-    }
-
-    .pill-badge {
+    .back-link {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: rgba(16, 185, 129, 0.12);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      color: #34d399;
-      font-size: 0.8rem;
+      color: var(--accent);
+      text-decoration: none;
       font-weight: 700;
-      padding: 0.35rem 1rem;
-      border-radius: 999px;
+      font-size: 0.88rem;
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-pill);
+      background: var(--accent-soft);
+      border: 1px solid var(--border-glass);
+      transition: all 0.2s;
+    }
+
+    .back-link:hover {
+      background: var(--accent);
+      color: #ffffff;
+      transform: translateX(-3px);
+    }
+
+    .pillar-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .pillar-tab {
+      padding: 0.4rem 0.85rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+      transition: all 0.2s;
+    }
+
+    .pillar-tab:hover { color: var(--text-primary); border-color: rgba(255, 255, 255, 0.25); }
+    .pillar-tab.active-violet { background: var(--accent); color: #ffffff; border-color: var(--accent); font-weight: 800; }
+    .pillar-tab.gold { border-color: rgba(212, 175, 55, 0.4); color: var(--gold); }
+    .pillar-tab.gold:hover { background: rgba(212, 175, 55, 0.15); color: #fff; }
+
+    /* Glass Cards */
+    .glass-card {
+      background: var(--bg-card);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-card);
+      padding: 2.2rem;
+      box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+      margin-bottom: 2.5rem;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: var(--radius-pill);
+      background: var(--accent-soft);
+      border: 1px solid var(--border-highlight);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      margin-bottom: 1.25rem;
+      margin-bottom: 0.85rem;
     }
 
-    .pill-badge .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #10b981;
-      box-shadow: 0 0 10px #10b981;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
-    }
-
-    h1 {
-      font-size: clamp(2rem, 4vw, 3.25rem);
-      font-weight: 800;
+    .hero-title {
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-weight: 900;
       letter-spacing: -0.03em;
-      background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 1rem;
       line-height: 1.15;
     }
 
-    .subtitle {
-      font-size: 1.15rem;
-      color: var(--text-muted);
-      max-width: 780px;
-      margin: 0 auto;
-      font-weight: 400;
+    .hero-title span {
+      color: var(--accent);
+      text-shadow: 0 0 30px var(--accent-glow);
     }
 
-    /* EXECUTIVE HIGHLIGHT BANNER */
-    .exec-banner {
-      background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9));
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      border-radius: 18px;
-      padding: 1.75rem 2rem;
-      margin-bottom: 3.5rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(12px);
-    }
-
-    .exec-stat {
-      border-left: 3px solid var(--cyan);
-      padding-left: 1.25rem;
-    }
-
-    .exec-stat.green { border-color: var(--emerald); }
-    .exec-stat.amber { border-color: var(--amber); }
-    .exec-stat.indigo { border-color: var(--indigo); }
-
-    .exec-stat .label {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-      margin-bottom: 0.25rem;
-      font-weight: 600;
-    }
-
-    .exec-stat .value {
-      font-size: 1.75rem;
-      font-weight: 800;
-      color: #fff;
-      font-family: var(--font-mono);
-      letter-spacing: -0.02em;
-    }
-
-    .exec-stat .note {
-      font-size: 0.75rem;
-      color: #64748b;
-      margin-top: 0.25rem;
-    }
-
-    /* SECTION TITLE */
-    .section-title {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .section-title svg {
-      width: 24px;
-      height: 24px;
-      stroke: var(--cyan);
-    }
-
-    /* ARCHITECTURE GRID (THE 4 TIERS) */
-    .tiers-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 3.5rem;
-    }
-
-    .tier-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 1.75rem;
-      backdrop-filter: blur(10px);
-      transition: all 0.25s ease;
-      position: relative;
+    .color-spec-orb {
+      width: 140px;
+      height: 140px;
+      border-radius: 35px;
+      background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+      box-shadow: 0 0 50px var(--accent-glow);
+      border: 3px solid rgba(255, 255, 255, 0.3);
       display: flex;
       flex-direction: column;
-    }
-
-    .tier-card:hover {
-      border-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-4px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-    }
-
-    .tier-card.tier-1 { border-top: 4px solid var(--cyan); }
-    .tier-card.tier-2 { border-top: 4px solid var(--amber); }
-    .tier-card.tier-3 { border-top: 4px solid var(--indigo); }
-    .tier-card.tier-4 { border-top: 4px solid var(--emerald); }
-
-    .tier-badge {
-      display: inline-block;
-      align-self: flex-start;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 0.25rem 0.65rem;
-      border-radius: 6px;
-      margin-bottom: 1rem;
-      font-family: var(--font-mono);
-    }
-
-    .tier-1 .tier-badge { background: rgba(56, 189, 248, 0.15); color: var(--cyan); }
-    .tier-2 .tier-badge { background: rgba(245, 158, 11, 0.15); color: var(--amber); }
-    .tier-3 .tier-badge { background: rgba(99, 102, 241, 0.15); color: var(--indigo); }
-    .tier-4 .tier-badge { background: rgba(16, 185, 129, 0.15); color: var(--emerald); }
-
-    .tier-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 0.5rem;
-    }
-
-    .tier-role {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 1.25rem;
-      line-height: 1.45;
-    }
-
-    .tier-spec-list {
-      list-style: none;
-      margin-top: auto;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      padding-top: 1rem;
-    }
-
-    .tier-spec-item {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.82rem;
-      padding: 0.4rem 0;
-      color: #94a3b8;
-    }
-
-    .tier-spec-item strong {
-      color: #e2e8f0;
-      font-family: var(--font-mono);
-    }
-
-    /* LIFECYCLE FLOWCHART */
-    .flowchart-section {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 2.25rem;
-      margin-bottom: 3.5rem;
-      backdrop-filter: blur(12px);
-    }
-
-    .flow-steps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.25rem;
-      margin-top: 1.5rem;
-      position: relative;
-    }
-
-    .flow-step {
-      background: rgba(2, 6, 23, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 12px;
-      padding: 1.25rem;
-      position: relative;
-    }
-
-    .flow-step-num {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: rgba(56, 189, 248, 0.15);
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      color: var(--cyan);
-      display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+      text-align: center;
+      padding: 0.5rem;
+    }
+
+    .color-spec-orb:hover { transform: scale(1.05); }
+
+    /* Grid */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+    @media (max-width: 900px) { .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 650px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+    /* Swatches */
+    .swatches-bar {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .swatch-item {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-glass);
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .swatch-item:hover { transform: translateY(-3px); }
+    .swatch-color { height: 48px; width: 100%; }
+    .swatch-label {
+      padding: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-secondary);
+    }
+
+    /* Component Sandbox Preview */
+    .sandbox-preview {
+      background: #0b0612;
+      border: 1px solid var(--border-glass);
+      border-radius: 18px;
+      padding: 1.75rem;
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .btn-violet-primary {
+      background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+      color: #ffffff;
+      padding: 0.75rem 1.6rem;
+      border-radius: var(--radius-pill);
       font-weight: 800;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 25px var(--accent-glow);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: fit-content;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-violet-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 35px rgba(168, 85, 247, 0.55);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+      color: #000000;
+      padding: 0.75rem 1.6rem;
+      border-radius: var(--radius-pill);
+      font-weight: 800;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 25px var(--gold-glow);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: fit-content;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 35px rgba(212, 175, 55, 0.55);
+    }
+
+    .erp-card {
+      background: rgba(168, 85, 247, 0.05);
+      border: 1px solid var(--border-highlight);
+      border-radius: 16px;
+      padding: 1.25rem;
+    }
+
+    .status-dot-violet {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #a855f7;
+      box-shadow: 0 0 10px #a855f7;
+      animation: pulse-violet 2s infinite;
+    }
+
+    @keyframes pulse-violet {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    /* Hub Card */
+    .hub-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border-glass);
+      border-radius: 18px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s;
+    }
+
+    .hub-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 15px 35px -5px rgba(168, 85, 247, 0.2);
+    }
+
+    .hub-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 0.75rem;
-      font-family: var(--font-mono);
     }
 
-    .flow-step-title {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 0.5rem;
-    }
-
-    .flow-step-desc {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .flow-step-tag {
-      margin-top: 0.75rem;
-      display: inline-block;
+    .hub-badge {
       font-size: 0.7rem;
+      font-weight: 800;
       font-family: var(--font-mono);
-      font-weight: 600;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-pill);
     }
 
-    .tag-blue { background: rgba(56, 189, 248, 0.12); color: #38bdf8; }
-    .tag-purple { background: rgba(168, 85, 247, 0.12); color: #c084fc; }
-    .tag-green { background: rgba(16, 185, 129, 0.12); color: #34d399; }
-    .tag-amber { background: rgba(245, 158, 11, 0.12); color: #fbbf24; }
+    .hub-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
 
-    /* INTERACTIVE CALCULATOR */
+    .hub-id-box {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 0.5rem 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0.75rem 0;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+
+    /* Calculator */
     .calc-box {
-      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.95));
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      background: rgba(11, 6, 18, 0.8);
+      border: 1.5px solid var(--border-highlight);
       border-radius: 20px;
-      padding: 2.25rem;
-      margin-bottom: 3.5rem;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+      padding: 1.75rem;
+      margin-top: 1.5rem;
     }
 
     .calc-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
-      margin-top: 1.5rem;
-    }
-
-    @media (max-width: 820px) {
-      .calc-grid { grid-template-columns: 1fr; }
-    }
-
-    .calc-controls {
-      display: flex;
-      flex-direction: column;
+      grid-template-columns: 1fr 1fr 1.2fr;
       gap: 1.25rem;
+      align-items: end;
     }
+
+    @media (max-width: 800px) { .calc-grid { grid-template-columns: 1fr; } }
 
     .calc-input-group label {
       display: block;
-      font-size: 0.85rem;
-      color: #cbd5e1;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.4rem;
       font-weight: 600;
-      margin-bottom: 0.5rem;
     }
 
-    .calc-slider-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .calc-slider {
-      flex: 1;
-      height: 8px;
-      border-radius: 4px;
-      background: #1e293b;
-      outline: none;
-      -webkit-appearance: none;
-      cursor: pointer;
-    }
-
-    .calc-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: var(--cyan);
-      cursor: pointer;
-      box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
-    }
-
-    .calc-num-display {
-      font-family: var(--font-mono);
-      font-size: 1.1rem;
-      font-weight: 700;
+    .calc-input {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-glass);
+      border-radius: 10px;
+      padding: 0.7rem 0.9rem;
       color: #fff;
-      min-width: 80px;
-      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border 0.2s;
     }
+
+    .calc-input:focus { border-color: var(--accent); }
 
     .calc-results {
-      background: rgba(2, 6, 23, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
-      padding: 1.5rem;
+      background: rgba(168, 85, 247, 0.1);
+      border: 1px solid var(--border-highlight);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      justify-content: center;
-    }
-
-    .calc-result-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .calc-result-row:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .calc-result-row .res-label {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .calc-result-row .res-val {
-      font-family: var(--font-mono);
-      font-size: 1.1rem;
-      font-weight: 700;
-    }
-
-    .calc-result-row .res-val.safe { color: #34d399; }
-    .calc-result-row .res-val.free { color: var(--cyan); }
-
-    /* QUOTA COMPARISON TABLE */
-    .table-container {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
-      overflow: hidden;
-      margin-bottom: 3.5rem;
-      backdrop-filter: blur(10px);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-    }
-
-    th, td {
-      padding: 1rem 1.25rem;
-      font-size: 0.88rem;
-    }
-
-    th {
-      background: rgba(2, 6, 23, 0.75);
-      color: #cbd5e1;
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 0.75rem;
-      letter-spacing: 0.05em;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    td {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      color: #94a3b8;
-    }
-
-    tr:last-child td { border-bottom: none; }
-
-    tr:hover td {
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .feature-name {
-      color: #fff;
-      font-weight: 600;
-    }
-
-    .val-spark {
-      font-family: var(--font-mono);
-      color: #e2e8f0;
-    }
-
-    .val-ethio {
-      font-family: var(--font-mono);
-      color: #34d399;
-      font-weight: 700;
-    }
-
-    .val-margin {
-      color: var(--cyan);
-      font-weight: 700;
-      font-family: var(--font-mono);
-    }
-
-    /* ACTION BUTTONS & FOOTER */
-    .blueprint-footer {
-      text-align: center;
-      margin-top: 4rem;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      color: #64748b;
-      font-size: 0.85rem;
-    }
-
-    .btn-group {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
       gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      cursor: pointer;
     }
 
-    .btn-primary {
-      background: #0284c7;
-      color: #fff;
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
+    /* Code blocks */
+    pre code {
+      display: block;
+      padding: 1rem;
+      background: #08040d;
+      border-radius: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: #c084fc;
+      overflow-x: auto;
+      border: 1px solid var(--border-glass);
     }
 
-    .btn-primary:hover {
-      background: #0369a1;
-      transform: translateY(-2px);
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #a855f7;
+      color: #ffffff;
+      padding: 0.75rem 1.4rem;
+      border-radius: var(--radius-pill);
+      font-weight: 800;
+      font-size: 0.85rem;
+      box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1000;
+      pointer-events: none;
     }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.05);
-      color: #cbd5e1;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-    }
+    #toast.show { transform: translateY(0); opacity: 1; }
   </style>
 </head>
 <body>
 
   <div class="container">
-    
-    <!-- HEADER -->
-    <header class="blueprint-header">
-      <div class="pill-badge">
-        <span class="dot"></span>
-        Zero Cost &bull; Zero Billing Risk &bull; Infinite Scale
+    <!-- Top Navigation -->
+    <header class="pillar-nav">
+      <a href="index.html" class="back-link">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>Master Blueprint Hub</span>
+      </a>
+
+      <div class="pillar-tabs">
+        <a href="teme-astegni.html" class="pillar-tab gold" target="_blank">🚀 Open Client Portal</a>
+        <a href="teme-admin.html" class="pillar-tab active-violet" target="_blank">🛡️ Admin Cockpit</a>
+        <a href="teme_astegni_master_architecture.html" class="pillar-tab">Documentation</a>
+        <a href="teme-exam-app.html" class="pillar-tab">Exam App</a>
       </div>
-      <h1>Teme-Astegni System Architecture</h1>
-      <p class="subtitle">
-        How our engineered Multi-Tier &amp; Dual-Vault architecture enables national scale across Ethiopia with 100% Free Quotas ($0.00/month) and zero risk of unexpected billing.
-      </p>
     </header>
 
-    <!-- EXECUTIVE METRICS -->
-    <div class="exec-banner">
-      <div class="exec-stat green">
-        <div class="label">Monthly Cloud Cost</div>
-        <div class="value">$0.00 / Mo</div>
-        <div class="note">Spark Free Plan &bull; No Credit Card Required</div>
+    <!-- Hero Banner -->
+    <div class="hero-banner">
+      <div>
+        <div class="hero-badge">Architecture Blueprint • Production v137</div>
+        <h1 class="hero-title">Teme Astegni: <span>Zero-Cost Ecosystem</span></h1>
+        <p style="color: var(--text-secondary); max-width: 720px; margin-top: 0.5rem; font-size: 1.05rem;">
+          Enterprise Management &amp; Software Architecture Manual for Ethiopia's high-speed home tutoring dispatch engine. Operates at <strong>$0.00 fixed infrastructure cost</strong> using a 4-tier storage topology, 4 dedicated Telegram hubs, and an automated commission engine.
+        </p>
       </div>
-      <div class="exec-stat">
-        <div class="label">Daily Free Reads</div>
-        <div class="value">50,000 / Day</div>
-        <div class="note">Resets to zero automatically every 24 hours</div>
-      </div>
-      <div class="exec-stat amber">
-        <div class="label">Hot-Desk Storage Utilization</div>
-        <div class="value">&lt; 0.5%</div>
-        <div class="note">Strict Zero-Base64 sanitizer in client app</div>
-      </div>
-      <div class="exec-stat indigo">
-        <div class="label">Cold Vault Capacity</div>
-        <div class="value">10,000,000 Cells</div>
-        <div class="note">Google Sheets + Unlimited Telegram Media Cloud</div>
+
+      <div class="color-spec-orb" onclick="copyText('v137-production')" title="Click to copy Version">
+        <span>v137-LIVE</span>
+        <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.2rem;">Copy Version</span>
       </div>
     </div>
 
-    <!-- THE 4 TIERS -->
-    <div class="section-title">
-      <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-      The 4 Pillars of the Zero-Cost Architecture
-    </div>
-
-    <div class="tiers-grid">
-      <!-- TIER 1 -->
-      <div class="tier-card tier-1">
-        <span class="tier-badge">Tier 1 &bull; Edge Client</span>
-        <div class="tier-title">Client PWA &amp; Service Worker</div>
-        <div class="tier-role">
-          Runs directly in parents' and tutors' web browsers. Pre-caches all assets (HTML, CSS, JS, fonts) with offline support.
-        </div>
-        <ul class="tier-spec-list">
-          <li class="tier-spec-item"><span>Hosting:</span> <strong>GitHub Pages CDN</strong></li>
-          <li class="tier-spec-item"><span>Monthly Cost:</span> <strong>$0.00 (Unlimited)</strong></li>
-          <li class="tier-spec-item"><span>Asset Caching:</span> <strong>Service Worker v128</strong></li>
-          <li class="tier-spec-item"><span>Storage Impact:</span> <strong>0 MB Cloud Storage</strong></li>
-        </ul>
+    <!-- Section 1: Founder Vision & Plain-English Meaning -->
+    <div class="grid-2">
+      <div class="glass-card">
+        <h3 style="font-size: 1.25rem; font-weight: 850; margin-bottom: 0.75rem; color: var(--accent);">
+          ⚡ Founder's Architecture Vision (Ashenafi)
+        </h3>
+        <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.65;">
+          "I engineered Teme Astegni as a university student founder without foreign venture capital or expensive monthly server bills. By combining <strong>Telegram's unlimited cloud vault</strong> for high-resolution ID photos with <strong>Cloud Firestore</strong> for sub-100ms lightweight metadata matching, we eliminated database bloat entirely. Our student dispatchers coordinate live pairings in minutes while our fixed server overhead remains exactly <strong>$0.00 ETB forever</strong>."
+        </p>
       </div>
 
-      <!-- TIER 2 -->
-      <div class="tier-card tier-2">
-        <span class="tier-badge">Tier 2 &bull; Hot Desk</span>
-        <div class="tier-title">Cloud Firestore Hot-Desk</div>
-        <div class="tier-role">
-          Stores only active, pending registrations awaiting admin review and match making. Kept ultra-lean via Zero-Base64 stripping.
-        </div>
-        <ul class="tier-spec-list">
-          <li class="tier-spec-item"><span>Free Quota:</span> <strong>1,000 MB Storage</strong></li>
-          <li class="tier-spec-item"><span>Record Weight:</span> <strong>~0.8 KB - 1.2 KB</strong></li>
-          <li class="tier-spec-item"><span>Daily Limit:</span> <strong>50K Reads / 20K Writes</strong></li>
-          <li class="tier-spec-item"><span>Daily Reset:</span> <strong>Every 24h at 00:00 UTC</strong></li>
-        </ul>
-      </div>
-
-      <!-- TIER 3 -->
-      <div class="tier-card tier-3">
-        <span class="tier-badge">Tier 3 &bull; Media Vault</span>
-        <div class="tier-title">Telegram Supergroup Media Vault</div>
-        <div class="tier-role">
-          Receives and stores high-resolution photos: Kebele IDs, Student IDs, University Diplomas, and Grade Reports via Bot API.
-        </div>
-        <ul class="tier-spec-list">
-          <li class="tier-spec-item"><span>Storage Quota:</span> <strong>100% Free &amp; Unlimited</strong></li>
-          <li class="tier-spec-item"><span>Parents Channel:</span> <strong>-1003632707084</strong></li>
-          <li class="tier-spec-item"><span>Tutors Channel:</span> <strong>-1003847953259</strong></li>
-          <li class="tier-spec-item"><span>Audit Logs:</span> <strong>-1003882772592 (Ops)</strong></li>
-        </ul>
-      </div>
-
-      <!-- TIER 4 -->
-      <div class="tier-card tier-4">
-        <span class="tier-badge">Tier 4 &bull; Cold Vault</span>
-        <div class="tier-title">Google Sheets Executive Ledger</div>
-        <div class="tier-role">
-          Permanent cold repository for matched, completed, or closed contracts. Connected via Google Apps Script serverless webhook.
-        </div>
-        <ul class="tier-spec-list">
-          <li class="tier-spec-item"><span>Capacity:</span> <strong>10,000,000 Cells Free</strong></li>
-          <li class="tier-spec-item"><span>Lead Capacity:</span> <strong>Over 250,000 Records</strong></li>
-          <li class="tier-spec-item"><span>Export:</span> <strong>Excel, CSV, PDF 1-Click</strong></li>
-          <li class="tier-spec-item"><span>Sync Method:</span> <strong>One-Click Webhook Push</strong></li>
-        </ul>
+      <div class="glass-card">
+        <h3 style="font-size: 1.25rem; font-weight: 850; margin-bottom: 0.75rem; color: var(--gold);">
+          💡 Plain-English Summary (How It Works)
+        </h3>
+        <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.65;">
+          Think of Teme Astegni like an ultra-lean airport control tower. Heavy student documents and parent payment screenshots bypass our database directly into private Telegram vault rooms. Our dispatch team reviews the applicants on their phones, pairs parents with top-GPA campus tutors, and deposits commission revenues straight into the master business ledger.
+        </p>
       </div>
     </div>
 
-    <!-- THE DUAL-VAULT LIFECYCLE FLOWCHART -->
-    <div class="flowchart-section">
-      <div class="section-title">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-        Data Lifecycle: From Registration to Cold Vault Pruning
+    <!-- Section 2: Four Connected Telegram Hubs -->
+    <div class="glass-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+        <div>
+          <h3 style="font-size: 1.3rem; font-weight: 850; color: #fff;">Four Dedicated Telegram Hubs (@ethio21_official_bot)</h3>
+          <p style="color: var(--text-secondary); font-size: 0.85rem;">All dispatch notifications, document audits, and payment verifications flow into these verified channels.</p>
+        </div>
+        <div style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.35rem 0.85rem; border-radius: var(--radius-pill); background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); font-size: 0.78rem; font-weight: 700; color: #34d399;">
+          <span class="status-dot-violet" style="background: #10b981; box-shadow: 0 0 10px #10b981;"></span>
+          <span>Bot Dispatcher Active &bull; Verified Production Channels</span>
+        </div>
       </div>
-      <p style="color: var(--text-muted); font-size: 0.9rem;">
-        Follow each registration step to understand how the system guarantees infinite scale without ever exceeding free limits:
+
+      <div class="grid-4">
+        <!-- HUB 1 -->
+        <div class="hub-card">
+          <div>
+            <div class="hub-header">
+              <span class="hub-badge" style="background: rgba(56, 189, 248, 0.15); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.3);">KYC &amp; TUTORS</span>
+              <span style="font-size: 0.7rem; color: var(--text-secondary);">Channel #1</span>
+            </div>
+            <div class="hub-title">
+              <span>🎓</span> Tutors Hub
+            </div>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
+              Vetted university applicant profiles, student IDs, Fayda verification, and GPA records.
+            </p>
+          </div>
+          <div>
+            <div class="hub-id-box">
+              <span style="color: var(--text-secondary);">Chat ID</span>
+              <strong style="color: var(--cyan); cursor: pointer;" onclick="copyText('-1004410573815')" title="Click to copy">-1004410573815</strong>
+            </div>
+            <a href="https://t.me/+uXdWxrADSSc3ZTc0" target="_blank" class="btn-violet-primary" style="width: 100%; justify-content: center; font-size: 0.78rem; padding: 0.55rem;">
+              <span>Join Tutors Hub</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- HUB 2 -->
+        <div class="hub-card">
+          <div>
+            <div class="hub-header">
+              <span class="hub-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3);">CLIENT REQUESTS</span>
+              <span style="font-size: 0.7rem; color: var(--text-secondary);">Channel #2</span>
+            </div>
+            <div class="hub-title">
+              <span>👨‍👩‍👧</span> Parents Hub
+            </div>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
+              Inbound tutor requests from parents across Addis Ababa: subjects, child grade, and location.
+            </p>
+          </div>
+          <div>
+            <div class="hub-id-box">
+              <span style="color: var(--text-secondary);">Chat ID</span>
+              <strong style="color: #fbbf24; cursor: pointer;" onclick="copyText('-1003632707084')" title="Click to copy">-1003632707084</strong>
+            </div>
+            <a href="https://t.me/+zH2Ov8OM20YzYTc0" target="_blank" class="btn-violet-primary" style="width: 100%; justify-content: center; font-size: 0.78rem; padding: 0.55rem; background: linear-gradient(135deg, #f59e0b, #d97706);">
+              <span>Join Parents Hub</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- HUB 3 -->
+        <div class="hub-card">
+          <div>
+            <div class="hub-header">
+              <span class="hub-badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3);">FINANCIAL KYC</span>
+              <span style="font-size: 0.7rem; color: var(--text-secondary);">Channel #3</span>
+            </div>
+            <div class="hub-title">
+              <span>💳</span> Parents Payments
+            </div>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
+              Deposit screenshots, Telebirr/CBE receipts, and registration fees sent by families.
+            </p>
+          </div>
+          <div>
+            <div class="hub-id-box">
+              <span style="color: var(--text-secondary);">Chat ID</span>
+              <strong style="color: #34d399; cursor: pointer;" onclick="copyText('-1004427351129')" title="Click to copy">-1004427351129</strong>
+            </div>
+            <a href="https://t.me/+1nwxhaCqN9M4Y2E0" target="_blank" class="btn-violet-primary" style="width: 100%; justify-content: center; font-size: 0.78rem; padding: 0.55rem; background: linear-gradient(135deg, #10b981, #059669);">
+              <span>Join Payments Hub</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- HUB 4 -->
+        <div class="hub-card">
+          <div>
+            <div class="hub-header">
+              <span class="hub-badge" style="background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3);">ACTIVE CONTRACTS</span>
+              <span style="font-size: 0.7rem; color: var(--text-secondary);">Channel #4</span>
+            </div>
+            <div class="hub-title">
+              <span>🤝</span> Toutor Matches
+            </div>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
+              Official matchmaking dispatches, confirmed pairings, trial contracts, and commission terms.
+            </p>
+          </div>
+          <div>
+            <div class="hub-id-box">
+              <span style="color: var(--text-secondary);">Chat ID</span>
+              <strong style="color: #c084fc; cursor: pointer;" onclick="copyText('-5225265679')" title="Click to copy">-5225265679</strong>
+            </div>
+            <a href="https://t.me/+u0IdrknHN5A4ZGI0" target="_blank" class="btn-violet-primary" style="width: 100%; justify-content: center; font-size: 0.78rem; padding: 0.55rem;">
+              <span>Join Matches Hub</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Revenue & Commission Architecture (With Live Calculator) -->
+    <div class="glass-card">
+      <div class="hero-badge" style="color: var(--gold); border-color: rgba(212, 175, 55, 0.4); background: rgba(212, 175, 55, 0.1);">
+        BUSINESS OPERATIONS MODEL
+      </div>
+      <h3 style="font-size: 1.35rem; font-weight: 850; color: #fff; margin-bottom: 0.35rem;">
+        Exact Commission Formula: 30% Month 1 &bull; 200 ETB / Student Month 2+
+      </h3>
+      <p style="color: var(--text-secondary); font-size: 0.9rem;">
+        The system uses a transparent, highly profitable compound model. Month 1 pays 30% of total agreed fee; Month 2 onwards charges 200 ETB per matched child (not per tutor).
       </p>
 
-      <div class="flow-steps-grid">
-        <!-- STEP 1 -->
-        <div class="flow-step">
-          <div class="flow-step-num">1</div>
-          <div class="flow-step-title">Form Submission</div>
-          <div class="flow-step-desc">
-            Parent or Tutor fills the form on <code>teme-astegni.html</code>. High-res photo files are converted to blobs in memory.
-          </div>
-          <span class="flow-step-tag tag-blue">Edge Client</span>
-        </div>
-
-        <!-- STEP 2 -->
-        <div class="flow-step">
-          <div class="flow-step-num">2</div>
-          <div class="flow-step-title">Telegram Media Offload</div>
-          <div class="flow-step-desc">
-            The photo blob is sent directly to Telegram Supergroup via Bot API. <strong>Zero photo bytes ever touch Firestore!</strong>
-          </div>
-          <span class="flow-step-tag tag-purple">Telegram Cloud</span>
-        </div>
-
-        <!-- STEP 3 -->
-        <div class="flow-step">
-          <div class="flow-step-num">3</div>
-          <div class="flow-step-title">Strict Sanitizer &amp; Hot-Desk</div>
-          <div class="flow-step-desc">
-            <code>sanitizeDocumentForCloud()</code> strips all base64 data. Only lightweight text metadata (~1 KB) is saved to Firestore.
-          </div>
-          <span class="flow-step-tag tag-amber">Firestore Hot Desk</span>
-        </div>
-
-        <!-- STEP 4 -->
-        <div class="flow-step">
-          <div class="flow-step-num">4</div>
-          <div class="flow-step-title">Admin Review &amp; Match</div>
-          <div class="flow-step-desc">
-            Admin views lead on <code>teme-admin.html</code>, inspects credentials with Universal Lightbox, and matches tutor with parent.
-          </div>
-          <span class="flow-step-tag tag-blue">Admin Operations</span>
-        </div>
-
-        <!-- STEP 5 -->
-        <div class="flow-step">
-          <div class="flow-step-num">5</div>
-          <div class="flow-step-title">Vault &amp; Prune Hot-Desk</div>
-          <div class="flow-step-desc">
-            Admin clicks <code>🛡️ Vault &amp; Free Space</code>. Deal is saved into Google Sheet and deleted from Firestore hot-desk.
-          </div>
-          <span class="flow-step-tag tag-green">Zero-Cost Pruning</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- INTERACTIVE CAPACITY CALCULATOR -->
-    <div class="calc-box">
-      <div class="section-title">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-        Interactive National Capacity &amp; Free Quota Simulator
-      </div>
-      <p style="color: var(--text-muted); font-size: 0.9rem;">
-        Adjust the daily registrations to observe how Firestore storage and daily read/write quotas remain safely under the free ceiling:
-      </p>
-
-      <div class="calc-grid">
-        <div class="calc-controls">
-          <div class="calc-input-group">
-            <label for="daily-leads">Expected New Leads Per Day:</label>
-            <div class="calc-slider-wrapper">
-              <input type="range" id="daily-leads" class="calc-slider" min="10" max="2500" step="10" value="150" oninput="updateSimulation()">
-              <span id="daily-leads-val" class="calc-num-display">150</span>
-            </div>
-          </div>
-
-          <div class="calc-input-group">
-            <label for="active-pipeline">Simultaneous Active Hot-Desk Pipeline (Unmatched Leads):</label>
-            <div class="calc-slider-wrapper">
-              <input type="range" id="active-pipeline" class="calc-slider" min="20" max="1000" step="10" value="120" oninput="updateSimulation()">
-              <span id="active-pipeline-val" class="calc-num-display">120</span>
-            </div>
-          </div>
-
-          <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 10px; padding: 1rem; font-size: 0.8rem; color: #94a3b8;">
-            💡 <strong>Why this never overflows:</strong> Matched leads are regularly archived to Google Sheet via <code>🛡️ Vault &amp; Free Space</code>, keeping the active hot-desk pipeline under 500 leads year-round!
-          </div>
-        </div>
-
-        <div class="calc-results">
-          <div class="calc-result-row">
-            <span class="res-label">Firestore Hot-Desk Storage Used:</span>
-            <span id="res-storage" class="res-val safe">0.14 MB / 1,000 MB (0.014%)</span>
-          </div>
-          <div class="calc-result-row">
-            <span class="res-label">Free Storage Remaining:</span>
-            <span id="res-storage-rem" class="res-val safe">999.86 MB (99.98% Free)</span>
-          </div>
-          <div class="calc-result-row">
-            <span class="res-label">Daily Writes Required:</span>
-            <span id="res-writes" class="res-val safe">150 / 20,000 (0.75%)</span>
-          </div>
-          <div class="calc-result-row">
-            <span class="res-label">Daily Reads Required:</span>
-            <span id="res-reads" class="res-val safe">3,600 / 50,000 (7.2%)</span>
-          </div>
-          <div class="calc-result-row">
-            <span class="res-label">Calculated Cloud Cost:</span>
-            <span class="res-val free">$0.00 / Month (100% Free Forever)</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- COMPARISON TABLE -->
-    <div class="section-title">
-      <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
-      Google Cloud Free Limits vs. Teme-Astegni Consumption
-    </div>
-
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Resource Type</th>
-            <th>Google Spark Free Quota</th>
-            <th>Reset Frequency</th>
-            <th>Teme-Astegni Consumption</th>
-            <th>Safety Margin</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="feature-name">Cloud Storage</td>
-            <td class="val-spark">1,000 MB (1.0 GB)</td>
-            <td>Permanent Cap</td>
-            <td class="val-ethio">&lt; 15 MB (Strict Pruned)</td>
-            <td class="val-margin">98.5% Headroom</td>
-          </tr>
-          <tr>
-            <td class="feature-name">Document Reads</td>
-            <td class="val-spark">50,000 reads / day</td>
-            <td>Resets Daily (00:00 UTC)</td>
-            <td class="val-ethio">~1,500 &ndash; 4,000 / day</td>
-            <td class="val-margin">92.0% Headroom</td>
-          </tr>
-          <tr>
-            <td class="feature-name">Document Writes</td>
-            <td class="val-spark">20,000 writes / day</td>
-            <td>Resets Daily (00:00 UTC)</td>
-            <td class="val-ethio">~100 &ndash; 350 / day</td>
-            <td class="val-margin">98.2% Headroom</td>
-          </tr>
-          <tr>
-            <td class="feature-name">Document Deletes</td>
-            <td class="val-spark">20,000 deletes / day</td>
-            <td>Resets Daily (00:00 UTC)</td>
-            <td class="val-ethio">~50 &ndash; 200 / day</td>
-            <td class="val-margin">99.0% Headroom</td>
-          </tr>
-          <tr>
-            <td class="feature-name">Egress Network Traffic</td>
-            <td class="val-spark">10 GB / month</td>
-            <td>Resets Monthly</td>
-            <td class="val-ethio">&lt; 0.25 GB / month</td>
-            <td class="val-margin">97.5% Headroom</td>
-          </tr>
-          <tr>
-            <td class="feature-name">Media / Images Storage</td>
-            <td class="val-spark">5 GB (Firebase Storage)</td>
-            <td>Offloaded to Telegram</td>
-            <td class="val-ethio">0.0 MB on Firebase (Offloaded)</td>
-            <td class="val-margin">100.0% Offloaded</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- ======================================================== -->
-    <!-- TEAM SIZING & GROWTH PROGRESSION (CAMPUS FOUNDER MODEL)  -->
-    <!-- ======================================================== -->
-    <div class="flowchart-section" style="border-color: rgba(212, 175, 55, 0.3); background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(4, 7, 17, 0.95));">
-      <div class="section-title" style="color: #f5e7b2;">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="2" style="stroke: #d4af37;"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
-        Team Sizing &amp; Growth Progression: Campus Student Startup Model
-      </div>
-      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
-        As a university student founder balancing classes and study time, hire high-achieving classmates from your campus. Zero office rent, flexible part-time shifts, and maximum operational efficiency:
-      </p>
-
-      <!-- EXECUTIVE VISUAL GROWTH PIPELINE (REPLACING OLD ASCII TREE) -->
-      <div style="background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.08), rgba(2, 6, 23, 0.95)); border: 1.5px solid rgba(212, 175, 55, 0.35); border-radius: 16px; padding: 1.75rem; margin-bottom: 2rem; box-shadow: 0 12px 35px rgba(0,0,0,0.6);">
-        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 1rem;">
-          <div style="display: flex; align-items: center; gap: 0.75rem;">
-            <div style="width: 42px; height: 42px; border-radius: 10px; background: rgba(212, 175, 55, 0.15); display: flex; align-items: center; justify-content: center; font-size: 1.3rem;">🏛️</div>
-            <div>
-              <h3 style="font-size: 1.15rem; font-weight: 800; color: #f5e7b2; margin: 0;">Team Sizing &amp; Growth Hierarchy</h3>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">University student part-time operational framework</p>
-            </div>
-          </div>
-          <span style="font-size: 0.75rem; font-family: var(--font-mono); color: #34d399; background: rgba(52, 211, 153, 0.12); padding: 0.3rem 0.75rem; border-radius: 20px; border: 1px solid rgba(52, 211, 153, 0.3); font-weight: 700;">
-            100% Zero Fixed Office Rent
-          </span>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;">
-          <!-- PHASE 1 ITEM -->
-          <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
-                <span style="font-size: 0.7rem; font-weight: 800; font-family: var(--font-mono); color: var(--cyan); background: rgba(56, 189, 248, 0.15); padding: 0.2rem 0.55rem; border-radius: 6px;">PHASE 1: BOOTSTRAP</span>
-                <span style="font-size: 0.8rem; color: #fff; font-weight: 700;">1 &ndash; 50 Families</span>
-              </div>
-              <div style="font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-                <span style="color: #34d399;">●</span> 3 Campus Student Staff
-              </div>
-              <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem;">Shifts: 2&ndash;3 hrs/day around university lectures</p>
-              
-              <div style="display: flex; flex-direction: column; gap: 0.6rem;">
-                <div style="background: rgba(2, 6, 23, 0.6); padding: 0.6rem 0.75rem; border-radius: 8px; border-left: 3px solid var(--cyan);">
-                  <div style="font-size: 0.8rem; font-weight: 700; color: #e2e8f0; display: flex; align-items: center; gap: 0.4rem;">
-                    <span>📞</span> Lead Parent Dispatcher
-                  </div>
-                  <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem;">Takes incoming calls &amp; matches verified tutors</div>
-                </div>
-                <div style="background: rgba(2, 6, 23, 0.6); padding: 0.6rem 0.75rem; border-radius: 8px; border-left: 3px solid #34d399;">
-                  <div style="font-size: 0.8rem; font-weight: 700; color: #e2e8f0; display: flex; align-items: center; gap: 0.4rem;">
-                    <span>🛡️</span> Tutor Vetting Officer
-                  </div>
-                  <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem;">Validates Student IDs, Fayda, &amp; CGPA &ge; 3.00</div>
-                </div>
-                <div style="background: rgba(2, 6, 23, 0.6); padding: 0.6rem 0.75rem; border-radius: 8px; border-left: 3px solid #fbbf24;">
-                  <div style="font-size: 0.8rem; font-weight: 700; color: #e2e8f0; display: flex; align-items: center; gap: 0.4rem;">
-                    <span>💳</span> Billing &amp; Renewal Specialist
-                  </div>
-                  <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem;">Telebirr/CBE receipts &amp; Month 2+ renewals</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- PHASE 2 ITEM -->
-          <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
-                <span style="font-size: 0.7rem; font-weight: 800; font-family: var(--font-mono); color: #fbbf24; background: rgba(245, 158, 11, 0.15); padding: 0.2rem 0.55rem; border-radius: 6px;">PHASE 2: REGIONAL SCALE</span>
-                <span style="font-size: 0.8rem; color: #fff; font-weight: 700;">50 &ndash; 200 Families</span>
-              </div>
-              <div style="font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-                <span style="color: #fbbf24;">●</span> 5 Campus Student Staff
-              </div>
-              <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem;">Full-day coverage with two flexible lecture shifts</p>
-              
-              <div style="display: flex; flex-direction: column; gap: 0.6rem;">
-                <div style="background: rgba(2, 6, 23, 0.6); padding: 0.6rem 0.75rem; border-radius: 8px; border-left: 3px solid #fbbf24;">
-                  <div style="font-size: 0.8rem; font-weight: 700; color: #e2e8f0; display: flex; align-items: center; gap: 0.4rem;">
-                    <span>👥</span> 2 Parent Dispatchers
-                  </div>
-                  <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem;">Shift A (8 AM&ndash;1 PM) &bull; Shift B (1 PM&ndash;6 PM)</div>
-                </div>
-                <div style="background: rgba(2, 6, 23, 0.6); padding: 0.6rem 0.75rem; border-radius: 8px; border-left: 3px solid #38bdf8;">
-                  <div style="font-size: 0.8rem; font-weight: 700; color: #e2e8f0; display: flex; align-items: center; gap: 0.4rem;">
-                    <span>📢</span> 2 Campus Ambassadors
-                  </div>
-                  <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem;">Engineering &amp; Science dorm recruiters</div>
-                </div>
-                <div style="background: rgba(2, 6, 23, 0.6); padding: 0.6rem 0.75rem; border-radius: 8px; border-left: 3px solid #34d399;">
-                  <div style="font-size: 0.8rem; font-weight: 700; color: #e2e8f0; display: flex; align-items: center; gap: 0.4rem;">
-                    <span>🎯</span> 1 Operations &amp; Care Lead
-                  </div>
-                  <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem;">Quality assurance &amp; dispute resolutions</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- PHASE 3 ITEM -->
-          <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
-                <span style="font-size: 0.7rem; font-weight: 800; font-family: var(--font-mono); color: #c084fc; background: rgba(168, 85, 247, 0.15); padding: 0.2rem 0.55rem; border-radius: 6px;">PHASE 3: MULTI-CAMPUS</span>
-                <span style="font-size: 0.8rem; color: #fff; font-weight: 700;">200 &ndash; 500+ Families</span>
-              </div>
-              <div style="font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-                <span style="color: #c084fc;">●</span> 8 to 10 Campus Student Staff
-              </div>
-              <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem;">Distributed across premier Ethiopian universities</p>
-              
-              <div style="display: flex; flex-direction: column; gap: 0.6rem;">
-                <div style="background: rgba(2, 6, 23, 0.6); padding: 0.6rem 0.75rem; border-radius: 8px; border-left: 3px solid #c084fc;">
-                  <div style="font-size: 0.8rem; font-weight: 700; color: #e2e8f0; display: flex; align-items: center; gap: 0.4rem;">
-                    <span>🎓</span> AAU Campus Leads (4-Kilo / 5-Kilo)
-                  </div>
-                  <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem;">Addis Ababa central tutoring network</div>
-                </div>
-                <div style="background: rgba(2, 6, 23, 0.6); padding: 0.6rem 0.75rem; border-radius: 8px; border-left: 3px solid #38bdf8;">
-                  <div style="font-size: 0.8rem; font-weight: 700; color: #e2e8f0; display: flex; align-items: center; gap: 0.4rem;">
-                    <span>⚡</span> AASTU &amp; ASTU Tech Leads
-                  </div>
-                  <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem;">STEM &amp; Engineering high-GPA tutor pipeline</div>
-                </div>
-                <div style="background: rgba(2, 6, 23, 0.6); padding: 0.6rem 0.75rem; border-radius: 8px; border-left: 3px solid #34d399;">
-                  <div style="font-size: 0.8rem; font-weight: 700; color: #e2e8f0; display: flex; align-items: center; gap: 0.4rem;">
-                    <span>🌍</span> Regional Campus Branches
-                  </div>
-                  <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem;">Hawassa, Jimma, Bahir Dar University chapters</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- DETAILED 3-CARD PROGRESSION TILES -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-        
-        <!-- CARD 1 -->
-        <div style="background: rgba(2, 6, 23, 0.6); border: 1px solid rgba(56, 189, 248, 0.25); border-top: 4px solid var(--cyan); border-radius: 14px; padding: 1.5rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-            <span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--cyan); font-weight: 800; background: rgba(56, 189, 248, 0.12); padding: 0.2rem 0.55rem; border-radius: 4px;">PHASE 1</span>
-            <strong style="color: #fff; font-family: var(--font-mono); font-size: 1rem;">1 &ndash; 50 Families</strong>
-          </div>
-          <h4 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 0.35rem;">Bootstrap (3 Student Staff)</h4>
-          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.85rem;">Fits around university class schedules without interference:</p>
-          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.8rem; color: #cbd5e1;">
-            <li><strong>• Dispatcher:</strong> 1:00 PM &ndash; 4:00 PM (Calls parents).</li>
-            <li><strong>• Tutor Screener:</strong> 4:00 PM &ndash; 7:00 PM (Vets IDs).</li>
-            <li><strong>• Billing Officer:</strong> Evenings (Tracks payments).</li>
-            <li><span style="color: #34d399; font-weight: 700;">★ Economics:</span> ~15,000 &ndash; 35,000 ETB/mo revenue (30% Month 1 + 200 ETB/match Month 2+).</li>
-          </ul>
-        </div>
-
-        <!-- CARD 2 -->
-        <div style="background: rgba(2, 6, 23, 0.6); border: 1px solid rgba(251, 191, 36, 0.25); border-top: 4px solid var(--amber); border-radius: 14px; padding: 1.5rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-            <span style="font-size: 0.72rem; font-family: var(--font-mono); color: #fbbf24; font-weight: 800; background: rgba(245, 158, 11, 0.12); padding: 0.2rem 0.55rem; border-radius: 4px;">PHASE 2</span>
-            <strong style="color: #fff; font-family: var(--font-mono); font-size: 1rem;">50 &ndash; 200 Families</strong>
-          </div>
-          <h4 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 0.35rem;">Regional Scale (5 Student Staff)</h4>
-          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.85rem;">Full-day coverage across morning and afternoon lecture shifts:</p>
-          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.8rem; color: #cbd5e1;">
-            <li><strong>• 2 Dispatchers:</strong> 8 AM&ndash;1 PM &amp; 1 PM&ndash;6 PM.</li>
-            <li><strong>• 2 Ambassadors:</strong> Dorm-based recruiters.</li>
-            <li><strong>• 1 Operations Lead:</strong> Solves parent disputes.</li>
-            <li><span style="color: #34d399; font-weight: 700;">★ Economics:</span> ~45,000 &ndash; 120,000 ETB/mo revenue (30% Month 1 + 200 ETB/student Month 2+).</li>
-          </ul>
-        </div>
-
-        <!-- CARD 3 -->
-        <div style="background: rgba(2, 6, 23, 0.6); border: 1px solid rgba(168, 85, 247, 0.25); border-top: 4px solid #a855f7; border-radius: 14px; padding: 1.5rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-            <span style="font-size: 0.72rem; font-family: var(--font-mono); color: #c084fc; font-weight: 800; background: rgba(168, 85, 247, 0.12); padding: 0.2rem 0.55rem; border-radius: 4px;">PHASE 3</span>
-            <strong style="color: #fff; font-family: var(--font-mono); font-size: 1rem;">200 &ndash; 500+ Families</strong>
-          </div>
-          <h4 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 0.35rem;">Multi-Campus (8&ndash;10 Staff)</h4>
-          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.85rem;">Campus branch leads across Ethiopian federal universities:</p>
-          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.8rem; color: #cbd5e1;">
-            <li><strong>• AAU (4-Kilo / 5-Kilo):</strong> Addis Ababa flagship.</li>
-            <li><strong>• AASTU &amp; ASTU:</strong> STEM &amp; engineering hubs.</li>
-            <li><strong>• Regional Branches:</strong> Hawassa, Jimma, Bahir Dar.</li>
-            <li><span style="color: #34d399; font-weight: 700;">★ Economics:</span> ~150,000 &ndash; 350,000+ ETB/mo recurring revenue (200 ETB/student match).</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- FOUNDER'S DAILY 4-STEP COMMAND SYSTEM -->
-      <div style="background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 1.25rem 1.5rem;">
-        <h4 style="color: var(--gold-light); font-size: 1rem; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.45rem;">
-          <span>👑</span> Ashenafi's Rule: How to Manage Them All While Attending University Classes
+      <!-- Interactive Calculator -->
+      <div class="calc-box">
+        <h4 style="font-size: 1rem; color: #f5e7b2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+          <span>🧮</span> Live Match Commission Calculator
         </h4>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 0.85rem; font-size: 0.82rem; color: #cbd5e1;">
-          <div><strong style="color: #38bdf8;">1. 15-Min Nightly Standup:</strong> 9:00 PM Telegram voice check on daily calls and verified tutors.</div>
-          <div><strong style="color: #fbbf24;">2. Permission Lockdown:</strong> Only Ashenafi holds the Owner Master PIN and Google Sheets access.</div>
-          <div><strong style="color: #34d399;">3. Performance Pay:</strong> 1,800 ETB stipend + 150&ndash;200 ETB bonus per matched family.</div>
-          <div><strong style="color: #f87171;">4. Exam 50/50 Rotation:</strong> Half the team covers shifts while the other sits midterms/finals.</div>
+        <div class="calc-grid">
+          <div class="calc-input-group">
+            <label for="calc-fee">Total Agreed Tutor Fee (ETB / Month):</label>
+            <input type="number" id="calc-fee" class="calc-input" value="3000" step="500" min="500" oninput="calculateCommission()">
+          </div>
+          <div class="calc-input-group">
+            <label for="calc-students">Children Taught in Household:</label>
+            <input type="number" id="calc-students" class="calc-input" value="2" min="1" max="10" oninput="calculateCommission()">
+          </div>
+          <div class="calc-results">
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem;">
+              <span style="color: var(--text-secondary);">Month 1 Commission (30%):</span>
+              <strong style="color: var(--cyan);" id="res-m1">900 ETB</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem;">
+              <span style="color: var(--text-secondary);">Month 2+ Commission (200 ETB/child):</span>
+              <strong style="color: #34d399;" id="res-m2">400 ETB / mo</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.4rem;">
+              <span style="color: var(--gold); font-weight: 700;">6-Month Total Lifetime Value:</span>
+              <strong style="color: var(--gold);" id="res-ltv">2,900 ETB</strong>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- OPERATIONAL PROTOCOL GUIDE -->
-    <div class="flowchart-section">
-      <div class="section-title">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-        Founder &amp; Coordinator Quick Operational Rules
+    <!-- Section 4: 4-Tier Zero-Cost Storage Topology -->
+    <div class="glass-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+        <div>
+          <h3 style="font-size: 1.3rem; font-weight: 850; color: #fff;">Four-Tier Zero-Cost Storage Topology</h3>
+          <p style="color: var(--text-secondary); font-size: 0.85rem;">How Teme Astegni eliminates database storage bills completely.</p>
+        </div>
+        <span style="font-size: 0.75rem; font-family: var(--font-mono); color: #34d399; background: rgba(52, 211, 153, 0.12); padding: 0.3rem 0.75rem; border-radius: 20px; border: 1px solid rgba(52, 211, 153, 0.3); font-weight: 700;">
+          100% Free Tier Compliant
+        </span>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
-        <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 1.25rem;">
-          <h4 style="color: var(--cyan); margin-bottom: 0.5rem; font-size: 1rem;">1. Safe National Promotion</h4>
-          <p style="font-size: 0.84rem; color: #94a3b8;">
-            You can share and promote Teme-Astegni nationally on TikTok, Telegram, Facebook, and Instagram with 100% confidence. Even if 1,000 parents register in a single day, writes remain under 5% of the free quota.
-          </p>
+
+      <div class="grid-4">
+        <!-- TIER 1 -->
+        <div class="hub-card" style="border-top: 4px solid var(--cyan);">
+          <div>
+            <span class="hub-badge" style="background: rgba(56, 189, 248, 0.15); color: var(--cyan);">TIER 1 &bull; EDGE CLIENT</span>
+            <div class="hub-title" style="margin-top: 0.6rem;">📱 Client PWA</div>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
+              Downsamples photos in-browser to 1200px @ 75% quality. Shrinks 6MB photos to 180KB, saving 95% bandwidth.
+            </p>
+          </div>
+          <div class="hub-id-box" style="margin-top: 1rem;">
+            <span>Offload Ratio</span>
+            <strong style="color: var(--cyan);">95.0% Reduced</strong>
+          </div>
         </div>
-        <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 1.25rem;">
-          <h4 style="color: var(--amber); margin-bottom: 0.5rem; font-size: 1rem;">2. Use "Vault &amp; Free Space"</h4>
-          <p style="font-size: 0.84rem; color: #94a3b8;">
-            When a student-tutor match is completed or a lead is resolved, click <code>🛡️ Vault &amp; Free Space</code>. This sends the deal to Google Sheet and purges it from Firestore, keeping storage near zero.
-          </p>
+
+        <!-- TIER 2 -->
+        <div class="hub-card" style="border-top: 4px solid #fbbf24;">
+          <div>
+            <span class="hub-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">TIER 2 &bull; REALTIME HOT DESK</span>
+            <div class="hub-title" style="margin-top: 0.6rem;">⚡ Cloud Firestore</div>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
+              Holds ~1 KB JSON text only. Zero photo strings. Syncs matches in under 100ms within Google's free 50k writes/day.
+            </p>
+          </div>
+          <div class="hub-id-box" style="margin-top: 1rem;">
+            <span>Payload Size</span>
+            <strong style="color: #fbbf24;">&lt; 1.2 KB / doc</strong>
+          </div>
         </div>
-        <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 1.25rem;">
-          <h4 style="color: var(--emerald); margin-bottom: 0.5rem; font-size: 1rem;">3. Zero Unexpected Charges</h4>
-          <p style="font-size: 0.84rem; color: #94a3b8;">
-            Google Firebase Spark plan is a "hard-capped" plan. It cannot bill your bank account or credit card. If a free limit is ever reached, it pauses until midnight (00:00 UTC) when it automatically resets to 0.
-          </p>
+
+        <!-- TIER 3 -->
+        <div class="hub-card" style="border-top: 4px solid #a855f7;">
+          <div>
+            <span class="hub-badge" style="background: rgba(168, 85, 247, 0.15); color: #c084fc;">TIER 3 &bull; PERMANENT VAULT</span>
+            <div class="hub-title" style="margin-top: 0.6rem;">📸 Telegram Vault</div>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
+              Unlimited free permanent media hosting for Fayda IDs, Grade Reports, and Payment receipts via Bot API.
+            </p>
+          </div>
+          <div class="hub-id-box" style="margin-top: 1rem;">
+            <span>Storage Cost</span>
+            <strong style="color: #c084fc;">$0.00 Unlimited</strong>
+          </div>
+        </div>
+
+        <!-- TIER 4 -->
+        <div class="hub-card" style="border-top: 4px solid #34d399;">
+          <div>
+            <span class="hub-badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">TIER 4 &bull; MASTER LEDGER</span>
+            <div class="hub-title" style="margin-top: 0.6rem;">📗 Google Sheets</div>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
+              Permanent audited revenue archive (<code>Matches_Ledger</code>). Holds only finalized paid pairings.
+            </p>
+          </div>
+          <div class="hub-id-box" style="margin-top: 1rem;">
+            <span>Format</span>
+            <strong style="color: #34d399;">Cloud Spreadsheet</strong>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- FOOTER & QUICK NAVIGATION -->
-    <footer class="blueprint-footer">
-      <p>&copy; 2026 Teme-Astegni &bull; Ethio21 Technologies &bull; Engineered by Ashenafi Girma</p>
-      <div class="btn-group">
-        <a href="teme-admin.html" class="btn btn-primary">Go to Admin Dashboard</a>
-        <a href="teme-astegni.html" class="btn btn-secondary">Go to Registration Portal</a>
-        <a href="https://t.me/+zH2Ov8OM20YzYTc0" target="_blank" rel="noopener" class="btn btn-secondary">Parents Telegram Group</a>
-        <a href="https://t.me/+B1gN_P8r7X85YjE0" target="_blank" rel="noopener" class="btn btn-secondary">Tutors Telegram Group</a>
+    <!-- Section 5: Team Sizing & Growth Progression -->
+    <div class="glass-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+        <div>
+          <h3 style="font-size: 1.3rem; font-weight: 850; color: #fff;">Team Sizing &amp; Growth Progression: Campus Student Model</h3>
+          <p style="color: var(--text-secondary); font-size: 0.85rem;">Zero office rent, part-time student shifts, and high operational velocity.</p>
+        </div>
       </div>
-    </footer>
 
+      <div class="grid-3">
+        <!-- PHASE 1 -->
+        <div class="hub-card" style="border-top: 4px solid var(--cyan);">
+          <div>
+            <div class="hub-header">
+              <span class="hub-badge" style="background: rgba(56, 189, 248, 0.15); color: var(--cyan);">PHASE 1: BOOTSTRAP</span>
+              <strong style="color: #fff; font-family: var(--font-mono); font-size: 0.85rem;">1 &ndash; 50 Families</strong>
+            </div>
+            <div class="hub-title" style="color: #fff;">3 Campus Student Staff</div>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 0.75rem;">Part-time shifts (2–3 hrs/day) around lectures:</p>
+            <div style="display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.78rem; color: #cbd5e1;">
+              <div>• <strong>Lead Dispatcher:</strong> Calls parents &amp; matches tutors.</div>
+              <div>• <strong>Vetting Officer:</strong> Checks Student IDs &amp; CGPAs &ge; 3.00.</div>
+              <div>• <strong>Billing Specialist:</strong> Telebirr/CBE receipts.</div>
+            </div>
+          </div>
+          <div class="hub-id-box" style="margin-top: 1rem;">
+            <span>Monthly Revenue</span>
+            <strong style="color: #34d399;">~15k &ndash; 35k ETB</strong>
+          </div>
+        </div>
+
+        <!-- PHASE 2 -->
+        <div class="hub-card" style="border-top: 4px solid #fbbf24;">
+          <div>
+            <div class="hub-header">
+              <span class="hub-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">PHASE 2: REGIONAL SCALE</span>
+              <strong style="color: #fff; font-family: var(--font-mono); font-size: 0.85rem;">50 &ndash; 200 Families</strong>
+            </div>
+            <div class="hub-title" style="color: #fff;">5 Campus Student Staff</div>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 0.75rem;">Full-day coverage across morning/afternoon shifts:</p>
+            <div style="display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.78rem; color: #cbd5e1;">
+              <div>• <strong>2 Dispatchers:</strong> Shift A (8AM–1PM) &amp; Shift B (1PM–6PM).</div>
+              <div>• <strong>2 Ambassadors:</strong> Engineering &amp; Science dorms.</div>
+              <div>• <strong>1 Operations Lead:</strong> Dispute &amp; trial resolution.</div>
+            </div>
+          </div>
+          <div class="hub-id-box" style="margin-top: 1rem;">
+            <span>Monthly Revenue</span>
+            <strong style="color: #34d399;">~45k &ndash; 120k ETB</strong>
+          </div>
+        </div>
+
+        <!-- PHASE 3 -->
+        <div class="hub-card" style="border-top: 4px solid #a855f7;">
+          <div>
+            <div class="hub-header">
+              <span class="hub-badge" style="background: rgba(168, 85, 247, 0.15); color: #c084fc;">PHASE 3: MULTI-CAMPUS</span>
+              <strong style="color: #fff; font-family: var(--font-mono); font-size: 0.85rem;">200 &ndash; 500+ Families</strong>
+            </div>
+            <div class="hub-title" style="color: #fff;">8 to 10 Campus Staff</div>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 0.75rem;">Campus branch leads across Ethiopian universities:</p>
+            <div style="display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.78rem; color: #cbd5e1;">
+              <div>• <strong>AAU Leads:</strong> 4-Kilo &amp; 5-Kilo flagship chapters.</div>
+              <div>• <strong>Tech Leads:</strong> AASTU &amp; ASTU STEM network.</div>
+              <div>• <strong>Regional Chapters:</strong> Hawassa, Jimma, Bahir Dar.</div>
+            </div>
+          </div>
+          <div class="hub-id-box" style="margin-top: 1rem;">
+            <span>Monthly Revenue</span>
+            <strong style="color: #34d399;">~150k &ndash; 350k+ ETB</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 6: Document & KYC Verification Matrix -->
+    <div class="glass-card">
+      <h3 style="font-size: 1.3rem; font-weight: 850; color: #fff; margin-bottom: 0.25rem;">Multi-Tier Identity &amp; Academic KYC Engine</h3>
+      <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.25rem;">Strict verification standards safeguarding Ethiopian households.</p>
+
+      <div class="grid-4">
+        <div class="erp-card">
+          <div style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--cyan); margin-bottom: 0.35rem;">MOSIP CRYPTO QR</div>
+          <h4 style="font-size: 0.95rem; color: #fff; margin-bottom: 0.3rem;">Fayda National ID</h4>
+          <p style="font-size: 0.75rem; color: var(--text-secondary);">Decodes offline via BarcodeDetector / jsQR with fallback to OCR on <code>FAYDA-XXXX-XXXX</code>.</p>
+        </div>
+        <div class="erp-card">
+          <div style="font-size: 0.75rem; font-family: var(--font-mono); color: #fbbf24; margin-bottom: 0.35rem;">RESIDENCE KYC</div>
+          <h4 style="font-size: 0.95rem; color: #fff; margin-bottom: 0.3rem;">Kebele Resident ID</h4>
+          <p style="font-size: 0.75rem; color: var(--text-secondary);">Requires front &amp; back photos, local sub-city stamp clarity, and manual dispatcher review.</p>
+        </div>
+        <div class="erp-card">
+          <div style="font-size: 0.75rem; font-family: var(--font-mono); color: #c084fc; margin-bottom: 0.35rem;">TRAVEL EXCEPTION</div>
+          <h4 style="font-size: 0.95rem; color: #fff; margin-bottom: 0.3rem;">Ethiopian Passport</h4>
+          <p style="font-size: 0.75rem; color: var(--text-secondary);">Bio-data page mandatory; back page optional. Validates Machine Readable Zone (MRZ).</p>
+        </div>
+        <div class="erp-card">
+          <div style="font-size: 0.75rem; font-family: var(--font-mono); color: #34d399; margin-bottom: 0.35rem;">ACADEMIC AUDIT</div>
+          <h4 style="font-size: 0.95rem; color: #fff; margin-bottom: 0.3rem;">Student ID &amp; GPA</h4>
+          <p style="font-size: 0.75rem; color: var(--text-secondary);">Official university grade report. <strong>Minimum CGPA &ge; 3.00 required</strong> for home tutoring approval.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 7: Live Component Sandbox & Production API Specs -->
+    <div class="glass-card">
+      <h3 style="font-size: 1.25rem; font-weight: 850; margin-bottom: 0.25rem;">Production API Specs &amp; Core Code</h3>
+      <p style="color: var(--text-secondary); font-size: 0.85rem;">Standard implementations for Telegram photo dispatch and edge canvas compression.</p>
+
+      <div class="sandbox-preview">
+        <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+          <a href="https://t.me/ethio21_official_bot" target="_blank" class="btn-violet-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+            <span>Test @ethio21_official_bot Dispatch</span>
+          </a>
+
+          <div style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.4rem 0.85rem; border-radius: var(--radius-pill); background: rgba(168, 85, 247, 0.1); border: 1px solid var(--border-highlight); font-size: 0.78rem; font-weight: 700; color: #a855f7;">
+            <span class="status-dot-violet"></span>
+            <span>Firestore Config: astegni_system_config/public_config Synced</span>
+          </div>
+        </div>
+
+        <!-- Code Snippet -->
+        <pre><code>// 1. Client-Side 75% Image Compression (Edge Layer)
+async function compressImage(file, maxDimension = 1200, quality = 0.75) {
+  const bitmap = await createImageBitmap(file);
+  const canvas = document.createElement('canvas');
+  let { width, height } = bitmap;
+  if (width > maxDimension || height > maxDimension) {
+    if (width > height) { height = Math.round((height * maxDimension) / width); width = maxDimension; }
+    else { width = Math.round((width * maxDimension) / height); height = maxDimension; }
+  }
+  canvas.width = width; canvas.height = height;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(bitmap, 0, 0, width, height);
+  return new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', quality));
+}
+
+// 2. Direct Telegram Vault Dispatch
+async function sendToTelegramVault(chatId, blob, caption) {
+  const formData = new FormData();
+  formData.append('chat_id', chatId);
+  formData.append('photo', blob, 'receipt.jpg');
+  formData.append('caption', caption);
+  formData.append('parse_mode', 'HTML');
+  return fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+    method: 'POST', body: formData
+  });
+}</code></pre>
+      </div>
+    </div>
   </div>
 
+  <div id="toast">Copied to clipboard!</div>
+
   <script>
-    function updateSimulation() {
-      const dailyLeads = parseInt(document.getElementById('daily-leads').value, 10);
-      const activePipeline = parseInt(document.getElementById('active-pipeline').value, 10);
-
-      document.getElementById('daily-leads-val').innerText = dailyLeads.toLocaleString();
-      document.getElementById('active-pipeline-val').innerText = activePipeline.toLocaleString();
-
-      // Calculation logic
-      // Average record size with Zero-Base64 sanitizer: 1.2 KB
-      const storageBytes = activePipeline * 1200;
-      const storageMB = (storageBytes / (1024 * 1024)).toFixed(3);
-      const storagePct = ((storageMB / 1000) * 100).toFixed(3);
-      const storageRemMB = (1000 - parseFloat(storageMB)).toFixed(2);
-
-      // Writes: 1 write per submission + 0.3 updates = ~1.3 writes per lead
-      const writes = Math.round(dailyLeads * 1.3);
-      const writesPct = ((writes / 20000) * 100).toFixed(2);
-
-      // Reads: Admin loads dashboard ~6 times/day with snapshot limit 250
-      const reads = Math.round((activePipeline * 8) + (dailyLeads * 2));
-      const readsPct = ((reads / 50000) * 100).toFixed(2);
-
-      document.getElementById('res-storage').innerText = `${storageMB} MB / 1,000 MB (${storagePct}%)`;
-      document.getElementById('res-storage-rem').innerText = `${storageRemMB} MB (${(100 - parseFloat(storagePct)).toFixed(2)}% Free)`;
-      document.getElementById('res-writes').innerText = `${writes.toLocaleString()} / 20,000 (${writesPct}%)`;
-      document.getElementById('res-reads').innerText = `${reads.toLocaleString()} / 50,000 (${readsPct}%)`;
+    function copyText(str) {
+      navigator.clipboard.writeText(str).then(() => {
+        const t = document.getElementById('toast');
+        t.textContent = `Copied ${str} to clipboard!`;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2000);
+      });
     }
 
-    // Initial simulation run
-    updateSimulation();
+    function calculateCommission() {
+      const fee = parseFloat(document.getElementById('calc-fee').value) || 0;
+      const students = parseInt(document.getElementById('calc-students').value) || 1;
+      
+      const m1 = Math.round(fee * 0.30);
+      const m2 = students * 200;
+      const ltv = m1 + (m2 * 5); // Month 1 + 5 months recurring
+
+      document.getElementById('res-m1').textContent = `${m1.toLocaleString()} ETB`;
+      document.getElementById('res-m2').textContent = `${m2.toLocaleString()} ETB / mo`;
+      document.getElementById('res-ltv').textContent = `${ltv.toLocaleString()} ETB`;
+    }
   </script>
 </body>
 </html>
