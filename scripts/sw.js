@@ -3,7 +3,7 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v136-parents-payments-and-toutor-matches-verified';
+const CACHE_NAME = 'ethio21-v137-payments-and-matches-fully-activated';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

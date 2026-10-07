@@ -2213,7 +2213,7 @@
         <div class="form-group">
           <label class="form-label">Telegram "Toutor Matches" Group Chat ID</label>
           <div style="display: flex; gap: 0.5rem;">
-            <input type="text" id="tg-matches-chat-input" class="form-ctrl" placeholder="e.g. -100xxxxxxxxxx (Numeric Chat ID)">
+            <input type="text" id="tg-matches-chat-input" class="form-ctrl" value="-5225265679" placeholder="e.g. -100xxxxxxxxxx (Numeric Chat ID)">
             <a href="https://t.me/+u0IdrknHN5A4ZGI0" target="_blank" rel="noopener" class="btn-act" style="background: rgba(36, 161, 222, 0.25); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); text-decoration: none; display: flex; align-items: center; white-space: nowrap; font-size: 0.8rem; font-weight: 800; padding: 0.5rem 0.85rem; border-radius: 10px;">
               ✈️ Open Group ↗
             </a>
@@ -7510,18 +7510,14 @@ function rowsToJson(sheet) {
       const parentsChat = (rawParents.includes('zH2Ov8OM20YzYTc0') || rawParents.startsWith('http') || rawParents.includes('/+')) ? '-1003632707084' : rawParents;
       const rawPayments = (document.getElementById('tg-payments-chat-input')?.value || '').trim() || '-1004427351129';
       const paymentsChat = (rawPayments.includes('1nwxhaCqN9M4Y2E0') || rawPayments === '+1nwxhaCqN9M4Y2E0' || rawPayments.startsWith('http') || rawPayments.includes('/+') || !rawPayments) ? '-1004427351129' : rawPayments;
-      const rawMatches = (document.getElementById('tg-matches-chat-input')?.value || '').trim();
-      const matchesChat = (rawMatches.startsWith('http') || rawMatches.includes('/+')) ? '' : rawMatches;
+      const rawMatches = (document.getElementById('tg-matches-chat-input')?.value || '').trim() || '-5225265679';
+      const matchesChat = (rawMatches.includes('u0IdrknHN5A4ZGI0') || rawMatches === '+u0IdrknHN5A4ZGI0' || rawMatches.startsWith('http') || rawMatches.includes('/+') || !rawMatches) ? '-5225265679' : rawMatches;
 
       localStorage.setItem('teme_astegni_tg_bot_token', rawToken);
       localStorage.setItem('teme_astegni_tg_chat_id', chatId);
       localStorage.setItem('teme_astegni_tg_parents_chat_id', parentsChat);
       localStorage.setItem('teme_astegni_tg_payments_chat_id', paymentsChat);
-      if (matchesChat) {
-        localStorage.setItem('teme_astegni_tg_matches_chat_id', matchesChat);
-      } else {
-        localStorage.removeItem('teme_astegni_tg_matches_chat_id');
-      }
+      localStorage.setItem('teme_astegni_tg_matches_chat_id', matchesChat);
 
       if (typeof db !== 'undefined' && db) {
         db.collection('astegni_system_config').doc('public_config').set({
@@ -7529,13 +7525,13 @@ function rowsToJson(sheet) {
           tutorsChatId: chatId,
           parentsChatId: parentsChat,
           paymentsChatId: paymentsChat,
-          matchesChatId: matchesChat || chatId,
+          matchesChatId: matchesChat,
           updatedAt: new Date().toISOString()
         }, { merge: true }).then(() => {
           console.log("Synced telegram config to cloud public_config");
         }).catch(e => console.warn(e));
       }
-      alert(`✅ Telegram Settings saved!\n\n• Tutors Group ➔ ${chatId}\n• Parents Group ➔ ${parentsChat}\n• Parents Payments ➔ ${paymentsChat}\n• Tutor Matches ➔ ${matchesChat || '(Routes to Tutors Group until linked)'}`);
+      alert(`✅ Telegram Settings saved!\n\n• Tutors Group ➔ ${chatId}\n• Parents Group ➔ ${parentsChat}\n• Parents Payments ➔ ${paymentsChat}\n• Tutor Matches ➔ ${matchesChat}`);
     }
 
     async function autoDetectTelegramChats(btnEl) {
@@ -7630,8 +7626,8 @@ function rowsToJson(sheet) {
       const rawPay = localStorage.getItem('teme_astegni_tg_payments_chat_id') || document.getElementById('tg-payments-chat-input')?.value.trim() || '-1004427351129';
       const paymentsChat = (rawPay.includes('1nwxhaCqN9M4Y2E0') || rawPay === '+1nwxhaCqN9M4Y2E0' || rawPay.startsWith('http') || rawPay.includes('/+') || !rawPay) ? '-1004427351129' : rawPay;
       
-      const rawMatch = localStorage.getItem('teme_astegni_tg_matches_chat_id') || document.getElementById('tg-matches-chat-input')?.value.trim() || '';
-      const matchesChat = (rawMatch.startsWith('http') || rawMatch.includes('/+')) ? '' : rawMatch;
+      const rawMatch = localStorage.getItem('teme_astegni_tg_matches_chat_id') || document.getElementById('tg-matches-chat-input')?.value.trim() || '-5225265679';
+      const matchesChat = (rawMatch.includes('u0IdrknHN5A4ZGI0') || rawMatch === '+u0IdrknHN5A4ZGI0' || rawMatch.startsWith('http') || rawMatch.includes('/+') || !rawMatch) ? '-5225265679' : rawMatch;
 
       const results = [];
 
@@ -8060,8 +8056,8 @@ function rowsToJson(sheet) {
         document.getElementById('tg-payments-chat-input').value = savedPaymentsChat;
       }
 
-      const rawMatchesChat = localStorage.getItem('teme_astegni_tg_matches_chat_id') || '';
-      const savedMatchesChat = (rawMatchesChat.startsWith('http') || rawMatchesChat.includes('/+')) ? '' : rawMatchesChat;
+      const rawMatchesChat = localStorage.getItem('teme_astegni_tg_matches_chat_id') || '-5225265679';
+      const savedMatchesChat = (rawMatchesChat.includes('u0IdrknHN5A4ZGI0') || rawMatchesChat === '+u0IdrknHN5A4ZGI0' || rawMatchesChat === '' || rawMatchesChat.startsWith('http') || rawMatchesChat.includes('/+')) ? '-5225265679' : rawMatchesChat;
       if (document.getElementById('tg-matches-chat-input')) {
         document.getElementById('tg-matches-chat-input').value = savedMatchesChat;
       }
