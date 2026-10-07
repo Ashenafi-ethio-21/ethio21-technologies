@@ -2565,8 +2565,8 @@
             <div style="margin-bottom: 0.85rem;">
               <button type="button" class="btn-act" onclick="openFaydaLiveScanner()" style="width: 100%; background: linear-gradient(135deg, rgba(14, 165, 233, 0.22), rgba(16, 185, 129, 0.22)); border: 1.5px solid #38bdf8; color: #fff; padding: 0.75rem 1rem; border-radius: 12px; font-weight: 850; font-size: 0.88rem; display: flex; align-items: center; justify-content: center; gap: 0.6rem; cursor: pointer; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.25); transition: transform 0.15s ease;">
                 <span style="font-size: 1.35rem;">📷</span>
-                <span>Scan Fayda National ID with Camera (በካሜራ ስካን አድርግ)</span>
-                <span style="font-size: 0.68rem; background: #10b981; color: #fff; padding: 0.15rem 0.5rem; border-radius: 6px; font-weight: 800; text-transform: uppercase;">Instant e-KYC</span>
+                <span id="btn-scan-fayda-text">Scan Fayda National ID with Camera (በካሜራ ስካን አድርግ)</span>
+                <span id="btn-scan-fayda-badge" style="font-size: 0.68rem; background: #10b981; color: #fff; padding: 0.15rem 0.5rem; border-radius: 6px; font-weight: 800; text-transform: uppercase;">Instant e-KYC</span>
               </button>
             </div>
 
@@ -2577,7 +2577,7 @@
                   <span>Official ID Document Type *</span>
                 </label>
                 <div class="modern-classic-select-wrap">
-                  <select id="t_govt_id_type" class="modern-classic-select">
+                  <select id="t_govt_id_type" class="modern-classic-select" onchange="handleGovtIdTypeChange()">
                     <option value="National Fayda ID" selected>🪪 National Fayda ID (የኢትዮጵያ ዲጂታል ፋይዳ መታወቂያ)</option>
                     <option value="Kebele ID">🏛️ Kebele Resident ID (የቀበሌ የነዋሪነት መታወቂያ)</option>
                     <option value="Passport">🛂 Passport (የኢትዮጵያ ፓስፖርት)</option>
@@ -2640,8 +2640,8 @@
                 <input type="file" id="t_govt_back_file" accept="image/*" style="display:none;" onchange="handleGovtIdPhotoPick(event, 'preview-t-back', 'status-t-back', 't-back-clarity')">
                 <input type="file" id="t_govt_back_cam" accept="image/*" capture="environment" style="display:none;" onchange="syncAndHandlePhoto(this, 't_govt_back_file', 'preview-t-back', 'status-t-back', 't-back-clarity', 'govtBack')">
                 <div style="font-size: 1.3rem; margin-bottom: 0.15rem;">🔄</div>
-                <div style="font-size: 0.78rem; font-weight: 800; color: #fff;">ID Back Photo *</div>
-                <div style="font-size: 0.68rem; color: #94a3b8; margin-bottom: 0.35rem;">የኋላ ገጽ (Clear &amp; visible)</div>
+                <div id="title-id-back" style="font-size: 0.78rem; font-weight: 800; color: #fff;">ID Back Photo *</div>
+                <div id="subtitle-id-back" style="font-size: 0.68rem; color: #94a3b8; margin-bottom: 0.35rem;">የኋላ ገጽ (Clear &amp; visible)</div>
                 <div style="display: flex; gap: 0.3rem; justify-content: center; position: relative; z-index: 5;">
                   <button type="button" onclick="document.getElementById('t_govt_back_cam').click()" style="background: rgba(16, 185, 129, 0.22); border: 1px solid #10b981; color: #34d399; padding: 0.22rem 0.45rem; border-radius: 6px; font-size: 0.68rem; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 0.2rem;">
                     <span>📸</span> <span>ካሜራ</span>
@@ -3278,12 +3278,12 @@
 
       <!-- Header -->
       <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.35rem;">
-        <span style="font-size: 1.5rem;">🪪</span>
-        <h3 style="font-size: 1.15rem; font-weight: 850; color: #fff; margin: 0;">
+        <span id="fayda-scanner-icon" style="font-size: 1.5rem;">🪪</span>
+        <h3 id="fayda-scanner-title" style="font-size: 1.15rem; font-weight: 850; color: #fff; margin: 0;">
           Fayda National ID Scanner
         </h3>
       </div>
-      <p style="font-size: 0.76rem; color: #94a3b8; margin: 0 0 1rem 0; line-height: 1.4;">
+      <p id="fayda-scanner-desc" style="font-size: 0.76rem; color: #94a3b8; margin: 0 0 1rem 0; line-height: 1.4;">
         Hold your National ID or QR code steady inside the frame.<br>
         <span style="color: #38bdf8;">መታወቂያዎን በክፈፉ ውስጥ ቀጥ አድርገው ያሳዩ</span>
       </p>
@@ -7025,6 +7025,11 @@
       if (typeof initUniversityDropdown === 'function') {
         initUniversityDropdown();
       }
+
+      // Synchronize Government ID document labels with selected type & language
+      if (typeof handleGovtIdTypeChange === 'function') {
+        handleGovtIdTypeChange();
+      }
     }
 
     // Copy Phone Number Helper
@@ -7894,13 +7899,56 @@
       if (modal) modal.style.display = 'flex';
       const resCard = document.getElementById('fayda-scan-result-card');
       if (resCard) resCard.style.display = 'none';
+
+      const govtType = document.getElementById('t_govt_id_type')?.value || 'National Fayda ID';
+      const isAm = (currentLang === 'am');
+      const iconEl = document.getElementById('fayda-scanner-icon');
+      const titleEl = document.getElementById('fayda-scanner-title');
+      const descEl = document.getElementById('fayda-scanner-desc');
       const indicator = document.getElementById('fayda-scan-indicator');
-      if (indicator) {
-        indicator.innerText = (currentLang === 'am')
-          ? '⚡ መታወቂያውን ወይም የQR ኮዱን በመፈለግ ላይ...'
-          : '⚡ Searching for ID / QR Code...';
-        indicator.style.color = '#38bdf8';
+
+      if (govtType === 'Passport') {
+        if (iconEl) iconEl.innerText = '🛂';
+        if (titleEl) titleEl.innerText = isAm ? 'የፓስፖርት ፎቶ ማንሻ ካሜራ' : 'Passport Camera';
+        if (descEl) descEl.innerHTML = isAm 
+          ? 'የፓስፖርትዎን ዋና ገጽ (ፎቶና ስም ያለበትን) በክፈፉ ውስጥ ያሳዩ<br><span style="color: #38bdf8;">ካሜራውን አረጋግተው "Capture Photo" የሚለውን ይጫኑ</span>'
+          : 'Hold your Passport bio-page steady inside the frame.<br><span style="color: #38bdf8;">Hold steady and tap "Capture Photo"</span>';
+        if (indicator) {
+          indicator.innerText = isAm ? '📸 የፓስፖርት ገጽ በመጠባበቅ ላይ...' : '📸 Framing Passport Bio-Page...';
+          indicator.style.color = '#38bdf8';
+        }
+      } else if (govtType === 'Kebele ID') {
+        if (iconEl) iconEl.innerText = '🏛️';
+        if (titleEl) titleEl.innerText = isAm ? 'የቀበሌ መታወቂያ ካሜራ' : 'Kebele Resident ID Camera';
+        if (descEl) descEl.innerHTML = isAm 
+          ? 'የቀበሌ መታወቂያዎን በክፈፉ ውስጥ ቀጥ አድርገው ያሳዩ<br><span style="color: #38bdf8;">ካሜራውን አረጋግተው "Capture Photo" የሚለውን ይጫኑ</span>'
+          : 'Hold your Kebele ID card steady inside the frame.<br><span style="color: #38bdf8;">Hold steady and tap "Capture Photo"</span>';
+        if (indicator) {
+          indicator.innerText = isAm ? '📸 የቀበሌ መታወቂያ በመጠባበቅ ላይ...' : '📸 Framing Kebele ID Card...';
+          indicator.style.color = '#38bdf8';
+        }
+      } else if (govtType === 'Driver License') {
+        if (iconEl) iconEl.innerText = '🚗';
+        if (titleEl) titleEl.innerText = isAm ? 'የመንጃ ፈቃድ ካሜራ' : 'Driver\'s License Camera';
+        if (descEl) descEl.innerHTML = isAm 
+          ? 'የመንጃ ፈቃድዎን በክፈፉ ውስጥ ቀጥ አድርገው ያሳዩ<br><span style="color: #38bdf8;">ካሜራውን አረጋግተው "Capture Photo" የሚለውን ይጫኑ</span>'
+          : 'Hold your Driver\'s License steady inside the frame.<br><span style="color: #38bdf8;">Hold steady and tap "Capture Photo"</span>';
+        if (indicator) {
+          indicator.innerText = isAm ? '📸 የመንጃ ፈቃድ በመጠባበቅ ላይ...' : '📸 Framing Driver\'s License...';
+          indicator.style.color = '#38bdf8';
+        }
+      } else {
+        if (iconEl) iconEl.innerText = '🪪';
+        if (titleEl) titleEl.innerText = isAm ? 'የፋይዳ ዲጂታል መታወቂያ ስካነር' : 'Fayda National ID Scanner';
+        if (descEl) descEl.innerHTML = isAm 
+          ? 'መታወቂያዎን ወይም QR ኮዱን በክፈፉ ውስጥ ቀጥ አድርገው ያሳዩ<br><span style="color: #38bdf8;">በቀጥታ በራሱ ያነበዋል ወይም "Capture Photo" ይጫኑ</span>'
+          : 'Hold your National ID or QR code steady inside the frame.<br><span style="color: #38bdf8;">Auto-detects QR code or tap "Capture Photo"</span>';
+        if (indicator) {
+          indicator.innerText = isAm ? '⚡ መታወቂያውን ወይም የQR ኮዱን በመፈለግ ላይ...' : '⚡ Searching for ID / QR Code...';
+          indicator.style.color = '#38bdf8';
+        }
       }
+
       await startFaydaCamera();
     }
 
@@ -8100,6 +8148,103 @@
       }
     }
 
+    // Dynamic Government ID Selection Handler (Fayda, Kebele, Passport, Driver's License)
+    function handleGovtIdTypeChange() {
+      const select = document.getElementById('t_govt_id_type');
+      const type = select ? select.value : 'National Fayda ID';
+      const scanBtnText = document.getElementById('btn-scan-fayda-text');
+      const scanBtnBadge = document.getElementById('btn-scan-fayda-badge');
+      const titleBack = document.getElementById('title-id-back');
+      const subtitleBack = document.getElementById('subtitle-id-back');
+      const boxBack = document.getElementById('box-t-id-back');
+      const boxGovtP = document.getElementById('i18n-box-govt-p');
+      const lblGovt = document.getElementById('i18n-f-tgovt');
+      const isAm = (currentLang === 'am');
+
+      if (type === 'Passport') {
+        if (scanBtnText) scanBtnText.innerText = isAm ? '📸 የፓስፖርት ፎቶ በካሜራ አንሳ' : '📸 Snap Passport Photo with Camera';
+        if (scanBtnBadge) {
+          scanBtnBadge.innerText = isAm ? 'ነጠላ ገጽ' : 'Single Page';
+          scanBtnBadge.style.background = '#0284c7';
+        }
+        if (titleBack) titleBack.innerText = isAm ? 'የፓስፖርት ገጽ 2 / ቪዛ (አማራጭ)' : 'Passport Page 2 / Visa (Optional)';
+        if (subtitleBack) subtitleBack.innerText = isAm ? 'አማራጭ - የፊት ገጽ ብቻ በቂ ነው' : 'Optional - Bio-data page is sufficient';
+        if (boxBack) {
+          boxBack.style.opacity = '0.85';
+          boxBack.style.borderColor = 'rgba(148, 163, 184, 0.3)';
+        }
+        if (boxGovtP) {
+          boxGovtP.innerText = isAm 
+            ? 'የፓስፖርትዎን ዋና ገጽ (ፎቶ እና ስም ያለበትን) ያያይዙ። ሁለተኛ ገጽ ካስፈለገዎት እንደ አማራጭ ማያያዝ ይችላሉ።' 
+            : 'Upload the main photo and identity page of your Ethiopian Passport. Page 2 is completely optional.';
+        }
+        if (lblGovt) {
+          lblGovt.innerText = isAm ? '🛂 ህጋዊ ፓስፖርት (MANDATORY) *' : '🛂 Ethiopian Passport (MANDATORY) *';
+        }
+      } else if (type === 'Kebele ID') {
+        if (scanBtnText) scanBtnText.innerText = isAm ? '📸 የቀበሌ መታወቂያ ፎቶ በካሜራ አንሳ' : '📸 Snap Kebele ID Photo with Camera';
+        if (scanBtnBadge) {
+          scanBtnBadge.innerText = isAm ? 'የቀበሌ መታወቂያ' : 'Kebele KYC';
+          scanBtnBadge.style.background = '#8b5cf6';
+        }
+        if (titleBack) titleBack.innerText = isAm ? 'የቀበሌ የኋላ ገጽ *' : 'Kebele ID Back Photo *';
+        if (subtitleBack) subtitleBack.innerText = isAm ? 'የኋላ ገጽ (ግልጽ ፎቶ)' : 'Back page (Clear & visible)';
+        if (boxBack) {
+          boxBack.style.opacity = '1';
+          boxBack.style.borderColor = 'rgba(56, 189, 248, 0.4)';
+        }
+        if (boxGovtP) {
+          boxGovtP.innerText = isAm 
+            ? 'ለህፃናት ደህንነት እና ጥበቃ የቀበሌ መታወቂያዎን የፊት እና የኋላ ፎቶ ያያይዙ።' 
+            : 'Both Front and Back photos of your Kebele Resident ID are required for parent and child safety.';
+        }
+        if (lblGovt) {
+          lblGovt.innerText = isAm ? '🏛️ የቀበሌ የነዋሪነት መታወቂያ • Front & Back *' : '🏛️ Kebele Resident ID • Front & Back *';
+        }
+      } else if (type === 'Driver License') {
+        if (scanBtnText) scanBtnText.innerText = isAm ? '📸 የመንጃ ፈቃድ ፎቶ በካሜራ አንሳ' : '📸 Snap Driver\'s License with Camera';
+        if (scanBtnBadge) {
+          scanBtnBadge.innerText = isAm ? 'የመንጃ ፈቃድ' : 'Driver KYC';
+          scanBtnBadge.style.background = '#f59e0b';
+        }
+        if (titleBack) titleBack.innerText = isAm ? 'የመንጃ ፈቃድ የኋላ ገጽ *' : 'License Back Photo *';
+        if (subtitleBack) subtitleBack.innerText = isAm ? 'የኋላ ገጽ (ግልጽ ፎቶ)' : 'Back page (Clear & visible)';
+        if (boxBack) {
+          boxBack.style.opacity = '1';
+          boxBack.style.borderColor = 'rgba(56, 189, 248, 0.4)';
+        }
+        if (boxGovtP) {
+          boxGovtP.innerText = isAm 
+            ? 'የመንጃ ፈቃድዎን የፊት እና የኋላ ፎቶ ያያይዙ።' 
+            : 'Both Front and Back photos of your Driver\'s License are required.';
+        }
+        if (lblGovt) {
+          lblGovt.innerText = isAm ? '🚗 ህጋዊ የመንጃ ፈቃድ • Front & Back *' : '🚗 Driver\'s License • Front & Back *';
+        }
+      } else {
+        // National Fayda ID
+        if (scanBtnText) scanBtnText.innerText = isAm ? '📷 Scan Fayda National ID with Camera (በካሜራ ስካን አድርግ)' : '📷 Scan Fayda National ID with Camera';
+        if (scanBtnBadge) {
+          scanBtnBadge.innerText = 'Instant e-KYC';
+          scanBtnBadge.style.background = '#10b981';
+        }
+        if (titleBack) titleBack.innerText = isAm ? 'የመታወቂያ የኋላ ገጽ *' : 'ID Back Photo *';
+        if (subtitleBack) subtitleBack.innerText = isAm ? 'የኋላ ገጽ (Clear & visible)' : 'Back page (Clear & visible)';
+        if (boxBack) {
+          boxBack.style.opacity = '1';
+          boxBack.style.borderColor = 'rgba(56, 189, 248, 0.4)';
+        }
+        if (boxGovtP) {
+          boxGovtP.innerText = isAm 
+            ? 'ለህፃናት ደህንነት እና ጥበቃ የመንግስት መታወቂያዎን የፊት እና የኋላ ፎቶ ያያይዙ።' 
+            : 'Both Front and Back photos of your government ID are required for parent and child safety.';
+        }
+        if (lblGovt) {
+          lblGovt.innerText = isAm ? '🆔 National Fayda ID OR Kebele ID • Front & Back (MANDATORY) *' : '🆔 National Fayda ID OR Kebele ID • Front & Back (MANDATORY) *';
+        }
+      }
+    }
+
     // Auto-Extraction of Government / Fayda ID Number directly from photo
     async function handleGovtIdPhotoPick(e, previewId, statusId, clarityId) {
       handleImageClarityCheck(e, previewId, statusId, clarityId);
@@ -8114,6 +8259,7 @@
       const viewEl = document.getElementById('t-govt-id-extracted-view');
       const textEl = document.getElementById('t-govt-id-extracted-text');
       const inpEl = document.getElementById('t_govt_id_num');
+      const govtType = document.getElementById('t_govt_id_type')?.value || 'National Fayda ID';
       if (!file) return;
 
       if (statusEl) {
@@ -8147,14 +8293,22 @@
         return;
       }
 
-      // Step 2: Fallback to OCR & Deterministic Photo Vault ID
+      // Step 2: Fallback to OCR & Deterministic Document Vault ID
+      window.currentTutorFaydaVerified = false;
+      window.currentTutorFaydaNumber = null;
+
+      let prefix = 'FAYDA-';
+      if (govtType === 'Kebele ID') prefix = 'KEBELE-';
+      else if (govtType === 'Passport') prefix = 'PASSPORT-';
+      else if (govtType === 'Driver License') prefix = 'DL-';
+
       const hashStr = file.name + '-' + file.size + '-' + file.lastModified;
       let hash = 0;
       for (let i = 0; i < hashStr.length; i++) {
         hash = ((hash << 5) - hash) + hashStr.charCodeAt(i);
         hash |= 0;
       }
-      const safeId = 'FAYDA-' + Math.abs(hash).toString(16).toUpperCase() + '-' + Date.now().toString(36).slice(-4).toUpperCase();
+      const safeId = prefix + Math.abs(hash).toString(16).toUpperCase() + '-' + Date.now().toString(36).slice(-4).toUpperCase();
 
       let extractedNum = null;
       // Attempt fast client-side OCR if Tesseract.js is ready
@@ -8183,13 +8337,20 @@
       const finalId = extractedNum || safeId;
       if (inpEl) inpEl.value = finalId;
       if (textEl) {
-        textEl.innerText = finalId + (extractedNum ? ' ✓ (OCR Auto-Detected)' : ' ✓ (Photo Vault Secured)');
+        let badgeLabel = ' ✓ (Photo Vault Secured)';
+        if (extractedNum) badgeLabel = ' ✓ (OCR Auto-Detected)';
+        else if (govtType === 'Kebele ID') badgeLabel = ' ✓ (Kebele ID Vault Secured)';
+        else if (govtType === 'Passport') badgeLabel = ' ✓ (Passport Bio-Page Secured)';
+        else if (govtType === 'Driver License') badgeLabel = ' ✓ (Driver License Secured)';
+        textEl.innerText = finalId + badgeLabel;
       }
       if (viewEl) viewEl.style.display = 'block';
       if (statusEl) {
         statusEl.style.color = '#10b981';
         statusEl.style.background = 'rgba(16, 185, 129, 0.2)';
-        statusEl.innerText = '✓ ተነቧል (Extracted & Verified)';
+        statusEl.innerText = (govtType === 'Passport')
+          ? '✓ PASSPORT SECURED'
+          : (govtType === 'Kebele ID' ? '✓ KEBELE SECURED' : (govtType === 'Driver License' ? '✓ DL SECURED' : '✓ ተነቧል (Extracted & Verified)'));
       }
 
       handleGovtIdNumChange();
@@ -8784,15 +8945,20 @@
         return;
       }
 
-      // Government ID Front & Back
+      // Government ID Front & Back (Passports are single-page documents)
       const govtType = document.getElementById('t_govt_id_type')?.value || 'National Fayda ID';
       const govtFrontFile = document.getElementById('t_govt_front_file')?.files[0] || document.getElementById('t_govt_front_cam')?.files[0];
       const govtBackFile = document.getElementById('t_govt_back_file')?.files[0] || document.getElementById('t_govt_back_cam')?.files[0];
+      const isSinglePageGovtDoc = (govtType === 'Passport');
 
-      if (!govtFrontFile || !govtBackFile) {
+      if (!govtFrontFile || (!govtBackFile && !isSinglePageGovtDoc)) {
         const msg = (currentLang === 'am') 
-          ? 'እባክዎ የመንግስት መታወቂያዎን የፊት እና የኋላ ፎቶ ያያይዙ (ሁለቱም ለህፃናት ደህንነት ግዴታ ናቸው)።' 
-          : 'Please upload both FRONT and BACK photos of your Government ID (both are mandatory for child safety).';
+          ? (isSinglePageGovtDoc
+              ? 'እባክዎ የፓስፖርትዎን ዋና ገጽ (ፎቶና መረጃ ያለበትን) ያያይዙ።'
+              : 'እባክዎ የመንግስት መታወቂያዎን የፊት እና የኋላ ፎቶ ያያይዙ (ሁለቱም ለህፃናት ደህንነት ግዴታ ናቸው)።')
+          : (isSinglePageGovtDoc
+              ? 'Please upload the main bio-data page of your Passport.'
+              : 'Please upload both FRONT and BACK photos of your Government ID (both are mandatory for child safety).');
         abortTutorValidation(msg, null, document.getElementById('box-t-id-front'));
         return;
       }
@@ -8824,6 +8990,7 @@
       let govtFrontHash = null;
       let gradeHash = null;
       let campusBackHash = null;
+      let govtBackHash = null;
       try {
         const hashTasks = [
           computeImageDHash(campusFile),
@@ -8831,12 +8998,15 @@
           computeImageDHash(gradeFile)
         ];
         if (campusBackFile) hashTasks.push(computeImageDHash(campusBackFile));
+        if (govtBackFile) hashTasks.push(computeImageDHash(govtBackFile));
         const res = await Promise.all(hashTasks);
         campusHash = res[0];
         govtFrontHash = res[1];
         gradeHash = res[2];
-        if (campusBackFile) campusBackHash = res[3];
-        imgHashes = [campusHash, govtFrontHash, gradeHash, campusBackHash].filter(Boolean);
+        let hIdx = 3;
+        if (campusBackFile) campusBackHash = res[hIdx++];
+        if (govtBackFile) govtBackHash = res[hIdx++];
+        imgHashes = [campusHash, govtFrontHash, gradeHash, campusBackHash, govtBackHash].filter(Boolean);
       } catch (hashErr) {}
 
       // Cross-document duplicate image protection (preventing uploading the same photo twice)
@@ -8852,6 +9022,13 @@
           ? '⚠️ የተማሪ መታወቂያ እና የውጤት ሪፖርት የተለያዩ ሰነዶች መሆን አለባቸው።'
           : '⚠️ Verification Notice: Your Student ID and Grade Report must be distinct documents.';
         abortTutorValidation(dupDocMsg, null, document.getElementById('box-grade-report'));
+        return;
+      }
+      if (govtFrontHash && govtBackHash && govtFrontHash === govtBackHash) {
+        const dupDocMsg = (currentLang === 'am')
+          ? '⚠️ የመታወቂያው የፊት እና የኋላ ገጽ ተመሳሳይ ፎቶ ሊሆኑ አይችሉም። እባክዎ ትክክለኛውን የኋላ ገጽ ያያይዙ።'
+          : '⚠️ Verification Notice: The front and back of your ID cannot be the same image.';
+        abortTutorValidation(dupDocMsg, null, document.getElementById('box-t-id-back'));
         return;
       }
 
@@ -9064,7 +9241,7 @@
           gradeReportAttached: !!gradeFile,
           govtFrontAttached: !!govtFrontFile,
           govtBackAttached: !!govtBackFile,
-          govtId: `${govtType} (Front & Back)`,
+          govtId: `${govtType} (${isSinglePageGovtDoc ? 'Single Bio Page' : (govtBackFile ? 'Front & Back' : 'Front Attached')})`,
           faydaVerified: !!window.currentTutorFaydaVerified,
           faydaNumber: window.currentTutorFaydaNumber || normGovtId,
           nameConsistencyConfirmed: true,
@@ -9167,7 +9344,7 @@
                         `🎙️ Communicative Exam: ${examOptIn ? `Requested Voice/Video Exam (Targeting ${tierName} Level 1)` : `Basic ${tierName} (L0)`}\n` +
                         `📸 Campus ID Photo: ${campusFile ? 'Attached' : 'Not attached'}\n` +
                         `📄 Grade Report: ${gradeFile ? 'Attached' : 'Not attached'}\n` +
-                        `🆔 Govt ID (Front & Back): Attached (${govtType}${window.currentTutorFaydaVerified ? ` • 🪪 Fayda QR Verified: ${window.currentTutorFaydaNumber || normGovtId}` : ' • Verified in Vault'})\n` +
+                        `🆔 Govt ID: Attached (${govtType}${isSinglePageGovtDoc ? ' • Bio Page' : ' • Front & Back'}${window.currentTutorFaydaVerified ? ` • 🪪 Fayda QR Verified: ${window.currentTutorFaydaNumber || normGovtId}` : ' • Verified in Vault'})\n` +
                         `━━━━━━━━━━━━━━━━━━━━\n` +
                         `🔍 Search "${trackingId}" or "${tgTag}" in Ethio - 21 Teme Astegni (@Teme_Astegni_community) to find this record instantly.`;
       
