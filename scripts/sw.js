@@ -3,7 +3,7 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v135-kebele-passport-ux-polish';
+const CACHE_NAME = 'ethio21-v136-parents-payments-and-toutor-matches-verified';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

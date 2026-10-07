@@ -2200,7 +2200,7 @@
         <div class="form-group">
           <label class="form-label">Telegram "Parents Payments" Group Chat ID</label>
           <div style="display: flex; gap: 0.5rem;">
-            <input type="text" id="tg-payments-chat-input" class="form-ctrl" placeholder="e.g. -100xxxxxxxxxx (Numeric Chat ID)">
+            <input type="text" id="tg-payments-chat-input" class="form-ctrl" value="-1004427351129" placeholder="e.g. -100xxxxxxxxxx (Numeric Chat ID)">
             <a href="https://t.me/+1nwxhaCqN9M4Y2E0" target="_blank" rel="noopener" class="btn-act" style="background: #0284c7; color: #fff; text-decoration: none; display: flex; align-items: center; white-space: nowrap; font-size: 0.8rem; font-weight: 800; padding: 0.5rem 0.85rem; border-radius: 10px;">
               ✈️ Open Group ↗
             </a>
@@ -7508,19 +7508,15 @@ function rowsToJson(sheet) {
       const chatId = (rawChatId.includes('uXdWxrADSSc3ZTc0') || rawChatId.startsWith('http') || rawChatId.includes('/+')) ? '-1004410573815' : rawChatId;
       const rawParents = (document.getElementById('tg-parents-chat-input')?.value || '').trim() || '-1003632707084';
       const parentsChat = (rawParents.includes('zH2Ov8OM20YzYTc0') || rawParents.startsWith('http') || rawParents.includes('/+')) ? '-1003632707084' : rawParents;
-      const rawPayments = (document.getElementById('tg-payments-chat-input')?.value || '').trim();
-      const paymentsChat = (rawPayments.startsWith('http') || rawPayments.includes('/+')) ? '' : rawPayments;
+      const rawPayments = (document.getElementById('tg-payments-chat-input')?.value || '').trim() || '-1004427351129';
+      const paymentsChat = (rawPayments.includes('1nwxhaCqN9M4Y2E0') || rawPayments === '+1nwxhaCqN9M4Y2E0' || rawPayments.startsWith('http') || rawPayments.includes('/+') || !rawPayments) ? '-1004427351129' : rawPayments;
       const rawMatches = (document.getElementById('tg-matches-chat-input')?.value || '').trim();
       const matchesChat = (rawMatches.startsWith('http') || rawMatches.includes('/+')) ? '' : rawMatches;
 
       localStorage.setItem('teme_astegni_tg_bot_token', rawToken);
       localStorage.setItem('teme_astegni_tg_chat_id', chatId);
       localStorage.setItem('teme_astegni_tg_parents_chat_id', parentsChat);
-      if (paymentsChat) {
-        localStorage.setItem('teme_astegni_tg_payments_chat_id', paymentsChat);
-      } else {
-        localStorage.removeItem('teme_astegni_tg_payments_chat_id');
-      }
+      localStorage.setItem('teme_astegni_tg_payments_chat_id', paymentsChat);
       if (matchesChat) {
         localStorage.setItem('teme_astegni_tg_matches_chat_id', matchesChat);
       } else {
@@ -7532,14 +7528,14 @@ function rowsToJson(sheet) {
           botToken: rawToken,
           tutorsChatId: chatId,
           parentsChatId: parentsChat,
-          paymentsChatId: paymentsChat || parentsChat,
+          paymentsChatId: paymentsChat,
           matchesChatId: matchesChat || chatId,
           updatedAt: new Date().toISOString()
         }, { merge: true }).then(() => {
           console.log("Synced telegram config to cloud public_config");
         }).catch(e => console.warn(e));
       }
-      alert(`✅ Telegram Settings saved!\n\n• Tutors Group ➔ ${chatId}\n• Parents Group ➔ ${parentsChat}\n• Parents Payments ➔ ${paymentsChat || '(Routes to Parents Group)'}\n• Tutor Matches ➔ ${matchesChat || '(Routes to Tutors Group)'}`);
+      alert(`✅ Telegram Settings saved!\n\n• Tutors Group ➔ ${chatId}\n• Parents Group ➔ ${parentsChat}\n• Parents Payments ➔ ${paymentsChat}\n• Tutor Matches ➔ ${matchesChat || '(Routes to Tutors Group until linked)'}`);
     }
 
     async function autoDetectTelegramChats(btnEl) {
@@ -7572,11 +7568,11 @@ function rowsToJson(sheet) {
 
         const chatsList = Object.values(discovered);
         if (chatsList.length === 0) {
-          alert('ℹ️ No active chats detected yet.\n\nTo connect your groups in seconds:\n1. Open "Teme Astegni parents payments" and "Toutor Matches".\n2. Add @ethio21_official_bot as Admin.\n3. Type a message like "/start" or "hi" in each group.\n4. Click Auto-Detect again!');
+          alert('ℹ️ No active chats detected yet.\n\nTo connect your groups in seconds:\n1. Open "Toutor Matches" in Telegram.\n2. Add @ethio21_official_bot as Admin.\n3. Type a message like "/start" or "hi" in the group.\n4. Click Auto-Detect again!');
           return;
         }
 
-        let detectedPayments = null;
+        let detectedPayments = '-1004427351129';
         let detectedMatches = null;
         let detectedTutors = null;
         let detectedParents = null;
@@ -7585,7 +7581,7 @@ function rowsToJson(sheet) {
           const tLower = (chat.title || '').toLowerCase();
           if (tLower.includes('payment') || tLower.includes('ክፍያ')) {
             detectedPayments = String(chat.id);
-          } else if (tLower.includes('match') || tLower.includes('ድርድር') || tLower.includes('ጥንድ')) {
+          } else if (tLower.includes('match') || tLower.includes('toutor') || tLower.includes('ድርድር') || tLower.includes('ጥንድ')) {
             detectedMatches = String(chat.id);
           } else if (tLower.includes('tutor') || tLower.includes('አስጠኚ')) {
             detectedTutors = String(chat.id);
@@ -7611,7 +7607,10 @@ function rowsToJson(sheet) {
         chatsList.forEach(c => {
           summary += `• "${c.title}" (${c.type}): ${c.id}\n`;
         });
-        summary += '\nInputs have been populated. Click "💾 Save Telegram Settings" to apply.';
+        if (!detectedMatches) {
+          summary += '\n⚠️ Note: "Toutor Matches" was not found in updates yet.\nPlease add @ethio21_official_bot as Admin to "Toutor Matches", type "Hi" in that group, then click Auto-Detect again.';
+        }
+        summary += '\n\nInputs have been populated. Click "💾 Save Telegram Settings" to apply.';
         alert(summary);
         saveTelegramConfig();
       } catch (err) {
@@ -7627,14 +7626,18 @@ function rowsToJson(sheet) {
                     '8808218998:AAF-xCF8eYt2S0J58G1i4XKcvO1qdJ5puTU';
       const chatId = localStorage.getItem('teme_astegni_tg_chat_id') || document.getElementById('tg-chat-id-input')?.value.trim() || '-1004410573815';
       const parentsChat = localStorage.getItem('teme_astegni_tg_parents_chat_id') || document.getElementById('tg-parents-chat-input')?.value.trim() || '-1003632707084';
-      const paymentsChat = localStorage.getItem('teme_astegni_tg_payments_chat_id') || document.getElementById('tg-payments-chat-input')?.value.trim() || '';
-      const matchesChat = localStorage.getItem('teme_astegni_tg_matches_chat_id') || document.getElementById('tg-matches-chat-input')?.value.trim() || '';
+      
+      const rawPay = localStorage.getItem('teme_astegni_tg_payments_chat_id') || document.getElementById('tg-payments-chat-input')?.value.trim() || '-1004427351129';
+      const paymentsChat = (rawPay.includes('1nwxhaCqN9M4Y2E0') || rawPay === '+1nwxhaCqN9M4Y2E0' || rawPay.startsWith('http') || rawPay.includes('/+') || !rawPay) ? '-1004427351129' : rawPay;
+      
+      const rawMatch = localStorage.getItem('teme_astegni_tg_matches_chat_id') || document.getElementById('tg-matches-chat-input')?.value.trim() || '';
+      const matchesChat = (rawMatch.startsWith('http') || rawMatch.includes('/+')) ? '' : rawMatch;
 
       const results = [];
 
       async function sendTest(cid, label, text) {
         if (!cid || cid.startsWith('http') || cid.includes('/+')) {
-          results.push(`• ${label}: ⚠️ Numeric Chat ID missing (Invite link cannot receive bot posts directly; add bot to group & click Auto-Detect)`);
+          results.push(`• ${label}: ⚠️ Group not linked yet! To link "${label}":\n  1. Open the group in Telegram\n  2. Add @ethio21_official_bot as Admin\n  3. Type any message (e.g. "Hi" or "/start") in the group\n  4. Click "🔍 Auto-Detect Group IDs" and it will connect instantly!`);
           return;
         }
         try {
@@ -7661,12 +7664,10 @@ function rowsToJson(sheet) {
         await sendTest(parentsChat, 'Parents Group', '👨‍👩‍👧 <b>Parents Group Test Alert</b>\n\nVerified parent tutoring inquiries and household IDs stream into this group.');
       }
       if (targetType === 'ALL' || targetType === 'PAYMENTS') {
-        const pTarget = paymentsChat || parentsChat;
-        await sendTest(pTarget, 'Parents Payments Group', '💳 <b>Teme Astegni Parents Payments Test Alert</b>\n\nParent escrow transfer receipts and payment screenshots stream directly into this dedicated group.');
+        await sendTest(paymentsChat, 'Parents Payments Group', '💳 <b>Teme Astegni Parents Payments Test Alert</b>\n\nParent escrow transfer receipts and payment screenshots stream directly into this dedicated group.');
       }
       if (targetType === 'ALL' || targetType === 'MATCHES') {
-        const mTarget = matchesChat || chatId;
-        await sendTest(mTarget, 'Tutor Matches Group', '🤝 <b>Toutor Matches Test Alert</b>\n\nOfficial matched pairs, parent-tutor contracts, and commission logs stream directly into this dedicated group.');
+        await sendTest(matchesChat, 'Tutor Matches Group', '🤝 <b>Toutor Matches Test Alert</b>\n\nOfficial matched pairs, parent-tutor contracts, and commission logs stream directly into this dedicated group.');
       }
 
       alert('📊 Telegram Test Results:\n\n' + results.join('\n\n') + '\n\n(Important: Ensure @ethio21_official_bot is promoted to Administrator with "Post Messages" permission in each group)');
@@ -8053,8 +8054,8 @@ function rowsToJson(sheet) {
         document.getElementById('tg-parents-chat-input').value = savedParentsChat;
       }
 
-      const rawPaymentsChat = localStorage.getItem('teme_astegni_tg_payments_chat_id') || '';
-      const savedPaymentsChat = (rawPaymentsChat.startsWith('http') || rawPaymentsChat.includes('/+')) ? '' : rawPaymentsChat;
+      const rawPaymentsChat = localStorage.getItem('teme_astegni_tg_payments_chat_id') || '-1004427351129';
+      const savedPaymentsChat = (rawPaymentsChat.includes('1nwxhaCqN9M4Y2E0') || rawPaymentsChat === '+1nwxhaCqN9M4Y2E0' || rawPaymentsChat === '' || rawPaymentsChat.startsWith('http') || rawPaymentsChat.includes('/+')) ? '-1004427351129' : rawPaymentsChat;
       if (document.getElementById('tg-payments-chat-input')) {
         document.getElementById('tg-payments-chat-input').value = savedPaymentsChat;
       }

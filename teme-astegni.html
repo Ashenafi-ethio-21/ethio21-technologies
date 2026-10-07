@@ -4740,17 +4740,16 @@
           }
           const photoBlob = new Blob([ab], { type: mimeString });
 
-          const targetPaymentsChat = getValidTelegramChatId(localStorage.getItem('teme_astegni_tg_payments_chat_id'), window.TEME_TG_PARENTS_PAYMENTS_CHAT || '-1003632707084');
+          const targetPaymentsChat = getValidTelegramChatId(localStorage.getItem('teme_astegni_tg_payments_chat_id'), window.TEME_TG_PARENTS_PAYMENTS_CHAT || '-1004427351129');
           sendPhotoToTelegramBot(photoBlob, tgCaption, targetPaymentsChat);
           if (targetPaymentsChat && targetPaymentsChat !== '-1003632707084') {
             sendTextMessageToTelegramBot(tgCaption, '-1003632707084');
           }
         } catch(blobErr) {
           console.warn('Telegram photo blob dispatch notice:', blobErr);
+          const notifyPaymentChat = getValidTelegramChatId(localStorage.getItem('teme_astegni_tg_payments_chat_id'), window.TEME_TG_PARENTS_PAYMENTS_CHAT || '-1004427351129');
+          sendTextMessageToTelegramBot(tgCaption, notifyPaymentChat);
         }
-
-        const notifyPaymentChat = getValidTelegramChatId(localStorage.getItem('teme_astegni_tg_payments_chat_id'), window.TEME_TG_PARENTS_PAYMENTS_CHAT || '-1003632707084');
-        sendTextMessageToTelegramBot(tgCaption, notifyPaymentChat);
 
         localStorage.setItem('my_astegni_parent_id', parentId);
         localStorage.setItem('my_astegni_parent_phone', parentPhone);
@@ -7159,7 +7158,7 @@
     window.TEME_DEFAULT_TG_CHAT_ID = window.TEME_DEFAULT_TG_CHAT_ID || '-1004410573815';
     window.TEME_TG_TUTORS_CHAT = '-1004410573815'; // Dedicated Tutors Group
     window.TEME_TG_PARENTS_CHAT = '-1003632707084'; // Dedicated Parents Group
-    window.TEME_TG_PARENTS_PAYMENTS_CHAT = '-1003632707084'; // Dedicated Payments Group / Fallback
+    window.TEME_TG_PARENTS_PAYMENTS_CHAT = '-1004427351129'; // Dedicated Parents Payments Group
     window.TEME_TG_PARENTS_INVITE = 'https://t.me/+zH2Ov8OM20YzYTc0';
     window.TEME_TG_TUTORS_INVITE = 'https://t.me/+uXdWxrADSSc3ZTc0';
     window.TEME_TG_PARENTS_PAYMENTS_INVITE = 'https://t.me/+1nwxhaCqN9M4Y2E0';
@@ -7174,6 +7173,10 @@
       // Directly map Parents Telegram group invite link
       if (str.includes('zH2Ov8OM20YzYTc0') || str === '+zH2Ov8OM20YzYTc0') {
         return '-1003632707084';
+      }
+      // Directly map Parents Payments Telegram group invite link
+      if (str.includes('1nwxhaCqN9M4Y2E0') || str === '+1nwxhaCqN9M4Y2E0') {
+        return '-1004427351129';
       }
       // If someone stored an invite link URL like https://t.me/+..., ignore it and use valid numeric/handle fallback
       if (str.startsWith('http://') || str.startsWith('https://') || str.startsWith('+') || str.includes('/+')) {
