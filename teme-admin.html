@@ -5290,8 +5290,8 @@ function rowsToJson(sheet) {
               ${t.entranceScore ? `<span class="tag-badge" style="background: rgba(245, 158, 11, 0.2); color: #fde047; border: 1.5px solid rgba(245, 158, 11, 0.5); font-weight: 900;">🎯 Entrance: ${escapeHtml(t.entranceScore)}/700</span>` : ''}
               ${getLevelBadgeHtml(t.level, t.cgpa)}
               <span class="tag-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35); font-weight: 800;">👥 Capacity: ${displayCount}/${cap} Students</span>
-              ${getLevelBadgeHtml(t.level, t.cgpa)}
               ${getExamBadgeHtml(t)}
+              ${t.faydaVerified ? `<span class="tag-badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1.5px solid #10b981; font-weight: 850;">🪪 Fayda QR Verified</span>` : ''}
               <span class="tag-badge tag-active">🛡️ Fayda/Campus Verified</span>
               <span class="tag-badge" style="background: rgba(56, 189, 248, 0.12); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3);">🚀 ${getDispatchPriorityText(t.level, t.cgpa)}</span>
             </div>
@@ -5316,7 +5316,13 @@ function rowsToJson(sheet) {
               </div>
               <div class="bento-item">
                 <span class="bento-label">🆔 ID Verification</span>
-                <div class="bento-value">${escapeHtml(t.govtId || 'National Fayda / Kebele')} <span class="tag-badge tag-active" style="font-size:0.62rem;">✓ Vault</span></div>
+                <div class="bento-value">
+                  ${escapeHtml(t.govtId || 'National Fayda / Kebele')}
+                  ${t.faydaVerified 
+                    ? `<span class="tag-badge" style="font-size:0.62rem; background:rgba(16,185,129,0.22); color:#34d399; border:1px solid #10b981; font-weight:800;">✓ Fayda QR Verified</span>` 
+                    : `<span class="tag-badge tag-active" style="font-size:0.62rem;">✓ Vault</span>`}
+                  ${t.faydaNumber || t.govtIdNumber ? `<div style="font-size:0.72rem; color:#94a3b8; font-family:monospace; margin-top:3px;">🔢 ${escapeHtml(t.faydaNumber || t.govtIdNumber)}</div>` : ''}
+                </div>
               </div>
               <div class="bento-item">
                 <span class="bento-label">✈️ Telegram Tag</span>
@@ -6207,8 +6213,8 @@ function rowsToJson(sheet) {
         document.getElementById('inspect-role-badge').innerText = `${tier.emoji} ${tier.name} Tutor (Level ${record.level || 0})`;
         document.getElementById('inspect-role-badge').className = 'tag-badge tag-active';
         document.getElementById('inspect-person-name').innerText = `${record.name} (${tTrackingId})`;
-        document.getElementById('inspect-person-meta').innerText = `${record.phone} • ${record.uni} (CGPA: ${record.cgpa}) • Tag: ${tTgTag}`;
-        document.getElementById('inspect-doc-type').innerText = record.govtId || 'National Fayda / Kebele (Front & Back)';
+        const faydaMeta = record.faydaVerified ? ` [🪪 Fayda QR Verified: ${record.faydaNumber || record.govtIdNumber || ''}]` : '';
+        document.getElementById('inspect-doc-type').innerText = (record.govtId || 'National Fayda / Kebele (Front & Back)') + faydaMeta;
         document.getElementById('inspect-target-legal-name').innerText = record.name;
 
         // Tutor 3-Credential Name Consistency Checks

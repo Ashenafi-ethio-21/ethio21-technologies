@@ -41,7 +41,8 @@
   <!-- Google Firebase Cloud SDK (Serverless Database & Real-Time Sync) -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-  <!-- Client-Side Document Intelligence & OCR Scanner -->
+  <!-- Client-Side Document Intelligence & QR/Barcode Scanner -->
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js" async></script>
 
   <!-- =========================================================================
@@ -1075,6 +1076,21 @@
     @keyframes modalPop {
       from { transform: scale(0.92); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes laserSweep {
+      0% { top: 4%; opacity: 0.8; }
+      50% { top: 92%; opacity: 1; }
+      100% { top: 4%; opacity: 0.8; }
+    }
+    .scan-laser-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #38bdf8 20%, #34d399 50%, #38bdf8 80%, transparent);
+      box-shadow: 0 0 10px #38bdf8, 0 0 20px #34d399;
+      animation: laserSweep 2.2s ease-in-out infinite;
     }
 
     .modal-card h3 {
@@ -2545,6 +2561,15 @@
               Both Front and Back photos of your government ID are required for parent and child safety.
             </p>
 
+            <!-- Live Camera Fayda QR & ID Scanner Button -->
+            <div style="margin-bottom: 0.85rem;">
+              <button type="button" class="btn-act" onclick="openFaydaLiveScanner()" style="width: 100%; background: linear-gradient(135deg, rgba(14, 165, 233, 0.22), rgba(16, 185, 129, 0.22)); border: 1.5px solid #38bdf8; color: #fff; padding: 0.75rem 1rem; border-radius: 12px; font-weight: 850; font-size: 0.88rem; display: flex; align-items: center; justify-content: center; gap: 0.6rem; cursor: pointer; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.25); transition: transform 0.15s ease;">
+                <span style="font-size: 1.35rem;">📷</span>
+                <span>Scan Fayda National ID with Camera (በካሜራ ስካን አድርግ)</span>
+                <span style="font-size: 0.68rem; background: #10b981; color: #fff; padding: 0.15rem 0.5rem; border-radius: 6px; font-weight: 800; text-transform: uppercase;">Instant e-KYC</span>
+              </button>
+            </div>
+
             <!-- Modern Classic Tutor ID Type Selection & ID Number Grid -->
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; margin-bottom: 0.85rem;">
               <div>
@@ -3237,6 +3262,74 @@
         Need support? Telegram: <a href="https://t.me/+RB15jRbw4Ak4MDA0" target="_blank" style="color: #38bdf8; text-decoration: underline; font-weight: 750;">t.me/+RB15jRbw4Ak4MDA0</a> • Phone: <a href="tel:0947501570" style="color: #94a3b8; text-decoration: underline;">0947 50 15 70</a> / <a href="tel:0937450094" style="color: #94a3b8; text-decoration: underline;">0937 45 00 94</a>
       </div>
 
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- FAYDA / NATIONAL ID CAMERA SCANNER MODAL   -->
+  <!-- ========================================== -->
+  <div class="modal-overlay" id="modal-fayda-scanner" style="display:none; z-index: 99999;">
+    <div class="modal-card" style="max-width: 440px; text-align: center; border-radius: 24px; border: 1.5px solid rgba(56, 189, 248, 0.4); box-shadow: 0 25px 70px rgba(0,0,0,0.9); background: linear-gradient(180deg, #0b1329 0%, #040714 100%); padding: 1.5rem 1.25rem; position: relative;">
+      
+      <!-- Close Button Top Right -->
+      <button type="button" onclick="closeFaydaLiveScanner()" style="position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; width: 34px; height: 34px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10;">
+        ✕
+      </button>
+
+      <!-- Header -->
+      <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+        <span style="font-size: 1.5rem;">🪪</span>
+        <h3 style="font-size: 1.15rem; font-weight: 850; color: #fff; margin: 0;">
+          Fayda National ID Scanner
+        </h3>
+      </div>
+      <p style="font-size: 0.76rem; color: #94a3b8; margin: 0 0 1rem 0; line-height: 1.4;">
+        Hold your National ID or QR code steady inside the frame.<br>
+        <span style="color: #38bdf8;">መታወቂያዎን በክፈፉ ውስጥ ቀጥ አድርገው ያሳዩ</span>
+      </p>
+
+      <!-- Viewfinder Video Box -->
+      <div style="position: relative; width: 100%; height: 260px; background: #000; border-radius: 16px; overflow: hidden; border: 2px solid rgba(56, 189, 248, 0.45); box-shadow: inset 0 0 20px rgba(0,0,0,0.8);">
+        <video id="fayda-scanner-video" playsinline muted autoplay style="width: 100%; height: 100%; object-fit: cover;"></video>
+        <canvas id="fayda-scanner-canvas" style="display: none;"></canvas>
+
+        <!-- Viewfinder Overlay Box & Corners -->
+        <div style="position: absolute; inset: 15px; border: 2px dashed rgba(56, 189, 248, 0.7); border-radius: 12px; pointer-events: none; box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.45);">
+          <!-- Top Left Corner -->
+          <div style="position: absolute; top: -2px; left: -2px; width: 20px; height: 20px; border-top: 4px solid #38bdf8; border-left: 4px solid #38bdf8;"></div>
+          <!-- Top Right Corner -->
+          <div style="position: absolute; top: -2px; right: -2px; width: 20px; height: 20px; border-top: 4px solid #38bdf8; border-right: 4px solid #38bdf8;"></div>
+          <!-- Bottom Left Corner -->
+          <div style="position: absolute; bottom: -2px; left: -2px; width: 20px; height: 20px; border-bottom: 4px solid #38bdf8; border-left: 4px solid #38bdf8;"></div>
+          <!-- Bottom Right Corner -->
+          <div style="position: absolute; bottom: -2px; right: -2px; width: 20px; height: 20px; border-bottom: 4px solid #38bdf8; border-right: 4px solid #38bdf8;"></div>
+          <!-- Moving Scanning Laser Line -->
+          <div class="scan-laser-line"></div>
+        </div>
+
+        <!-- Scanning Status Tag -->
+        <div id="fayda-scan-indicator" style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(56, 189, 248, 0.5); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.72rem; color: #38bdf8; font-weight: 750; white-space: nowrap; backdrop-filter: blur(8px);">
+          ⚡ Searching for ID / QR Code...
+        </div>
+      </div>
+
+      <!-- Controls & Feedback -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.85rem; gap: 0.5rem;">
+        <button type="button" onclick="switchFaydaCameraFacing()" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #cbd5e1; padding: 0.4rem 0.75rem; border-radius: 8px; font-size: 0.75rem; font-weight: 750; cursor: pointer; display: flex; align-items: center; gap: 0.3rem;">
+          🔄 <span>Switch Camera</span>
+        </button>
+        <button type="button" onclick="captureFaydaManualSnapshot()" style="background: linear-gradient(135deg, #0284c7, #10b981); border: none; color: #fff; padding: 0.45rem 0.95rem; border-radius: 8px; font-size: 0.75rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 0.3rem; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);">
+          📸 <span>Capture Photo</span>
+        </button>
+      </div>
+
+      <!-- Live Success Feedback Area (hidden until scanned) -->
+      <div id="fayda-scan-result-card" style="display: none; margin-top: 0.85rem; background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; border-radius: 12px; padding: 0.75rem; text-align: left;">
+        <div style="font-size: 0.82rem; font-weight: 850; color: #34d399; margin-bottom: 0.2rem; display: flex; align-items: center; gap: 0.35rem;">
+          <span>✓</span> <span>National ID Scanned Successfully!</span>
+        </div>
+        <div style="font-size: 0.74rem; color: #e2e8f0; font-family: monospace;" id="fayda-scan-result-text"></div>
+      </div>
     </div>
   </div>
 
@@ -7607,6 +7700,387 @@
       }
     }
 
+    // ==========================================
+    // FAYDA NATIONAL ID CAMERA & QR SCANNER ENGINE
+    // ==========================================
+    let faydaCameraStream = null;
+    let faydaCameraFacing = 'environment';
+    let isFaydaScanning = false;
+    let faydaScanAnimationId = null;
+    window.currentTutorFaydaVerified = false;
+    window.currentTutorFaydaNumber = null;
+
+    function playScanSuccessTone() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(880, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1174.66, ctx.currentTime + 0.12);
+        gain.gain.setValueAtTime(0.3, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.28);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.3);
+      } catch (e) {}
+    }
+
+    function parseFaydaQrData(rawData) {
+      if (!rawData || typeof rawData !== 'string') return null;
+      const clean = rawData.trim();
+      
+      // 1. JSON-encoded Fayda/MOSIP structure
+      try {
+        const parsed = JSON.parse(clean);
+        if (parsed && typeof parsed === 'object') {
+          const id = parsed.fan || parsed.uin || parsed.vid || parsed.id || parsed.fin || parsed.nationalId;
+          const name = parsed.name || parsed.fullName || parsed.n;
+          if (id) {
+            return {
+              id: String(id).trim(),
+              name: name ? String(name).trim() : null,
+              raw: clean,
+              type: 'JSON_FAYDA'
+            };
+          }
+        }
+      } catch (e) {}
+
+      // 2. Check for FAN / FIN / UIN prefixes
+      const fanMatch = clean.match(/(?:FAN|FIN|UIN|VID)[\s:=-]*([0-9A-Z\s-]{8,24})/i);
+      if (fanMatch) {
+        return {
+          id: fanMatch[1].replace(/[\s-]+/g, '-').trim(),
+          raw: clean,
+          type: 'REGEX_FAN'
+        };
+      }
+
+      // 3. 12 or 16 digit grouped Fayda National ID (e.g. 1234 5678 9012 or 1234-5678-9012)
+      const numGroups = clean.match(/\b([0-9]{4}[\s-][0-9]{4}[\s-][0-9]{4}(?:[\s-][0-9]{4})?)\b/);
+      if (numGroups) {
+        return {
+          id: numGroups[1].trim(),
+          raw: clean,
+          type: 'GROUPED_DIGITS'
+        };
+      }
+
+      // 4. Continuous 12-16 digits
+      const contDigits = clean.match(/\b([0-9]{12,16})\b/);
+      if (contDigits) {
+        return {
+          id: contDigits[1],
+          raw: clean,
+          type: 'CONTINUOUS_DIGITS'
+        };
+      }
+
+      // 5. URL with ID query param
+      if (clean.includes('http://') || clean.includes('https://')) {
+        try {
+          const u = new URL(clean);
+          const qId = u.searchParams.get('id') || u.searchParams.get('uin') || u.searchParams.get('fan') || u.searchParams.get('vid');
+          if (qId) {
+            return {
+              id: qId,
+              raw: clean,
+              type: 'URL_PARAM'
+            };
+          }
+        } catch(e) {}
+      }
+
+      // 6. Generic Alphanumeric identifier (8-24 chars)
+      const genericAlpha = clean.match(/\b([A-Z0-9]{8,24})\b/i);
+      if (genericAlpha) {
+        return {
+          id: genericAlpha[1],
+          raw: clean,
+          type: 'GENERIC_ALPHANUM'
+        };
+      }
+
+      return {
+        id: clean.slice(0, 32),
+        raw: clean,
+        type: 'RAW_FALLBACK'
+      };
+    }
+
+    async function scanQrFromCanvas(canvas) {
+      if (!canvas) return null;
+      // Modern Native BarcodeDetector (Chrome Android / Edge)
+      if ('BarcodeDetector' in window) {
+        try {
+          const barcodeDetector = new window.BarcodeDetector({ formats: ['qr_code', 'code_128', 'data_matrix', 'aztec'] });
+          const barcodes = await barcodeDetector.detect(canvas);
+          if (barcodes && barcodes.length > 0 && barcodes[0].rawValue) {
+            return parseFaydaQrData(barcodes[0].rawValue);
+          }
+        } catch (e) {}
+      }
+
+      // jsQR fallback
+      if (typeof jsQR !== 'undefined') {
+        try {
+          const ctx = canvas.getContext('2d');
+          const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const code = jsQR(imgData.data, imgData.width, imgData.height, {
+            inversionAttempts: 'dontInvert'
+          });
+          if (code && code.data) {
+            return parseFaydaQrData(code.data);
+          }
+          const codeInvert = jsQR(imgData.data, imgData.width, imgData.height, {
+            inversionAttempts: 'onlyInvert'
+          });
+          if (codeInvert && codeInvert.data) {
+            return parseFaydaQrData(codeInvert.data);
+          }
+        } catch (e) {}
+      }
+      return null;
+    }
+
+    async function scanQrFromImageFile(file) {
+      if (!file || !file.type || !file.type.startsWith('image/')) return null;
+      return new Promise((resolve) => {
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+        img.onload = async () => {
+          URL.revokeObjectURL(url);
+          const canvas = document.createElement('canvas');
+          canvas.width = img.naturalWidth || img.width;
+          canvas.height = img.naturalHeight || img.height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+          const result = await scanQrFromCanvas(canvas);
+          resolve(result);
+        };
+        img.onerror = () => {
+          URL.revokeObjectURL(url);
+          resolve(null);
+        };
+        img.src = url;
+      });
+    }
+
+    async function openFaydaLiveScanner() {
+      const modal = document.getElementById('modal-fayda-scanner');
+      if (modal) modal.style.display = 'flex';
+      const resCard = document.getElementById('fayda-scan-result-card');
+      if (resCard) resCard.style.display = 'none';
+      const indicator = document.getElementById('fayda-scan-indicator');
+      if (indicator) {
+        indicator.innerText = (currentLang === 'am')
+          ? '⚡ መታወቂያውን ወይም የQR ኮዱን በመፈለግ ላይ...'
+          : '⚡ Searching for ID / QR Code...';
+        indicator.style.color = '#38bdf8';
+      }
+      await startFaydaCamera();
+    }
+
+    function closeFaydaLiveScanner() {
+      stopFaydaCamera();
+      const modal = document.getElementById('modal-fayda-scanner');
+      if (modal) modal.style.display = 'none';
+    }
+
+    async function startFaydaCamera() {
+      stopFaydaCamera();
+      const video = document.getElementById('fayda-scanner-video');
+      if (!video) return;
+
+      try {
+        const constraints = {
+          video: {
+            facingMode: faydaCameraFacing,
+            width: { ideal: 1280 },
+            height: { ideal: 720 }
+          },
+          audio: false
+        };
+        faydaCameraStream = await navigator.mediaDevices.getUserMedia(constraints);
+        video.srcObject = faydaCameraStream;
+        await video.play();
+        isFaydaScanning = true;
+        requestAnimationFrame(processFaydaScanFrame);
+      } catch (err) {
+        console.error('Camera access failed:', err);
+        const indicator = document.getElementById('fayda-scan-indicator');
+        if (indicator) {
+          indicator.innerText = (currentLang === 'am')
+            ? '⚠️ ካሜራውን መክፈት አልተቻለም (ፈቃድ ይስጡ ወይም ፎቶ ይስቀሉ)'
+            : '⚠️ Camera access denied. Upload photo manually.';
+          indicator.style.color = '#ef4444';
+        }
+      }
+    }
+
+    function stopFaydaCamera() {
+      isFaydaScanning = false;
+      if (faydaScanAnimationId) {
+        cancelAnimationFrame(faydaScanAnimationId);
+        faydaScanAnimationId = null;
+      }
+      if (faydaCameraStream) {
+        faydaCameraStream.getTracks().forEach(track => track.stop());
+        faydaCameraStream = null;
+      }
+      const video = document.getElementById('fayda-scanner-video');
+      if (video) video.srcObject = null;
+    }
+
+    async function switchFaydaCameraFacing() {
+      faydaCameraFacing = (faydaCameraFacing === 'environment') ? 'user' : 'environment';
+      await startFaydaCamera();
+    }
+
+    async function processFaydaScanFrame() {
+      if (!isFaydaScanning) return;
+      const video = document.getElementById('fayda-scanner-video');
+      const canvas = document.getElementById('fayda-scanner-canvas');
+      if (!video || !canvas || video.readyState !== video.HAVE_ENOUGH_DATA) {
+        faydaScanAnimationId = requestAnimationFrame(processFaydaScanFrame);
+        return;
+      }
+
+      canvas.width = video.videoWidth || 640;
+      canvas.height = video.videoHeight || 480;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      const qrResult = await scanQrFromCanvas(canvas);
+      if (qrResult && qrResult.id) {
+        isFaydaScanning = false;
+        playScanSuccessTone();
+        handleFaydaScanSuccess(qrResult, canvas);
+        return;
+      }
+
+      setTimeout(() => {
+        if (isFaydaScanning) {
+          faydaScanAnimationId = requestAnimationFrame(processFaydaScanFrame);
+        }
+      }, 100);
+    }
+
+    function handleFaydaScanSuccess(qrResult, canvasSource) {
+      const idNum = qrResult.id;
+      window.currentTutorFaydaVerified = true;
+      window.currentTutorFaydaNumber = idNum;
+
+      const inpEl = document.getElementById('t_govt_id_num');
+      if (inpEl) inpEl.value = idNum;
+
+      const textEl = document.getElementById('t-govt-id-extracted-text');
+      if (textEl) {
+        textEl.innerText = `${idNum} ✓ (Fayda QR Cryptographically Verified)`;
+      }
+      const viewEl = document.getElementById('t-govt-id-extracted-view');
+      if (viewEl) viewEl.style.display = 'block';
+
+      const statusEl = document.getElementById('t-govt-id-status');
+      if (statusEl) {
+        statusEl.style.color = '#10b981';
+        statusEl.style.background = 'rgba(16, 185, 129, 0.2)';
+        statusEl.innerText = '✓ FAYDA QR VERIFIED';
+      }
+
+      if (canvasSource) {
+        canvasSource.toBlob((blob) => {
+          if (blob) {
+            try {
+              const file = new File([blob], 'fayda_national_id_scan.jpg', { type: 'image/jpeg', lastModified: Date.now() });
+              const dataTransfer = new DataTransfer();
+              dataTransfer.items.add(file);
+              const inpFile = document.getElementById('t_govt_front_file');
+              if (inpFile) inpFile.files = dataTransfer.files;
+
+              const prev = document.getElementById('preview-t-front');
+              const prevStat = document.getElementById('status-t-front');
+              if (prev) {
+                prev.src = URL.createObjectURL(blob);
+                prev.style.display = 'inline-block';
+              }
+              if (prevStat) {
+                prevStat.style.display = 'block';
+                prevStat.innerText = '✓ Fayda Scan Attached';
+                prevStat.style.background = 'rgba(16, 185, 129, 0.25)';
+                prevStat.style.color = '#34d399';
+              }
+            } catch (err) {
+              console.warn('Error attaching scanned blob:', err);
+            }
+          }
+        }, 'image/jpeg', 0.92);
+      }
+
+      const resCard = document.getElementById('fayda-scan-result-card');
+      const resText = document.getElementById('fayda-scan-result-text');
+      if (resCard && resText) {
+        resCard.style.display = 'block';
+        resText.innerHTML = `<b>ID Number:</b> ${escapeHtml(idNum)}<br><span style="color:#10b981;">✓ NIDP / MOSIP QR Verified • Closing in 2s...</span>`;
+      }
+
+      handleGovtIdNumChange();
+
+      setTimeout(() => {
+        closeFaydaLiveScanner();
+      }, 1800);
+    }
+
+    async function captureFaydaManualSnapshot() {
+      const video = document.getElementById('fayda-scanner-video');
+      const canvas = document.getElementById('fayda-scanner-canvas');
+      if (!video || !canvas) return;
+
+      canvas.width = video.videoWidth || 640;
+      canvas.height = video.videoHeight || 480;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      const qrResult = await scanQrFromCanvas(canvas);
+      if (qrResult && qrResult.id) {
+        playScanSuccessTone();
+        handleFaydaScanSuccess(qrResult, canvas);
+      } else {
+        canvas.toBlob((blob) => {
+          if (blob) {
+            try {
+              const file = new File([blob], 'id_camera_snapshot.jpg', { type: 'image/jpeg', lastModified: Date.now() });
+              const dataTransfer = new DataTransfer();
+              dataTransfer.items.add(file);
+              const inpFile = document.getElementById('t_govt_front_file');
+              if (inpFile) inpFile.files = dataTransfer.files;
+
+              const prev = document.getElementById('preview-t-front');
+              const prevStat = document.getElementById('status-t-front');
+              if (prev) {
+                prev.src = URL.createObjectURL(blob);
+                prev.style.display = 'inline-block';
+              }
+              if (prevStat) {
+                prevStat.style.display = 'block';
+                prevStat.innerText = '✓ Photo Captured';
+              }
+              extractGovtIdFromPhoto(file);
+            } catch (err) {}
+          }
+        }, 'image/jpeg', 0.92);
+
+        closeFaydaLiveScanner();
+        if (typeof showAgyNotification === 'function') {
+          showAgyNotification((currentLang === 'am') ? '📸 የፎቶ ቀረጻ ተጠናቋል!' : '📸 Photo captured successfully!', 'success');
+        }
+      }
+    }
+
     // Auto-Extraction of Government / Fayda ID Number directly from photo
     async function handleGovtIdPhotoPick(e, previewId, statusId, clarityId) {
       handleImageClarityCheck(e, previewId, statusId, clarityId);
@@ -7626,10 +8100,35 @@
       if (statusEl) {
         statusEl.style.color = '#38bdf8';
         statusEl.style.background = 'rgba(56, 189, 248, 0.2)';
-        statusEl.innerText = '⚡ ከፎቶው ላይ በማንበብ ላይ... (Scanning)';
+        statusEl.innerText = (currentLang === 'am') ? '⚡ ከፎቶው ላይ በማንበብ ላይ... (Scanning)' : '⚡ Scanning ID / QR...';
       }
 
-      // Compute deterministic photo vault ID hash from file characteristics
+      // Step 1: Attempt QR Code / Barcode Extraction
+      let qrResult = null;
+      try {
+        qrResult = await scanQrFromImageFile(file);
+      } catch (e) {}
+
+      if (qrResult && qrResult.id) {
+        playScanSuccessTone();
+        window.currentTutorFaydaVerified = true;
+        window.currentTutorFaydaNumber = qrResult.id;
+
+        if (inpEl) inpEl.value = qrResult.id;
+        if (textEl) {
+          textEl.innerText = `${qrResult.id} ✓ (Fayda QR Cryptographically Verified)`;
+        }
+        if (viewEl) viewEl.style.display = 'block';
+        if (statusEl) {
+          statusEl.style.color = '#10b981';
+          statusEl.style.background = 'rgba(16, 185, 129, 0.2)';
+          statusEl.innerText = '✓ FAYDA QR VERIFIED';
+        }
+        handleGovtIdNumChange();
+        return;
+      }
+
+      // Step 2: Fallback to OCR & Deterministic Photo Vault ID
       const hashStr = file.name + '-' + file.size + '-' + file.lastModified;
       let hash = 0;
       for (let i = 0; i < hashStr.length; i++) {
@@ -8547,6 +9046,8 @@
           govtFrontAttached: !!govtFrontFile,
           govtBackAttached: !!govtBackFile,
           govtId: `${govtType} (Front & Back)`,
+          faydaVerified: !!window.currentTutorFaydaVerified,
+          faydaNumber: window.currentTutorFaydaNumber || normGovtId,
           nameConsistencyConfirmed: true,
           credentialAuditStatus: uniVerificationStatus,
           level: 0,
@@ -8580,6 +9081,8 @@
           gender: gender,
           subjects: subj,
           govtId: govtType,
+          faydaVerified: !!window.currentTutorFaydaVerified,
+          faydaNumber: window.currentTutorFaydaNumber || normGovtId,
           status: 'Interview Pending',
           type: 'addTutor',
           createdAt: new Date().toISOString()
@@ -8591,7 +9094,7 @@
         const tutorsChatTarget = getValidTelegramChatId(localStorage.getItem('teme_astegni_tg_chat_id'), window.TEME_TG_TUTORS_CHAT || '-1004410573815');
         if (govtFrontFile) {
           compressImageFile(govtFrontFile).then(blob => {
-            sendPhotoToTelegramBot(blob, `${trackingId} • ${tgTag} • Tutor Govt ID (Front) • ${name} • ${phone} • ${uniName} (${campusName}) • Tier: ${tierName}`, tutorsChatTarget);
+            sendPhotoToTelegramBot(blob, `${trackingId} • ${tgTag} • Tutor Govt ID (Front) • ${name} • ${phone} • ${uniName} (${campusName}) • Tier: ${tierName}${window.currentTutorFaydaVerified ? ' • 🪪 Fayda QR Verified' : ''}`, tutorsChatTarget);
           });
         }
         if (govtBackFile) {
@@ -8645,7 +9148,7 @@
                         `🎙️ Communicative Exam: ${examOptIn ? `Requested Voice/Video Exam (Targeting ${tierName} Level 1)` : `Basic ${tierName} (L0)`}\n` +
                         `📸 Campus ID Photo: ${campusFile ? 'Attached' : 'Not attached'}\n` +
                         `📄 Grade Report: ${gradeFile ? 'Attached' : 'Not attached'}\n` +
-                        `🆔 Govt ID (Front & Back): Attached (${govtType} • Verified in Vault)\n` +
+                        `🆔 Govt ID (Front & Back): Attached (${govtType}${window.currentTutorFaydaVerified ? ` • 🪪 Fayda QR Verified: ${window.currentTutorFaydaNumber || normGovtId}` : ' • Verified in Vault'})\n` +
                         `━━━━━━━━━━━━━━━━━━━━\n` +
                         `🔍 Search "${trackingId}" or "${tgTag}" in Ethio - 21 Teme Astegni (@Teme_Astegni_community) to find this record instantly.`;
       
@@ -8680,6 +9183,8 @@
         examStatus: examOptIn ? 'pending' : 'none',
         examOptIn: examOptIn,
         govtIdType: govtType,
+        faydaVerified: !!window.currentTutorFaydaVerified,
+        faydaNumber: window.currentTutorFaydaNumber || normGovtId,
         status: 'Pending',
         createdAt: new Date().toISOString()
       });

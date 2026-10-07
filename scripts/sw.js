@@ -3,7 +3,7 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v132-modern-pipeline-infographic';
+const CACHE_NAME = 'ethio21-v133-fayda-camera-scanner';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
