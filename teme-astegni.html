@@ -4742,6 +4742,9 @@
 
           const targetPaymentsChat = getValidTelegramChatId(localStorage.getItem('teme_astegni_tg_payments_chat_id'), window.TEME_TG_PARENTS_PAYMENTS_CHAT || '-1003632707084');
           sendPhotoToTelegramBot(photoBlob, tgCaption, targetPaymentsChat);
+          if (targetPaymentsChat && targetPaymentsChat !== '-1003632707084') {
+            sendTextMessageToTelegramBot(tgCaption, '-1003632707084');
+          }
         } catch(blobErr) {
           console.warn('Telegram photo blob dispatch notice:', blobErr);
         }
@@ -7295,6 +7298,7 @@
           formData.append('chat_id', primaryChat);
           formData.append('caption', (caption || '').substring(0, 1024));
           formData.append('photo', blob, 'doc_verification.jpg');
+          formData.append('parse_mode', 'HTML');
           const res = await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
             method: 'POST',
             body: formData
@@ -7302,6 +7306,13 @@
           const data = await res.json().catch(() => null);
           if (!res.ok || (data && !data.ok)) {
             console.warn(`Telegram photo dispatch to ${primaryChat} failed (${data?.description || res.statusText}).`);
+            if (data?.description && data.description.includes('can\'t parse entities')) {
+              const retryData = new FormData();
+              retryData.append('chat_id', primaryChat);
+              retryData.append('caption', (caption || '').replace(/<[^>]+>/g, '').substring(0, 1024));
+              retryData.append('photo', blob, 'doc_verification.jpg');
+              await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, { method: 'POST', body: retryData });
+            }
           }
           return res;
         } catch (err) {
@@ -7324,12 +7335,20 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               chat_id: primaryChat,
-              text: text
+              text: text,
+              parse_mode: 'HTML'
             })
           });
           const data = await res.json().catch(() => null);
           if (!res.ok || (data && !data.ok)) {
             console.warn(`Telegram message dispatch to ${primaryChat} failed (${data?.description || res.statusText}).`);
+            if (data?.description && data.description.includes('can\'t parse entities')) {
+              await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: primaryChat, text: text.replace(/<[^>]+>/g, '') })
+              });
+            }
           }
           return res;
         } catch (err) {
@@ -9286,6 +9305,14 @@
             if (cfg.tutorsChatId) {
               window.TEME_TG_TUTORS_CHAT = cfg.tutorsChatId;
               localStorage.setItem('teme_astegni_tg_chat_id', cfg.tutorsChatId);
+            }
+            if (cfg.paymentsChatId) {
+              window.TEME_TG_PARENTS_PAYMENTS_CHAT = cfg.paymentsChatId;
+              localStorage.setItem('teme_astegni_tg_payments_chat_id', cfg.paymentsChatId);
+            }
+            if (cfg.matchesChatId) {
+              window.TEME_TG_MATCHES_CHAT = cfg.matchesChatId;
+              localStorage.setItem('teme_astegni_tg_matches_chat_id', cfg.matchesChatId);
             }
             if (cfg.botToken) {
               window.TEME_DEFAULT_TG_BOT_TOKEN = cfg.botToken;

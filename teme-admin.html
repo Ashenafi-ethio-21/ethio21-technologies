@@ -2206,13 +2206,43 @@
             </a>
           </div>
           <p style="font-size: 0.74rem; color: var(--text-muted); margin-top: 0.25rem; line-height: 1.4;">
-            Official Invite: <b>https://t.me/+1nwxhaCqN9M4Y2E0</b>. Enter the numeric chat ID of the payments group. If left blank, payment receipts will safely route to the Parents Group (<code>-1003632707084</code>).
+            Official Invite: <b>https://t.me/+1nwxhaCqN9M4Y2E0</b> ("Teme Astegni parents payments"). If left blank, payment receipts will safely route to Parents Group (<code>-1003632707084</code>).
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Telegram "Toutor Matches" Group Chat ID</label>
+          <div style="display: flex; gap: 0.5rem;">
+            <input type="text" id="tg-matches-chat-input" class="form-ctrl" placeholder="e.g. -100xxxxxxxxxx (Numeric Chat ID)">
+            <a href="https://t.me/+u0IdrknHN5A4ZGI0" target="_blank" rel="noopener" class="btn-act" style="background: rgba(36, 161, 222, 0.25); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); text-decoration: none; display: flex; align-items: center; white-space: nowrap; font-size: 0.8rem; font-weight: 800; padding: 0.5rem 0.85rem; border-radius: 10px;">
+              ✈️ Open Group ↗
+            </a>
+          </div>
+          <p style="font-size: 0.74rem; color: var(--text-muted); margin-top: 0.25rem; line-height: 1.4;">
+            Official Invite: <b>https://t.me/+u0IdrknHN5A4ZGI0</b> ("Toutor Matches"). All match contracts and pair notifications stream here.
+          </p>
+        </div>
+
+        <!-- 1-Click Auto-Discovery & Help Box -->
+        <div style="background: rgba(56, 189, 248, 0.08); border: 1px dashed rgba(56, 189, 248, 0.35); border-radius: 14px; padding: 0.85rem 1rem; margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.4rem;">
+            <div style="font-size: 0.82rem; font-weight: 850; color: #38bdf8;">
+              🔍 1-Click Auto-Discovery: Connect Any Group Instantly
+            </div>
+            <button type="button" class="btn-act" onclick="autoDetectTelegramChats(this)" style="background: linear-gradient(135deg, #0284c7, #10b981); color: #fff; border: none; font-size: 0.76rem; font-weight: 850; padding: 0.35rem 0.75rem; border-radius: 8px;">
+              🔍 Auto-Detect Group IDs from Telegram Bot
+            </button>
+          </div>
+          <p style="font-size: 0.73rem; color: #cbd5e1; margin: 0; line-height: 1.45;">
+            <b>How to connect in 10 seconds:</b> 1. Add <code>@ethio21_official_bot</code> as an <b>Admin</b> to your group • 2. Type any message (e.g. <code>/start</code> or <code>hello</code>) in the group • 3. Click <b>"Auto-Detect Group IDs"</b> above! The system discovers the numeric ID automatically.
           </p>
         </div>
 
         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
           <button class="btn-act btn-act-primary" onclick="saveTelegramConfig()">💾 Save Telegram Settings</button>
-          <button class="btn-act" onclick="testTelegramAlert()">✈️ Send Test Alert to Telegram</button>
+          <button class="btn-act" onclick="testTelegramAlert('ALL')">✈️ Test All Groups</button>
+          <button class="btn-act" onclick="testTelegramAlert('PAYMENTS')" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4);">💳 Test Payments Group</button>
+          <button class="btn-act" onclick="testTelegramAlert('MATCHES')" style="background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4);">🤝 Test Matches Group</button>
         </div>
       </div>
 
@@ -6839,7 +6869,10 @@ function rowsToJson(sheet) {
         `📅 <b>Timestamp:</b> ${new Date().toLocaleString()}\n\n` +
         `🔍 <i>Private Matches Group: https://t.me/+u0IdrknHN5A4ZGI0</i>`;
 
-      dispatchTelegramOpsLog(msg);
+      const matchesTarget = localStorage.getItem('teme_astegni_tg_matches_chat_id') || 
+                            document.getElementById('tg-matches-chat-input')?.value.trim() || 
+                            '';
+      dispatchTelegramOpsLog(msg, matchesTarget);
 
       // Also forward match to Google Sheet if webhook configured
       const webhookUrl = localStorage.getItem('teme_astegni_db_webhook');
@@ -7470,14 +7503,17 @@ function rowsToJson(sheet) {
     }
 
     function saveTelegramConfig() {
-      const rawChatId = document.getElementById('tg-chat-id-input').value.trim() || '-1004410573815';
+      const rawToken = (document.getElementById('tg-bot-token-input')?.value || '').trim() || '8808218998:AAF-xCF8eYt2S0J58G1i4XKcvO1qdJ5puTU';
+      const rawChatId = (document.getElementById('tg-chat-id-input')?.value || '').trim() || '-1004410573815';
       const chatId = (rawChatId.includes('uXdWxrADSSc3ZTc0') || rawChatId.startsWith('http') || rawChatId.includes('/+')) ? '-1004410573815' : rawChatId;
-      const rawParents = (document.getElementById('tg-parents-chat-input') ? document.getElementById('tg-parents-chat-input').value.trim() : '') || '-1003632707084';
+      const rawParents = (document.getElementById('tg-parents-chat-input')?.value || '').trim() || '-1003632707084';
       const parentsChat = (rawParents.includes('zH2Ov8OM20YzYTc0') || rawParents.startsWith('http') || rawParents.includes('/+')) ? '-1003632707084' : rawParents;
-      const rawPayments = (document.getElementById('tg-payments-chat-input') ? document.getElementById('tg-payments-chat-input').value.trim() : '');
+      const rawPayments = (document.getElementById('tg-payments-chat-input')?.value || '').trim();
       const paymentsChat = (rawPayments.startsWith('http') || rawPayments.includes('/+')) ? '' : rawPayments;
+      const rawMatches = (document.getElementById('tg-matches-chat-input')?.value || '').trim();
+      const matchesChat = (rawMatches.startsWith('http') || rawMatches.includes('/+')) ? '' : rawMatches;
 
-      localStorage.setItem('teme_astegni_tg_bot_token', token);
+      localStorage.setItem('teme_astegni_tg_bot_token', rawToken);
       localStorage.setItem('teme_astegni_tg_chat_id', chatId);
       localStorage.setItem('teme_astegni_tg_parents_chat_id', parentsChat);
       if (paymentsChat) {
@@ -7485,114 +7521,199 @@ function rowsToJson(sheet) {
       } else {
         localStorage.removeItem('teme_astegni_tg_payments_chat_id');
       }
+      if (matchesChat) {
+        localStorage.setItem('teme_astegni_tg_matches_chat_id', matchesChat);
+      } else {
+        localStorage.removeItem('teme_astegni_tg_matches_chat_id');
+      }
 
       if (typeof db !== 'undefined' && db) {
         db.collection('astegni_system_config').doc('public_config').set({
-          botToken: token,
+          botToken: rawToken,
           tutorsChatId: chatId,
           parentsChatId: parentsChat,
           paymentsChatId: paymentsChat || parentsChat,
+          matchesChatId: matchesChat || chatId,
           updatedAt: new Date().toISOString()
         }, { merge: true }).then(() => {
           console.log("Synced telegram config to cloud public_config");
         }).catch(e => console.warn(e));
       }
-      alert('✅ Telegram Settings saved! All uploads are segmented:\n• Parents ➔ ' + parentsChat + '\n• Tutors ➔ ' + chatId + '\n• Payments ➔ ' + (paymentsChat || parentsChat));
+      alert(`✅ Telegram Settings saved!\n\n• Tutors Group ➔ ${chatId}\n• Parents Group ➔ ${parentsChat}\n• Parents Payments ➔ ${paymentsChat || '(Routes to Parents Group)'}\n• Tutor Matches ➔ ${matchesChat || '(Routes to Tutors Group)'}`);
     }
 
-    async function testTelegramAlert() {
-      let rawChat = localStorage.getItem('teme_astegni_tg_chat_id') || document.getElementById('tg-chat-id-input').value.trim() || '-1004410573815';
-      const chatId = (rawChat.includes('uXdWxrADSSc3ZTc0') || rawChat.startsWith('http') || rawChat.includes('/+')) ? '-1004410573815' : rawChat;
-      const rawParents = localStorage.getItem('teme_astegni_tg_parents_chat_id') || (document.getElementById('tg-parents-chat-input') ? document.getElementById('tg-parents-chat-input').value.trim() : '') || '-1003632707084';
-      const parentsChat = (rawParents.includes('zH2Ov8OM20YzYTc0') || rawParents.startsWith('http') || rawParents.includes('/+')) ? '-1003632707084' : rawParents;
-      const rawPayments = localStorage.getItem('teme_astegni_tg_payments_chat_id') || (document.getElementById('tg-payments-chat-input') ? document.getElementById('tg-payments-chat-input').value.trim() : '');
-      const paymentsChat = (rawPayments.startsWith('http') || rawPayments.includes('/+')) ? '' : rawPayments;
-
-      if (!token) {
-        alert('Please enter Telegram Bot Token first.');
-        return;
-      }
+    async function autoDetectTelegramChats(btnEl) {
+      const token = localStorage.getItem('teme_astegni_tg_bot_token') || 
+                    document.getElementById('tg-bot-token-input')?.value.trim() || 
+                    '8808218998:AAF-xCF8eYt2S0J58G1i4XKcvO1qdJ5puTU';
+      const origText = btnEl ? btnEl.innerText : '';
+      if (btnEl) btnEl.innerText = '⏳ Scanning Telegram Updates...';
 
       try {
-        const textTutors = '🎓 <b>Tutors Group Test Alert</b>\n\nVerified tutor applications, campus IDs, and grade reports will stream into this group.';
-        const textParents = '👨‍👩‍👧 <b>Parents Group Test Alert</b>\n\nVerified parent tutoring inquiries and household IDs will stream into this group.';
-        const textPayments = '💳 <b>Payments Group Test Alert</b>\n\nParent escrow transfer receipts and payment screenshots will stream into this group.';
-
-        let resAdmin = null;
-        if (chatId) {
-          const r = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ chat_id: chatId, text: textTutors, parse_mode: 'HTML' })
-          });
-          resAdmin = await r.json();
+        const res = await fetch(`https://api.telegram.org/bot${token}/getUpdates?limit=100`);
+        const data = await res.json();
+        if (!data.ok) {
+          alert('Telegram API Error: ' + data.description);
+          return;
         }
 
-        let resParents = null;
-        if (parentsChat) {
-          const r = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ chat_id: parentsChat, text: textParents, parse_mode: 'HTML' })
-          });
-          resParents = await r.json();
+        const updates = data.result || [];
+        const discovered = {};
+        updates.forEach(u => {
+          const c = u.message?.chat || u.my_chat_member?.chat || u.channel_post?.chat;
+          if (c && c.id) {
+            discovered[c.id] = {
+              id: c.id,
+              title: c.title || c.username || 'Private Chat',
+              type: c.type
+            };
+          }
+        });
+
+        const chatsList = Object.values(discovered);
+        if (chatsList.length === 0) {
+          alert('ℹ️ No active chats detected yet.\n\nTo connect your groups in seconds:\n1. Open "Teme Astegni parents payments" and "Toutor Matches".\n2. Add @ethio21_official_bot as Admin.\n3. Type a message like "/start" or "hi" in each group.\n4. Click Auto-Detect again!');
+          return;
         }
 
-        let resPayments = null;
-        if (paymentsChat) {
-          const r = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ chat_id: paymentsChat, text: textPayments, parse_mode: 'HTML' })
-          });
-          resPayments = await r.json();
+        let detectedPayments = null;
+        let detectedMatches = null;
+        let detectedTutors = null;
+        let detectedParents = null;
+
+        chatsList.forEach(chat => {
+          const tLower = (chat.title || '').toLowerCase();
+          if (tLower.includes('payment') || tLower.includes('ክፍያ')) {
+            detectedPayments = String(chat.id);
+          } else if (tLower.includes('match') || tLower.includes('ድርድር') || tLower.includes('ጥንድ')) {
+            detectedMatches = String(chat.id);
+          } else if (tLower.includes('tutor') || tLower.includes('አስጠኚ')) {
+            detectedTutors = String(chat.id);
+          } else if (tLower.includes('parent') || tLower.includes('ወላጅ')) {
+            detectedParents = String(chat.id);
+          }
+        });
+
+        if (detectedPayments && document.getElementById('tg-payments-chat-input')) {
+          document.getElementById('tg-payments-chat-input').value = detectedPayments;
+        }
+        if (detectedMatches && document.getElementById('tg-matches-chat-input')) {
+          document.getElementById('tg-matches-chat-input').value = detectedMatches;
+        }
+        if (detectedTutors && document.getElementById('tg-chat-id-input')) {
+          document.getElementById('tg-chat-id-input').value = detectedTutors;
+        }
+        if (detectedParents && document.getElementById('tg-parents-chat-input')) {
+          document.getElementById('tg-parents-chat-input').value = detectedParents;
         }
 
-        let msg = '📊 Telegram Test Results:\n';
-        if (resAdmin) msg += `\n• Tutors Group (${chatId}): ${resAdmin.ok ? '✓ Connected & Sent!' : '❌ Error: ' + resAdmin.description}`;
-        if (resParents) msg += `\n• Parents Group (${parentsChat}): ${resParents.ok ? '✓ Connected & Sent!' : '❌ Error: ' + resParents.description}`;
-        if (paymentsChat && resPayments) {
-          msg += `\n• Payments Group (${paymentsChat}): ${resPayments.ok ? '✓ Connected & Sent!' : '❌ Error: ' + resPayments.description}`;
-        } else {
-          msg += `\n• Payments Stream: Routed to Parents Group (${parentsChat}) ✓`;
-        }
-        msg += '\n\n(Important: Ensure @ethio21_official_bot is promoted to Administrator with "Post Messages" permission in each group)';
-        alert(msg);
+        let summary = '🔍 Telegram Auto-Discovery Found ' + chatsList.length + ' Chat(s):\n\n';
+        chatsList.forEach(c => {
+          summary += `• "${c.title}" (${c.type}): ${c.id}\n`;
+        });
+        summary += '\nInputs have been populated. Click "💾 Save Telegram Settings" to apply.';
+        alert(summary);
+        saveTelegramConfig();
       } catch (err) {
-        alert('Connection error: ' + err.message);
+        alert('Error checking bot updates: ' + err.message);
+      } finally {
+        if (btnEl) btnEl.innerText = origText;
       }
     }
 
-    // DISPATCH ADMIN ACTION LOG TO TELEGRAM OPS (TRACING UNIQUE ID)
-    async function dispatchTelegramOpsLog(htmlMessage) {
-      const defaultToken = '8808218998:AAF-xCF8eYt2S0J58G1i4XKcvO1qdJ5puTU';
-      const defaultChatId = '@Teme_Astegni_community';
+    async function testTelegramAlert(targetType = 'ALL') {
       const token = localStorage.getItem('teme_astegni_tg_bot_token') || 
-                    (document.getElementById('tg-bot-token-input') ? document.getElementById('tg-bot-token-input').value.trim() : '') ||
-                    defaultToken;
-      const chatId = localStorage.getItem('teme_astegni_tg_chat_id') || 
-                     (document.getElementById('tg-chat-id-input') ? document.getElementById('tg-chat-id-input').value.trim() : '') ||
-                     defaultChatId;
-      const webhookUrl = localStorage.getItem('teme_astegni_db_webhook') || 
-                         (document.getElementById('webhook-url-input') ? document.getElementById('webhook-url-input').value.trim() : '');
+                    document.getElementById('tg-bot-token-input')?.value.trim() || 
+                    '8808218998:AAF-xCF8eYt2S0J58G1i4XKcvO1qdJ5puTU';
+      const chatId = localStorage.getItem('teme_astegni_tg_chat_id') || document.getElementById('tg-chat-id-input')?.value.trim() || '-1004410573815';
+      const parentsChat = localStorage.getItem('teme_astegni_tg_parents_chat_id') || document.getElementById('tg-parents-chat-input')?.value.trim() || '-1003632707084';
+      const paymentsChat = localStorage.getItem('teme_astegni_tg_payments_chat_id') || document.getElementById('tg-payments-chat-input')?.value.trim() || '';
+      const matchesChat = localStorage.getItem('teme_astegni_tg_matches_chat_id') || document.getElementById('tg-matches-chat-input')?.value.trim() || '';
 
-      let sentDirectly = false;
-      if (token && chatId) {
+      const results = [];
+
+      async function sendTest(cid, label, text) {
+        if (!cid || cid.startsWith('http') || cid.includes('/+')) {
+          results.push(`• ${label}: ⚠️ Numeric Chat ID missing (Invite link cannot receive bot posts directly; add bot to group & click Auto-Detect)`);
+          return;
+        }
         try {
           const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              chat_id: chatId,
-              text: htmlMessage,
-              parse_mode: 'HTML'
-            })
+            body: JSON.stringify({ chat_id: cid, text: text, parse_mode: 'HTML' })
           });
-          const json = await res.json();
-          sentDirectly = json.ok;
+          const data = await res.json();
+          if (data.ok) {
+            results.push(`• ${label} (${cid}): ✓ Connected & Sent Successfully!`);
+          } else {
+            results.push(`• ${label} (${cid}): ❌ Failed (${data.description})`);
+          }
         } catch (e) {
-          console.warn('Direct Telegram API send error:', e);
+          results.push(`• ${label} (${cid}): ❌ Network error (${e.message})`);
         }
+      }
+
+      if (targetType === 'ALL' || targetType === 'TUTORS') {
+        await sendTest(chatId, 'Tutors Group', '🎓 <b>Tutors Group Test Alert</b>\n\nVerified tutor applications, campus IDs, and grade reports stream into this group.');
+      }
+      if (targetType === 'ALL' || targetType === 'PARENTS') {
+        await sendTest(parentsChat, 'Parents Group', '👨‍👩‍👧 <b>Parents Group Test Alert</b>\n\nVerified parent tutoring inquiries and household IDs stream into this group.');
+      }
+      if (targetType === 'ALL' || targetType === 'PAYMENTS') {
+        const pTarget = paymentsChat || parentsChat;
+        await sendTest(pTarget, 'Parents Payments Group', '💳 <b>Teme Astegni Parents Payments Test Alert</b>\n\nParent escrow transfer receipts and payment screenshots stream directly into this dedicated group.');
+      }
+      if (targetType === 'ALL' || targetType === 'MATCHES') {
+        const mTarget = matchesChat || chatId;
+        await sendTest(mTarget, 'Tutor Matches Group', '🤝 <b>Toutor Matches Test Alert</b>\n\nOfficial matched pairs, parent-tutor contracts, and commission logs stream directly into this dedicated group.');
+      }
+
+      alert('📊 Telegram Test Results:\n\n' + results.join('\n\n') + '\n\n(Important: Ensure @ethio21_official_bot is promoted to Administrator with "Post Messages" permission in each group)');
+    }
+
+    // DISPATCH ADMIN ACTION LOG TO TELEGRAM OPS (TRACING UNIQUE ID)
+    async function dispatchTelegramOpsLog(htmlMessage, customTargetChat) {
+      const defaultToken = '8808218998:AAF-xCF8eYt2S0J58G1i4XKcvO1qdJ5puTU';
+      const token = localStorage.getItem('teme_astegni_tg_bot_token') || 
+                    (document.getElementById('tg-bot-token-input') ? document.getElementById('tg-bot-token-input').value.trim() : '') ||
+                    defaultToken;
+      const matchesChat = localStorage.getItem('teme_astegni_tg_matches_chat_id') || 
+                          (document.getElementById('tg-matches-chat-input') ? document.getElementById('tg-matches-chat-input').value.trim() : '');
+      const tutorsChat = localStorage.getItem('teme_astegni_tg_chat_id') || 
+                         (document.getElementById('tg-chat-id-input') ? document.getElementById('tg-chat-id-input').value.trim() : '') ||
+                         '-1004410573815';
+      const parentsChat = localStorage.getItem('teme_astegni_tg_parents_chat_id') || 
+                          (document.getElementById('tg-parents-chat-input') ? document.getElementById('tg-parents-chat-input').value.trim() : '') ||
+                          '-1003632707084';
+      const webhookUrl = localStorage.getItem('teme_astegni_db_webhook') || 
+                         (document.getElementById('webhook-url-input') ? document.getElementById('webhook-url-input').value.trim() : '');
+
+      const targetChat = customTargetChat || matchesChat || tutorsChat || parentsChat;
+      if (!targetChat) return false;
+
+      let sentDirectly = false;
+      try {
+        const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: targetChat,
+            text: htmlMessage,
+            parse_mode: 'HTML'
+          })
+        });
+        const json = await res.json();
+        sentDirectly = json.ok;
+        if (!json.ok && json.description && json.description.includes('can\'t parse entities')) {
+          await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: targetChat, text: htmlMessage.replace(/<[^>]+>/g, '') })
+          });
+        }
+      } catch (e) {
+        console.warn('Direct Telegram API send error:', e);
       }
 
       // Also forward through Apps Script Webhook if configured
@@ -7611,6 +7732,10 @@ function rowsToJson(sheet) {
       }
 
       return sentDirectly;
+    }
+
+    function sendTelegramNotification(htmlMessage, customTargetChat) {
+      return dispatchTelegramOpsLog(htmlMessage, customTargetChat);
     }
 
     async function syncCloudDatabase() {
@@ -7932,6 +8057,29 @@ function rowsToJson(sheet) {
       const savedPaymentsChat = (rawPaymentsChat.startsWith('http') || rawPaymentsChat.includes('/+')) ? '' : rawPaymentsChat;
       if (document.getElementById('tg-payments-chat-input')) {
         document.getElementById('tg-payments-chat-input').value = savedPaymentsChat;
+      }
+
+      const rawMatchesChat = localStorage.getItem('teme_astegni_tg_matches_chat_id') || '';
+      const savedMatchesChat = (rawMatchesChat.startsWith('http') || rawMatchesChat.includes('/+')) ? '' : rawMatchesChat;
+      if (document.getElementById('tg-matches-chat-input')) {
+        document.getElementById('tg-matches-chat-input').value = savedMatchesChat;
+      }
+
+      // Check cloud public_config if local inputs are unconfigured
+      if (typeof db !== 'undefined' && db) {
+        db.collection('astegni_system_config').doc('public_config').get().then(doc => {
+          if (doc.exists) {
+            const d = doc.data();
+            if (d.paymentsChatId && !localStorage.getItem('teme_astegni_tg_payments_chat_id')) {
+              localStorage.setItem('teme_astegni_tg_payments_chat_id', d.paymentsChatId);
+              if (document.getElementById('tg-payments-chat-input')) document.getElementById('tg-payments-chat-input').value = d.paymentsChatId;
+            }
+            if (d.matchesChatId && !localStorage.getItem('teme_astegni_tg_matches_chat_id')) {
+              localStorage.setItem('teme_astegni_tg_matches_chat_id', d.matchesChatId);
+              if (document.getElementById('tg-matches-chat-input')) document.getElementById('tg-matches-chat-input').value = d.matchesChatId;
+            }
+          }
+        }).catch(() => {});
       }
 
       // Always enforce initial Master PIN (2121) / credential authentication when opened
