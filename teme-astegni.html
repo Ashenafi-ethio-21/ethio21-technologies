@@ -7278,7 +7278,7 @@
       };
       img.src = url;
 
-      // AUTOMATIC QR SCAN FROM ALREADY-CAPTURED / GALLERY PHOTO
+      // AUTOMATIC QR SCAN OR OCR TEXT EXTRACTION FROM ALREADY-CAPTURED / GALLERY PHOTO
       if (previewId && (previewId.includes('front') || previewId.includes('back')) && typeof scanQrFromImageFile === 'function') {
         scanQrFromImageFile(file).then(qrResult => {
           if (qrResult && qrResult.id) {
@@ -7291,7 +7291,7 @@
               const viewEl = document.getElementById('p-govt-id-extracted-view');
               const textEl = document.getElementById('p-govt-id-extracted-text');
               if (viewEl) viewEl.style.display = 'block';
-              if (textEl) textEl.innerText = `${qrResult.id} ✓ (Fayda QR Decoded from Gallery Photo)`;
+              if (textEl) textEl.innerText = `${qrResult.id} ✓ (Fayda QR Decoded from Photo)`;
               if (status) {
                 status.style.display = 'block';
                 status.style.background = 'rgba(16, 185, 129, 0.25)';
@@ -7308,7 +7308,7 @@
               const viewEl = document.getElementById('t-govt-id-extracted-view');
               const textEl = document.getElementById('t-govt-id-extracted-text');
               if (viewEl) viewEl.style.display = 'block';
-              if (textEl) textEl.innerText = `${qrResult.id} ✓ (Fayda QR Decoded from Gallery Photo)`;
+              if (textEl) textEl.innerText = `${qrResult.id} ✓ (Fayda QR Decoded from Photo)`;
               if (status) {
                 status.style.display = 'block';
                 status.style.background = 'rgba(16, 185, 129, 0.25)';
@@ -7325,8 +7325,70 @@
 
             if (typeof showAgyNotification === 'function') {
               showAgyNotification((currentLang === 'am') 
-                ? `✓ የፋይዳ QR ኮድ ከጋለሪ ፎቶው ላይ በቅጽበት ተነቧል! (${qrResult.id})` 
-                : `✓ Fayda QR Code detected & verified from gallery photo! (${qrResult.id})`, 'success');
+                ? `✓ የፋይዳ QR ኮድ ከፎቶው ላይ በቅጽበት ተነቧል! (${qrResult.id})` 
+                : `✓ Fayda QR Code detected & verified from photo! (${qrResult.id})`, 'success');
+            }
+          } else {
+            // Intelligent Fallback: If QR matrix is blurry (e.g. low-res webcam snapshot),
+            // extract the printed National FIN number & Phone from the text side!
+            if (typeof Tesseract !== 'undefined' && Tesseract.recognize) {
+              Tesseract.recognize(file, 'eng').then(res => {
+                if (res && res.data && res.data.text) {
+                  const txt = res.data.text.toUpperCase();
+                  const finMatch = txt.match(/FIN[\s\-:]*([0-9]{4}[\s\-][0-9]{4}[\s\-][0-9]{4})/i) ||
+                                   txt.match(/FIN[\s\-:]*([0-9A-Z\s]{10,16})/i) ||
+                                   txt.match(/([0-9]{4}[\s\-][0-9]{4}[\s\-][0-9]{4})/i) ||
+                                   txt.match(/([0-9]{12,16})/);
+                  const phoneMatch = txt.match(/(?:09|07)[0-9]{8}/);
+
+                  if (finMatch) {
+                    const detectedFin = finMatch[0].replace(/[\s:]+/g, ' ').trim();
+                    if (typeof playScanSuccessTone === 'function') playScanSuccessTone();
+
+                    if (previewId.includes('p-front') || previewId.includes('p-back')) {
+                      window.currentParentFaydaVerified = true;
+                      window.currentParentFaydaNumber = detectedFin;
+                      const viewEl = document.getElementById('p-govt-id-extracted-view');
+                      const textEl = document.getElementById('p-govt-id-extracted-text');
+                      if (viewEl) viewEl.style.display = 'block';
+                      if (textEl) textEl.innerText = `${detectedFin} ✓ (National Fayda FIN Auto-Extracted)`;
+                      if (status) {
+                        status.style.display = 'block';
+                        status.style.background = 'rgba(16, 185, 129, 0.25)';
+                        status.style.color = '#34d399';
+                        status.innerHTML = `✓ <b>Fayda FIN Detected:</b> ${detectedFin}`;
+                      }
+                      if (phoneMatch && document.getElementById('p_phone') && !document.getElementById('p_phone').value) {
+                        document.getElementById('p_phone').value = phoneMatch[0];
+                      }
+                    } else if (previewId.includes('t-front') || previewId.includes('t-back')) {
+                      window.currentTutorFaydaVerified = true;
+                      window.currentTutorFaydaNumber = detectedFin;
+                      const inpEl = document.getElementById('t_govt_id_num');
+                      if (inpEl) inpEl.value = detectedFin;
+                      const viewEl = document.getElementById('t-govt-id-extracted-view');
+                      const textEl = document.getElementById('t-govt-id-extracted-text');
+                      if (viewEl) viewEl.style.display = 'block';
+                      if (textEl) textEl.innerText = `${detectedFin} ✓ (National Fayda FIN Auto-Extracted)`;
+                      if (status) {
+                        status.style.display = 'block';
+                        status.style.background = 'rgba(16, 185, 129, 0.25)';
+                        status.style.color = '#34d399';
+                        status.innerHTML = `✓ <b>Fayda FIN Detected:</b> ${detectedFin}`;
+                      }
+                      if (phoneMatch && document.getElementById('t_phone') && !document.getElementById('t_phone').value) {
+                        document.getElementById('t_phone').value = phoneMatch[0];
+                      }
+                    }
+
+                    if (clarity) {
+                      clarity.style.display = 'block';
+                      clarity.style.color = '#34d399';
+                      clarity.innerHTML = `✓ <b>National Fayda Verified:</b> ${detectedFin} detected from card text.`;
+                    }
+                  }
+                }
+              }).catch(() => {});
             }
           }
         }).catch(() => {});
