@@ -3,15 +3,42 @@
   "name": "Teme Astegni • ተሜ አስጠኚ",
   "short_name": "Teme Astegni",
   "description": "Ethiopia's premier network of verified university home tutors. Verified credentials, nearby campus scholars, zero-risk free trial.",
-  "start_url": "teme-astegni.html",
+  "start_url": "./teme-astegni.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#090d16",
   "theme_color": "#090d16",
   "orientation": "portrait-primary",
-  "categories": ["education", "lifestyle"],
+  "categories": [
+    "education",
+    "lifestyle"
+  ],
   "icons": [
     {
+      "src": "assets/teme_astegni_192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/teme_astegni_192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/teme_astegni_512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/teme_astegni_512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
       "src": "assets/teme_astegni_logo.jpg",
       "sizes": "192x192",
       "type": "image/jpeg",
@@ -19,21 +46,9 @@
     },
     {
       "src": "assets/teme_astegni_logo.jpg",
-      "sizes": "192x192",
-      "type": "image/jpeg",
-      "purpose": "maskable"
-    },
-    {
-      "src": "assets/teme_astegni_logo.jpg",
       "sizes": "512x512",
       "type": "image/jpeg",
       "purpose": "any"
-    },
-    {
-      "src": "assets/teme_astegni_logo.jpg",
-      "sizes": "512x512",
-      "type": "image/jpeg",
-      "purpose": "maskable"
     }
   ]
 }

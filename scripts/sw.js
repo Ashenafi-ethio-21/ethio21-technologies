@@ -3,7 +3,7 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v137-payments-and-matches-fully-activated';
+const CACHE_NAME = 'ethio21-v138-pwa-direct-install-perfected';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -14,6 +14,8 @@ const ASSETS_TO_CACHE = [
   './teme_astegni_master_architecture.html',
   './assets/exam_data.json',
   './assets/teme_astegni_logo.jpg',
+  './assets/teme_astegni_192.png',
+  './assets/teme_astegni_512.png',
   './styles/main.css',
   './scripts/translations.js',
   './scripts/app.js',
@@ -26,7 +28,9 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE);
+      return Promise.allSettled(
+        ASSETS_TO_CACHE.map((url) => cache.add(url).catch((err) => console.warn('[SW] Caching skipped for', url, err)))
+      );
     })
   );
 });

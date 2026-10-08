@@ -31,10 +31,12 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Teme Astegni">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/teme_astegni_192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/teme_astegni_512.png">
   <link rel="icon" type="image/jpeg" href="assets/teme_astegni_logo.jpg">
-  <link rel="apple-touch-icon" href="assets/teme_astegni_logo.jpg">
-  <link rel="apple-touch-icon" sizes="192x192" href="assets/teme_astegni_logo.jpg">
-  <link rel="apple-touch-icon" sizes="512x512" href="assets/teme_astegni_logo.jpg">
+  <link rel="apple-touch-icon" href="assets/teme_astegni_192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="assets/teme_astegni_192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="assets/teme_astegni_512.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10864,12 +10866,22 @@
       }
     }
 
-    // Trigger installation flow
-    function triggerPwaInstall() {
+    // Trigger installation flow (Prioritizes direct native device app install)
+    async function triggerPwaInstall() {
+      // 1. If deferredInstallPrompt is not yet set, wait a moment in case beforeinstallprompt is in-flight
+      if (!deferredInstallPrompt) {
+        for (let i = 0; i < 8; i++) {
+          if (deferredInstallPrompt) break;
+          await new Promise(r => setTimeout(r, 150));
+        }
+      }
+
+      // 2. Direct native install prompt execution (Installs directly like an app)
       if (deferredInstallPrompt) {
-        deferredInstallPrompt.prompt();
-        deferredInstallPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
+        try {
+          deferredInstallPrompt.prompt();
+          const choiceResult = await deferredInstallPrompt.userChoice;
+          if (choiceResult && choiceResult.outcome === 'accepted') {
             console.log('User accepted Teme Astegni PWA installation');
             dismissPwaBanner(true);
             closeUniversalInstallModal();
@@ -10877,31 +10889,34 @@
             console.log('User dismissed Teme Astegni native install prompt');
           }
           deferredInstallPrompt = null;
-        }).catch((err) => {
+          return;
+        } catch (err) {
           console.warn('Install prompt error:', err);
-          openUniversalInstallModal();
-        });
-      } else {
-        openUniversalInstallModal();
+        }
       }
+
+      // 3. Fallback: Only open universal instructions modal if the device/browser
+      // does not support beforeinstallprompt (e.g. iOS Safari where Apple requires Share -> Add to Home Screen, or Telegram in-app browser)
+      openUniversalInstallModal();
     }
 
     // Direct install execution from inside the universal modal
-    function executeNativePwaPrompt() {
+    async function executeNativePwaPrompt() {
       if (deferredInstallPrompt) {
-        deferredInstallPrompt.prompt();
-        deferredInstallPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
+        try {
+          deferredInstallPrompt.prompt();
+          const choiceResult = await deferredInstallPrompt.userChoice;
+          if (choiceResult && choiceResult.outcome === 'accepted') {
             dismissPwaBanner(true);
             closeUniversalInstallModal();
           }
           deferredInstallPrompt = null;
-        }).catch(() => {
-          closeUniversalInstallModal();
-        });
-      } else {
-        closeUniversalInstallModal();
+          return;
+        } catch (e) {
+          console.warn('executeNativePwaPrompt error:', e);
+        }
       }
+      closeUniversalInstallModal();
     }
 
     // Open universal device-adaptive installation modal
@@ -10912,7 +10927,8 @@
       const subtitle = document.getElementById('pwa-modal-subtitle');
 
       if (directBox) {
-        directBox.style.display = deferredInstallPrompt ? 'block' : 'none';
+        const isIos = /iphone|ipad|ipod/.test((navigator.userAgent || '').toLowerCase());
+        directBox.style.display = (!isIos && deferredInstallPrompt) ? 'block' : 'none';
       }
 
       if (stepsContainer) {
