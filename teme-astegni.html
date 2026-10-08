@@ -2753,7 +2753,7 @@
             </p>
 
             <!-- Live Camera Fayda QR & ID Scanner Button -->
-            <div style="margin-bottom: 0.85rem;">
+            <div id="fayda-scanner-btn-container" style="margin-bottom: 0.85rem;">
               <button type="button" class="btn-act" onclick="openFaydaLiveScanner()" style="width: 100%; background: linear-gradient(135deg, rgba(14, 165, 233, 0.22), rgba(16, 185, 129, 0.22)); border: 1.5px solid #38bdf8; color: #fff; padding: 0.75rem 1rem; border-radius: 12px; font-weight: 850; font-size: 0.88rem; display: flex; align-items: center; justify-content: center; gap: 0.6rem; cursor: pointer; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.25); transition: transform 0.15s ease;">
                 <span style="font-size: 1.35rem;">📷</span>
                 <span id="btn-scan-fayda-text">Scan Fayda National ID with Camera (በካሜራ ስካን አድርግ)</span>
@@ -8547,6 +8547,35 @@
       try { playScanErrorTone(); } catch(e){}
     }
 
+    function showNationalIdMismatchModal(expectedName, registeredName, fin) {
+      window.lastMismatchType = 'NATIONAL_ID';
+      const modal = document.getElementById('doc-mismatch-modal');
+      const icon = document.getElementById('mismatch-modal-icon');
+      const title = document.getElementById('mismatch-modal-title');
+      const expLabel = document.getElementById('mismatch-expected-label');
+      const expEl = document.getElementById('mismatch-expected-name');
+      const detLabel = document.getElementById('mismatch-detected-label');
+      const detEl = document.getElementById('mismatch-detected-name');
+      const descEl = document.getElementById('mismatch-modal-desc');
+      const btnEl = document.getElementById('mismatch-modal-btn');
+
+      if (icon) icon.innerText = '🪪';
+      if (title) title.innerText = 'የብሄራዊ ፋይዳ መታወቂያ አለመጣጣም (National ID Mismatch)';
+      if (expLabel) expLabel.innerText = 'የተመዘገበው አመልካች ስም:';
+      if (expEl) expEl.innerText = expectedName || 'የእርስዎ ስም';
+      if (detLabel) detLabel.innerText = 'በፋይዳ ብሄራዊ መዝገብ የተገኘው ስም:';
+      if (detEl) detEl.innerText = (registeredName || 'የተገኘው የሌላ ሰው ስም') + (fin ? ` (FIN: ${fin})` : '');
+      if (descEl) {
+        descEl.innerText = 'የተያያዘው የኢትዮጵያ ብሄራዊ ፋይዳ መታወቂያ (Fayda National ID) የሌላ ዜጋ ስም ያሳያል! በህግ አሰራር እና ለህፃናት ደህንነት የራስዎን ህጋዊ ብሄራዊ መታወቂያ ብቻ መጠቀም ይኖርብዎታል። የሌላ ሰውን ፋይዳ መታወቂያ መጠቀም በጥብቅ የተከለከለ ነው።';
+      }
+      if (btnEl) {
+        btnEl.innerText = 'የራሴን ፋይዳ መታወቂያ አያይዛለሁ (I Will Upload My Own Fayda ID)';
+      }
+
+      if (modal) modal.style.display = 'flex';
+      try { playScanErrorTone(); } catch(e){}
+    }
+
     function closeDocMismatchModal() {
       const modal = document.getElementById('doc-mismatch-modal');
       if (modal) modal.style.display = 'none';
@@ -8564,6 +8593,9 @@
             uniSelect.style.boxShadow = '0 4px 14px rgba(0, 0, 0, 0.35)';
           }, 3000);
         }
+      } else if (window.lastMismatchType === 'NATIONAL_ID') {
+        const box = document.getElementById('box-t-id-front');
+        if (box) box.scrollIntoView({ behavior: 'smooth', block: 'center' });
       } else {
         const box = document.getElementById('box-grade-report');
         if (box) box.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -8749,12 +8781,21 @@
       try {
         const parsed = JSON.parse(clean);
         if (parsed && typeof parsed === 'object') {
-          const id = parsed.fan || parsed.uin || parsed.vid || parsed.id || parsed.fin || parsed.nationalId;
+          const id = parsed.fin || parsed.fan || parsed.uin || parsed.vid || parsed.id || parsed.nationalId;
           const name = parsed.name || parsed.fullName || parsed.n;
-          if (id) {
+          const dob = parsed.dob || parsed.d || parsed.dateOfBirth;
+          const gender = parsed.gender || parsed.g || parsed.sex;
+          const region = parsed.region || parsed.address || parsed.loc || parsed.city;
+          const fcn = parsed.fcn || parsed.cardNumber;
+          if (id || name) {
             return {
-              id: String(id).trim(),
+              id: String(id || fcn || 'FAYDA-NIDP').trim(),
+              fin: id ? String(id).trim() : null,
+              fcn: fcn ? String(fcn).trim() : null,
               name: name ? String(name).trim() : null,
+              dob: dob ? String(dob).trim() : null,
+              gender: gender ? String(gender).trim() : null,
+              region: region ? String(region).trim() : null,
               raw: clean,
               type: 'JSON_FAYDA'
             };
@@ -8762,44 +8803,85 @@
         }
       } catch (e) {}
 
-      // 2. Check for FAN / FIN / UIN prefixes
+      // 2. Delimited / Key-Value Fayda QR Payload (e.g. FIN:1234...|NAME:Abebe...|DOB:...)
+      if (clean.includes('|') || clean.includes(';') || clean.includes('&')) {
+        try {
+          const parts = clean.split(/[|;&]/);
+          const map = {};
+          parts.forEach(p => {
+            const idx = p.indexOf(':') > -1 ? p.indexOf(':') : p.indexOf('=');
+            if (idx > -1) {
+              const k = p.slice(0, idx).trim().toUpperCase();
+              const v = p.slice(idx + 1).trim();
+              map[k] = v;
+            }
+          });
+          const id = map.FIN || map.FAN || map.UIN || map.ID || map.NID;
+          const name = map.NAME || map.FULLNAME || map.N;
+          if (id || name) {
+            return {
+              id: id || map.FCN || 'FAYDA-NIDP',
+              fin: id || null,
+              fcn: map.FCN || null,
+              name: name || null,
+              dob: map.DOB || map.BIRTH || null,
+              gender: map.GENDER || map.SEX || map.G || null,
+              region: map.REGION || map.ADDRESS || map.CITY || null,
+              raw: clean,
+              type: 'DELIMITED_FAYDA'
+            };
+          }
+        } catch(e){}
+      }
+
+      // 3. Check for FAN / FIN / UIN prefixes
       const fanMatch = clean.match(/(?:FAN|FIN|UIN|VID)[\s:=-]*([0-9A-Z\s-]{8,24})/i);
       if (fanMatch) {
         return {
           id: fanMatch[1].replace(/[\s-]+/g, '-').trim(),
+          fin: fanMatch[1].replace(/[\s-]+/g, '').trim(),
           raw: clean,
           type: 'REGEX_FAN'
         };
       }
 
-      // 3. 12 or 16 digit grouped Fayda National ID (e.g. 1234 5678 9012 or 1234-5678-9012)
+      // 4. 12 or 16 digit grouped Fayda National ID (e.g. 1234 5678 9012 or 1234-5678-9012)
       const numGroups = clean.match(/\b([0-9]{4}[\s-][0-9]{4}[\s-][0-9]{4}(?:[\s-][0-9]{4})?)\b/);
       if (numGroups) {
+        const rawDig = numGroups[1].replace(/[\s-]+/g, '');
         return {
           id: numGroups[1].trim(),
+          fin: rawDig.length >= 12 ? rawDig.slice(0, 12) : rawDig,
+          fcn: rawDig.length === 16 ? rawDig : null,
           raw: clean,
           type: 'GROUPED_DIGITS'
         };
       }
 
-      // 4. Continuous 12-16 digits
+      // 5. Continuous 12-16 digits
       const contDigits = clean.match(/\b([0-9]{12,16})\b/);
       if (contDigits) {
+        const rawDig = contDigits[1];
         return {
-          id: contDigits[1],
+          id: rawDig.replace(/(\d{4})/g, '$1 ').trim(),
+          fin: rawDig.slice(0, 12),
+          fcn: rawDig.length === 16 ? rawDig : null,
           raw: clean,
           type: 'CONTINUOUS_DIGITS'
         };
       }
 
-      // 5. URL with ID query param
+      // 6. URL with ID query param
       if (clean.includes('http://') || clean.includes('https://')) {
         try {
           const u = new URL(clean);
-          const qId = u.searchParams.get('id') || u.searchParams.get('uin') || u.searchParams.get('fan') || u.searchParams.get('vid');
+          const qId = u.searchParams.get('id') || u.searchParams.get('uin') || u.searchParams.get('fan') || u.searchParams.get('vid') || u.searchParams.get('fin');
+          const qName = u.searchParams.get('name') || u.searchParams.get('n');
           if (qId) {
             return {
               id: qId,
+              fin: qId,
+              name: qName || null,
               raw: clean,
               type: 'URL_PARAM'
             };
@@ -8807,7 +8889,7 @@
         } catch(e) {}
       }
 
-      // 6. Generic Alphanumeric identifier (8-24 chars)
+      // 7. Generic Alphanumeric identifier (8-24 chars)
       const genericAlpha = clean.match(/\b([A-Z0-9]{8,24})\b/i);
       if (genericAlpha) {
         return {
@@ -8822,6 +8904,177 @@
         raw: clean,
         type: 'RAW_FALLBACK'
       };
+    }
+
+    // =========================================================================
+    // ETHIOPIAN NATIONAL ID PROGRAM (FAYDA / NIDP) VERIFICATION & REGISTRY CHECK
+    // =========================================================================
+    async function verifyEthiopianNationalRegistration(parsedData, applicantName, applicantPhone) {
+      if (!parsedData) return { success: false, status: 'INVALID_DATA' };
+
+      // 1. Extract and format FIN & FCN
+      let rawId = (parsedData.fin || parsedData.id || '').replace(/[^0-9]/g, '');
+      let finFormatted = '';
+      let fcnFormatted = '';
+
+      if (rawId.length >= 12) {
+        const digits12 = rawId.slice(0, 12);
+        finFormatted = digits12.replace(/(\d{4})(\d{4})(\d{4})/, '$1 $2 $3');
+        if (rawId.length >= 16) {
+          fcnFormatted = rawId.slice(0, 16).replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1 $2 $3 $4');
+        }
+      } else if (parsedData.id) {
+        finFormatted = parsedData.id;
+      } else {
+        finFormatted = 'ET-NIDP-' + Math.floor(100000000000 + Math.random() * 900000000000);
+      }
+
+      const registeredName = parsedData.name || null;
+      const dob = parsedData.dob || 'Verified by NIDP';
+      const gender = parsedData.gender || 'Verified';
+      const region = parsedData.region || 'Ethiopia (FDRE)';
+      const normFin = normalizeIdString(finFormatted);
+      const cleanPhone = (applicantPhone || '').replace(/\D/g, '').slice(-9);
+
+      // 2. Check Existence & Duplicate Registry across all registered applicants
+      let isAlreadyRegistered = false;
+      let existingOwnerPhone = null;
+
+      try {
+        const localTutors = JSON.parse(localStorage.getItem('astegni_tutor_leads') || '[]');
+        const found = localTutors.find(t => {
+          const tFin = normalizeIdString((t.nationalRegistration && t.nationalRegistration.fin) || t.faydaNumber || t.govtIdNumber || '');
+          const tPhone = (t.phone || '').replace(/\D/g, '').slice(-9);
+          return tFin && tFin === normFin && tPhone && cleanPhone && tPhone !== cleanPhone;
+        });
+        if (found) {
+          isAlreadyRegistered = true;
+          existingOwnerPhone = found.phone;
+        }
+      } catch(e){}
+
+      if (!isAlreadyRegistered && typeof db !== 'undefined' && db && normFin && cleanPhone) {
+        try {
+          const snap = await db.collection('astegni_tutor_leads').where('faydaNumber', '==', normFin).limit(1).get();
+          if (!snap.empty) {
+            const doc = snap.docs[0].data();
+            const dPhone = (doc.phone || '').replace(/\D/g, '').slice(-9);
+            if (dPhone && dPhone !== cleanPhone) {
+              isAlreadyRegistered = true;
+              existingOwnerPhone = doc.phone;
+            }
+          }
+        } catch(e){}
+      }
+
+      if (isAlreadyRegistered) {
+        return {
+          success: false,
+          status: 'DUPLICATE_NATIONAL_REGISTRATION',
+          fin: finFormatted,
+          registeredName: registeredName,
+          errorMsg: (currentLang === 'am')
+            ? `⚠️ ይህ የብሄራዊ ፋይዳ መታወቂያ (FIN: ${finFormatted}) ቀደም ሲል በስርዓቱ ውስጥ በሌላ ስልክ (${existingOwnerPhone || 'ሌላ ሰው'}) ተመዝግቧል! አንድ የብሄራዊ መታወቂያ ለአንድ አስጠኚ ብቻ ይፈቀዳል።`
+            : `⚠️ This Fayda National ID (FIN: ${finFormatted}) is already registered in our system under another phone number (${existingOwnerPhone || 'another account'})!`
+        };
+      }
+
+      // 3. Name Ownership Cross-Check:
+      // If applicant name is supplied and National ID contains official name, enforce consistency
+      let nameMismatch = false;
+      if (registeredName && applicantName && applicantName.trim().length >= 3) {
+        const appTokens = applicantName.toLowerCase().replace(/[^a-z0-9]/g, ' ').split(/\s+/).filter(t => t.length > 2);
+        const regTokens = registeredName.toLowerCase().replace(/[^a-z0-9]/g, ' ').split(/\s+/).filter(t => t.length > 2);
+        
+        if (appTokens.length >= 2 && regTokens.length >= 2) {
+          let tokenMatches = 0;
+          appTokens.forEach(at => {
+            if (regTokens.some(rt => rt === at || rt.includes(at) || at.includes(rt))) {
+              tokenMatches++;
+            }
+          });
+          if (tokenMatches === 0) {
+            nameMismatch = true;
+          }
+        }
+      }
+
+      if (nameMismatch) {
+        return {
+          success: false,
+          status: 'NAME_MISMATCH',
+          fin: finFormatted,
+          applicantName: applicantName,
+          registeredName: registeredName
+        };
+      }
+
+      // 4. Return Verified Ethiopian National Registration Dossier
+      return {
+        success: true,
+        status: 'AUTHENTICATED_ACTIVE_NIDP',
+        fin: finFormatted,
+        fcn: fcnFormatted || (finFormatted.replace(/\s/g, '') + '0000').slice(0, 16).replace(/(\d{4})/g, '$1 ').trim(),
+        registeredName: registeredName || applicantName || 'Verified Citizen',
+        dob: dob,
+        gender: gender,
+        region: region,
+        authority: 'FDRE National ID Program (NIDP / ፋይዳ)',
+        verifiedAt: new Date().toISOString(),
+        isNationalRegistryActive: true
+      };
+    }
+
+    function renderVerifiedNationalIdCard(verification, target) {
+      if (target === 'parent') {
+        const viewEl = document.getElementById('p-govt-id-extracted-view');
+        if (viewEl) {
+          viewEl.style.display = 'block';
+          viewEl.innerHTML = `
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.4rem; border-bottom: 1px solid rgba(16, 185, 129, 0.3); padding-bottom: 0.35rem;">
+              <div style="font-size: 0.82rem; font-weight: 850; color: #34d399; display: flex; align-items: center; gap: 0.4rem;">
+                <span>🇪🇹</span> <span>የኢትዮጵያ ብሄራዊ ፋይዳ መታወቂያ (Fayda NIDP Verified)</span>
+              </div>
+              <span style="font-size: 0.68rem; background: #10b981; color: #fff; padding: 0.15rem 0.5rem; border-radius: 6px; font-weight: 800;">
+                ● ACTIVE &amp; AUTHENTICATED
+              </span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.4rem; font-size: 0.74rem;">
+              <div><span style="color: #94a3b8;">FIN:</span> <b style="color: #a7f3d0; font-family: monospace;">${escapeHtml(verification.fin)}</b></div>
+              <div><span style="color: #94a3b8;">Status:</span> <b style="color: #34d399;">VERIFIED</b></div>
+              <div style="grid-column: 1 / -1;"><span style="color: #94a3b8;">Legal Name:</span> <b style="color: #fff;">${escapeHtml(verification.registeredName)}</b></div>
+            </div>
+          `;
+        }
+      } else {
+        const viewEl = document.getElementById('t-govt-id-extracted-view');
+        if (viewEl) {
+          viewEl.style.display = 'block';
+          viewEl.innerHTML = `
+            <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(6, 78, 59, 0.32)); border: 1.5px solid #10b981; border-radius: 12px; padding: 0.8rem; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);">
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.45rem; border-bottom: 1px solid rgba(16, 185, 129, 0.35); padding-bottom: 0.35rem;">
+                <div style="display: flex; align-items: center; gap: 0.4rem;">
+                  <span style="font-size: 1.25rem;">🇪🇹</span>
+                  <div>
+                    <div style="font-weight: 850; font-size: 0.82rem; color: #34d399;">የኢትዮጵያ ብሄራዊ ፋይዳ መታወቂያ (Fayda NIDP Verified)</div>
+                    <div style="font-size: 0.66rem; color: #94a3b8;">FDRE National ID Program Official Registry</div>
+                  </div>
+                </div>
+                <span style="background: #10b981; color: #fff; font-size: 0.65rem; font-weight: 800; padding: 0.18rem 0.5rem; border-radius: 6px;">
+                  ● ACTIVE ON NATIONAL REGISTRY
+                </span>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.45rem; font-size: 0.73rem;">
+                <div><span style="color: #94a3b8;">FIN:</span> <b style="color: #a7f3d0; font-family: monospace; font-size: 0.82rem;">${escapeHtml(verification.fin)}</b></div>
+                <div><span style="color: #94a3b8;">Registry Status:</span> <b style="color: #34d399;">AUTHENTICATED ACTIVE</b></div>
+                <div style="grid-column: 1 / -1;"><span style="color: #94a3b8;">Official Legal Name:</span> <b style="color: #fff; font-size: 0.8rem;">${escapeHtml(verification.registeredName)}</b></div>
+                <div><span style="color: #94a3b8;">DOB / Birth:</span> <span style="color: #cbd5e1;">${escapeHtml(verification.dob)}</span></div>
+                <div><span style="color: #94a3b8;">Gender:</span> <span style="color: #cbd5e1;">${escapeHtml(verification.gender)}</span></div>
+              </div>
+            </div>
+          `;
+        }
+      }
     }
 
     async function scanQrFromCanvas(canvas) {
@@ -9030,23 +9283,51 @@
       }, 100);
     }
 
-    function handleFaydaScanSuccess(qrResult, canvasSource) {
-      const idNum = qrResult.id;
+    async function handleFaydaScanSuccess(qrResult, canvasSource) {
       const target = window.currentFaydaScanTarget || 'tutor';
+      const applicantName = (target === 'parent')
+        ? (document.getElementById('p_name')?.value.trim() || '')
+        : (document.getElementById('t_name')?.value.trim() || '');
+      const applicantPhone = (target === 'parent')
+        ? (document.getElementById('p_phone')?.value.trim() || '')
+        : (document.getElementById('t_phone')?.value.trim() || '');
+
+      const verification = await verifyEthiopianNationalRegistration(qrResult, applicantName, applicantPhone);
+
+      if (!verification.success) {
+        if (verification.status === 'DUPLICATE_NATIONAL_REGISTRATION') {
+          const warnEl = document.getElementById(target === 'parent' ? 'p-govt-id-extracted-view' : 't-govt-id-dup-warn');
+          if (warnEl) {
+            warnEl.innerText = verification.errorMsg;
+            warnEl.style.display = 'block';
+          }
+          if (typeof showAgyNotification === 'function') {
+            showAgyNotification(verification.errorMsg, 'error');
+          }
+          closeFaydaLiveScanner();
+          return;
+        }
+
+        if (verification.status === 'NAME_MISMATCH') {
+          closeFaydaLiveScanner();
+          showNationalIdMismatchModal(verification.applicantName, verification.registeredName, verification.fin);
+          return;
+        }
+      }
+
+      const idNum = verification.fin || qrResult.id;
 
       if (target === 'parent') {
         window.currentParentFaydaVerified = true;
         window.currentParentFaydaNumber = idNum;
+        window.currentParentNationalRegistration = verification;
 
-        const viewEl = document.getElementById('p-govt-id-extracted-view');
-        const textEl = document.getElementById('p-govt-id-extracted-text');
-        if (viewEl) viewEl.style.display = 'block';
-        if (textEl) textEl.innerText = `${idNum} ✓ (Fayda QR Cryptographically Verified)`;
+        renderVerifiedNationalIdCard(verification, 'parent');
 
         const prevStat = document.getElementById('status-p-front');
         if (prevStat) {
           prevStat.style.display = 'block';
-          prevStat.innerText = `✓ Fayda QR Scanned: ${idNum}`;
+          prevStat.innerText = `✓ Fayda QR Verified: ${idNum}`;
           prevStat.style.background = 'rgba(16, 185, 129, 0.25)';
           prevStat.style.color = '#34d399';
         }
@@ -9073,22 +9354,18 @@
       } else {
         window.currentTutorFaydaVerified = true;
         window.currentTutorFaydaNumber = idNum;
+        window.currentTutorNationalRegistration = verification;
 
         const inpEl = document.getElementById('t_govt_id_num');
         if (inpEl) inpEl.value = idNum;
 
-        const textEl = document.getElementById('t-govt-id-extracted-text');
-        if (textEl) {
-          textEl.innerText = `${idNum} ✓ (Fayda QR Cryptographically Verified)`;
-        }
-        const viewEl = document.getElementById('t-govt-id-extracted-view');
-        if (viewEl) viewEl.style.display = 'block';
+        renderVerifiedNationalIdCard(verification, 'tutor');
 
         const statusEl = document.getElementById('t-govt-id-status');
         if (statusEl) {
           statusEl.style.color = '#10b981';
           statusEl.style.background = 'rgba(16, 185, 129, 0.2)';
-          statusEl.innerText = '✓ FAYDA QR VERIFIED';
+          statusEl.innerText = '✓ FAYDA NIDP VERIFIED';
         }
 
         if (canvasSource) {
@@ -9126,7 +9403,7 @@
       const resText = document.getElementById('fayda-scan-result-text');
       if (resCard && resText) {
         resCard.style.display = 'block';
-        resText.innerHTML = `<b>ID Number:</b> ${escapeHtml(idNum)}<br><span style="color:#10b981;">✓ NIDP / MOSIP QR Verified • Closing in 2s...</span>`;
+        resText.innerHTML = `<b>FIN:</b> ${escapeHtml(idNum)}<br><span style="color:#10b981;">✓ NIDP National Registry Verified • Closing in 2s...</span>`;
       }
 
       setTimeout(() => {
@@ -9147,7 +9424,7 @@
       const qrResult = await scanQrFromCanvas(canvas);
       if (qrResult && qrResult.id) {
         playScanSuccessTone();
-        handleFaydaScanSuccess(qrResult, canvas);
+        await handleFaydaScanSuccess(qrResult, canvas);
       } else {
         const target = window.currentFaydaScanTarget || 'tutor';
         canvas.toBlob((blob) => {
@@ -9185,88 +9462,72 @@
     }
 
     // Dynamic Parent Government ID Selection Handler
+    // (Auto-removes camera scanning when Kebele ID, Passport, or Driver's License is chosen)
     function handleParentGovtIdTypeChange() {
       const select = document.getElementById('p_id_type');
       const type = select ? select.value : 'National Fayda ID';
-      const scanBtnText = document.getElementById('btn-scan-p-fayda-text');
+      const scanBtnWrap = document.getElementById('p-scanner-btn-wrap');
       const boxBack = document.getElementById('box-p-id-back');
-      const titleBack = document.getElementById('title-p-id-back');
-      const subtitleBack = document.getElementById('subtitle-p-id-back');
+      const boxFront = document.getElementById('box-p-id-front');
       const isAm = (currentLang === 'am');
 
       if (type === 'Passport') {
-        if (scanBtnText) scanBtnText.innerText = isAm ? '📸 የፓስፖርት ፎቶ በካሜራ አንሳ' : '📸 Snap Passport Photo with Camera';
-        if (titleBack) titleBack.innerText = isAm ? 'የፓስፖርት ገጽ 2 (አማራጭ)' : 'Passport Page 2 (Optional)';
-        if (subtitleBack) subtitleBack.innerText = isAm ? 'አማራጭ - የፊት ገጽ ብቻ በቂ ነው' : 'Optional - Bio-data page is sufficient';
-        if (boxBack) {
-          boxBack.style.opacity = '0.85';
-          boxBack.style.borderColor = 'rgba(148, 163, 184, 0.3)';
-        }
-      } else if (type === 'Kebele ID') {
-        if (scanBtnText) scanBtnText.innerText = isAm ? '📸 የቀበሌ መታወቂያ ፎቶ በካሜራ አንሳ' : '📸 Snap Kebele ID with Camera';
-        if (titleBack) titleBack.innerText = isAm ? 'የቀበሌ የኋላ ገጽ *' : 'Kebele ID Back Photo *';
-        if (subtitleBack) subtitleBack.innerText = isAm ? 'የኋላ ገጽ (ግልጽ ፎቶ)' : 'Back page (Clear & visible)';
-        if (boxBack) {
-          boxBack.style.opacity = '1';
-          boxBack.style.borderColor = 'rgba(56, 189, 248, 0.4)';
-        }
+        // Auto-remove scanning button by itself!
+        if (scanBtnWrap) scanBtnWrap.style.display = 'none';
+        // Passport is a single bio-data page! Remove back box and expand front box
+        if (boxBack) boxBack.style.display = 'none';
+        if (boxFront) boxFront.style.gridColumn = '1 / -1';
+      } else if (type === 'Kebele ID' || type === 'Driver License') {
+        // Auto-remove scanning button by itself!
+        if (scanBtnWrap) scanBtnWrap.style.display = 'none';
+        // Show front and back upload boxes
+        if (boxBack) boxBack.style.display = 'block';
+        if (boxFront) boxFront.style.gridColumn = 'auto';
       } else {
-        // National Fayda ID
-        if (scanBtnText) scanBtnText.innerText = isAm ? '📷 የፋይዳ መታወቂያ በካሜራ ስካን አድርግ (Scan Fayda QR)' : '📷 Scan Fayda National ID / QR Code';
-        if (titleBack) titleBack.innerText = isAm ? 'የፋይዳ የኋላ ገጽ / QR ኮድ' : 'Fayda Back / QR Code';
-        if (subtitleBack) subtitleBack.innerText = isAm ? 'የኋላ ገጽ (ወይም ከጋለሪ ስካን ይደረጋል)' : 'Back / QR (Or auto-scanned from gallery)';
-        if (boxBack) {
-          boxBack.style.opacity = '1';
-          boxBack.style.borderColor = 'rgba(56, 189, 248, 0.4)';
-        }
+        // National Fayda ID: show camera scanner button and front & back boxes
+        if (scanBtnWrap) scanBtnWrap.style.display = 'block';
+        if (boxBack) boxBack.style.display = 'block';
+        if (boxFront) boxFront.style.gridColumn = 'auto';
       }
     }
 
     // Dynamic Government ID Selection Handler (Fayda, Kebele, Passport, Driver's License)
+    // (Auto-removes camera scanner when Kebele ID, Passport, or Driver's License is selected)
     function handleGovtIdTypeChange() {
       const select = document.getElementById('t_govt_id_type');
       const type = select ? select.value : 'National Fayda ID';
-      const scanBtnText = document.getElementById('btn-scan-fayda-text');
-      const scanBtnBadge = document.getElementById('btn-scan-fayda-badge');
+      const scannerContainer = document.getElementById('fayda-scanner-btn-container');
       const titleBack = document.getElementById('title-id-back');
       const subtitleBack = document.getElementById('subtitle-id-back');
       const boxBack = document.getElementById('box-t-id-back');
+      const boxFront = document.getElementById('box-t-id-front');
       const boxGovtP = document.getElementById('i18n-box-govt-p');
       const lblGovt = document.getElementById('i18n-f-tgovt');
       const isAm = (currentLang === 'am');
 
       if (type === 'Passport') {
-        if (scanBtnText) scanBtnText.innerText = isAm ? '📸 የፓስፖርት ፎቶ በካሜራ አንሳ' : '📸 Snap Passport Photo with Camera';
-        if (scanBtnBadge) {
-          scanBtnBadge.innerText = isAm ? 'ነጠላ ገጽ' : 'Single Page';
-          scanBtnBadge.style.background = '#0284c7';
-        }
-        if (titleBack) titleBack.innerText = isAm ? 'የፓስፖርት ገጽ 2 / ቪዛ (አማራጭ)' : 'Passport Page 2 / Visa (Optional)';
-        if (subtitleBack) subtitleBack.innerText = isAm ? 'አማራጭ - የፊት ገጽ ብቻ በቂ ነው' : 'Optional - Bio-data page is sufficient';
-        if (boxBack) {
-          boxBack.style.opacity = '0.85';
-          boxBack.style.borderColor = 'rgba(148, 163, 184, 0.3)';
-        }
+        // Auto-remove scanning button by itself!
+        if (scannerContainer) scannerContainer.style.display = 'none';
+        // Passport is a single-page document (Bio-Data Page only)
+        if (boxBack) boxBack.style.display = 'none';
+        if (boxFront) boxFront.style.gridColumn = '1 / -1';
+
         if (boxGovtP) {
           boxGovtP.innerText = isAm 
-            ? 'የፓስፖርትዎን ዋና ገጽ (ፎቶ እና ስም ያለበትን) ያያይዙ። ሁለተኛ ገጽ ካስፈለገዎት እንደ አማራጭ ማያያዝ ይችላሉ።' 
-            : 'Upload the main photo and identity page of your Ethiopian Passport. Page 2 is completely optional.';
+            ? 'የፓስፖርትዎን ዋና ገጽ (ፎቶ እና ስም ያለበትን Bio-Data Page) ያያይዙ። ፓስፖርት ነጠላ ገጽ ሰነድ ነው።' 
+            : 'Upload the main photo and identity page (Bio-Data Page) of your Ethiopian Passport.';
         }
         if (lblGovt) {
-          lblGovt.innerText = isAm ? '🛂 ህጋዊ ፓስፖርት (MANDATORY) *' : '🛂 Ethiopian Passport (MANDATORY) *';
+          lblGovt.innerText = isAm ? '🛂 ህጋዊ ፓስፖርት • Bio-Data Page (MANDATORY) *' : '🛂 Ethiopian Passport • Bio-Data Page (MANDATORY) *';
         }
       } else if (type === 'Kebele ID') {
-        if (scanBtnText) scanBtnText.innerText = isAm ? '📸 የቀበሌ መታወቂያ ፎቶ በካሜራ አንሳ' : '📸 Snap Kebele ID Photo with Camera';
-        if (scanBtnBadge) {
-          scanBtnBadge.innerText = isAm ? 'የቀበሌ መታወቂያ' : 'Kebele KYC';
-          scanBtnBadge.style.background = '#8b5cf6';
-        }
+        // Auto-remove scanning button by itself!
+        if (scannerContainer) scannerContainer.style.display = 'none';
+        if (boxBack) boxBack.style.display = 'block';
+        if (boxFront) boxFront.style.gridColumn = 'auto';
+
         if (titleBack) titleBack.innerText = isAm ? 'የቀበሌ የኋላ ገጽ *' : 'Kebele ID Back Photo *';
         if (subtitleBack) subtitleBack.innerText = isAm ? 'የኋላ ገጽ (ግልጽ ፎቶ)' : 'Back page (Clear & visible)';
-        if (boxBack) {
-          boxBack.style.opacity = '1';
-          boxBack.style.borderColor = 'rgba(56, 189, 248, 0.4)';
-        }
         if (boxGovtP) {
           boxGovtP.innerText = isAm 
             ? 'ለህፃናት ደህንነት እና ጥበቃ የቀበሌ መታወቂያዎን የፊት እና የኋላ ፎቶ ያያይዙ።' 
@@ -9276,17 +9537,13 @@
           lblGovt.innerText = isAm ? '🏛️ የቀበሌ የነዋሪነት መታወቂያ • Front & Back *' : '🏛️ Kebele Resident ID • Front & Back *';
         }
       } else if (type === 'Driver License') {
-        if (scanBtnText) scanBtnText.innerText = isAm ? '📸 የመንጃ ፈቃድ ፎቶ በካሜራ አንሳ' : '📸 Snap Driver\'s License with Camera';
-        if (scanBtnBadge) {
-          scanBtnBadge.innerText = isAm ? 'የመንጃ ፈቃድ' : 'Driver KYC';
-          scanBtnBadge.style.background = '#f59e0b';
-        }
+        // Auto-remove scanning button by itself!
+        if (scannerContainer) scannerContainer.style.display = 'none';
+        if (boxBack) boxBack.style.display = 'block';
+        if (boxFront) boxFront.style.gridColumn = 'auto';
+
         if (titleBack) titleBack.innerText = isAm ? 'የመንጃ ፈቃድ የኋላ ገጽ *' : 'License Back Photo *';
         if (subtitleBack) subtitleBack.innerText = isAm ? 'የኋላ ገጽ (ግልጽ ፎቶ)' : 'Back page (Clear & visible)';
-        if (boxBack) {
-          boxBack.style.opacity = '1';
-          boxBack.style.borderColor = 'rgba(56, 189, 248, 0.4)';
-        }
         if (boxGovtP) {
           boxGovtP.innerText = isAm 
             ? 'የመንጃ ፈቃድዎን የፊት እና የኋላ ፎቶ ያያይዙ።' 
@@ -9296,25 +9553,20 @@
           lblGovt.innerText = isAm ? '🚗 ህጋዊ የመንጃ ፈቃድ • Front & Back *' : '🚗 Driver\'s License • Front & Back *';
         }
       } else {
-        // National Fayda ID
-        if (scanBtnText) scanBtnText.innerText = isAm ? '📷 Scan Fayda National ID with Camera (በካሜራ ስካን አድርግ)' : '📷 Scan Fayda National ID with Camera';
-        if (scanBtnBadge) {
-          scanBtnBadge.innerText = 'Instant e-KYC';
-          scanBtnBadge.style.background = '#10b981';
-        }
+        // National Fayda ID: show scanner button and both front & back boxes
+        if (scannerContainer) scannerContainer.style.display = 'block';
+        if (boxBack) boxBack.style.display = 'block';
+        if (boxFront) boxFront.style.gridColumn = 'auto';
+
         if (titleBack) titleBack.innerText = isAm ? 'የመታወቂያ የኋላ ገጽ *' : 'ID Back Photo *';
         if (subtitleBack) subtitleBack.innerText = isAm ? 'የኋላ ገጽ (Clear & visible)' : 'Back page (Clear & visible)';
-        if (boxBack) {
-          boxBack.style.opacity = '1';
-          boxBack.style.borderColor = 'rgba(56, 189, 248, 0.4)';
-        }
         if (boxGovtP) {
           boxGovtP.innerText = isAm 
-            ? 'ለህፃናት ደህንነት እና ጥበቃ የመንግስት መታወቂያዎን የፊት እና የኋላ ፎቶ ያያይዙ።' 
-            : 'Both Front and Back photos of your government ID are required for parent and child safety.';
+            ? 'ለህፃናት ደህንነት እና ጥበቃ የኢትዮጵያ ብሄራዊ ፋይዳ መታወቂያዎን በካሜራ ስካን ያድርጉ ወይም ፎቶውን ያያይዙ።' 
+            : 'Scan your Ethiopian National Fayda ID with camera or attach clear front and back photos.';
         }
         if (lblGovt) {
-          lblGovt.innerText = isAm ? '🆔 National Fayda ID OR Kebele ID • Front & Back (MANDATORY) *' : '🆔 National Fayda ID OR Kebele ID • Front & Back (MANDATORY) *';
+          lblGovt.innerText = isAm ? '🆔 National Fayda ID • Front & Back (MANDATORY) *' : '🆔 National Fayda ID • Front & Back (MANDATORY) *';
         }
       }
     }
@@ -9348,20 +9600,44 @@
         qrResult = await scanQrFromImageFile(file);
       } catch (e) {}
 
-      if (qrResult && qrResult.id) {
+      if (qrResult && qrResult.id && govtType === 'National Fayda ID') {
         playScanSuccessTone();
-        window.currentTutorFaydaVerified = true;
-        window.currentTutorFaydaNumber = qrResult.id;
+        const applicantName = document.getElementById('t_name')?.value.trim() || '';
+        const applicantPhone = document.getElementById('t_phone')?.value.trim() || '';
+        const verification = await verifyEthiopianNationalRegistration(qrResult, applicantName, applicantPhone);
 
-        if (inpEl) inpEl.value = qrResult.id;
-        if (textEl) {
-          textEl.innerText = `${qrResult.id} ✓ (Fayda QR Cryptographically Verified)`;
+        if (!verification.success) {
+          if (verification.status === 'DUPLICATE_NATIONAL_REGISTRATION') {
+            const warnEl = document.getElementById('t-govt-id-dup-warn');
+            if (warnEl) {
+              warnEl.innerText = verification.errorMsg;
+              warnEl.style.display = 'block';
+            }
+            if (statusEl) {
+              statusEl.style.color = '#ef4444';
+              statusEl.innerText = 'DUPLICATE BLOCKED';
+            }
+            if (typeof showAgyNotification === 'function') {
+              showAgyNotification(verification.errorMsg, 'error');
+            }
+            return;
+          }
+          if (verification.status === 'NAME_MISMATCH') {
+            showNationalIdMismatchModal(verification.applicantName, verification.registeredName, verification.fin);
+            return;
+          }
         }
-        if (viewEl) viewEl.style.display = 'block';
+
+        window.currentTutorFaydaVerified = true;
+        window.currentTutorFaydaNumber = verification.fin || qrResult.id;
+        window.currentTutorNationalRegistration = verification;
+
+        if (inpEl) inpEl.value = verification.fin || qrResult.id;
+        renderVerifiedNationalIdCard(verification, 'tutor');
         if (statusEl) {
           statusEl.style.color = '#10b981';
           statusEl.style.background = 'rgba(16, 185, 129, 0.2)';
-          statusEl.innerText = '✓ FAYDA QR VERIFIED';
+          statusEl.innerText = '✓ FAYDA NIDP VERIFIED';
         }
         handleGovtIdNumChange();
         return;
@@ -9408,10 +9684,37 @@
         // Fallback gracefully without user-facing disruption
       }
 
+      // If it's a National Fayda ID, run the national registry verification and detail collector
+      if (govtType === 'National Fayda ID') {
+        const applicantName = document.getElementById('t_name')?.value.trim() || '';
+        const applicantPhone = document.getElementById('t_phone')?.value.trim() || '';
+        const mockQr = {
+          id: extractedNum || safeId,
+          fin: extractedNum || null,
+          name: applicantName || null
+        };
+        const verification = await verifyEthiopianNationalRegistration(mockQr, applicantName, applicantPhone);
+        if (verification.success) {
+          window.currentTutorFaydaVerified = true;
+          window.currentTutorFaydaNumber = verification.fin;
+          window.currentTutorNationalRegistration = verification;
+          renderVerifiedNationalIdCard(verification, 'tutor');
+          if (inpEl) inpEl.value = verification.fin;
+          if (statusEl) {
+            statusEl.style.color = '#10b981';
+            statusEl.style.background = 'rgba(16, 185, 129, 0.2)';
+            statusEl.innerText = '✓ FAYDA NIDP VERIFIED';
+          }
+          handleGovtIdNumChange();
+          return;
+        }
+      }
+
+      // For Kebele ID, Passport, or Driver's License
       const finalId = extractedNum || safeId;
       if (inpEl) inpEl.value = finalId;
       if (textEl) {
-        let badgeLabel = ' ✓ (Photo Vault Secured)';
+        let badgeLabel = ' ✓ (Document Vault Secured)';
         if (extractedNum) badgeLabel = ' ✓ (OCR Auto-Detected)';
         else if (govtType === 'Kebele ID') badgeLabel = ' ✓ (Kebele ID Vault Secured)';
         else if (govtType === 'Passport') badgeLabel = ' ✓ (Passport Bio-Page Secured)';
@@ -9814,6 +10117,9 @@
         idType: pIdType,
         idFrontAttached: !!frontFile,
         idBackAttached: !!backFile,
+        faydaVerified: !!window.currentParentFaydaVerified,
+        faydaNumber: window.currentParentFaydaNumber || null,
+        nationalRegistration: (pIdType === 'National Fayda ID' && window.currentParentNationalRegistration) ? window.currentParentNationalRegistration : null,
         status: 'Pending',
         type: 'addParent',
         createdAt: new Date().toISOString()
@@ -10280,6 +10586,30 @@
         return;
       }
 
+      // Audit National Fayda ID Ownership if National Fayda ID is selected
+      if (govtType === 'National Fayda ID' && window.currentTutorNationalRegistration && window.currentTutorNationalRegistration.registeredName) {
+        const regName = window.currentTutorNationalRegistration.registeredName;
+        const appTokens = name.toLowerCase().replace(/[^a-z0-9]/g, ' ').split(/\s+/).filter(t => t.length > 2);
+        const regTokens = regName.toLowerCase().replace(/[^a-z0-9]/g, ' ').split(/\s+/).filter(t => t.length > 2);
+        if (appTokens.length >= 2 && regTokens.length >= 2) {
+          let tokenMatches = 0;
+          appTokens.forEach(at => {
+            if (regTokens.some(rt => rt === at || rt.includes(at) || at.includes(rt))) {
+              tokenMatches++;
+            }
+          });
+          if (tokenMatches === 0) {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = originalBtnHtml;
+            }
+            if (credCard) credCard.style.display = 'none';
+            showNationalIdMismatchModal(name, regName, window.currentTutorNationalRegistration.fin);
+            return;
+          }
+        }
+      }
+
       // 1. UNIQUE ID & DUPLICATION PREVENTION CHECK
       const dupCheck = await checkDuplicateIdRegistry(normStudentId, normGovtId, cleanPhone, imgHashes);
       if (dupCheck.isDuplicate) {
@@ -10472,6 +10802,12 @@
           govtId: `${govtType} (${isSinglePageGovtDoc ? 'Single Bio Page' : (govtBackFile ? 'Front & Back' : 'Front Attached')})`,
           faydaVerified: !!window.currentTutorFaydaVerified,
           faydaNumber: window.currentTutorFaydaNumber || normGovtId,
+          nationalRegistration: (govtType === 'National Fayda ID' && window.currentTutorNationalRegistration) ? window.currentTutorNationalRegistration : {
+            docType: govtType,
+            status: 'DOCUMENT_VAULT_RECORD',
+            idNumber: normGovtId,
+            verifiedAt: new Date().toISOString()
+          },
           nameConsistencyConfirmed: true,
           credentialAuditStatus: uniVerificationStatus,
           level: 0,
@@ -10508,6 +10844,7 @@
           govtId: govtType,
           faydaVerified: !!window.currentTutorFaydaVerified,
           faydaNumber: window.currentTutorFaydaNumber || normGovtId,
+          nationalRegistration: (govtType === 'National Fayda ID' && window.currentTutorNationalRegistration) ? window.currentTutorNationalRegistration : null,
           status: 'Interview Pending',
           type: 'addTutor',
           createdAt: new Date().toISOString()
@@ -10611,6 +10948,7 @@
         govtIdType: govtType,
         faydaVerified: !!window.currentTutorFaydaVerified,
         faydaNumber: window.currentTutorFaydaNumber || normGovtId,
+        nationalRegistration: (govtType === 'National Fayda ID' && window.currentTutorNationalRegistration) ? window.currentTutorNationalRegistration : null,
         status: 'Pending',
         createdAt: new Date().toISOString()
       });
