@@ -4006,15 +4006,15 @@ body.shield-lockdown-blur > *:not(.devtools-lockout-overlay):not(#security-toast
 
 /* Specific Advanced Button Variants */
 .startup-adv-btn-primary {
-  background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 55%, #4f46e5 100%);
+  background: linear-gradient(135deg, #0088cc 0%, #24a1de 100%);
   color: #ffffff !important;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow: 0 10px 25px -4px rgba(37, 99, 235, 0.42), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 25px rgba(36, 161, 222, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.35);
 }
 
 .startup-adv-btn-primary .btn-adv-icon {
-  background: rgba(255, 255, 255, 0.22);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3);
 }
 
 .startup-adv-btn-primary .btn-adv-arrow {
@@ -4023,20 +4023,20 @@ body.shield-lockdown-blur > *:not(.devtools-lockout-overlay):not(#security-toast
 }
 
 .startup-adv-btn-primary:hover {
-  transform: translateY(-2.5px);
-  box-shadow: 0 14px 34px -4px rgba(37, 99, 235, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.55);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(36, 161, 222, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.45);
 }
 
 .startup-adv-btn-emerald {
-  background: linear-gradient(135deg, #059669 0%, #0d9488 50%, #10b981 100%);
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
   color: #ffffff !important;
-  border: 1px solid rgba(110, 231, 183, 0.35);
-  box-shadow: 0 10px 25px -4px rgba(16, 185, 129, 0.42), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.35);
 }
 
 .startup-adv-btn-emerald .btn-adv-icon {
-  background: rgba(255, 255, 255, 0.22);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3);
 }
 
 .startup-adv-btn-emerald .btn-adv-arrow {
@@ -4045,8 +4045,8 @@ body.shield-lockdown-blur > *:not(.devtools-lockout-overlay):not(#security-toast
 }
 
 .startup-adv-btn-emerald:hover {
-  transform: translateY(-2.5px);
-  box-shadow: 0 14px 34px -4px rgba(16, 185, 129, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(16, 185, 129, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.45);
 }
 
 .startup-adv-btn-obsidian {
