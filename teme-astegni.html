@@ -2097,13 +2097,13 @@
 
           <div class="field">
             <label id="i18n-f-pgrade">Child's Academic Grade Level *</label>
-            <select id="p_grade" required>
-              <option value="Grade 1 - 4">Grade 1 - 4 (Primary Foundation)</option>
-              <option value="Grade 5 - 8">Grade 5 - 8 (Middle School &amp; Regional Exam)</option>
-              <option value="Grade 9 - 10" selected>Grade 9 - 10 (Secondary School)</option>
+            <select id="p_grade" required onchange="onParentGradeChanged()">
+              <option value="KG / Early Childhood">KG / Early Childhood Development (መዋለ ህፃናት)</option>
+              <option value="Grade 1 - 4" selected>Grade 1 - 4 (Primary Foundation - የመጀመሪያ ደረጃ)</option>
+              <option value="Grade 5 - 8">Grade 5 - 8 (Middle School &amp; Regional Exam - መካከለኛ ደረጃ)</option>
+              <option value="Grade 9 - 10">Grade 9 - 10 (Secondary School - ሁለተኛ ደረጃ)</option>
               <option value="Grade 11 - 12 (Natural Science)">Grade 11 - 12 (Natural Science - National Exam)</option>
               <option value="Grade 11 - 12 (Social Science)">Grade 11 - 12 (Social Science - National Exam)</option>
-              <option value="KG / Early Childhood">KG / Early Childhood Development</option>
               <option value="University Remedial / Freshman">University Remedial / Freshman Tutoring</option>
             </select>
           </div>
@@ -2120,98 +2120,122 @@
             </div>
           </div>
 
-          <!-- MONTHLY TUTORING PACKAGE & SCHEDULE SELECTION -->
+          <!-- HOURLY TUTORING TIER & SCHEDULE SELECTION -->
           <div class="field" style="background: rgba(56, 189, 248, 0.05); border: 1.5px solid rgba(56, 189, 248, 0.35); border-radius: 14px; padding: 1rem; margin-top: 1.25rem; margin-bottom: 1.25rem;">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4rem; flex-wrap: wrap; gap: 0.4rem;">
               <label style="color: #38bdf8; font-weight: 850; font-size: 0.92rem; margin: 0;">
-                💰 Select Monthly Tutoring Package (የማስጠኛ ጥቅል እና ክፍያ) *
+                💰 Select Tutor Academic Standard &amp; Hourly Rate (የአስጠኚ ደረጃ እና የሰዓት ክፍያ) *
               </label>
-              <span style="font-size: 0.7rem; background: rgba(56, 189, 248, 0.2); color: #38bdf8; padding: 0.15rem 0.5rem; border-radius: 6px; font-weight: 750;">Free 1-Day Trial Included</span>
+              <span id="grade-rate-range-pill" style="font-size: 0.72rem; background: rgba(56, 189, 248, 0.2); color: #38bdf8; padding: 0.18rem 0.55rem; border-radius: 6px; font-weight: 800; border: 1px solid rgba(56, 189, 248, 0.35);">
+                Range: 200 – 400 ETB / hr
+              </span>
             </div>
-            <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.4; margin-bottom: 0.85rem;">
-              Choose your schedule and tuition plan. Payment is made via Telebirr only after your 1-day free in-home trial is 100% satisfactory.
+            <p style="font-size: 0.75rem; color: #cbd5e1; line-height: 1.4; margin-bottom: 0.85rem;">
+              Transparent per-hour rates based on your child's grade and the university scholar's academic distinction tier. <b>Free 1-Day In-Home Trial included</b> — pay only if 100% satisfied.
             </p>
 
-            <!-- Package Options Cards -->
+            <!-- Hourly Tier Option Cards -->
             <div style="display: grid; grid-template-columns: 1fr; gap: 0.75rem;">
               
-              <!-- OPTION 1: 3,000 ETB / MONTH -->
-              <label class="package-option-card" id="card-pkg-3000" style="display: block; position: relative; padding: 0.9rem; border-radius: 12px; background: rgba(56, 189, 248, 0.12); border: 2px solid #38bdf8; cursor: pointer; transition: all 0.2s ease;">
+              <!-- TIER 1: BASIC SCHOLAR -->
+              <label class="package-option-card" id="card-tier-basic" style="display: block; position: relative; padding: 0.9rem; border-radius: 12px; background: rgba(56, 189, 248, 0.12); border: 2px solid #38bdf8; cursor: pointer; transition: all 0.2s ease;">
                 <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem;">
                   <div style="display: flex; align-items: center; gap: 0.65rem;">
-                    <input type="radio" name="p_package" value="3000_STANDARD" checked onchange="updateSelectedPackage(3000, '3 Days a Week (1 hr/day)', 'Standard Package')">
+                    <input type="radio" name="p_tutor_tier" value="BASIC" checked onchange="updateSelectedTier('BASIC')">
                     <div>
                       <div style="font-size: 0.95rem; font-weight: 850; color: #f8fafc;">
-                        🥉 Standard Tutoring (መደበኛ ጥቅል)
+                        🥉 Basic Scholar Tier (መሰረታዊ ደረጃ)
                       </div>
                       <div style="font-size: 0.78rem; color: #38bdf8; font-weight: 700; margin-top: 0.15rem;">
-                        📅 3 Days a Week • 1 Hour per Day (በሳምንት 3 ቀናት • በቀን 1 ሰዓት)
+                        🎓 University Scholar (CGPA 3.00 – 3.49)
                       </div>
                       <div style="font-size: 0.72rem; color: #94a3b8; margin-top: 0.2rem;">
-                        • 12 Hours/month • Vetted University Scholar (CGPA ≥ 3.00)
+                        • Foundational concepts, active homework support &amp; daily tracking
                       </div>
                     </div>
                   </div>
-                  <div style="text-align: right; min-width: 95px;">
-                    <div style="font-size: 1.15rem; font-weight: 900; color: #34d399; font-family: monospace;">3,000 ETB</div>
-                    <div style="font-size: 0.68rem; color: #94a3b8;">per month</div>
+                  <div style="text-align: right; min-width: 100px;">
+                    <div style="font-size: 1.25rem; font-weight: 900; color: #38bdf8; font-family: monospace;" id="disp-rate-basic">200 ETB</div>
+                    <div style="font-size: 0.7rem; color: #94a3b8; font-weight: 700;">per hour (በሰዓት)</div>
                   </div>
                 </div>
               </label>
 
-              <!-- OPTION 2: 5,000 ETB / MONTH - INTENSIVE WEEKEND BOOSTER -->
-              <label class="package-option-card" id="card-pkg-5000-weekend" style="display: block; position: relative; padding: 0.9rem; border-radius: 12px; background: rgba(15, 23, 42, 0.85); border: 1.5px solid rgba(16, 185, 129, 0.4); cursor: pointer; transition: all 0.2s ease;">
+              <!-- TIER 2: SILVER / MEDIUM SCHOLAR -->
+              <label class="package-option-card" id="card-tier-silver" style="display: block; position: relative; padding: 0.9rem; border-radius: 12px; background: rgba(15, 23, 42, 0.85); border: 1.5px solid rgba(16, 185, 129, 0.4); cursor: pointer; transition: all 0.2s ease;">
                 <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem;">
                   <div style="display: flex; align-items: center; gap: 0.65rem;">
-                    <input type="radio" name="p_package" value="5000_INTENSIVE" onchange="updateSelectedPackage(5000, '3 Days / Week + 1 Weekend Day', 'Intensive Weekend Booster')">
+                    <input type="radio" name="p_tutor_tier" value="SILVER" onchange="updateSelectedTier('SILVER')">
                     <div>
                       <div style="font-size: 0.95rem; font-weight: 850; color: #f8fafc;">
-                        🥈 Intensive + Weekend Booster (የተጠናከረ + ቅዳሜ/እሁድ)
+                        🥈 Silver Distinction Tier (መካከለኛ ሲልቨር ደረጃ)
                       </div>
                       <div style="font-size: 0.78rem; color: #34d399; font-weight: 700; margin-top: 0.15rem;">
-                        📅 3 Days / Week + 1 Weekend Day (በሳምንት 3 ቀናት + 1 የቅዳሜ/እሁድ ቀን)
+                        🌟 High Distinction Scholar (CGPA 3.50 – 3.74)
                       </div>
                       <div style="font-size: 0.72rem; color: #94a3b8; margin-top: 0.2rem;">
-                        • 4 Days per Week • Extended exam revision & homework support
+                        • Strong communicative pedagogy, exam booster &amp; analytical revision
                       </div>
                     </div>
                   </div>
-                  <div style="text-align: right; min-width: 95px;">
-                    <div style="font-size: 1.15rem; font-weight: 900; color: #34d399; font-family: monospace;">5,000 ETB</div>
-                    <div style="font-size: 0.68rem; color: #94a3b8;">per month</div>
+                  <div style="text-align: right; min-width: 100px;">
+                    <div style="font-size: 1.25rem; font-weight: 900; color: #34d399; font-family: monospace;" id="disp-rate-silver">300 ETB</div>
+                    <div style="font-size: 0.7rem; color: #94a3b8; font-weight: 700;">per hour (በሰዓት)</div>
                   </div>
                 </div>
               </label>
 
-              <!-- OPTION 3: 5,000 ETB / MONTH - GOLDEN SCHOLAR TIER -->
-              <label class="package-option-card" id="card-pkg-5000-golden" style="display: block; position: relative; padding: 0.9rem; border-radius: 12px; background: rgba(15, 23, 42, 0.85); border: 1.5px solid rgba(245, 158, 11, 0.5); cursor: pointer; transition: all 0.2s ease;">
+              <!-- TIER 3: GOLDEN SCHOLAR -->
+              <label class="package-option-card" id="card-tier-golden" style="display: block; position: relative; padding: 0.9rem; border-radius: 12px; background: rgba(15, 23, 42, 0.85); border: 1.5px solid rgba(245, 158, 11, 0.5); cursor: pointer; transition: all 0.2s ease;">
                 <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem;">
                   <div style="display: flex; align-items: center; gap: 0.65rem;">
-                    <input type="radio" name="p_package" value="5000_GOLDEN" onchange="updateSelectedPackage(5000, '3 Days a Week (Golden Scholars)', 'Golden Scholars Tier')">
+                    <input type="radio" name="p_tutor_tier" value="GOLDEN" onchange="updateSelectedTier('GOLDEN')">
                     <div>
                       <div style="font-size: 0.95rem; font-weight: 850; color: #fbbf24;">
-                        🥇 Golden Scholar Tier (ጎልደን ከፍተኛ ውጤት ምሁራን)
+                        🥇 Golden Honors Tier (ጎልደን ከፍተኛ ደረጃ)
                       </div>
                       <div style="font-size: 0.78rem; color: #fbbf24; font-weight: 700; margin-top: 0.15rem;">
-                        👑 3 Days a Week with Top Honors Scholars (በሳምንት 3 ቀናት በጎልደን ምሁራን)
+                        👑 Top Honors Scholar (CGPA 3.75 – 4.00)
                       </div>
                       <div style="font-size: 0.72rem; color: #94a3b8; margin-top: 0.2rem;">
-                        • University Top 5% (CGPA ≥ 3.50+) • Specialized National Exam Coach
+                        • University Top 5% • National Matric &amp; Regional Exam Master Coach
                       </div>
                     </div>
                   </div>
-                  <div style="text-align: right; min-width: 95px;">
-                    <div style="font-size: 1.15rem; font-weight: 900; color: #fbbf24; font-family: monospace;">5,000 ETB</div>
-                    <div style="font-size: 0.68rem; color: #94a3b8;">per month</div>
+                  <div style="text-align: right; min-width: 100px;">
+                    <div style="font-size: 1.25rem; font-weight: 900; color: #fbbf24; font-family: monospace;" id="disp-rate-golden">400 ETB</div>
+                    <div style="font-size: 0.7rem; color: #94a3b8; font-weight: 700;">per hour (በሰዓት)</div>
                   </div>
                 </div>
               </label>
 
             </div>
 
-            <!-- Hidden input for exact amount and package string -->
-            <input type="hidden" id="p_monthly_fee" value="3000">
-            <input type="hidden" id="p_package_name" value="Standard Package (3,000 ETB • 3 Days/week)">
+            <!-- Schedule Preferences (Days per Week) -->
+            <div style="margin-top: 1rem; padding-top: 0.85rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+              <label style="font-size: 0.78rem; color: #cbd5e1; font-weight: 700; display: block; margin-bottom: 0.35rem;">
+                📅 Preferred Weekly Schedule (የሳምንቱ ቀናት ምርጫ):
+              </label>
+              <select id="p_schedule_select" class="form-ctrl" onchange="onScheduleChange()" style="width: 100%; padding: 0.55rem 0.75rem; border-radius: 8px; background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(56, 189, 248, 0.35); color: #fff; font-size: 0.82rem;">
+                <option value="3_DAYS" selected>3 Days a Week • 1 Hour/day (በሳምንት 3 ቀናት • በቀን 1 ሰዓት ~ 12 hrs/mo)</option>
+                <option value="4_DAYS">4 Days a Week (including weekend booster) ~ 16 hrs/mo</option>
+                <option value="2_DAYS">2 Days a Week (weekend or intensive focus) ~ 8 hrs/mo</option>
+                <option value="5_DAYS">5 Days a Week (daily comprehensive support) ~ 20 hrs/mo</option>
+                <option value="CUSTOM">Custom Schedule (To be agreed with coordinator)</option>
+              </select>
+            </div>
+
+            <!-- Live Plan Summary Bar -->
+            <div id="parent-plan-live-summary" style="margin-top: 0.75rem; background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 0.6rem 0.85rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.76rem; color: #94a3b8; flex-wrap: wrap; gap: 0.4rem;">
+              <span>Selected Rate: <strong id="summary-hourly-rate" style="color: #38bdf8; font-size: 0.88rem;">200 ETB / hr</strong></span>
+              <span id="summary-plan-details">3 Days/week (~12 hrs/mo • Est. 2,400 ETB/mo)</span>
+            </div>
+
+            <!-- Hidden inputs -->
+            <input type="hidden" id="p_hourly_rate" value="200">
+            <input type="hidden" id="p_tutor_tier_input" value="BASIC">
+            <input type="hidden" id="p_monthly_fee" value="2400">
+            <input type="hidden" id="p_package_name" value="Basic Scholar Tier (200 ETB / hr)">
             <input type="hidden" id="p_package_schedule" value="3 Days a Week (1 hr/day)">
           </div>
 
@@ -2962,25 +2986,40 @@
         <div style="background: rgba(15, 23, 42, 0.7); border: 1.5px solid rgba(56, 189, 248, 0.35); border-radius: 14px; padding: 1.15rem; margin-top: 1.25rem; margin-bottom: 1rem;">
           <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
             <span style="font-size: 1.3rem;">🏅</span>
-            <h3 style="font-size: 0.98rem; font-weight: 850; color: #fff; margin: 0;" id="i18n-ladder-h">Academic Metal Tiers &amp; 5-Level Ranking</h3>
+            <h3 style="font-size: 0.98rem; font-weight: 850; color: #fff; margin: 0;" id="i18n-ladder-h">Academic Metal Tiers &amp; Standardized Hourly Rates</h3>
           </div>
           <p style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45; margin-bottom: 0.75rem;" id="i18n-ladder-p">
-            Tutors are categorized by academic university CGPA into Golden, Silver, and Bronze tiers, with 5 communicative teaching levels in each tier.
+            Tutors are categorized by academic university CGPA into Golden, Silver, and Basic tiers, with transparent per-hour tuition rates structured by student grade level.
           </p>
 
-          <!-- Tiers Overview Cards -->
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.5rem; margin-bottom: 0.75rem;">
-            <div style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(251, 191, 36, 0.4); border-radius: 8px; padding: 0.5rem; text-align: center;">
-              <div style="font-size: 0.85rem; font-weight: 850; color: #fbbf24;">🥇 Golden Tier</div>
-              <div style="font-size: 0.72rem; color: #fde68a;">CGPA ≥ 3.75 (Top Honor)</div>
+          <!-- Tiers Overview Cards with Hourly Rates -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.6rem; margin-bottom: 0.75rem;">
+            <div style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(251, 191, 36, 0.45); border-radius: 10px; padding: 0.65rem 0.5rem; text-align: center;">
+              <div style="font-size: 0.88rem; font-weight: 850; color: #fbbf24;">🥇 Golden Tier</div>
+              <div style="font-size: 0.72rem; color: #fde68a; font-weight: 700; margin-bottom: 0.35rem;">CGPA ≥ 3.75 (Top Honors)</div>
+              <div style="font-size: 0.7rem; color: #cbd5e1; line-height: 1.4; border-top: 1px solid rgba(251,191,36,0.25); padding-top: 0.3rem;">
+                <div>KG – Gr 4: <b>400 ETB/hr</b></div>
+                <div>Gr 5 – 8: <b>450 ETB/hr</b></div>
+                <div>Gr 9 – 12: <b>600 ETB/hr</b></div>
+              </div>
             </div>
-            <div style="background: rgba(148, 163, 184, 0.12); border: 1px solid rgba(148, 163, 184, 0.4); border-radius: 8px; padding: 0.5rem; text-align: center;">
-              <div style="font-size: 0.85rem; font-weight: 850; color: #e2e8f0;">🥈 Silver Tier</div>
-              <div style="font-size: 0.72rem; color: #cbd5e1;">CGPA 3.40 – 3.74 (Distinction)</div>
+            <div style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(52, 211, 153, 0.45); border-radius: 10px; padding: 0.65rem 0.5rem; text-align: center;">
+              <div style="font-size: 0.88rem; font-weight: 850; color: #34d399;">🥈 Silver Tier</div>
+              <div style="font-size: 0.72rem; color: #a7f3d0; font-weight: 700; margin-bottom: 0.35rem;">CGPA 3.50 – 3.74 (Distinction)</div>
+              <div style="font-size: 0.7rem; color: #cbd5e1; line-height: 1.4; border-top: 1px solid rgba(52,211,153,0.25); padding-top: 0.3rem;">
+                <div>KG – Gr 4: <b>300 ETB/hr</b></div>
+                <div>Gr 5 – 8: <b>350 ETB/hr</b></div>
+                <div>Gr 9 – 12: <b>500 ETB/hr</b></div>
+              </div>
             </div>
-            <div style="background: rgba(249, 115, 22, 0.12); border: 1px solid rgba(249, 115, 22, 0.4); border-radius: 8px; padding: 0.5rem; text-align: center;">
-              <div style="font-size: 0.85rem; font-weight: 850; color: #fdba74;">🥉 Bronze Tier</div>
-              <div style="font-size: 0.72rem; color: #fed7aa;">CGPA 3.00 – 3.39 (Scholar)</div>
+            <div style="background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.45); border-radius: 10px; padding: 0.65rem 0.5rem; text-align: center;">
+              <div style="font-size: 0.88rem; font-weight: 850; color: #38bdf8;">🥉 Basic Tier</div>
+              <div style="font-size: 0.72rem; color: #bae6fd; font-weight: 700; margin-bottom: 0.35rem;">CGPA 3.00 – 3.49 (Scholar)</div>
+              <div style="font-size: 0.7rem; color: #cbd5e1; line-height: 1.4; border-top: 1px solid rgba(56,189,248,0.25); padding-top: 0.3rem;">
+                <div>KG – Gr 4: <b>200 ETB/hr</b></div>
+                <div>Gr 5 – 8: <b>250 ETB/hr</b></div>
+                <div>Gr 9 – 12: <b>400 ETB/hr</b></div>
+              </div>
             </div>
           </div>
 
@@ -5157,8 +5196,8 @@
             <div style="font-size: 0.84rem; font-weight: 800; color: #38bdf8;">${escapeHtml(parentData.subjects || 'General')}</div>
           </div>
           <div>
-            <div style="font-size: 0.66rem; text-transform: uppercase; color: #94a3b8; font-weight: 750;">💵 የተመረጠው ክፍያ (Selected Package)</div>
-            <div style="font-size: 0.84rem; font-weight: 800; color: #fbbf24;">${escapeHtml(parentData.packageTitle || 'Standard (3,000 ETB)')}</div>
+            <div style="font-size: 0.66rem; text-transform: uppercase; color: #94a3b8; font-weight: 750;">💵 የተመረጠው የሰዓት ክፍያ እና ደረጃ (Hourly Rate &amp; Tier)</div>
+            <div style="font-size: 0.84rem; font-weight: 800; color: #fbbf24;">${escapeHtml(parentData.hourlyRate ? `${parentData.hourlyRate} ETB / hr (${parentData.tutorTier || 'Basic'} Tier)` : (parentData.packageTitle || 'Standard Hourly Agreement'))}</div>
           </div>
         </div>
 
@@ -5381,9 +5420,9 @@
                 <div style="font-weight: 850; color: #38bdf8; margin-top: 0.15rem;">${escapeHtml(pSubjs)}</div>
               </div>
               <div>
-                <div style="font-size: 0.66rem; color: #94a3b8; font-weight: 750; text-transform: uppercase;">💵 የክፍያ ጥቅል (Package &amp; Rate)</div>
-                <div style="font-weight: 850; color: #fbbf24; margin-top: 0.15rem;">${escapeHtml(pFee)} / ወር</div>
-                <div style="font-size: 0.68rem; color: #cbd5e1;">${escapeHtml(pSched)}</div>
+                <div style="font-size: 0.66rem; color: #94a3b8; font-weight: 750; text-transform: uppercase;">💵 የሰዓት ክፍያ እና ደረጃ (Hourly Rate &amp; Tier)</div>
+                <div style="font-weight: 850; color: #fbbf24; margin-top: 0.15rem;">${escapeHtml(parentData.hourlyRate ? `${parentData.hourlyRate} ETB / hr` : (pFee.includes('ETB') ? pFee : `${pFee} ETB`))}</div>
+                <div style="font-size: 0.68rem; color: #cbd5e1;">${escapeHtml(parentData.tutorTier ? `${parentData.tutorTier} Tier • ${pSched}` : pSched)}</div>
               </div>
               <div>
                 <div style="font-size: 0.66rem; color: #94a3b8; font-weight: 750; text-transform: uppercase;">🧒 የተማሪው ፆታ (Student Gender)</div>
@@ -9928,35 +9967,158 @@
       } catch (err) {}
     }
 
-    function updateSelectedPackage(fee, schedule, title) {
-      const feeInput = document.getElementById('p_monthly_fee');
-      const nameInput = document.getElementById('p_package_name');
-      const schedInput = document.getElementById('p_package_schedule');
-      if (feeInput) feeInput.value = fee;
-      if (nameInput) nameInput.value = title;
-      if (schedInput) schedInput.value = schedule;
+    // =========================================================================
+    // HOURLY TUTORING TIER & STANDARDS PRICING MATRIX
+    // =========================================================================
+    // KG – Grade 4: Basic 200, Silver/Medium 300, Golden 400 (Min 200, Max 400)
+    // Grade 5 – 8: Basic 250, Silver/Medium 350, Golden 450 (Min 250, Max 450)
+    // Grade 9 – 12+: Basic 400, Silver/Medium 500, Golden 600 (Min 400, Max 600)
+    function getRatesForGrade(gradeValue) {
+      const g = (gradeValue || '').toLowerCase();
+      if (g.includes('kg') || g.includes('grade 1') || g.includes('1 - 4') || g.includes('early')) {
+        return {
+          category: 'KG & Grade 1 – 4',
+          basic: 200,
+          silver: 300,
+          golden: 400,
+          min: 200,
+          max: 400
+        };
+      } else if (g.includes('5 - 8') || g.includes('grade 5') || g.includes('middle')) {
+        return {
+          category: 'Grade 5 – 8',
+          basic: 250,
+          silver: 350,
+          golden: 450,
+          min: 250,
+          max: 450
+        };
+      } else {
+        return {
+          category: 'Grade 9 – 12 & Prep',
+          basic: 400,
+          silver: 500,
+          golden: 600,
+          min: 400,
+          max: 600
+        };
+      }
+    }
 
+    function getScheduleHoursPerMonth(schedVal) {
+      if (schedVal === '2_DAYS') return 8;
+      if (schedVal === '4_DAYS') return 16;
+      if (schedVal === '5_DAYS') return 20;
+      if (schedVal === 'CUSTOM') return 12;
+      return 12; // 3_DAYS default: 3 hrs/week * 4 = 12 hrs/mo
+    }
+
+    function getScheduleTitle(schedVal) {
+      if (schedVal === '2_DAYS') return '2 Days a Week (1 hr/day)';
+      if (schedVal === '4_DAYS') return '4 Days a Week (including weekend)';
+      if (schedVal === '5_DAYS') return '5 Days a Week (daily support)';
+      if (schedVal === 'CUSTOM') return 'Custom Hourly Agreement';
+      return '3 Days a Week (1 hr/day)';
+    }
+
+    function onParentGradeChanged() {
+      const grade = document.getElementById('p_grade')?.value || 'Grade 1 - 4';
+      const rates = getRatesForGrade(grade);
+
+      // Update rate range pill
+      const rangePill = document.getElementById('grade-rate-range-pill');
+      if (rangePill) {
+        rangePill.innerText = `Range: ${rates.min} – ${rates.max} ETB / hr`;
+      }
+
+      // Update rate displays in cards
+      const dispBasic = document.getElementById('disp-rate-basic');
+      const dispSilver = document.getElementById('disp-rate-silver');
+      const dispGolden = document.getElementById('disp-rate-golden');
+      if (dispBasic) dispBasic.innerText = `${rates.basic} ETB`;
+      if (dispSilver) dispSilver.innerText = `${rates.silver} ETB`;
+      if (dispGolden) dispGolden.innerText = `${rates.golden} ETB`;
+
+      // Update currently checked tier
+      const checkedTier = document.querySelector('input[name="p_tutor_tier"]:checked')?.value || 'BASIC';
+      updateSelectedTier(checkedTier);
+    }
+
+    function updateSelectedTier(tierCode) {
+      const grade = document.getElementById('p_grade')?.value || 'Grade 1 - 4';
+      const rates = getRatesForGrade(grade);
+      const schedVal = document.getElementById('p_schedule_select')?.value || '3_DAYS';
+      const hrsPerMonth = getScheduleHoursPerMonth(schedVal);
+      const schedTitle = getScheduleTitle(schedVal);
+
+      let chosenRate = rates.basic;
+      let tierName = 'Basic Scholar Tier';
+      let tierBorder = '#38bdf8';
+      let tierBg = 'rgba(56, 189, 248, 0.12)';
+
+      if (tierCode === 'SILVER') {
+        chosenRate = rates.silver;
+        tierName = 'Silver Distinction Tier';
+        tierBorder = '#10b981';
+        tierBg = 'rgba(16, 185, 129, 0.12)';
+      } else if (tierCode === 'GOLDEN') {
+        chosenRate = rates.golden;
+        tierName = 'Golden Honors Tier';
+        tierBorder = '#fbbf24';
+        tierBg = 'rgba(245, 158, 11, 0.12)';
+      }
+
+      // Card active highlights
       document.querySelectorAll('.package-option-card').forEach(c => {
         c.style.borderColor = 'rgba(255, 255, 255, 0.12)';
         c.style.background = 'rgba(15, 23, 42, 0.85)';
       });
-
-      const checked = document.querySelector('input[name="p_package"]:checked');
-      if (checked) {
-        const card = checked.closest('.package-option-card');
-        if (card) {
-          if (title.includes('Golden')) {
-            card.style.borderColor = '#fbbf24';
-            card.style.background = 'rgba(245, 158, 11, 0.12)';
-          } else if (title.includes('Intensive')) {
-            card.style.borderColor = '#10b981';
-            card.style.background = 'rgba(16, 185, 129, 0.12)';
-          } else {
-            card.style.borderColor = '#38bdf8';
-            card.style.background = 'rgba(56, 189, 248, 0.12)';
-          }
-        }
+      const activeCard = document.getElementById(`card-tier-${tierCode.toLowerCase()}`);
+      if (activeCard) {
+        activeCard.style.borderColor = tierBorder;
+        activeCard.style.background = tierBg;
       }
+
+      // Radio button sync
+      const radio = document.querySelector(`input[name="p_tutor_tier"][value="${tierCode}"]`);
+      if (radio && !radio.checked) radio.checked = true;
+
+      // Update hidden inputs
+      const rateInput = document.getElementById('p_hourly_rate');
+      const tierInput = document.getElementById('p_tutor_tier_input');
+      const feeInput = document.getElementById('p_monthly_fee');
+      const nameInput = document.getElementById('p_package_name');
+      const schedInput = document.getElementById('p_package_schedule');
+
+      const estMonthlyFee = chosenRate * hrsPerMonth;
+
+      if (rateInput) rateInput.value = chosenRate;
+      if (tierInput) tierInput.value = tierCode;
+      if (feeInput) feeInput.value = estMonthlyFee;
+      if (nameInput) nameInput.value = `${tierName} (${chosenRate} ETB/hr • ${rates.category})`;
+      if (schedInput) schedInput.value = schedTitle;
+
+      // Update live summary
+      const sumRate = document.getElementById('summary-hourly-rate');
+      const sumDetails = document.getElementById('summary-plan-details');
+      if (sumRate) {
+        sumRate.innerText = `${chosenRate} ETB / hr`;
+        sumRate.style.color = tierBorder;
+      }
+      if (sumDetails) {
+        sumDetails.innerText = `${schedTitle.split('•')[0].trim()} (~${hrsPerMonth} hrs/mo • Est. ${estMonthlyFee.toLocaleString()} ETB/mo)`;
+      }
+    }
+
+    function onScheduleChange() {
+      const checkedTier = document.querySelector('input[name="p_tutor_tier"]:checked')?.value || 'BASIC';
+      updateSelectedTier(checkedTier);
+    }
+
+    // Backward-compatible alias
+    function updateSelectedPackage(fee, schedule, title) {
+      const checkedTier = document.querySelector('input[name="p_tutor_tier"]:checked')?.value || 'BASIC';
+      updateSelectedTier(checkedTier);
     }
 
     // Submission Handlers
@@ -10090,8 +10252,10 @@
       const trackingId = currentParentTrackingId || generateTrackingId('P');
       const tgTag = `#AST_P_${(trackingId.split('-')[2] || '4821')}`;
 
-      const monthlyFee = Number(document.getElementById('p_monthly_fee')?.value || 3000);
-      const packageTitle = document.getElementById('p_package_name')?.value || 'Standard Package (3,000 ETB • 3 Days/week)';
+      const hourlyRate = Number(document.getElementById('p_hourly_rate')?.value || 200);
+      const tutorTier = document.getElementById('p_tutor_tier_input')?.value || 'BASIC';
+      const monthlyFee = Number(document.getElementById('p_monthly_fee')?.value || (hourlyRate * 12));
+      const packageTitle = document.getElementById('p_package_name')?.value || `${tutorTier} Tier (${hourlyRate} ETB/hr)`;
       const packageSchedule = document.getElementById('p_package_schedule')?.value || '3 Days a Week (1 hr/day)';
 
       let parentPayload = {
@@ -10111,6 +10275,8 @@
         familyReligion: document.getElementById('p_family_religion')?.value || 'Any',
         grade: grade,
         subjects: subjs,
+        hourlyRate: hourlyRate,
+        tutorTier: tutorTier,
         monthlyFee: monthlyFee,
         packageTitle: packageTitle,
         packageSchedule: packageSchedule,

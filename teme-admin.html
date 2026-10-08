@@ -2388,13 +2388,35 @@
         <select id="match-select-tutor" class="form-ctrl"></select>
       </div>
 
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+        <div class="form-group">
+          <label class="form-label">Agreed Hourly Rate (ETB / hr)</label>
+          <input type="number" id="match-hourly-rate-input" class="form-ctrl" value="300" oninput="onMatchHourlyChanged()">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Monthly Tuition Fee (ETB)</label>
+          <input type="number" id="match-price-input" class="form-ctrl" value="3600" oninput="calculateCommissionPreview()">
+        </div>
+      </div>
       <div class="form-group">
-        <label class="form-label">Monthly Tuition Fee (ETB)</label>
-        <input type="number" id="match-price-input" class="form-ctrl" value="3000" oninput="calculateCommissionPreview()">
-        <div style="display: flex; gap: 0.4rem; margin-top: 0.45rem; flex-wrap: wrap;">
-          <button type="button" class="btn-act" style="padding: 0.25rem 0.55rem; font-size: 0.72rem; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4);" onclick="setMatchPrice(3000)">🥉 3,000 ETB (Standard 3d/wk)</button>
-          <button type="button" class="btn-act" style="padding: 0.25rem 0.55rem; font-size: 0.72rem; background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4);" onclick="setMatchPrice(5000)">🥈 5,000 ETB (Intensive 4d/wk)</button>
-          <button type="button" class="btn-act" style="padding: 0.25rem 0.55rem; font-size: 0.72rem; background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4);" onclick="setMatchPrice(5000)">🥇 5,000 ETB (Golden Scholar)</button>
+        <label class="form-label" style="font-size: 0.72rem; color: #94a3b8; margin-bottom: 0.35rem;">Standard Hourly Tiers (Quick Select):</label>
+        <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+          <span style="font-size: 0.68rem; color: #94a3b8; align-self: center; font-weight: 700;">KG–Gr 4:</span>
+          <button type="button" class="btn-act" style="padding: 0.22rem 0.5rem; font-size: 0.7rem; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4);" onclick="setMatchHourlyRate(200, 12)">🥉 200 ETB/hr (Basic)</button>
+          <button type="button" class="btn-act" style="padding: 0.22rem 0.5rem; font-size: 0.7rem; background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4);" onclick="setMatchHourlyRate(300, 12)">🥈 300 ETB/hr (Silver)</button>
+          <button type="button" class="btn-act" style="padding: 0.22rem 0.5rem; font-size: 0.7rem; background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4);" onclick="setMatchHourlyRate(400, 12)">🥇 400 ETB/hr (Golden)</button>
+        </div>
+        <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.35rem;">
+          <span style="font-size: 0.68rem; color: #94a3b8; align-self: center; font-weight: 700;">Gr 5–8:</span>
+          <button type="button" class="btn-act" style="padding: 0.22rem 0.5rem; font-size: 0.7rem; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4);" onclick="setMatchHourlyRate(250, 12)">🥉 250 ETB/hr (Basic)</button>
+          <button type="button" class="btn-act" style="padding: 0.22rem 0.5rem; font-size: 0.7rem; background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4);" onclick="setMatchHourlyRate(350, 12)">🥈 350 ETB/hr (Silver)</button>
+          <button type="button" class="btn-act" style="padding: 0.22rem 0.5rem; font-size: 0.7rem; background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4);" onclick="setMatchHourlyRate(450, 12)">🥇 450 ETB/hr (Golden)</button>
+        </div>
+        <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.35rem;">
+          <span style="font-size: 0.68rem; color: #94a3b8; align-self: center; font-weight: 700;">Gr 9–12:</span>
+          <button type="button" class="btn-act" style="padding: 0.22rem 0.5rem; font-size: 0.7rem; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4);" onclick="setMatchHourlyRate(400, 12)">🥉 400 ETB/hr (Basic)</button>
+          <button type="button" class="btn-act" style="padding: 0.22rem 0.5rem; font-size: 0.7rem; background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4);" onclick="setMatchHourlyRate(500, 12)">🥈 500 ETB/hr (Silver)</button>
+          <button type="button" class="btn-act" style="padding: 0.22rem 0.5rem; font-size: 0.7rem; background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4);" onclick="setMatchHourlyRate(600, 12)">🥇 600 ETB/hr (Golden)</button>
         </div>
       </div>
 
@@ -4997,7 +5019,7 @@ function rowsToJson(sheet) {
           <div id="${detailsId}" class="card-expandable-body" style="display: none; margin-top: 1rem; padding-top: 0.95rem; border-top: 1px solid rgba(255, 255, 255, 0.08);">
             <!-- Meta Ribbon Bar -->
             <div class="record-meta-ribbon">
-              ${(p.monthlyFee || p.packageName) ? `<span class="tag-badge" style="background: rgba(234, 179, 8, 0.18); color: #fbbf24; border: 1px solid rgba(234, 179, 8, 0.45); font-weight: 800;">💰 ${Number(p.monthlyFee || 3000).toLocaleString()} ETB/mo (${escapeHtml(p.packageName || 'Standard 3d/wk')})</span>` : ''}
+              ${(p.hourlyRate || p.monthlyFee || p.packageName) ? `<span class="tag-badge" style="background: rgba(234, 179, 8, 0.18); color: #fbbf24; border: 1px solid rgba(234, 179, 8, 0.45); font-weight: 800;">💰 ${p.hourlyRate ? `${p.hourlyRate} ETB/hr` : `${Number(p.monthlyFee || 3000).toLocaleString()} ETB/mo`} (${escapeHtml(p.tutorTier ? `${p.tutorTier} Tier` : (p.packageName || 'Plan'))})</span>` : ''}
               <span class="tag-badge" style="background: rgba(56, 189, 248, 0.12); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.28);">🧒 ${escapeHtml(p.studentGender || p.childGender || 'Student')}</span>
               ${(p.preferredTutorGender && p.preferredTutorGender !== 'Any') 
                 ? `<span class="tag-badge" style="background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.45); font-weight: 800;">🎯 Pref Sex: ${escapeHtml(p.preferredTutorGender)} Tutor</span>` 
@@ -5015,11 +5037,11 @@ function rowsToJson(sheet) {
 
             <!-- Bento Grid Details -->
             <div class="record-bento-grid">
-              ${(p.monthlyFee || p.packageName) ? `
+              ${(p.hourlyRate || p.monthlyFee || p.packageName) ? `
               <div class="bento-item" style="grid-column: 1 / -1; background: rgba(234, 179, 8, 0.08); border-color: rgba(234, 179, 8, 0.25);">
-                <span class="bento-label" style="color: #fbbf24;">💳 Selected Tutoring Plan &amp; Schedule</span>
+                <span class="bento-label" style="color: #fbbf24;">💳 Selected Tutoring Standard, Hourly Rate &amp; Schedule</span>
                 <div class="bento-value" style="color: #fef08a; font-weight: 800; font-size: 0.95rem;">
-                  💰 ${Number(p.monthlyFee || 3000).toLocaleString()} ETB / Month • ${escapeHtml(p.packageName || 'Standard Plan')} (${escapeHtml(p.packageSchedule || '3 Days A Week • 1 hr/day')})
+                  💰 ${p.hourlyRate ? `${p.hourlyRate} ETB / Hour` : `${Number(p.monthlyFee || 3000).toLocaleString()} ETB / Month`} • ${escapeHtml(p.tutorTier ? `${p.tutorTier} Tier` : (p.packageName || 'Tutoring Plan'))} (${escapeHtml(p.packageSchedule || '3 Days A Week • 1 hr/day')}${p.monthlyFee ? ` ~ Est. ${Number(p.monthlyFee).toLocaleString()} ETB/mo` : ''})
                 </div>
               </div>` : ''}
               <div class="bento-item" style="grid-column: 1 / -1;">
@@ -5662,12 +5684,28 @@ function rowsToJson(sheet) {
       renderMatches();
     }
 
+    function setMatchHourlyRate(hourlyRate, hoursPerMonth = 12) {
+      const hInput = document.getElementById('match-hourly-rate-input');
+      const pInput = document.getElementById('match-price-input');
+      if (hInput) hInput.value = hourlyRate;
+      if (pInput) pInput.value = Math.round(hourlyRate * hoursPerMonth);
+      calculateCommissionPreview();
+    }
+
+    function onMatchHourlyChanged() {
+      const hInput = document.getElementById('match-hourly-rate-input');
+      const pInput = document.getElementById('match-price-input');
+      const hourly = parseFloat(hInput?.value) || 0;
+      if (pInput) pInput.value = Math.round(hourly * 12);
+      calculateCommissionPreview();
+    }
+
     function setMatchPrice(amt) {
       const inp = document.getElementById('match-price-input');
-      if (inp) {
-        inp.value = amt;
-        calculateCommissionPreview();
-      }
+      const hInput = document.getElementById('match-hourly-rate-input');
+      if (inp) inp.value = amt;
+      if (hInput) hInput.value = Math.round(amt / 12);
+      calculateCommissionPreview();
     }
 
     function confirmTrialOutcome(matchId, outcome) {
@@ -5675,9 +5713,10 @@ function rowsToJson(sheet) {
       const m = matches.find(item => item.id === matchId);
       if (!m) return;
       const fee = Number(m.monthlyFee) || 3000;
+      const rateNote = m.hourlyRate ? ` (${m.hourlyRate} ETB/hr)` : '';
 
       if (outcome === 'SUCCESS') {
-        if (!confirm(`🎯 Mark 1-Day Trial as SUCCESSFUL?\n\n• Family: ${m.parentName}\n• Tutor: ${m.tutorName}\n• Agreed Tuition: ${fee.toLocaleString()} ETB/month\n\nNext Step (Escrow Rule):\nParent must now transfer Month 1 tuition (${fee.toLocaleString()} ETB) to Ethio 21 Agency via Telebirr or CBE before regular tutoring begins.`)) {
+        if (!confirm(`🎯 Mark 1-Day Trial as SUCCESSFUL?\n\n• Family: ${m.parentName}\n• Tutor: ${m.tutorName}\n• Agreed Tuition: ${fee.toLocaleString()} ETB/month${rateNote}\n\nNext Step (Escrow Rule):\nParent must now transfer Month 1 tuition (${fee.toLocaleString()} ETB) to Ethio 21 Agency via Telebirr or CBE before regular tutoring begins.`)) {
           return;
         }
         m.status = 'Trial Succeeded - Awaiting Month 1 Payment';
@@ -5691,7 +5730,7 @@ function rowsToJson(sheet) {
           `🎯 <b>1-DAY TRIAL COMPLETED &amp; APPROVED</b>\n\n` +
           `👨‍👩‍👧 <b>Parent / Family:</b> ${escapeHtml(m.parentName)} (📞 ${escapeHtml(m.parentPhone)})\n` +
           `🎓 <b>Tutor:</b> ${escapeHtml(m.tutorName)} (📞 ${escapeHtml(m.tutorPhone)})\n` +
-          `💵 <b>Tuition Agreed:</b> <b>${fee.toLocaleString()} ETB/month</b>\n` +
+          `💵 <b>Tuition Agreed:</b> <b>${fee.toLocaleString()} ETB/month${m.hourlyRate ? ` (${m.hourlyRate} ETB/hr)` : ''}</b>\n` +
           `⏳ <b>Next Action:</b> Awaiting Month 1 Tuition Deposit into Ethio 21 Escrow Account\n` +
           `👮 <b>Logged By:</b> ${escapeHtml(adminName)}\n` +
           `⏰ <b>Timestamp:</b> ${new Date().toLocaleString('en-US', { timeZone: 'Africa/Addis_Ababa' })}`;
@@ -6103,7 +6142,7 @@ function rowsToJson(sheet) {
                   <span>•</span>
                   <span>🎒 ${escapeHtml(m.studentGrade || 'All Grades')}</span>
                   <span>•</span>
-                  <span>💰 ${fee.toLocaleString()} ETB/mo</span>
+                  <span>💰 ${m.hourlyRate ? `${m.hourlyRate} ETB/hr (${fee.toLocaleString()} ETB/mo)` : `${fee.toLocaleString()} ETB/mo`}</span>
                   <span>•</span>
                   <span>📅 Month ${curCycle} (Completed: ${m.monthsPaid || 0})</span>
                 </div>
@@ -6127,6 +6166,7 @@ function rowsToJson(sheet) {
           <div id="${detailsId}" class="card-expandable-body" style="display: none; margin-top: 1rem; padding-top: 0.95rem; border-top: 1px solid rgba(255, 255, 255, 0.08);">
             <!-- Meta Ribbon -->
             <div class="record-meta-ribbon">
+              ${m.hourlyRate ? `<span class="tag-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35); font-weight: 750;">⏱️ Rate: ${m.hourlyRate} ETB/hr</span>` : ''}
               <span class="tag-badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35); font-weight: 750;">💵 Tutor Net: ${tutorNet.toLocaleString()} ETB (${curCycle === 1 ? '70%' : 'Fee - 200 ETB'})</span>
               <span class="tag-badge" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.35); font-weight: 750;">💼 Agency Cut: ${agencyCut.toLocaleString()} ETB (${curCycle === 1 ? '30%' : '200 ETB / Match'})</span>
               <span class="tag-badge ${isParentPaid ? 'tag-active' : 'tag-trial'}">${isParentPaid ? '✓ Parent Paid in Escrow' : '⏳ Parent Payment Pending'}</span>
@@ -6656,7 +6696,7 @@ function rowsToJson(sheet) {
       const tSelect = document.getElementById('match-select-tutor');
 
       pSelect.innerHTML = parents.map((p, i) => {
-        const pkgText = p.monthlyFee ? ` • 💰 ${Number(p.monthlyFee).toLocaleString()} ETB (${escapeHtml(p.packageName || 'Plan')})` : '';
+        const pkgText = p.hourlyRate ? ` • 💰 ${p.hourlyRate} ETB/hr (${escapeHtml(p.tutorTier ? `${p.tutorTier} Tier` : (p.packageName || 'Plan'))})` : (p.monthlyFee ? ` • 💰 ${Number(p.monthlyFee).toLocaleString()} ETB (${escapeHtml(p.packageName || 'Plan')})` : '');
         const prefSex = (p.preferredTutorGender && p.preferredTutorGender !== 'Any') ? ` • 🎯 Pref Sex: ${p.preferredTutorGender}` : '';
         const prefRel = (p.preferredTutorReligion && p.preferredTutorReligion !== 'Any') ? ` • ⛪ Pref Rel: ${p.preferredTutorReligion}` : '';
         return `<option value="${i}">${escapeHtml(p.name)} (${escapeHtml(p.grade)} - ${escapeHtml(p.area)})${prefSex}${prefRel}${pkgText}</option>`;
@@ -6713,19 +6753,32 @@ function rowsToJson(sheet) {
 
       pSelect.onchange = function() {
         const selP = parents[this.value];
-        if (selP && selP.monthlyFee) {
-          const inp = document.getElementById('match-price-input');
-          if (inp) {
-            inp.value = selP.monthlyFee;
-            calculateCommissionPreview();
+        if (selP) {
+          const hInp = document.getElementById('match-hourly-rate-input');
+          const pInp = document.getElementById('match-price-input');
+          if (selP.hourlyRate) {
+            if (hInp) hInp.value = selP.hourlyRate;
+            if (pInp) pInp.value = selP.monthlyFee || (selP.hourlyRate * 12);
+          } else if (selP.monthlyFee) {
+            if (pInp) pInp.value = selP.monthlyFee;
+            if (hInp) hInp.value = Math.round(selP.monthlyFee / 12);
           }
+          calculateCommissionPreview();
         }
         populateMatchTutors(this.value);
       };
 
-      if (parents.length > 0 && parents[0].monthlyFee) {
-        const inp = document.getElementById('match-price-input');
-        if (inp) inp.value = parents[0].monthlyFee;
+      if (parents.length > 0) {
+        const selP0 = parents[0];
+        const hInp = document.getElementById('match-hourly-rate-input');
+        const pInp = document.getElementById('match-price-input');
+        if (selP0.hourlyRate) {
+          if (hInp) hInp.value = selP0.hourlyRate;
+          if (pInp) pInp.value = selP0.monthlyFee || (selP0.hourlyRate * 12);
+        } else if (selP0.monthlyFee) {
+          if (pInp) pInp.value = selP0.monthlyFee;
+          if (hInp) hInp.value = Math.round(selP0.monthlyFee / 12);
+        }
       }
 
       populateMatchTutors(pSelect.value || 0);
@@ -6851,6 +6904,7 @@ function rowsToJson(sheet) {
       }
 
       const fee = parseFloat(document.getElementById('match-price-input').value) || 0;
+      const hourlyRate = parseFloat(document.getElementById('match-hourly-rate-input')?.value) || (p.hourlyRate ? parseFloat(p.hourlyRate) : Math.round(fee / 12));
       const rateVal = document.getElementById('match-rate-select')?.value || 'AGENCY_STANDARD';
 
       let rate = 30;
@@ -6884,6 +6938,8 @@ function rowsToJson(sheet) {
         tutorPhone: t.phone,
         tutorUni: t.uni || '',
         tutorReligion: t.religion || 'Not Specified',
+        hourlyRate: hourlyRate,
+        tutorTier: p.tutorTier || '',
         monthlyFee: fee,
         rate: rate,
         commission: commission,
@@ -6920,6 +6976,7 @@ function rowsToJson(sheet) {
         `📍 <b>Location:</b> ${escapeHtml(p.area || 'Addis Ababa')} • Grade: ${escapeHtml(p.grade)}\n` +
         `🎓 <b>Tutor:</b> ${escapeHtml(t.name)} (${escapeHtml(t.phone)})\n` +
         `🏅 <b>Tutor Rank:</b> ${tTier.emoji} ${tTier.name} Level ${t.level || 0} (${escapeHtml(t.uni)})\n` +
+        `⏱️ <b>Hourly Rate:</b> ${hourlyRate} ETB/hr${p.tutorTier ? ` (${p.tutorTier} Tier)` : ''}\n` +
         `💵 <b>Monthly Fee:</b> ${fee.toLocaleString()} ETB\n` +
         `💼 <b>Ethio-21 Commission (${rate}%):</b> ${commission.toLocaleString()} ETB\n` +
         `⏳ <b>Initial Status:</b> 1-Day Trial Pending\n` +
