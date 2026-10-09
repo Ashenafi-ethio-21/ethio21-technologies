@@ -2,53 +2,41 @@
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teme Astegni (ተሜ አስጠኚ) — Master Operational Blueprint &amp; Admin Workflow Guide</title>
 
-  <title>Teme Astegni • Executive Platform Management &amp; Operational Blueprint</title>
-  <meta name="description" content="Official Executive Operational Blueprint, Role Playbooks, and Systems Architecture for Teme Astegni Platform Admins and Founders.">
-  <link rel="icon" type="image/jpeg" href="assets/teme_astegni_logo.jpg">
-
-  <!-- Fonts & Mermaid.js -->
+  <!-- Google Fonts & Mermaid.js for Diagrams -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 
   <style>
     :root {
       --bg-base: #06080e;
-      --bg-surface: #0b101b;
-      --bg-card: rgba(16, 23, 38, 0.78);
-      --bg-card-hover: rgba(22, 32, 53, 0.92);
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-glow: rgba(56, 189, 248, 0.35);
+      --bg-surface: #0b111e;
+      --bg-card: rgba(16, 24, 40, 0.75);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(212, 175, 55, 0.35);
       
       --gold: #d4af37;
       --gold-light: #fef08a;
-      --gold-glow: rgba(212, 175, 55, 0.28);
       --cyan: #38bdf8;
-      --cyan-glow: rgba(56, 189, 248, 0.3);
       --emerald: #10b981;
-      --emerald-glow: rgba(16, 185, 129, 0.3);
       --purple: #c084fc;
-      --amber: #f59e0b;
       
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
       --text-dim: #64748b;
       
       --font-display: 'Cinzel', serif;
-      --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
-      --font-code: 'Fira Code', monospace;
+      --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-mono: 'Fira Code', monospace;
       
       --radius-sm: 8px;
       --radius-md: 14px;
-      --radius-lg: 20px;
-      --radius-xl: 28px;
-      --shadow-luxury: 0 24px 60px -12px rgba(0, 0, 0, 0.65), 0 0 1px 1px rgba(255, 255, 255, 0.08);
+      --radius-lg: 22px;
+      --shadow-lux: 0 20px 50px -10px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.1);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -57,1251 +45,715 @@
     body {
       background-color: var(--bg-base);
       color: var(--text-main);
-      font-family: var(--font-body);
+      font-family: var(--font-sans);
       line-height: 1.65;
       background-image: 
-        radial-gradient(circle at 12% 10%, rgba(56, 189, 248, 0.08) 0%, transparent 45%),
-        radial-gradient(circle at 88% 25%, rgba(212, 175, 55, 0.09) 0%, transparent 40%),
-        radial-gradient(circle at 50% 75%, rgba(16, 185, 129, 0.05) 0%, transparent 55%);
+        radial-gradient(circle at 10% 10%, rgba(56, 189, 248, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 90% 20%, rgba(212, 175, 55, 0.09) 0%, transparent 40%),
+        radial-gradient(circle at 50% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
       background-attachment: fixed;
-      padding-bottom: 6rem;
-      min-height: 100vh;
+      padding: 2.5rem 1.5rem 5rem;
     }
 
-    /* Header & Navigation Bar */
-    .top-nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(6, 8, 14, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border-subtle);
-      padding: 0.85rem 1.75rem;
-    }
-
-    .nav-inner {
-      max-width: 1320px;
+    .doc-container {
+      max-width: 1180px;
       margin: 0 auto;
+    }
+
+    /* Top Actions Bar */
+    .top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 1.25rem;
+      margin-bottom: 2rem;
       flex-wrap: wrap;
+      gap: 1rem;
     }
 
-    .brand-wrap {
-      display: flex;
+    .doc-badge {
+      display: inline-flex;
       align-items: center;
-      gap: 0.85rem;
-      text-decoration: none;
-      color: inherit;
+      gap: 0.5rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 100px;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid var(--border-accent);
+      color: var(--gold-light);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
 
-    .brand-logo {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      border: 1.5px solid var(--gold);
-      box-shadow: 0 0 15px var(--gold-glow);
-      object-fit: cover;
-    }
-
-    .brand-titles h1 {
-      font-family: var(--font-display);
-      font-size: 1.18rem;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      color: #ffffff;
-      display: flex;
+    .print-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 0.5rem 1.15rem;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 750;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
       align-items: center;
       gap: 0.45rem;
     }
 
-    .brand-titles span {
-      font-size: 0.74rem;
-      color: var(--cyan);
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .quick-links {
-      display: flex;
-      gap: 0.6rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .btn-portal {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.5rem 1rem;
-      border-radius: 100px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all 0.25s ease;
-      cursor: pointer;
-    }
-
-    .btn-admin {
-      background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(168, 85, 247, 0.1));
-      color: #d8b4fe;
-      border: 1px solid rgba(168, 85, 247, 0.4);
-    }
-    .btn-admin:hover {
-      background: rgba(168, 85, 247, 0.35);
+    .print-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(168, 85, 247, 0.3);
     }
 
-    .btn-app {
-      background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(56, 189, 248, 0.05));
-      color: #38bdf8;
-      border: 1px solid rgba(56, 189, 248, 0.4);
-    }
-    .btn-app:hover {
-      background: rgba(56, 189, 248, 0.3);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px var(--cyan-glow);
-    }
-
-    .btn-print {
-      background: rgba(255, 255, 255, 0.06);
-      color: #e2e8f0;
-      border: 1px solid var(--border-subtle);
-    }
-    .btn-print:hover {
-      background: rgba(255, 255, 255, 0.12);
-    }
-
-    /* Container */
-    .container {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 2.5rem 1.5rem 0;
-    }
-
-    /* Hero Section */
-    .hero-panel {
-      background: linear-gradient(135deg, rgba(16, 23, 38, 0.85) 0%, rgba(11, 16, 27, 0.95) 100%);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      border-radius: var(--radius-xl);
+    /* Header Panel */
+    .header-panel {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg);
       padding: 3rem 2.5rem;
+      margin-bottom: 3rem;
+      box-shadow: var(--shadow-lux);
       position: relative;
       overflow: hidden;
-      box-shadow: var(--shadow-luxury);
-      margin-bottom: 2.75rem;
     }
 
-    .hero-panel::after {
+    .header-panel::after {
       content: '';
       position: absolute;
-      top: 0; right: 0; bottom: 0; width: 40%;
+      top: 0; right: 0; bottom: 0; width: 35%;
       background: radial-gradient(circle at 75% 30%, rgba(212, 175, 55, 0.12) 0%, transparent 65%);
       pointer-events: none;
     }
 
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.35rem 0.9rem;
-      background: rgba(212, 175, 55, 0.12);
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      border-radius: 100px;
-      color: var(--gold-light);
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 1.25rem;
-    }
-
-    .hero-title {
+    h1.doc-title {
       font-family: var(--font-display);
-      font-size: clamp(2rem, 3.8vw, 3.2rem);
-      line-height: 1.18;
+      font-size: clamp(2.1rem, 4vw, 3.2rem);
       font-weight: 900;
-      letter-spacing: -0.01em;
+      line-height: 1.15;
       color: #ffffff;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
     }
 
-    .hero-title span {
-      background: linear-gradient(135deg, #fef08a 0%, #d4af37 70%, #b45309 100%);
+    h1.doc-title span {
+      background: linear-gradient(135deg, #fef08a 0%, #d4af37 60%, #b45309 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .hero-desc {
-      font-size: 1.05rem;
-      color: var(--text-muted);
-      max-width: 820px;
-      line-height: 1.7;
-      margin-bottom: 2rem;
+    .doc-subtitle {
+      font-size: 1.15rem;
+      color: var(--cyan);
+      font-weight: 600;
+      letter-spacing: 0.02em;
     }
 
-    .hero-metrics {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.25rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border-subtle);
+    /* Section Styling */
+    .section-wrap {
+      margin-bottom: 3.5rem;
     }
 
-    .metric-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 1.15rem 1.35rem;
+    .section-head {
+      margin-bottom: 1.5rem;
     }
 
-    .metric-val {
-      font-size: 1.65rem;
-      font-weight: 900;
+    .section-num {
+      color: var(--gold);
       font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    h2.section-title {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
       color: #ffffff;
       display: flex;
-      align-items: baseline;
-      gap: 0.35rem;
+      align-items: center;
+      gap: 0.65rem;
     }
 
-    .metric-val.gold { color: var(--gold-light); }
-    .metric-val.cyan { color: var(--cyan); }
-    .metric-val.emerald { color: var(--emerald); }
+    /* Mermaid Box */
+    .diagram-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 2rem 1.5rem;
+      box-shadow: var(--shadow-lux);
+      overflow-x: auto;
+      text-align: center;
+    }
 
-    .metric-label {
-      font-size: 0.78rem;
-      color: var(--text-dim);
-      font-weight: 700;
+    /* Modern Tables */
+    .table-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      box-shadow: var(--shadow-lux);
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    table.data-table th {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--gold-light);
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      font-size: 0.78rem;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    table.data-table td {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: #cbd5e1;
+      vertical-align: top;
+      line-height: 1.6;
+    }
+
+    table.data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    table.data-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .comp-name {
+      font-weight: 800;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    .tag-badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      font-size: 0.74rem;
+      font-weight: 750;
       margin-top: 0.25rem;
     }
 
-    /* Section Headers */
-    .section-head {
-      margin-bottom: 1.75rem;
-    }
+    .tag-blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .tag-purple { background: rgba(192, 132, 252, 0.15); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.3); }
+    .tag-emerald { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .tag-gold { background: rgba(212, 175, 55, 0.15); color: #fef08a; border: 1px solid var(--border-accent); }
 
-    .section-tag {
-      font-size: 0.75rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--cyan);
-      display: block;
-      margin-bottom: 0.35rem;
-    }
-
-    .section-title {
-      font-family: var(--font-display);
-      font-size: 1.85rem;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-    }
-
-    .section-sub {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-top: 0.35rem;
-    }
-
-    /* Systems Architecture Grid */
-    .systems-grid {
+    /* Role Cards */
+    .roles-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 3.5rem;
-    }
-
-    .sys-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 1.75rem;
-      backdrop-filter: blur(16px);
-      transition: all 0.25s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-    }
-
-    .sys-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--border-glow);
-      background: var(--bg-card-hover);
-      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.7);
-    }
-
-    .sys-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-size: 0.72rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      padding: 0.25rem 0.65rem;
-      border-radius: 100px;
-      margin-bottom: 1rem;
-      width: fit-content;
-    }
-
-    .sys-badge.app { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35); }
-    .sys-badge.admin { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.35); }
-    .sys-badge.cloud { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35); }
-    .sys-badge.sheet { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35); }
-    .sys-badge.tg { background: rgba(36, 161, 222, 0.15); color: #60a5fa; border: 1px solid rgba(36, 161, 222, 0.35); }
-
-    .sys-card h3 {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: #ffffff;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-    }
-
-    .sys-card p {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-      margin-bottom: 1.25rem;
-    }
-
-    .sys-list {
-      list-style: none;
-      border-top: 1px solid var(--border-subtle);
-      padding-top: 1rem;
-      margin-bottom: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .sys-list li {
-      font-size: 0.82rem;
-      color: #cbd5e1;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.45rem;
-    }
-
-    .sys-list li strong {
-      color: #ffffff;
-    }
-
-    .sys-footer {
-      font-size: 0.76rem;
-      color: var(--text-dim);
-      font-family: var(--font-code);
-      background: rgba(0, 0, 0, 0.25);
-      padding: 0.45rem 0.75rem;
-      border-radius: var(--radius-sm);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-    }
-
-    /* Diagram Section */
-    .diagram-panel {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-xl);
-      padding: 2.25rem;
-      margin-bottom: 3.5rem;
-      box-shadow: var(--shadow-luxury);
-    }
-
-    .mermaid-box {
-      background: #070a13;
-      border-radius: var(--radius-md);
-      padding: 1.75rem;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      overflow-x: auto;
-      text-align: center;
-    }
-
-    /* Interactive Staff Role Playbooks */
-    .role-section {
-      margin-bottom: 3.5rem;
-    }
-
-    .role-tabs {
-      display: flex;
-      gap: 0.65rem;
-      overflow-x: auto;
-      padding-bottom: 0.75rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .role-tab-btn {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--border-subtle);
-      border-radius: 100px;
-      color: var(--text-muted);
-      padding: 0.65rem 1.35rem;
-      font-size: 0.85rem;
-      font-weight: 750;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .role-tab-btn:hover {
-      background: rgba(255, 255, 255, 0.08);
-      color: #ffffff;
-    }
-
-    .role-tab-btn.active {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(212, 175, 55, 0.1));
-      border-color: var(--gold);
-      color: var(--gold-light);
-      box-shadow: 0 4px 18px var(--gold-glow);
-    }
-
-    .role-content-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-xl);
-      padding: 2.25rem;
-      backdrop-filter: blur(20px);
-      box-shadow: var(--shadow-luxury);
-    }
-
-    .role-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.75rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .role-title-grp h3 {
-      font-family: var(--font-display);
-      font-size: 1.6rem;
-      color: #ffffff;
-      margin-bottom: 0.25rem;
-    }
-
-    .role-title-grp p {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-    }
-
-    .role-pill {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--border-subtle);
-      padding: 0.4rem 0.95rem;
-      border-radius: 100px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--cyan);
-    }
-
-    .role-body-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
       gap: 1.75rem;
     }
 
-    .playbook-card {
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
+    @media (max-width: 600px) {
+      .roles-grid { grid-template-columns: 1fr; }
     }
 
-    .playbook-card h4 {
-      font-size: 0.98rem;
-      font-weight: 800;
+    .role-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      box-shadow: var(--shadow-lux);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      transition: all 0.25s ease;
+    }
+
+    .role-card:hover {
+      border-color: rgba(212, 175, 55, 0.4);
+      transform: translateY(-3px);
+    }
+
+    .role-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+    }
+
+    .role-name {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
       color: #ffffff;
-      margin-bottom: 1rem;
+      font-weight: 800;
+    }
+
+    .role-access {
+      font-size: 0.76rem;
+      font-family: var(--font-mono);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-sm);
+      color: var(--cyan);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .role-goal {
+      font-size: 0.88rem;
+      color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.08);
+      border-left: 3px solid var(--gold);
+      padding: 0.65rem 0.95rem;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-weight: 600;
+    }
+
+    .section-subhead {
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #e2e8f0;
+      margin-bottom: 0.65rem;
       display: flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.4rem;
     }
 
-    .checklist {
+    .role-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 0.65rem;
     }
 
-    .checklist-item {
+    .role-list li {
+      font-size: 0.86rem;
+      color: #cbd5e1;
       display: flex;
       align-items: flex-start;
-      gap: 0.65rem;
-      font-size: 0.86rem;
-      color: #cbd5e1;
-      cursor: pointer;
-      user-select: none;
+      gap: 0.55rem;
+      line-height: 1.55;
     }
 
-    .checklist-item input[type="checkbox"] {
-      appearance: none;
-      -webkit-appearance: none;
-      width: 18px;
-      height: 18px;
-      border-radius: 5px;
-      border: 1.5px solid rgba(255, 255, 255, 0.25);
-      background: rgba(255, 255, 255, 0.04);
-      cursor: pointer;
-      flex-shrink: 0;
-      margin-top: 2px;
-      position: relative;
-      transition: all 0.2s;
-    }
-
-    .checklist-item input[type="checkbox"]:checked {
-      background: var(--emerald);
-      border-color: var(--emerald);
-    }
-
-    .checklist-item input[type="checkbox"]:checked::after {
-      content: '✓';
-      position: absolute;
-      top: -1px; left: 3px;
-      color: #ffffff;
-      font-size: 12px;
+    .role-list li::before {
+      content: '▹';
+      color: var(--gold);
       font-weight: 900;
+      font-size: 1rem;
+      line-height: 1.4;
+      flex-shrink: 0;
     }
 
-    .checklist-item.done {
-      text-decoration: line-through;
-      color: var(--text-dim);
-    }
-
-    /* Lifecycle Stepper */
-    .lifecycle-section {
-      margin-bottom: 3.5rem;
-    }
-
-    .stepper-wrap {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .step-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 1.25rem 1rem;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .step-card:hover {
-      border-color: var(--cyan);
-      transform: translateY(-2px);
-    }
-
-    .step-card.active {
-      border-color: var(--gold);
-      background: rgba(212, 175, 55, 0.12);
-      box-shadow: 0 4px 20px var(--gold-glow);
-    }
-
-    .step-num {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.08);
+    .role-list li strong {
       color: #ffffff;
-      font-size: 0.8rem;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 0.6rem;
     }
 
-    .step-card.active .step-num {
-      background: var(--gold);
-      color: #000000;
-    }
-
-    .step-card h5 {
-      font-size: 0.84rem;
-      color: #ffffff;
-      font-weight: 800;
-      margin-bottom: 0.25rem;
-    }
-
-    .step-card span {
-      font-size: 0.72rem;
-      color: var(--text-dim);
-    }
-
-    .step-details-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 1.75rem;
-    }
-
-    /* Calculator & Economics */
-    .calc-panel {
-      background: linear-gradient(135deg, rgba(16, 23, 38, 0.95), rgba(11, 16, 27, 0.98));
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      border-radius: var(--radius-xl);
-      padding: 2.5rem;
-      margin-bottom: 3.5rem;
-      box-shadow: var(--shadow-luxury);
-    }
-
-    .calc-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .calc-controls {
+    .sub-bullet-list {
+      list-style: none;
+      margin-top: 0.45rem;
+      margin-left: 1.25rem;
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
+      gap: 0.4rem;
     }
 
-    .control-grp label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.85rem;
-      font-weight: 750;
-      color: #cbd5e1;
-      margin-bottom: 0.45rem;
+    .sub-bullet-list li::before {
+      content: '•';
+      color: var(--cyan);
+      font-size: 0.9rem;
     }
 
-    .control-grp span.val {
-      color: var(--emerald);
-      font-family: var(--font-code);
-      font-weight: 800;
-    }
-
-    .control-grp input[type="range"] {
-      width: 100%;
-      height: 6px;
-      border-radius: 5px;
-      background: rgba(255, 255, 255, 0.12);
-      outline: none;
-      -webkit-appearance: none;
-    }
-
-    .control-grp input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: var(--emerald);
-      cursor: pointer;
-      box-shadow: 0 0 10px var(--emerald-glow);
-    }
-
-    .calc-result-box {
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: var(--radius-lg);
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
-    .result-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
-      padding-bottom: 0.75rem;
-    }
-
-    .result-row.total {
-      border-bottom: none;
-      padding-top: 0.5rem;
-    }
-
-    .result-label {
-      font-size: 0.86rem;
-      color: var(--text-muted);
-    }
-
-    .result-val {
-      font-size: 1.25rem;
-      font-weight: 850;
-      font-family: var(--font-code);
-      color: #ffffff;
-    }
-
-    .result-val.highlight {
-      font-size: 1.65rem;
-      color: var(--gold-light);
-    }
-
-    /* Print Styles */
+    /* Print View */
     @media print {
-      body { background: #ffffff !important; color: #000000 !important; }
-      .top-nav, .quick-links, .role-tabs, .calc-controls, .btn-print { display: none !important; }
-      .hero-panel, .sys-card, .role-content-box, .calc-panel { border: 1px solid #cccccc !important; background: transparent !important; box-shadow: none !important; }
-      .hero-title, .section-title, h3, h4 { color: #000000 !important; }
-      .hero-title span { -webkit-text-fill-color: #000000 !important; }
-    }
-
-    /* Mobile Adaptations */
-    @media (max-width: 768px) {
-      .hero-panel { padding: 2rem 1.5rem; }
-      .container { padding: 1.5rem 1rem 0; }
-      .hero-title { font-size: 1.85rem; }
-      .calc-panel { padding: 1.5rem; }
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0.5in !important;
+      }
+      .top-bar, .print-btn { display: none !important; }
+      .header-panel, .role-card, .table-card, .diagram-box {
+        background: transparent !important;
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+        color: #000000 !important;
+      }
+      h1.doc-title, h2.section-title, .role-name, .comp-name { color: #000000 !important; }
+      h1.doc-title span { -webkit-text-fill-color: #000000 !important; }
+      table.data-table td, .role-list li, .doc-subtitle { color: #222 !important; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Navigation Bar -->
-  <header class="top-nav">
-    <div class="nav-inner">
-      <a href="index.html" class="brand-wrap">
-        <img src="assets/teme_astegni_logo.jpg" alt="Teme Astegni" class="brand-logo">
-        <div class="brand-titles">
-          <h1>Teme Astegni • Blueprint</h1>
-          <span>Executive Operations &amp; Platform Architecture</span>
-        </div>
-      </a>
+  <div class="doc-container">
 
-      <div class="quick-links">
-        <a href="teme-admin.html" target="_blank" class="btn-portal btn-admin">
-          <span>🛡️ Open Admin Portal</span>
-        </a>
-        <a href="teme-astegni.html" target="_blank" class="btn-portal btn-app">
-          <span>📱 Open Public App</span>
-        </a>
-        <button onclick="window.print()" class="btn-portal btn-print">
-          <span>🖨️ Print Handbook</span>
-        </button>
-      </div>
+    <!-- Top Action Bar -->
+    <div class="top-bar">
+      <div class="doc-badge">Official Operating Playbook • ETHIO 21 Ventures</div>
+      <button class="print-btn" onclick="window.print()">
+        <span>🖨️ Print / Save as PDF</span>
+      </button>
     </div>
-  </header>
 
-  <div class="container">
+    <!-- Document Header -->
+    <header class="header-panel">
+      <h1 class="doc-title">Teme Astegni <span>(ተሜ አስጠኚ)</span></h1>
+      <div class="doc-subtitle">Master Operational Blueprint &amp; Admin Workflow Guide</div>
+    </header>
 
-    <!-- Hero Executive Overview -->
-    <section class="hero-panel">
-      <div class="hero-tag">Official Operations Manual • ETHIO 21 Ventures</div>
-      <h2 class="hero-title">
-        Teme Astegni (ተሜ አስጠኚ)<br>
-        <span>Platform Management &amp; Staff Playbook</span>
-      </h2>
-      <p class="hero-desc">
-        The master operational blueprint for Founders, Admissions Coordinators, Matchmakers, and Finance Admins. 
-        Engineered for 100% data privacy, zero-waste Firebase quota sustainability, Fayda National ID e-KYC verification, 
-        and an automated 30% first-month commission escrow model.
-      </p>
+    <!-- SECTION 1: HIGH-LEVEL ECOSYSTEM MAP -->
+    <section class="section-wrap">
+      <div class="section-head">
+        <span class="section-num">Section 01</span>
+        <h2 class="section-title">1. High-Level Ecosystem Map</h2>
+      </div>
 
-      <div class="hero-metrics">
-        <div class="metric-card">
-          <div class="metric-val gold">30% + 200 ETB</div>
-          <div class="metric-label">Commission &amp; Platform Fee</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val cyan">1 Read / Lead</div>
-          <div class="metric-label">Firestore Zero-Waste Quota</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val emerald">100% e-KYC</div>
-          <div class="metric-label">National Fayda ID Vetted</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val">3 Students</div>
-          <div class="metric-label">Max Capacity / University Tutor</div>
-        </div>
+      <div class="diagram-box">
+        <pre class="mermaid">
+flowchart TD
+    subgraph Clients["1. Public Frontend"]
+        Parent["👨‍👩‍👧 Parents<br/>(Request Home Tutors)"]
+        Tutor["🎓 University Tutors<br/>(Apply, KYC, Level Up)"]
+    end
+
+    subgraph CoreEngine["2. Central Cloud Engine"]
+        Firestore[("🔥 Firebase Firestore<br/>Live Real-time Database")]
+        GAS["⚡ Google Apps Script<br/>Free Cloud Webhook"]
+        GSheet[("📊 Google Sheets<br/>Master Ledger & CRM Archive")]
+    end
+
+    subgraph OperationsHub["3. Staff & Admin Operations"]
+        AdminPortal["🛡️ teme-admin.html<br/>Role-Based Admin Portal"]
+        TG1["📢 Parent Leads Hub<br/>Telegram Channel"]
+        TG2["📢 Tutor Verification Hub<br/>Telegram Channel"]
+        TG3["📢 Tutor Matches Stream<br/>Telegram Channel"]
+        TG4["💳 Payment Receipts Escrow<br/>Telegram Channel"]
+    end
+
+    subgraph Staff["4. Human Team Roles"]
+        OwnerRole["👑 Founder / Super Admin"]
+        KYCRole["📋 Verification Admin (KYC)"]
+        MatchRole["🤝 Matchmaker Admin"]
+        FinanceRole["💰 Finance / Escrow Admin"]
+    end
+
+    Parent -->|"Submits Request"| Firestore
+    Tutor -->|"Submits Application & Fayda ID"| Firestore
+    Firestore -->|"Mirrors Data"| GAS
+    GAS -->|"Appends Row"| GSheet
+    Parent & Tutor -.->|"Photo & Doc Dispatch"| TG1 & TG2
+
+    Firestore <-->|"Reads / Writes"| AdminPortal
+    AdminPortal --> Staff
+        </pre>
       </div>
     </section>
 
-    <!-- SECTION 1: SYSTEM ECOSYSTEM COMPONENTS -->
-    <section>
+    <!-- SECTION 2: HOW THE 4 CORE TECHNICAL COMPONENTS WORK TOGETHER -->
+    <section class="section-wrap">
       <div class="section-head">
-        <span class="section-tag">ARCHITECTURAL BACKBONE</span>
-        <h3 class="section-title">🏛️ The 5 Core Engines of the Platform</h3>
-        <p class="section-sub">How our serverless cloud, admin dashboard, automated spreadsheet, and Telegram hubs work in unison without single points of failure.</p>
+        <span class="section-num">Section 02</span>
+        <h2 class="section-title">2. How the 4 Core Technical Components Work Together</h2>
       </div>
 
-      <div class="systems-grid">
-        <!-- 1. Public App -->
-        <div class="sys-card">
-          <div>
-            <span class="sys-badge app">1. Public Client</span>
-            <h3>📱 Teme Astegni App</h3>
-            <p>The high-performance Progressive Web App (PWA) accessed by Parents and University Tutors.</p>
-            <ul class="sys-list">
-              <li><strong>Parents:</strong> Submit tutoring needs, grade, budget, and location.</li>
-              <li><strong>Tutors:</strong> Apply, upload Fayda/Student ID, e-KYC, and level up tiers.</li>
-              <li><strong>Multi-Device:</strong> Restores profile instantly via unique Tracking ID.</li>
-            </ul>
-          </div>
-          <div class="sys-footer">Path: teme-astegni.html • Offline Capable</div>
-        </div>
-
-        <!-- 2. Admin Portal -->
-        <div class="sys-card">
-          <div>
-            <span class="sys-badge admin">2. Command Center</span>
-            <h3>🛡️ Admin Portal</h3>
-            <p>The protected command vault where Founders and Coordinators manage operations.</p>
-            <ul class="sys-list">
-              <li><strong>KYC Review:</strong> Inspect Fayda QR, Government ID, and Student Cards.</li>
-              <li><strong>Matchmaker:</strong> Pair parents and tutors by neighborhood and subject.</li>
-              <li><strong>RBAC Security:</strong> Cryptographic role-based passwords &amp; delegation.</li>
-            </ul>
-          </div>
-          <div class="sys-footer">Path: teme-admin.html • SHA-256 Vault</div>
-        </div>
-
-        <!-- 3. Firestore Database -->
-        <div class="sys-card">
-          <div>
-            <span class="sys-badge cloud">3. Real-Time Cloud</span>
-            <h3>🔥 Firebase Firestore</h3>
-            <p>Serverless cloud database providing instant multi-device live synchronization.</p>
-            <ul class="sys-list">
-              <li><strong>astegni_parent_leads:</strong> Parent requests &amp; locations.</li>
-              <li><strong>astegni_tutor_leads:</strong> Verified university tutor profiles.</li>
-              <li><strong>astegni_matches:</strong> Official paired tutor-student contracts.</li>
-            </ul>
-          </div>
-          <div class="sys-footer">Quota Guard: 0 Unbounded Reads • Direct Doc Query</div>
-        </div>
-
-        <!-- 4. Google Sheets -->
-        <div class="sys-card">
-          <div>
-            <span class="sys-badge sheet">4. Zero-Cost CRM</span>
-            <h3>📊 Google Sheets &amp; GAS</h3>
-            <p>Automated Google Apps Script webhook logging all activity to a permanent spreadsheet.</p>
-            <ul class="sys-list">
-              <li><strong>Permanent Archive:</strong> Human-readable Excel ledger of all leads.</li>
-              <li><strong>Zero Cost:</strong> Serves status lookups without touching Firebase reads.</li>
-              <li><strong>Finance Audit:</strong> Clean record for accounting and tax review.</li>
-            </ul>
-          </div>
-          <div class="sys-footer">Apps Script Webhook • Real-Time Row Append</div>
-        </div>
-
-        <!-- 5. Telegram Hubs -->
-        <div class="sys-card">
-          <div>
-            <span class="sys-badge tg">5. Dispatch Hubs</span>
-            <h3>📢 Telegram Streams (x4)</h3>
-            <p>Instant photo dossiers, verification alerts, and payment screenshot channels.</p>
-            <ul class="sys-list">
-              <li><strong>Stream 1:</strong> Parents Lead Feed.</li>
-              <li><strong>Stream 2:</strong> Tutor Dossiers &amp; ID verification photos.</li>
-              <li><strong>Stream 3:</strong> Tutor Match Dispatches.</li>
-              <li><strong>Stream 4:</strong> Escrow Payment Screenshots &amp; bank slips.</li>
-            </ul>
-          </div>
-          <div class="sys-footer">Telegram Bot API • 24/7 Push Notifications</div>
-        </div>
+      <div class="table-card">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 20%;">Component</th>
+              <th style="width: 20%;">What It Is</th>
+              <th style="width: 42%;">Purpose</th>
+              <th style="width: 18%;">Who Uses It</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="comp-name">1. Main App</div>
+                <span class="tag-badge tag-blue">teme-astegni.html</span>
+              </td>
+              <td>Public Web/PWA App</td>
+              <td>The customer-facing interface where parents request tutors and university tutors register, upload IDs, and view their assigned students.</td>
+              <td>Parents &amp; Tutors</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="comp-name">2. Admin Portal</div>
+                <span class="tag-badge tag-purple">teme-admin.html</span>
+              </td>
+              <td>Secure Operations Dashboard</td>
+              <td>The protected staff dashboard where admins verify applicant identities, pair students with tutors, track commission, and assign duties.</td>
+              <td>Admins &amp; Founders</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="comp-name">3. Firebase Firestore</div>
+                <span class="tag-badge tag-gold">Central Cloud DB</span>
+              </td>
+              <td>Central Cloud Database</td>
+              <td>The real-time single source of truth. Stores applicant records, verification statuses, Tier levels, and active matches.</td>
+              <td>Synchronizes Main App &amp; Admin Portal</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="comp-name">4. Google Sheets</div>
+                <span class="tag-badge tag-emerald">Apps Script Webhook</span>
+              </td>
+              <td>Free Cloud Ledger / CRM</td>
+              <td>Automated spreadsheet backup powered by Google Apps Script. Contains a permanent, human-readable record of all leads, contacts, and payments for 0-cost analysis.</td>
+              <td>Owners &amp; Operations Auditors</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="comp-name">5. Telegram Streams</div>
+                <span class="tag-badge tag-blue">4 Dedicated Hubs</span>
+              </td>
+              <td>Instant Notification Hubs</td>
+              <td>Instant alerts for every new lead, tutor document photo, payment screenshot, and completed match across 4 dedicated groups.</td>
+              <td>Daily Coordinator Staff</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
-    <!-- SECTION 2: END-TO-END FLOW DIAGRAM -->
-    <section class="diagram-panel">
+    <!-- SECTION 3: TEAM ROLES & DAILY RESPONSIBILITIES -->
+    <section class="section-wrap">
       <div class="section-head">
-        <span class="section-tag">DATA &amp; PROCESS FLOW</span>
-        <h3 class="section-title">⚡ End-to-End Operational Lifecycle Diagram</h3>
-        <p class="section-sub">Follow how an application moves from client submission to verification, matchmaking, escrow payment, and tutor dispatch.</p>
+        <span class="section-num">Section 03</span>
+        <h2 class="section-title">3. Team Roles &amp; Daily Responsibilities</h2>
       </div>
 
-      <div class="mermaid-box">
+      <div class="roles-grid">
+
+        <!-- Role 1: Owner -->
+        <div class="role-card">
+          <div class="role-head">
+            <div class="role-name">👑 Role 1: Founder / Super Admin (Owner)</div>
+            <div class="role-access">teme-admin.html • Super Admin Access</div>
+          </div>
+
+          <div>
+            <div class="section-subhead">📌 Primary Responsibilities:</div>
+            <ul class="role-list">
+              <li>Create and manage Coordinator Admin accounts in the <strong>"Admins"</strong> tab.</li>
+              <li>Configure and monitor Google Sheets webhooks and Telegram channels in the <strong>"Database"</strong> tab.</li>
+              <li>Set overall tuition price guidelines and oversee monthly business revenue.</li>
+              <li>Intervene in complex disputes between parents and tutors.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Role 2: KYC Admin -->
+        <div class="role-card">
+          <div class="role-head">
+            <div class="role-name">📋 Role 2: Verification Admin (KYC Coordinator)</div>
+            <div class="role-access">teme-admin.html > Tutors Tab &amp; Telegram Tutor Hub</div>
+          </div>
+
+          <div class="role-goal">
+            🎯 Daily Goal: Ensure every single tutor sent to a family's home is 100% verified and legitimate.
+          </div>
+
+          <div>
+            <div class="section-subhead">☑️ Daily Checklist:</div>
+            <ul class="role-list">
+              <li>Open the <strong>"Tutors"</strong> tab in <code>teme-admin.html</code>.</li>
+              <li>Filter by status: <strong>Pending Verification</strong>.</li>
+              <li>
+                <div>
+                  <strong>Review the tutor's credentials:</strong>
+                  <ul class="sub-bullet-list">
+                    <li><strong>National Fayda ID / Student ID:</strong> Confirm validity and photo match.</li>
+                    <li><strong>University &amp; Year:</strong> Ensure they are 2nd-year or above in a recognized university.</li>
+                    <li><strong>Location &amp; Subjects:</strong> Note their neighborhood in Addis Ababa and teaching subjects.</li>
+                  </ul>
+                </div>
+              </li>
+              <li>If genuine, click <strong>"✅ Verify Tutor"</strong> (their status updates across Firebase and their card turns green).</li>
+              <li>If questionable or incomplete, contact the tutor or reject with feedback.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Role 3: Matchmaker -->
+        <div class="role-card">
+          <div class="role-head">
+            <div class="role-name">🤝 Role 3: Matchmaker Admin (Operations Coordinator)</div>
+            <div class="role-access">teme-admin.html > Parents &amp; Matches Tabs</div>
+          </div>
+
+          <div class="role-goal">
+            🎯 Daily Goal: Connect every parent request with the best qualified tutor within 2 to 24 hours.
+          </div>
+
+          <div>
+            <div class="section-subhead">☑️ Daily Checklist:</div>
+            <ul class="role-list">
+              <li>Open the <strong>"Parents"</strong> tab to view new requests (Grade level, location, schedule, subject needs).</li>
+              <li>Call the parent to confirm details (e.g. specific days per week, hourly budget).</li>
+              <li>
+                <div>
+                  <strong>Go to the "Matches" tab:</strong>
+                  <ul class="sub-bullet-list">
+                    <li>Select the Parent request.</li>
+                    <li>Filter verified tutors by same sub-city/neighborhood and matching subject skill.</li>
+                    <li>Ensure the tutor is not over capacity (max 3 students per tutor).</li>
+                  </ul>
+                </div>
+              </li>
+              <li>Click <strong>"🔗 Create Match"</strong>.</li>
+              <li>The match record is instantly generated, published to Telegram, and updated in both the parent's and tutor's app screens.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Role 4: Finance -->
+        <div class="role-card">
+          <div class="role-head">
+            <div class="role-name">💰 Role 4: Finance &amp; Escrow Admin (Payment Coordinator)</div>
+            <div class="role-access">teme-admin.html > Payments Tab &amp; Telegram Escrow Group</div>
+          </div>
+
+          <div class="role-goal">
+            🎯 Daily Goal: Collect company commission and ensure tutors are paid securely.
+          </div>
+
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 0.85rem 1rem; border-radius: var(--radius-sm);">
+            <div class="section-subhead" style="margin-bottom: 0.35rem; color: var(--gold-light);">💎 Commission Model:</div>
+            <div style="font-size: 0.84rem; color: #cbd5e1; line-height: 1.5;">
+              • <strong>First Month:</strong> Teme Astegni collects <strong>30% commission</strong> of the first month's tutoring fee from the parent or tutor.<br>
+              • <strong>Tutor Platform Fee:</strong> 200 ETB flat registration/upgrade fee.
+            </div>
+          </div>
+
+          <div>
+            <div class="section-subhead">☑️ Daily Checklist:</div>
+            <ul class="role-list">
+              <li>Monitor incoming bank slips in the <strong>Payment Receipts Telegram Group</strong> (CBE / Telebirr).</li>
+              <li>Match the transaction reference number with the Parent ID (<code>AST-P-XXXX</code>) and Tutor ID (<code>AST-T-XXXX</code>).</li>
+              <li>Mark payment as <strong>"Verified / Active"</strong> in <code>teme-admin.html</code>.</li>
+              <li>Release the confirmed tutoring schedule and exchange contact details between the tutor and the parent.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: END-TO-END OPERATIONAL LIFECYCLE -->
+    <section class="section-wrap">
+      <div class="section-head">
+        <span class="section-num">Section 04</span>
+        <h2 class="section-title">4. End-to-End Operational Lifecycle</h2>
+      </div>
+
+      <div class="diagram-box">
         <pre class="mermaid">
 sequenceDiagram
     autonumber
     actor Parent as 👨‍👩‍👧 Parent
     participant App as 📱 Teme Astegni App
-    participant DB as 🔥 Firebase Firestore
-    participant GAS as 📊 Google Sheets
-    participant TG as 📢 Telegram Hubs
-    actor Admin as 🛡️ Coordinator Admin
+    participant DB as 🔥 Firebase & Sheets
+    actor KYC as 📋 KYC Admin
+    actor Match as 🤝 Matchmaker
+    actor Fin as 💰 Finance Admin
     actor Tutor as 🎓 University Tutor
 
-    Parent->>App: Submits Request (Grade, Location, Phone)
-    App->>DB: Stores Doc (AST-P-XXXX)
-    App->>GAS: Appends Row in Google Sheets
-    App->>TG: Broadcasts Lead to Parents Hub
-
-    Tutor->>App: Submits Application + Fayda ID + Photo
-    App->>DB: Stores Doc (AST-T-XXXX)
-    App->>TG: Dispatches KYC Photo Dossier to Tutors Hub
-
-    Admin->>DB: Opens teme-admin.html (Inspects Fayda & University)
-    Admin->>DB: Marks Tutor as "VERIFIED"
-
-    Admin->>DB: Uses Matchmaker (Pairs AST-P-XXXX with AST-T-XXXX)
-    DB->>TG: Dispatches Match Announcement
-    DB-->>App: Match card automatically appears on Parent & Tutor apps!
-
-    Parent->>TG: Sends 1st Month Payment Slip (Telebirr / CBE)
-    Admin->>DB: Verifies Receipt, Confirms 30% Commission
-    Admin->>Tutor: Approves Session Start & Releases Schedule
+    Parent->>App: Submits tutoring request (Grade, Location, Phone)
+    App->>DB: Stores record (AST-P-XXXX) & alerts Telegram
+    
+    Tutor->>App: Submits application & National Fayda ID
+    App->>DB: Stores record (AST-T-XXXX)
+    
+    KYC->>DB: Inspects credentials in teme-admin.html
+    KYC->>DB: Marks Tutor as "VERIFIED"
+    
+    Match->>DB: Pairs Parent (AST-P-XXXX) with Tutor (AST-T-XXXX)
+    DB->>App: Match appears on Parent & Tutor portals
+    
+    Parent->>Fin: Sends 1st month payment screenshot
+    Fin->>DB: Verifies receipt, deducts 30% commission
+    Fin->>Tutor: Confirms start date & session schedule
         </pre>
       </div>
     </section>
 
-    <!-- SECTION 3: STAFF ROLES & PLAYBOOKS -->
-    <section class="role-section">
+    <!-- SECTION 5: STAFF QUICK-REFERENCE SHEET -->
+    <section class="section-wrap">
       <div class="section-head">
-        <span class="section-tag">STAFF PLAYBOOKS &amp; CHECKLISTS</span>
-        <h3 class="section-title">👥 Admin Team Roles &amp; Daily SOPs</h3>
-        <p class="section-sub">Select a role below to view their specific daily workflow, tools, and interactive checklist.</p>
+        <span class="section-num">Section 05</span>
+        <h2 class="section-title">5. Staff Quick-Reference Sheet (Print / Share with Admins)</h2>
       </div>
 
-      <!-- Tab Buttons -->
-      <div class="role-tabs">
-        <button class="role-tab-btn active" onclick="switchRole('role-founder', this)">
-          <span>👑</span> <span>Founder / Super Admin</span>
-        </button>
-        <button class="role-tab-btn" onclick="switchRole('role-kyc', this)">
-          <span>📋</span> <span>KYC &amp; Verification Admin</span>
-        </button>
-        <button class="role-tab-btn" onclick="switchRole('role-match', this)">
-          <span>🤝</span> <span>Matchmaker Coordinator</span>
-        </button>
-        <button class="role-tab-btn" onclick="switchRole('role-finance', this)">
-          <span>💰</span> <span>Finance &amp; Escrow Admin</span>
-        </button>
-        <button class="role-tab-btn" onclick="switchRole('role-support', this)">
-          <span>📞</span> <span>Call Center &amp; Support</span>
-        </button>
-      </div>
-
-      <!-- Role 1: Founder -->
-      <div id="role-founder" class="role-content-box role-tab-content">
-        <div class="role-header">
-          <div class="role-title-grp">
-            <h3>👑 Founder / Super Admin (Owner)</h3>
-            <p>Responsible for overall platform governance, staff delegation, escrow balance, and system configuration.</p>
-          </div>
-          <span class="role-pill">Primary Tool: teme-admin.html (Owner Mode)</span>
-        </div>
-
-        <div class="role-body-grid">
-          <div class="playbook-card">
-            <h4>📋 Daily Checklist (Interactive)</h4>
-            <ul class="checklist">
-              <li class="checklist-item" onclick="toggleCheck(this)">
-                <input type="checkbox">
-                <span>Check daily KPI metrics (New Tutors, Active Matches, Weekly Revenue).</span>
-              </li>
-              <li class="checklist-item" onclick="toggleCheck(this)">
-                <input type="checkbox">
-                <span>Review Google Sheets CRM backup to ensure webhook sync is active.</span>
-              </li>
-              <li class="checklist-item" onclick="toggleCheck(this)">
-                <input type="checkbox">
-                <span>Audit Admin accounts &amp; assign Coordinator duties in "Admins" tab.</span>
-              </li>
-              <li class="checklist-item" onclick="toggleCheck(this)">
-                <input type="checkbox">
-                <span>Review flagged disputes or parent satisfaction ratings.</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="playbook-card">
-            <h4>⚡ Key Rules &amp; Protocols</h4>
-            <ul class="sys-list">
-              <li><strong>Master Passkey:</strong> Never share Owner passkeys; create individual Coordinator logins.</li>
-              <li><strong>Commission Target:</strong> Ensure 30% first-month cut is preserved on all confirmed contracts.</li>
-              <li><strong>Tutor Upgrades:</strong> Manually authorize Tier Level 3 &amp; 4 Master Tutors.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Role 2: KYC Admin -->
-      <div id="role-kyc" class="role-content-box role-tab-content" style="display: none;">
-        <div class="role-header">
-          <div class="role-title-grp">
-            <h3>📋 KYC &amp; Admissions Coordinator</h3>
-            <p>The guardian of trust: verifies tutor identity, National Fayda ID, and university academic credentials.</p>
-          </div>
-          <span class="role-pill">Primary Tool: teme-admin.html > Tutors Tab</span>
-        </div>
-
-        <div class="role-body-grid">
-          <div class="playbook-card">
-            <h4>📋 Verification Checklist</h4>
-            <ul class="checklist">
-              <li class="checklist-item" onclick="toggleCheck(this)">
-                <input type="checkbox">
-                <span>Open "Tutors" tab and filter by "Pending Verification".</span>
-              </li>
-              <li class="checklist-item" onclick="toggleCheck(this)">
-                <input type="checkbox">
-                <span>Verify National Fayda ID (16-digit FIN) or Kebele ID authenticity.</span>
-              </li>
-              <li class="checklist-item" onclick="toggleCheck(this)">
-                <input type="checkbox">
-                <span>Verify University ID card: Tutor must be 2nd Year+ (No 1st-year freshmen).</span>
-              </li>
-              <li class="checklist-item" onclick="toggleCheck(this)">
-                <input type="checkbox">
-                <span>Inspect portrait photo: ensure clear, professional appearance.</span>
-              </li>
-              <li class="checklist-item" onclick="toggleCheck(this)">
-                <input type="checkbox">
-                <span>Click "✅ Verify Tutor" to grant live badge and enable matching.</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="playbook-card">
-            <h4>🚫 Rejection &amp; Safety Criteria</h4>
-            <ul class="sys-list">
-              <li><strong>Fraud Detection:</strong> Automatic instant reject if university ID name does not match Fayda ID.</li>
-              <li><strong>Document Blur:</strong> Reject if student ID expiration date or faculty is unreadable.</li>
-              <li><strong>Underage Rule:</strong> University tutors must be at least 18 years old.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Role 3: Matchmaker -->
-      <div id="role-match" class="role-content-box role-tab-content" style="display: none;">
-        <div class="role-header">
-          <div class="role-title-grp">
-            <h3>🤝 Matchmaker &amp; Operations Coordinator</h3>
-            <p>Pairs verified tutors with families based on geographical proximity, subject mastery, and schedule compatibility.</p>
-          </div>
-          <span class="role-pill">Primary Tool: teme-admin.html > Matches Tab</span>
-        </div>
-
-        <div class="role-body-grid">
-          <div class="playbook-card">
-            <h4>📋 Matchmaking Checklist</h4>
-            <ul class="checklist">
-              <li class="checklist-item" onclick="toggleCheck(this)">
-                <input type="checkbox">
-                <span>Review incoming parent lead: check Grade, Location, and Days/Week.</span>
-              </li>
-              <li class="checklist-item" onclick="toggleCheck(this)">
-                <input type="checkbox">
-                <span>Call parent within 2 hours to confirm specific tutoring goals.</span>
-              </li>
-              <li class="checklist-item" onclick="toggleCheck(this)">
-                <input type="checkbox">
-                <span>Filter Tutors list by same sub-city/neighborhood (Bole, CMC, Meganagna, etc.).</span>
-              </li>
-              <li class="checklist-item" onclick="toggleCheck(this)">
-                <input type="checkbox">
-                <span>Ensure tutor current student load is &lt; 3 (Strict 3/3 capacity limit).</span>
-              </li>
-              <li class="checklist-item" onclick="toggleCheck(this)">
-                <input type="checkbox">
-                <span>Click "🔗 Create Match" to link contracts and notify both parties.</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="playbook-card">
-            <h4>📍 Spatial &amp; Capacity Rules</h4>
-            <ul class="sys-list">
-              <li><strong>Transit Rule:</strong> Never assign tutors living &gt; 8 km from the student's home to prevent tardiness.</li>
-              <li><strong>Subject Match:</strong> High school grades (9-12) strictly require Natural Science or Engineering tutors for Math/Physics.</li>
-              <li><strong>Gender Preference:</strong> Strictly honor parent requests for female tutors if specified.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Role 4: Finance -->
-      <div id="role-finance" class="role-content-box role-tab-content" style="display: none;">
-        <div class="role-header">
-          <div class="role-title-grp">
-            <h3>💰 Finance &amp; Escrow Admin</h3>
-            <p>Validates parent bank payment slips, enforces the 30% first-month commission, and manages tutor payout releases.</p>
-          </div>
-          <span class="role-pill">Primary Tool: Telegram Escrow Hub &amp; Admin Payments</span>
-        </div>
-
-        <div class="role-body-grid">
-          <div class="playbook-card">
-            <h4>📋 Payment Verification Checklist</h4>
-            <ul class="checklist">
-              <li class="checklist-item" onclick="toggleCheck(this)">
-                <input type="checkbox">
-                <span>Monitor Payment Receipts Telegram Stream for new Telebirr / CBE slips.</span>
-              </li>
-              <li class="checklist-item" onclick="toggleCheck(this)">
-                <input type="checkbox">
-                <span>Cross-check transaction reference number with bank app to prevent forged slips.</span>
-              </li>
-              <li class="checklist-item" onclick="toggleCheck(this)">
-                <input type="checkbox">
-                <span>Deduct Teme Astegni 30% first-month commission into company reserve.</span>
-              </li>
-              <li class="checklist-item" onclick="toggleCheck(this)">
-                <input type="checkbox">
-                <span>Mark match as "Payment Approved" in Admin Portal.</span>
-              </li>
-              <li class="checklist-item" onclick="toggleCheck(this)">
-                <input type="checkbox">
-                <span>Release authorized schedule &amp; contact card to both tutor and family.</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="playbook-card">
-            <h4>💳 Commission &amp; Fee Structure</h4>
-            <ul class="sys-list">
-              <li><strong>First Month Tutoring:</strong> 30% platform commission retained by Teme Astegni.</li>
-              <li><strong>Months 2+:</strong> Direct tutor payment or platform recurring escrow (optional guarantee).</li>
-              <li><strong>Tutor Platform Fee:</strong> Flat 200 ETB for badge activation and portal upgrades.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Role 5: Support -->
-      <div id="role-support" class="role-content-box role-tab-content" style="display: none;">
-        <div class="role-header">
-          <div class="role-title-grp">
-            <h3>📞 Call Center &amp; Community Support</h3>
-            <p>The human voice of Teme Astegni: manages the 3 official call center phone lines and community inquiries.</p>
-          </div>
-          <span class="role-pill">Primary Tool: Official Phone Desks &amp; Telegram Help Desk</span>
-        </div>
-
-        <div class="role-body-grid">
-          <div class="playbook-card">
-            <h4>📋 Call Center Lines &amp; Routing</h4>
-            <ul class="sys-list">
-              <li><strong>Line 1: 0984580717</strong> — Primary Parent Inquiries &amp; Home Tutor Requests.</li>
-              <li><strong>Line 2: 0984580718</strong> — University Tutor Admissions, KYC Help &amp; Upgrades.</li>
-              <li><strong>Line 3: 0984580719</strong> — Escalations, Billing Questions &amp; Executive Desk.</li>
-              <li><strong>Telegram Desk:</strong> @ethio21_technologies / @Teme_Astegni_community</li>
-            </ul>
-          </div>
-
-          <div class="playbook-card">
-            <h4>🌟 Quality Standards</h4>
-            <ul class="sys-list">
-              <li><strong>Greeting Protocol:</strong> "እንደምን አደሩ/ዋሉ! ተሜ አስጠኚ (Teme Astegni) - ምን እንርዳዎት?"</li>
-              <li><strong>Call Back Speed:</strong> Any missed parent call must be returned within 15 minutes.</li>
-              <li><strong>Tone:</strong> Warm, trustworthy, respectful, and academically encouraging.</li>
-            </ul>
-          </div>
-        </div>
+      <div class="table-card">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 10%; text-align: center;">Step</th>
+              <th style="width: 25%;">Trigger</th>
+              <th style="width: 32%;">Which Tool to Open</th>
+              <th style="width: 33%;">What to Click / Do</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align: center; font-weight: 900; color: var(--gold-light);">1</td>
+              <td>New tutor applies</td>
+              <td><code>teme-admin.html</code> &gt; <strong>Tutors</strong> tab</td>
+              <td>Check Fayda ID &amp; university -&gt; Click <strong>"Verify"</strong></td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-weight: 900; color: var(--gold-light);">2</td>
+              <td>New parent asks for tutor</td>
+              <td><code>teme-admin.html</code> &gt; <strong>Parents</strong> tab</td>
+              <td>Call parent to confirm subjects &amp; schedule</td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-weight: 900; color: var(--gold-light);">3</td>
+              <td>Pair parent &amp; tutor</td>
+              <td><code>teme-admin.html</code> &gt; <strong>Matches</strong> tab</td>
+              <td>Pick Parent -&gt; Pick closest Tutor -&gt; Click <strong>"Create Match"</strong></td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-weight: 900; color: var(--gold-light);">4</td>
+              <td>Parent sends payment slip</td>
+              <td>Telegram Payment Channel &amp; Admin Portal</td>
+              <td>Verify CBE/Telebirr ref -&gt; Click <strong>"Approve Payment"</strong></td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-weight: 900; color: var(--gold-light);">5</td>
+              <td>Tutor asks for status</td>
+              <td><code>teme-astegni.html</code></td>
+              <td>Tell them to enter their Tracking ID (<code>AST-T-XXXX</code>) in <strong>"Restore Profile"</strong></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
-
-    <!-- SECTION 4: INTERACTIVE COMMISSION & PRICING CALCULATOR -->
-    <section class="calc-panel">
-      <div class="section-head">
-        <span class="section-tag">BUSINESS ECONOMICS</span>
-        <h3 class="section-title">📊 Live Tuition &amp; Commission Calculator</h3>
-        <p class="section-sub">Calculate monthly family cost, company 30% commission, and tutor take-home earnings based on official rate tiers.</p>
-      </div>
-
-      <div class="calc-grid">
-        <div class="calc-controls">
-          <div class="control-grp">
-            <label>
-              <span>Student Academic Level</span>
-              <span id="calc-level-txt" class="val">Grade 5 - 8 (Elementary)</span>
-            </label>
-            <select id="calc-tier-select" onchange="updateCalc()" style="width: 100%; padding: 0.65rem; background: rgba(0,0,0,0.3); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: #fff; font-size: 0.88rem;">
-              <option value="300">KG - Grade 4 (200 - 400 ETB/hr • Avg: 300 ETB)</option>
-              <option value="350" selected>Grade 5 - Grade 8 (250 - 450 ETB/hr • Avg: 350 ETB)</option>
-              <option value="500">Grade 9 - Grade 12 (400 - 600 ETB/hr • Avg: 500 ETB)</option>
-            </select>
-          </div>
-
-          <div class="control-grp">
-            <label>
-              <span>Hourly Rate</span>
-              <span id="calc-rate-txt" class="val">350 ETB/hr</span>
-            </label>
-            <input type="range" id="calc-rate-slider" min="200" max="600" step="25" value="350" oninput="updateCalc()">
-          </div>
-
-          <div class="control-grp">
-            <label>
-              <span>Weekly Tutoring Hours</span>
-              <span id="calc-hours-txt" class="val">6 Hours / Week</span>
-            </label>
-            <input type="range" id="calc-hours-slider" min="2" max="15" step="1" value="6" oninput="updateCalc()">
-          </div>
-
-          <div class="control-grp">
-            <label>
-              <span>Total Students Paired</span>
-              <span id="calc-students-txt" class="val">1 Student</span>
-            </label>
-            <input type="range" id="calc-students-slider" min="1" max="100" step="1" value="1" oninput="updateCalc()">
-          </div>
-        </div>
-
-        <div class="calc-result-box">
-          <div class="result-row">
-            <span class="result-label">Monthly Hours / Student (4 Weeks):</span>
-            <span id="res-monthly-hours" class="result-val">24 hrs</span>
-          </div>
-          <div class="result-row">
-            <span class="result-label">Gross Parent Tuition / Student:</span>
-            <span id="res-gross-tuition" class="result-val">8,400 ETB</span>
-          </div>
-          <div class="result-row">
-            <span class="result-label">Tutor Take-Home Share (70%):</span>
-            <span id="res-tutor-share" class="result-val" style="color: var(--cyan);">5,880 ETB</span>
-          </div>
-          <div class="result-row total">
-            <div>
-              <div style="font-size: 0.95rem; font-weight: 800; color: #ffffff;">Teme Astegni Commission (30%):</div>
-              <div style="font-size: 0.72rem; color: var(--text-dim);">First Month Platform Fee</div>
-            </div>
-            <span id="res-company-commission" class="result-val highlight">2,520 ETB</span>
-          </div>
-          <div id="res-portfolio-wrap" style="padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: baseline;">
-            <span class="result-label">Portfolio Total Commission:</span>
-            <span id="res-portfolio-commission" class="result-val" style="color: var(--emerald);">2,520 ETB</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer style="text-align: center; padding-top: 2rem; border-top: 1px solid var(--border-subtle); color: var(--text-dim); font-size: 0.84rem;">
-      <p>&copy; 2026 ETHIO 21 Technologies &amp; Digital Solutions &bull; Teme Astegni (ተሜ አስጠኚ) Venture Hub.</p>
-      <p style="margin-top: 0.35rem; color: var(--text-muted);">Confidential Internal Management Blueprint &bull; Protected under ETHIO 21 Enterprise Shield.</p>
-    </footer>
 
   </div>
 
-  <!-- Interactive JavaScript Engine -->
   <script>
-    // Initialize Mermaid Diagrams
     mermaid.initialize({
       startOnLoad: true,
       theme: 'dark',
       themeVariables: {
         darkMode: true,
-        background: '#070a13',
+        background: '#0b111e',
         primaryColor: '#1e293b',
         primaryBorderColor: '#38bdf8',
         primaryTextColor: '#f8fafc',
@@ -1311,61 +763,6 @@ sequenceDiagram
         signalColor: '#d4af37',
         signalTextColor: '#f8fafc'
       }
-    });
-
-    // Tab Switcher for Staff Roles
-    function switchRole(roleId, btn) {
-      document.querySelectorAll('.role-tab-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.role-tab-content').forEach(c => c.style.display = 'none');
-      
-      btn.classList.add('active');
-      const target = document.getElementById(roleId);
-      if (target) {
-        target.style.display = 'block';
-      }
-    }
-
-    // Interactive Checklist Toggle
-    function toggleCheck(item) {
-      const chk = item.querySelector('input[type="checkbox"]');
-      if (chk) {
-        chk.checked = !chk.checked;
-        if (chk.checked) item.classList.add('done');
-        else item.classList.remove('done');
-      }
-    }
-
-    // Commission Calculator Logic
-    function updateCalc() {
-      const tierSelect = document.getElementById('calc-tier-select');
-      const rateSlider = document.getElementById('calc-rate-slider');
-      const hoursSlider = document.getElementById('calc-hours-slider');
-      const studentsSlider = document.getElementById('calc-students-slider');
-
-      const rate = parseInt(rateSlider.value, 10);
-      const hours = parseInt(hoursSlider.value, 10);
-      const students = parseInt(studentsSlider.value, 10);
-
-      document.getElementById('calc-rate-txt').innerText = rate + ' ETB/hr';
-      document.getElementById('calc-hours-txt').innerText = hours + ' Hours / Week';
-      document.getElementById('calc-students-txt').innerText = students + (students === 1 ? ' Student' : ' Students');
-
-      const monthlyHours = hours * 4;
-      const grossPerStudent = monthlyHours * rate;
-      const tutorShare = Math.round(grossPerStudent * 0.70);
-      const commissionPerStudent = Math.round(grossPerStudent * 0.30);
-      const totalPortfolioCommission = commissionPerStudent * students;
-
-      document.getElementById('res-monthly-hours').innerText = monthlyHours + ' hrs';
-      document.getElementById('res-gross-tuition').innerText = grossPerStudent.toLocaleString() + ' ETB';
-      document.getElementById('res-tutor-share').innerText = tutorShare.toLocaleString() + ' ETB';
-      document.getElementById('res-company-commission').innerText = commissionPerStudent.toLocaleString() + ' ETB';
-      document.getElementById('res-portfolio-commission').innerText = totalPortfolioCommission.toLocaleString() + ' ETB';
-    }
-
-    // Run Initial Calculator Update
-    document.addEventListener('DOMContentLoaded', () => {
-      updateCalc();
     });
   </script>
 </body>
