@@ -5663,6 +5663,14 @@
       // If no ID is registered on this device, do zero network reads!
       if (!pSavedId && !tSavedId && !pSavedPhone && !tSavedPhone) return;
 
+      // Free Quota Preservation Guard: 3-minute background cache cooldown
+      const now = Date.now();
+      const lastSync = parseInt(localStorage.getItem('astegni_last_sync_time') || '0', 10);
+      if (!window.forceCloudSync && (now - lastSync < 180000)) {
+        return; // Cache still warm - strictly 0 cloud reads consumed
+      }
+      localStorage.setItem('astegni_last_sync_time', now.toString());
+
       // STEP 0: ZERO-COST APPS SCRIPT LOOKUP (0 Firebase Reads, 0 Cost)
       const webhookUrl = localStorage.getItem('teme_astegni_db_webhook');
       if (webhookUrl && (pSavedId || tSavedId)) {
@@ -5767,9 +5775,12 @@
         btn.disabled = true;
         btn.innerHTML = '🔄 Syncing...';
       }
+      window.forceCloudSync = true;
       try {
         await syncReturningUserDataFromCloud();
-      } catch (e) {}
+      } catch (e) {} finally {
+        window.forceCloudSync = false;
+      }
       await updateHomeActiveStatusCards();
       if (btn) {
         btn.innerHTML = '✓ Synced';
