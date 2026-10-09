@@ -10,6 +10,7 @@ const ASSETS_TO_CACHE = [
   './teme-exam-app.html',
   './teme-astegni.html',
   './teme-admin.html',
+  './teme-astegni-platform-management.html',
   './architecture_blueprint.html',
   './teme_astegni_master_architecture.html',
   './assets/exam_data.json',
