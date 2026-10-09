@@ -3856,6 +3856,75 @@
   </div>
 
   <script>
+    // =========================================================================
+    // ETHIO 21 PROPRIETARY PRIVACY SHIELD & CROSS-ACCOUNT LEAK PREVENTER v2026.2
+    // Enforces strict per-device isolation: NEVER display another person's card
+    // =========================================================================
+    (function enforceStrictClientPrivacyShield() {
+      const CURRENT_CLIENT_SHIELD_VERSION = '2026.10.09.v2';
+      const storedVersion = localStorage.getItem('astegni_client_shield_version');
+
+      if (storedVersion !== CURRENT_CLIENT_SHIELD_VERSION) {
+        localStorage.setItem('astegni_client_shield_version', CURRENT_CLIENT_SHIELD_VERSION);
+
+        // 1. Remove shared lead arrays from public client to prevent accidental cross-leakage
+        localStorage.removeItem('astegni_parent_leads');
+        localStorage.removeItem('astegni_tutor_leads');
+
+        // 2. Validate saved parent record: ensure it was genuinely submitted or restored on THIS device
+        const parentSubmitted = localStorage.getItem('my_astegni_parent_submitted') === 'true';
+        const deviceAuth = localStorage.getItem('my_astegni_device_authenticated') === 'true';
+        if (!parentSubmitted && !deviceAuth) {
+          // This was a legacy fallback auto-assigned from another user's lead — PURGE IT!
+          localStorage.removeItem('my_astegni_parent_record');
+          localStorage.removeItem('my_astegni_parent_id');
+          localStorage.removeItem('my_astegni_parent_phone');
+          window.currentDeviceParentData = null;
+        }
+
+        // 3. Validate saved tutor record: ensure it was genuinely submitted or restored on THIS device
+        const tutorSubmitted = localStorage.getItem('my_astegni_tutor_submitted') === 'true';
+        if (!tutorSubmitted && !deviceAuth) {
+          // This was a legacy fallback auto-assigned from another user's lead — PURGE IT!
+          localStorage.removeItem('my_astegni_tutor_record');
+          localStorage.removeItem('my_astegni_tutor_id');
+          localStorage.removeItem('my_astegni_tutor_phone');
+          localStorage.removeItem('my_astegni_tutor_name');
+          window.currentDeviceTutorData = null;
+        }
+
+        // 4. Clean astegni_matches so it only retains matches strictly belonging to this device
+        try {
+          const pId = (localStorage.getItem('my_astegni_parent_id') || '').toUpperCase();
+          const tId = (localStorage.getItem('my_astegni_tutor_id') || '').toUpperCase();
+          const pPhone = (localStorage.getItem('my_astegni_parent_phone') || '').replace(/\D/g, '').slice(-9);
+          const tPhone = (localStorage.getItem('my_astegni_tutor_phone') || '').replace(/\D/g, '').slice(-9);
+          const rawMatches = JSON.parse(localStorage.getItem('astegni_matches') || '[]');
+          const filteredMatches = rawMatches.filter(m => {
+            const mpId = (m.parentId || '').toUpperCase();
+            const mtId = (m.tutorId || '').toUpperCase();
+            const mpPhone = (m.parentPhone || '').replace(/\D/g, '');
+            const mtPhone = (m.tutorPhone || '').replace(/\D/g, '');
+            const isMyParent = (pId && mpId === pId) || (pPhone && mpPhone.endsWith(pPhone));
+            const isMyTutor = (tId && mtId === tId) || (tPhone && mtPhone.endsWith(tPhone));
+            return isMyParent || isMyTutor;
+          });
+          localStorage.setItem('astegni_matches', JSON.stringify(filteredMatches));
+        } catch (e) {}
+
+        // 5. Invalidate legacy Service Worker caches so all outdated HTML/assets are replaced
+        if ('caches' in window) {
+          caches.keys().then(keys => {
+            keys.forEach(k => {
+              if (k.indexOf('v140') === -1) {
+                caches.delete(k);
+              }
+            });
+          });
+        }
+      }
+    })();
+
     // ==========================================
     // UNIVERSAL IMAGE LIGHTBOX CONTROLLER
     // ==========================================
@@ -3988,22 +4057,22 @@
       const resultsEl = document.getElementById('portal-tutor-results');
       const emptyEl = document.getElementById('portal-tutor-empty');
 
-      // 1. Retrieve THIS DEVICE'S saved tutor application
+      // 1. Retrieve THIS DEVICE'S saved tutor application (Strict Device Isolation)
       let tutor = null;
       const tSavedRecord = localStorage.getItem('my_astegni_tutor_record');
-      if (tSavedRecord) {
-        try { tutor = JSON.parse(tSavedRecord); } catch (e) {}
-      }
       const savedPhone = (localStorage.getItem('my_astegni_tutor_phone') || '').replace(/\D/g, '').slice(-9);
       const savedId = (localStorage.getItem('my_astegni_tutor_id') || '').toUpperCase();
+      const isTutorAuth = localStorage.getItem('my_astegni_tutor_submitted') === 'true' || localStorage.getItem('my_astegni_device_authenticated') === 'true';
 
-      if (!tutor && (savedId || savedPhone)) {
-        const localTutors = JSON.parse(localStorage.getItem('astegni_tutor_leads') || '[]');
-        tutor = localTutors.find(t => {
-          const tId = (t.trackingId || t.id || '').toUpperCase();
-          const tPhone = (t.phone || '').replace(/\D/g, '');
-          return (savedId && tId === savedId) || (savedPhone && tPhone.endsWith(savedPhone));
-        });
+      if (tSavedRecord && isTutorAuth) {
+        try {
+          const parsed = JSON.parse(tSavedRecord);
+          const recId = (parsed.trackingId || parsed.id || '').toUpperCase();
+          const recPhone = (parsed.phone || '').replace(/\D/g, '');
+          if ((savedId && recId === savedId) || (savedPhone && recPhone.endsWith(savedPhone)) || (!savedId && !savedPhone && recId)) {
+            tutor = parsed;
+          }
+        } catch (e) {}
       }
 
       // If no tutor application exists on this device, show clean empty state (no search box)
@@ -4521,16 +4590,17 @@
     }
 
     function openParentStatusLookupModal() {
-      // Direct user straight to their own device live status
+      // Direct user straight to their own device live status (strictly isolated to this user)
+      const isParentAuth = localStorage.getItem('my_astegni_parent_submitted') === 'true' || localStorage.getItem('my_astegni_device_authenticated') === 'true';
       const savedRecord = localStorage.getItem('my_astegni_parent_record');
-      if (savedRecord) {
+      if (savedRecord && isParentAuth) {
         try {
           showParentStatusModal(JSON.parse(savedRecord));
           return;
         } catch (e) {}
       }
       const savedId = localStorage.getItem('my_astegni_parent_id');
-      if (savedId) {
+      if (savedId && isParentAuth) {
         showParentStatusModal({ trackingId: savedId, name: 'Parent', phone: localStorage.getItem('my_astegni_parent_phone') || '' });
         return;
       }
@@ -4637,6 +4707,8 @@
         localStorage.setItem('my_astegni_parent_id', pId);
         localStorage.setItem('my_astegni_parent_phone', foundParent.phone || '');
         localStorage.setItem('my_astegni_parent_record', JSON.stringify(foundParent));
+        localStorage.setItem('my_astegni_parent_submitted', 'true');
+        localStorage.setItem('my_astegni_device_authenticated', 'true');
         closeProfileRestoreModal();
         if (typeof updateHomeActiveStatusCards === 'function') updateHomeActiveStatusCards();
         alert(currentLang === 'am' 
@@ -4651,6 +4723,8 @@
         localStorage.setItem('my_astegni_tutor_id', tId);
         localStorage.setItem('my_astegni_tutor_phone', foundTutor.phone || '');
         localStorage.setItem('my_astegni_tutor_record', JSON.stringify(foundTutor));
+        localStorage.setItem('my_astegni_tutor_submitted', 'true');
+        localStorage.setItem('my_astegni_device_authenticated', 'true');
         closeProfileRestoreModal();
         if (typeof updateHomeActiveStatusCards === 'function') updateHomeActiveStatusCards();
         if (typeof loadDeviceTutorPortal === 'function') loadDeviceTutorPortal();
@@ -5233,40 +5307,36 @@
       const tSavedPhone = (localStorage.getItem('my_astegni_tutor_phone') || '').replace(/\D/g, '').slice(-9);
       const tSavedId = (localStorage.getItem('my_astegni_tutor_id') || '').toUpperCase();
 
-      // Retrieve parent data
+      // Retrieve parent data (STRICT DEVICE ISOLATION: only show if explicitly submitted or restored by THIS user)
       let parentData = null;
       const pSavedRecord = localStorage.getItem('my_astegni_parent_record');
-      if (pSavedRecord) {
-        try { parentData = JSON.parse(pSavedRecord); } catch (e) {}
-      }
-      const localParents = JSON.parse(localStorage.getItem('astegni_parent_leads') || '[]');
-      if (!parentData && (pSavedId || pSavedPhone)) {
-        parentData = localParents.find(p => {
-          const id = (p.trackingId || p.id || '').toUpperCase();
-          const ph = (p.phone || '').replace(/\D/g, '');
-          return (pSavedId && id === pSavedId) || (pSavedPhone && ph.endsWith(pSavedPhone));
-        });
-      }
-      if (!parentData && localParents.length > 0) {
-        parentData = localParents[localParents.length - 1];
+      const isParentAuth = localStorage.getItem('my_astegni_parent_submitted') === 'true' || localStorage.getItem('my_astegni_device_authenticated') === 'true';
+
+      if (pSavedRecord && isParentAuth) {
+        try {
+          const parsed = JSON.parse(pSavedRecord);
+          const recId = (parsed.trackingId || parsed.id || '').toUpperCase();
+          const recPhone = (parsed.phone || '').replace(/\D/g, '');
+          if ((pSavedId && recId === pSavedId) || (pSavedPhone && recPhone.endsWith(pSavedPhone)) || (!pSavedId && !pSavedPhone && recId)) {
+            parentData = parsed;
+          }
+        } catch (e) {}
       }
 
-      // Retrieve tutor data
+      // Retrieve tutor data (STRICT DEVICE ISOLATION: only show if explicitly submitted or restored by THIS user)
       let tutorData = null;
       const tSavedRecord = localStorage.getItem('my_astegni_tutor_record');
-      if (tSavedRecord) {
-        try { tutorData = JSON.parse(tSavedRecord); } catch (e) {}
-      }
-      const localTutors = JSON.parse(localStorage.getItem('astegni_tutor_leads') || '[]');
-      if (!tutorData && (tSavedId || tSavedPhone)) {
-        tutorData = localTutors.find(t => {
-          const id = (t.trackingId || t.id || '').toUpperCase();
-          const ph = (t.phone || '').replace(/\D/g, '');
-          return (tSavedId && id === tSavedId) || (tSavedPhone && ph.endsWith(tSavedPhone));
-        });
-      }
-      if (!tutorData && localTutors.length > 0) {
-        tutorData = localTutors[localTutors.length - 1];
+      const isTutorAuth = localStorage.getItem('my_astegni_tutor_submitted') === 'true' || localStorage.getItem('my_astegni_device_authenticated') === 'true';
+
+      if (tSavedRecord && isTutorAuth) {
+        try {
+          const parsed = JSON.parse(tSavedRecord);
+          const recId = (parsed.trackingId || parsed.id || '').toUpperCase();
+          const recPhone = (parsed.phone || '').replace(/\D/g, '');
+          if ((tSavedId && recId === tSavedId) || (tSavedPhone && recPhone.endsWith(tSavedPhone)) || (!tSavedId && !tSavedPhone && recId)) {
+            tutorData = parsed;
+          }
+        } catch (e) {}
       }
 
       if (!parentData && !tutorData) {
@@ -5695,21 +5765,19 @@
       if (!noticeEl) return;
       let parentData = null;
       const pRecord = localStorage.getItem('my_astegni_parent_record');
-      if (pRecord) {
-        try { parentData = JSON.parse(pRecord); } catch(e){}
-      }
-      if (!parentData) {
-        const pSavedPhone = (localStorage.getItem('my_astegni_parent_phone') || '').replace(/\D/g, '').slice(-9);
-        const pSavedId = (localStorage.getItem('my_astegni_parent_id') || '').toUpperCase();
-        const localParents = JSON.parse(localStorage.getItem('astegni_parent_leads') || '[]');
-        if (pSavedId || pSavedPhone) {
-          parentData = localParents.find(p => {
-            const id = (p.trackingId || p.id || '').toUpperCase();
-            const ph = (p.phone || '').replace(/\D/g, '');
-            return (pSavedId && id === pSavedId) || (pSavedPhone && ph.endsWith(pSavedPhone));
-          });
-        }
-        if (!parentData && localParents.length > 0) parentData = localParents[localParents.length - 1];
+      const pSavedId = (localStorage.getItem('my_astegni_parent_id') || '').toUpperCase();
+      const pSavedPhone = (localStorage.getItem('my_astegni_parent_phone') || '').replace(/\D/g, '').slice(-9);
+      const isParentAuth = localStorage.getItem('my_astegni_parent_submitted') === 'true' || localStorage.getItem('my_astegni_device_authenticated') === 'true';
+
+      if (pRecord && isParentAuth) {
+        try {
+          const parsed = JSON.parse(pRecord);
+          const recId = (parsed.trackingId || parsed.id || '').toUpperCase();
+          const recPhone = (parsed.phone || '').replace(/\D/g, '');
+          if ((pSavedId && recId === pSavedId) || (pSavedPhone && recPhone.endsWith(pSavedPhone)) || (!pSavedId && !pSavedPhone && recId)) {
+            parentData = parsed;
+          }
+        } catch(e){}
       }
 
       if (parentData) {
@@ -5744,21 +5812,19 @@
       if (!noticeEl) return;
       let tutorData = null;
       const tRecord = localStorage.getItem('my_astegni_tutor_record');
-      if (tRecord) {
-        try { tutorData = JSON.parse(tRecord); } catch(e){}
-      }
-      if (!tutorData) {
-        const tSavedPhone = (localStorage.getItem('my_astegni_tutor_phone') || '').replace(/\D/g, '').slice(-9);
-        const tSavedId = (localStorage.getItem('my_astegni_tutor_id') || '').toUpperCase();
-        const localTutors = JSON.parse(localStorage.getItem('astegni_tutor_leads') || '[]');
-        if (tSavedId || tSavedPhone) {
-          tutorData = localTutors.find(t => {
-            const id = (t.trackingId || t.id || '').toUpperCase();
-            const ph = (t.phone || '').replace(/\D/g, '');
-            return (tSavedId && id === tSavedId) || (tSavedPhone && ph.endsWith(tSavedPhone));
-          });
-        }
-        if (!tutorData && localTutors.length > 0) tutorData = localTutors[localTutors.length - 1];
+      const tSavedId = (localStorage.getItem('my_astegni_tutor_id') || '').toUpperCase();
+      const tSavedPhone = (localStorage.getItem('my_astegni_tutor_phone') || '').replace(/\D/g, '').slice(-9);
+      const isTutorAuth = localStorage.getItem('my_astegni_tutor_submitted') === 'true' || localStorage.getItem('my_astegni_device_authenticated') === 'true';
+
+      if (tRecord && isTutorAuth) {
+        try {
+          const parsed = JSON.parse(tRecord);
+          const recId = (parsed.trackingId || parsed.id || '').toUpperCase();
+          const recPhone = (parsed.phone || '').replace(/\D/g, '');
+          if ((tSavedId && recId === tSavedId) || (tSavedPhone && recPhone.endsWith(tSavedPhone)) || (!tSavedId && !tSavedPhone && recId)) {
+            tutorData = parsed;
+          }
+        } catch(e){}
       }
 
       if (tutorData) {
@@ -10369,6 +10435,8 @@
       localStorage.setItem('my_astegni_parent_phone', phone);
       localStorage.setItem('my_astegni_parent_id', trackingId);
       localStorage.setItem('my_astegni_parent_record', JSON.stringify(parentPayload));
+      localStorage.setItem('my_astegni_parent_submitted', 'true');
+      localStorage.setItem('my_astegni_device_authenticated', 'true');
 
       // Save offline backup
       try {
@@ -11065,6 +11133,8 @@
         localStorage.setItem('my_astegni_tutor_id', trackingId);
         localStorage.setItem('my_astegni_tutor_name', name);
         localStorage.setItem('my_astegni_tutor_record', JSON.stringify(item));
+        localStorage.setItem('my_astegni_tutor_submitted', 'true');
+        localStorage.setItem('my_astegni_device_authenticated', 'true');
 
         tutorPayload = {
           id: trackingId,
@@ -11348,14 +11418,21 @@
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('scripts/sw.js').then((registration) => {
           console.log('Teme Astegni PWA service worker registered:', registration.scope);
-          // Check for fresh code from GitHub Pages on every single visit
+          // Check for fresh code from GitHub Pages on every visit
           try { registration.update(); } catch (e) {}
+
+          // If a new worker is already waiting, tell it to take over immediately
+          if (registration.waiting) {
+            registration.waiting.postMessage({ action: 'skipWaiting' });
+          }
 
           registration.addEventListener('updatefound', () => {
             const newWorker = registration.installing;
             if (newWorker) {
               newWorker.addEventListener('statechange', () => {
                 if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  // Tell new worker to activate immediately so update applies automatically!
+                  newWorker.postMessage({ action: 'skipWaiting' });
                   showAppUpdateNotification();
                 }
               });
