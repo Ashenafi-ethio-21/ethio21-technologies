@@ -703,48 +703,144 @@ sequenceDiagram
         <table class="data-table">
           <thead>
             <tr>
-              <th style="width: 7%; text-align: center;">Step</th>
-              <th style="width: 20%;">Trigger</th>
-              <th style="width: 22%;">Who (Role / Assignee)</th>
-              <th style="width: 25%;">Which Tool to Open</th>
-              <th style="width: 26%;">What to Click / Do</th>
+              <th style="width: 5%; text-align: center;">Step</th>
+              <th style="width: 17%;">Trigger &amp; Event</th>
+              <th style="width: 16%;">Who (Role / Assignee)</th>
+              <th style="width: 9%; text-align: center;">Target SLA</th>
+              <th style="width: 17%;">Which Tool to Open</th>
+              <th style="width: 21%;">Detailed Actions &amp; Verification Checks</th>
+              <th style="width: 15%;">System Outcome &amp; State</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td style="text-align: center; font-weight: 900; color: var(--gold-light);">1</td>
-              <td>New tutor applies</td>
+              <td>
+                <div style="font-weight: 800; color: #fff;">New Tutor Applies</div>
+                <div style="font-size: 0.74rem; color: var(--text-dim); margin-top: 2px;">Submits application + ID on client app</div>
+              </td>
               <td><span class="tag-badge tag-purple">📋 KYC &amp; Verification Admin</span></td>
-              <td><code>teme-admin.html</code> &gt; <strong>Tutors</strong> tab</td>
-              <td>Check Fayda ID &amp; university -&gt; Click <strong>"Verify"</strong></td>
+              <td style="text-align: center; font-family: var(--font-mono); font-size: 0.76rem; color: var(--gold-light);">≤ 2 Hours</td>
+              <td>
+                <code>teme-admin.html</code> &gt; <strong>Tutors</strong> tab<br>
+                <span style="font-size: 0.72rem; color: var(--text-dim);">+ Telegram Tutor Hub</span>
+              </td>
+              <td>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.8rem; padding: 0;">
+                  <li>• Cross-check 16-digit Fayda FIN or Kebele ID against legal name.</li>
+                  <li>• Confirm University Student Card shows <strong>Year 2 or higher</strong> (No freshmen).</li>
+                  <li>• Inspect portrait photo clarity &amp; check for duplicate phone numbers.</li>
+                  <li>• Click <strong>"✅ Verify Tutor"</strong> (or reject with constructive notes).</li>
+                </ul>
+              </td>
+              <td>
+                <span class="tag-badge tag-emerald">Status: VERIFIED</span>
+                <div style="font-size: 0.72rem; color: #cbd5e1; margin-top: 3px;">Green badge issued; profile enters active matchmaking pool.</div>
+              </td>
             </tr>
+
             <tr>
               <td style="text-align: center; font-weight: 900; color: var(--gold-light);">2</td>
-              <td>New parent asks for tutor</td>
+              <td>
+                <div style="font-weight: 800; color: #fff;">New Parent Request</div>
+                <div style="font-size: 0.74rem; color: var(--text-dim); margin-top: 2px;">Parent submits home tutor request</div>
+              </td>
               <td><span class="tag-badge tag-blue">📞 Call Center / Matchmaker</span></td>
-              <td><code>teme-admin.html</code> &gt; <strong>Parents</strong> tab</td>
-              <td>Call parent to confirm subjects &amp; schedule</td>
+              <td style="text-align: center; font-family: var(--font-mono); font-size: 0.76rem; color: var(--cyan);">15–30 Mins</td>
+              <td>
+                <code>teme-admin.html</code> &gt; <strong>Parents</strong> tab<br>
+                <span style="font-size: 0.72rem; color: var(--text-dim);">+ Call Lines 0984580717 / 18</span>
+              </td>
+              <td>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.8rem; padding: 0;">
+                  <li>• Call parent to confirm student grade level (KG-4, 5-8, 9-12).</li>
+                  <li>• Verify exact sub-city / neighborhood and home landmark.</li>
+                  <li>• Confirm weekly session schedule (e.g. 3 days × 2 hrs) and hourly budget.</li>
+                  <li>• Note any gender preference (e.g. female tutor requested).</li>
+                </ul>
+              </td>
+              <td>
+                <span class="tag-badge tag-blue">Status: CONFIRMED</span>
+                <div style="font-size: 0.72rem; color: #cbd5e1; margin-top: 3px;">Lead verified &amp; queued for spatial matchmaking.</div>
+              </td>
             </tr>
+
             <tr>
               <td style="text-align: center; font-weight: 900; color: var(--gold-light);">3</td>
-              <td>Pair parent &amp; tutor</td>
+              <td>
+                <div style="font-weight: 800; color: #fff;">Pair Parent &amp; Tutor</div>
+                <div style="font-size: 0.74rem; color: var(--text-dim); margin-top: 2px;">Matchmaker connects family with tutor</div>
+              </td>
               <td><span class="tag-badge tag-gold">🤝 Matchmaker Coordinator</span></td>
-              <td><code>teme-admin.html</code> &gt; <strong>Matches</strong> tab</td>
-              <td>Pick Parent -&gt; Pick closest Tutor -&gt; Click <strong>"Create Match"</strong></td>
+              <td style="text-align: center; font-family: var(--font-mono); font-size: 0.76rem; color: var(--gold-light);">2–12 Hours</td>
+              <td>
+                <code>teme-admin.html</code> &gt; <strong>Matches</strong> tab<br>
+                <span style="font-size: 0.72rem; color: var(--text-dim);">+ Telegram Match Stream</span>
+              </td>
+              <td>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.8rem; padding: 0;">
+                  <li>• Filter verified tutors living within <strong>≤ 8 km</strong> of family home.</li>
+                  <li>• Match academic subject (Natural Science/Eng for Grade 9-12 STEM).</li>
+                  <li>• Verify tutor capacity: ensure strictly <strong>&lt; 3 active students</strong>.</li>
+                  <li>• Select Parent ➔ Select Tutor ➔ Click <strong>"🔗 Create Match"</strong>.</li>
+                </ul>
+              </td>
+              <td>
+                <span class="tag-badge tag-gold">Status: MATCHED</span>
+                <div style="font-size: 0.72rem; color: #cbd5e1; margin-top: 3px;">Contract created in Firestore; cards light up in Parent &amp; Tutor apps.</div>
+              </td>
             </tr>
+
             <tr>
               <td style="text-align: center; font-weight: 900; color: var(--gold-light);">4</td>
-              <td>Parent sends payment slip</td>
+              <td>
+                <div style="font-weight: 800; color: #fff;">Parent Sends Payment Slip</div>
+                <div style="font-size: 0.74rem; color: var(--text-dim); margin-top: 2px;">Bank slip submitted via Telegram / App</div>
+              </td>
               <td><span class="tag-badge tag-emerald">💰 Finance &amp; Escrow Admin</span></td>
-              <td>Telegram Payment Channel &amp; Admin Portal</td>
-              <td>Verify CBE/Telebirr ref -&gt; Click <strong>"Approve Payment"</strong></td>
+              <td style="text-align: center; font-family: var(--font-mono); font-size: 0.76rem; color: var(--emerald);">≤ 1 Hour</td>
+              <td>
+                Telegram Payment Escrow Stream<br>
+                <span style="font-size: 0.72rem; color: var(--text-dim);">+ <code>teme-admin.html</code> Payments</span>
+              </td>
+              <td>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.8rem; padding: 0;">
+                  <li>• Verify transaction reference on CBE / Telebirr portal to block forged slips.</li>
+                  <li>• Verify total matches formula (Weekly Hours × Rate × 4 weeks).</li>
+                  <li>• Deduct <strong>30% first-month commission</strong> + <strong>200 ETB tutor fee</strong> to company reserve.</li>
+                  <li>• Click <strong>"Approve Payment &amp; Escrow"</strong>.</li>
+                </ul>
+              </td>
+              <td>
+                <span class="tag-badge tag-emerald">Status: ESCROW_APPROVED</span>
+                <div style="font-size: 0.72rem; color: #cbd5e1; margin-top: 3px;">Schedule activated; tutor dispatched to family home.</div>
+              </td>
             </tr>
+
             <tr>
               <td style="text-align: center; font-weight: 900; color: var(--gold-light);">5</td>
-              <td>Tutor asks for status</td>
+              <td>
+                <div style="font-weight: 800; color: #fff;">Tutor / Parent Status Inquiry</div>
+                <div style="font-size: 0.74rem; color: var(--text-dim); margin-top: 2px;">User switches phone or requests lookup</div>
+              </td>
               <td><span class="tag-badge tag-blue">📞 Support / Any Coordinator</span></td>
-              <td><code>teme-astegni.html</code></td>
-              <td>Tell them to enter their Tracking ID (<code>AST-T-XXXX</code>) in <strong>"Restore Profile"</strong></td>
+              <td style="text-align: center; font-family: var(--font-mono); font-size: 0.76rem; color: #fff;">&lt; 1 Min</td>
+              <td>
+                <code>teme-astegni.html</code> (Public Client)<br>
+                <span style="font-size: 0.72rem; color: var(--text-dim);">+ Search Bar in Admin Portal</span>
+              </td>
+              <td>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.8rem; padding: 0;">
+                  <li>• Request their Unique Tracking ID (<code>AST-T-XXXX</code> or <code>AST-P-XXXX</code>).</li>
+                  <li>• Instruct them to tap <strong>"🔑 ካርድዎን ያገናኙ (Restore Profile)"</strong> on home screen.</li>
+                  <li>• If browser cache is stubborn, guide them to tap <strong>"🔄 አድስ (Sync)"</strong> in header.</li>
+                  <li>• Confirm their record appears live in <code>teme-admin.html</code> search bar.</li>
+                </ul>
+              </td>
+              <td>
+                <span class="tag-badge tag-blue">Status: SYNCED</span>
+                <div style="font-size: 0.72rem; color: #cbd5e1; margin-top: 3px;">Full verified profile, level, and student load loaded onto new device.</div>
+              </td>
             </tr>
           </tbody>
         </table>
