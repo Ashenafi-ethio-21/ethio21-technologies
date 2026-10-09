@@ -3,7 +3,7 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v140-astegni-privacy-auto-sync-2026';
+const CACHE_NAME = 'ethio21-v200-instant-auto-refresh-2026';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -47,18 +47,28 @@ self.addEventListener('activate', (event) => {
           }
         })
       );
-    }).then(() => self.clients.claim())
+    }).then(() => self.clients.claim()).then(() => {
+      // Force all open tabs running older versions to immediately reload the brand-new app!
+      return self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clients) => {
+        clients.forEach((client) => {
+          try {
+            client.postMessage({ action: 'FORCE_UPDATE_RELOAD', cache: CACHE_NAME });
+            client.navigate(client.url);
+          } catch (e) {}
+        });
+      });
+    })
   );
 });
 
 self.addEventListener('fetch', (event) => {
   const request = event.request;
 
-  // 1. Navigation requests (HTML files) - NETWORK-FIRST!
-  // Ensures all users and their shared links get the latest deployed version instantly!
+  // 1. Navigation requests (HTML files) - NETWORK-FIRST WITH FORCED RELOAD!
+  // Ensures any user with a link from days before gets the latest version immediately!
   if (request.mode === 'navigate' || (request.method === 'GET' && request.headers.get('accept')?.includes('text/html'))) {
     event.respondWith(
-      fetch(request)
+      fetch(request, { cache: 'reload' })
         .then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
             const copy = networkResponse.clone();

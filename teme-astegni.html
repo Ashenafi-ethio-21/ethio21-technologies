@@ -1618,6 +1618,12 @@
         <span id="i18n-header-install">Install</span>
       </button>
 
+      <!-- Quick Instant 1-Tap Update / Refresh Action -->
+      <button id="btn-header-sync-app" class="header-install-btn" onclick="forceClearAppCache()" title="Update to Latest Version / አድስ" style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.35); color: #38bdf8;">
+        <span>🔄</span>
+        <span style="font-size: 0.72rem; font-weight: 750;">አድስ (Sync)</span>
+      </button>
+
       <!-- 3-Language Toggle: Amharic / English / Afaan Oromoo -->
       <div class="lang-switcher">
         <button class="lang-btn active" id="btn-lang-am" onclick="setLang('am')">አማ</button>
@@ -11446,10 +11452,10 @@
     // =========================================================================
     let deferredInstallPrompt = null;
 
-    // Register Service Worker with instant auto-update checking
+    // Register Service Worker with instant auto-update checking & cache busting
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('scripts/sw.js').then((registration) => {
+        navigator.serviceWorker.register('scripts/sw.js?v=2026.10.09.v4').then((registration) => {
           console.log('Teme Astegni PWA service worker registered:', registration.scope);
           // Check for fresh code from GitHub Pages on every visit
           try { registration.update(); } catch (e) {}
@@ -11483,6 +11489,13 @@
             window.location.reload();
           }
         });
+
+        // Listen for direct force update broadcasts
+        navigator.serviceWorker.addEventListener('message', (event) => {
+          if (event.data && (event.data.action === 'FORCE_UPDATE_RELOAD' || event.data.action === 'forceReload')) {
+            window.location.reload();
+          }
+        });
       });
     }
 
@@ -11498,16 +11511,23 @@
     }
 
     // Force clear browser caches and reload newest code immediately
-    function forceClearAppCache() {
-      if ('caches' in window) {
-        caches.keys().then((keys) => {
-          return Promise.all(keys.map(k => caches.delete(k)));
-        }).then(() => {
-          window.location.reload(true);
-        });
-      } else {
-        window.location.reload(true);
+    async function forceClearAppCache() {
+      try {
+        if ('caches' in window) {
+          const keys = await caches.keys();
+          await Promise.all(keys.map(k => caches.delete(k)));
+        }
+        if ('serviceWorker' in navigator) {
+          const registrations = await navigator.serviceWorker.getRegistrations();
+          for (let r of registrations) {
+            await r.unregister();
+          }
+        }
+      } catch (e) {
+        console.warn('Cache clear error:', e);
       }
+      const cleanPath = window.location.pathname;
+      window.location.replace(cleanPath + '?t=' + Date.now());
     }
 
     // Check if app is already running in standalone / installed mode

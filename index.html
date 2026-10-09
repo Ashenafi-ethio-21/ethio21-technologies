@@ -25,6 +25,11 @@
   <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json">
 
+  <!-- Cache Invalidation Directives -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="styles/main.css?v=2026.12">
 </head>
@@ -1361,10 +1366,13 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('scripts/sw.js')
+        navigator.serviceWorker.register('scripts/sw.js?v=2026.10.09.v4')
           .then(reg => {
             console.log('ETHIO 21 SW Active', reg.scope);
             try { reg.update(); } catch (e) {}
+            if (reg.waiting) {
+              reg.waiting.postMessage({ action: 'skipWaiting' });
+            }
           })
           .catch(err => console.warn('SW register skipped', err));
 
@@ -1372,6 +1380,12 @@
         navigator.serviceWorker.addEventListener('controllerchange', () => {
           if (!refreshing) {
             refreshing = true;
+            window.location.reload();
+          }
+        });
+
+        navigator.serviceWorker.addEventListener('message', (event) => {
+          if (event.data && (event.data.action === 'FORCE_UPDATE_RELOAD' || event.data.action === 'forceReload')) {
             window.location.reload();
           }
         });

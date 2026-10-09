@@ -1457,9 +1457,9 @@
       <a href="teme-astegni.html?v=2026.10.09.v2" target="_blank" style="text-decoration: none; font-size: 0.72rem; color: #38bdf8; font-weight: 800; background: rgba(56, 189, 248, 0.12); padding: 0.3rem 0.65rem; border-radius: 100px; border: 1px solid rgba(56, 189, 248, 0.35); display: flex; align-items: center; gap: 0.3rem;">
         👨‍👩‍👧 ተሜ አስጠኚ (Astegni) ›
       </a>
-      <div style="font-size: 0.72rem; color: #10b981; font-weight: 750; background: rgba(16, 185, 129, 0.12); padding: 0.25rem 0.6rem; border-radius: 100px; border: 1px solid rgba(16, 185, 129, 0.3);">
-        ⚡ 24/7 Cloud
-      </div>
+      <button onclick="forceClearAppCache()" title="Update to latest version" style="border: 1px solid rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.15); color: #34d399; font-size: 0.72rem; font-weight: 750; padding: 0.25rem 0.6rem; border-radius: 100px; cursor: pointer; display: flex; align-items: center; gap: 0.25rem;">
+        <span>🔄</span> <span>አድስ (Sync)</span>
+      </button>
     </div>
   </header>
 
@@ -2272,8 +2272,50 @@
       loadQuestion();
     }
 
+    // Force clear browser caches and reload newest code immediately
+    async function forceClearAppCache() {
+      try {
+        if ('caches' in window) {
+          const keys = await caches.keys();
+          await Promise.all(keys.map(k => caches.delete(k)));
+        }
+        if ('serviceWorker' in navigator) {
+          const regs = await navigator.serviceWorker.getRegistrations();
+          for (let r of regs) { await r.unregister(); }
+        }
+      } catch (e) {}
+      const cleanPath = window.location.pathname;
+      window.location.replace(cleanPath + '?t=' + Date.now());
+    }
+
     // Launch App
     window.addEventListener('DOMContentLoaded', initApp);
+
+    // Register Service Worker with instant auto-update
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('scripts/sw.js?v=2026.10.09.v4').then((registration) => {
+          try { registration.update(); } catch (e) {}
+          if (registration.waiting) {
+            registration.waiting.postMessage({ action: 'skipWaiting' });
+          }
+        }).catch(() => {});
+
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (!refreshing) {
+            refreshing = true;
+            window.location.reload();
+          }
+        });
+
+        navigator.serviceWorker.addEventListener('message', (event) => {
+          if (event.data && (event.data.action === 'FORCE_UPDATE_RELOAD' || event.data.action === 'forceReload')) {
+            window.location.reload();
+          }
+        });
+      });
+    }
   </script>
 </body>
 </html>
