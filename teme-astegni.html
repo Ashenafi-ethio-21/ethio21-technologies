@@ -4674,22 +4674,44 @@
       if (!foundParent && !foundTutor && typeof db !== 'undefined' && db) {
         try {
           if (cleanVal.startsWith('AST-P-') || (!cleanVal.startsWith('AST-T-') && phoneDigits.length >= 8)) {
-            const pQuery = cleanVal.startsWith('AST-P-')
-              ? db.collection('astegni_parent_leads').where('trackingId', '==', cleanVal).limit(1).get()
-              : db.collection('astegni_parent_leads').where('phone', '==', val).limit(1).get();
-            const pSnap = await pQuery;
-            if (pSnap && !pSnap.empty) {
-              foundParent = pSnap.docs[0].data();
+            // Direct Doc ID lookup first
+            if (cleanVal.startsWith('AST-P-')) {
+              try {
+                const pDocSnap = await db.collection('astegni_parent_leads').doc(cleanVal).get();
+                if (pDocSnap && pDocSnap.exists) {
+                  foundParent = pDocSnap.data();
+                }
+              } catch (pDocErr) {}
+            }
+            if (!foundParent) {
+              const pQuery = cleanVal.startsWith('AST-P-')
+                ? db.collection('astegni_parent_leads').where('trackingId', '==', cleanVal).limit(1).get()
+                : db.collection('astegni_parent_leads').where('phone', '==', val).limit(1).get();
+              const pSnap = await pQuery;
+              if (pSnap && !pSnap.empty) {
+                foundParent = pSnap.docs[0].data();
+              }
             }
           }
 
           if (!foundParent && (cleanVal.startsWith('AST-T-') || phoneDigits.length >= 8)) {
-            const tQuery = cleanVal.startsWith('AST-T-')
-              ? db.collection('astegni_tutor_leads').where('trackingId', '==', cleanVal).limit(1).get()
-              : db.collection('astegni_tutor_leads').where('phone', '==', val).limit(1).get();
-            const tSnap = await tQuery;
-            if (tSnap && !tSnap.empty) {
-              foundTutor = tSnap.docs[0].data();
+            // Direct Doc ID lookup first
+            if (cleanVal.startsWith('AST-T-')) {
+              try {
+                const tDocSnap = await db.collection('astegni_tutor_leads').doc(cleanVal).get();
+                if (tDocSnap && tDocSnap.exists) {
+                  foundTutor = tDocSnap.data();
+                }
+              } catch (tDocErr) {}
+            }
+            if (!foundTutor) {
+              const tQuery = cleanVal.startsWith('AST-T-')
+                ? db.collection('astegni_tutor_leads').where('trackingId', '==', cleanVal).limit(1).get()
+                : db.collection('astegni_tutor_leads').where('phone', '==', val).limit(1).get();
+              const tSnap = await tQuery;
+              if (tSnap && !tSnap.empty) {
+                foundTutor = tSnap.docs[0].data();
+              }
             }
           }
         } catch (e) {
