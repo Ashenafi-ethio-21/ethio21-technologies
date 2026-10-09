@@ -703,40 +703,46 @@ sequenceDiagram
         <table class="data-table">
           <thead>
             <tr>
-              <th style="width: 10%; text-align: center;">Step</th>
-              <th style="width: 25%;">Trigger</th>
-              <th style="width: 32%;">Which Tool to Open</th>
-              <th style="width: 33%;">What to Click / Do</th>
+              <th style="width: 7%; text-align: center;">Step</th>
+              <th style="width: 20%;">Trigger</th>
+              <th style="width: 22%;">Who (Role / Assignee)</th>
+              <th style="width: 25%;">Which Tool to Open</th>
+              <th style="width: 26%;">What to Click / Do</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td style="text-align: center; font-weight: 900; color: var(--gold-light);">1</td>
               <td>New tutor applies</td>
+              <td><span class="tag-badge tag-purple">📋 KYC &amp; Verification Admin</span></td>
               <td><code>teme-admin.html</code> &gt; <strong>Tutors</strong> tab</td>
               <td>Check Fayda ID &amp; university -&gt; Click <strong>"Verify"</strong></td>
             </tr>
             <tr>
               <td style="text-align: center; font-weight: 900; color: var(--gold-light);">2</td>
               <td>New parent asks for tutor</td>
+              <td><span class="tag-badge tag-blue">📞 Call Center / Matchmaker</span></td>
               <td><code>teme-admin.html</code> &gt; <strong>Parents</strong> tab</td>
               <td>Call parent to confirm subjects &amp; schedule</td>
             </tr>
             <tr>
               <td style="text-align: center; font-weight: 900; color: var(--gold-light);">3</td>
               <td>Pair parent &amp; tutor</td>
+              <td><span class="tag-badge tag-gold">🤝 Matchmaker Coordinator</span></td>
               <td><code>teme-admin.html</code> &gt; <strong>Matches</strong> tab</td>
               <td>Pick Parent -&gt; Pick closest Tutor -&gt; Click <strong>"Create Match"</strong></td>
             </tr>
             <tr>
               <td style="text-align: center; font-weight: 900; color: var(--gold-light);">4</td>
               <td>Parent sends payment slip</td>
+              <td><span class="tag-badge tag-emerald">💰 Finance &amp; Escrow Admin</span></td>
               <td>Telegram Payment Channel &amp; Admin Portal</td>
               <td>Verify CBE/Telebirr ref -&gt; Click <strong>"Approve Payment"</strong></td>
             </tr>
             <tr>
               <td style="text-align: center; font-weight: 900; color: var(--gold-light);">5</td>
               <td>Tutor asks for status</td>
+              <td><span class="tag-badge tag-blue">📞 Support / Any Coordinator</span></td>
               <td><code>teme-astegni.html</code></td>
               <td>Tell them to enter their Tracking ID (<code>AST-T-XXXX</code>) in <strong>"Restore Profile"</strong></td>
             </tr>
