@@ -6,6 +6,17 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
+
+  <!-- Clean URL Engine (Hides .html from Browser Address Bar) -->
+  <script>
+    (function() {
+      if (window.location.pathname.endsWith('.html')) {
+        var cleanPath = window.location.pathname.replace(/\.html$/, '');
+        window.history.replaceState(null, '', cleanPath + window.location.search + window.location.hash);
+      }
+    })();
+  </script>
+
   <title>Teme Astegni • Enterprise Administration Portal</title>
   <meta name="description" content="Secure Role-Based Access Control Portal for Teme Astegni Founders and Coordinator Admins.">
   <meta name="theme-color" content="#090d16">
@@ -1831,7 +1842,7 @@
         <span id="user-role-badge" class="role-badge role-badge-owner">
           👑 Owner: Ashenafi Girma
         </span>
-        <a href="teme-astegni-platform-management.html" target="_blank" class="btn-act" style="background: rgba(212, 175, 55, 0.25); border: 1.5px solid rgba(212, 175, 55, 0.5); color: #fef08a; font-weight: 850; text-decoration: none; padding: 0.42rem 0.75rem; font-size: 0.76rem; display: inline-flex; align-items: center; gap: 0.35rem; border-radius: 10px;" title="View Executive Platform Management, Work Division & Admin Playbooks">📜 Management Blueprint</a>
+        <a href="teme_astegni_master_architecture.html" target="_blank" class="btn-act" style="background: rgba(212, 175, 55, 0.2); border: 1px solid rgba(212, 175, 55, 0.45); color: #f3e5ab; font-weight: 800; text-decoration: none; padding: 0.42rem 0.75rem; font-size: 0.76rem; display: inline-flex; align-items: center; gap: 0.35rem; border-radius: 10px;" title="View Master Architecture, Work Division & Operational Lifecycle">🏛️ Architecture</a>
         <button class="btn-act" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #f87171; font-weight: 800; padding: 0.42rem 0.75rem; font-size: 0.76rem; display: inline-flex; align-items: center; gap: 0.35rem; border-radius: 10px; cursor: pointer;" onclick="lockPortal()" title="Lock Admin Portal">
           🔒 Lock
         </button>

@@ -7,8 +7,11 @@ const CACHE_NAME = 'ethio21-v200-instant-auto-refresh-2026';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
+  './teme-exam-app',
   './teme-exam-app.html',
+  './teme-astegni',
   './teme-astegni.html',
+  './teme-admin',
   './teme-admin.html',
   './architecture_blueprint.html',
   './teme_astegni_master_architecture.html',

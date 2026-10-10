@@ -6,6 +6,17 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
+
+  <!-- Clean URL Engine (Hides .html from Browser Address Bar) -->
+  <script>
+    (function() {
+      if (window.location.pathname.endsWith('.html')) {
+        var cleanPath = window.location.pathname.replace(/\.html$/, '');
+        window.history.replaceState(null, '', cleanPath + window.location.search + window.location.hash);
+      }
+    })();
+  </script>
+
   <title>Teme Astegni (ተሜ አስጠኚ) • Verified University Home Tutors | Ethio 21</title>
   <meta name="description" content="Teme Astegni (ተሜ አስጠኚ) - Ethiopia's premier network of verified university home tutors. CGPA ≥ 3.00 scholars vetted by campus ID, grade report, and National Fayda/Kebele ID with a 1-day free trial.">
   <meta name="keywords" content="Tutor Ethiopia, University Tutor Addis Ababa, Teme Astegni, ተሜ አስጠኚ, AAU Tutor, Private Tutor Addis Ababa, Ethiopian Tutors, High School Tutoring Ethiopia, Telebirr Tutor">
@@ -13,10 +24,10 @@
 
   <!-- Open Graph / Facebook / Telegram Link Preview -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://ashenafi-ethio-21.github.io/teme-astegni/teme-astegni.html">
+  <meta property="og:url" content="https://ethio21.com/teme-astegni">
   <meta property="og:title" content="Teme Astegni (ተሜ አስጠኚ) • Verified University Home Tutors">
   <meta property="og:description" content="Find verified university scholars from nearby campuses (AAU, ASTU...). CGPA ≥ 3.00, strict ID security, 1-day free in-home trial.">
-  <meta property="og:image" content="https://ashenafi-ethio-21.github.io/teme-astegni/assets/teme_astegni_logo.jpg">
+  <meta property="og:image" content="https://ethio21.com/assets/teme_astegni_logo.jpg">
   <meta property="og:locale" content="am_ET">
 
   <!-- Twitter Card -->
@@ -1851,7 +1862,7 @@
         </div>
 
         <!-- Direct Link to Ethio 21 Technologies Main Platform -->
-        <a href="index.html" style="display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; padding: 0.95rem 1.25rem; border-radius: 14px; text-decoration: none; font-weight: 850; font-size: 0.88rem; box-shadow: 0 8px 25px rgba(2, 132, 199, 0.4); border: 1px solid rgba(56, 189, 248, 0.4); transition: transform 0.2s ease;">
+        <a href="./" style="display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; padding: 0.95rem 1.25rem; border-radius: 14px; text-decoration: none; font-weight: 850; font-size: 0.88rem; box-shadow: 0 8px 25px rgba(2, 132, 199, 0.4); border: 1px solid rgba(56, 189, 248, 0.4); transition: transform 0.2s ease;">
           <div style="display: flex; align-items: center; gap: 0.65rem;">
             <span style="font-size: 1.3rem;">🌐</span>
             <div>

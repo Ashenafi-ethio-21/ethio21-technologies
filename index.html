@@ -15,12 +15,12 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="ETHIO 21 | Technologies & Digital Solutions">
   <meta property="og:description" content="Software Development, Apps, Websites, Management Systems, Startup Funding & Incubation, and Social Media Marketing.">
-  <meta property="og:url" content="https://ashenafi-ethio-21.github.io/teme-astegni/">
+  <meta property="og:url" content="https://ethio21.com/">
 
   <!-- Favicon & Touch Icons -->
   <link rel="icon" type="image/svg+xml" href="assets/branding/svg-vector/ethio21_favicon.svg">
   <link rel="apple-touch-icon" href="assets/branding/app-icon/ethio21_ios_app_store_icon.jpg">
-  <meta property="og:image" content="https://ashenafi-ethio-21.github.io/teme-astegni/assets/branding/web-header/ethio21_horizontal_header_banner.jpg">
+  <meta property="og:image" content="https://ethio21.com/assets/branding/web-header/ethio21_horizontal_header_banner.jpg">
 
   <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json">
@@ -29,6 +29,17 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
+
+  <!-- Clean URL Engine (Hides .html from Browser Address Bar) -->
+  <script>
+    (function() {
+      if (window.location.pathname.endsWith('.html') || window.location.pathname.endsWith('/index.html')) {
+        var cleanPath = window.location.pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '');
+        if (cleanPath === '') cleanPath = '/';
+        window.history.replaceState(null, '', cleanPath + window.location.search + window.location.hash);
+      }
+    })();
+  </script>
 
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="styles/main.css?v=2026.12">
@@ -63,7 +74,7 @@
             <li><a href="#media-hub" class="nav-link" data-i18n="navMediaHub">Media & Ads</a></li>
             <li><a href="#founders" class="nav-link" data-i18n="navFounders">Founders</a></li>
             <li><a href="#community" class="nav-link" data-i18n="navCommunity" style="color: var(--accent-mint); font-weight: 750;">👥 Community</a></li>
-            <li><a href="teme-astegni.html?v=2026.10.09.v2" class="nav-link" style="color: #38bdf8; font-weight: 800;">👨‍👩‍👧 ተሜ አስጠኚ (Astegni)</a></li>
+            <li><a href="teme-astegni" class="nav-link" style="color: #38bdf8; font-weight: 800;">👨‍👩‍👧 ተሜ አስጠኚ (Astegni)</a></li>
           </ul>
         </nav>
 
@@ -128,7 +139,7 @@
       <li><a href="#media-hub" data-i18n="navMediaHub">Media & Ads</a></li>
       <li><a href="#founders" data-i18n="navFounders">Founders</a></li>
       <li><a href="#community" data-i18n="navCommunity" style="color: var(--accent-mint); font-weight: 750;">👥 Community Group</a></li>
-      <li><a href="teme-astegni.html?v=2026.10.09.v2" style="color: #38bdf8; font-weight: 800;">👨‍👩‍👧 ተሜ አስጠኚ (Astegni Tutors)</a></li>
+      <li><a href="teme-astegni" style="color: #38bdf8; font-weight: 800;">👨‍👩‍👧 ተሜ አስጠኚ (Astegni Tutors)</a></li>
       <li><a href="#contact" data-i18n="navContact">Connect on Telegram</a></li>
     </ul>
     <div class="drawer-action-group">
@@ -570,7 +581,7 @@
                 </div>
               </button>
 
-              <a href="teme-exam-app.html?v=2026.shield" target="_blank" rel="noopener noreferrer" class="startup-adv-btn startup-adv-btn-primary">
+              <a href="teme-exam-app" target="_blank" rel="noopener noreferrer" class="startup-adv-btn startup-adv-btn-primary">
                 <span class="btn-adv-icon">📝</span>
                 <div class="btn-adv-body">
                   <span class="btn-adv-title">Launch 24/7 Freshman Exam Web App</span>
@@ -581,7 +592,7 @@
                 </span>
               </a>
 
-              <a href="teme-astegni.html?v=2026.10.09.v2" target="_blank" rel="noopener noreferrer" class="startup-adv-btn startup-adv-btn-emerald">
+              <a href="teme-astegni" target="_blank" rel="noopener noreferrer" class="startup-adv-btn startup-adv-btn-emerald">
                 <span class="btn-adv-icon">👨‍👩‍👧</span>
                 <div class="btn-adv-body">
                   <span class="btn-adv-title">ተሜ አስጠኚ (Teme Astegni)</span>
@@ -666,7 +677,7 @@
             </div>
 
             <div class="startup-actions-col">
-              <a href="teme-astegni.html?v=2026.10.09.v2" class="startup-adv-btn startup-adv-btn-emerald">
+              <a href="teme-astegni" class="startup-adv-btn startup-adv-btn-emerald">
                 <span class="btn-adv-icon">👨‍👩‍👧</span>
                 <div class="btn-adv-body">
                   <span class="btn-adv-title">Launch Teme Astegni Live App</span>
@@ -677,7 +688,7 @@
                 </span>
               </a>
 
-              <a href="teme-admin.html" target="_blank" rel="noopener noreferrer" class="startup-adv-btn startup-adv-btn-obsidian">
+              <a href="teme-admin" target="_blank" rel="noopener noreferrer" class="startup-adv-btn startup-adv-btn-obsidian">
                 <span class="btn-adv-icon">🛡️</span>
                 <div class="btn-adv-body">
                   <span class="btn-adv-title">Astegni Administration Portal</span>
@@ -1231,7 +1242,7 @@
       <!-- Download & Access Options Grid (Pure Web App & Direct APK - Zero Bots) -->
       <div class="download-options-grid">
         <!-- Option 1: Official Web App (Primary & Recommended) -->
-        <a href="teme-exam-app.html?v=2026.shield" target="_blank" rel="noopener noreferrer" class="download-card download-card-pwa" style="border-color: rgba(59, 130, 246, 0.45); background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.25));">
+        <a href="teme-exam-app" target="_blank" rel="noopener noreferrer" class="download-card download-card-pwa" style="border-color: rgba(59, 130, 246, 0.45); background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.25));">
           <div class="download-card-icon-wrap" style="background: rgba(59, 130, 246, 0.16); border: 1px solid rgba(59, 130, 246, 0.35); color: #60a5fa;">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"></circle>
