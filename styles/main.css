@@ -139,6 +139,22 @@ body {
   transition: background-color var(--transition-smooth), color var(--transition-smooth);
 }
 
+/* Hard suppression of deprecated hero badge and showcase card */
+.hero-telegram-badge,
+.hero-brand-card-wrap,
+.hero-brand-glass-card {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  max-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+}
+
 /* Ambient Liquid Light Orbs (Refract through glass) */
 .ambient-glow-orb {
   position: fixed;
