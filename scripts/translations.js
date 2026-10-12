@@ -112,10 +112,10 @@ const translations = {
     temeDownloadBtnSub: "Official Web App • Direct Browser & APK",
     temeModalTitle: "Access Teme Educational Platform",
     temeModalSubtitle: "The premier freshman examination suite and learning hub for Ethiopian university students. Launch the web app directly or download below:",
-    temeCardPwaTitle: "Teme Freshman Web App (Direct Browser Access)",
-    temeCardPwaDesc: "Official full examination hub for Ethiopian universities. Runs instantly on any browser with zero installation needed. Tap 'Add to Home Screen' to use offline like a native app.",
-    temeCardApkTitle: "Android APK (Direct Release)",
-    temeCardApkDesc: "High-speed APK download for Android 8.0+ smartphones and tablets.",
+    temeCardPwaTitle: "Teme Web App — Past University Exam Simulator",
+    temeCardPwaDesc: "Standalone exam simulation web app featuring past-year midterm and final examinations from universities across Ethiopia, complete with instant scoring, verified answers, and detailed explanations.",
+    temeCardApkTitle: "Teme App (Android APK) — Course Notes & Unit Mastery",
+    temeCardApkDesc: "Complete course companion featuring all freshman course notes, chapter-by-chapter summaries, 100-question study mode, and 100-question exam mode with in-depth step-by-step explanations for every unit.",
 
     // Sub-Project 2: Media & SMM Production Hub
     mediaPretitle: "GROWTH & CREATIVE PRODUCTION LAB",
@@ -316,10 +316,10 @@ const translations = {
     temeDownloadBtnSub: "ኦፊሴላዊ ዌብ አፕ • ቀጥታ ብሮውዘር እና ኤፒኬ",
     temeModalTitle: "የተሜ የትምህርት መተግበሪያን ይክፈቱ / ያውርዱ",
     temeModalSubtitle: "ለኢትዮጵያ ዩኒቨርሲቲ የፍሬሽማን ተማሪዎች የተዘጋጀው ቀዳሚ የፈተና መለማመጃ እና የጥናት መተግበሪያ። ዌብ አፑን በቀጥታ ይክፈቱ ወይም ያውርዱ፡",
-    temeCardPwaTitle: "የተሜ ፍሬሽማን ዌብ አፕ (በቀጥታ በብሮውዘር)",
-    temeCardPwaDesc: "ለኢትዮጵያ ዩኒቨርሲቲ ተማሪዎች የተዘጋጀው ኦፊሴላዊ የፈተና ማዕከል። በየትኛውም ብሮውዘር ወዲያውኑ ይከፈታል። በስልክዎ እስክሪን ላይ 'Add to Home Screen' በማለት እንደ መደበኛ አፕ ይጠቀሙ።",
-    temeCardApkTitle: "አንድሮይድ ኤፒኬ (Android APK Direct)",
-    temeCardApkDesc: "ፈጣን የኤፒኬ ማውረጃ ለአንድሮይድ 8.0+ ስልኮች እና ታብሌቶች።",
+    temeCardPwaTitle: "የተሜ ዌብ አፕ — የዩኒቨርሲቲዎች ያለፉ አመታት ፈተና መለማመጃ",
+    temeCardPwaDesc: "የተለያዩ የኢትዮጵያ ዩኒቨርሲቲዎች ያለፉ አመታት ሚድተርም እና ፋይናል ፈተናዎችን፣ ትክክለኛ መልሶችን እና ዝርዝር ማብራሪያዎችን በቀጥታ በብሮውዘር ያለ ማውረድ የሚፈተኑበት ራሱን የቻለ ዌብሳይት።",
+    temeCardApkTitle: "የተሜ አንድሮይድ አፕ (APK) — የፍሬሽማን ማስታወሻዎች እና የዩኒት ጥናት",
+    temeCardApkDesc: "ሁሉንም የፍሬሽማን ኮርስ ማስታወሻዎች (Course Notes)፣ ለእያንዳንዱ ዩኒት 100 የጥናት ጥያቄዎች (Study Mode) እና 100 የፈተና ጥያቄዎች (Exam Mode) ከዝርዝር ማብራሪያ ጋር የያዘ የተሟላ የአንድሮይድ መተግበሪያ።",
 
     // Sub-Project 2: Media & SMM Production Hub
     mediaPretitle: "የእድገት እና የፈጠራ ማስተዋወቂያ ማዕከል",
