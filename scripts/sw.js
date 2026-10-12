@@ -3,7 +3,7 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v200-instant-auto-refresh-2026';
+const CACHE_NAME = 'ethio21-v202-fullscreen-studio-2026';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

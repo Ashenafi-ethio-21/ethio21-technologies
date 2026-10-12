@@ -85,8 +85,59 @@
     })();
   </script>
 
-  <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="styles/main.css?v=2026.17">
+  <!-- Main Stylesheet (Cache-Busted) -->
+  <link rel="stylesheet" href="styles/main.css?v=2026.21">
+
+  <!-- Immediate Fullscreen Application Studio Override (Zero Cache Lag) -->
+  <style>
+    #pitch-modal,
+    #pitch-modal.pitch-modal-backdrop,
+    #pitch-modal.pitch-fullscreen-overlay {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      min-height: 100vh !important;
+      max-width: 100vw !important;
+      max-height: 100vh !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+      border-radius: 0 !important;
+      background: #090d16 !important;
+      z-index: 100000 !important;
+      display: block !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      -webkit-overflow-scrolling: touch !important;
+      box-shadow: none !important;
+    }
+    #pitch-modal:not(.open) {
+      display: none !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+    #pitch-modal.open {
+      display: block !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+    #pitch-modal .pitch-modal-content,
+    #pitch-modal .pitch-fullscreen-shell {
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      max-width: 100% !important;
+      width: 100% !important;
+      max-height: none !important;
+      height: auto !important;
+      min-height: 100vh !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      background: transparent !important;
+      backdrop-filter: none !important;
+    }
+  </style>
 </head>
 <body>
 
