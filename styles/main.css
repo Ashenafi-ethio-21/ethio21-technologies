@@ -463,18 +463,44 @@ body {
   transform: scale(0.97);
 }
 
-.btn-venture {
+.btn-venture,
+.pitch-submit-action-btn {
   background: #F59E0B !important;
   color: #0f172a !important;
   font-weight: 850 !important;
   border: 1px solid rgba(245, 158, 11, 0.8) !important;
   box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+  border-radius: 16px !important;
+  white-space: normal !important;
+  text-align: center !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.6rem !important;
+  padding: 1rem 1.5rem !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
+  font-size: clamp(0.92rem, 2.5vw, 1.05rem) !important;
+  line-height: 1.35 !important;
+  cursor: pointer !important;
+  transition: all var(--transition-fast) !important;
 }
-.btn-venture:hover {
+
+.btn-venture:hover,
+.pitch-submit-action-btn:hover {
   background: #d97706 !important;
   color: #0f172a !important;
   box-shadow: 0 14px 35px rgba(245, 158, 11, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
-  transform: translateY(-2px) scale(1.02);
+  transform: translateY(-2px);
+}
+
+.btn-venture span,
+.pitch-submit-action-btn span {
+  white-space: normal !important;
+  line-height: 1.35 !important;
 }
 
 .mobile-nav-toggle {
