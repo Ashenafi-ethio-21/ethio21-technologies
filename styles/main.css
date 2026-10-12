@@ -1710,6 +1710,166 @@ body {
 }
 
 /* ==========================================================================
+   STARTUP PITCH FULLSCREEN STUDIO (TAKES ALL SCREEN - NO FLOATING BOX)
+   ========================================================================== */
+#pitch-modal.pitch-fullscreen-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
+  background: #090d16;
+  z-index: 10000;
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  transform: translateY(12px);
+  backdrop-filter: none;
+}
+
+#pitch-modal.pitch-fullscreen-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.pitch-fullscreen-shell {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: 
+    radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.12) 0%, transparent 60%),
+    radial-gradient(circle at 100% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+    #090d16;
+}
+
+.pitch-fullscreen-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 2.5rem;
+  background: rgba(9, 13, 22, 0.94);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.pitch-fullscreen-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-primary);
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 0.55rem 1.15rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pitch-fullscreen-back-btn:hover {
+  background: rgba(168, 85, 247, 0.2);
+  border-color: rgba(168, 85, 247, 0.5);
+  color: #c084fc;
+  transform: translateX(-2px);
+}
+
+.pitch-topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.pitch-topbar-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #c084fc;
+  background: rgba(168, 85, 247, 0.14);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  margin-left: 0.4rem;
+}
+
+.pitch-fullscreen-close-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pitch-fullscreen-close-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #ef4444;
+}
+
+.pitch-fullscreen-container {
+  max-width: 880px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.75rem 1.75rem 6rem;
+  flex: 1;
+}
+
+[data-theme="light"] #pitch-modal.pitch-fullscreen-overlay {
+  background: #f8fafc;
+}
+
+[data-theme="light"] .pitch-fullscreen-shell {
+  background: radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.08) 0%, transparent 60%), #f8fafc;
+}
+
+[data-theme="light"] .pitch-fullscreen-topbar {
+  background: rgba(248, 250, 252, 0.94);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .pitch-fullscreen-back-btn {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.12);
+  color: #0f172a;
+}
+
+[data-theme="light"] .pitch-fullscreen-close-btn {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.12);
+  color: #475569;
+}
+
+@media (max-width: 768px) {
+  .pitch-fullscreen-topbar {
+    padding: 0.75rem 1rem;
+  }
+  .pitch-topbar-tag {
+    display: none;
+  }
+  .pitch-fullscreen-container {
+    padding: 1.75rem 1.15rem 5rem;
+  }
+}
+
+/* ==========================================================================
    FOOTER
    ========================================================================== */
 .site-footer {

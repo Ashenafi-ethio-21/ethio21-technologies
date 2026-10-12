@@ -155,7 +155,8 @@ const translations = {
     pitchAppName: "Startup / Idea Concept Name",
     pitchStage: "Current Stage (Raw Idea / Prototype / Early Traction)",
     pitchNeeds: "What resources do you need most from Ethio 21?",
-    pitchDesc: "Describe the real-life problem you are solving and your solution vision...",
+    pitchDesc: "Describe the real-life problem you are solving and who will use it...",
+    pitchBackBtn: "Back to Website",
     pitchSubmit: "Submit Co-Builder Application on Telegram 🚀",
 
     // Founders & Leadership
@@ -359,7 +360,8 @@ const translations = {
     pitchAppName: "የአፑ ወይም የስታርትአፑ ስም",
     pitchStage: "አሁን ያለበት ደረጃ (የመጀመሪያ ሃሳብ / በሙከራ ላይ / ተጠቃሚ ያለው)",
     pitchNeeds: "ዋና የሚያስፈልግዎት ድጋፍ ከኢትዮ 21",
-    pitchDesc: "ስለ አፑ አሰራር፣ የሚፈታው ችግር እና አጠቃላይ ራዕይ ይግለጹ...",
+    pitchDesc: "የሚፈቱትን ችግር እና ተጠቃሚዎቹ እነማን እንደሆኑ ያብራሩ...",
+    pitchBackBtn: "ወደ ድረ-ገጹ ተመለስ",
     pitchSubmit: "በቴሌግራም የስታርትአፕ ማመልከቻ አስገባ 🚀",
 
     // Founders & Leadership

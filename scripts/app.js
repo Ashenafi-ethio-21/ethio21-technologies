@@ -332,34 +332,50 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // 7. STARTUP PITCH MODAL -> DIRECT TELEGRAM
+  // 7. STARTUP PITCH MODAL -> DIRECT TELEGRAM (FULLSCREEN IMMERSIVE STUDIO)
   // ==========================================
   const pitchModal = document.getElementById('pitch-modal');
   const openPitchBtns = document.querySelectorAll('.open-pitch-modal-btn');
   const closePitchBtn = document.getElementById('close-pitch-modal-btn');
+  const closePitchX = document.getElementById('close-pitch-modal-x');
   const pitchForm = document.getElementById('pitch-startup-form');
+
+  function openPitchStudio() {
+    if (pitchModal) {
+      pitchModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      playUiSound('toggle');
+      // Scroll to top of modal
+      pitchModal.scrollTop = 0;
+    }
+  }
+
+  function closePitchStudio() {
+    if (pitchModal) {
+      pitchModal.classList.remove('open');
+      document.body.style.overflow = '';
+      playUiSound('click');
+    }
+  }
 
   openPitchBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      if (pitchModal) {
-        pitchModal.classList.add('open');
-        playUiSound('toggle');
-      }
+      openPitchStudio();
     });
   });
 
-  if (closePitchBtn && pitchModal) {
-    closePitchBtn.addEventListener('click', () => {
-      pitchModal.classList.remove('open');
-      playUiSound('click');
-    });
-    pitchModal.addEventListener('click', (e) => {
-      if (e.target === pitchModal) {
-        pitchModal.classList.remove('open');
-      }
-    });
-  }
+  [closePitchBtn, closePitchX].forEach(btn => {
+    if (btn) {
+      btn.addEventListener('click', closePitchStudio);
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && pitchModal && pitchModal.classList.contains('open')) {
+      closePitchStudio();
+    }
+  });
 
   // ==========================================
   // 7B. TEME APP DOWNLOAD MODAL & APK ACTIONS
