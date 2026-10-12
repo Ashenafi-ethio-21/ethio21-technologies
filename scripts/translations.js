@@ -105,7 +105,9 @@ const translations = {
     ventureStep4Title: "4. Execution, Management & Shared Equity",
     ventureStep4Desc: "We manage company formation, marketing funnels, and enterprise scaling. In return, ETHIO 21 holds an agreed equity shareholding stake — aligning our success directly with yours as true partners.",
 
-    ventureCtaButton: "Apply for Co-Building & Seed Funding 🚀",
+    ventureCtaButton: "Pre-Apply for Upcoming Cohort (Coming Soon) 🚀",
+    badgeComingSoon: "COMING SOON",
+    badgeSoon: "Soon",
     temeFoundersOverline: "CO-FOUNDED & DIRECTED BY",
     temeFoundersRole: "Founders & Chief Executive Officers",
     temeDownloadBtnTitle: "Download Teme App",
@@ -118,7 +120,7 @@ const translations = {
     // Sub-Project 2: Media & SMM Production Hub
     mediaPretitle: "GROWTH & CREATIVE PRODUCTION LAB",
     mediaTitle: "Social Media Marketing (SMM) & Ad Production Hub",
-    mediaSubtitle: "A powerhouse creative agency inside Ethio 21 to ensure your digital products and business achieve maximum market dominance.",
+    mediaSubtitle: "A powerhouse creative agency inside Ethio 21 currently in preparation to ensure your digital products and business achieve maximum market dominance.",
     
     mediaCard1Title: "Targeted Ad Running (PPC & Paid Social)",
     mediaCard1Desc: "Precision campaigns across Meta (Facebook & Instagram), TikTok Ads, Google Search & Display, and Telegram sponsored channels tailored for the Ethiopian and international market.",
@@ -307,7 +309,9 @@ const translations = {
     ventureStep4Title: "4. ማኔጅመንት፣ ገበያ ማስተዋወቅ እና የፍትሃዊነት ድርሻ (Equity)",
     ventureStep4Desc: "የህግ ምዝገባ፣ የገበያ ማስፋፊያ እና ማኔጅመንቱን እንቆጣጠራለን። በምላሹ በተስማማንበት የፍትሃዊነት ባለድርሻነት (Equity Share) አብረን ውጤታማ እንሆናለን።",
 
-    ventureCtaButton: "የስቱዲዮ ማመልከቻዎን በቴሌግራም ያስገቡ 🚀",
+    ventureCtaButton: "ለሚቀጥለው ዙር አስቀድመው ያመልክቱ (በቅርቡ) 🚀",
+    badgeComingSoon: "በቅርቡ ይጠብቁ",
+    badgeSoon: "በቅርቡ",
     temeFoundersOverline: "በጋራ የመሰረቱት እና የሚመሩት",
     temeFoundersRole: "መስራቾች እና ዋና ስራ አስፈፃሚዎች (CEOs)",
     temeDownloadBtnTitle: "የተሜ መተግበሪያ (Teme App)",
@@ -320,7 +324,7 @@ const translations = {
     // Sub-Project 2: Media & SMM Production Hub
     mediaPretitle: "የእድገት እና የፈጠራ ማስተዋወቂያ ማዕከል",
     mediaTitle: "የሶሻል ሚዲያ ማርኬቲንግ (SMM) እና የማስታወቂያ ፕሮዳክሽን",
-    mediaSubtitle: "የድርጅትዎ ምርቶች እና ዲጂታል መተግበሪያዎች በገበያው ላይ ከፍተኛ ተቀባይነት እንዲያገኙ በኢትዮ 21 ስር የተቋቋመ የፈጠራ ማዕከል።",
+    mediaSubtitle: "የድርጅትዎ ምርቶች እና ዲጂታል መተግበሪያዎች በገበያው ላይ ከፍተኛ ተቀባይነት እንዲያገኙ በኢትዮ 21 ስር በቅርቡ የሚጀመር የፈጠራ ማዕከል።",
     
     mediaCard1Title: "የታለሙ ማስታወቂያዎችን ማስተዳደር (Targeted Ads)",
     mediaCard1Desc: "በሜታ (ፌስቡክ እና ኢንስታግራም)፣ በቲክቶክ ማስታወቂያዎች፣ በጉግል እና በቴሌግራም ላይ ደንበኞችን በቀጥታ የሚስቡ የታለሙ ዘመቻዎችን መምራት።",
