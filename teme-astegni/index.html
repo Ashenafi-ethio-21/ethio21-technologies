@@ -6,7 +6,6 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <base href="/">
 
   <!-- Clean URL Engine (Hides .html from Browser Address Bar) -->
   <script>
@@ -5277,8 +5276,8 @@
             <div style="background: rgba(0,0,0,0.25); border-radius: 10px; padding: 0.65rem 0.85rem; display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.74rem;">
               <div style="color: #34d399; font-weight: 800;">✓ 1. ጥያቄዎ ደርሷል፣ አካባቢዎ ተረጋግጧል (Request Received &amp; Area Vetted)</div>
               <div style="color: #fbbf24; font-weight: 800;">🔄 2. ከአቅራቢያ ካምፓስ ተማሪ ጋር በማገናኘት ላይ (Matching Campus Scholar)</div>
-              <div style="color: #94a3b8;">⏳ 3. የ 1 ቀን ነጻ የሙከራ ክፍለ-ጊዜ ማመቻቸት (1-Day Free Trial Scheduled)</div>
-              <div style="color: #94a3b8;">⏳ 4. በውጤቱ ረክተው ወርሃዊ ክፍያ ማረጋገጥ (Confirm Only If Satisfied)</div>
+              <div style="color: #94a3b8;">⏳ 3. የ 1 ቀን ነጻ የሙከራ ክፍለ-ጊዜ (1-Day Free Trial Session)</div>
+              <div style="color: #94a3b8;">⏳ 4. ስምሪት ይጸድቃል፤ ክፍያ የሚፈጸመው ከ 1 ወር ሙሉ ማስተማር በኋላ ብቻ ነው (Payment After 1 Month of Teaching)</div>
             </div>
           </div>
         `;
@@ -5327,17 +5326,17 @@
           </div>
         </div>
 
-        <!-- Monthly Tuition & Payment Receipt Action -->
+        <!-- Post-Service Monthly Tuition Section (Pay Only After 1 Month of Teaching) -->
         <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.22) 100%); border: 1.5px solid #10b981; border-radius: 14px; padding: 1rem; margin-bottom: 0.85rem;">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4rem;">
-            <span style="font-weight: 850; font-size: 0.88rem; color: #fff;">💳 ወርሃዊ ክፍያ እና የደረሰኝ መላኪያ (Monthly Payment)</span>
-            <span style="font-size: 0.7rem; background: #059669; color: #fff; padding: 0.2rem 0.5rem; border-radius: 6px; font-weight: 800;">የተረጋገጠ አሰራር (Agency Escrow)</span>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4rem; flex-wrap: wrap; gap: 0.35rem;">
+            <span style="font-weight: 850; font-size: 0.88rem; color: #fff;">🛡️ ዜሮ ቅድመ-ክፍያ • ክፍያ የሚፈጸመው ከ 1 ወር አገልግሎት በኋላ ብቻ ነው</span>
+            <span style="font-size: 0.7rem; background: #059669; color: #fff; padding: 0.2rem 0.5rem; border-radius: 6px; font-weight: 800;">100% የቤተሰብ ጥበቃ (Zero Upfront Pay)</span>
           </div>
           <p style="font-size: 0.77rem; color: #cbd5e1; line-height: 1.45; margin-bottom: 0.75rem;">
-            የቴሌብር ወይም የባንክ ክፍያ ደረሰኝ ፎቶዎን ከመለያ ቁጥርዎ (<b>${escapeHtml(pId)}</b>) ጋር እዚህ ይላኩ። የተረጋገጡ ደረሰኞች በቀጥታ ወደ ኦፊሴላዊ የቴሌግራም ግሩፓችን ይደርሳሉ።
+            በተሜ አስጠኚ ህግ መሰረት ወላጆች <b>ምንም አይነት ቅድመ-ክፍያ አይከፍሉም</b>። አስጠኚው መጥቶ <b>የ 1 ቀን ነጻ ሙከራ</b> ካስተማረ እና ከተስማማችሁ በኋላ፣ ስምሪቱ ጸድቆ ትምህርቱን ይቀጥላል። ክፍያ የሚፈጸመው <b>ልጆን ሙሉ 1 ወር ካስተማረ በኋላ ብቻ</b> በቴሌብር ወይም በባንክ ነው።
           </p>
           <button type="button" onclick="closeParentStatusModal(); openParentPaymentModal('${escapeHtml(pId)}', ${match?.parentFee || match?.fee || 3500})" style="width: 100%; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border: none; color: #fff; padding: 0.75rem; border-radius: 12px; font-weight: 850; font-size: 0.85rem; cursor: pointer; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
-            <span>📸</span> <span>የወርሃዊ ክፍያ ደረሰኝ ይላኩ (Submit Payment Screenshot) ›</span>
+            <span>💳</span> <span>የ 1 ወር አገልግሎት ሲጠናቀቅ ደረሰኝ መላኪያ (Monthly Payment After 1 Month) ›</span>
           </button>
         </div>
 
@@ -5512,8 +5511,8 @@
                 <div style="background: rgba(0,0,0,0.3); border-radius: 10px; padding: 0.65rem 0.85rem; display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.74rem;">
                   <div style="color: #34d399; font-weight: 800;">✓ 1. ጥያቄዎ ደርሷል፣ አድራሻዎ ተረጋግጧል (Request Received)</div>
                   <div style="color: #fbbf24; font-weight: 800;">🔄 2. ከአቅራቢያ ካምፓስ ተማሪ ጋር በማገናኘት ላይ (Matching Campus Scholar)</div>
-                  <div style="color: #94a3b8;">⏳ 3. የ 1 ቀን ነጻ የሙከራ ክፍለ-ጊዜ ማመቻቸት (1-Day Free Trial)</div>
-                  <div style="color: #94a3b8;">⏳ 4. በውጤቱ ረክተው ወርሃዊ ክፍያ ማረጋገጥ (Confirm Only If Satisfied)</div>
+                  <div style="color: #94a3b8;">⏳ 3. የ 1 ቀን ነጻ የሙከራ ክፍለ-ጊዜ (1-Day Free Trial)</div>
+                  <div style="color: #94a3b8;">⏳ 4. ስምሪቱ ጸድቆ ትምህርት ይቀጥላል • ክፍያ የሚፈጸመው ከ 1 ወር በኋላ ብቻ ነው (Payment After 1 Month of Service)</div>
                 </div>
               </div>
             `}
@@ -5570,8 +5569,8 @@
               <button type="button" onclick="showParentStatusModal(window.currentDeviceParentData)" style="flex: 1; min-width: 160px; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); border: none; color: #fff; padding: 0.7rem 0.95rem; border-radius: 12px; font-weight: 850; font-size: 0.82rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);">
                 <span>📋</span> <span>ሙሉ መረጃውን ይመልከቱ (View Details) ›</span>
               </button>
-              <button type="button" onclick="openParentPaymentModal('${escapeHtml(pId)}')" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border: none; color: #fff; padding: 0.7rem 0.95rem; border-radius: 12px; font-weight: 850; font-size: 0.82rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);">
-                <span>💳</span> <span>የወርሃዊ ክፍያ ደረሰኝ ይላኩ (Submit Payment) ›</span>
+              <button type="button" onclick="openParentPaymentModal('${escapeHtml(pId)}')" style="background: rgba(16, 185, 129, 0.2); border: 1.5px solid #10b981; color: #a7f3d0; padding: 0.7rem 0.95rem; border-radius: 12px; font-weight: 850; font-size: 0.82rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+                <span>🛡️</span> <span>ክፍያ የሚፈጸመው ከ 1 ወር በኋላ ብቻ ነው (Zero Upfront Pay)</span>
               </button>
               <button type="button" onclick="allowAdditionalChildRequest()" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2); color: #cbd5e1; padding: 0.7rem 0.95rem; border-radius: 12px; font-weight: 800; font-size: 0.8rem; cursor: pointer;">
                 ➕ ለሌላ ልጅ አስጠኚ ይጠይቁ
@@ -7026,8 +7025,8 @@
         vp2P: "አጠቃላይ ውጤቱ CGPA 3.00 እና ከዚያ በላይ መሆኑ እና በሚያስተምረው ትምህርት Grade 'A' ማስመዝገቡ በፖርታል ውጤቱ ይረጋገጣል።",
         vp3H: "3. ብሔራዊ ወይም የቀበሌ መታወቂያ (ግዴታ)",
         vp3P: "የልጅዎን ደህንነት እና የቤትዎን ሰላም 100% ለማረጋገጥ የአስጠኚው የፋይዳ ብሔራዊ መታወቂያ ወይም የቀበሌ መታወቂያ በ ETHIO 21 እጅ ተመዝግቦ ይያዛል።",
-        vp4H: "4. የ 1 ቀን ነጻ የሙከራ ክፍለ-ጊዜ",
-        vp4P: "አስጠኚው መጥቶ የመጀመሪያውን ቀን በነጻ ያስተምራል። የልጅዎን ለውጥ እና የአስጠኚውን ስነ-ምግባር አይተው ካመኑበት ብቻ ወርሃዊ ክፍያውን ይፈጽማሉ።",
+        vp4H: "4. የ 1 ቀን ነጻ ሙከራ & ዜሮ ቅድመ-ክፍያ",
+        vp4P: "አስጠኚው መጥቶ የመጀመሪያውን ቀን በነጻ ያስተምራል። በስራው ካመኑበት ስምሪቱ ጸድቆ ትምህርቱ ይቀጥላል። ክፍያ የሚፈጸመው ልጆን ሙሉ 1 ወር ካስተማረ በኋላ ብቻ ነው፤ ምንም አይነት ቅድመ-ክፍያ የለም!",
         btnVaction: "👨‍👩‍👧 አሁኑኑ የተረጋገጠ አስጠኚ ይዘዙ ›",
         hBadge: "የቀጥታ ስልክ",
         hpTitle: "24/7 ቀጥታ የስልክ መስመሮች",
@@ -7197,8 +7196,8 @@
         vp2P: "We audit portal grade transcripts. Only students maintaining a Cumulative GPA of 3.00 or higher and scoring Grade 'A' in the subjects they teach are accepted into our certified roster.",
         vp3H: "3. Government ID on File (Fayda / Kebele)",
         vp3P: "For absolute child safety and household peace of mind, every tutor is mandatorily required to submit their National Fayda ID or Kebele ID, which is archived in our secure registry.",
-        vp4H: "4. 1-Day Free In-Home Trial Session",
-        vp4P: "The tutor comes to your home and conducts a 1-day free trial lesson. You and your child evaluate their pedagogy and character. You only confirm the monthly agreement if 100% satisfied.",
+        vp4H: "4. 1-Day Free Trial & Zero Upfront Pay",
+        vp4P: "The tutor conducts a 1-day free trial lesson. Once approved, active tutoring begins immediately. Payment is strictly made ONLY after 1 full month of successful teaching — zero advance payment required!",
         btnVaction: "👨‍👩‍👧 Request a Verified Tutor Now ›",
         hBadge: "Direct Phone Lines",
         hpTitle: "24/7 Direct Phone & Coordinators",
@@ -7368,8 +7367,8 @@
         vp2P: "Gabaasa qabxii yuunivarsitii ilaalla. Barattoota CGPA 3.00 fi isaa ol qabanii fi barnoota barsiisaniin qabxii 'A' fidan qofa ramadna.",
         vp3H: "3. Waraqaa Fayidaa Ykn Gandaa (Dirqama)",
         vp3P: "Nageenya ijoollee fi tasgabbii maatii 100% mirkaneessuuf, waraqaan eenyummaa barsiisaa (Fayidaa ykn Gandaa) galmee keenya keessatti qabama.",
-        vp4H: "4. Guyyaa 1 Bilisaan Yaaluu",
-        vp4P: "Barsiisaan gara mana keessanii dhufee guyyaa duraa bilisaan barsiisa. Haala barsiisuu fi amala isaa ilaaltanii yoo itti amantan qofa waliigaltee raawwattu.",
+        vp4H: "4. Guyyaa 1 Yaalii Bilisaa & Kaffaltiin Kan Ji'a 1 Booda",
+        vp4P: "Barsiisaan dhufee guyyaa duraa bilisaan barsiisa. Yoo itti amantan ramaddiin mirkanaa'ee barnoonni itti fufa. Kaffaltiin kan raawwatamu barsiisaan ji'a 1 guutuu barsiisee booda qofa; kaffaltiin duraa hin jiru!",
         btnVaction: "👨‍👩‍👧 Barsiisaa Mirkanaa'aa Amma Gaafadhaa ›",
         hBadge: "Bilbila Kallattii",
         hpTitle: "Sarara Bilbilaa Qindeessitootaa 24/7",
