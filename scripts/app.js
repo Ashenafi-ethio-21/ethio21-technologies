@@ -396,8 +396,33 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // 7C. APPLICATION DOSSIER TRACKING & CONFIRMATION MODAL
+  // 7C. APPLICATION DOSSIER TRACKING & VENTURE HUB DISPATCH
   // ==========================================
+  const TELEGRAM_CONFIG = {
+    botToken: '8808218998:AAF-xCF8eYt2S0J58G1i4XKcvO1qdJ5puTU',
+    ventureChannel: '@ethio21_venture_hub',
+    ventureChannelUrl: 'https://t.me/ethio21_venture_hub'
+  };
+
+  async function sendToTelegramChannel(messageText) {
+    try {
+      const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_CONFIG.botToken}/sendMessage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CONFIG.ventureChannel,
+          text: messageText
+        })
+      });
+      return await response.json();
+    } catch (err) {
+      console.warn('Telegram Bot API dispatch error:', err);
+      return null;
+    }
+  }
+
   const dossierSuccessModal = document.getElementById('dossier-success-modal');
   const closeDossierModalBtn = document.getElementById('close-dossier-modal-btn');
   const dossierCodeText = document.getElementById('dossier-code-text');
@@ -410,11 +435,18 @@ document.addEventListener('DOMContentLoaded', () => {
     return `ETH21-${prefix}-${randomDigits}`;
   }
 
-  function showDossierSuccess(code, typeTitle, telegramMsg) {
+  function showDossierSuccess(code, typeTitle, channelUrl, btnText) {
     if (dossierCodeText) dossierCodeText.textContent = code;
     if (dossierTypeBadge) dossierTypeBadge.textContent = typeTitle;
+    const targetUrl = channelUrl || TELEGRAM_CONFIG.ventureChannelUrl;
+    const label = btnText || 'View in Venture Hub Channel 🚀';
+
     if (dossierTelegramBtn) {
-      dossierTelegramBtn.href = `https://t.me/${state.telegramHandle}?text=${encodeURIComponent(telegramMsg)}`;
+      dossierTelegramBtn.href = targetUrl;
+      dossierTelegramBtn.innerHTML = `
+        <span>${label}</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+      `;
       dossierTelegramBtn.onclick = () => {
         playUiSound('success');
       };
@@ -514,21 +546,28 @@ ${desc ? `"${desc}"` : 'Founder requested in-person technical evaluation.'}
 🤝 CO-FOUNDING EQUITY PARTNERSHIP
 • Model: ETHIO 21 Funds + Codes the Software + Co-Founding Equity
 • Agreement Status: ${equityAck}
-• Next Step: In-Person Founder Discovery Meeting (Addis Ababa)
+• Next Step: Founder Discovery Meeting (Addis Ababa)
 
 📅 INTAKE METRIC & TRACKING
 • Dossier Code: #${dossierCode}
 • Logged: ${timestamp}
-• Source: Official Web Portal (ethio21.com)
+• Destination: Ethio 21 Venture Hub (@ethio21_venture_hub)
 • Priority: Fast-Track Founder Intake
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+
+      // 1. Dispatch automatically to dedicated channel @ethio21_venture_hub via @ethio21_official_bot
+      sendToTelegramChannel(telegramPitch);
 
       pitchForm.reset();
       if (pitchModal) pitchModal.classList.remove('open');
 
-      // Present unique tracking confirmation modal & launch Telegram
-      showDossierSuccess(dossierCode, '🚀 VENTURE CO-BUILDER APPLICATION', telegramPitch);
-      openTelegram(telegramPitch);
+      // 2. Present unique tracking confirmation modal & direct access to channel
+      showDossierSuccess(
+        dossierCode, 
+        '🚀 VENTURE APPLICATION DISPATCHED', 
+        TELEGRAM_CONFIG.ventureChannelUrl,
+        'View in Venture Hub Channel 🚀'
+      );
     });
   }
 
@@ -582,13 +621,20 @@ ${message ? `"${message}"` : 'Client requested technical consultation and discov
 📅 INTAKE METRIC & TRACKING
 • Dossier Code: #${dossierCode}
 • Logged: ${timestamp}
-• Source: Official Web Portal (ethio21.com)
+• Destination: Ethio 21 Venture Hub (@ethio21_venture_hub)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-💬 Action: Please review and respond with technical consultation availability.`;
+💬 Action: Please review and schedule technical consultation.`;
+
+      // 1. Dispatch automatically to dedicated channel @ethio21_venture_hub via @ethio21_official_bot
+      sendToTelegramChannel(telegramInquiry);
 
       contactForm.reset();
-      showDossierSuccess(dossierCode, '📋 CLIENT PROJECT INQUIRY BRIEF', telegramInquiry);
-      openTelegram(telegramInquiry);
+      showDossierSuccess(
+        dossierCode, 
+        '📋 CLIENT PROJECT INQUIRY LOGGED', 
+        TELEGRAM_CONFIG.ventureChannelUrl,
+        'View in Venture Hub Channel 🚀'
+      );
     });
   }
 
