@@ -395,6 +395,65 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ==========================================
+  // 7C. APPLICATION DOSSIER TRACKING & CONFIRMATION MODAL
+  // ==========================================
+  const dossierSuccessModal = document.getElementById('dossier-success-modal');
+  const closeDossierModalBtn = document.getElementById('close-dossier-modal-btn');
+  const dossierCodeText = document.getElementById('dossier-code-text');
+  const dossierTypeBadge = document.getElementById('dossier-type-badge');
+  const dossierTelegramBtn = document.getElementById('dossier-telegram-btn');
+  const copyDossierCodeBtn = document.getElementById('copy-dossier-code-btn');
+
+  function generateDossierCode(prefix = 'VTR') {
+    const randomDigits = Math.floor(10000 + Math.random() * 90000);
+    return `ETH21-${prefix}-${randomDigits}`;
+  }
+
+  function showDossierSuccess(code, typeTitle, telegramMsg) {
+    if (dossierCodeText) dossierCodeText.textContent = code;
+    if (dossierTypeBadge) dossierTypeBadge.textContent = typeTitle;
+    if (dossierTelegramBtn) {
+      dossierTelegramBtn.href = `https://t.me/${state.telegramHandle}?text=${encodeURIComponent(telegramMsg)}`;
+      dossierTelegramBtn.onclick = () => {
+        playUiSound('success');
+      };
+    }
+    if (dossierSuccessModal) {
+      dossierSuccessModal.classList.add('open');
+      playUiSound('success');
+    }
+  }
+
+  if (closeDossierModalBtn && dossierSuccessModal) {
+    closeDossierModalBtn.addEventListener('click', () => {
+      dossierSuccessModal.classList.remove('open');
+      playUiSound('click');
+    });
+    dossierSuccessModal.addEventListener('click', (e) => {
+      if (e.target === dossierSuccessModal) {
+        dossierSuccessModal.classList.remove('open');
+      }
+    });
+  }
+
+  if (copyDossierCodeBtn && dossierCodeText) {
+    copyDossierCodeBtn.addEventListener('click', () => {
+      const codeToCopy = dossierCodeText.textContent;
+      navigator.clipboard.writeText(codeToCopy).then(() => {
+        copyDossierCodeBtn.innerHTML = '<span>✓ Copied!</span>';
+        copyDossierCodeBtn.style.color = '#10f2a7';
+        playUiSound('click');
+        setTimeout(() => {
+          copyDossierCodeBtn.innerHTML = '<span>📋 Copy</span>';
+          copyDossierCodeBtn.style.color = '';
+        }, 2200);
+      }).catch(() => {
+        showSecurityNotice(`Dossier Code: ${codeToCopy}`);
+      });
+    });
+  }
+
   // Global Escape key to dismiss modals
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
@@ -403,6 +462,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (pitchModal && pitchModal.classList.contains('open')) {
         pitchModal.classList.remove('open');
+      }
+      if (dossierSuccessModal && dossierSuccessModal.classList.contains('open')) {
+        dossierSuccessModal.classList.remove('open');
       }
     }
   });
@@ -425,12 +487,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const equityAck = (pitchForm.querySelector('#pitch-equity-ack') || {}).checked 
         ? 'Acknowledged & Agreed (Co-Founding Equity Model)' 
         : 'Pending Discussion';
+      
+      const dossierCode = generateDossierCode('VTR');
       const timestamp = getFormattedTimestamp();
 
       const telegramPitch = 
 `━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🚀 ETHIO 21 CO-BUILDER & EQUITY STUDIO
-💡 FOUNDER APPLICATION & VENTURE DOSSIER
+🎫 DOSSIER REF CODE: #${dossierCode}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 👤 FOUNDER PROFILE
@@ -452,15 +516,18 @@ ${desc ? `"${desc}"` : 'Founder requested in-person technical evaluation.'}
 • Agreement Status: ${equityAck}
 • Next Step: In-Person Founder Discovery Meeting (Addis Ababa)
 
-📅 INTAKE METRIC
+📅 INTAKE METRIC & TRACKING
+• Dossier Code: #${dossierCode}
 • Logged: ${timestamp}
+• Source: Official Web Portal (ethio21.com)
 • Priority: Fast-Track Founder Intake
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 
       pitchForm.reset();
       if (pitchModal) pitchModal.classList.remove('open');
 
-      // Directly launch Telegram with formatted pitch
+      // Present unique tracking confirmation modal & launch Telegram
+      showDossierSuccess(dossierCode, '🚀 VENTURE CO-BUILDER APPLICATION', telegramPitch);
       openTelegram(telegramPitch);
     });
   }
@@ -491,12 +558,14 @@ ${desc ? `"${desc}"` : 'Founder requested in-person technical evaluation.'}
       const phone = (contactForm.querySelector('#contact-phone') || {}).value || '';
       const service = (contactForm.querySelector('#contact-service') || {}).value || '';
       const message = (contactForm.querySelector('#contact-message') || {}).value || '';
+      
+      const dossierCode = generateDossierCode('PRJ');
       const timestamp = getFormattedTimestamp();
 
       const telegramInquiry = 
 `━━━━━━━━━━━━━━━━━━━━━━━━━━━
 💎 ETHIO 21 TECHNOLOGIES & DIGITAL SOLUTIONS
-📋 CLIENT PROJECT INQUIRY BRIEF
+🎫 DOSSIER REF CODE: #${dossierCode}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 👤 CLIENT CREDENTIALS
@@ -510,13 +579,15 @@ ${desc ? `"${desc}"` : 'Founder requested in-person technical evaluation.'}
 📝 PROJECT REQUIREMENTS & OBJECTIVES
 ${message ? `"${message}"` : 'Client requested technical consultation and discovery call.'}
 
-📅 INTAKE METRIC
+📅 INTAKE METRIC & TRACKING
+• Dossier Code: #${dossierCode}
 • Logged: ${timestamp}
-• Source: Official Web Portal (ethio21technologies.com)
+• Source: Official Web Portal (ethio21.com)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
 💬 Action: Please review and respond with technical consultation availability.`;
 
       contactForm.reset();
+      showDossierSuccess(dossierCode, '📋 CLIENT PROJECT INQUIRY BRIEF', telegramInquiry);
       openTelegram(telegramInquiry);
     });
   }
