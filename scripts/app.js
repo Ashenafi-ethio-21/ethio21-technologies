@@ -193,8 +193,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const mouse = { x: null, y: null, radius: 150 };
 
     function resizeCanvas() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      const heroSection = document.getElementById('hero');
+      width = canvas.width = heroSection ? heroSection.clientWidth : window.innerWidth;
+      height = canvas.height = heroSection ? heroSection.clientHeight : window.innerHeight;
       initParticles();
     }
 
