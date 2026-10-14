@@ -1970,78 +1970,32 @@
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; margin-bottom: 0.75rem;">
               <div class="field" style="margin-bottom: 0;">
-                <label id="i18n-f-puni" style="font-size: 0.8rem; color: #cbd5e1;">🏛️ Nearest University (የቅርብ ዩኒቨርሲቲ) *</label>
+                <label id="i18n-f-puni" style="font-size: 0.8rem; color: #cbd5e1; display: flex; justify-content: space-between; align-items: center;">
+                  <span>🏛️ Nearest University (የቅርብ ዩኒቨርሲቲ) *</span>
+                  <span style="font-size: 0.65rem; color: #38bdf8; background: rgba(56, 189, 248, 0.15); padding: 1px 6px; border-radius: 9999px; border: 1px solid rgba(56, 189, 248, 0.3);">🚀 Phase 1: 4 Hubs Active</span>
+                </label>
                 <select id="p_uni_select" required onchange="handleParentUniversityChange()">
                   <option value="" disabled selected>-- ዩኒቨርሲቲ ይምረጡ (Select University) --</option>
-                  <option value="Addis Ababa University (AAU)">Addis Ababa University (AAU)</option>
-                  <option value="Addis Ababa Science & Technology University (AASTU)">Addis Ababa Science & Technology University (AASTU)</option>
-                  <option value="Adama Science & Technology University (ASTU)">Adama Science & Technology University (ASTU)</option>
-                  <option value="Jimma University (JU)">Jimma University (JU)</option>
-                  <option value="Hawassa University (HU)">Hawassa University (HU)</option>
-                  <option value="Bahir Dar University (BDU)">Bahir Dar University (BDU)</option>
-                  <option value="University of Gondar (UoG)">University of Gondar (UoG)</option>
-                  <option value="Haramaya University (HU)">Haramaya University (HU)</option>
-                  <option value="Arba Minch University (AMU)">Arba Minch University (AMU)</option>
-                  <option value="Mekelle University (MU)">Mekelle University (MU)</option>
-                  <option value="Wollo University (WU)">Wollo University (WU)</option>
-                  <option value="Debre Birhan University (DBU)">Debre Birhan University (DBU)</option>
-                  <option value="Debre Markos University (DMU)">Debre Markos University (DMU)</option>
-                  <option value="Debre Tabor University (DTU)">Debre Tabor University (DTU)</option>
-                  <option value="Dire Dawa University (DDU)">Dire Dawa University (DDU)</option>
-                  <option value="Wollega University (WLU)">Wollega University (WLU)</option>
-                  <option value="Ambo University (AU)">Ambo University (AU)</option>
-                  <option value="Dilla University (DU)">Dilla University (DU)</option>
-                  <option value="Arsi University (Asella)">Arsi University (Asella)</option>
-                  <option value="Madda Walabu University (MWU)">Madda Walabu University (MWU)</option>
-                  <option value="Mattu University (MeU)">Mattu University (MeU)</option>
-                  <option value="Woldia University (WDU)">Woldia University (WDU)</option>
-                  <option value="Axum University (Aksum University - AkU)">Axum University (Aksum University - AkU)</option>
-                  <option value="Adigrat University (AGU)">Adigrat University (AGU)</option>
-                  <option value="Kotebe University of Education (KUE)">Kotebe University of Education (KUE)</option>
-                  <option value="Jigjiga University (JJU)">Jigjiga University (JJU)</option>
-                  <option value="Semera University (SU)">Semera University (SU)</option>
-                  <option value="Assosa University (ASU)">Assosa University (ASU)</option>
-                  <option value="Gambella University (GMU)">Gambella University (GMU)</option>
-                  <option value="Mizan-Tepi University (MTU)">Mizan-Tepi University (MTU)</option>
-                  <option value="Wachemo University (WCU)">Wachemo University (WCU)</option>
-                  <option value="Wolkite University (WKU)">Wolkite University (WKU)</option>
-                  <option value="Bule Hora University (BHU)">Bule Hora University (BHU)</option>
-                  <option value="Oda Bultum University (OBU)">Oda Bultum University (OBU)</option>
-                  <option value="Kebri Dehar University (KDU)">Kebri Dehar University (KDU)</option>
-                  <option value="Raya University (RU)">Raya University (RU)</option>
-                  <option value="Debark University (DKU)">Debark University (DKU)</option>
-                  <option value="Injibara University (IU)">Injibara University (IU)</option>
-                  <option value="Jinka University (JKU)">Jinka University (JKU)</option>
-                  <option value="Bonga University (BU)">Bonga University (BU)</option>
-                  <option value="Werabe University (WRU)">Werabe University (WRU)</option>
-                  <option value="Selale University (SLU)">Selale University (SLU)</option>
-                  <option value="Dembi Dolo University (DeDU)">Dembi Dolo University (DeDU)</option>
-                  <option value="Borana University (BU)">Borana University (BU)</option>
-                  <option value="Ethiopian Civil Service University (ECSU)">Ethiopian Civil Service University (ECSU)</option>
-                  <option value="FDRE Defense University">FDRE Defense University</option>
-                  <option value="Ethiopian Police University (EPU)">Ethiopian Police University (EPU)</option>
-                  <option value="Ethiopian Aviation University">Ethiopian Aviation University</option>
-                  <option value="Federal Technical & Vocational Training Institute (FTVETI)">Federal Technical & Vocational Training Institute (FTVETI)</option>
-                  <option value="Oromia State University (Batu)">Oromia State University (Batu)</option>
-                  <option value="St. Mary's University">St. Mary's University</option>
-                  <option value="Unity University">Unity University</option>
-                  <option value="Rift Valley University (RVU)">Rift Valley University (RVU)</option>
-                  <option value="Admas University">Admas University</option>
-                  <option value="HilCoE School of Computer Science & Technology">HilCoE School of Computer Science & Technology</option>
-                  <option value="Alpha University College">Alpha University College</option>
-                  <option value="CPU Business & Information Technology College">CPU Business & Information Technology College</option>
-                  <option value="Hope University College">Hope University College</option>
-                  <option value="Yardstick International College">Yardstick International College</option>
-                  <option value="MicroLink Information Technology College">MicroLink Information Technology College</option>
-                  <option value="Queen's College">Queen's College</option>
-                  <option value="Leadstar University College">Leadstar University College</option>
-                  <option value="Gage College">Gage College</option>
-                  <option value="Kiamed Health Sciences College">Kiamed Health Sciences College</option>
-                  <option value="New Generation University College">New Generation University College</option>
-                  <option value="Dynamic University College">Dynamic University College</option>
-                  <option value="Universal Medical College">Universal Medical College</option>
-                  <option value="Bethel Medical College">Bethel Medical College</option>
-                  <option value="Other Ethiopian University / College">Other Ethiopian University / College</option>
+                  <optgroup label="🚀 Phase 1 Active Hubs (ቀዳሚ 4 የትኩረት ማዕከላት)">
+                    <option value="Bahir Dar University (BDU)">⭐ Bahir Dar University (BDU)</option>
+                    <option value="Addis Ababa Science & Technology University (AASTU)">⭐ Addis Ababa Science & Technology University (AASTU)</option>
+                    <option value="Adama Science & Technology University (ASTU)">⭐ Adama Science & Technology University (ASTU)</option>
+                    <option value="Hawassa University (HU)">⭐ Hawassa University (HU)</option>
+                  </optgroup>
+                  <optgroup label="⏳ Coming Soon (Phase 2 Expansion - በቀጣይ ምዕራፍ)">
+                    <option value="Addis Ababa University (AAU)" disabled>⏳ Addis Ababa University (AAU) (Coming Soon)</option>
+                    <option value="Jimma University (JU)" disabled>⏳ Jimma University (JU) (Coming Soon)</option>
+                    <option value="University of Gondar (UoG)" disabled>⏳ University of Gondar (UoG) (Coming Soon)</option>
+                    <option value="Haramaya University (HU)" disabled>⏳ Haramaya University (HU) (Coming Soon)</option>
+                    <option value="Arba Minch University (AMU)" disabled>⏳ Arba Minch University (AMU) (Coming Soon)</option>
+                    <option value="Mekelle University (MU)" disabled>⏳ Mekelle University (MU) (Coming Soon)</option>
+                    <option value="Wollo University (WU)" disabled>⏳ Wollo University (WU) (Coming Soon)</option>
+                    <option value="Debre Birhan University (DBU)" disabled>⏳ Debre Birhan University (DBU) (Coming Soon)</option>
+                    <option value="Debre Markos University (DMU)" disabled>⏳ Debre Markos University (DMU) (Coming Soon)</option>
+                    <option value="Kotebe University of Education (KUE)" disabled>⏳ Kotebe University of Education (KUE) (Coming Soon)</option>
+                    <option value="St. Mary's University" disabled>⏳ St. Mary's University (Coming Soon)</option>
+                    <option value="Other Ethiopian University / College" disabled>⏳ Other Universities (Coming Soon)</option>
+                  </optgroup>
                 </select>
               </div>
 
@@ -2548,80 +2502,31 @@
                   <span style="display: flex; align-items: center; gap: 0.4rem;">
                     <span>🏛️</span> <span>ዩኒቨርሲቲ (University) *</span>
                   </span>
-                  <span style="font-size: 0.68rem; color: #94a3b8; font-weight: normal;">50+ Universities</span>
+                  <span style="font-size: 0.68rem; color: #38bdf8; font-weight: 750; background: rgba(56, 189, 248, 0.15); padding: 2px 8px; border-radius: 9999px; border: 1px solid rgba(56, 189, 248, 0.3);">🚀 Phase 1 Launch: 4 Active Hubs</span>
                 </label>
                 <div style="position: relative;">
                   <select id="t_uni_select" class="modern-academic-select" required onchange="handleUniversityChange()">
                     <option value="" disabled selected>-- ዩኒቨርሲቲ ይምረጡ (Select University) --</option>
-                    <option value="Addis Ababa University (AAU)">Addis Ababa University (AAU)</option>
-                    <option value="Addis Ababa Science & Technology University (AASTU)">Addis Ababa Science & Technology University (AASTU)</option>
-                    <option value="Adama Science & Technology University (ASTU)">Adama Science & Technology University (ASTU)</option>
-                    <option value="Jimma University (JU)">Jimma University (JU)</option>
-                    <option value="Hawassa University (HU)">Hawassa University (HU)</option>
-                    <option value="Bahir Dar University (BDU)">Bahir Dar University (BDU)</option>
-                    <option value="University of Gondar (UoG)">University of Gondar (UoG)</option>
-                    <option value="Haramaya University (HU)">Haramaya University (HU)</option>
-                    <option value="Arba Minch University (AMU)">Arba Minch University (AMU)</option>
-                    <option value="Mekelle University (MU)">Mekelle University (MU)</option>
-                    <option value="Wollo University (WU)">Wollo University (WU)</option>
-                    <option value="Debre Birhan University (DBU)">Debre Birhan University (DBU)</option>
-                    <option value="Debre Markos University (DMU)">Debre Markos University (DMU)</option>
-                    <option value="Debre Tabor University (DTU)">Debre Tabor University (DTU)</option>
-                    <option value="Dire Dawa University (DDU)">Dire Dawa University (DDU)</option>
-                    <option value="Wollega University (WLU)">Wollega University (WLU)</option>
-                    <option value="Ambo University (AU)">Ambo University (AU)</option>
-                    <option value="Dilla University (DU)">Dilla University (DU)</option>
-                    <option value="Arsi University (Asella)">Arsi University (Asella)</option>
-                    <option value="Madda Walabu University (MWU)">Madda Walabu University (MWU)</option>
-                    <option value="Mattu University (MeU)">Mattu University (MeU)</option>
-                    <option value="Woldia University (WDU)">Woldia University (WDU)</option>
-                    <option value="Axum University (Aksum University - AkU)">Axum University (Aksum University - AkU)</option>
-                    <option value="Adigrat University (AGU)">Adigrat University (AGU)</option>
-                    <option value="Kotebe University of Education (KUE)">Kotebe University of Education (KUE)</option>
-                    <option value="Jigjiga University (JJU)">Jigjiga University (JJU)</option>
-                    <option value="Semera University (SU)">Semera University (SU)</option>
-                    <option value="Assosa University (ASU)">Assosa University (ASU)</option>
-                    <option value="Gambella University (GMU)">Gambella University (GMU)</option>
-                    <option value="Mizan-Tepi University (MTU)">Mizan-Tepi University (MTU)</option>
-                    <option value="Wachemo University (WCU)">Wachemo University (WCU)</option>
-                    <option value="Wolkite University (WKU)">Wolkite University (WKU)</option>
-                    <option value="Bule Hora University (BHU)">Bule Hora University (BHU)</option>
-                    <option value="Oda Bultum University (OBU)">Oda Bultum University (OBU)</option>
-                    <option value="Kebri Dehar University (KDU)">Kebri Dehar University (KDU)</option>
-                    <option value="Raya University (RU)">Raya University (RU)</option>
-                    <option value="Debark University (DKU)">Debark University (DKU)</option>
-                    <option value="Injibara University (IU)">Injibara University (IU)</option>
-                    <option value="Jinka University (JKU)">Jinka University (JKU)</option>
-                    <option value="Bonga University (BU)">Bonga University (BU)</option>
-                    <option value="Werabe University (WRU)">Werabe University (WRU)</option>
-                    <option value="Selale University (SLU)">Selale University (SLU)</option>
-                    <option value="Dembi Dolo University (DeDU)">Dembi Dolo University (DeDU)</option>
-                    <option value="Borana University (BU)">Borana University (BU)</option>
-                    <option value="Ethiopian Civil Service University (ECSU)">Ethiopian Civil Service University (ECSU)</option>
-                    <option value="FDRE Defense University">FDRE Defense University</option>
-                    <option value="Ethiopian Police University (EPU)">Ethiopian Police University (EPU)</option>
-                    <option value="Ethiopian Aviation University">Ethiopian Aviation University</option>
-                    <option value="Federal Technical & Vocational Training Institute (FTVETI)">Federal Technical & Vocational Training Institute (FTVETI)</option>
-                    <option value="Oromia State University (Batu)">Oromia State University (Batu)</option>
-                    <option value="St. Mary's University">St. Mary's University</option>
-                    <option value="Unity University">Unity University</option>
-                    <option value="Rift Valley University (RVU)">Rift Valley University (RVU)</option>
-                    <option value="Admas University">Admas University</option>
-                    <option value="HilCoE School of Computer Science & Technology">HilCoE School of Computer Science & Technology</option>
-                    <option value="Alpha University College">Alpha University College</option>
-                    <option value="CPU Business & Information Technology College">CPU Business & Information Technology College</option>
-                    <option value="Hope University College">Hope University College</option>
-                    <option value="Yardstick International College">Yardstick International College</option>
-                    <option value="MicroLink Information Technology College">MicroLink Information Technology College</option>
-                    <option value="Queen's College">Queen's College</option>
-                    <option value="Leadstar University College">Leadstar University College</option>
-                    <option value="Gage College">Gage College</option>
-                    <option value="Kiamed Health Sciences College">Kiamed Health Sciences College</option>
-                    <option value="New Generation University College">New Generation University College</option>
-                    <option value="Dynamic University College">Dynamic University College</option>
-                    <option value="Universal Medical College">Universal Medical College</option>
-                    <option value="Bethel Medical College">Bethel Medical College</option>
-                    <option value="Other Ethiopian University / College">Other Ethiopian University / College</option>
+                    <optgroup label="🚀 Phase 1 Active Hubs (ቀዳሚ 4 የትኩረት ማዕከላት)">
+                      <option value="Bahir Dar University (BDU)">⭐ Bahir Dar University (BDU)</option>
+                      <option value="Addis Ababa Science & Technology University (AASTU)">⭐ Addis Ababa Science & Technology University (AASTU)</option>
+                      <option value="Adama Science & Technology University (ASTU)">⭐ Adama Science & Technology University (ASTU)</option>
+                      <option value="Hawassa University (HU)">⭐ Hawassa University (HU)</option>
+                    </optgroup>
+                    <optgroup label="⏳ Coming Soon (Phase 2 Expansion - በቀጣይ ምዕራፍ)">
+                      <option value="Addis Ababa University (AAU)" disabled>⏳ Addis Ababa University (AAU) (Coming Soon)</option>
+                      <option value="Jimma University (JU)" disabled>⏳ Jimma University (JU) (Coming Soon)</option>
+                      <option value="University of Gondar (UoG)" disabled>⏳ University of Gondar (UoG) (Coming Soon)</option>
+                      <option value="Haramaya University (HU)" disabled>⏳ Haramaya University (HU) (Coming Soon)</option>
+                      <option value="Arba Minch University (AMU)" disabled>⏳ Arba Minch University (AMU) (Coming Soon)</option>
+                      <option value="Mekelle University (MU)" disabled>⏳ Mekelle University (MU) (Coming Soon)</option>
+                      <option value="Wollo University (WU)" disabled>⏳ Wollo University (WU) (Coming Soon)</option>
+                      <option value="Debre Birhan University (DBU)" disabled>⏳ Debre Birhan University (DBU) (Coming Soon)</option>
+                      <option value="Debre Markos University (DMU)" disabled>⏳ Debre Markos University (DMU) (Coming Soon)</option>
+                      <option value="Kotebe University of Education (KUE)" disabled>⏳ Kotebe University of Education (KUE) (Coming Soon)</option>
+                      <option value="St. Mary's University" disabled>⏳ St. Mary's University (Coming Soon)</option>
+                      <option value="Other Ethiopian University / College" disabled>⏳ Other Universities (Coming Soon)</option>
+                    </optgroup>
                   </select>
                   <div style="position: absolute; right: 1.1rem; top: 50%; transform: translateY(-50%); pointer-events: none; color: #38bdf8; font-size: 0.8rem; display: flex; align-items: center;">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -5913,21 +5818,24 @@
     // ==========================================
     // ETHIOPIAN UNIVERSITIES & CAMPUSES DIRECTORY
     // ==========================================
+    const PHASE1_ACTIVE_UNIVERSITIES = [
+      "Bahir Dar University (BDU)",
+      "Addis Ababa Science & Technology University (AASTU)",
+      "Adama Science & Technology University (ASTU)",
+      "Hawassa University (HU)"
+    ];
+
     const ETHIOPIAN_UNIVERSITIES = [
       {
-        name: "Addis Ababa University (AAU)",
+        name: "Bahir Dar University (BDU)",
         campuses: [
-          "4 Kilo Campus (Natural & Computational Sciences)",
-          "5 Kilo Campus (AAiT - Institute of Technology)",
-          "6 Kilo Campus (Main Campus / Social Sciences & Law)",
-          "Tikur Anbessa Campus (Health Sciences / Medicine)",
-          "FBE Campus (College of Business & Economics)",
-          "Commerce Campus (School of Commerce - Mexico)",
-          "EiABC Campus (Architecture & Urban Planning - Lideta)",
-          "Yared School of Music Campus",
-          "Alle School of Fine Arts and Design",
-          "Sefere Selam Campus",
-          "Main Campus",
+          "Poly Campus (BiT - Institute of Technology)",
+          "Peda Campus (Education & Social Sciences)",
+          "Yekatit 12 Campus",
+          "Selam Campus",
+          "Zenzelma Campus (Agriculture)",
+          "Tibebe Ghion Campus (Medicine & Health Sciences)",
+          "Maritime Academy Campus",
           "Other Campus / Specify"
         ]
       },
@@ -5946,17 +5854,6 @@
         ]
       },
       {
-        name: "Jimma University (JU)",
-        campuses: [
-          "Main Campus",
-          "JiT Campus (Jimma Institute of Technology)",
-          "College of Agriculture & Veterinary Medicine (Kito Furdisa)",
-          "Health Sciences / Referral Hospital Campus",
-          "Business & Economics Campus",
-          "Other Campus / Specify"
-        ]
-      },
-      {
         name: "Hawassa University (HU)",
         campuses: [
           "Main Campus",
@@ -5968,15 +5865,30 @@
         ]
       },
       {
-        name: "Bahir Dar University (BDU)",
+        name: "Addis Ababa University (AAU)",
         campuses: [
-          "Poly Campus (BiT - Institute of Technology)",
-          "Peda Campus (Education & Social Sciences)",
-          "Yekatit 12 Campus",
-          "Selam Campus",
-          "Zenzelma Campus (Agriculture)",
-          "Tibebe Ghion Campus (Medicine & Health Sciences)",
-          "Maritime Academy Campus",
+          "4 Kilo Campus (Natural & Computational Sciences)",
+          "5 Kilo Campus (AAiT - Institute of Technology)",
+          "6 Kilo Campus (Main Campus / Social Sciences & Law)",
+          "Tikur Anbessa Campus (Health Sciences / Medicine)",
+          "FBE Campus (College of Business & Economics)",
+          "Commerce Campus (School of Commerce - Mexico)",
+          "EiABC Campus (Architecture & Urban Planning - Lideta)",
+          "Yared School of Music Campus",
+          "Alle School of Fine Arts and Design",
+          "Sefere Selam Campus",
+          "Main Campus",
+          "Other Campus / Specify"
+        ]
+      },
+      {
+        name: "Jimma University (JU)",
+        campuses: [
+          "Main Campus",
+          "JiT Campus (Jimma Institute of Technology)",
+          "College of Agriculture & Veterinary Medicine (Kito Furdisa)",
+          "Health Sciences / Referral Hospital Campus",
+          "Business & Economics Campus",
           "Other Campus / Specify"
         ]
       },
@@ -6550,24 +6462,22 @@
         }
       }
 
-      // 2. Default state or "Show All Campuses" - Show top Addis Ababa campuses first, then all universities
-      const addisGroup = document.createElement('optgroup');
-      addisGroup.label = (currentLang === 'en')
-        ? '🌟 Top Addis Ababa Campuses'
-        : '🌟 አዲስ አበባ ዋና ዋና ካምፓሶች (Addis Ababa)';
+      // 2. Default state or "Show All Campuses" - Show Phase 1 campuses first
+      const featuredGroup = document.createElement('optgroup');
+      featuredGroup.label = (currentLang === 'en')
+        ? '🚀 Phase 1 Featured Campuses'
+        : '🚀 ቀዳሚ የትኩረት ማዕከላት ካምፓሶች (Phase 1)';
 
       const popularCampuses = [
-        { name: "4 Kilo Campus (Natural & Computational Sciences)", uni: "Addis Ababa University (AAU)" },
-        { name: "5 Kilo Campus (AAiT - Institute of Technology)", uni: "Addis Ababa University (AAU)" },
-        { name: "6 Kilo Campus (Main Campus / Social Sciences & Law)", uni: "Addis Ababa University (AAU)" },
-        { name: "Tikur Anbessa Campus (Health Sciences / Medicine)", uni: "Addis Ababa University (AAU)" },
-        { name: "FBE Campus (College of Business & Economics)", uni: "Addis Ababa University (AAU)" },
-        { name: "Commerce Campus (School of Commerce - Mexico)", uni: "Addis Ababa University (AAU)" },
-        { name: "EiABC Campus (Architecture & Urban Planning - Lideta)", uni: "Addis Ababa University (AAU)" },
+        { name: "Poly Campus (BiT - Institute of Technology)", uni: "Bahir Dar University (BDU)" },
+        { name: "Peda Campus (Education & Social Sciences)", uni: "Bahir Dar University (BDU)" },
+        { name: "Selam Campus", uni: "Bahir Dar University (BDU)" },
+        { name: "Yekatit 12 Campus", uni: "Bahir Dar University (BDU)" },
         { name: "Main Campus (Kilinto / Akaki Kality)", uni: "Addis Ababa Science & Technology University (AASTU)" },
-        { name: "Main Campus (Kotebe, Addis Ababa)", uni: "Kotebe University of Education (KUE)" },
-        { name: "Main Campus (Mexico)", uni: "St. Mary's University" },
-        { name: "Gerji Main Campus (Addis Ababa)", uni: "Unity University" }
+        { name: "Main Campus (Adama)", uni: "Adama Science & Technology University (ASTU)" },
+        { name: "IoT Campus (Institute of Technology)", uni: "Hawassa University (HU)" },
+        { name: "College of Medicine & Health Sciences (Referral Campus)", uni: "Hawassa University (HU)" },
+        { name: "Main Campus", uni: "Hawassa University (HU)" }
       ];
 
       popularCampuses.forEach(pc => {
@@ -6575,9 +6485,9 @@
         opt.value = pc.name;
         opt.textContent = `${pc.uni.split('(')[0].trim()} - ${pc.name}`;
         opt.dataset.uni = pc.uni;
-        addisGroup.appendChild(opt);
+        featuredGroup.appendChild(opt);
       });
-      selectEl.appendChild(addisGroup);
+      selectEl.appendChild(featuredGroup);
 
       // All Universities and Campuses grouped
       ETHIOPIAN_UNIVERSITIES.forEach(u => {
@@ -6614,17 +6524,46 @@
 
       const promptUni = (currentLang === 'en') ? '-- Select University --' : (currentLang === 'or' ? '-- Yuunivarsitii Filadhaa --' : '-- ዩኒቨርሲቲ ይምረጡ (Select University) --');
 
+      function setupSelectGroups(selEl) {
+        if (!selEl) return;
+        const prevVal = selEl.value;
+        selEl.innerHTML = `<option value="" disabled selected>${promptUni}</option>`;
+
+        const grpActive = document.createElement('optgroup');
+        grpActive.label = (currentLang === 'en')
+          ? "🚀 Phase 1 Active Hubs (Live Now)"
+          : (currentLang === 'or' ? "🚀 Sadarkaa 1ffaa (Amma Hojii Irra)" : "🚀 ቀዳሚ 4 የትኩረት ማዕከላት (አሁን ክፍት የሆኑ)");
+
+        const grpComingSoon = document.createElement('optgroup');
+        grpComingSoon.label = (currentLang === 'en')
+          ? "⏳ Coming Soon (Phase 2 Expansion)"
+          : (currentLang === 'or' ? "⏳ Sadarkaa 2ffaa (Dhiyootti)" : "⏳ በቀጣይ ምዕራፍ የሚከፈቱ (Coming Soon)");
+
+        ETHIOPIAN_UNIVERSITIES.forEach(u => {
+          const opt = document.createElement('option');
+          opt.value = u.name;
+          const isPhase1 = PHASE1_ACTIVE_UNIVERSITIES.some(p1 => u.name.toLowerCase().includes(p1.toLowerCase()) || p1.toLowerCase().includes(u.name.toLowerCase()));
+          
+          if (isPhase1) {
+            opt.textContent = `⭐ ${u.name}`;
+            grpActive.appendChild(opt);
+          } else {
+            opt.textContent = `⏳ ${u.name} (Coming Soon)`;
+            opt.disabled = true;
+            grpComingSoon.appendChild(opt);
+          }
+        });
+
+        selEl.appendChild(grpActive);
+        selEl.appendChild(grpComingSoon);
+        if (prevVal && Array.from(selEl.options).some(o => o.value === prevVal && !o.disabled)) {
+          selEl.value = prevVal;
+        }
+      }
+
       // 1. Setup Tutor Select
       if (tUniSelect) {
-        if (tUniSelect.options.length <= 1) {
-          tUniSelect.innerHTML = `<option value="" disabled selected>${promptUni}</option>`;
-          ETHIOPIAN_UNIVERSITIES.forEach(u => {
-            const opt = document.createElement('option');
-            opt.value = u.name;
-            opt.textContent = u.name;
-            tUniSelect.appendChild(opt);
-          });
-        }
+        setupSelectGroups(tUniSelect);
         if (tCampusSelect) {
           populateCampusesDropdown(tCampusSelect, tUniSelect.value);
         }
@@ -6632,15 +6571,7 @@
 
       // 2. Setup Parent Select
       if (pUniSelect) {
-        if (pUniSelect.options.length <= 1) {
-          pUniSelect.innerHTML = `<option value="" disabled selected>${promptUni}</option>`;
-          ETHIOPIAN_UNIVERSITIES.forEach(u => {
-            const opt = document.createElement('option');
-            opt.value = u.name;
-            opt.textContent = u.name;
-            pUniSelect.appendChild(opt);
-          });
-        }
+        setupSelectGroups(pUniSelect);
         if (pCampusSelect) {
           populateCampusesDropdown(pCampusSelect, pUniSelect.value);
         }

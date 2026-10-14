@@ -1980,30 +1980,31 @@
         <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; width: 100%; margin-bottom: 0.85rem; align-items: center;">
           <input type="text" id="tutor-search" class="search-input" style="flex: 1; min-width: 220px;" placeholder="🔍 Search tutor name, campus, CGPA, subjects, #AST_T..." oninput="renderTutors()">
           <select id="tutor-filter-uni" class="form-ctrl" style="max-width: 260px; padding: 0.55rem 0.85rem; font-size: 0.8rem; background: rgba(15, 23, 42, 0.9); border: 1.5px solid rgba(56, 189, 248, 0.35); border-radius: 12px; color: #fff;" onchange="renderTutors()">
-            <option value="">🏛️ All Universities &amp; Campuses</option>
-            <option value="Addis Ababa University">Addis Ababa University (AAU)</option>
-            <option value="4 Kilo">AAU 4 Kilo (Natural Sciences)</option>
-            <option value="5 Kilo">AAU 5 Kilo (AAiT Technology)</option>
-            <option value="6 Kilo">AAU 6 Kilo (Main Campus)</option>
-            <option value="Tikur Anbessa">AAU Tikur Anbessa (Medicine)</option>
-            <option value="FBE">AAU FBE (Economics)</option>
-            <option value="Commerce">AAU Commerce Campus</option>
-            <option value="EiABC">AAU EiABC (Architecture)</option>
-            <option value="AASTU">AASTU (Kilinto)</option>
-            <option value="ASTU">ASTU (Adama)</option>
-            <option value="Jimma">Jimma University (JU)</option>
-            <option value="Hawassa">Hawassa University (HU)</option>
-            <option value="Bahir Dar">Bahir Dar University (BDU)</option>
-            <option value="Gondar">University of Gondar (UoG)</option>
-            <option value="Haramaya">Haramaya University (HU)</option>
-            <option value="Arba Minch">Arba Minch University (AMU)</option>
-            <option value="Wollo">Wollo University / KIOT</option>
-            <option value="Debre Birhan">Debre Birhan University (DBU)</option>
-            <option value="Debre Markos">Debre Markos University (DMU)</option>
-            <option value="Mekelle">Mekelle University (MU)</option>
-            <option value="Ambo">Ambo University (AU)</option>
-            <option value="Wolkite">Wolkite University (WKU)</option>
-            <option value="St. Mary">St. Mary's University</option>
+            <option value="">🏛️ All Active Hubs &amp; Campuses</option>
+            <optgroup label="🚀 Phase 1 Active Hubs (ቀዳሚ 4 የትኩረት ማዕከላት)">
+              <option value="Bahir Dar">⭐ Bahir Dar University (BDU)</option>
+              <option value="Poly">BDU Poly (BiT Technology)</option>
+              <option value="Peda">BDU Peda (Education/Social)</option>
+              <option value="Selam">BDU Selam Campus</option>
+              <option value="AASTU">⭐ AASTU (Kilinto, Addis Ababa)</option>
+              <option value="ASTU">⭐ ASTU (Adama Main Campus)</option>
+              <option value="Hawassa">⭐ Hawassa University (HU)</option>
+              <option value="IoT">Hawassa IoT (Technology)</option>
+            </optgroup>
+            <optgroup label="⏳ Phase 2 Expansion (ቀጣይ ምዕራፍ)">
+              <option value="Addis Ababa University">Addis Ababa University (AAU)</option>
+              <option value="Jimma">Jimma University (JU)</option>
+              <option value="Gondar">University of Gondar (UoG)</option>
+              <option value="Haramaya">Haramaya University (HU)</option>
+              <option value="Arba Minch">Arba Minch University (AMU)</option>
+              <option value="Wollo">Wollo University / KIOT</option>
+              <option value="Debre Birhan">Debre Birhan University (DBU)</option>
+              <option value="Debre Markos">Debre Markos University (DMU)</option>
+              <option value="Mekelle">Mekelle University (MU)</option>
+              <option value="Ambo">Ambo University (AU)</option>
+              <option value="Wolkite">Wolkite University (WKU)</option>
+              <option value="St. Mary">St. Mary's University</option>
+            </optgroup>
           </select>
           <select id="tutor-filter-entrance" class="form-ctrl" style="max-width: 210px; padding: 0.55rem 0.85rem; font-size: 0.8rem; background: rgba(15, 23, 42, 0.9); border: 1.5px solid rgba(245, 158, 11, 0.45); border-radius: 12px; color: #fbbf24; font-weight: 750;" onchange="renderTutors()">
             <option value="">🎯 All Entrance Scores</option>
@@ -2410,23 +2411,27 @@
           <div>
             <label style="font-size: 0.68rem; font-weight: 750; color: #94a3b8; display: block; margin-bottom: 0.25rem;">🏛️ University (ዩኒቨርሲቲ)</label>
             <select id="match-filter-uni" class="form-ctrl" style="font-size: 0.8rem; padding: 0.45rem 0.65rem; background: rgba(30, 41, 59, 0.9); border-color: rgba(56, 189, 248, 0.35);" onchange="onMatchUniversityFilterChange()">
-              <option value="">🏛️ All Universities &amp; Regions</option>
-              <option value="Addis Ababa University">Addis Ababa University (AAU)</option>
-              <option value="Bahir Dar">Bahir Dar University (BDU)</option>
-              <option value="AASTU">AASTU (Kilinto)</option>
-              <option value="ASTU">ASTU (Adama)</option>
-              <option value="Hawassa">Hawassa University (HU)</option>
-              <option value="Jimma">Jimma University (JU)</option>
-              <option value="Gondar">University of Gondar (UoG)</option>
-              <option value="Haramaya">Haramaya University (HU)</option>
-              <option value="Arba Minch">Arba Minch University (AMU)</option>
-              <option value="Wollo">Wollo University / KIOT</option>
-              <option value="Debre Birhan">Debre Birhan University (DBU)</option>
-              <option value="Debre Markos">Debre Markos University (DMU)</option>
-              <option value="Mekelle">Mekelle University (MU)</option>
-              <option value="Ambo">Ambo University (AU)</option>
-              <option value="Wolkite">Wolkite University (WKU)</option>
-              <option value="St. Mary">St. Mary's University</option>
+              <option value="">🏛️ All Active Hubs (Phase 1)</option>
+              <optgroup label="🚀 Phase 1 Active Hubs (ቀዳሚ 4 የትኩረት ማዕከላት)">
+                <option value="Bahir Dar">⭐ Bahir Dar University (BDU)</option>
+                <option value="AASTU">⭐ AASTU (Kilinto, Addis Ababa)</option>
+                <option value="ASTU">⭐ ASTU (Adama Main Campus)</option>
+                <option value="Hawassa">⭐ Hawassa University (HU)</option>
+              </optgroup>
+              <optgroup label="⏳ Phase 2 Expansion (ቀጣይ ምዕራፍ)">
+                <option value="Addis Ababa University">Addis Ababa University (AAU)</option>
+                <option value="Jimma">Jimma University (JU)</option>
+                <option value="Gondar">University of Gondar (UoG)</option>
+                <option value="Haramaya">Haramaya University (HU)</option>
+                <option value="Arba Minch">Arba Minch University (AMU)</option>
+                <option value="Wollo">Wollo University / KIOT</option>
+                <option value="Debre Birhan">Debre Birhan University (DBU)</option>
+                <option value="Debre Markos">Debre Markos University (DMU)</option>
+                <option value="Mekelle">Mekelle University (MU)</option>
+                <option value="Ambo">Ambo University (AU)</option>
+                <option value="Wolkite">Wolkite University (WKU)</option>
+                <option value="St. Mary">St. Mary's University</option>
+              </optgroup>
             </select>
           </div>
           <div>
@@ -6850,23 +6855,14 @@ function rowsToJson(sheet) {
     // ==========================================
     // ETHIOPIAN UNIVERSITIES & CAMPUSES DIRECTORY
     // ==========================================
+    const PHASE1_ACTIVE_UNIVERSITIES = [
+      "Bahir Dar University (BDU)",
+      "Addis Ababa Science & Technology University (AASTU)",
+      "Adama Science & Technology University (ASTU)",
+      "Hawassa University (HU)"
+    ];
+
     const ETHIOPIAN_UNIVERSITIES = [
-      {
-        name: "Addis Ababa University (AAU)",
-        campuses: [
-          "4 Kilo Campus (Natural & Computational Sciences)",
-          "5 Kilo Campus (AAiT - Institute of Technology)",
-          "6 Kilo Campus (Main Campus / Social Sciences & Law)",
-          "Tikur Anbessa Campus (Health Sciences / Medicine)",
-          "FBE Campus (College of Business & Economics)",
-          "Commerce Campus (School of Commerce - Mexico)",
-          "EiABC Campus (Architecture & Urban Planning - Lideta)",
-          "Yared School of Music Campus",
-          "Alle School of Fine Arts and Design",
-          "Sefere Selam Campus",
-          "Main Campus"
-        ]
-      },
       {
         name: "Bahir Dar University (BDU)",
         campuses: [
@@ -6899,6 +6895,22 @@ function rowsToJson(sheet) {
           "College of Medicine & Health Sciences (Referral Campus)",
           "Agriculture Campus (Awada / Wondo Genet)",
           "Daye Campus"
+        ]
+      },
+      {
+        name: "Addis Ababa University (AAU)",
+        campuses: [
+          "4 Kilo Campus (Natural & Computational Sciences)",
+          "5 Kilo Campus (AAiT - Institute of Technology)",
+          "6 Kilo Campus (Main Campus / Social Sciences & Law)",
+          "Tikur Anbessa Campus (Health Sciences / Medicine)",
+          "FBE Campus (College of Business & Economics)",
+          "Commerce Campus (School of Commerce - Mexico)",
+          "EiABC Campus (Architecture & Urban Planning - Lideta)",
+          "Yared School of Music Campus",
+          "Alle School of Fine Arts and Design",
+          "Sefere Selam Campus",
+          "Main Campus"
         ]
       },
       {
@@ -7046,16 +7058,15 @@ function rowsToJson(sheet) {
       cEl.innerHTML = '<option value="">📍 All Campuses</option>';
 
       if (!selectedUni) {
-        // Show default popular Addis Ababa campuses
+        // Show default Phase 1 active campuses
         const defaultCampuses = [
-          { val: "4 Kilo", text: "4 Kilo (Natural Sciences)" },
-          { val: "5 Kilo", text: "5 Kilo (AAiT Technology)" },
-          { val: "6 Kilo", text: "6 Kilo (Main Campus / Social Sciences)" },
-          { val: "Tikur Anbessa", text: "Tikur Anbessa (Medicine / Health)" },
-          { val: "FBE", text: "FBE (Economics)" },
-          { val: "Commerce", text: "Commerce Campus" },
-          { val: "EiABC", text: "EiABC (Architecture)" },
-          { val: "Selam", text: "Selam Campus" },
+          { val: "Selam", text: "BDU Selam Campus" },
+          { val: "Poly", text: "BDU Poly (BiT Technology)" },
+          { val: "Peda", text: "BDU Peda (Education/Social)" },
+          { val: "Yekatit 12", text: "BDU Yekatit 12 Campus" },
+          { val: "Kilinto", text: "AASTU Kilinto Campus (Addis Ababa)" },
+          { val: "Adama", text: "ASTU Adama Main Campus" },
+          { val: "IoT", text: "Hawassa IoT Campus (Technology)" },
           { val: "Main", text: "Main / Any Campus" }
         ];
         defaultCampuses.forEach(c => {
