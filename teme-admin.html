@@ -5880,7 +5880,11 @@ function rowsToJson(sheet) {
           `👮 <b>Logged By:</b> ${escapeHtml(adminName)}\n` +
           `⏰ <b>Timestamp:</b> ${new Date().toLocaleString('en-US', { timeZone: 'Africa/Addis_Ababa' })}`;
 
-        if (typeof sendTelegramNotification === 'function') sendTelegramNotification(msg);
+        // Route to dedicated Parents Payments Group
+        const rawPay = localStorage.getItem('teme_astegni_tg_payments_chat_id') || '-1004427351129';
+        const paymentsChatTarget = (rawPay.includes('1nwxhaCqN9M4Y2E0') || rawPay === '+1nwxhaCqN9M4Y2E0' || rawPay.startsWith('http') || rawPay.includes('/+') || !rawPay) ? '-1004427351129' : rawPay;
+
+        if (typeof sendTelegramNotification === 'function') sendTelegramNotification(msg, paymentsChatTarget);
         alert(`🎉 Trial marked Successful!\n\nPlease invoice Parent "${m.parentName}" for ${fee.toLocaleString()} ETB. Once transferred, click "Confirm Parent Paid Month 1".`);
         renderAll();
       } else if (outcome === 'FAILED') {
@@ -5912,7 +5916,7 @@ function rowsToJson(sheet) {
       m.status = curCycle === 1 ? 'Month 1 Active (Escrow Secured)' : `Month ${curCycle} Active (Tuition Secured)`;
       saveMatches(matches);
 
-      // Dispatch to Telegram Ops
+      // Dispatch to Telegram Parents Payments Group
       const user = getSessionUser();
       const adminName = user ? (user.name || user.role) : 'System Admin';
       const msg = 
@@ -5925,8 +5929,11 @@ function rowsToJson(sheet) {
         `👮 <b>Verified By Admin:</b> ${escapeHtml(adminName)}\n` +
         `⏰ <b>Timestamp:</b> ${new Date().toLocaleString('en-US', { timeZone: 'Africa/Addis_Ababa' })}`;
 
+      const rawPay = localStorage.getItem('teme_astegni_tg_payments_chat_id') || '-1004427351129';
+      const paymentsChatTarget = (rawPay.includes('1nwxhaCqN9M4Y2E0') || rawPay === '+1nwxhaCqN9M4Y2E0' || rawPay.startsWith('http') || rawPay.includes('/+') || !rawPay) ? '-1004427351129' : rawPay;
+
       if (typeof sendTelegramNotification === 'function') {
-        sendTelegramNotification(msg);
+        sendTelegramNotification(msg, paymentsChatTarget);
       }
 
       // Also forward match update to Google Sheet if webhook configured
@@ -6010,8 +6017,11 @@ function rowsToJson(sheet) {
         `👮 <b>Authorized By:</b> ${escapeHtml(adminName)}\n` +
         `⏰ <b>Timestamp:</b> ${new Date().toLocaleString('en-US', { timeZone: 'Africa/Addis_Ababa' })}`;
 
+      const rawPay = localStorage.getItem('teme_astegni_tg_payments_chat_id') || '-1004427351129';
+      const paymentsChatTarget = (rawPay.includes('1nwxhaCqN9M4Y2E0') || rawPay === '+1nwxhaCqN9M4Y2E0' || rawPay.startsWith('http') || rawPay.includes('/+') || !rawPay) ? '-1004427351129' : rawPay;
+
       if (typeof sendTelegramNotification === 'function') {
-        sendTelegramNotification(msg);
+        sendTelegramNotification(msg, paymentsChatTarget);
       }
 
       // Also forward match update to Google Sheet if webhook configured
@@ -8139,6 +8149,13 @@ function rowsToJson(sheet) {
       const parentsChat = localStorage.getItem('teme_astegni_tg_parents_chat_id') || 
                           (document.getElementById('tg-parents-chat-input') ? document.getElementById('tg-parents-chat-input').value.trim() : '') ||
                           '-1003632707084';
+      const rawPayChat = localStorage.getItem('teme_astegni_tg_payments_chat_id') || 
+                         (document.getElementById('tg-payments-chat-input') ? document.getElementById('tg-payments-chat-input').value.trim() : '') || 
+                         '-1004427351129';
+      const paymentsChat = (rawPayChat.includes('1nwxhaCqN9M4Y2E0') || rawPayChat === '+1nwxhaCqN9M4Y2E0' || rawPayChat.startsWith('http') || rawPayChat.includes('/+') || !rawPayChat) 
+        ? '-1004427351129' 
+        : rawPayChat;
+
       const webhookUrl = localStorage.getItem('teme_astegni_db_webhook') || 
                          (document.getElementById('webhook-url-input') ? document.getElementById('webhook-url-input').value.trim() : '');
 
@@ -8146,13 +8163,42 @@ function rowsToJson(sheet) {
       if (targetChat && (targetChat.includes('u0IdrknHN5A4ZGI0') || targetChat.startsWith('http') || targetChat.includes('/+') || targetChat === '-5225265679')) {
         targetChat = matchesChat;
       }
+      if (targetChat && (targetChat.includes('1nwxhaCqN9M4Y2E0') || targetChat === '+1nwxhaCqN9M4Y2E0' || targetChat.startsWith('http') || targetChat.includes('/+'))) {
+        targetChat = paymentsChat;
+      }
 
       // If no custom target chat was specified, intelligently route by event type
       if (!targetChat) {
-        if (htmlMessage && (htmlMessage.includes('NEW TUTOR-PARENT MATCH') || htmlMessage.includes('Toutor Matches') || htmlMessage.includes('Tutor Matches') || htmlMessage.includes('MATCH') || htmlMessage.includes('ጥንድ'))) {
+        if (htmlMessage && (
+          htmlMessage.includes('PARENT TUITION PAYMENT RECEIVED') ||
+          htmlMessage.includes('1-DAY TRIAL COMPLETED') ||
+          htmlMessage.includes('TUTOR MONTHLY PAYOUT') ||
+          htmlMessage.includes('Payment Proof') ||
+          htmlMessage.includes('PAYMENT') ||
+          htmlMessage.includes('Tuition') ||
+          htmlMessage.includes('Escrow') ||
+          htmlMessage.includes('Tuition Deposit') ||
+          htmlMessage.includes('Payout') ||
+          htmlMessage.includes('ክፍያ')
+        )) {
+          targetChat = paymentsChat;
+        } else if (htmlMessage && (
+          htmlMessage.includes('NEW TUTOR-PARENT MATCH') || 
+          htmlMessage.includes('Toutor Matches') || 
+          htmlMessage.includes('Tutor Matches') || 
+          htmlMessage.includes('MATCH') || 
+          htmlMessage.includes('ጥንድ') ||
+          htmlMessage.includes('PAIRING')
+        )) {
           targetChat = matchesChat;
+        } else if (htmlMessage && (
+          htmlMessage.includes('NEW PARENT REGISTERED') ||
+          htmlMessage.includes('Parent Lead') ||
+          htmlMessage.includes('Household ID')
+        )) {
+          targetChat = parentsChat;
         } else {
-          targetChat = tutorsChat || parentsChat || matchesChat;
+          targetChat = tutorsChat;
         }
       }
       if (!targetChat) return false;
