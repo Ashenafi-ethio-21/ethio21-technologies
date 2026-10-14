@@ -2409,7 +2409,7 @@
         <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 0.55rem; margin-bottom: 0.55rem;">
           <div>
             <label style="font-size: 0.68rem; font-weight: 750; color: #94a3b8; display: block; margin-bottom: 0.25rem;">🏛️ University (ዩኒቨርሲቲ)</label>
-            <select id="match-filter-uni" class="form-ctrl" style="font-size: 0.8rem; padding: 0.45rem 0.65rem; background: rgba(30, 41, 59, 0.9); border-color: rgba(56, 189, 248, 0.35);" onchange="applyMatchModalFilters()">
+            <select id="match-filter-uni" class="form-ctrl" style="font-size: 0.8rem; padding: 0.45rem 0.65rem; background: rgba(30, 41, 59, 0.9); border-color: rgba(56, 189, 248, 0.35);" onchange="onMatchUniversityFilterChange()">
               <option value="">🏛️ All Universities &amp; Regions</option>
               <option value="Addis Ababa University">Addis Ababa University (AAU)</option>
               <option value="Bahir Dar">Bahir Dar University (BDU)</option>
@@ -4908,7 +4908,9 @@ function rowsToJson(sheet) {
     let currentParentFilter = 'ALL';
 
     let tutorFilters = {
-      tier: 'ALL',        // 'ALL', 'ASSIGNED', 'AVAILABLE', 'GOLDEN', 'SILVER', 'BRONZE', 'EXAM_PASSED'
+      assignment: 'ALL',  // 'ALL', 'ASSIGNED', 'AVAILABLE'
+      tier: 'ALL',        // 'ALL', 'GOLDEN', 'SILVER', 'BRONZE'
+      exam: 'ALL',        // 'ALL', 'EXAM_PASSED'
       rank: 'ALL',        // 'ALL', 'L5', 'L4', 'L3', 'L2', 'L1', 'BASIC'
       gender: 'ALL',      // 'ALL', 'Female', 'Male'
       religion: 'ALL',    // 'ALL', 'Orthodox', 'Muslim', 'Protestant', 'Catholic'
@@ -5360,13 +5362,17 @@ function rowsToJson(sheet) {
         const tGender = (t.gender || '').toLowerCase();
         const tRel = (t.religion || '').toLowerCase();
 
-        // 1. Assignment & Academic Tier Filter
-        if (tutorFilters.tier === 'ASSIGNED' && !isAssigned) return false;
-        if (tutorFilters.tier === 'AVAILABLE' && isAssigned) return false;
+        // 1. Assignment Filter (Assigned vs Available)
+        if (tutorFilters.assignment === 'ASSIGNED' && !isAssigned) return false;
+        if (tutorFilters.assignment === 'AVAILABLE' && isAssigned) return false;
+
+        // 2. Academic Metal Tier Filter (Golden, Silver, Bronze)
         if (tutorFilters.tier === 'GOLDEN' && tier.code !== 'GOLDEN') return false;
         if (tutorFilters.tier === 'SILVER' && tier.code !== 'SILVER') return false;
         if (tutorFilters.tier === 'BRONZE' && tier.code !== 'BRONZE') return false;
-        if (tutorFilters.tier === 'EXAM_PASSED' && !examPassed) return false;
+
+        // 3. Exam Status Filter
+        if (tutorFilters.exam === 'EXAM_PASSED' && !examPassed) return false;
 
         // 2. Progression Level Filter
         if (tutorFilters.rank === 'L5' && lvl !== 5) return false;
@@ -6842,6 +6848,262 @@ function rowsToJson(sheet) {
     }
 
     // ==========================================
+    // ETHIOPIAN UNIVERSITIES & CAMPUSES DIRECTORY
+    // ==========================================
+    const ETHIOPIAN_UNIVERSITIES = [
+      {
+        name: "Addis Ababa University (AAU)",
+        campuses: [
+          "4 Kilo Campus (Natural & Computational Sciences)",
+          "5 Kilo Campus (AAiT - Institute of Technology)",
+          "6 Kilo Campus (Main Campus / Social Sciences & Law)",
+          "Tikur Anbessa Campus (Health Sciences / Medicine)",
+          "FBE Campus (College of Business & Economics)",
+          "Commerce Campus (School of Commerce - Mexico)",
+          "EiABC Campus (Architecture & Urban Planning - Lideta)",
+          "Yared School of Music Campus",
+          "Alle School of Fine Arts and Design",
+          "Sefere Selam Campus",
+          "Main Campus"
+        ]
+      },
+      {
+        name: "Bahir Dar University (BDU)",
+        campuses: [
+          "Poly Campus (BiT - Institute of Technology)",
+          "Peda Campus (Education & Social Sciences)",
+          "Yekatit 12 Campus",
+          "Selam Campus",
+          "Zenzelma Campus (Agriculture)",
+          "Tibebe Ghion Campus (Medicine & Health Sciences)",
+          "Maritime Academy Campus"
+        ]
+      },
+      {
+        name: "Addis Ababa Science & Technology University (AASTU)",
+        campuses: [
+          "Main Campus (Kilinto / Akaki Kality)"
+        ]
+      },
+      {
+        name: "Adama Science & Technology University (ASTU)",
+        campuses: [
+          "Main Campus (Adama)"
+        ]
+      },
+      {
+        name: "Hawassa University (HU)",
+        campuses: [
+          "Main Campus",
+          "IoT Campus (Institute of Technology)",
+          "College of Medicine & Health Sciences (Referral Campus)",
+          "Agriculture Campus (Awada / Wondo Genet)",
+          "Daye Campus"
+        ]
+      },
+      {
+        name: "Jimma University (JU)",
+        campuses: [
+          "Main Campus",
+          "JiT Campus (Jimma Institute of Technology)",
+          "College of Agriculture & Veterinary Medicine (Kito Furdisa)",
+          "Health Sciences / Referral Hospital Campus",
+          "Business & Economics Campus"
+        ]
+      },
+      {
+        name: "University of Gondar (UoG)",
+        campuses: [
+          "Maraki Campus (Social Sciences & Law)",
+          "Atse Tewodros Campus (Natural & Computational Sciences)",
+          "Atse Fasil Campus (Institute of Technology)",
+          "College of Medicine & Health Sciences (CMHS Campus)",
+          "Tseda Campus (Agriculture)"
+        ]
+      },
+      {
+        name: "Haramaya University (HU)",
+        campuses: [
+          "Main Campus (Bate / Haramaya)",
+          "Harar Campus (Health Sciences / Hiwot Fana)"
+        ]
+      },
+      {
+        name: "Arba Minch University (AMU)",
+        campuses: [
+          "Main Campus",
+          "Abaya Campus (Institute of Technology)",
+          "Kulfo Campus",
+          "Nech Sar Campus (Health Sciences)",
+          "Chamo Campus (Business & Economics)"
+        ]
+      },
+      {
+        name: "Wollo University (WU)",
+        campuses: [
+          "Dessie Main Campus",
+          "Kombolcha Institute of Technology (KIOT)"
+        ]
+      },
+      {
+        name: "Debre Birhan University (DBU)",
+        campuses: [
+          "Main Campus",
+          "Health Science Campus",
+          "Asrat Woldeyes Health Campus"
+        ]
+      },
+      {
+        name: "Debre Markos University (DMU)",
+        campuses: [
+          "Main Campus",
+          "Burie Campus",
+          "Medicine & Health Science Campus"
+        ]
+      },
+      {
+        name: "Debre Tabor University (DTU)",
+        campuses: [
+          "Main Campus (Debre Tabor)",
+          "Health Sciences Campus",
+          "Technology Campus"
+        ]
+      },
+      {
+        name: "Dire Dawa University (DDU)",
+        campuses: [
+          "Main Campus"
+        ]
+      },
+      {
+        name: "Wollega University (WLU)",
+        campuses: [
+          "Nekemte Main Campus",
+          "Gimbi Campus",
+          "Shambu Campus"
+        ]
+      },
+      {
+        name: "Mekelle University (MU)",
+        campuses: [
+          "Endayesus Campus (Main / Technology)",
+          "Adi Haki Campus (Law & Governance)",
+          "Ayder Campus (College of Health Sciences)",
+          "Kalamino Campus"
+        ]
+      },
+      {
+        name: "Ambo University (AU)",
+        campuses: [
+          "Main Campus",
+          "Awaro Campus",
+          "Guder Campus",
+          "Waliso Campus"
+        ]
+      },
+      {
+        name: "Wolkite University (WKU)",
+        campuses: [
+          "Main Campus (Gubrei)"
+        ]
+      },
+      {
+        name: "Dilla University (DU)",
+        campuses: [
+          "Main Campus",
+          "Odaya Campus"
+        ]
+      },
+      {
+        name: "St. Mary's University",
+        campuses: [
+          "Main Campus (Mexico)",
+          "Awash Campus"
+        ]
+      },
+      {
+        name: "Unity University",
+        campuses: [
+          "Gerji Main Campus (Addis Ababa)"
+        ]
+      },
+      {
+        name: "Kotebe University of Education (KUE)",
+        campuses: [
+          "Main Campus (Kotebe, Addis Ababa)"
+        ]
+      }
+    ];
+
+    function onMatchUniversityFilterChange() {
+      const uEl = document.getElementById('match-filter-uni');
+      const cEl = document.getElementById('match-filter-campus');
+      if (!cEl) return;
+
+      const selectedUni = (uEl ? uEl.value : '').trim();
+      const prevCampusVal = cEl.value;
+
+      cEl.innerHTML = '<option value="">📍 All Campuses</option>';
+
+      if (!selectedUni) {
+        // Show default popular Addis Ababa campuses
+        const defaultCampuses = [
+          { val: "4 Kilo", text: "4 Kilo (Natural Sciences)" },
+          { val: "5 Kilo", text: "5 Kilo (AAiT Technology)" },
+          { val: "6 Kilo", text: "6 Kilo (Main Campus / Social Sciences)" },
+          { val: "Tikur Anbessa", text: "Tikur Anbessa (Medicine / Health)" },
+          { val: "FBE", text: "FBE (Economics)" },
+          { val: "Commerce", text: "Commerce Campus" },
+          { val: "EiABC", text: "EiABC (Architecture)" },
+          { val: "Selam", text: "Selam Campus" },
+          { val: "Main", text: "Main / Any Campus" }
+        ];
+        defaultCampuses.forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c.val;
+          opt.textContent = c.text;
+          cEl.appendChild(opt);
+        });
+      } else {
+        // Find matching university in ETHIOPIAN_UNIVERSITIES
+        const uniObj = ETHIOPIAN_UNIVERSITIES.find(u => 
+          u.name.toLowerCase().includes(selectedUni.toLowerCase()) ||
+          selectedUni.toLowerCase().includes(u.name.toLowerCase())
+        );
+
+        if (uniObj && uniObj.campuses && uniObj.campuses.length > 0) {
+          const cleanName = uniObj.name.split('(')[0].trim();
+          const anyOpt = document.createElement('option');
+          anyOpt.value = "Main";
+          anyOpt.textContent = `🏛️ Main / Any Campus (${cleanName})`;
+          cEl.appendChild(anyOpt);
+
+          uniObj.campuses.forEach(c => {
+            if (c.includes('Other Campus')) return;
+            const opt = document.createElement('option');
+            const shortVal = c.split('(')[0].replace(/Campus/i, '').trim();
+            opt.value = shortVal || c;
+            opt.textContent = c;
+            cEl.appendChild(opt);
+          });
+        } else {
+          const opt = document.createElement('option');
+          opt.value = "Main";
+          opt.textContent = `🏛️ Main / Any Campus`;
+          cEl.appendChild(opt);
+        }
+      }
+
+      if (prevCampusVal && Array.from(cEl.options).some(o => o.value === prevCampusVal)) {
+        cEl.value = prevCampusVal;
+      } else {
+        cEl.value = '';
+      }
+
+      applyMatchModalFilters();
+    }
+
+    // ==========================================
     // MATCH MAKER WITH MULTI-CRITERIA FILTERS
     // ==========================================
     function openNewMatchModal() {
@@ -6863,18 +7125,17 @@ function rowsToJson(sheet) {
 
     function resetMatchModalFilters() {
       const u = document.getElementById('match-filter-uni');
-      const c = document.getElementById('match-filter-campus');
       const sg = document.getElementById('match-filter-student-gender');
       const tg = document.getElementById('match-filter-tutor-gender');
       const t = document.getElementById('match-filter-tier');
       const s = document.getElementById('match-filter-search');
 
       if (u) u.value = '';
-      if (c) c.value = '';
       if (sg) sg.value = '';
       if (tg) tg.value = '';
       if (t) t.value = '';
       if (s) s.value = '';
+      onMatchUniversityFilterChange();
     }
 
     function applyMatchModalFilters() {
@@ -7023,9 +7284,9 @@ function rowsToJson(sheet) {
         const isReligionMatch = reqRel && (t.religion || '').toLowerCase() === reqRel;
         const isTierMatch = reqTier && reqTier !== 'ALL' && tTier.code === reqTier;
 
+        if (isUniMatch) matchScore += 250;
+        if (isCampusMatch) matchScore += 180;
         if (isGenderMatch) matchScore += 50;
-        if (isCampusMatch) matchScore += 40;
-        if (isUniMatch) matchScore += 30;
         if (isReligionMatch) matchScore += 25;
         if (isTierMatch) matchScore += 20;
         if (isFull) matchScore -= 1000; // Deprioritize full tutors to bottom
@@ -7036,6 +7297,7 @@ function rowsToJson(sheet) {
           matchScore,
           isGenderMatch,
           isCampusMatch,
+          isUniMatch,
           isReligionMatch,
           isTierMatch,
           isFull,
@@ -7077,6 +7339,7 @@ function rowsToJson(sheet) {
         else if (item.lvl === 1) lvlPrefix = `🎙️ ${item.tier.emoji} [${item.tier.code} L1 EXAM PASSED]`;
 
         let badges = [];
+        if (item.isUniMatch) badges.push('🏛️UNI MATCH');
         if (item.isCampusMatch) badges.push('📍CAMPUS MATCH');
         if (item.isGenderMatch) badges.push('🎯GENDER MATCH');
         if (item.isReligionMatch) badges.push('⛪RELIGION MATCH');
@@ -8504,44 +8767,31 @@ function rowsToJson(sheet) {
     function filterParents() { renderParents(); }
 
     function setTutorFilter(filter, btn) {
-      const tierOptions = ['ALL', 'ASSIGNED', 'AVAILABLE', 'GOLDEN', 'SILVER', 'BRONZE', 'EXAM_PASSED'];
+      const assignmentOptions = ['ASSIGNED', 'AVAILABLE'];
+      const tierOptions = ['GOLDEN', 'SILVER', 'BRONZE'];
       const rankOptions = ['L5', 'L4', 'L3', 'L2', 'L1', 'BASIC'];
       const genderOptions = ['Female', 'Male'];
       const religionOptions = ['Orthodox', 'Muslim', 'Protestant', 'Catholic'];
       const entranceOptions = ['ENTRANCE_600', 'ENTRANCE_550', 'ENTRANCE_500', 'ENTRANCE_450'];
 
-      if (tierOptions.includes(filter)) {
-        if (filter === 'ALL') {
-          tutorFilters.tier = 'ALL';
-        } else if (tutorFilters.tier === filter) {
-          tutorFilters.tier = 'ALL';
-        } else {
-          tutorFilters.tier = filter;
-        }
+      if (filter === 'ALL') {
+        tutorFilters.assignment = 'ALL';
+        tutorFilters.tier = 'ALL';
+        tutorFilters.exam = 'ALL';
+      } else if (assignmentOptions.includes(filter)) {
+        tutorFilters.assignment = (tutorFilters.assignment === filter) ? 'ALL' : filter;
+      } else if (tierOptions.includes(filter)) {
+        tutorFilters.tier = (tutorFilters.tier === filter) ? 'ALL' : filter;
+      } else if (filter === 'EXAM_PASSED') {
+        tutorFilters.exam = (tutorFilters.exam === 'EXAM_PASSED') ? 'ALL' : 'EXAM_PASSED';
       } else if (rankOptions.includes(filter)) {
-        if (tutorFilters.rank === filter) {
-          tutorFilters.rank = 'ALL';
-        } else {
-          tutorFilters.rank = filter;
-        }
+        tutorFilters.rank = (tutorFilters.rank === filter) ? 'ALL' : filter;
       } else if (genderOptions.includes(filter)) {
-        if (tutorFilters.gender === filter) {
-          tutorFilters.gender = 'ALL';
-        } else {
-          tutorFilters.gender = filter;
-        }
+        tutorFilters.gender = (tutorFilters.gender === filter) ? 'ALL' : filter;
       } else if (religionOptions.includes(filter)) {
-        if (tutorFilters.religion === filter) {
-          tutorFilters.religion = 'ALL';
-        } else {
-          tutorFilters.religion = filter;
-        }
+        tutorFilters.religion = (tutorFilters.religion === filter) ? 'ALL' : filter;
       } else if (entranceOptions.includes(filter)) {
-        if (tutorFilters.entrance === filter) {
-          tutorFilters.entrance = 'ALL';
-        } else {
-          tutorFilters.entrance = filter;
-        }
+        tutorFilters.entrance = (tutorFilters.entrance === filter) ? 'ALL' : filter;
       } else if (filter === 'ENTRANCE_SORT') {
         tutorFilters.sortByEntrance = !tutorFilters.sortByEntrance;
       }
@@ -8554,12 +8804,17 @@ function rowsToJson(sheet) {
     function updateTutorFilterPills() {
       const tierBox = document.getElementById('tutor-tier-pills');
       if (tierBox) {
+        const isAllActive = tutorFilters.assignment === 'ALL' && tutorFilters.tier === 'ALL' && tutorFilters.exam === 'ALL';
         tierBox.querySelectorAll('.pill-btn').forEach(b => {
           const val = b.getAttribute('data-filter') || '';
-          if (tutorFilters.tier === 'ALL') {
-            b.classList.toggle('active', val === 'ALL');
-          } else {
-            b.classList.toggle('active', val === tutorFilters.tier);
+          if (val === 'ALL') {
+            b.classList.toggle('active', isAllActive);
+          } else if (val === 'ASSIGNED' || val === 'AVAILABLE') {
+            b.classList.toggle('active', tutorFilters.assignment === val);
+          } else if (val === 'GOLDEN' || val === 'SILVER' || val === 'BRONZE') {
+            b.classList.toggle('active', tutorFilters.tier === val);
+          } else if (val === 'EXAM_PASSED') {
+            b.classList.toggle('active', tutorFilters.exam === 'EXAM_PASSED');
           }
         });
       }
@@ -8590,7 +8845,9 @@ function rowsToJson(sheet) {
 
       const resetBtn = document.getElementById('tutor-reset-btn');
       if (resetBtn) {
-        const hasFilters = tutorFilters.tier !== 'ALL' ||
+        const hasFilters = tutorFilters.assignment !== 'ALL' ||
+          tutorFilters.tier !== 'ALL' ||
+          tutorFilters.exam !== 'ALL' ||
           tutorFilters.rank !== 'ALL' ||
           tutorFilters.gender !== 'ALL' ||
           tutorFilters.religion !== 'ALL' ||
@@ -8603,7 +8860,9 @@ function rowsToJson(sheet) {
     }
 
     function resetTutorFilters() {
+      tutorFilters.assignment = 'ALL';
       tutorFilters.tier = 'ALL';
+      tutorFilters.exam = 'ALL';
       tutorFilters.rank = 'ALL';
       tutorFilters.gender = 'ALL';
       tutorFilters.religion = 'ALL';
