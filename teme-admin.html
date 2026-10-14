@@ -2388,18 +2388,113 @@
 
   <!-- MODAL: MATCH MAKER -->
   <div id="modal-match-maker" class="app-modal">
-    <div class="modal-sheet">
-      <h2>🤝 Create Tutoring Match</h2>
-      <p>Pair an incoming parent request with a vetted university scholar.</p>
-
-      <div class="form-group">
-        <label class="form-label">Select Parent Request</label>
-        <select id="match-select-parent" class="form-ctrl"></select>
+    <div class="modal-sheet" style="max-width: 680px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.6rem;">
+        <div>
+          <h2>🤝 Create Tutoring Match</h2>
+          <p>Pair an incoming parent request with a vetted university scholar.</p>
+        </div>
+        <button type="button" class="btn-act" style="background: rgba(255,255,255,0.08); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 1rem; cursor: pointer;" onclick="closeModal('modal-match-maker')">✕</button>
       </div>
 
-      <div class="form-group">
-        <label class="form-label">Select Verified Tutor</label>
-        <select id="match-select-tutor" class="form-ctrl"></select>
+      <!-- SMART MATCH FILTERS BOX -->
+      <div style="background: rgba(15, 23, 42, 0.85); border: 1.5px solid rgba(56, 189, 248, 0.28); border-radius: 14px; padding: 0.9rem; margin-bottom: 1.1rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+          <span style="font-size: 0.76rem; font-weight: 850; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 0.35rem;">
+            🎯 Match Filters (ዩኒቨርሲቲ፣ ካምፓስ፣ ጾታ እና ደረጃ አጣራ)
+          </span>
+          <button type="button" class="btn-act" style="padding: 0.2rem 0.55rem; font-size: 0.7rem; background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.35);" onclick="resetMatchModalFilters()">🔄 Reset Filters</button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 0.55rem; margin-bottom: 0.55rem;">
+          <div>
+            <label style="font-size: 0.68rem; font-weight: 750; color: #94a3b8; display: block; margin-bottom: 0.25rem;">🏛️ University (ዩኒቨርሲቲ)</label>
+            <select id="match-filter-uni" class="form-ctrl" style="font-size: 0.8rem; padding: 0.45rem 0.65rem; background: rgba(30, 41, 59, 0.9); border-color: rgba(56, 189, 248, 0.35);" onchange="applyMatchModalFilters()">
+              <option value="">🏛️ All Universities &amp; Regions</option>
+              <option value="Addis Ababa University">Addis Ababa University (AAU)</option>
+              <option value="Bahir Dar">Bahir Dar University (BDU)</option>
+              <option value="AASTU">AASTU (Kilinto)</option>
+              <option value="ASTU">ASTU (Adama)</option>
+              <option value="Hawassa">Hawassa University (HU)</option>
+              <option value="Jimma">Jimma University (JU)</option>
+              <option value="Gondar">University of Gondar (UoG)</option>
+              <option value="Haramaya">Haramaya University (HU)</option>
+              <option value="Arba Minch">Arba Minch University (AMU)</option>
+              <option value="Wollo">Wollo University / KIOT</option>
+              <option value="Debre Birhan">Debre Birhan University (DBU)</option>
+              <option value="Debre Markos">Debre Markos University (DMU)</option>
+              <option value="Mekelle">Mekelle University (MU)</option>
+              <option value="Ambo">Ambo University (AU)</option>
+              <option value="Wolkite">Wolkite University (WKU)</option>
+              <option value="St. Mary">St. Mary's University</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 0.68rem; font-weight: 750; color: #94a3b8; display: block; margin-bottom: 0.25rem;">📍 Approximate Campus (ካምፓስ)</label>
+            <select id="match-filter-campus" class="form-ctrl" style="font-size: 0.8rem; padding: 0.45rem 0.65rem; background: rgba(30, 41, 59, 0.9); border-color: rgba(56, 189, 248, 0.35);" onchange="applyMatchModalFilters()">
+              <option value="">📍 All Campuses</option>
+              <option value="4 Kilo">4 Kilo (Natural Sciences)</option>
+              <option value="5 Kilo">5 Kilo (AAiT Technology)</option>
+              <option value="6 Kilo">6 Kilo (Main Campus / Social Sciences)</option>
+              <option value="Tikur Anbessa">Tikur Anbessa (Medicine / Health)</option>
+              <option value="FBE">FBE (Economics)</option>
+              <option value="Commerce">Commerce Campus</option>
+              <option value="EiABC">EiABC (Architecture)</option>
+              <option value="Selam">Selam Campus</option>
+              <option value="Main">Main / Any Campus</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.55rem; margin-bottom: 0.55rem;">
+          <div>
+            <label style="font-size: 0.68rem; font-weight: 750; color: #94a3b8; display: block; margin-bottom: 0.25rem;">🧒 Student Gender</label>
+            <select id="match-filter-student-gender" class="form-ctrl" style="font-size: 0.8rem; padding: 0.45rem 0.65rem; background: rgba(30, 41, 59, 0.9);" onchange="applyMatchModalFilters()">
+              <option value="">Any Gender</option>
+              <option value="Female">👧 Female (ሴት ተማሪ)</option>
+              <option value="Male">👦 Male (ወንድ ተማሪ)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 0.68rem; font-weight: 750; color: #94a3b8; display: block; margin-bottom: 0.25rem;">👩‍🏫 Tutor Gender (የአስጠኚ ጾታ)</label>
+            <select id="match-filter-tutor-gender" class="form-ctrl" style="font-size: 0.8rem; padding: 0.45rem 0.65rem; background: rgba(30, 41, 59, 0.9);" onchange="applyMatchModalFilters()">
+              <option value="">Any Tutor Gender</option>
+              <option value="Female">👩 Female Tutor Only (ሴት አስጠኚ)</option>
+              <option value="Male">👨 Male Tutor Only (ወንድ አስጠኚ)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 0.68rem; font-weight: 750; color: #94a3b8; display: block; margin-bottom: 0.25rem;">🏆 Academic Tier (የአካዳሚክ ደረጃ)</label>
+            <select id="match-filter-tier" class="form-ctrl" style="font-size: 0.8rem; padding: 0.45rem 0.65rem; background: rgba(30, 41, 59, 0.9);" onchange="applyMatchModalFilters()">
+              <option value="">All Tiers</option>
+              <option value="GOLDEN">🥇 Golden (CGPA ≥ 3.75)</option>
+              <option value="SILVER">🥈 Silver (3.40 - 3.74)</option>
+              <option value="BRONZE">🥉 Bronze (3.00 - 3.39)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <input type="text" id="match-filter-search" class="search-input" style="font-size: 0.8rem; padding: 0.45rem 0.75rem; width: 100%; border-radius: 10px;" placeholder="🔍 Search parent name, student, phone, or neighborhood..." oninput="applyMatchModalFilters()">
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 1.1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+          <label class="form-label" style="margin-bottom: 0;">Select Parent Request (የተጣራ የወላጅ ጥያቄ)</label>
+          <span id="match-parent-counter-badge" style="font-size: 0.72rem; color: #38bdf8; font-weight: 750;">0 requests</span>
+        </div>
+        <select id="match-select-parent" class="form-ctrl" style="font-size: 0.82rem; padding: 0.65rem 0.85rem; border-radius: 10px;" onchange="onMatchParentSelectChange(this.value)"></select>
+        <div id="match-parent-summary-card" style="margin-top: 0.45rem; padding: 0.55rem 0.75rem; background: rgba(30, 41, 59, 0.65); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 8px; font-size: 0.75rem; display: none;"></div>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 1.1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+          <label class="form-label" style="margin-bottom: 0;">Select Verified Tutor (የሚመጥን የተረጋገጠ አስጠኚ)</label>
+          <span id="match-tutor-counter-badge" style="font-size: 0.72rem; color: #34d399; font-weight: 750;">Scholars Ready</span>
+        </div>
+        <select id="match-select-tutor" class="form-ctrl" style="font-size: 0.82rem; padding: 0.65rem 0.85rem; border-radius: 10px;" onchange="onMatchTutorSelectChange(this.value)"></select>
+        <div id="match-tutor-summary-card" style="margin-top: 0.45rem; padding: 0.55rem 0.75rem; background: rgba(30, 41, 59, 0.65); border: 1px solid rgba(52, 211, 153, 0.2); border-radius: 8px; font-size: 0.75rem; display: none;"></div>
       </div>
 
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
@@ -6729,104 +6824,14 @@ function rowsToJson(sheet) {
       renderAll();
     }
 
-    // MATCH MAKER WITH LEVEL PRIORITY DISPATCH
+    // ==========================================
+    // MATCH MAKER WITH MULTI-CRITERIA FILTERS
+    // ==========================================
     function openNewMatchModal() {
-      const parents = getParents();
-      const tutors = getTutors();
+      resetMatchModalFilters();
+      applyMatchModalFilters();
+
       const user = getSessionUser();
-
-      const pSelect = document.getElementById('match-select-parent');
-      const tSelect = document.getElementById('match-select-tutor');
-
-      pSelect.innerHTML = parents.map((p, i) => {
-        const pkgText = p.hourlyRate ? ` • 💰 ${p.hourlyRate} ETB/hr (${escapeHtml(p.tutorTier ? `${p.tutorTier} Tier` : (p.packageName || 'Plan'))})` : (p.monthlyFee ? ` • 💰 ${Number(p.monthlyFee).toLocaleString()} ETB (${escapeHtml(p.packageName || 'Plan')})` : '');
-        const prefSex = (p.preferredTutorGender && p.preferredTutorGender !== 'Any') ? ` • 🎯 Pref Sex: ${p.preferredTutorGender}` : '';
-        const prefRel = (p.preferredTutorReligion && p.preferredTutorReligion !== 'Any') ? ` • ⛪ Pref Rel: ${p.preferredTutorReligion}` : '';
-        return `<option value="${i}">${escapeHtml(p.name)} (${escapeHtml(p.grade)} - ${escapeHtml(p.area)})${prefSex}${prefRel}${pkgText}</option>`;
-      }).join('');
-
-      function populateMatchTutors(pIndex) {
-        const selP = parents[pIndex];
-        const allMatches = getMatches();
-        const reqRel = (selP && selP.preferredTutorReligion && selP.preferredTutorReligion !== 'Any') ? selP.preferredTutorReligion.toLowerCase() : '';
-
-        const sortedTutorsWithIndex = tutors.map((t, originalIndex) => ({ tutor: t, originalIndex }))
-          .sort((a, b) => {
-            const relMatchA = (reqRel && (a.tutor.religion || '').toLowerCase() === reqRel) ? 1 : 0;
-            const relMatchB = (reqRel && (b.tutor.religion || '').toLowerCase() === reqRel) ? 1 : 0;
-            if (relMatchB !== relMatchA) return relMatchB - relMatchA; // Prioritize religion matches!
-
-            const tierA = getTutorMetalTier(a.tutor.cgpa);
-            const tierB = getTutorMetalTier(b.tutor.cgpa);
-            const scoreA = (tierA.weight * 10) + ((Number(a.tutor.level) || 0) * 10) + (parseFloat(a.tutor.cgpa) || 0);
-            const scoreB = (tierB.weight * 10) + ((Number(b.tutor.level) || 0) * 10) + (parseFloat(b.tutor.cgpa) || 0);
-            return scoreB - scoreA;
-          });
-
-        tSelect.innerHTML = sortedTutorsWithIndex.map(item => {
-          const t = item.tutor;
-          const tier = getTutorMetalTier(t.cgpa);
-          const lvl = Number(t.level) || 0;
-          const cap = getTutorCapacity(t);
-          const activeMatches = getTutorActiveMatches(t, allMatches);
-          const activeCount = activeMatches.length;
-          const displayCount = Math.min(activeCount, cap);
-          const isFull = activeCount >= cap;
-          const tierTag = tier.code === 'GOLDEN' ? 'GOLDEN' : (tier.code === 'SILVER' ? 'SILVER' : 'BRONZE');
-
-          let capBadge = isFull ? `[FULL: ${displayCount}/${cap} Students]` : `[${displayCount}/${cap} Students]`;
-          let lvlPrefix = `${tier.emoji} [${tierTag} L0]`;
-          if (lvl === 5) lvlPrefix = `👑 ${tier.emoji} [${tierTag} L5 MASTER]`;
-          else if (lvl === 4) lvlPrefix = `💎 ${tier.emoji} [${tierTag} L4]`;
-          else if (lvl === 3) lvlPrefix = `⭐ ${tier.emoji} [${tierTag} L3]`;
-          else if (lvl === 2) lvlPrefix = `⚡ ${tier.emoji} [${tierTag} L2]`;
-          else if (lvl === 1) lvlPrefix = `🎙️ ${tier.emoji} [${tierTag} L1 EXAM PASSED]`;
-
-          let matchRelBadge = '';
-          if (reqRel && (t.religion || '').toLowerCase() === reqRel) {
-            matchRelBadge = ' 🎯[RELIGION MATCH ✓]';
-          }
-
-          const relTag = t.religion ? ` • ⛪ ${t.religion}` : '';
-          const examNote = (t.examStatus === 'passed' || t.examStatus === 'Passed') ? ` • Exam: ${t.examScore || 88}%` : '';
-          const disabledAttr = isFull ? 'disabled style="color: #64748b;"' : '';
-          return `<option value="${item.originalIndex}" ${disabledAttr}>${capBadge} ${lvlPrefix}${matchRelBadge} ${escapeHtml(t.name)} (CGPA ${escapeHtml(t.cgpa)} - ${escapeHtml(t.uni)}${relTag}${examNote})</option>`;
-        }).join('');
-      }
-
-      pSelect.onchange = function() {
-        const selP = parents[this.value];
-        if (selP) {
-          const hInp = document.getElementById('match-hourly-rate-input');
-          const pInp = document.getElementById('match-price-input');
-          if (selP.hourlyRate) {
-            if (hInp) hInp.value = selP.hourlyRate;
-            if (pInp) pInp.value = selP.monthlyFee || (selP.hourlyRate * 12);
-          } else if (selP.monthlyFee) {
-            if (pInp) pInp.value = selP.monthlyFee;
-            if (hInp) hInp.value = Math.round(selP.monthlyFee / 12);
-          }
-          calculateCommissionPreview();
-        }
-        populateMatchTutors(this.value);
-      };
-
-      if (parents.length > 0) {
-        const selP0 = parents[0];
-        const hInp = document.getElementById('match-hourly-rate-input');
-        const pInp = document.getElementById('match-price-input');
-        if (selP0.hourlyRate) {
-          if (hInp) hInp.value = selP0.hourlyRate;
-          if (pInp) pInp.value = selP0.monthlyFee || (selP0.hourlyRate * 12);
-        } else if (selP0.monthlyFee) {
-          if (pInp) pInp.value = selP0.monthlyFee;
-          if (hInp) hInp.value = Math.round(selP0.monthlyFee / 12);
-        }
-      }
-
-      populateMatchTutors(pSelect.value || 0);
-
-      // Restrict commission controls if not permitted
       if (user && !user.permissions.viewFinancials && user.role !== 'owner') {
         document.getElementById('match-rate-group').style.display = 'none';
         document.getElementById('match-calc-preview').style.display = 'none';
@@ -6839,15 +6844,283 @@ function rowsToJson(sheet) {
       document.getElementById('modal-match-maker').classList.add('active');
     }
 
+    function resetMatchModalFilters() {
+      const u = document.getElementById('match-filter-uni');
+      const c = document.getElementById('match-filter-campus');
+      const sg = document.getElementById('match-filter-student-gender');
+      const tg = document.getElementById('match-filter-tutor-gender');
+      const t = document.getElementById('match-filter-tier');
+      const s = document.getElementById('match-filter-search');
+
+      if (u) u.value = '';
+      if (c) c.value = '';
+      if (sg) sg.value = '';
+      if (tg) tg.value = '';
+      if (t) t.value = '';
+      if (s) s.value = '';
+    }
+
+    function applyMatchModalFilters() {
+      const parents = getParents();
+      const uniFilter = (document.getElementById('match-filter-uni')?.value || '').toLowerCase().trim();
+      const campusFilter = (document.getElementById('match-filter-campus')?.value || '').toLowerCase().trim();
+      const studentGenderFilter = (document.getElementById('match-filter-student-gender')?.value || '').toLowerCase().trim();
+      const tutorGenderFilter = (document.getElementById('match-filter-tutor-gender')?.value || '').toLowerCase().trim();
+      const tierFilter = (document.getElementById('match-filter-tier')?.value || '').toUpperCase().trim();
+      const query = (document.getElementById('match-filter-search')?.value || '').toLowerCase().trim();
+
+      const filteredParents = parents.map((p, originalIndex) => ({ parent: p, originalIndex })).filter(item => {
+        const p = item.parent;
+        const pArea = (p.area || '').toLowerCase();
+        const pUni = (p.university || p.preferredUni || p.area || '').toLowerCase();
+        const pStudentGender = (p.studentGender || p.childGender || '').toLowerCase();
+        const pPrefTutorGender = (p.preferredTutorGender || p.tutorGenderPreference || '').toLowerCase();
+        const pTier = (p.tutorTier || '').toUpperCase();
+
+        if (uniFilter && !pUni.includes(uniFilter) && !pArea.includes(uniFilter)) return false;
+        if (campusFilter && !pArea.includes(campusFilter)) return false;
+        if (studentGenderFilter && !pStudentGender.includes(studentGenderFilter)) return false;
+        if (tutorGenderFilter && !pPrefTutorGender.includes(tutorGenderFilter)) return false;
+        if (tierFilter && !pTier.includes(tierFilter)) return false;
+
+        if (query) {
+          const matchQuery = (p.name || '').toLowerCase().includes(query) ||
+            (p.phone || '').toLowerCase().includes(query) ||
+            pArea.includes(query) ||
+            (p.trackingId || '').toLowerCase().includes(query) ||
+            (p.grade || '').toLowerCase().includes(query);
+          if (!matchQuery) return false;
+        }
+
+        return true;
+      });
+
+      const pSelect = document.getElementById('match-select-parent');
+      const counterBadge = document.getElementById('match-parent-counter-badge');
+      if (counterBadge) {
+        counterBadge.innerText = `${filteredParents.length} of ${parents.length} requests`;
+      }
+
+      if (!pSelect) return;
+
+      if (filteredParents.length === 0) {
+        pSelect.innerHTML = `<option value="">⚠️ No parent inquiries match these filters (Change filters above)</option>`;
+        const summaryCard = document.getElementById('match-parent-summary-card');
+        if (summaryCard) summaryCard.style.display = 'none';
+        populateMatchTutors(null);
+        return;
+      }
+
+      pSelect.innerHTML = filteredParents.map(item => {
+        const p = item.parent;
+        const gradeText = p.grade && p.grade !== 'Parent Lead' ? p.grade : 'All Subjects';
+        const pkgText = p.hourlyRate ? ` • 💰 ${p.hourlyRate} ETB/hr` : (p.monthlyFee ? ` • 💰 ${Number(p.monthlyFee).toLocaleString()} ETB` : '');
+        const prefSex = (p.preferredTutorGender && p.preferredTutorGender !== 'Any') ? ` • 👩‍🏫 Pref: ${p.preferredTutorGender} Tutor` : '';
+        const studentSex = (p.studentGender && p.studentGender !== 'Any') ? ` • 🧒 ${p.studentGender}` : '';
+        const tierTag = p.tutorTier ? ` • 🏆 ${p.tutorTier}` : '';
+        
+        let areaClean = (p.area || 'Addis Ababa')
+          .replace(/\s*\(Main \/ Any Campus.*?\)/i, ' (Main)')
+          .replace(/\s*\((AAU|BDU|AASTU|JU|HU)\)/gi, '')
+          .trim();
+
+        return `<option value="${item.originalIndex}">🏷️ ${escapeHtml(p.name)} (${escapeHtml(gradeText)} • ${escapeHtml(areaClean)})${studentSex}${prefSex}${tierTag}${pkgText}</option>`;
+      }).join('');
+
+      const firstOriginalIndex = filteredParents[0].originalIndex;
+      pSelect.value = firstOriginalIndex;
+      onMatchParentSelectChange(firstOriginalIndex);
+    }
+
+    function onMatchParentSelectChange(pIndex) {
+      if (pIndex === null || pIndex === undefined || pIndex === '') return;
+      const parents = getParents();
+      const selP = parents[pIndex];
+      if (!selP) return;
+
+      // Update pricing fields
+      const hInp = document.getElementById('match-hourly-rate-input');
+      const pInp = document.getElementById('match-price-input');
+      if (selP.hourlyRate) {
+        if (hInp) hInp.value = selP.hourlyRate;
+        if (pInp) pInp.value = selP.monthlyFee || (selP.hourlyRate * 12);
+      } else if (selP.monthlyFee) {
+        if (pInp) pInp.value = selP.monthlyFee;
+        if (hInp) hInp.value = Math.round(selP.monthlyFee / 12);
+      }
+      calculateCommissionPreview();
+
+      // Render parent summary card
+      const pSummary = document.getElementById('match-parent-summary-card');
+      if (pSummary) {
+        pSummary.style.display = 'block';
+        const feeText = selP.hourlyRate ? `${selP.hourlyRate} ETB/hr` : `${Number(selP.monthlyFee || 3000).toLocaleString()} ETB/mo`;
+        pSummary.innerHTML = `
+          <div style="display: flex; gap: 0.65rem; flex-wrap: wrap; color: #cbd5e1; line-height: 1.45;">
+            <span>📍 <b>Area:</b> <span style="color: #38bdf8;">${escapeHtml(selP.area || 'N/A')}</span></span>
+            <span>🎒 <b>Grade:</b> ${escapeHtml(selP.grade || 'General')}</span>
+            <span>🧒 <b>Student:</b> ${escapeHtml(selP.studentGender || selP.childGender || 'Any')}</span>
+            <span>👩‍🏫 <b>Pref Tutor:</b> <span style="color: #c084fc; font-weight: 800;">${escapeHtml(selP.preferredTutorGender || 'Any')}</span></span>
+            <span>🏆 <b>Tier:</b> <span style="color: #fbbf24; font-weight: 800;">${escapeHtml(selP.tutorTier || 'Standard')}</span></span>
+            <span>💰 <b>Agreed Budget:</b> <span style="color: #34d399; font-weight: 800;">${feeText}</span></span>
+          </div>`;
+      }
+
+      populateMatchTutors(pIndex);
+    }
+
+    function populateMatchTutors(pIndex) {
+      const tutors = getTutors();
+      const parents = getParents();
+      const allMatches = getMatches();
+      const tSelect = document.getElementById('match-select-tutor');
+      if (!tSelect) return;
+
+      const selP = (pIndex !== null && pIndex !== undefined && pIndex !== '') ? parents[pIndex] : null;
+
+      const uniFilter = (document.getElementById('match-filter-uni')?.value || '').toLowerCase().trim();
+      const campusFilter = (document.getElementById('match-filter-campus')?.value || '').toLowerCase().trim();
+      const tutorGenderFilter = (document.getElementById('match-filter-tutor-gender')?.value || '').toLowerCase().trim();
+      const tierFilter = (document.getElementById('match-filter-tier')?.value || '').toUpperCase().trim();
+
+      const pArea = selP ? (selP.area || '').toLowerCase() : '';
+      const reqTutorGender = (tutorGenderFilter || (selP ? (selP.preferredTutorGender || '').toLowerCase() : '')).trim();
+      const reqRel = (selP && selP.preferredTutorReligion && selP.preferredTutorReligion !== 'Any') ? selP.preferredTutorReligion.toLowerCase() : '';
+      const reqTier = (tierFilter || (selP ? (selP.tutorTier || '').toUpperCase() : '')).trim();
+
+      // Sort and prioritize tutors
+      const sortedTutorsWithIndex = tutors.map((t, originalIndex) => {
+        const tUni = (t.uni || t.university || '').toLowerCase();
+        const tGender = (t.gender || '').toLowerCase();
+        const tTier = getTutorMetalTier(t.cgpa);
+        const tLvl = Number(t.level) || 0;
+        const cap = getTutorCapacity(t);
+        const activeMatches = getTutorActiveMatches(t, allMatches);
+        const isFull = activeMatches.length >= cap;
+
+        // Match Scores
+        let matchScore = 0;
+        const isGenderMatch = reqTutorGender && reqTutorGender !== 'any' && tGender.includes(reqTutorGender);
+        const isCampusMatch = (campusFilter && tUni.includes(campusFilter)) || (pArea && tUni && (pArea.includes(tUni) || tUni.includes(pArea)));
+        const isUniMatch = uniFilter && tUni.includes(uniFilter);
+        const isReligionMatch = reqRel && (t.religion || '').toLowerCase() === reqRel;
+        const isTierMatch = reqTier && reqTier !== 'ALL' && tTier.code === reqTier;
+
+        if (isGenderMatch) matchScore += 50;
+        if (isCampusMatch) matchScore += 40;
+        if (isUniMatch) matchScore += 30;
+        if (isReligionMatch) matchScore += 25;
+        if (isTierMatch) matchScore += 20;
+        if (isFull) matchScore -= 1000; // Deprioritize full tutors to bottom
+
+        return {
+          tutor: t,
+          originalIndex,
+          matchScore,
+          isGenderMatch,
+          isCampusMatch,
+          isReligionMatch,
+          isTierMatch,
+          isFull,
+          activeCount: activeMatches.length,
+          cap,
+          tier: tTier,
+          lvl: tLvl
+        };
+      }).sort((a, b) => {
+        if (b.matchScore !== a.matchScore) return b.matchScore - a.matchScore;
+        const scoreA = (a.tier.weight * 10) + (a.lvl * 10) + (parseFloat(a.tutor.cgpa) || 0);
+        const scoreB = (b.tier.weight * 10) + (b.lvl * 10) + (parseFloat(b.tutor.cgpa) || 0);
+        return scoreB - scoreA;
+      });
+
+      const tutorCounter = document.getElementById('match-tutor-counter-badge');
+      const availableCount = sortedTutorsWithIndex.filter(item => !item.isFull).length;
+      if (tutorCounter) {
+        tutorCounter.innerText = `${availableCount} available scholars`;
+      }
+
+      if (sortedTutorsWithIndex.length === 0) {
+        tSelect.innerHTML = `<option value="">⚠️ No tutors available</option>`;
+        const summaryCard = document.getElementById('match-tutor-summary-card');
+        if (summaryCard) summaryCard.style.display = 'none';
+        return;
+      }
+
+      tSelect.innerHTML = sortedTutorsWithIndex.map(item => {
+        const t = item.tutor;
+        const displayCount = Math.min(item.activeCount, item.cap);
+        const capBadge = item.isFull ? `[FULL: ${displayCount}/${item.cap}]` : `[${displayCount}/${item.cap} Students]`;
+        
+        let lvlPrefix = `${item.tier.emoji} [${item.tier.code} L0]`;
+        if (item.lvl === 5) lvlPrefix = `👑 ${item.tier.emoji} [${item.tier.code} L5 MASTER]`;
+        else if (item.lvl === 4) lvlPrefix = `💎 ${item.tier.emoji} [${item.tier.code} L4]`;
+        else if (item.lvl === 3) lvlPrefix = `⭐ ${item.tier.emoji} [${item.tier.code} L3]`;
+        else if (item.lvl === 2) lvlPrefix = `⚡ ${item.tier.emoji} [${item.tier.code} L2]`;
+        else if (item.lvl === 1) lvlPrefix = `🎙️ ${item.tier.emoji} [${item.tier.code} L1 EXAM PASSED]`;
+
+        let badges = [];
+        if (item.isCampusMatch) badges.push('📍CAMPUS MATCH');
+        if (item.isGenderMatch) badges.push('🎯GENDER MATCH');
+        if (item.isReligionMatch) badges.push('⛪RELIGION MATCH');
+        const badgeStr = badges.length > 0 ? ` [${badges.join(' | ')}]` : '';
+
+        const relTag = t.religion ? ` • ⛪ ${t.religion}` : '';
+        const genderTag = t.gender ? ` • ${t.gender.toLowerCase().includes('female') ? '👩 Female' : '👨 Male'}` : '';
+        const examNote = (t.examStatus === 'passed' || t.examStatus === 'Passed') ? ` • Exam: ${t.examScore || 88}%` : '';
+        const disabledAttr = item.isFull ? 'disabled style="color: #64748b;"' : '';
+
+        return `<option value="${item.originalIndex}" ${disabledAttr}>${capBadge} ${lvlPrefix}${badgeStr} ${escapeHtml(t.name)} (CGPA ${escapeHtml(t.cgpa)} • ${escapeHtml(t.uni)}${genderTag}${relTag}${examNote})</option>`;
+      }).join('');
+
+      // Auto-select top tutor
+      const topTutor = sortedTutorsWithIndex.find(item => !item.isFull) || sortedTutorsWithIndex[0];
+      if (topTutor) {
+        tSelect.value = topTutor.originalIndex;
+        onMatchTutorSelectChange(topTutor.originalIndex);
+      }
+    }
+
+    function onMatchTutorSelectChange(tIndex) {
+      if (tIndex === null || tIndex === undefined || tIndex === '') return;
+      const tutors = getTutors();
+      const allMatches = getMatches();
+      const t = tutors[tIndex];
+      if (!t) return;
+
+      const tSummary = document.getElementById('match-tutor-summary-card');
+      if (tSummary) {
+        tSummary.style.display = 'block';
+        const tier = getTutorMetalTier(t.cgpa);
+        const cap = getTutorCapacity(t);
+        const activeMatches = getTutorActiveMatches(t, allMatches);
+        const count = activeMatches.length;
+        const examText = (t.examStatus === 'passed' || t.examStatus === 'Passed') ? `✅ Exam: ${t.examScore || 88}%` : `○ Exam: Not Taken`;
+        const genderText = (t.gender || 'N/A');
+
+        tSummary.innerHTML = `
+          <div style="display: flex; gap: 0.65rem; flex-wrap: wrap; color: #cbd5e1; line-height: 1.45;">
+            <span>🎓 <b>Scholar:</b> <span style="color: #34d399; font-weight: 800;">${escapeHtml(t.name)}</span></span>
+            <span>🏛️ <b>University:</b> ${escapeHtml(t.uni || 'N/A')}</span>
+            <span>📊 <b>CGPA:</b> <span style="color: #fbbf24; font-weight: 800;">${escapeHtml(t.cgpa)}</span> (${tier.name} L${Number(t.level) || 0})</span>
+            <span>🧒 <b>Gender:</b> ${escapeHtml(genderText)}</span>
+            <span>${examText}</span>
+            <span>👥 <b>Load:</b> ${count}/${cap} Students Active</span>
+          </div>`;
+      }
+    }
+
     function quickMatchParent(parentName, parentPhone) {
       openNewMatchModal();
       const parents = getParents();
       const idx = parents.findIndex(p => p.phone === parentPhone);
       if (idx !== -1) {
+        resetMatchModalFilters();
+        applyMatchModalFilters();
         const pSel = document.getElementById('match-select-parent');
         if (pSel) {
           pSel.value = idx;
-          if (pSel.onchange) pSel.onchange();
+          onMatchParentSelectChange(idx);
         }
       }
     }
@@ -6856,7 +7129,13 @@ function rowsToJson(sheet) {
       openNewMatchModal();
       const tutors = getTutors();
       const idx = tutors.findIndex(t => t.phone === tutorPhone);
-      if (idx !== -1) document.getElementById('match-select-tutor').value = idx;
+      if (idx !== -1) {
+        const tSel = document.getElementById('match-select-tutor');
+        if (tSel) {
+          tSel.value = idx;
+          onMatchTutorSelectChange(idx);
+        }
+      }
     }
 
     function calculateCommissionPreview() {
