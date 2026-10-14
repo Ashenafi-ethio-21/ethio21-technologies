@@ -5345,7 +5345,15 @@ function rowsToJson(sheet) {
 
       let filtered = tutors.filter(t => {
         const tUni = (t.uni || t.university || '').toLowerCase();
-        if (uniFilter && !tUni.includes(uniFilter)) return false;
+        if (uniFilter) {
+          const uFilt = uniFilter.toLowerCase().trim();
+          const tUniMatch = tUni.includes(uFilt) ||
+            (uFilt === 'aastu' && (tUni.includes('addis ababa science') || tUni.includes('kilinto'))) ||
+            (uFilt === 'astu' && (tUni.includes('adama science') || tUni.includes('adama'))) ||
+            (uFilt === 'bahir dar' && (tUni.includes('bdu') || tUni.includes('selam') || tUni.includes('poly') || tUni.includes('peda'))) ||
+            (uFilt === 'hawassa' && (tUni.includes('hu') || tUni.includes('hawassa')));
+          if (!tUniMatch) return false;
+        }
 
         const entScore = parseFloat(t.entranceScore || t.entranceResult || 0);
         if (entranceMin > 0 && entScore < entranceMin) return false;
@@ -7092,8 +7100,29 @@ function rowsToJson(sheet) {
           uniObj.campuses.forEach(c => {
             if (c.includes('Other Campus')) return;
             const opt = document.createElement('option');
-            const shortVal = c.split('(')[0].replace(/Campus/i, '').trim();
-            opt.value = shortVal || c;
+            let val = c;
+            if (c.includes('Kilinto')) val = 'Kilinto';
+            else if (c.includes('Adama')) val = 'Adama';
+            else if (c.includes('Poly')) val = 'Poly';
+            else if (c.includes('Peda')) val = 'Peda';
+            else if (c.includes('Selam')) val = 'Selam';
+            else if (c.includes('Yekatit')) val = 'Yekatit';
+            else if (c.includes('Zenzelma')) val = 'Zenzelma';
+            else if (c.includes('Tibebe')) val = 'Tibebe Ghion';
+            else if (c.includes('Maritime')) val = 'Maritime';
+            else if (c.includes('IoT')) val = 'IoT';
+            else if (c.includes('4 Kilo')) val = '4 Kilo';
+            else if (c.includes('5 Kilo')) val = '5 Kilo';
+            else if (c.includes('6 Kilo')) val = '6 Kilo';
+            else if (c.includes('Tikur Anbessa')) val = 'Tikur Anbessa';
+            else if (c.includes('FBE')) val = 'FBE';
+            else if (c.includes('Commerce')) val = 'Commerce';
+            else if (c.includes('EiABC')) val = 'EiABC';
+            else {
+              const cleaned = c.split('(')[0].replace(/Campus/i, '').trim();
+              val = cleaned || c;
+            }
+            opt.value = val;
             opt.textContent = c;
             cEl.appendChild(opt);
           });
@@ -7166,8 +7195,26 @@ function rowsToJson(sheet) {
         const pPrefTutorGender = (p.preferredTutorGender || p.tutorGenderPreference || '').toLowerCase();
         const pTier = (p.tutorTier || '').toUpperCase();
 
-        if (uniFilter && !pUni.includes(uniFilter) && !pArea.includes(uniFilter)) return false;
-        if (campusFilter && !pArea.includes(campusFilter)) return false;
+        // Smart University Filter
+        if (uniFilter) {
+          const uFilt = uniFilter.toLowerCase().trim();
+          const pUniMatch = pUni.includes(uFilt) || pArea.includes(uFilt) ||
+            (uFilt === 'aastu' && (pUni.includes('addis ababa science') || pArea.includes('kilinto') || pUni.includes('kilinto'))) ||
+            (uFilt === 'astu' && (pUni.includes('adama science') || pArea.includes('adama') || pUni.includes('adama'))) ||
+            (uFilt === 'bahir dar' && (pUni.includes('bdu') || pArea.includes('bdu') || pArea.includes('selam') || pArea.includes('poly') || pArea.includes('peda'))) ||
+            (uFilt === 'hawassa' && (pUni.includes('hu') || pArea.includes('hawassa')));
+          if (!pUniMatch) return false;
+        }
+
+        // Smart Campus Filter
+        if (campusFilter) {
+          const cFilt = campusFilter.toLowerCase().trim();
+          if (!pArea.includes(cFilt)) {
+            const cWords = cFilt.split(/[^a-z0-9]+/).filter(w => w.length >= 3 && !['campus','institute','technology'].includes(w));
+            const hasKeywordMatch = cWords.length > 0 && cWords.some(w => pArea.includes(w));
+            if (!hasKeywordMatch) return false;
+          }
+        }
         if (studentGenderFilter && !pStudentGender.includes(studentGenderFilter)) return false;
         if (tutorGenderFilter && !pPrefTutorGender.includes(tutorGenderFilter)) return false;
         if (tierFilter && !pTier.includes(tierFilter)) return false;
@@ -7283,14 +7330,25 @@ function rowsToJson(sheet) {
         const tGender = (t.gender || '').toLowerCase();
         const tTier = getTutorMetalTier(t.cgpa);
 
-        // Strict University Filter
-        if (uniFilter && !tUni.includes(uniFilter) && !uniFilter.includes(tUni)) return false;
+        // Strict University Filter with Multi-Alias Match
+        if (uniFilter) {
+          const uFilt = uniFilter.toLowerCase().trim();
+          const tUniMatch = tUni.includes(uFilt) || uFilt.includes(tUni) ||
+            (uFilt === 'aastu' && (tUni.includes('addis ababa science') || tUni.includes('kilinto'))) ||
+            (uFilt === 'astu' && (tUni.includes('adama science') || tUni.includes('adama'))) ||
+            (uFilt === 'bahir dar' && (tUni.includes('bdu') || tUni.includes('selam') || tUni.includes('poly') || tUni.includes('peda'))) ||
+            (uFilt === 'hawassa' && (tUni.includes('hu') || tUni.includes('hawassa')));
+          if (!tUniMatch) return false;
+        }
 
-        // Strict Campus Filter
-        if (campusFilter && !tUni.includes(campusFilter)) {
-          const words = campusFilter.split(/\s+/).filter(w => w.length >= 4 && !['campus','main','institute','technology'].includes(w));
-          const wordMatch = words.some(w => tUni.includes(w));
-          if (!wordMatch) return false;
+        // Strict Campus Filter with Keyword Extraction
+        if (campusFilter) {
+          const cFilt = campusFilter.toLowerCase().trim();
+          if (!tUni.includes(cFilt)) {
+            const cWords = cFilt.split(/[^a-z0-9]+/).filter(w => w.length >= 3 && !['campus','institute','technology'].includes(w));
+            const hasKeywordMatch = cWords.length > 0 && cWords.some(w => tUni.includes(w));
+            if (!hasKeywordMatch) return false;
+          }
         }
 
         // Strict Tutor Gender Filter
