@@ -7260,14 +7260,68 @@ function rowsToJson(sheet) {
       const campusFilter = (document.getElementById('match-filter-campus')?.value || '').toLowerCase().trim();
       const tutorGenderFilter = (document.getElementById('match-filter-tutor-gender')?.value || '').toLowerCase().trim();
       const tierFilter = (document.getElementById('match-filter-tier')?.value || '').toUpperCase().trim();
+      const query = (document.getElementById('match-filter-search')?.value || '').toLowerCase().trim();
 
       const pArea = selP ? (selP.area || '').toLowerCase() : '';
-      const reqTutorGender = (tutorGenderFilter || (selP ? (selP.preferredTutorGender || '').toLowerCase() : '')).trim();
       const reqRel = (selP && selP.preferredTutorReligion && selP.preferredTutorReligion !== 'Any') ? selP.preferredTutorReligion.toLowerCase() : '';
-      const reqTier = (tierFilter || (selP ? (selP.tutorTier || '').toUpperCase() : '')).trim();
 
-      // Sort and prioritize tutors
-      const sortedTutorsWithIndex = tutors.map((t, originalIndex) => {
+      // 1. Strictly filter tutors according to active match modal filters
+      const matchingTutors = tutors.map((t, originalIndex) => ({ tutor: t, originalIndex })).filter(item => {
+        const t = item.tutor;
+        const tUni = (t.uni || t.university || '').toLowerCase();
+        const tGender = (t.gender || '').toLowerCase();
+        const tTier = getTutorMetalTier(t.cgpa);
+
+        // Strict University Filter
+        if (uniFilter && !tUni.includes(uniFilter) && !uniFilter.includes(tUni)) return false;
+
+        // Strict Campus Filter
+        if (campusFilter && !tUni.includes(campusFilter)) {
+          const words = campusFilter.split(/\s+/).filter(w => w.length >= 4 && !['campus','main','institute','technology'].includes(w));
+          const wordMatch = words.some(w => tUni.includes(w));
+          if (!wordMatch) return false;
+        }
+
+        // Strict Tutor Gender Filter
+        if (tutorGenderFilter === 'female' && !tGender.includes('female')) return false;
+        if (tutorGenderFilter === 'male' && (!tGender.includes('male') || tGender.includes('female'))) return false;
+
+        // Strict Academic Tier Filter
+        if (tierFilter && tTier.code !== tierFilter) return false;
+
+        // Search Query Filter
+        if (query) {
+          const matchQuery = (t.name || '').toLowerCase().includes(query) ||
+            (t.phone || '').toLowerCase().includes(query) ||
+            tUni.includes(query) ||
+            (t.trackingId || '').toLowerCase().includes(query) ||
+            (t.subj || '').toLowerCase().includes(query);
+          if (!matchQuery) return false;
+        }
+
+        return true;
+      });
+
+      const tutorCounter = document.getElementById('match-tutor-counter-badge');
+      const summaryCard = document.getElementById('match-tutor-summary-card');
+
+      if (matchingTutors.length === 0) {
+        let activeCrit = [];
+        const uEl = document.getElementById('match-filter-uni');
+        if (uniFilter && uEl && uEl.selectedIndex >= 0) activeCrit.push(`University: ${uEl.options[uEl.selectedIndex].text}`);
+        if (campusFilter) activeCrit.push(`Campus: ${campusFilter}`);
+        if (tutorGenderFilter) activeCrit.push(`Gender: ${tutorGenderFilter}`);
+        if (tierFilter) activeCrit.push(`Tier: ${tierFilter}`);
+
+        tSelect.innerHTML = `<option value="">⚠️ No verified tutors match active filters (${activeCrit.join(', ') || 'Change filters above'})</option>`;
+        if (summaryCard) summaryCard.style.display = 'none';
+        if (tutorCounter) tutorCounter.innerText = `0 available scholars`;
+        return;
+      }
+
+      // 2. Sort and prioritize matching tutors
+      const sortedTutorsWithIndex = matchingTutors.map(item => {
+        const t = item.tutor;
         const tUni = (t.uni || t.university || '').toLowerCase();
         const tGender = (t.gender || '').toLowerCase();
         const tTier = getTutorMetalTier(t.cgpa);
@@ -7276,30 +7330,24 @@ function rowsToJson(sheet) {
         const activeMatches = getTutorActiveMatches(t, allMatches);
         const isFull = activeMatches.length >= cap;
 
-        // Match Scores
+        // Priority Scores
         let matchScore = 0;
-        const isGenderMatch = reqTutorGender && reqTutorGender !== 'any' && tGender.includes(reqTutorGender);
-        const isCampusMatch = (campusFilter && tUni.includes(campusFilter)) || (pArea && tUni && (pArea.includes(tUni) || tUni.includes(pArea)));
-        const isUniMatch = uniFilter && tUni.includes(uniFilter);
+        const isParentGenderPref = selP && selP.preferredTutorGender && selP.preferredTutorGender !== 'Any' && tGender.includes(selP.preferredTutorGender.toLowerCase());
+        const isAreaMatch = pArea && tUni && (pArea.includes(tUni) || tUni.includes(pArea));
         const isReligionMatch = reqRel && (t.religion || '').toLowerCase() === reqRel;
-        const isTierMatch = reqTier && reqTier !== 'ALL' && tTier.code === reqTier;
 
-        if (isUniMatch) matchScore += 250;
-        if (isCampusMatch) matchScore += 180;
-        if (isGenderMatch) matchScore += 50;
+        if (isParentGenderPref) matchScore += 50;
+        if (isAreaMatch) matchScore += 40;
         if (isReligionMatch) matchScore += 25;
-        if (isTierMatch) matchScore += 20;
         if (isFull) matchScore -= 1000; // Deprioritize full tutors to bottom
 
         return {
           tutor: t,
-          originalIndex,
+          originalIndex: item.originalIndex,
           matchScore,
-          isGenderMatch,
-          isCampusMatch,
-          isUniMatch,
+          isParentGenderPref,
+          isAreaMatch,
           isReligionMatch,
-          isTierMatch,
           isFull,
           activeCount: activeMatches.length,
           cap,
@@ -7313,17 +7361,9 @@ function rowsToJson(sheet) {
         return scoreB - scoreA;
       });
 
-      const tutorCounter = document.getElementById('match-tutor-counter-badge');
       const availableCount = sortedTutorsWithIndex.filter(item => !item.isFull).length;
       if (tutorCounter) {
-        tutorCounter.innerText = `${availableCount} available scholars`;
-      }
-
-      if (sortedTutorsWithIndex.length === 0) {
-        tSelect.innerHTML = `<option value="">⚠️ No tutors available</option>`;
-        const summaryCard = document.getElementById('match-tutor-summary-card');
-        if (summaryCard) summaryCard.style.display = 'none';
-        return;
+        tutorCounter.innerText = `${availableCount} of ${tutors.length} scholars available`;
       }
 
       tSelect.innerHTML = sortedTutorsWithIndex.map(item => {
@@ -7339,9 +7379,8 @@ function rowsToJson(sheet) {
         else if (item.lvl === 1) lvlPrefix = `🎙️ ${item.tier.emoji} [${item.tier.code} L1 EXAM PASSED]`;
 
         let badges = [];
-        if (item.isUniMatch) badges.push('🏛️UNI MATCH');
-        if (item.isCampusMatch) badges.push('📍CAMPUS MATCH');
-        if (item.isGenderMatch) badges.push('🎯GENDER MATCH');
+        if (item.isAreaMatch) badges.push('📍AREA MATCH');
+        if (item.isParentGenderPref) badges.push('🎯PARENT PREF GENDER');
         if (item.isReligionMatch) badges.push('⛪RELIGION MATCH');
         const badgeStr = badges.length > 0 ? ` [${badges.join(' | ')}]` : '';
 
@@ -7362,13 +7401,19 @@ function rowsToJson(sheet) {
     }
 
     function onMatchTutorSelectChange(tIndex) {
-      if (tIndex === null || tIndex === undefined || tIndex === '') return;
+      const tSummary = document.getElementById('match-tutor-summary-card');
+      if (tIndex === null || tIndex === undefined || tIndex === '') {
+        if (tSummary) tSummary.style.display = 'none';
+        return;
+      }
       const tutors = getTutors();
       const allMatches = getMatches();
       const t = tutors[tIndex];
-      if (!t) return;
+      if (!t) {
+        if (tSummary) tSummary.style.display = 'none';
+        return;
+      }
 
-      const tSummary = document.getElementById('match-tutor-summary-card');
       if (tSummary) {
         tSummary.style.display = 'block';
         const tier = getTutorMetalTier(t.cgpa);
