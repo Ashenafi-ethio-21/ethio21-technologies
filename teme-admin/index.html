@@ -4797,17 +4797,24 @@ function rowsToJson(sheet) {
     // ==========================================
     function deduplicateByPhone(list) {
       if (!Array.isArray(list)) return [];
-      const seen = new Set();
+      const seenPhones = new Set();
+      const seenNames = new Set();
       const result = [];
       for (const item of list) {
         if (!item) continue;
         const rawPhone = item.phone || '';
         const cleanPhone = rawPhone.replace(/\D/g, '').slice(-9);
-        const key = cleanPhone || item.trackingId || item.id || JSON.stringify(item);
-        if (!seen.has(key)) {
-          seen.add(key);
-          result.push(item);
-        }
+        const normName = (item.name || '').trim().toLowerCase();
+        
+        // 1. Deduplicate by phone number
+        if (cleanPhone && seenPhones.has(cleanPhone)) continue;
+
+        // 2. Deduplicate by exact name (e.g. repeated test submissions)
+        if (normName && seenNames.has(normName)) continue;
+
+        if (cleanPhone) seenPhones.add(cleanPhone);
+        if (normName) seenNames.add(normName);
+        result.push(item);
       }
       return result;
     }
@@ -8629,20 +8636,38 @@ function rowsToJson(sheet) {
 
     function purgeSeedPlaceholdersSilently() {
       try {
-        const seedTrackingIds = ['AST-P-1042', 'AST-P-2051', 'AST-T-8419', 'AST-T-7204', 'AST-T-5190', 'AST-T-0000', 'AST-P-0000'];
-        const seedNames = ['ዶ/ር ተስፋዬ በቀለ (Dr. Tesfaye)', 'ወ/ሮ ሮዛ ሙሉጌታ (W/ro Roza)', 'ቤተልሔም ሰለሞን (Bethelhem S.)', 'ናትናኤል አለማየሁ (Natnael A.)', 'ዮሐንስ መላኩ (Yohannes M.)', 'ጴጥሮስ ኃይሌ (Petros H.)', 'ዳዊት ግርማ (Dawit Girma)'];
+        const seedTrackingIds = ['AST-P-1042', 'AST-P-2051', 'AST-T-8419', 'AST-T-7204', 'AST-T-5190', 'AST-T-0000', 'AST-P-0000', 'AST-T-4568', 'AST-T-2891'];
+        const seedNames = ['ዶ/ር ተስፋዬ በቀለ (Dr. Tesfaye)', 'ወ/ሮ ሮዛ ሙሉጌታ (W/ro Roza)', 'ቤተልሔም ሰለሞን (Bethelhem S.)', 'ናትናኤል አለማየሁ (Natnael A.)', 'ዮሐንስ መላኩ (Yohannes M.)', 'ጴጥሮስ ኃይሌ (Petros H.)', 'ዳዊት ግርማ (Dawit Girma)', 'Selamawit Tadesse (Tutor Scholar)'];
         
+        const isTestRecord = (item) => {
+          if (!item) return false;
+          const name = (item.name || '').trim();
+          const tId = item.trackingId || item.id || '';
+          if (seedTrackingIds.includes(tId)) return true;
+          if (seedNames.includes(name)) return true;
+          if (name.includes('(Tutor Scholar)')) return true;
+          return false;
+        };
+
         const rawParents = JSON.parse(localStorage.getItem('astegni_parent_leads') || '[]');
-        const cleanParents = deduplicateByPhone(rawParents.filter(p => !seedTrackingIds.includes(p.trackingId) && !seedTrackingIds.includes(p.id) && !seedNames.includes(p.name)));
+        const cleanParents = deduplicateByPhone(rawParents.filter(p => !isTestRecord(p)));
         localStorage.setItem('astegni_parent_leads', JSON.stringify(cleanParents));
 
         const rawTutors = JSON.parse(localStorage.getItem('astegni_tutor_leads') || '[]');
-        const cleanTutors = deduplicateByPhone(rawTutors.filter(t => !seedTrackingIds.includes(t.trackingId) && !seedTrackingIds.includes(t.id) && !seedNames.includes(t.name)));
+        const cleanTutors = deduplicateByPhone(rawTutors.filter(t => !isTestRecord(t)));
         localStorage.setItem('astegni_tutor_leads', JSON.stringify(cleanTutors));
 
         const rawMatches = JSON.parse(localStorage.getItem('astegni_matches') || '[]');
         const cleanMatches = deduplicateMatches(rawMatches.filter(m => !seedNames.includes(m.parentName) && !seedNames.includes(m.tutorName)));
         localStorage.setItem('astegni_matches', JSON.stringify(cleanMatches));
+
+        // Delete test IDs from cloud if connected
+        if (db) {
+          seedTrackingIds.forEach(id => {
+            deleteTutorFromCloud(id);
+            deleteParentFromCloud(id);
+          });
+        }
       } catch (e) {}
     }
 
