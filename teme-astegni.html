@@ -2466,6 +2466,76 @@
             }
           </style>
 
+          <!-- Current Living City & In-Person Tutoring Location Card -->
+          <div class="academic-affiliation-card" style="border-color: rgba(16, 185, 129, 0.45); margin-bottom: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.95rem; flex-wrap: wrap; gap: 0.6rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 0.75rem;">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <div style="width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.28), rgba(56, 189, 248, 0.28)); border: 1.5px solid rgba(16, 185, 129, 0.5); display: flex; align-items: center; justify-content: center; font-size: 1.45rem; box-shadow: 0 6px 18px rgba(16, 185, 129, 0.25);">
+                  📍
+                </div>
+                <div>
+                  <div style="font-weight: 850; color: #fff; font-size: 0.98rem; letter-spacing: 0.3px; display: flex; align-items: center; gap: 0.45rem;">
+                    <span>የአሁኑ መኖሪያ እና የማስተማሪያ ከተማ</span>
+                    <span style="font-size: 0.73rem; color: #34d399; font-weight: 700;">(Tutoring City &amp; Area)</span>
+                  </div>
+                  <div style="font-size: 0.74rem; color: #94a3b8; margin-top: 0.15rem;">
+                    🎯 በግንባር (In-Person) የሚያስተምሩበት ከተማ (ለአካባቢው ተማሪ ወላጆች በቀጥታ ይመደባሉ)
+                  </div>
+                </div>
+              </div>
+              <span style="font-size: 0.68rem; font-weight: 800; background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35); padding: 0.28rem 0.7rem; border-radius: 20px; text-transform: uppercase;">
+                In-Person Dispatch
+              </span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+              <!-- Current Living City Dropdown -->
+              <div class="field" style="margin-bottom: 0;">
+                <label id="i18n-f-tcity" style="color: #34d399; font-weight: 850; font-size: 0.86rem; margin-bottom: 0.45rem; display: block;">
+                  📍 የአሁኑ መኖሪያ ከተማ (Current Living City) *
+                </label>
+                <div style="position: relative;">
+                  <select id="t_city" class="modern-academic-select" required onchange="handleTutorCityChange()">
+                    <option value="" disabled selected>-- ከተማዎን ይምረጡ (Select City) * --</option>
+                    <option value="Bahir Dar">⭐ Bahir Dar (ባህር ዳር)</option>
+                    <option value="Addis Ababa">⭐ Addis Ababa (አዲስ አበባ)</option>
+                    <option value="Adama">⭐ Adama / Nazret (አዳማ)</option>
+                    <option value="Hawassa">⭐ Hawassa (ሐዋሳ)</option>
+                    <option value="Other">🌐 Other Ethiopian City / Online (ሌላ ከተማ / ኦንላይን)</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Nearest Campus / Sub-city / Neighborhood -->
+              <div class="field" style="margin-bottom: 0;">
+                <label id="i18n-f-tlivingarea" style="color: #38bdf8; font-weight: 850; font-size: 0.86rem; margin-bottom: 0.45rem; display: block;">
+                  🏫 ቅርብ ካምፓስ / ሰፈር (Nearest Campus / Area) *
+                </label>
+                <input type="text" id="t_living_area" class="form-ctrl" style="width: 100%; padding: 0.88rem 1rem; border-radius: 14px; background: #060d1f; border: 1.5px solid rgba(56, 189, 248, 0.35); color: #fff; font-weight: 700; font-size: 0.89rem;" placeholder="ምሳሌ፡ ፖሊ / ፔዳ / ቀበሌ 14 / ቦሌ / ፒያሳ ..." required>
+              </div>
+            </div>
+
+            <!-- Academic Status Pill Selector (Active Student vs Graduated Scholar) -->
+            <div style="margin-top: 1rem; padding-top: 0.85rem; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+              <label style="color: #cbd5e1; font-weight: 800; font-size: 0.82rem; margin-bottom: 0.45rem; display: block;">
+                🎓 የአካዳሚክ ሁኔታ (Academic Status) *
+              </label>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem;">
+                <label id="lbl-status-student" style="background: rgba(56, 189, 248, 0.12); border: 1.5px solid #38bdf8; padding: 0.7rem 0.85rem; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: all 0.2s;">
+                  <input type="radio" name="t_academic_status" value="STUDENT" checked onchange="handleAcademicStatusToggle('STUDENT')" style="accent-color: #38bdf8;">
+                  <span style="font-size: 0.82rem; font-weight: 800; color: #fff;">📚 የአሁኑ የዩኒቨርሲቲ ተማሪ<br><small style="font-weight: normal; color: #94a3b8;">Active University Student</small></span>
+                </label>
+                <label id="lbl-status-graduate" style="background: rgba(16, 185, 129, 0.12); border: 1.5px solid rgba(16, 185, 129, 0.4); padding: 0.7rem 0.85rem; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: all 0.2s;">
+                  <input type="radio" name="t_academic_status" value="GRADUATED" onchange="handleAcademicStatusToggle('GRADUATED')" style="accent-color: #10b981;">
+                  <span style="font-size: 0.82rem; font-weight: 800; color: #fff;">🎓 ተመራቂ ምሁር / ዲግሪ ባለቤት<br><small style="font-weight: normal; color: #94a3b8;">Graduated Scholar / Degree Holder</small></span>
+                </label>
+              </div>
+              <div id="grad-scholar-info-banner" style="display: none; margin-top: 0.75rem; background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; border-radius: 10px; padding: 0.65rem 0.85rem; font-size: 0.78rem; color: #a7f3d0; line-height: 1.45;">
+                ✨ <b>የተመራቂ ምሁር ዕውቅና፡</b> ከተመረቁበት ዩኒቨርሲቲ (ለምሳሌ፡ አዲስ አበባ ዩኒቨርሲቲ፣ ባሕር ዳር፣ ወዘተ) ያገኙትን ዲግሪ በማስረጃነት በመያዝ፣ በአሁኑ መኖሪያ ከተማዎ (ለምሳሌ፡ ባህር ዳር) ላሉ ተማሪዎችና ወላጆች በግንባር እንዲያስተምሩ በቀጥታ ይመደባሉ!
+              </div>
+            </div>
+          </div>
+
           <!-- Modern Classic University & Campus Affiliation Card -->
           <div class="academic-affiliation-card" id="academic-affiliation-card">
             
@@ -2592,11 +2662,12 @@
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.65rem;">
             <div class="field">
               <label id="i18n-f-tyear">Academic Year *</label>
-              <select id="t_year" required>
+              <select id="t_year" required onchange="handleYearChange(this.value)">
                 <option value="2nd Year" selected>2nd Year</option>
                 <option value="3rd Year">3rd Year</option>
                 <option value="4th Year">4th Year</option>
-                <option value="5th Year / Graduate">5th Year / Graduate</option>
+                <option value="5th Year / Final Year">5th Year / Final Year</option>
+                <option value="Graduated Scholar / Degree Holder">🎓 Graduated Scholar / Degree Holder (ተመራቂ)</option>
               </select>
             </div>
             <div class="field">
@@ -6850,6 +6921,90 @@
       return { uniName, campusName, combined };
     }
 
+    function handleAcademicStatusToggle(status) {
+      const isGrad = status === 'GRADUATED';
+      const lblStudent = document.getElementById('lbl-status-student');
+      const lblGraduate = document.getElementById('lbl-status-graduate');
+      const banner = document.getElementById('grad-scholar-info-banner');
+      const uniLabel = document.getElementById('i18n-f-tuni');
+      const campusLabel = document.getElementById('i18n-f-tcampus');
+      const yearSelect = document.getElementById('t_year');
+
+      if (lblStudent && lblGraduate) {
+        if (isGrad) {
+          lblGraduate.style.borderColor = '#10b981';
+          lblGraduate.style.background = 'rgba(16, 185, 129, 0.2)';
+          lblStudent.style.borderColor = 'rgba(56, 189, 248, 0.25)';
+          lblStudent.style.background = 'rgba(56, 189, 248, 0.05)';
+        } else {
+          lblStudent.style.borderColor = '#38bdf8';
+          lblStudent.style.background = 'rgba(56, 189, 248, 0.15)';
+          lblGraduate.style.borderColor = 'rgba(16, 185, 129, 0.25)';
+          lblGraduate.style.background = 'rgba(16, 185, 129, 0.05)';
+        }
+      }
+
+      if (banner) {
+        banner.style.display = isGrad ? 'block' : 'none';
+      }
+
+      if (uniLabel) {
+        const uSpan = uniLabel.querySelector('span:nth-child(2)');
+        if (uSpan) {
+          uSpan.innerText = isGrad 
+            ? 'የተመረቁበት ዩኒቨርሲቲ (University Graduated From / Alma Mater) *' 
+            : 'ዩኒቨርሲቲ (University) *';
+        }
+      }
+
+      if (campusLabel) {
+        const cSpan = campusLabel.querySelector('span:nth-child(2)');
+        if (cSpan) {
+          cSpan.innerText = isGrad 
+            ? 'የተመረቁበት ካምፓስ / ፋኩልቲ (Graduated Campus / Faculty) *' 
+            : 'ካምፓስ / ቅርንጫፍ (Campus) *';
+        }
+      }
+
+      if (yearSelect && isGrad) {
+        yearSelect.value = 'Graduated Scholar / Degree Holder';
+      }
+    }
+
+    function handleYearChange(val) {
+      if (val === 'Graduated Scholar / Degree Holder') {
+        const rGrad = document.querySelector('input[name="t_academic_status"][value="GRADUATED"]');
+        if (rGrad) {
+          rGrad.checked = true;
+          handleAcademicStatusToggle('GRADUATED');
+        }
+      } else {
+        const rStud = document.querySelector('input[name="t_academic_status"][value="STUDENT"]');
+        if (rStud) {
+          rStud.checked = true;
+          handleAcademicStatusToggle('STUDENT');
+        }
+      }
+    }
+
+    function handleTutorCityChange() {
+      const citySelect = document.getElementById('t_city');
+      const livingAreaInp = document.getElementById('t_living_area');
+      if (!citySelect || !livingAreaInp) return;
+      const c = citySelect.value;
+      if (c === 'Bahir Dar') {
+        livingAreaInp.placeholder = 'ምሳሌ፡ ፖሊ፣ ፔዳ፣ ቀበሌ 14፣ በላይ ዘለቀ፣ ሰላም...';
+      } else if (c === 'Addis Ababa') {
+        livingAreaInp.placeholder = 'ምሳሌ፡ ቦሌ፣ ፒያሳ፣ ሲኤምሲ፣ ሳሪስ፣ 5 ኪሎ፣ መገናኛ...';
+      } else if (c === 'Adama') {
+        livingAreaInp.placeholder = 'ምሳሌ፡ አስቱ ካምፓስ፣ ፍራንኮ፣ ደንበላ፣ መብራት ኃይል...';
+      } else if (c === 'Hawassa') {
+        livingAreaInp.placeholder = 'ምሳሌ፡ ዋናው ግቢ፣ ሪፈራል፣ ፒያሳ፣ ታቦር፣ ዳቶ...';
+      } else {
+        livingAreaInp.placeholder = 'ምሳሌ፡ የሰፈር ወይም የቅርብ ካምፓስ ስም...';
+      }
+    }
+
     // 3-LANGUAGE DICTIONARY (AMHARIC / ENGLISH / AFAAN OROMOO)
     const translations = {
       am: {
@@ -10608,10 +10763,14 @@
       const name = document.getElementById('t_name').value.trim();
       const phone = document.getElementById('t_phone').value.trim();
       const gender = document.getElementById('t_gender').value;
+      const tutorCity = document.getElementById('t_city')?.value || '';
+      const tutorLivingArea = document.getElementById('t_living_area')?.value.trim() || '';
+      const academicStatusRadio = document.querySelector('input[name="t_academic_status"]:checked')?.value || 'STUDENT';
       const { uniName, campusName, combined: uniCombined } = updateCombinedUni();
       const uniSelectEl = document.getElementById('t_uni_select');
       const campusSelectEl = document.getElementById('t_campus_select');
       const year = document.getElementById('t_year').value;
+      const isGraduated = academicStatusRadio === 'GRADUATED' || (year && year.includes('Graduate'));
       const cgpa = document.getElementById('t_cgpa').value.trim();
       const entranceScore = document.getElementById('t_entrance')?.value.trim();
       const subj = document.getElementById('t_subj').value.trim();
@@ -10622,6 +10781,23 @@
           ? 'እባክዎ ስምዎን ያስገቡ።' 
           : 'Please enter your name.';
         abortTutorValidation(msg, document.getElementById('t_name'));
+        return;
+      }
+
+      // Validate tutoring city and living area
+      if (!tutorCity) {
+        const msg = (currentLang === 'am') 
+          ? 'እባክዎ በአሁኑ ወቅት የሚኖሩበትን እና በግንባር የሚያስተምሩበትን ከተማ ይምረጡ።' 
+          : 'Please select your current living and tutoring city.';
+        abortTutorValidation(msg, document.getElementById('t_city'));
+        return;
+      }
+
+      if (!tutorLivingArea) {
+        const msg = (currentLang === 'am') 
+          ? 'እባክዎ የሚኖሩበትን ሰፈር ወይም ቅርብ ካምፓስ ያስገቡ።' 
+          : 'Please specify your residential area or nearest campus.';
+        abortTutorValidation(msg, document.getElementById('t_living_area'));
         return;
       }
 
@@ -11127,6 +11303,11 @@
           nameConsistencyConfirmed: true,
           credentialAuditStatus: uniVerificationStatus,
           level: 0,
+          city: tutorCity,
+          currentCity: tutorCity,
+          livingArea: tutorLivingArea,
+          academicStatus: isGraduated ? 'GRADUATED' : 'STUDENT',
+          isGraduated: isGraduated,
           examOptIn: examOptIn,
           examStatus: examOptIn ? 'Pending Exam' : 'Not Requested',
           examType: 'None',
@@ -11150,6 +11331,11 @@
           tgTag: tgTag,
           name: name,
           phone: phone,
+          city: tutorCity,
+          currentCity: tutorCity,
+          livingArea: tutorLivingArea,
+          academicStatus: isGraduated ? 'GRADUATED' : 'STUDENT',
+          isGraduated: isGraduated,
           uni: uni,
           university: uniName,
           campus: campusName,
@@ -11211,23 +11397,25 @@
                         `━━━━━━━━━━━━━━━━━━━━\n` +
                         `🎓 New University Tutor Application (Teme Astegni)\n` +
                         `👤 Target Legal Name: ${name}\n` +
+                        `📍 Current Tutoring City: ${tutorCity} (${tutorLivingArea})\n` +
+                        `🎓 Academic Status: ${isGraduated ? 'Graduated Scholar / Degree Holder 🎓' : 'Active Student 📚'} (${year})\n` +
                         `🪪 NAME CONSISTENCY AUDIT:\n` +
-                        `  • Campus Student ID: Must Match "${name}"\n` +
+                        `  • Campus Student ID / Degree: Must Match "${name}"\n` +
                         `  • Grade Report / Portal: Must Match "${name}"\n` +
                         `  • National Fayda / Kebele: Must Match "${name}"\n` +
                         `  • Applicant Sworn Match: Confirmed Exact Match ✓\n` +
                         `🚻 Gender / Sex: ${gender}\n` +
                         `⛪ Religion: ${religion}\n` +
                         `📞 Phone: ${phone}\n` +
-                        `🏛️ University: ${uniName}\n` +
-                        `🏫 Campus: ${campusName}\n` +
-                        `📅 Academic Year: ${year}\n` +
+                        `🏛️ University / Alma Mater: ${uniName}\n` +
+                        `🏫 Campus / Faculty: ${campusName}\n` +
+                        `📅 Academic Level: ${year}\n` +
                         `⭐ CGPA: ${cgpa} (${tierEmoji} ${tierName} Tier)\n` +
                         `🎯 Entrance Exam Score: ${entranceNum} / 700\n` +
                         `🏅 Metal Tier: ${tierEmoji} ${tierName} Tier\n` +
                         `📖 Subjects (Grade A): ${subj}\n` +
                         `🎙️ Communicative Exam: ${examOptIn ? `Requested Voice/Video Exam (Targeting ${tierName} Level 1)` : `Basic ${tierName} (L0)`}\n` +
-                        `📸 Campus ID Photo: ${campusFile ? 'Attached' : 'Not attached'}\n` +
+                        `📸 Campus ID / Degree: ${campusFile ? 'Attached' : 'Not attached'}\n` +
                         `📄 Grade Report: ${gradeFile ? 'Attached' : 'Not attached'}\n` +
                         `🆔 Govt ID: Attached (${govtType}${isSinglePageGovtDoc ? ' • Bio Page' : ' • Front & Back'}${window.currentTutorFaydaVerified ? ` • 🪪 Fayda QR Verified: ${window.currentTutorFaydaNumber || normGovtId}` : ' • Verified in Vault'})\n` +
                         `━━━━━━━━━━━━━━━━━━━━\n` +
@@ -11251,6 +11439,11 @@
         name: name,
         gender: gender,
         phone: phone,
+        city: tutorCity,
+        currentCity: tutorCity,
+        livingArea: tutorLivingArea,
+        academicStatus: isGraduated ? 'GRADUATED' : 'STUDENT',
+        isGraduated: isGraduated,
         uni: uni,
         university: uniName,
         campus: campusName,
