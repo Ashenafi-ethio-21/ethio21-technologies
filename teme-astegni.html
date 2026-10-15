@@ -3734,14 +3734,14 @@
       </div>
 
       <p style="font-size: 0.82rem; color: #94a3b8; line-height: 1.5; margin-bottom: 1.15rem;">
-        ስልክ ቀይረዋል ወይም መተግበሪያውን በአዲስ ብሮውዘር ከፍተዋል? የተሰጠዎትን የክትትል መለያ (Tracking ID e.g. <code>AST-P-XXXX</code> ወይም <code>AST-T-XXXX</code>) አሊያም የተመዘገቡበትን ስልክ ቁጥር ያስገቡ።
+        ስልክ ቀይረዋል ወይም መተግበሪያውን በአዲስ ብሮውዘር ከፍተዋል? ለግል መረጃዎ ደህንነት ሲባል የተሰጠዎትን ሚስጥራዊ የክትትል መለያ (Tracking ID e.g. <code>AST-P-XXXX</code> ወይም <code>AST-T-XXXX</code>) ያስገቡ።
       </p>
 
       <div style="margin-bottom: 1.15rem;">
         <label style="display: block; font-size: 0.76rem; font-weight: 750; color: #cbd5e1; margin-bottom: 0.4rem;">
-          የክትትል መለያ (Tracking ID) ወይም ስልክ ቁጥር:
+          የክትትል መለያ (Private Tracking ID):
         </label>
-        <input type="text" id="restore-input-val" placeholder="e.g. AST-P-1717 ወይም 0911223344" style="width: 100%; box-sizing: border-box; background: rgba(15, 23, 42, 0.8); border: 1.5px solid rgba(56, 189, 248, 0.4); color: #fff; padding: 0.8rem 1rem; border-radius: 12px; font-size: 0.95rem; font-weight: 700; outline: none;">
+        <input type="text" id="restore-input-val" placeholder="e.g. AST-P-1024 ወይም AST-T-2048" style="width: 100%; box-sizing: border-box; background: rgba(15, 23, 42, 0.8); border: 1.5px solid rgba(56, 189, 248, 0.4); color: #fff; padding: 0.8rem 1rem; border-radius: 12px; font-size: 0.95rem; font-weight: 700; outline: none;">
       </div>
 
       <div id="restore-status-msg" style="display: none; font-size: 0.78rem; padding: 0.6rem; border-radius: 8px; margin-bottom: 1rem;"></div>
@@ -4588,20 +4588,35 @@
       const cleanVal = val.toUpperCase();
       const phoneDigits = val.replace(/\D/g, '');
 
+      // Privacy Guard: Require private Tracking ID (AST-P-... or AST-T-...) to prevent entering someone else's phone number
+      if (!cleanVal.startsWith('AST-P-') && !cleanVal.startsWith('AST-T-')) {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerText = currentLang === 'am' ? '🔍 ካርዴን አምጣ (Restore Profile)' : '🔍 Restore Profile';
+        }
+        if (msg) {
+          msg.style.display = 'block';
+          msg.style.background = 'rgba(245, 158, 11, 0.2)';
+          msg.style.color = '#fbbf24';
+          msg.innerText = currentLang === 'am'
+            ? '🔒 ለግላዊ መረጃዎ ደህንነት (Data Privacy)፣ እባክዎ በምዝገባ ወቅት የተሰጠዎትን ሚስጥራዊ የክትትል መለያ (Tracking ID e.g. AST-P-XXXX ወይም AST-T-XXXX) ያስገቡ።'
+            : '🔒 For strict personal data privacy, please enter your private Tracking ID (e.g. AST-P-XXXX or AST-T-XXXX) issued during application.';
+        }
+        return;
+      }
+
       // 1. Check local lists first (0 network calls)
       const localParents = JSON.parse(localStorage.getItem('astegni_parent_leads') || '[]');
       const localTutors = JSON.parse(localStorage.getItem('astegni_tutor_leads') || '[]');
 
       let foundParent = localParents.find(p => {
         const id = (p.trackingId || p.id || '').toUpperCase();
-        const ph = (p.phone || '').replace(/\D/g, '');
-        return id === cleanVal || (phoneDigits.length >= 6 && ph.endsWith(phoneDigits.slice(-9)));
+        return id === cleanVal;
       });
 
       let foundTutor = !foundParent && localTutors.find(t => {
         const id = (t.trackingId || t.id || '').toUpperCase();
-        const ph = (t.phone || '').replace(/\D/g, '');
-        return id === cleanVal || (phoneDigits.length >= 6 && ph.endsWith(phoneDigits.slice(-9)));
+        return id === cleanVal;
       });
 
       // 2. Single Targeted Firestore Query Fallback (1 read, strictly for this ID)
