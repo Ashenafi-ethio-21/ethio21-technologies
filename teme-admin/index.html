@@ -2748,8 +2748,8 @@
           🎓 Academic Status
         </label>
         <select id="city-modal-academic-status" class="form-ctrl" style="width: 100%;">
-          <option value="STUDENT">📚 Active University Student (ተማሪ)</option>
-          <option value="GRADUATED">🎓 Graduated Scholar / Degree Holder (የተመረቀ ምሁር)</option>
+          <option value="STUDENT">📚 የአሁን የዩኒቨርሲቲ ተማሪ (Active University Student)</option>
+          <option value="GRADUATED">🎓 የተመረቀ / የዲግሪ ባለቤት (Graduated / Degree Holder)</option>
         </select>
       </div>
 
@@ -5589,7 +5589,7 @@ function rowsToJson(sheet) {
                   <span>${escapeHtml(t.name)}</span>
                   <span class="id-badge-pill">🏷️ ${escapeHtml(tTrackingId)}</span>
                   <span class="level-badge ${tier.badgeClass}" style="font-size: 0.68rem; padding: 0.15rem 0.5rem;">${tier.emoji} ${tier.name}</span>
-                  ${isGrad ? `<span class="tag-badge" style="background: rgba(147, 51, 234, 0.22); color: #c084fc; border: 1.5px solid #a855f7; font-weight: 850; font-size: 0.68rem; padding: 0.15rem 0.5rem;">🎓 Graduated Scholar</span>` : ''}
+                  ${isGrad ? `<span class="tag-badge" style="background: rgba(147, 51, 234, 0.22); color: #c084fc; border: 1.5px solid #a855f7; font-weight: 850; font-size: 0.68rem; padding: 0.15rem 0.5rem;">🎓 የተመረቀ / የዲግሪ ባለቤት</span>` : ''}
                   ${t.city ? `<span class="tag-badge" style="background: rgba(14, 165, 233, 0.2); color: #38bdf8; border: 1px solid rgba(14, 165, 233, 0.45); font-weight: 800; font-size: 0.68rem; padding: 0.15rem 0.5rem;">📍 ${escapeHtml(t.city)}${t.livingArea ? ` (${escapeHtml(t.livingArea)})` : ''}</span>` : ''}
                 </div>
                 <div class="record-subtitle-line">
