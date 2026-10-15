@@ -3,7 +3,7 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v208-tutor-city-graduated-architecture-2026';
+const CACHE_NAME = 'ethio21-v209-academic-status-wording-refinement-2026';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
