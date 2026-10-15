@@ -2725,6 +2725,70 @@
     </div>
   </div>
 
+  <!-- MODAL: TUTOR LOCATION & ALMA MATER EDITOR -->
+  <div id="modal-tutor-city" class="app-modal">
+    <div class="modal-sheet" style="max-width: 520px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+        <h2 style="margin: 0; font-size: 1.15rem;">📍 Tutoring City &amp; Campus Location</h2>
+        <button type="button" onclick="closeModal('modal-tutor-city')" style="background: rgba(255,255,255,0.08); border: none; color: #94a3b8; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center;">✕</button>
+      </div>
+      <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">
+        Update where this tutor currently resides and provides in-person tutoring. Essential for graduated scholars living in different cities from where they earned their degree.
+      </p>
+
+      <input type="hidden" id="city-modal-tutor-phone">
+
+      <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid var(--card-border); border-radius: 12px; padding: 0.85rem; margin-bottom: 1rem;">
+        <div style="font-size: 0.95rem; font-weight: 800; color: #fff;" id="city-modal-tutor-name">Tutor Name</div>
+        <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.2rem;" id="city-modal-tutor-current">Alma Mater / Registered Uni: ...</div>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 0.85rem;">
+        <label style="font-size: 0.8rem; font-weight: 700; color: #cbd5e1; margin-bottom: 0.35rem; display: block;">
+          🎓 Academic Status
+        </label>
+        <select id="city-modal-academic-status" class="form-ctrl" style="width: 100%;">
+          <option value="STUDENT">📚 Active University Student (ተማሪ)</option>
+          <option value="GRADUATED">🎓 Graduated Scholar / Degree Holder (የተመረቀ ምሁር)</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 0.85rem;">
+        <label style="font-size: 0.8rem; font-weight: 700; color: #cbd5e1; margin-bottom: 0.35rem; display: block;">
+          📍 Current Tutoring City (የሚኖርበት እና የሚያስተምርበት ከተማ) *
+        </label>
+        <select id="city-modal-city" class="form-ctrl" style="width: 100%;" onchange="onCityModalCityChange()">
+          <option value="Bahir Dar">Bahir Dar (ባህር ዳር)</option>
+          <option value="Addis Ababa">Addis Ababa (አዲስ አበባ)</option>
+          <option value="Adama">Adama (አዳማ / Nazret)</option>
+          <option value="Hawassa">Hawassa (ሐዋሳ)</option>
+          <option value="Other">Other City / Regional</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 0.85rem;">
+        <label style="font-size: 0.8rem; font-weight: 700; color: #cbd5e1; margin-bottom: 0.35rem; display: block;">
+          🏫 Nearest Campus / Living Neighborhood (የሚቀርበው ካምፓስ ወይም ሰፈር) *
+        </label>
+        <select id="city-modal-living-area-select" class="form-ctrl" style="width: 100%; margin-bottom: 0.4rem;" onchange="onCityModalAreaSelectChange()">
+        </select>
+        <input type="text" id="city-modal-living-area-input" class="form-ctrl" placeholder="Or type exact area (e.g. Poly Campus, Kebele 14, Bole...)" style="width: 100%;">
+      </div>
+
+      <div class="form-group" style="margin-bottom: 1rem;">
+        <label style="font-size: 0.8rem; font-weight: 700; color: #cbd5e1; margin-bottom: 0.35rem; display: block;">
+          🏛️ University / Alma Mater Degree From
+        </label>
+        <input type="text" id="city-modal-uni" class="form-ctrl" placeholder="e.g. Addis Ababa University (AAU) - 5 Kilo Campus" style="width: 100%;">
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-modal-sec" onclick="closeModal('modal-tutor-city')">Cancel</button>
+        <button type="button" class="btn-modal-primary" onclick="saveTutorCityAndLocation()">💾 Save Changes</button>
+      </div>
+    </div>
+  </div>
+
   <!-- MODAL: ID & CREDENTIAL INSPECTOR (PRECISION 2-COLUMN COMPACT LAYOUT) -->
   <div id="modal-id-inspect" class="app-modal">
     <div class="modal-sheet" style="max-width: 720px; padding: 1.25rem;">
@@ -5374,13 +5438,19 @@ function rowsToJson(sheet) {
 
       let filtered = tutors.filter(t => {
         const tUni = (t.uni || t.university || '').toLowerCase();
+        const tCity = (t.city || t.currentCity || '').toLowerCase();
+        const tLivingArea = (t.livingArea || '').toLowerCase();
         if (uniFilter) {
           const uFilt = uniFilter.toLowerCase().trim();
           const tUniMatch = tUni.includes(uFilt) ||
-            (uFilt === 'aastu' && (tUni.includes('addis ababa science') || tUni.includes('kilinto'))) ||
-            (uFilt === 'astu' && (tUni.includes('adama science') || tUni.includes('adama'))) ||
-            (uFilt === 'bahir dar' && (tUni.includes('bdu') || tUni.includes('selam') || tUni.includes('poly') || tUni.includes('peda'))) ||
-            (uFilt === 'hawassa' && (tUni.includes('hu') || tUni.includes('hawassa')));
+            tCity.includes(uFilt) ||
+            (uFilt === 'aastu' && (tUni.includes('addis ababa science') || tUni.includes('kilinto') || tCity.includes('addis'))) ||
+            (uFilt === 'astu' && (tUni.includes('adama science') || tUni.includes('adama') || tCity.includes('adama'))) ||
+            (uFilt === 'bahir dar' && (tUni.includes('bdu') || tUni.includes('selam') || tUni.includes('poly') || tUni.includes('peda') || tCity.includes('bahir') || tLivingArea.includes('poly') || tLivingArea.includes('peda') || tLivingArea.includes('selam'))) ||
+            (uFilt === 'poly' && (tLivingArea.includes('poly') || tUni.includes('poly'))) ||
+            (uFilt === 'peda' && (tLivingArea.includes('peda') || tUni.includes('peda'))) ||
+            (uFilt === 'selam' && (tLivingArea.includes('selam') || tUni.includes('selam'))) ||
+            (uFilt === 'hawassa' && (tUni.includes('hu') || tUni.includes('hawassa') || tCity.includes('hawassa')));
           if (!tUniMatch) return false;
         }
 
@@ -5391,6 +5461,8 @@ function rowsToJson(sheet) {
           (t.name || '').toLowerCase().includes(query) || 
           (t.phone || '').toLowerCase().includes(query) || 
           tUni.includes(query) ||
+          tCity.includes(query) ||
+          tLivingArea.includes(query) ||
           (t.trackingId && t.trackingId.toLowerCase().includes(query)) ||
           (t.tgTag && t.tgTag.toLowerCase().includes(query)) ||
           (t.religion && t.religion.toLowerCase().includes(query)) ||
@@ -5505,6 +5577,7 @@ function rowsToJson(sheet) {
 
         const subjectsArray = (t.subj || 'General').split(',').map(s => s.trim()).filter(Boolean);
         const subjChipsHtml = subjectsArray.map(s => `<span class="subj-chip subj-chip-amber">${escapeHtml(s)}</span>`).join('');
+        const isGrad = (t.academicStatus === 'GRADUATED' || t.isGraduated || (t.year && t.year.toLowerCase().includes('graduat')));
 
         card.innerHTML = `
           <!-- Summary Header (Always Visible • Overview Style + Tracking ID) -->
@@ -5512,13 +5585,16 @@ function rowsToJson(sheet) {
             <div class="record-identity">
               <div class="record-avatar ${avatarClass}" style="width: 44px; height: 44px; font-size: 1.15rem;">${initial}</div>
               <div class="record-titles">
-                <div class="record-fullname" style="font-size: 1.05rem;">
+                <div class="record-fullname" style="font-size: 1.05rem; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;">
                   <span>${escapeHtml(t.name)}</span>
                   <span class="id-badge-pill">🏷️ ${escapeHtml(tTrackingId)}</span>
                   <span class="level-badge ${tier.badgeClass}" style="font-size: 0.68rem; padding: 0.15rem 0.5rem;">${tier.emoji} ${tier.name}</span>
+                  ${isGrad ? `<span class="tag-badge" style="background: rgba(147, 51, 234, 0.22); color: #c084fc; border: 1.5px solid #a855f7; font-weight: 850; font-size: 0.68rem; padding: 0.15rem 0.5rem;">🎓 Graduated Scholar</span>` : ''}
+                  ${t.city ? `<span class="tag-badge" style="background: rgba(14, 165, 233, 0.2); color: #38bdf8; border: 1px solid rgba(14, 165, 233, 0.45); font-weight: 800; font-size: 0.68rem; padding: 0.15rem 0.5rem;">📍 ${escapeHtml(t.city)}${t.livingArea ? ` (${escapeHtml(t.livingArea)})` : ''}</span>` : ''}
                 </div>
                 <div class="record-subtitle-line">
-                  <span>🏛️ ${escapeHtml(t.uni)}</span>
+                  <span>${isGrad ? '🎓 Alma Mater: ' : '🏛️ '}${escapeHtml(t.uni)}</span>
+                  ${t.city ? `<span>•</span><span style="color: #38bdf8; font-weight: 750;">📍 Lives in: ${escapeHtml(t.city)}${t.livingArea ? ` (${escapeHtml(t.livingArea)})` : ''}</span>` : ''}
                   <span>•</span>
                   <span>📅 ${escapeHtml(t.year)}</span>
                   <span>•</span>
@@ -5556,6 +5632,7 @@ function rowsToJson(sheet) {
             <div class="record-meta-ribbon">
               <span class="tag-badge" style="background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.35); font-weight: 850;">⭐ CGPA ${escapeHtml(t.cgpa)}</span>
               ${t.entranceScore ? `<span class="tag-badge" style="background: rgba(245, 158, 11, 0.2); color: #fde047; border: 1.5px solid rgba(245, 158, 11, 0.5); font-weight: 900;">🎯 Entrance: ${escapeHtml(t.entranceScore)}/700</span>` : ''}
+              ${t.city ? `<span class="tag-badge" style="background: rgba(14, 165, 233, 0.2); color: #38bdf8; border: 1px solid rgba(14, 165, 233, 0.45); font-weight: 800;">📍 Tutoring Hub: ${escapeHtml(t.city)}</span>` : ''}
               ${t.religion ? `<span class="tag-badge" style="background: rgba(14, 165, 233, 0.18); color: #38bdf8; border: 1px solid rgba(14, 165, 233, 0.4); font-weight: 800;">⛪ ${escapeHtml(t.religion)}</span>` : ''}
               ${getLevelBadgeHtml(t.level, t.cgpa)}
               <span class="tag-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35); font-weight: 800;">👥 Capacity: ${displayCount}/${cap} Students</span>
@@ -5570,6 +5647,18 @@ function rowsToJson(sheet) {
               <div class="bento-item" style="grid-column: 1 / -1;">
                 <span class="bento-label">📖 Subjects (Grade A Mastery)</span>
                 <div class="subj-pill-list">${subjChipsHtml}</div>
+              </div>
+              <div class="bento-item">
+                <span class="bento-label">📍 Current Tutoring City &amp; Area</span>
+                <div class="bento-value" style="color: #38bdf8; font-weight: 800;">
+                  ${escapeHtml(t.city || 'Same as University / Hub')} ${t.livingArea ? `(${escapeHtml(t.livingArea)})` : ''}
+                </div>
+              </div>
+              <div class="bento-item">
+                <span class="bento-label">🎓 Academic Status &amp; Degree</span>
+                <div class="bento-value" style="color: #c084fc; font-weight: 800;">
+                  ${isGrad ? '🎓 Graduated Scholar / Degree Holder' : '📚 Active University Student'} • ${escapeHtml(t.uni || 'N/A')}
+                </div>
               </div>
               <div class="bento-item">
                 <span class="bento-label">📞 Direct Phone</span>
@@ -5638,6 +5727,7 @@ function rowsToJson(sheet) {
               </div>
 
               <div class="actions-right-group">
+                <button class="btn-act" style="background: rgba(14, 165, 233, 0.18); border-color: rgba(14, 165, 233, 0.4); color: #38bdf8; font-weight: 750;" onclick="openTutorCityModal('${escapeHtml(t.phone)}')">📍 City &amp; Campus</button>
                 <button class="btn-act" style="background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.35); color: #38bdf8;" onclick="openIdInspectModal('TUTOR', '${escapeHtml(t.phone)}')">🔍 Inspect ID</button>
                 <button class="btn-act" style="background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.35); color: #38bdf8;" onclick="openTutorExamModal('${escapeHtml(t.phone)}')">🎙️ Exam</button>
                 <button class="btn-act" style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.35); color: #fbbf24;" onclick="openLevelUpgradeModal('${escapeHtml(t.phone)}')">⭐ Level</button>
@@ -5857,6 +5947,171 @@ function rowsToJson(sheet) {
       dispatchTelegramOpsLog(msg);
 
       alert(`🚀 Success! ${tutor.name} has been promoted to ${tier.emoji} ${tier.name} Level ${targetLevel}!\n\nTelegram Ops notified with Search Tag: ${tTgTag}`);
+    }
+
+    // TUTOR LOCATION & ALMA MATER MODAL HANDLERS
+    const ADMIN_CITY_AREAS_MAP = {
+      'Bahir Dar': [
+        'Poly Campus (BiT Technology) - Main Hub',
+        'Peda Campus (Education / Social)',
+        'Selam Campus',
+        'Yibab Campus (Agriculture)',
+        'Kebele 14 / Diaspora Village',
+        'Kebele 04 / Gish Abay Area',
+        'Kebele 11 / Belay Zeleke',
+        'Abay Mado / Tis Abay Road',
+        'Other Area in Bahir Dar'
+      ],
+      'Addis Ababa': [
+        'AASTU Kilinto Hub (Akaki Kality)',
+        'AAU 4 Kilo / Arat Kilo',
+        'AAU 5 Kilo / AAiT Campus',
+        'AAU 6 Kilo / Sidist Kilo Main',
+        'AAU FBE / Commerce',
+        'Bole / Atlas / Olympia',
+        'CMC / Ayat / Summit',
+        'Megenagna / Signal / Gerji',
+        'Sarbet / Bisrate Gabriel',
+        'Other Area in Addis Ababa'
+      ],
+      'Adama': [
+        'ASTU Main Gate / Campus Hub',
+        'ASTU Gate 2 / Geda Area',
+        'Boku Shenen / Stadium Area',
+        'Posta Bet / Downtown Adama',
+        'Other Area in Adama'
+      ],
+      'Hawassa': [
+        'Main Campus Hub',
+        'IoT Campus (Technology)',
+        'Agriculture / Wondo Genet',
+        'Medhanalem / Piyassa',
+        'Other Area in Hawassa'
+      ],
+      'Other': [
+        'Other Regional City / Hub'
+      ]
+    };
+
+    function onCityModalCityChange() {
+      const city = document.getElementById('city-modal-city')?.value || 'Bahir Dar';
+      const areaSelect = document.getElementById('city-modal-living-area-select');
+      const areaInput = document.getElementById('city-modal-living-area-input');
+      const areas = ADMIN_CITY_AREAS_MAP[city] || ADMIN_CITY_AREAS_MAP['Other'];
+      if (areaSelect) {
+        areaSelect.innerHTML = areas.map(a => `<option value="${escapeHtml(a)}">${escapeHtml(a)}</option>`).join('');
+        if (areaInput) areaInput.value = areaSelect.value;
+      }
+    }
+
+    function onCityModalAreaSelectChange() {
+      const sel = document.getElementById('city-modal-living-area-select');
+      const input = document.getElementById('city-modal-living-area-input');
+      if (sel && input) {
+        input.value = sel.value;
+      }
+    }
+
+    function openTutorCityModal(phone) {
+      const tutors = getTutors();
+      const tutor = tutors.find(t => t.phone === phone);
+      if (!tutor) return;
+
+      document.getElementById('city-modal-tutor-phone').value = tutor.phone;
+      document.getElementById('city-modal-tutor-name').innerText = tutor.name || 'Tutor';
+      document.getElementById('city-modal-tutor-current').innerText = `Registered Degree / Campus: ${tutor.uni || 'N/A'}`;
+
+      // Pre-fill Academic Status
+      const isGrad = (tutor.academicStatus === 'GRADUATED' || tutor.isGraduated || (tutor.year && tutor.year.toLowerCase().includes('graduat')));
+      document.getElementById('city-modal-academic-status').value = isGrad ? 'GRADUATED' : 'STUDENT';
+
+      // Pre-fill City
+      let curCity = tutor.city || tutor.currentCity || '';
+      if (!curCity) {
+        const uni = (tutor.uni || '').toLowerCase();
+        if (uni.includes('bahir') || uni.includes('bdu')) curCity = 'Bahir Dar';
+        else if (uni.includes('astu') || uni.includes('adama')) curCity = 'Adama';
+        else if (uni.includes('hawassa') || uni.includes('hu')) curCity = 'Hawassa';
+        else if (uni.includes('aastu') || uni.includes('addis ababa')) curCity = 'Addis Ababa';
+        else curCity = 'Bahir Dar';
+      }
+
+      const citySelect = document.getElementById('city-modal-city');
+      if (citySelect) {
+        citySelect.value = curCity;
+        onCityModalCityChange();
+      }
+
+      // Pre-fill Area
+      const areaInput = document.getElementById('city-modal-living-area-input');
+      const areaSelect = document.getElementById('city-modal-living-area-select');
+      if (tutor.livingArea) {
+        if (areaInput) areaInput.value = tutor.livingArea;
+        if (areaSelect) {
+          for (let i = 0; i < areaSelect.options.length; i++) {
+            if (areaSelect.options[i].value === tutor.livingArea) {
+              areaSelect.selectedIndex = i;
+              break;
+            }
+          }
+        }
+      }
+
+      // Pre-fill Uni / Alma Mater
+      document.getElementById('city-modal-uni').value = tutor.uni || '';
+
+      document.getElementById('modal-tutor-city').classList.add('active');
+    }
+
+    function saveTutorCityAndLocation() {
+      const phone = document.getElementById('city-modal-tutor-phone').value;
+      const tutors = getTutors();
+      const tutor = tutors.find(t => t.phone === phone);
+      if (!tutor) return;
+
+      const academicStatus = document.getElementById('city-modal-academic-status').value;
+      const city = document.getElementById('city-modal-city').value;
+      const livingArea = (document.getElementById('city-modal-living-area-input').value || document.getElementById('city-modal-living-area-select').value || '').trim();
+      const uni = (document.getElementById('city-modal-uni').value || tutor.uni || '').trim();
+
+      tutor.academicStatus = academicStatus;
+      tutor.isGraduated = (academicStatus === 'GRADUATED');
+      if (tutor.isGraduated && (!tutor.year || !tutor.year.toLowerCase().includes('graduat'))) {
+        tutor.year = 'Graduated Scholar / Degree Holder';
+      }
+      tutor.city = city;
+      tutor.currentCity = city;
+      tutor.livingArea = livingArea;
+      tutor.uni = uni;
+
+      // Persist to LocalStorage and Firebase Cloud
+      saveTutors(tutors);
+
+      // Close modal and refresh UI
+      closeModal('modal-tutor-city');
+      renderAll();
+
+      // Audit Log to Telegram Ops
+      const tTrackingId = tutor.trackingId || tutor.id || ('AST-T-' + (tutor.phone || '').slice(-4));
+      const tTgTag = tutor.tgTag || ('#AST_T_' + (tutor.phone || '').slice(-4));
+      const user = getSessionUser();
+      const adminName = user ? (user.name || user.role) : 'System Admin';
+
+      const msg = 
+        `📍 <b>ADMIN ACTION: TUTOR LOCATION & CREDENTIALS UPDATED</b>\n\n` +
+        `🏷️ <b>Tutor ID:</b> <code>${tTrackingId}</code>\n` +
+        `📌 <b>SEARCH TAG:</b> <code>${tTgTag}</code>\n` +
+        `👤 <b>Name:</b> ${escapeHtml(tutor.name)}\n` +
+        `📞 <b>Phone:</b> ${escapeHtml(tutor.phone)}\n` +
+        `🎓 <b>Status:</b> ${tutor.isGraduated ? '🎓 Graduated Scholar' : '📚 Active University Student'}\n` +
+        `🏛️ <b>Alma Mater / Uni:</b> ${escapeHtml(tutor.uni)}\n` +
+        `📍 <b>Current Tutoring City:</b> <b>${escapeHtml(tutor.city)}</b>\n` +
+        `🏫 <b>Nearest Campus / Area:</b> ${escapeHtml(tutor.livingArea || 'N/A')}\n` +
+        `👮 <b>Admin Officer:</b> ${escapeHtml(adminName)}\n` +
+        `📅 <b>Timestamp:</b> ${new Date().toLocaleString()}`;
+      dispatchTelegramOpsLog(msg);
+
+      showToast(`✅ Updated ${tutor.name}'s location to ${city} (${livingArea})!`);
     }
 
     let currentMatchFilter = 'ALL';
@@ -7356,26 +7611,30 @@ function rowsToJson(sheet) {
       const matchingTutors = tutors.map((t, originalIndex) => ({ tutor: t, originalIndex })).filter(item => {
         const t = item.tutor;
         const tUni = (t.uni || t.university || '').toLowerCase();
+        const tCity = (t.city || t.currentCity || '').toLowerCase();
+        const tLivingArea = (t.livingArea || '').toLowerCase();
         const tGender = (t.gender || '').toLowerCase();
         const tTier = getTutorMetalTier(t.cgpa);
 
-        // Strict University Filter with Multi-Alias Match
+        // Strict University Filter with Multi-Alias Match & City Check
         if (uniFilter) {
           const uFilt = uniFilter.toLowerCase().trim();
           const tUniMatch = tUni.includes(uFilt) || uFilt.includes(tUni) ||
-            (uFilt === 'aastu' && (tUni.includes('addis ababa science') || tUni.includes('kilinto'))) ||
-            (uFilt === 'astu' && (tUni.includes('adama science') || tUni.includes('adama'))) ||
-            (uFilt === 'bahir dar' && (tUni.includes('bdu') || tUni.includes('selam') || tUni.includes('poly') || tUni.includes('peda'))) ||
-            (uFilt === 'hawassa' && (tUni.includes('hu') || tUni.includes('hawassa')));
+            tCity.includes(uFilt) || uFilt.includes(tCity) ||
+            (uFilt === 'aastu' && (tUni.includes('addis ababa science') || tUni.includes('kilinto') || tCity.includes('addis'))) ||
+            (uFilt === 'astu' && (tUni.includes('adama science') || tUni.includes('adama') || tCity.includes('adama'))) ||
+            (uFilt === 'bahir dar' && (tUni.includes('bdu') || tUni.includes('selam') || tUni.includes('poly') || tUni.includes('peda') || tCity.includes('bahir') || tLivingArea.includes('poly') || tLivingArea.includes('peda') || tLivingArea.includes('selam'))) ||
+            (uFilt === 'hawassa' && (tUni.includes('hu') || tUni.includes('hawassa') || tCity.includes('hawassa')));
           if (!tUniMatch) return false;
         }
 
-        // Strict Campus Filter with Keyword Extraction
+        // Strict Campus Filter with Keyword Extraction & Living Area Check
         if (campusFilter) {
           const cFilt = campusFilter.toLowerCase().trim();
-          if (!tUni.includes(cFilt)) {
+          const campusMatch = tUni.includes(cFilt) || tLivingArea.includes(cFilt) || tCity.includes(cFilt);
+          if (!campusMatch) {
             const cWords = cFilt.split(/[^a-z0-9]+/).filter(w => w.length >= 3 && !['campus','institute','technology'].includes(w));
-            const hasKeywordMatch = cWords.length > 0 && cWords.some(w => tUni.includes(w));
+            const hasKeywordMatch = cWords.length > 0 && cWords.some(w => tUni.includes(w) || tLivingArea.includes(w) || tCity.includes(w));
             if (!hasKeywordMatch) return false;
           }
         }
@@ -7392,6 +7651,8 @@ function rowsToJson(sheet) {
           const matchQuery = (t.name || '').toLowerCase().includes(query) ||
             (t.phone || '').toLowerCase().includes(query) ||
             tUni.includes(query) ||
+            tCity.includes(query) ||
+            tLivingArea.includes(query) ||
             (t.trackingId || '').toLowerCase().includes(query) ||
             (t.subj || '').toLowerCase().includes(query);
           if (!matchQuery) return false;
@@ -7421,6 +7682,8 @@ function rowsToJson(sheet) {
       const sortedTutorsWithIndex = matchingTutors.map(item => {
         const t = item.tutor;
         const tUni = (t.uni || t.university || '').toLowerCase();
+        const tCity = (t.city || t.currentCity || '').toLowerCase();
+        const tLivingArea = (t.livingArea || '').toLowerCase();
         const tGender = (t.gender || '').toLowerCase();
         const tTier = getTutorMetalTier(t.cgpa);
         const tLvl = Number(t.level) || 0;
@@ -7431,7 +7694,11 @@ function rowsToJson(sheet) {
         // Priority Scores
         let matchScore = 0;
         const isParentGenderPref = selP && selP.preferredTutorGender && selP.preferredTutorGender !== 'Any' && tGender.includes(selP.preferredTutorGender.toLowerCase());
-        const isAreaMatch = pArea && tUni && (pArea.includes(tUni) || tUni.includes(pArea));
+        const isAreaMatch = pArea && (
+          (tCity && (pArea.includes(tCity) || tCity.includes(pArea))) ||
+          (tLivingArea && (pArea.includes(tLivingArea) || tLivingArea.includes(pArea))) ||
+          (tUni && (pArea.includes(tUni) || tUni.includes(pArea)))
+        );
         const isReligionMatch = reqRel && (t.religion || '').toLowerCase() === reqRel;
 
         if (isParentGenderPref) matchScore += 50;
@@ -7482,12 +7749,15 @@ function rowsToJson(sheet) {
         if (item.isReligionMatch) badges.push('⛪RELIGION MATCH');
         const badgeStr = badges.length > 0 ? ` [${badges.join(' | ')}]` : '';
 
+        const isGrad = (t.academicStatus === 'GRADUATED' || t.isGraduated || (t.year && t.year.toLowerCase().includes('graduat')));
+        const credTag = isGrad ? ` • 🎓 Graduated (${escapeHtml(t.uni)})` : ` • ${escapeHtml(t.uni)}`;
+        const cityTag = t.city ? ` • 📍 ${escapeHtml(t.city)}${t.livingArea ? ` (${escapeHtml(t.livingArea)})` : ''}` : '';
         const relTag = t.religion ? ` • ⛪ ${t.religion}` : '';
         const genderTag = t.gender ? ` • ${t.gender.toLowerCase().includes('female') ? '👩 Female' : '👨 Male'}` : '';
         const examNote = (t.examStatus === 'passed' || t.examStatus === 'Passed') ? ` • Exam: ${t.examScore || 88}%` : '';
         const disabledAttr = item.isFull ? 'disabled style="color: #64748b;"' : '';
 
-        return `<option value="${item.originalIndex}" ${disabledAttr}>${capBadge} ${lvlPrefix}${badgeStr} ${escapeHtml(t.name)} (CGPA ${escapeHtml(t.cgpa)} • ${escapeHtml(t.uni)}${genderTag}${relTag}${examNote})</option>`;
+        return `<option value="${item.originalIndex}" ${disabledAttr}>${capBadge} ${lvlPrefix}${badgeStr} ${escapeHtml(t.name)} (CGPA ${escapeHtml(t.cgpa)}${credTag}${cityTag}${genderTag}${relTag}${examNote})</option>`;
       }).join('');
 
       // Auto-select top tutor
@@ -7520,11 +7790,13 @@ function rowsToJson(sheet) {
         const count = activeMatches.length;
         const examText = (t.examStatus === 'passed' || t.examStatus === 'Passed') ? `✅ Exam: ${t.examScore || 88}%` : `○ Exam: Not Taken`;
         const genderText = (t.gender || 'N/A');
+        const isGrad = (t.academicStatus === 'GRADUATED' || t.isGraduated || (t.year && t.year.toLowerCase().includes('graduat')));
 
         tSummary.innerHTML = `
           <div style="display: flex; gap: 0.65rem; flex-wrap: wrap; color: #cbd5e1; line-height: 1.45;">
             <span>🎓 <b>Scholar:</b> <span style="color: #34d399; font-weight: 800;">${escapeHtml(t.name)}</span></span>
-            <span>🏛️ <b>University:</b> ${escapeHtml(t.uni || 'N/A')}</span>
+            <span>📍 <b>Current Tutoring City:</b> <span style="color: #38bdf8; font-weight: 800;">${escapeHtml(t.city || 'Same as University')} ${t.livingArea ? `(${escapeHtml(t.livingArea)})` : ''}</span></span>
+            <span>🏛️ <b>Alma Mater:</b> ${escapeHtml(t.uni || 'N/A')} ${isGrad ? '(🎓 Graduated Scholar)' : ''}</span>
             <span>📊 <b>CGPA:</b> <span style="color: #fbbf24; font-weight: 800;">${escapeHtml(t.cgpa)}</span> (${tier.name} L${Number(t.level) || 0})</span>
             <span>🧒 <b>Gender:</b> ${escapeHtml(genderText)}</span>
             <span>${examText}</span>
