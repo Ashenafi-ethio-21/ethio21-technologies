@@ -6773,17 +6773,19 @@ function rowsToJson(sheet) {
         document.getElementById('inspect-doc-type').innerText = (record.govtId || 'National Fayda / Kebele (Front & Back)') + faydaMeta;
         document.getElementById('inspect-target-legal-name').innerText = record.name;
 
-        // Tutor 3-Credential Name Consistency Checks
+        const isGradRecord = record.isGraduated || record.academicStatus === 'GRADUATED' || (record.year && record.year.includes('Graduate'));
+
+        // Tutor Credential Name Consistency Checks
         const checksEl = document.getElementById('inspect-checks-container');
         if (checksEl) {
           checksEl.innerHTML = `
             <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
               <input type="checkbox" id="inspect-check-campus-name" checked style="accent-color: #10b981; width: 14px; height: 14px;">
-              <span>1. <b>Campus Student ID</b> name matches target legal name (<b>${escapeHtml(record.name)}</b>)</span>
+              <span>1. ${isGradRecord ? '🎓 <b>Graduated Scholar / Degree Holder</b> (Student ID Exempt)' : `<b>Campus Student ID</b> name matches target legal name (<b>${escapeHtml(record.name)}</b>)`}</span>
             </label>
             <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
               <input type="checkbox" id="inspect-check-grade-name" checked style="accent-color: #10b981; width: 14px; height: 14px;">
-              <span>2. <b>Grade Report / Portal</b> name matches target legal name (<b>${escapeHtml(record.name)}</b>)</span>
+              <span>2. <b>${isGradRecord ? 'Degree Certificate / Student Copy' : 'Grade Report / Portal'}</b> name matches target legal name (<b>${escapeHtml(record.name)}</b>)</span>
             </label>
             <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
               <input type="checkbox" id="inspect-check-govt-name" checked style="accent-color: #10b981; width: 14px; height: 14px;">
@@ -6808,7 +6810,7 @@ function rowsToJson(sheet) {
         const campusWrap = document.getElementById('thumb-wrap-campus');
         const gradeWrap = document.getElementById('thumb-wrap-grade');
 
-        if (campusWrap) campusWrap.style.display = 'block';
+        if (campusWrap) campusWrap.style.display = isGradRecord ? 'none' : 'block';
         if (gradeWrap) gradeWrap.style.display = 'block';
 
         const frontSrc = record.govtFrontImg || record.frontImg || 'assets/teme_astegni_logo.jpg';
