@@ -1993,7 +1993,7 @@
           <input type="text" id="tutor-search" class="search-input" style="flex: 1; min-width: 220px;" placeholder="🔍 Search tutor name, campus, CGPA, subjects, #AST_T..." oninput="renderTutors()">
           <select id="tutor-filter-uni" class="form-ctrl" style="max-width: 260px; padding: 0.55rem 0.85rem; font-size: 0.8rem; background: rgba(15, 23, 42, 0.9); border: 1.5px solid rgba(56, 189, 248, 0.35); border-radius: 12px; color: #fff;" onchange="renderTutors()">
             <option value="">🏛️ All Active Hubs &amp; Campuses</option>
-            <optgroup label="🚀 Phase 1 Active Hubs (ቀዳሚ 4 የትኩረት ማዕከላት)">
+            <optgroup label="🚀 Phase 1 Active Hubs (ቀዳሚ 5 የትኩረት ማዕከላት)">
               <option value="Bahir Dar">⭐ Bahir Dar University (BDU)</option>
               <option value="Poly">BDU Poly (BiT Technology)</option>
               <option value="Peda">BDU Peda (Education/Social)</option>
@@ -2002,10 +2002,11 @@
               <option value="ASTU">⭐ ASTU (Adama Main Campus)</option>
               <option value="Hawassa">⭐ Hawassa University (HU)</option>
               <option value="IoT">Hawassa IoT (Technology)</option>
+              <option value="Jimma">⭐ Jimma University (JU)</option>
+              <option value="JiT">JU JiT (Jimma Technology)</option>
             </optgroup>
             <optgroup label="⏳ Phase 2 Expansion (ቀጣይ ምዕራፍ)">
               <option value="Addis Ababa University">Addis Ababa University (AAU)</option>
-              <option value="Jimma">Jimma University (JU)</option>
               <option value="Gondar">University of Gondar (UoG)</option>
               <option value="Haramaya">Haramaya University (HU)</option>
               <option value="Arba Minch">Arba Minch University (AMU)</option>
@@ -2424,15 +2425,15 @@
             <label style="font-size: 0.68rem; font-weight: 750; color: #94a3b8; display: block; margin-bottom: 0.25rem;">🏛️ University (ዩኒቨርሲቲ)</label>
             <select id="match-filter-uni" class="form-ctrl" style="font-size: 0.8rem; padding: 0.45rem 0.65rem; background: rgba(30, 41, 59, 0.9); border-color: rgba(56, 189, 248, 0.35);" onchange="onMatchUniversityFilterChange()">
               <option value="">🏛️ All Active Hubs (Phase 1)</option>
-              <optgroup label="🚀 Phase 1 Active Hubs (ቀዳሚ 4 የትኩረት ማዕከላት)">
+              <optgroup label="🚀 Phase 1 Active Hubs (ቀዳሚ 5 የትኩረት ማዕከላት)">
                 <option value="Bahir Dar">⭐ Bahir Dar University (BDU)</option>
                 <option value="AASTU">⭐ AASTU (Kilinto, Addis Ababa)</option>
                 <option value="ASTU">⭐ ASTU (Adama Main Campus)</option>
                 <option value="Hawassa">⭐ Hawassa University (HU)</option>
+                <option value="Jimma">⭐ Jimma University (JU)</option>
               </optgroup>
               <optgroup label="⏳ Phase 2 Expansion (ቀጣይ ምዕራፍ)">
                 <option value="Addis Ababa University">Addis Ababa University (AAU)</option>
-                <option value="Jimma">Jimma University (JU)</option>
                 <option value="Gondar">University of Gondar (UoG)</option>
                 <option value="Haramaya">Haramaya University (HU)</option>
                 <option value="Arba Minch">Arba Minch University (AMU)</option>
@@ -2762,6 +2763,7 @@
           <option value="Addis Ababa">Addis Ababa (አዲስ አበባ)</option>
           <option value="Adama">Adama (አዳማ / Nazret)</option>
           <option value="Hawassa">Hawassa (ሐዋሳ)</option>
+          <option value="Jimma">Jimma (ጅማ)</option>
           <option value="Other">Other City / Regional</option>
         </select>
       </div>
@@ -5450,7 +5452,9 @@ function rowsToJson(sheet) {
             (uFilt === 'poly' && (tLivingArea.includes('poly') || tUni.includes('poly'))) ||
             (uFilt === 'peda' && (tLivingArea.includes('peda') || tUni.includes('peda'))) ||
             (uFilt === 'selam' && (tLivingArea.includes('selam') || tUni.includes('selam'))) ||
-            (uFilt === 'hawassa' && (tUni.includes('hu') || tUni.includes('hawassa') || tCity.includes('hawassa')));
+            (uFilt === 'hawassa' && (tUni.includes('hu') || tUni.includes('hawassa') || tCity.includes('hawassa'))) ||
+            (uFilt === 'jimma' && (tUni.includes('ju') || tUni.includes('jimma') || tCity.includes('jimma') || tLivingArea.includes('jit') || tLivingArea.includes('kito'))) ||
+            (uFilt === 'jit' && (tLivingArea.includes('jit') || tUni.includes('jit')));
           if (!tUniMatch) return false;
         }
 
@@ -5988,6 +5992,16 @@ function rowsToJson(sheet) {
         'Medhanalem / Piyassa',
         'Other Area in Hawassa'
       ],
+      'Jimma': [
+        'Main Campus (JU Main)',
+        'JiT Campus (Jimma Institute of Technology)',
+        'Kito Furdisa (CA-VM Agriculture)',
+        'Health Sciences / Referral Hospital',
+        'Business & Economics Campus',
+        'Mendera / Piyassa Area',
+        'Ginjo / Bosa Area',
+        'Other Area in Jimma'
+      ],
       'Other': [
         'Other Regional City / Hub'
       ]
@@ -6032,6 +6046,7 @@ function rowsToJson(sheet) {
         if (uni.includes('bahir') || uni.includes('bdu')) curCity = 'Bahir Dar';
         else if (uni.includes('astu') || uni.includes('adama')) curCity = 'Adama';
         else if (uni.includes('hawassa') || uni.includes('hu')) curCity = 'Hawassa';
+        else if (uni.includes('jimma') || uni.includes('ju')) curCity = 'Jimma';
         else if (uni.includes('aastu') || uni.includes('addis ababa')) curCity = 'Addis Ababa';
         else curCity = 'Bahir Dar';
       }
@@ -7153,7 +7168,8 @@ function rowsToJson(sheet) {
       "Bahir Dar University (BDU)",
       "Addis Ababa Science & Technology University (AASTU)",
       "Adama Science & Technology University (ASTU)",
-      "Hawassa University (HU)"
+      "Hawassa University (HU)",
+      "Jimma University (JU)"
     ];
 
     const ETHIOPIAN_UNIVERSITIES = [
