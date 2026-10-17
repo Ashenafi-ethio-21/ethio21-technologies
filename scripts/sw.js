@@ -3,7 +3,7 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v210-graduated-tutor-student-id-exemption-2026';
+const CACHE_NAME = 'ethio21-v211-jimma-university-activation-2026';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
