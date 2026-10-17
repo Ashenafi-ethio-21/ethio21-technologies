@@ -5444,8 +5444,10 @@ function rowsToJson(sheet) {
         const tLivingArea = (t.livingArea || '').toLowerCase();
         if (uniFilter) {
           const uFilt = uniFilter.toLowerCase().trim();
-          const tUniMatch = tUni.includes(uFilt) ||
-            tCity.includes(uFilt) ||
+          const hasCityMatch = tCity && tCity.length > 0 && tCity.includes(uFilt);
+          const hasUniMatch = tUni && tUni.length > 0 && tUni.includes(uFilt);
+
+          const tUniMatch = hasUniMatch || hasCityMatch ||
             (uFilt === 'aastu' && (tUni.includes('addis ababa science') || tUni.includes('kilinto') || tCity.includes('addis'))) ||
             (uFilt === 'astu' && (tUni.includes('adama science') || tUni.includes('adama') || tCity.includes('adama'))) ||
             (uFilt === 'bahir dar' && (tUni.includes('bdu') || tUni.includes('selam') || tUni.includes('poly') || tUni.includes('peda') || tCity.includes('bahir') || tLivingArea.includes('poly') || tLivingArea.includes('peda') || tLivingArea.includes('selam'))) ||
@@ -7413,6 +7415,9 @@ function rowsToJson(sheet) {
             else if (c.includes('Tibebe')) val = 'Tibebe Ghion';
             else if (c.includes('Maritime')) val = 'Maritime';
             else if (c.includes('IoT')) val = 'IoT';
+            else if (c.includes('JiT')) val = 'JiT';
+            else if (c.includes('Kito Furdisa') || c.includes('Agriculture')) val = 'Kito Furdisa';
+            else if (c.includes('Referral') || c.includes('Health Sciences')) val = 'Referral';
             else if (c.includes('4 Kilo')) val = '4 Kilo';
             else if (c.includes('5 Kilo')) val = '5 Kilo';
             else if (c.includes('6 Kilo')) val = '6 Kilo';
@@ -7500,11 +7505,12 @@ function rowsToJson(sheet) {
         // Smart University Filter
         if (uniFilter) {
           const uFilt = uniFilter.toLowerCase().trim();
-          const pUniMatch = pUni.includes(uFilt) || pArea.includes(uFilt) ||
+          const pUniMatch = (pUni && pUni.includes(uFilt)) || (pArea && pArea.includes(uFilt)) ||
             (uFilt === 'aastu' && (pUni.includes('addis ababa science') || pArea.includes('kilinto') || pUni.includes('kilinto'))) ||
             (uFilt === 'astu' && (pUni.includes('adama science') || pArea.includes('adama') || pUni.includes('adama'))) ||
             (uFilt === 'bahir dar' && (pUni.includes('bdu') || pArea.includes('bdu') || pArea.includes('selam') || pArea.includes('poly') || pArea.includes('peda'))) ||
-            (uFilt === 'hawassa' && (pUni.includes('hu') || pArea.includes('hawassa')));
+            (uFilt === 'hawassa' && (pUni.includes('hu') || pArea.includes('hawassa'))) ||
+            (uFilt === 'jimma' && (pUni.includes('ju') || pUni.includes('jimma') || pArea.includes('jimma') || pArea.includes('jit') || pArea.includes('kito')));
           if (!pUniMatch) return false;
         }
 
@@ -7637,12 +7643,19 @@ function rowsToJson(sheet) {
         // Strict University Filter with Multi-Alias Match & City Check
         if (uniFilter) {
           const uFilt = uniFilter.toLowerCase().trim();
-          const tUniMatch = tUni.includes(uFilt) || uFilt.includes(tUni) ||
-            tCity.includes(uFilt) || uFilt.includes(tCity) ||
+          const hasCityMatch = tCity && tCity.length > 0 && tCity.includes(uFilt);
+          const hasUniMatch = tUni && tUni.length > 0 && tUni.includes(uFilt);
+
+          const tUniMatch = hasUniMatch || hasCityMatch ||
             (uFilt === 'aastu' && (tUni.includes('addis ababa science') || tUni.includes('kilinto') || tCity.includes('addis'))) ||
             (uFilt === 'astu' && (tUni.includes('adama science') || tUni.includes('adama') || tCity.includes('adama'))) ||
             (uFilt === 'bahir dar' && (tUni.includes('bdu') || tUni.includes('selam') || tUni.includes('poly') || tUni.includes('peda') || tCity.includes('bahir') || tLivingArea.includes('poly') || tLivingArea.includes('peda') || tLivingArea.includes('selam'))) ||
-            (uFilt === 'hawassa' && (tUni.includes('hu') || tUni.includes('hawassa') || tCity.includes('hawassa')));
+            (uFilt === 'poly' && (tLivingArea.includes('poly') || tUni.includes('poly'))) ||
+            (uFilt === 'peda' && (tLivingArea.includes('peda') || tUni.includes('peda'))) ||
+            (uFilt === 'selam' && (tLivingArea.includes('selam') || tUni.includes('selam'))) ||
+            (uFilt === 'hawassa' && (tUni.includes('hu') || tUni.includes('hawassa') || tCity.includes('hawassa'))) ||
+            (uFilt === 'jimma' && (tUni.includes('ju') || tUni.includes('jimma') || tCity.includes('jimma') || tLivingArea.includes('jit') || tLivingArea.includes('kito'))) ||
+            (uFilt === 'jit' && (tLivingArea.includes('jit') || tUni.includes('jit')));
           if (!tUniMatch) return false;
         }
 
