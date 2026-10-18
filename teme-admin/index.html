@@ -9598,9 +9598,18 @@ function rowsToJson(sheet) {
     // PWA Service Worker for Admin with Auto-Update Check
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('scripts/sw.js')
+        navigator.serviceWorker.register('scripts/sw.js?v=2026.10.18.v214')
           .then(reg => {
             try { reg.update(); } catch (e) {}
+
+            document.addEventListener('visibilitychange', () => {
+              if (document.visibilityState === 'visible') {
+                try { reg.update(); } catch (e) {}
+              }
+            });
+            window.addEventListener('focus', () => {
+              try { reg.update(); } catch (e) {}
+            });
           })
           .catch(err => console.warn('SW register skipped', err));
 
