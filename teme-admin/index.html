@@ -8968,7 +8968,19 @@ function rowsToJson(sheet) {
           body: JSON.stringify({
             chat_id: targetChat,
             text: htmlMessage,
-            parse_mode: 'HTML'
+            parse_mode: 'HTML',
+            reply_markup: {
+              inline_keyboard: [
+                [
+                  { text: '📢 ዋና ቻናል (@teme_astegni)', url: 'https://t.me/teme_astegni' },
+                  { text: '👥 አስጠኚዎች ማህበረሰብ', url: 'https://t.me/Teme_Astegni_community' }
+                ],
+                [
+                  { text: '🌐 ድረ-ገጽ (Teme Astegni)', url: 'https://ethio21.com/teme-astegni' },
+                  { text: '📞 አስተባባሪ አግኝ', url: 'https://t.me/+RB15jRbw4Ak4MDA0' }
+                ]
+              ]
+            }
           })
         });
         const json = await res.json();
@@ -8987,7 +8999,19 @@ function rowsToJson(sheet) {
             body: JSON.stringify({
               chat_id: migratedChatId,
               text: htmlMessage,
-              parse_mode: 'HTML'
+              parse_mode: 'HTML',
+              reply_markup: {
+                inline_keyboard: [
+                  [
+                    { text: '📢 ዋና ቻናል (@teme_astegni)', url: 'https://t.me/teme_astegni' },
+                    { text: '👥 አስጠኚዎች ማህበረሰብ', url: 'https://t.me/Teme_Astegni_community' }
+                  ],
+                  [
+                    { text: '🌐 ድረ-ገጽ (Teme Astegni)', url: 'https://ethio21.com/teme-astegni' },
+                    { text: '📞 አስተባባሪ አግኝ', url: 'https://t.me/+RB15jRbw4Ak4MDA0' }
+                  ]
+                ]
+              }
             })
           });
           const retryJson = await retryRes.json();
@@ -8996,7 +9020,22 @@ function rowsToJson(sheet) {
           await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ chat_id: targetChat, text: htmlMessage.replace(/<[^>]+>/g, '') })
+            body: JSON.stringify({
+              chat_id: targetChat,
+              text: htmlMessage.replace(/<[^>]+>/g, ''),
+              reply_markup: {
+                inline_keyboard: [
+                  [
+                    { text: '📢 ዋና ቻናል', url: 'https://t.me/teme_astegni' },
+                    { text: '👥 አስጠኚዎች ግሩፕ', url: 'https://t.me/Teme_Astegni_community' }
+                  ],
+                  [
+                    { text: '🌐 ድረ-ገጽ', url: 'https://ethio21.com/teme-astegni' },
+                    { text: '📞 አስተባባሪ', url: 'https://t.me/+RB15jRbw4Ak4MDA0' }
+                  ]
+                ]
+              }
+            })
           });
         }
       } catch (e) {
@@ -9598,7 +9637,7 @@ function rowsToJson(sheet) {
     // PWA Service Worker for Admin with Auto-Update Check
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('scripts/sw.js?v=2026.10.18.v215')
+        navigator.serviceWorker.register('scripts/sw.js?v=2026.10.18.v216')
           .then(reg => {
             try { reg.update(); } catch (e) {}
 
