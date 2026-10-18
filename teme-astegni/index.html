@@ -3279,11 +3279,11 @@
         </a>
 
         <!-- Official Telegram Channel -->
-        <a href="https://t.me/teme_astegni" target="_blank" class="hotline-item" style="border-color: rgba(255, 255, 255, 0.12); margin-top: 0.65rem;">
+        <a href="https://t.me/temeeducationalplatform" target="_blank" class="hotline-item" style="border-color: rgba(255, 255, 255, 0.12); margin-top: 0.65rem;">
           <div style="display: flex; align-items: center; gap: 0.85rem;">
             <div style="font-size: 1.8rem;">📢</div>
             <div>
-              <div style="font-size: 0.98rem; font-weight: 800; color: #fff;">@teme_astegni</div>
+              <div style="font-size: 0.98rem; font-weight: 800; color: #fff;">@temeeducationalplatform</div>
               <div style="font-size: 0.8rem; color: #94a3b8;" id="i18n-ch-desc">Official Announcements &amp; Updates Channel</div>
             </div>
           </div>
@@ -8202,7 +8202,7 @@
     const TEME_TG_CROSS_NAV_KEYBOARD = {
       inline_keyboard: [
         [
-          { text: '📢 ዋና ቻናል (@teme_astegni)', url: 'https://t.me/teme_astegni' },
+          { text: '📢 ዋና ቻናል (@temeeducationalplatform)', url: 'https://t.me/temeeducationalplatform' },
           { text: '👥 አስጠኚዎች ማህበረሰብ', url: 'https://t.me/Teme_Astegni_community' }
         ],
         [
@@ -11729,7 +11729,7 @@
     // Register Service Worker with instant auto-update checking & cache busting
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('scripts/sw.js?v=2026.10.18.v216').then((registration) => {
+        navigator.serviceWorker.register('scripts/sw.js?v=2026.10.18.v217').then((registration) => {
           console.log('Teme Astegni PWA service worker registered:', registration.scope);
           // Check for fresh code from GitHub Pages on every visit
           try { registration.update(); } catch (e) {}
