@@ -8199,6 +8199,19 @@
       processTelegramQueue();
     }
 
+    const TEME_TG_CROSS_NAV_KEYBOARD = {
+      inline_keyboard: [
+        [
+          { text: '📢 ዋና ቻናል (@teme_astegni)', url: 'https://t.me/teme_astegni' },
+          { text: '👥 አስጠኚዎች ማህበረሰብ', url: 'https://t.me/Teme_Astegni_community' }
+        ],
+        [
+          { text: '🌐 ድረ-ገጽ (Teme Astegni)', url: 'https://ethio21.com/teme-astegni' },
+          { text: '📞 አስተባባሪ አግኝ', url: 'https://t.me/+RB15jRbw4Ak4MDA0' }
+        ]
+      ]
+    };
+
     // Send Photo to Telegram Bot / Channel (Queued & Rate-Protected)
     function sendPhotoToTelegramBot(blob, caption, targetChatId) {
       const botToken = localStorage.getItem('teme_astegni_tg_bot_token') || window.TEME_DEFAULT_TG_BOT_TOKEN;
@@ -8212,6 +8225,7 @@
           formData.append('caption', (caption || '').substring(0, 1024));
           formData.append('photo', blob, 'doc_verification.jpg');
           formData.append('parse_mode', 'HTML');
+          formData.append('reply_markup', JSON.stringify(TEME_TG_CROSS_NAV_KEYBOARD));
           const res = await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
             method: 'POST',
             body: formData
@@ -8224,6 +8238,7 @@
               retryData.append('chat_id', primaryChat);
               retryData.append('caption', (caption || '').replace(/<[^>]+>/g, '').substring(0, 1024));
               retryData.append('photo', blob, 'doc_verification.jpg');
+              retryData.append('reply_markup', JSON.stringify(TEME_TG_CROSS_NAV_KEYBOARD));
               await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, { method: 'POST', body: retryData });
             }
           }
@@ -8249,7 +8264,8 @@
             body: JSON.stringify({
               chat_id: primaryChat,
               text: text,
-              parse_mode: 'HTML'
+              parse_mode: 'HTML',
+              reply_markup: TEME_TG_CROSS_NAV_KEYBOARD
             })
           });
           const data = await res.json().catch(() => null);
@@ -8259,7 +8275,11 @@
               await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: primaryChat, text: text.replace(/<[^>]+>/g, '') })
+                body: JSON.stringify({
+                  chat_id: primaryChat,
+                  text: text.replace(/<[^>]+>/g, ''),
+                  reply_markup: TEME_TG_CROSS_NAV_KEYBOARD
+                })
               });
             }
           }
@@ -11709,7 +11729,7 @@
     // Register Service Worker with instant auto-update checking & cache busting
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('scripts/sw.js?v=2026.10.18.v215').then((registration) => {
+        navigator.serviceWorker.register('scripts/sw.js?v=2026.10.18.v216').then((registration) => {
           console.log('Teme Astegni PWA service worker registered:', registration.scope);
           // Check for fresh code from GitHub Pages on every visit
           try { registration.update(); } catch (e) {}
