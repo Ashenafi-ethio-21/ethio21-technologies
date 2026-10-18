@@ -3,7 +3,7 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v215-crosscheck-national-id-and-grade-report-2026';
+const CACHE_NAME = 'ethio21-v216-telegram-cross-nav-buttons-2026';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
