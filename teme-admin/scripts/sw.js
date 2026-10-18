@@ -3,7 +3,7 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v217-temeeducationalplatform-channel-2026';
+const CACHE_NAME = 'ethio21-v218-all-four-telegram-links-2026';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
