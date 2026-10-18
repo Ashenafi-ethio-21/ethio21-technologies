@@ -8543,6 +8543,18 @@
     // Advanced Document & Name Ownership Audit Engine
     async function auditDocumentNameOwnership(file, expectedFullName, docType) {
       if (!file) return { passed: true };
+
+      // EXEMPTION FOR UNIVERSITY STUDENT IDs:
+      // Physical university student IDs across Ethiopia commonly display student names in Amharic (Fidel),
+      // while portal names and grade reports are in English.
+      // Automated Latin OCR cannot cross-check Amharic script against English, so student IDs are accepted for human coordinator verification.
+      if (docType && (docType.includes('Student ID') || docType.includes('Campus ID'))) {
+        return {
+          passed: true,
+          confidence: 'COORDINATOR_VERIFY_AMHARIC_ID',
+          note: 'University Student ID accepted. Coordinator will verify Amharic name against English National ID and Grade Report.'
+        };
+      }
       
       const cleanExpected = (expectedFullName || '').trim().toLowerCase();
       if (!cleanExpected || cleanExpected.length < 3) return { passed: true };
@@ -8858,10 +8870,10 @@
         }
       }
 
-      // Check Student ID for conflicting university
-      if (campusText) {
+      // Check Student ID for conflicting university (require high confidence keyword length >= 6 to avoid Amharic OCR noise)
+      if (campusText && campusText.length > 30) {
         const conflictOnCampus = detectConflictingInstitution(campusText, 'University Student ID');
-        if (conflictOnCampus) {
+        if (conflictOnCampus && conflictOnCampus.matchedKeyword && conflictOnCampus.matchedKeyword.length >= 6) {
           return {
             passed: false,
             reason: 'UNIVERSITY_CONFLICT',
@@ -10169,19 +10181,16 @@
       const status = document.getElementById('status-campus-id');
       const box = document.getElementById('box-campus-id');
 
-      if (file && tutorName && tutorName.length >= 3) {
-        const audit = await auditDocumentNameOwnership(file, tutorName, 'University Student ID');
-        if (!audit.passed) {
-          if (status) {
-            status.innerText = `❌ የሰነድ አለመጣጣም፡ በተማሪ መታወቂያው ላይ ያለው ስም (${audit.detectedName}) ከስምዎ ጋር አይጣጣምም!`;
-            status.style.color = '#ef4444';
-          }
-          if (box) {
-            box.style.borderColor = '#ef4444';
-            box.style.background = 'rgba(239, 68, 68, 0.12)';
-          }
-          showDocMismatchModal(tutorName, audit.detectedName, 'University Student ID');
-          return;
+      // Student IDs in Ethiopia often have names in Amharic script.
+      // Name validation is cross-checked against English National ID and Grade Report instead.
+      if (file) {
+        if (status) {
+          status.innerText = `✓ የተማሪ መታወቂያ ተያይዟል (${file.name})`;
+          status.style.color = '#34d399';
+        }
+        if (box) {
+          box.style.borderColor = '#10b981';
+          box.style.background = 'rgba(16, 185, 129, 0.05)';
         }
       }
 
@@ -11141,19 +11150,10 @@
         return;
       }
 
-      // Audit Student ID (Only for active campus students)
-      if (!isGraduated && campusFile) {
-        const campusAudit = await auditDocumentNameOwnership(campusFile, name, 'University Student ID');
-        if (!campusAudit.passed) {
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalBtnHtml;
-          }
-          if (credCard) credCard.style.display = 'none';
-          showDocMismatchModal(name, campusAudit.detectedName, 'University Student ID');
-          return;
-        }
-      }
+      // University Student ID Name Audit:
+      // Physical university student ID cards across Ethiopia frequently display names in Amharic (Fidel).
+      // As requested, the system avoids false mismatches by accepting the student ID for coordinator verification,
+      // while performing automated cross-checks between the English National ID, English Grade Report, and English Portal Name.
 
       // Audit University Affiliation Cross-Check on Grade Report & Student ID (Exempted for graduated scholars who match local campuses)
       if (!isGraduated) {
@@ -11709,7 +11709,7 @@
     // Register Service Worker with instant auto-update checking & cache busting
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('scripts/sw.js?v=2026.10.18.v214').then((registration) => {
+        navigator.serviceWorker.register('scripts/sw.js?v=2026.10.18.v215').then((registration) => {
           console.log('Teme Astegni PWA service worker registered:', registration.scope);
           // Check for fresh code from GitHub Pages on every visit
           try { registration.update(); } catch (e) {}
