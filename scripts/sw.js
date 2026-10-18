@@ -3,7 +3,7 @@
  * Fast caching, offline resilience, and Network-First navigation for instantaneous updates
  */
 
-const CACHE_NAME = 'ethio21-v213-compact-admin-grid-and-slim-header-2026';
+const CACHE_NAME = 'ethio21-v214-call-to-upgrade-and-instant-reload-2026';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
