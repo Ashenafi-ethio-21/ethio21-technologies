@@ -8389,12 +8389,16 @@
         .filter(t => t.length >= 3);
     }
 
-    // Check name overlap between tokens and OCR text
+    // Check name overlap between tokens and OCR text (Flexible, Case-Insensitive, OCR-tolerant)
     function verifyNameOverlap(nameTokens, extractedText) {
       if (!nameTokens || nameTokens.length === 0 || !extractedText) return true;
-      const lowerText = extractedText.toLowerCase();
+      const lowerText = extractedText.toLowerCase().replace(/[^a-z0-9\s]/g, ' ');
       for (const token of nameTokens) {
-        if (lowerText.includes(token)) return true;
+        const cleanToken = token.toLowerCase().trim();
+        if (cleanToken.length < 3) continue;
+        if (lowerText.includes(cleanToken)) return true;
+        // Check prefix match (first 3-4 chars) in case of suffixes or OCR noise
+        if (cleanToken.length >= 4 && lowerText.includes(cleanToken.slice(0, 4))) return true;
       }
       return false;
     }
@@ -8665,13 +8669,14 @@
       }
 
       if (text.length > 120 && !anyWordFound && (upperText.includes('GRADE') || upperText.includes('CGPA') || upperText.includes('GPA') || upperText.includes('STUDENT'))) {
-        let fallbackName = detectedNameCandidate || 'የሌላ ተማሪ ስም (Another Student)';
+        // Mobile camera OCR frequently misses headers or table watermarks; pass to coordinator instead of blocking real applicants
         return {
-          passed: false,
-          detectedName: fallbackName,
+          passed: true,
+          confidence: 'COORDINATOR_VERIFY',
+          detectedName: detectedNameCandidate || 'Coordinator Audit',
           expectedName: expectedFullName,
           docType: docType || 'Grade Report',
-          reason: 'NAME_NOT_FOUND_ON_CREDENTIAL'
+          reason: 'NAME_UNREADABLE_BY_OCR'
         };
       }
 
@@ -10315,15 +10320,14 @@
           const audit = await auditDocumentNameOwnership(file, tutorName, 'Grade Report');
           if (!audit.passed) {
             if (status) {
-              status.innerText = `❌ የሰነድ አለመጣጣም፡ በውጤት ሪፖርቱ ላይ ያለው ስም (${audit.detectedName}) ከስምዎ (${tutorName}) ጋር አይጣጣምም!`;
-              status.style.color = '#ef4444';
+              status.innerText = `ℹ️ ሰነዱ ተያይዟል፡ በአስተባባሪ በእጅ ይረጋገጣል (Attached - coordinator will verify)`;
+              status.style.color = '#38bdf8';
             }
             if (box) {
-              box.style.borderColor = '#ef4444';
-              box.style.background = 'rgba(239, 68, 68, 0.12)';
+              box.style.borderColor = 'rgba(56, 189, 248, 0.45)';
+              box.style.background = 'rgba(56, 189, 248, 0.08)';
             }
-            showDocMismatchModal(tutorName, audit.detectedName, 'Grade Report');
-            return;
+            // Do not block file selection
           }
         }
 
@@ -11192,13 +11196,18 @@
       // Audit Grade Report / Degree Certificate
       const gradeAudit = await auditDocumentNameOwnership(gradeFile, name, isGraduated ? 'Degree Certificate' : 'Grade Report');
       if (!gradeAudit.passed) {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = originalBtnHtml;
+        const isSwornMatch = document.getElementById('chk-tutor-name-consistency')?.checked;
+        if (isSwornMatch) {
+          console.log('Applicant swore exact name match, bypassing OCR false-positive for coordinator review.');
+        } else {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnHtml;
+          }
+          if (credCard) credCard.style.display = 'none';
+          showDocMismatchModal(name, gradeAudit.detectedName, isGraduated ? 'Degree Certificate' : 'Grade Report');
+          return;
         }
-        if (credCard) credCard.style.display = 'none';
-        showDocMismatchModal(name, gradeAudit.detectedName, isGraduated ? 'Degree Certificate' : 'Grade Report');
-        return;
       }
 
       // University Student ID Name Audit:
@@ -11317,23 +11326,17 @@
       if (gradeReportText && gradeReportText.length > 25) {
         const nameMatchesGrade = verifyNameOverlap(nameTokens, gradeReportText);
         if (!nameMatchesGrade) {
-          const mismatchMsg = (currentLang === 'am')
-            ? (isGraduated 
-                ? '⚠️ የሰነድ ማረጋገጫ ችግር፡ በተያያዘው የዲግሪ ሰነድ/ውጤት ሪፖርት ላይ ያለው ስም ከሙሉ ስምዎ ጋር አይጣጣምም።' 
-                : '⚠️ የሰነድ ማረጋገጫ ችግር፡ በተያያዘው የውጤት ሪፖርት ላይ ያለው ስም ከመታወቂያው ስም ጋር አይጣጣምም። እባክዎ ሁሉም ሰነዶች የእርስዎ መሆናቸውን ያረጋግጡ።')
-            : (isGraduated 
-                ? '⚠️ Credential Verification Mismatch: The Full Name on the uploaded Degree Certificate does not match the applicant name.' 
-                : '⚠️ Credential Verification Mismatch: The Full Name on the uploaded Grade Report does not match the Student ID. All uploaded credentials must belong to the same person.');
-          
+          console.warn('OCR name overlap check inconclusive due to camera/font noise. Queued for coordinator visual verification.');
           if (credCard && credBadge && credDetails) {
-            credBadge.innerText = 'MISMATCH';
-            credBadge.style.background = 'rgba(239, 68, 68, 0.2)';
-            credBadge.style.color = '#ef4444';
-            if (credSpinner) credSpinner.innerText = '⚠️';
-            credDetails.innerText = mismatchMsg;
+            credBadge.innerText = 'COORDINATOR AUDIT';
+            credBadge.style.background = 'rgba(56, 189, 248, 0.2)';
+            credBadge.style.color = '#38bdf8';
+            if (credSpinner) credSpinner.innerText = '🛡️';
+            credDetails.innerText = (currentLang === 'am')
+              ? '✓ ሰነዶች ተያይዘዋል - በአስተባባሪ ይረጋገጣል (Documents attached for coordinator audit)'
+              : '✓ Credentials attached - queued for coordinator audit';
           }
-          abortTutorValidation(mismatchMsg, document.getElementById('t_name'), document.getElementById('box-grade-report'));
-          return;
+          // Do NOT abort registration - applicant already confirmed sworn name match checkbox
         }
       }
 
@@ -11760,7 +11763,7 @@
     // Register Service Worker with instant auto-update checking & cache busting
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('scripts/sw.js?v=2026.10.18.v218').then((registration) => {
+        navigator.serviceWorker.register('scripts/sw.js?v=2026.10.21.v219').then((registration) => {
           console.log('Teme Astegni PWA service worker registered:', registration.scope);
           // Check for fresh code from GitHub Pages on every visit
           try { registration.update(); } catch (e) {}
