@@ -2001,6 +2001,9 @@
         <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; width: 100%; margin-bottom: 0.75rem;">
           <input type="text" id="parent-search" class="search-input" placeholder="🔍 Search parent name, phone, area, grade, #AST_P..." oninput="filterParents()">
           <div style="display: flex; gap: 0.5rem;">
+            <button class="btn-act" style="background: rgba(16, 185, 129, 0.22); border: 1.5px solid rgba(16, 185, 129, 0.5); color: #34d399; font-weight: 850; font-size: 0.82rem; padding: 0.5rem 0.95rem; display: inline-flex; align-items: center; gap: 0.4rem;" onclick="openRegisterParentModal()">
+              <span>📞➕</span> <span>Register Parent (Call-In)</span>
+            </button>
             <button class="btn-act owner-only-feature" style="background: rgba(16, 185, 129, 0.18); border-color: rgba(16, 185, 129, 0.4); color: #34d399; font-weight: 850;" onclick="pushLocalRecordsToGoogleSheet()">☁️ Push All to Sheet</button>
             <button class="btn-act owner-only-feature" onclick="exportDataToCsv('parents')">📥 Export CSV</button>
           </div>
@@ -2038,7 +2041,10 @@
     <section id="view-tutors" class="view-panel">
       <div class="toolbar-box" style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 1.1rem; margin-bottom: 1rem;">
         <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; width: 100%; margin-bottom: 0.85rem; align-items: center;">
-          <input type="text" id="tutor-search" class="search-input" style="flex: 1; min-width: 220px;" placeholder="🔍 Search tutor name, campus, CGPA, subjects, #AST_T..." oninput="renderTutors()">
+          <button class="btn-act" style="background: rgba(56, 189, 248, 0.22); border: 1.5px solid rgba(56, 189, 248, 0.5); color: #38bdf8; font-weight: 850; font-size: 0.82rem; padding: 0.5rem 0.95rem; display: inline-flex; align-items: center; gap: 0.4rem;" onclick="openRegisterTutorModal()">
+              <span>📞➕</span> <span>Register Tutor (Call-In)</span>
+            </button>
+            <input type="text" id="tutor-search" class="search-input" style="flex: 1; min-width: 220px;" placeholder="🔍 Search tutor name, campus, CGPA, subjects, #AST_T..." oninput="renderTutors()">
           <select id="tutor-filter-uni" class="form-ctrl" style="max-width: 260px; padding: 0.55rem 0.85rem; font-size: 0.8rem; background: rgba(15, 23, 42, 0.9); border: 1.5px solid rgba(56, 189, 248, 0.35); border-radius: 12px; color: #fff;" onchange="renderTutors()">
             <option value="">🏛️ All Active Hubs &amp; Campuses</option>
             <optgroup label="🚀 Phase 1 Active Hubs (ቀዳሚ 5 የትኩረት ማዕከላት)">
@@ -2399,6 +2405,414 @@
   </nav>
 
   <!-- MODAL: INVITE NEW ADMIN -->
+  
+  <!-- ======================================================= -->
+  <!-- MODAL: REGISTER PARENT (CALL-IN)                        -->
+  <!-- ======================================================= -->
+  <div id="modal-register-parent" class="app-modal">
+    <div class="modal-sheet" style="max-width: 620px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+        <h2 style="font-size: 1.25rem; font-weight: 850; color: #fff; margin: 0;">
+          👨‍👩‍👧 Call-In Parent Registration
+        </h2>
+        <button type="button" class="modal-close-btn" onclick="closeModal('modal-register-parent')">✕</button>
+      </div>
+      <p style="font-size: 0.82rem; color: #94a3b8; margin-bottom: 1.25rem;">
+        Register parents calling for a tutor and generate their official <b>AST-P</b> tracking number.
+      </p>
+
+      <form onsubmit="handleCallInParentSubmit(event)">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-bottom: 0.85rem;">
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Parent / Contact Full Name *</label>
+            <input type="text" id="cip-name" class="form-ctrl" required placeholder="e.g. Almaz Bekele / አልማዝ በቀለ">
+          </div>
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Phone Number *</label>
+            <input type="tel" id="cip-phone" class="form-ctrl" required placeholder="0911... or 09... (Primary)" oninput="updateCipAstPreview()">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 0.85rem; margin-bottom: 0.85rem;">
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Location / Neighborhood *</label>
+            <input type="text" id="cip-area" class="form-ctrl" required placeholder="e.g. Summit — CMC Ajora, Addis Ababa" list="cip-area-list">
+            <datalist id="cip-area-list">
+              <option value="Summit — CMC Ajora, Addis Ababa">
+              <option value="Bole — Medhanialem, Addis Ababa">
+              <option value="Bole — Bulbula, Addis Ababa">
+              <option value="Ayat — Zone 3, Addis Ababa">
+              <option value="Sarbet — Karl Square, Addis Ababa">
+              <option value="Lebu — Varnero, Addis Ababa">
+              <option value="Kazanchis — Total, Addis Ababa">
+              <option value="Piassa — Churchill, Addis Ababa">
+              <option value="Megenagna — Lem Hotel, Addis Ababa">
+              <option value="Jemo — 1, Addis Ababa">
+              <option value="Gerji — Sunshine, Addis Ababa">
+            </datalist>
+          </div>
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Student Academic Grade *</label>
+            <select id="cip-grade" class="form-ctrl" required>
+              <option value="Grade 1">Grade 1</option>
+              <option value="Grade 2">Grade 2</option>
+              <option value="Grade 3" selected>Grade 3</option>
+              <option value="Grade 4">Grade 4</option>
+              <option value="Grade 5">Grade 5</option>
+              <option value="Grade 6">Grade 6</option>
+              <option value="Grade 7">Grade 7</option>
+              <option value="Grade 8">Grade 8</option>
+              <option value="Grade 9">Grade 9</option>
+              <option value="Grade 10">Grade 10</option>
+              <option value="Grade 11">Grade 11</option>
+              <option value="Grade 12">Grade 12</option>
+              <option value="University Freshman">University Freshman</option>
+              <option value="Kindergarten / KG">Kindergarten / KG</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin-bottom: 0.85rem;">
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Student Gender</label>
+            <select id="cip-gender" class="form-ctrl">
+              <option value="Female">Female (ሴት)</option>
+              <option value="Male">Male (ወንድ)</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Tutor Preference</label>
+            <select id="cip-tutor-pref" class="form-ctrl">
+              <option value="Female preferred" selected>Female preferred (ሴት አስጠኚ)</option>
+              <option value="Male preferred">Male preferred (ወንድ አስጠኚ)</option>
+              <option value="Any (No preference)">Any / No preference</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Mode</label>
+            <select id="cip-mode" class="form-ctrl">
+              <option value="In-Person" selected>In-Person (ቤት ለቤት)</option>
+              <option value="Online">Online (በኦንላይን)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 0.85rem; margin-bottom: 0.85rem;">
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Requested Subjects *</label>
+            <input type="text" id="cip-subjects" class="form-ctrl" required placeholder="e.g. Mathematics & English">
+          </div>
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Weekly Schedule *</label>
+            <input type="text" id="cip-schedule" class="form-ctrl" required placeholder="e.g. 3 days per week (2 hrs/day)">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 0.85rem; margin-bottom: 0.85rem;">
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Compensation / Rate *</label>
+            <input type="text" id="cip-comp" class="form-ctrl" required placeholder="e.g. 250 ETB / hour or 3,500 ETB/mo">
+          </div>
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Generated AST Number</label>
+            <div style="display: flex; align-items: center; background: rgba(16, 185, 129, 0.15); border: 1.5px solid rgba(16, 185, 129, 0.4); border-radius: 12px; padding: 0.55rem 0.85rem; color: #34d399; font-weight: 850; font-family: monospace; font-size: 1rem;">
+              <span id="cip-ast-preview">AST-P-XXXX</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <label class="form-label">About the Role / Pedagogical Notes</label>
+          <textarea id="cip-notes" class="form-ctrl" rows="2" style="font-size: 0.82rem;" placeholder="e.g. Looking for a patient, articulate tutor with strong pedagogical skills to make learning simple, clear, and engaging."></textarea>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+          <button type="button" class="btn-act" onclick="closeModal('modal-register-parent')">Cancel</button>
+          <button type="submit" class="btn-act btn-act-primary" style="background: #10b981; border-color: #059669; font-weight: 850; padding: 0.65rem 1.4rem;">
+            ✅ Save &amp; Generate AST Number
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================= -->
+  <!-- MODAL: REGISTER TUTOR (CALL-IN)                         -->
+  <!-- ======================================================= -->
+  <div id="modal-register-tutor" class="app-modal">
+    <div class="modal-sheet" style="max-width: 640px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+        <h2 style="font-size: 1.25rem; font-weight: 850; color: #fff; margin: 0;">
+          🎓 Call-In Tutor Registration
+        </h2>
+        <button type="button" class="modal-close-btn" onclick="closeModal('modal-register-tutor')">✕</button>
+      </div>
+      <p style="font-size: 0.82rem; color: #94a3b8; margin-bottom: 1.25rem;">
+        Register university students or graduates calling to tutor and assign their official <b>AST-T</b> accreditation number.
+      </p>
+
+      <form onsubmit="handleCallInTutorSubmit(event)">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-bottom: 0.85rem;">
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Tutor Full Name *</label>
+            <input type="text" id="cit-name" class="form-ctrl" required placeholder="e.g. Ashenafi Abebe / አሸናፊ አበበ">
+          </div>
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Phone Number *</label>
+            <input type="tel" id="cit-phone" class="form-ctrl" required placeholder="09... (Primary)" oninput="updateCitAstPreview()">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 0.85rem; margin-bottom: 0.85rem;">
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">University / Campus *</label>
+            <select id="cit-campus" class="form-ctrl" required>
+              <option value="AASTU (Addis Ababa Science & Technology)" selected>⭐ AASTU (Kilinto, Addis Ababa)</option>
+              <option value="Addis Ababa University (AAU)">Addis Ababa University (AAU)</option>
+              <option value="ASTU (Adama Science & Technology)">⭐ ASTU (Adama Main Campus)</option>
+              <option value="Bahir Dar University (BDU)">⭐ Bahir Dar University (BDU)</option>
+              <option value="Hawassa University (HU)">⭐ Hawassa University (HU)</option>
+              <option value="Jimma University (JU)">⭐ Jimma University (JU)</option>
+              <option value="University of Gondar (UoG)">University of Gondar (UoG)</option>
+              <option value="Other Accredited University">Other Accredited University</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Department / Field of Study *</label>
+            <input type="text" id="cit-dept" class="form-ctrl" required placeholder="e.g. Software Engineering / Medicine">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin-bottom: 0.85rem;">
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Academic Year / Status</label>
+            <select id="cit-year" class="form-ctrl">
+              <option value="2nd Year">2nd Year</option>
+              <option value="3rd Year" selected>3rd Year</option>
+              <option value="4th Year">4th Year</option>
+              <option value="5th Year">5th Year</option>
+              <option value="Graduate / Degree Holder">Graduate / Degree Holder</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">CGPA (Out of 4.0)</label>
+            <input type="number" step="0.01" min="2.0" max="4.0" id="cit-cgpa" class="form-ctrl" placeholder="e.g. 3.75">
+          </div>
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Gender</label>
+            <select id="cit-gender" class="form-ctrl">
+              <option value="Female">Female (ሴት)</option>
+              <option value="Male" selected>Male (ወንድ)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 0.85rem; margin-bottom: 0.85rem;">
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Subjects You Tutor *</label>
+            <input type="text" id="cit-subjects" class="form-ctrl" required placeholder="e.g. Mathematics, Physics, Chemistry, English">
+          </div>
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Preferred Tutoring Areas *</label>
+            <input type="text" id="cit-areas" class="form-ctrl" required placeholder="e.g. Summit, CMC, Bole, Ayat, Sarbet">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 0.85rem; margin-bottom: 1.25rem;">
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Expected Rate (ETB/hr)</label>
+            <input type="text" id="cit-rate" class="form-ctrl" placeholder="e.g. 250 ETB/hr">
+          </div>
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Telegram Handle</label>
+            <input type="text" id="cit-tg" class="form-ctrl" placeholder="@username">
+          </div>
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Assigned AST Number</label>
+            <div style="display: flex; align-items: center; background: rgba(56, 189, 248, 0.15); border: 1.5px solid rgba(56, 189, 248, 0.4); border-radius: 12px; padding: 0.55rem 0.85rem; color: #38bdf8; font-weight: 850; font-family: monospace; font-size: 1rem;">
+              <span id="cit-ast-preview">AST-T-XXXX</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+          <button type="button" class="btn-act" onclick="closeModal('modal-register-tutor')">Cancel</button>
+          <button type="submit" class="btn-act btn-act-primary" style="background: #0284c7; border-color: #0369a1; font-weight: 850; padding: 0.65rem 1.4rem;">
+            ✅ Save &amp; Assign AST Number
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================= -->
+  <!-- MODAL: BOOM VACANCY TO TELEGRAM CHANNEL                 -->
+  <!-- ======================================================= -->
+  <div id="modal-boom-vacancy" class="app-modal">
+    <div class="modal-sheet" style="max-width: 680px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+        <h2 style="font-size: 1.25rem; font-weight: 850; color: #fff; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+          <span>📢</span> <span>Boom Vacancy to Telegram Channel</span>
+        </h2>
+        <button type="button" class="modal-close-btn" onclick="closeModal('modal-boom-vacancy')">✕</button>
+      </div>
+      <p style="font-size: 0.82rem; color: #94a3b8; margin-bottom: 1.1rem;">
+        Target Channel: <b>@temeeducationalplatform</b> (Teme Astegni). Protects family privacy by concealing personal phone and exact address.
+      </p>
+
+      <input type="hidden" id="bv-parent-phone">
+
+      <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 0.85rem; margin-bottom: 0.85rem;">
+        <div class="form-group" style="margin: 0;">
+          <label class="form-label">Vacancy Code *</label>
+          <input type="text" id="bv-code" class="form-ctrl" style="font-family: monospace; font-weight: 850; color: #38bdf8;" oninput="updateVacancyPreview()">
+        </div>
+        <div class="form-group" style="margin: 0;">
+          <label class="form-label">Position Title</label>
+          <input type="text" id="bv-title" class="form-ctrl" value="TUTOR VACANCY" oninput="updateVacancyPreview()">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 0.85rem; margin-bottom: 0.85rem;">
+        <div class="form-group" style="margin: 0;">
+          <label class="form-label">Location (Protected / Neighborhood only) *</label>
+          <input type="text" id="bv-location" class="form-ctrl" oninput="updateVacancyPreview()">
+        </div>
+        <div class="form-group" style="margin: 0;">
+          <label class="form-label">Student Level / Grade *</label>
+          <input type="text" id="bv-level" class="form-ctrl" oninput="updateVacancyPreview()">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin-bottom: 0.85rem;">
+        <div class="form-group" style="margin: 0;">
+          <label class="form-label">Subjects *</label>
+          <input type="text" id="bv-subjects" class="form-ctrl" oninput="updateVacancyPreview()">
+        </div>
+        <div class="form-group" style="margin: 0;">
+          <label class="form-label">Schedule *</label>
+          <input type="text" id="bv-schedule" class="form-ctrl" oninput="updateVacancyPreview()">
+        </div>
+        <div class="form-group" style="margin: 0;">
+          <label class="form-label">Compensation *</label>
+          <input type="text" id="bv-comp" class="form-ctrl" oninput="updateVacancyPreview()">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 0.75rem; margin-bottom: 0.85rem;">
+        <div class="form-group" style="margin: 0;">
+          <label class="form-label">Mode</label>
+          <input type="text" id="bv-mode" class="form-ctrl" value="In-Person" oninput="updateVacancyPreview()">
+        </div>
+        <div class="form-group" style="margin: 0;">
+          <label class="form-label">Tutor Preference</label>
+          <input type="text" id="bv-tutor-pref" class="form-ctrl" oninput="updateVacancyPreview()">
+        </div>
+        <div class="form-group" style="margin: 0;">
+          <label class="form-label">Direct Message Contact</label>
+          <input type="text" id="bv-contact-handle" class="form-ctrl" value="@Lema_T" oninput="updateVacancyPreview()">
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 0.85rem;">
+        <label class="form-label">About the Role Description</label>
+        <textarea id="bv-about" class="form-ctrl" rows="2" style="font-size: 0.82rem;" oninput="updateVacancyPreview()"></textarea>
+      </div>
+
+      <!-- LIVE TELEGRAM PREVIEW BOX -->
+      <div style="margin-bottom: 1rem;">
+        <div style="font-size: 0.75rem; font-weight: 800; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.4rem;">
+          📱 Live Telegram Post &amp; Inline Buttons Preview
+        </div>
+        <div id="bv-live-preview" style="background: #0f172a; border: 1.5px solid rgba(56, 189, 248, 0.35); border-radius: 14px; padding: 1rem; color: #e2e8f0; font-size: 0.84rem; line-height: 1.55; white-space: pre-wrap; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-height: 240px; overflow-y: auto;">
+        </div>
+
+        <!-- Inline buttons preview -->
+        <div style="margin-top: 0.6rem; display: flex; flex-direction: column; gap: 0.4rem;">
+          <div style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 10px; padding: 0.55rem; text-align: center; color: #38bdf8; font-weight: 800; font-size: 0.85rem;">
+            Apply Now 🚀 (በአስጠኚነት ለመመዝገብ) ↗
+          </div>
+          <div style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 10px; padding: 0.55rem; text-align: center; color: #34d399; font-weight: 800; font-size: 0.85rem;">
+            Hire a Tutor 👨‍🏫 (አስጠኚ ለመቅጠር) ↗
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+        <button type="button" class="btn-act" onclick="closeModal('modal-boom-vacancy')">Cancel</button>
+        <button type="button" id="btn-boom-action" class="btn-act btn-act-primary" style="background: linear-gradient(135deg, #f59e0b, #d97706); border-color: #b45309; font-weight: 850; padding: 0.65rem 1.4rem;" onclick="dispatchVacancyToTelegram()">
+          🚀 Boom to Telegram Now!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================= -->
+  <!-- MODAL: CLOSE DEAL & NOTIFY TELEGRAM                     -->
+  <!-- ======================================================= -->
+  <div id="modal-close-deal" class="app-modal">
+    <div class="modal-sheet" style="max-width: 580px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+        <h2 style="font-size: 1.25rem; font-weight: 850; color: #fff; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+          <span>🔒</span> <span>Close Deal &amp; Lock Vacancy</span>
+        </h2>
+        <button type="button" class="modal-close-btn" onclick="closeModal('modal-close-deal')">✕</button>
+      </div>
+      <p style="font-size: 0.82rem; color: #94a3b8; margin-bottom: 1.25rem;">
+        Link the matched tutor, update parent status to Active Contract, edit channel post to Closed Deal, and notify the discussion thread.
+      </p>
+
+      <form onsubmit="handleConfirmCloseDeal(event)">
+        <input type="hidden" id="cd-parent-phone">
+        <input type="hidden" id="cd-vacancy-msg-id">
+
+        <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 0.85rem; margin-bottom: 0.85rem;">
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Vacancy Code</label>
+            <input type="text" id="cd-vacancy-code" class="form-ctrl" readonly style="background: rgba(15, 23, 42, 0.7); font-family: monospace; font-weight: 850; color: #fbbf24;">
+          </div>
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Parent Details</label>
+            <input type="text" id="cd-parent-desc" class="form-ctrl" readonly style="background: rgba(15, 23, 42, 0.7); font-size: 0.82rem; color: #cbd5e1;">
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0.85rem;">
+          <label class="form-label">Matched Tutor AST Number * (Applicant from Comments)</label>
+          <input type="text" id="cd-tutor-ast" class="form-ctrl" required placeholder="e.g. AST-T-1024 or Tutor Phone" list="cd-tutor-list" style="font-family: monospace; font-weight: 850; color: #38bdf8;">
+          <datalist id="cd-tutor-list"></datalist>
+          <div style="font-size: 0.72rem; color: #94a3b8; margin-top: 0.35rem;">Enter the AST-T number the tutor sent in the channel comment section.</div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-bottom: 1.25rem;">
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Agreed Compensation</label>
+            <input type="text" id="cd-final-comp" class="form-ctrl" placeholder="e.g. 250 ETB/hr or 3,500 ETB/mo">
+          </div>
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label">Contract Status</label>
+            <input type="text" class="form-ctrl" value="Active Contract ✓ (Closed Deal)" readonly style="background: rgba(16, 185, 129, 0.15); color: #34d399; font-weight: 800;">
+          </div>
+        </div>
+
+        <div style="background: rgba(168, 85, 247, 0.12); border: 1.5px solid rgba(168, 85, 247, 0.35); border-radius: 12px; padding: 0.85rem; margin-bottom: 1.25rem; font-size: 0.82rem; color: #e2e8f0; line-height: 1.5;">
+          <b>🔒 Automated Action on Telegram:</b>
+          <div style="margin-top: 0.35rem; color: #c084fc;">
+            1. Appends <b>[DEAL CLOSED / MATCH CONFIRMED ✓]</b> directly onto the channel vacancy post.<br>
+            2. Broadcasts a closure confirmation message into the linked Discussion Group thread.
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+          <button type="button" class="btn-act" onclick="closeModal('modal-close-deal')">Cancel</button>
+          <button type="submit" id="btn-close-deal-action" class="btn-act btn-act-primary" style="background: #a855f7; border-color: #9333ea; font-weight: 850; padding: 0.65rem 1.4rem;">
+            🔒 Confirm Match &amp; Close Deal
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <div id="modal-invite-admin" class="app-modal">
     <div class="modal-sheet">
       <h2>👥 Invite Coordinator Admin</h2>
@@ -5377,6 +5791,12 @@ function rowsToJson(sheet) {
                   <option value="Closed" ${currentStatus === 'Closed' ? 'selected' : ''}>🔒 Closed (የተጠናቀቀ)</option>
                 </select>
                 <button class="btn-act btn-act-match" onclick="quickMatchParent('${escapeHtml(p.name)}', '${escapeHtml(p.phone)}')">🤝 Assign Tutor</button>
+                ${(p.vacancyStatus === 'POSTED') 
+                  ? `<button class="btn-act" style="background: rgba(168, 85, 247, 0.22); color: #c084fc; border: 1.5px solid rgba(168, 85, 247, 0.5); font-weight: 850;" onclick="openCloseDealModal('${escapeHtml(p.phone)}')">🔒 Vacancy Live (${escapeHtml(p.vacancyCode || 'TA-0001')}) • Close Deal</button>`
+                  : (p.vacancyStatus === 'CLOSED')
+                    ? `<span class="tag-badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); font-weight: 850;">🔒 Deal Closed (${escapeHtml(p.vacancyCode || 'TA-0001')})</span>`
+                    : `<button class="btn-act" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(217, 119, 6, 0.3)); color: #fbbf24; border: 1.5px solid rgba(245, 158, 11, 0.55); font-weight: 850;" onclick="openBoomVacancyModal('${escapeHtml(p.phone)}')">📢 Boom to Telegram</button>`
+                }
               </div>
 
               <div class="actions-right-group">
@@ -9434,6 +9854,489 @@ function rowsToJson(sheet) {
     }
 
     function openScriptCodeModal() { document.getElementById('modal-script-code').classList.add('active'); }
+    
+    // =======================================================
+    // CALL-IN REGISTRATIONS, VACANCY BOOM & DEAL CLOSING LOGIC
+    // =======================================================
+    const TELEGRAM_BOT_TOKEN = "8808218998:AAF-xCF8eYt2S0J58G1i4XKcvO1qdJ5puTU";
+    const TELEGRAM_CHANNEL_ID = "-1003725426653"; // @temeeducationalplatform
+    const TELEGRAM_DISCUSSION_GROUP_ID = "-1003981163327"; // Discussion Group
+
+    function generateUniqueAstId(prefix, existingList) {
+      // Find highest existing numerical suffix or use 4-digit code
+      const existingIds = new Set(existingList.map(item => (item.trackingId || item.id || '').toUpperCase()));
+      for (let i = 0; i < 50; i++) {
+        const rand = Math.floor(1000 + Math.random() * 9000);
+        const candidate = `${prefix}-${rand}`;
+        if (!existingIds.has(candidate)) return candidate;
+      }
+      return `${prefix}-${Date.now().toString().slice(-4)}`;
+    }
+
+    // --- PARENT CALL-IN REGISTRATION ---
+    function openRegisterParentModal() {
+      const parents = getParents();
+      const newAst = generateUniqueAstId('AST-P', parents);
+      document.getElementById('cip-ast-preview').innerText = newAst;
+      document.getElementById('cip-name').value = '';
+      document.getElementById('cip-phone').value = '';
+      document.getElementById('cip-area').value = 'Summit — CMC Ajora, Addis Ababa';
+      document.getElementById('cip-grade').value = 'Grade 3';
+      document.getElementById('cip-gender').value = 'Female';
+      document.getElementById('cip-tutor-pref').value = 'Female preferred';
+      document.getElementById('cip-mode').value = 'In-Person';
+      document.getElementById('cip-subjects').value = 'Mathematics & English';
+      document.getElementById('cip-schedule').value = '3 days per week';
+      document.getElementById('cip-comp').value = '250 ETB / hour';
+      document.getElementById('cip-notes').value = "We're looking for a patient, articulate tutor with strong pedagogical skills and the ability to make learning simple, clear, and engaging.";
+      document.getElementById('modal-register-parent').classList.add('active');
+    }
+
+    function updateCipAstPreview() {
+      const phone = (document.getElementById('cip-phone').value || '').trim();
+      const parents = getParents();
+      if (phone.length >= 4) {
+        document.getElementById('cip-ast-preview').innerText = `AST-P-${phone.slice(-4)}`;
+      } else {
+        document.getElementById('cip-ast-preview').innerText = generateUniqueAstId('AST-P', parents);
+      }
+    }
+
+    function handleCallInParentSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('cip-name').value.trim();
+      const phone = document.getElementById('cip-phone').value.trim();
+      const area = document.getElementById('cip-area').value.trim();
+      const grade = document.getElementById('cip-grade').value;
+      const studentGender = document.getElementById('cip-gender').value;
+      const tutorPref = document.getElementById('cip-tutor-pref').value;
+      const mode = document.getElementById('cip-mode').value;
+      const subjects = document.getElementById('cip-subjects').value.trim();
+      const schedule = document.getElementById('cip-schedule').value.trim();
+      const comp = document.getElementById('cip-comp').value.trim();
+      const notes = document.getElementById('cip-notes').value.trim();
+      const astId = document.getElementById('cip-ast-preview').innerText;
+
+      if (!name || !phone) {
+        alert('Please fill parent name and phone number.');
+        return;
+      }
+
+      const parents = getParents();
+      const existingIdx = parents.findIndex(p => p.phone === phone);
+      
+      const newParent = {
+        name: name,
+        phone: phone,
+        area: area,
+        grade: grade,
+        studentGender: studentGender,
+        childGender: studentGender,
+        preferredTutorGender: tutorPref.includes('Female') ? 'Female' : (tutorPref.includes('Male') ? 'Male' : 'Any'),
+        deliveryMode: mode,
+        subjs: subjects,
+        subjects: subjects,
+        schedule: schedule,
+        hourlyRate: comp.includes('hour') ? comp.replace(/[^0-9]/g, '') : '',
+        monthlyFee: comp.includes('mo') ? comp.replace(/[^0-9]/g, '') : (comp.includes('hour') ? (Number(comp.replace(/[^0-9]/g, '')) * 24).toString() : '3000'),
+        compensationRaw: comp,
+        notes: notes,
+        trackingId: astId,
+        id: astId,
+        tgTag: `#AST_P_${phone.slice(-4)}`,
+        status: 'Pending',
+        vacancyStatus: 'NOT_POSTED',
+        registeredVia: 'Admin Call-In',
+        date: new Date().toISOString()
+      };
+
+      if (existingIdx !== -1) {
+        parents[existingIdx] = Object.assign({}, parents[existingIdx], newParent);
+      } else {
+        parents.unshift(newParent);
+      }
+
+      saveParents(parents);
+      closeModal('modal-register-parent');
+      renderParents();
+      renderDashboard();
+      triggerSecurityToast(`✅ Parent registered! ID: ${astId}`, 'success');
+      alert(`🎉 Parent registered successfully!\n\nAssigned AST Number: ${astId}\nParent: ${name}\nPhone: ${phone}`);
+    }
+
+    // --- TUTOR CALL-IN REGISTRATION ---
+    function openRegisterTutorModal() {
+      const tutors = getTutors();
+      const newAst = generateUniqueAstId('AST-T', tutors);
+      document.getElementById('cit-ast-preview').innerText = newAst;
+      document.getElementById('cit-name').value = '';
+      document.getElementById('cit-phone').value = '';
+      document.getElementById('cit-dept').value = '';
+      document.getElementById('cit-cgpa').value = '';
+      document.getElementById('cit-subjects').value = '';
+      document.getElementById('cit-areas').value = 'Summit, CMC, Bole, Ayat';
+      document.getElementById('cit-rate').value = '250 ETB/hr';
+      document.getElementById('cit-tg').value = '';
+      document.getElementById('modal-register-tutor').classList.add('active');
+    }
+
+    function updateCitAstPreview() {
+      const phone = (document.getElementById('cit-phone').value || '').trim();
+      const tutors = getTutors();
+      if (phone.length >= 4) {
+        document.getElementById('cit-ast-preview').innerText = `AST-T-${phone.slice(-4)}`;
+      } else {
+        document.getElementById('cit-ast-preview').innerText = generateUniqueAstId('AST-T', tutors);
+      }
+    }
+
+    function handleCallInTutorSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('cit-name').value.trim();
+      const phone = document.getElementById('cit-phone').value.trim();
+      const campus = document.getElementById('cit-campus').value;
+      const dept = document.getElementById('cit-dept').value.trim();
+      const year = document.getElementById('cit-year').value;
+      const cgpa = document.getElementById('cit-cgpa').value.trim();
+      const gender = document.getElementById('cit-gender').value;
+      const subjects = document.getElementById('cit-subjects').value.trim();
+      const areas = document.getElementById('cit-areas').value.trim();
+      const rate = document.getElementById('cit-rate').value.trim();
+      const tg = document.getElementById('cit-tg').value.trim();
+      const astId = document.getElementById('cit-ast-preview').innerText;
+
+      if (!name || !phone) {
+        alert('Please fill tutor name and phone number.');
+        return;
+      }
+
+      const tutors = getTutors();
+      const existingIdx = tutors.findIndex(t => t.phone === phone);
+
+      const newTutor = {
+        name: name,
+        phone: phone,
+        university: campus,
+        campus: campus,
+        department: dept,
+        year: year,
+        cgpa: cgpa || '3.50',
+        gender: gender,
+        subjects: subjects,
+        subjs: subjects,
+        preferredAreas: areas,
+        hourlyRate: rate ? rate.replace(/[^0-9]/g, '') : '250',
+        telegram: tg,
+        trackingId: astId,
+        id: astId,
+        tgTag: `#AST_T_${phone.slice(-4)}`,
+        status: 'Active',
+        registeredVia: 'Admin Call-In',
+        date: new Date().toISOString()
+      };
+
+      if (existingIdx !== -1) {
+        tutors[existingIdx] = Object.assign({}, tutors[existingIdx], newTutor);
+      } else {
+        tutors.unshift(newTutor);
+      }
+
+      saveTutors(tutors);
+      closeModal('modal-register-tutor');
+      renderTutors();
+      renderDashboard();
+      triggerSecurityToast(`✅ Tutor registered! ID: ${astId}`, 'success');
+      alert(`🎉 Tutor registered successfully!\n\nAssigned AST Number: ${astId}\nTutor: ${name}\nCampus: ${campus}`);
+    }
+
+    // --- VACANCY BOOM TO TELEGRAM ---
+    let currentVacancyParentPhone = '';
+
+    function generateNextVacancyCode() {
+      const parents = getParents();
+      let maxNum = 0;
+      parents.forEach(p => {
+        if (p.vacancyCode && p.vacancyCode.startsWith('TA-')) {
+          const num = parseInt(p.vacancyCode.replace('TA-', ''), 10);
+          if (!isNaN(num) && num > maxNum) maxNum = num;
+        }
+      });
+      const nextNum = maxNum + 1;
+      return `TA-${nextNum.toString().padStart(4, '0')}`;
+    }
+
+    function openBoomVacancyModal(parentPhone) {
+      currentVacancyParentPhone = parentPhone;
+      const parents = getParents();
+      const p = parents.find(item => item.phone === parentPhone);
+      if (!p) return;
+
+      const code = p.vacancyCode || generateNextVacancyCode();
+      document.getElementById('bv-parent-phone').value = parentPhone;
+      document.getElementById('bv-code').value = code;
+      document.getElementById('bv-title').value = 'TUTOR VACANCY';
+      document.getElementById('bv-location').value = p.area || 'Summit — CMC Ajora, Addis Ababa';
+      document.getElementById('bv-level').value = p.grade || 'Grade 3';
+      document.getElementById('bv-subjects').value = p.subjects || p.subjs || 'Mathematics & English';
+      document.getElementById('bv-schedule').value = p.schedule || '3 days per week';
+      document.getElementById('bv-comp').value = p.compensationRaw || (p.hourlyRate ? `${p.hourlyRate} ETB / hour` : '250 ETB / hour');
+      document.getElementById('bv-mode').value = p.deliveryMode || 'In-Person';
+      document.getElementById('bv-tutor-pref').value = (p.preferredTutorGender === 'Female' ? 'Female preferred' : (p.preferredTutorGender === 'Male' ? 'Male preferred' : 'No preference'));
+      document.getElementById('bv-contact-handle').value = '@Lema_T';
+      document.getElementById('bv-about').value = p.notes || "We're looking for a patient, articulate tutor with strong pedagogical skills and the ability to make learning simple, clear, and engaging. The ideal candidate can break down concepts into easy-to-understand explanations.";
+
+      updateVacancyPreview();
+      document.getElementById('modal-boom-vacancy').classList.add('active');
+    }
+
+    function buildVacancyMessageText() {
+      const code = document.getElementById('bv-code').value.trim();
+      const title = document.getElementById('bv-title').value.trim();
+      const location = document.getElementById('bv-location').value.trim();
+      const level = document.getElementById('bv-level').value.trim();
+      const subjects = document.getElementById('bv-subjects').value.trim();
+      const schedule = document.getElementById('bv-schedule').value.trim();
+      const comp = document.getElementById('bv-comp').value.trim();
+      const mode = document.getElementById('bv-mode').value.trim();
+      const tutorPref = document.getElementById('bv-tutor-pref').value.trim();
+      const about = document.getElementById('bv-about').value.trim();
+      const contact = document.getElementById('bv-contact-handle').value.trim();
+
+      const text = `<b>Teme Astegni</b>\n` +
+                   `✦ ──────────────────────── ✦\n` +
+                   `<b>TEME-ASTEGNI | OPEN TUTORING VACANCY</b>\n` +
+                   `▫ <b>${code} | ${title}</b>\n` +
+                   `✦ ──────────────────────── ✦\n\n` +
+                   `▫ <b>POSITION DETAILS</b>\n\n` +
+                   `📍 <b>LOCATION:</b> ${location}\n\n` +
+                   `🎓 <b>STUDENT LEVEL:</b> ${level}\n\n` +
+                   `📚 <b>SUBJECTS:</b> ${subjects}\n\n` +
+                   `📅 <b>SCHEDULE:</b> ${schedule}\n\n` +
+                   `💰 <b>COMPENSATION:</b> ${comp}\n\n` +
+                   `🖥️ <b>MODE:</b> ${mode}\n\n` +
+                   `👩 <b>TUTOR PREFERENCE:</b> ${tutorPref}\n\n` +
+                   `▫ <b>ABOUT THE ROLE</b>\n` +
+                   `${about}\n\n` +
+                   `▫ <b>HOW TO APPLY</b>\n` +
+                   `Registered tutors interested in this opportunity are invited to <b>comment your AST ID number below</b> or contact us directly.\n` +
+                   `👉 <b>MESSAGE:</b> ${contact}\n` +
+                   `<i>Existing tutor profiles will be reviewed, and shortlisted candidates will be contacted.</i>\n` +
+                   `────────────────────────\n` +
+                   `🔔 <b>YOUR NEXT OPPORTUNITY STARTS HERE</b>\n` +
+                   `Join the official Teme-Astegni community to discover new tutoring vacancies and stay updated on upcoming opportunities.\n` +
+                   `🔗 <b>JOIN OUR TELEGRAM COMMUNITY</b>\n` +
+                   `https://t.me/temeeducationalplatform\n` +
+                   `✦ <b>TEME-ASTEGNI</b>\n` +
+                   `<i>Teach Simply. Inspire Greatly. ✨</i>`;
+      return text;
+    }
+
+    function updateVacancyPreview() {
+      const rawText = buildVacancyMessageText();
+      const cleanHtml = rawText.replace(/\\n/g, '<br>');
+      document.getElementById('bv-live-preview').innerHTML = cleanHtml;
+    }
+
+    async function dispatchVacancyToTelegram() {
+      const btn = document.getElementById('btn-boom-action');
+      const parentPhone = document.getElementById('bv-parent-phone').value;
+      const code = document.getElementById('bv-code').value.trim();
+
+      btn.disabled = true;
+      btn.innerHTML = '⏳ Broadcasting...';
+
+      const messageText = buildVacancyMessageText().replace(/\\n/g, '\n');
+
+      const inlineKeyboard = {
+        inline_keyboard: [
+          [
+            { text: "Apply Now 🚀 (በአስጠኚነት ለመመዝገብ)", url: "https://ethio21.com/teme-astegni" }
+          ],
+          [
+            { text: "Hire a Tutor 👨‍🏫 (አስጠኚ ለመቅጠር)", url: "https://ethio21.com/teme-astegni" }
+          ]
+        ]
+      };
+
+      const payload = {
+        chat_id: TELEGRAM_CHANNEL_ID,
+        text: messageText,
+        parse_mode: 'HTML',
+        reply_markup: inlineKeyboard,
+        disable_web_page_preview: true
+      };
+
+      try {
+        const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const res = await response.json();
+        if (res.ok) {
+          const msgId = res.result.message_id;
+
+          // Update parent record
+          const parents = getParents();
+          const p = parents.find(item => item.phone === parentPhone);
+          if (p) {
+            p.vacancyCode = code;
+            p.vacancyStatus = 'POSTED';
+            p.vacancyMsgId = msgId;
+            p.vacancyPostedAt = new Date().toISOString();
+            saveParents(parents);
+          }
+
+          closeModal('modal-boom-vacancy');
+          renderParents();
+          triggerSecurityToast(`🚀 BOOM! Vacancy ${code} is LIVE on Telegram!`, 'success');
+          alert(`🎉 BOOM! Vacancy ${code} was successfully posted to @temeeducationalplatform!\n\nMessage ID: ${msgId}\nTutors will now comment their AST-T numbers in the discussion group!`);
+        } else {
+          alert('Telegram API Error: ' + (res.description || 'Could not send post'));
+        }
+      } catch (err) {
+        alert('Network or dispatch error: ' + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '🚀 Boom to Telegram Now!';
+      }
+    }
+
+    // --- CLOSE DEAL & LOCK COMMENTS ---
+    function openCloseDealModal(parentPhone) {
+      const parents = getParents();
+      const p = parents.find(item => item.phone === parentPhone);
+      if (!p) return;
+
+      document.getElementById('cd-parent-phone').value = parentPhone;
+      document.getElementById('cd-vacancy-msg-id').value = p.vacancyMsgId || '';
+      document.getElementById('cd-vacancy-code').value = p.vacancyCode || 'TA-0001';
+      document.getElementById('cd-parent-desc').value = `${p.name} (${p.area} • ${p.grade})`;
+      document.getElementById('cd-final-comp').value = p.compensationRaw || '250 ETB / hour';
+
+      // Populate tutor datalist
+      const tutors = getTutors();
+      const dl = document.getElementById('cd-tutor-list');
+      dl.innerHTML = tutors.map(t => `<option value="${t.trackingId || t.id}">${t.name} (${t.university} • ${t.phone})</option>`).join('');
+
+      document.getElementById('modal-close-deal').classList.add('active');
+    }
+
+    async function handleConfirmCloseDeal(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-close-deal-action');
+      const parentPhone = document.getElementById('cd-parent-phone').value;
+      const msgId = document.getElementById('cd-vacancy-msg-id').value;
+      const code = document.getElementById('cd-vacancy-code').value;
+      const tutorAst = document.getElementById('cd-tutor-ast').value.trim();
+      const finalComp = document.getElementById('cd-final-comp').value.trim();
+
+      if (!tutorAst) {
+        alert('Please enter or select the applicant tutor AST number.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '⏳ Closing Deal...';
+
+      const parents = getParents();
+      const p = parents.find(item => item.phone === parentPhone);
+
+      const tutors = getTutors();
+      const t = tutors.find(item => (item.trackingId && item.trackingId.toUpperCase() === tutorAst.toUpperCase()) || (item.id && item.id.toUpperCase() === tutorAst.toUpperCase()) || item.phone === tutorAst);
+
+      // 1. Edit original channel message to append DEAL CLOSED
+      if (msgId) {
+        try {
+          const closeNotice = `\n\n` +
+                              `════════════════════════\n` +
+                              `🔒 <b>[DEAL CLOSED / MATCH CONFIRMED ✓]</b>\n` +
+                              `ይህ የቤት ለቤት የማስተማር እድል (<b>${code}</b>) በተሜ አስጠኚ በኩል ብቁ አስጠኚ ተመድቦለት በተሳካ ሁኔታ ተዘግቷል።\n` +
+                              `<i>ያመለከታችሁ አስጠኚዎች በሙሉ እናመሰግናለን!</i>\n` +
+                              `════════════════════════`;
+          
+          // Fetch existing text or build closed text
+          const closedText = buildVacancyMessageText().replace(/\\n/g, '\n') + closeNotice;
+
+          await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/editMessageText`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: TELEGRAM_CHANNEL_ID,
+              message_id: msgId,
+              text: closedText,
+              parse_mode: 'HTML',
+              disable_web_page_preview: true
+            })
+          });
+        } catch (err) {
+          console.warn('Could not edit channel message:', err);
+        }
+      }
+
+      // 2. Post closure announcement in Discussion Group
+      try {
+        const groupNotice = `🔒 <b>ማመልከቻው ተዘግቷል (DEAL CLOSED)!</b>\n\n` +
+                            `ይህ የስራ እድል (<b>${code}</b>) ከአስጠኚ <b>${tutorAst}</b> ጋር በተሳካ ሁኔታ ተገናኝቷል።\n` +
+                            `ለዚህ እድል ያመለከታችሁ አስጠኚዎች በሙሉ እናመሰግናለን። ቀጣይ ክፍት የስራ ቦታዎችን በቅርቡ እንለጥፋለን! 🚀`;
+
+        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: TELEGRAM_DISCUSSION_GROUP_ID,
+            text: groupNotice,
+            parse_mode: 'HTML'
+          })
+        });
+      } catch (err) {
+        console.warn('Could not post to discussion group:', err);
+      }
+
+      // 3. Update local database and match records
+      if (p) {
+        p.status = 'Active Contract';
+        p.vacancyStatus = 'CLOSED';
+        p.matchedTutorAst = tutorAst;
+        p.matchedAt = new Date().toISOString();
+        saveParents(parents);
+      }
+
+      if (t) {
+        t.status = 'Assigned';
+        saveTutors(tutors);
+      }
+
+      // Add to matches ledger
+      const matches = getMatches();
+      const pId = p ? (p.trackingId || p.id || `AST-P-${parentPhone.slice(-4)}`) : `AST-P-${parentPhone.slice(-4)}`;
+      const newMatch = {
+        id: `M-${Date.now().toString().slice(-4)}`,
+        parentId: pId,
+        parentName: p ? p.name : 'Parent',
+        parentPhone: parentPhone,
+        tutorId: tutorAst,
+        tutorName: t ? t.name : tutorAst,
+        tutorPhone: t ? t.phone : '',
+        vacancyCode: code,
+        fee: finalComp.replace(/[^0-9]/g, '') || '3500',
+        monthlyFee: finalComp.replace(/[^0-9]/g, '') || '3500',
+        commission: Math.round(Number(finalComp.replace(/[^0-9]/g, '') || 3500) * 0.25),
+        status: 'Active Contract ✓',
+        createdAt: new Date().toISOString()
+      };
+      matches.unshift(newMatch);
+      saveMatches(matches);
+
+      btn.disabled = false;
+      btn.innerHTML = '🔒 Confirm Match &amp; Close Deal';
+      closeModal('modal-close-deal');
+      renderAll();
+      triggerSecurityToast(`🔒 Deal ${code} CLOSED & matched with ${tutorAst}!`, 'success');
+      alert(`🎉 DEAL CLOSED & MATCH CONFIRMED!\n\nVacancy: ${code}\nTutor: ${tutorAst}\nParent: ${p ? p.name : parentPhone}\n\n✅ Telegram channel post updated with CLOSED badge.\n✅ Discussion group thread notified!`);
+    }
+
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
     function copyAppsScriptCode() {
       const code = document.getElementById('apps-script-code-box').innerText;
